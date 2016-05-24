@@ -273,7 +273,7 @@
 		86C40D041A8D7C5C00081FAC /* ORKContinueButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40B741A8D7C5C00081FAC /* ORKContinueButton.m */; };
 		86C40D061A8D7C5C00081FAC /* ORKCountdownLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B751A8D7C5C00081FAC /* ORKCountdownLabel.h */; };
 		86C40D081A8D7C5C00081FAC /* ORKCountdownLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40B761A8D7C5C00081FAC /* ORKCountdownLabel.m */; };
-		86C40D0A1A8D7C5C00081FAC /* ORKCustomStepView.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B771A8D7C5C00081FAC /* ORKCustomStepView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		86C40D0A1A8D7C5C00081FAC /* ORKCustomStepView.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B771A8D7C5C00081FAC /* ORKCustomStepView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C40D0C1A8D7C5C00081FAC /* ORKCustomStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40B781A8D7C5C00081FAC /* ORKCustomStepView.m */; };
 		86C40D0E1A8D7C5C00081FAC /* ORKCustomStepView_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B791A8D7C5C00081FAC /* ORKCustomStepView_Internal.h */; };
 		86C40D101A8D7C5C00081FAC /* ORKDefaultFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B7A1A8D7C5C00081FAC /* ORKDefaultFont.h */; };
