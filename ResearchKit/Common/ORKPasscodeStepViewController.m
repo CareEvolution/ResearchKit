@@ -40,6 +40,10 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 
 
+@interface ORKPasscodeStepViewController () <CAAnimationDelegate>
+@end
+
+
 @implementation ORKPasscodeStepViewController {
     ORKPasscodeStepView *_passcodeStepView;
     UITextField *_accessibilityPasscodeField;
