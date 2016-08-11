@@ -92,7 +92,7 @@ ORK_CLASS_AVAILABLE
  the ongoing task (or in those of previously completed tasks) and jump accordingly. You must provide
  one or more result predicates (each predicate can match one or more step results within the task).
  
- Predicate step navigation rules contain an arbitrary number of result predicates with a
+ NSPredicate step navigation rules contain an arbitrary number of result predicates with a
  corresponding number of destination step identifiers, plus an optional default step identifier that
  is used if none of the result predicates match. One result predicate can match one or more question
  results; if matching several question results, that predicate can belong to the same or to

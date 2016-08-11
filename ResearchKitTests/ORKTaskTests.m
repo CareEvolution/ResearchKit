@@ -712,7 +712,7 @@ static ORKStepResult *(^getStepResult)(NSString *, Class, ORKQuestionType, id) =
     }
     
     {
-        // Predicate matching, no additional task results, matching
+        // NSPredicate matching, no additional task results, matching
         taskResult = [ORKTaskResult new];
         taskResult.identifier = OrderedTaskIdentifier;
         
@@ -730,7 +730,7 @@ static ORKStepResult *(^getStepResult)(NSString *, Class, ORKQuestionType, id) =
     }
     
     {
-        // Predicate matching, no additional task results, non matching
+        // NSPredicate matching, no additional task results, non matching
         resultSelector = [[ORKResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
         predicate = [ORKResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                           expectedString:OtherTextValue];
@@ -745,7 +745,7 @@ static ORKStepResult *(^getStepResult)(NSString *, Class, ORKQuestionType, id) =
         NSPredicate *currentPredicate = nil;
         NSPredicate *additionalPredicate = nil;
         
-        // Predicate matching, additional task results
+        // NSPredicate matching, additional task results
         resultSelector = [[ORKResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
         currentPredicate = [ORKResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                                  expectedString:TextValue];
