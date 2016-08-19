@@ -56,6 +56,7 @@
         ORK_DECODE_UIEDGEINSETS(aDecoder, templateImageInsets);
         ORK_DECODE_OBJ(aDecoder, accessibilityHint);
         ORK_DECODE_OBJ(aDecoder, accessibilityInstructions);
+        ORK_DECODE_ENUM(aDecoder, preferredCameraPosition);
     }
     return self;
 }
@@ -66,6 +67,7 @@
     ORK_ENCODE_UIEDGEINSETS(aCoder, templateImageInsets);
     ORK_ENCODE_OBJ(aCoder, accessibilityHint);
     ORK_ENCODE_OBJ(aCoder, accessibilityInstructions);
+    ORK_ENCODE_ENUM(aCoder, preferredCameraPosition);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -78,6 +80,7 @@
     step.templateImageInsets = self.templateImageInsets;
     step.accessibilityHint = self.accessibilityHint;
     step.accessibilityInstructions = self.accessibilityInstructions;
+    step.preferredCameraPosition = self.preferredCameraPosition;
     return step;
 }
 
@@ -88,7 +91,8 @@
     return isParentSame && ORKEqualObjects(self.templateImage, castObject.templateImage)
                         && UIEdgeInsetsEqualToEdgeInsets(self.templateImageInsets, castObject.templateImageInsets)
                         && ORKEqualObjects(self.accessibilityHint, castObject.accessibilityHint)
-                        && ORKEqualObjects(self.accessibilityInstructions, castObject.accessibilityInstructions);
+                        && ORKEqualObjects(self.accessibilityInstructions, castObject.accessibilityInstructions)
+                        && self.preferredCameraPosition == castObject.preferredCameraPosition;
 }
 
 @end

@@ -40,6 +40,8 @@
 
 @interface ORKImageCaptureStepViewController () <ORKImageCaptureViewDelegate>
 
+- (AVCaptureDevice *)captureDeviceWithPreference:(ORKImageCaptureCameraPosition)preferredPosition;
+
 @end
 
 
@@ -195,7 +197,7 @@
     _captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
     
     // Get the camera
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    AVCaptureDevice *device = [self captureDeviceWithPreference:_imageCaptureView.imageCaptureStep.preferredCameraPosition];
     if (device) {
         // Configure the input and output
         AVCaptureDeviceInput* input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
@@ -222,6 +224,18 @@
     [_captureSession commitConfiguration];
     
     _imageCaptureView.session = _captureSession;
+}
+
+- (AVCaptureDevice *)captureDeviceWithPreference:(ORKImageCaptureCameraPosition)preferredPosition {
+    if (preferredPosition != ORKImageCaptureCameraPositionDefault) {
+        AVCaptureDevicePosition devicePosition = preferredPosition == ORKImageCaptureCameraPositionFront ? AVCaptureDevicePositionFront : AVCaptureDevicePositionBack;
+        for (AVCaptureDevice *device in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+            if (device.position == devicePosition) {
+                return device;
+            }
+        }
+    }
+    return [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
 }
 
 - (void)handleError:(NSError *)error {
