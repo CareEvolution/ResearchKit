@@ -32,6 +32,23 @@
 @import UIKit;
 #import <ResearchKit/ORKStep.h>
 
+/**
+ The camera positions that can used in an `ORKImageCaptureStep`.
+ */
+typedef NS_ENUM(NSInteger, ORKImageCaptureCameraPosition) {
+    /**
+     The default camera position for the device.
+     */
+    ORKImageCaptureCameraPositionDefault,
+    /**
+     The camera on the back of the device.
+     */
+    ORKImageCaptureCameraPositionBack,
+    /**
+     The camera on the front of the device.
+     */
+    ORKImageCaptureCameraPositionFront
+} ORK_ENUM_AVAILABLE;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -87,6 +104,14 @@ ORK_CLASS_AVAILABLE
  The accessibility hint for the capture button.
  */
 @property (nonatomic, copy) NSString *accessibilityHint;
+
+/**
+ The preferred camera position to use for image capture.
+ 
+ If the preferred camera is not available on the current device, the default camera
+ position will be used.
+ */
+@property (nonatomic) ORKImageCaptureCameraPosition preferredCameraPosition;
 
 @end
 
