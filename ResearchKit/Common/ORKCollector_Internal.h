@@ -49,8 +49,10 @@
 - (HKSampleType *)sampleType;
 - (NSArray<HKSampleType *> *)collectableSampleTypes;
 - (NSDate *)startDate;
-- (HKQueryAnchor *)lastAnchor;
-- (void)setLastAnchor:(HKQueryAnchor *)lastAnchor;
+- (id)lastAnchor;
+- (NSUInteger) lastAnchorValue;
+- (void)setLastAnchor:(id)lastAnchor;
+- (void)setLastAnchorValue:(NSUInteger)lastAnchor;
 
 @end
 
@@ -59,7 +61,8 @@
 
 - (instancetype)initWithSampleType:(HKSampleType *)objectType unit:(HKUnit *)unit startDate:(NSDate *)startDate;
 
-@property (copy) HKQueryAnchor *lastAnchor;
+@property (copy) id lastAnchor;
+@property NSUInteger lastAnchorValue;
 
 @end
 
@@ -68,7 +71,8 @@
 
 - (instancetype)initWithCorrelationType:(HKCorrelationType *)objectType sampleTypes:(NSArray *)sampleTypes units:(NSArray *)units startDate:(NSDate *)startDate;
 
-@property (copy) HKQueryAnchor *lastAnchor;
+@property (copy) id lastAnchor;
+@property NSUInteger lastAnchorValue;
 
 @end
 

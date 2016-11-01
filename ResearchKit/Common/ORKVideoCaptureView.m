@@ -64,7 +64,14 @@
         
         _playerViewController = [AVPlayerViewController new];
         _playerViewController.videoGravity = AVLayerVideoGravityResizeAspectFill;
-        _playerViewController.allowsPictureInPicturePlayback = NO;
+        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+        if ( [_playerViewController respondsToSelector:@selector(allowsPictureInPicturePlayback)] ) {
+            _playerViewController.allowsPictureInPicturePlayback = NO;
+        }
+#pragma clang diagnostic pop
+        
         [self addSubview:_playerViewController.view];
         
         _headerView = [ORKStepHeaderView new];
@@ -410,10 +417,15 @@
 }
 
 - (void)sessionWasInterrupted:(NSNotification *)notification {
-    AVCaptureSessionInterruptionReason reason = [notification.userInfo[AVCaptureSessionInterruptionReasonKey] integerValue];
-    if (reason == AVCaptureSessionInterruptionReasonVideoDeviceNotAvailableWithMultipleForegroundApps) {
-        [self setError:[[NSError alloc] initWithDomain:@"" code:0 userInfo:@{NSLocalizedDescriptionKey : ORKLocalizedString(@"CAMERA_UNAVAILABLE_MESSAGE", nil)}]];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+    if (&AVCaptureSessionInterruptionReasonKey) {
+        AVCaptureSessionInterruptionReason reason = [notification.userInfo[AVCaptureSessionInterruptionReasonKey] integerValue];
+        if (reason == AVCaptureSessionInterruptionReasonVideoDeviceNotAvailableWithMultipleForegroundApps) {
+            [self setError:[[NSError alloc] initWithDomain:@"" code:0 userInfo:@{NSLocalizedDescriptionKey : ORKLocalizedString(@"CAMERA_UNAVAILABLE_MESSAGE", nil)}]];
+        }
     }
+#pragma clang pop
     [_previewView.session stopRunning];
 }
 

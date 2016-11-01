@@ -90,9 +90,20 @@ static NSString *const HKCorrelatedObjectsKey = @"objects";
     }
     
     if (options & ORKSampleIncludeSource) {
-        HKSource *source = [[self sourceRevision] source];
-        if (source.name) {
-            mutableDictionary[HKSourceKey] = source.name;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+        if ( [self respondsToSelector:@selector(sourceRevision)] ) {
+            HKSource *source = [[self sourceRevision] source];
+            if (source.name) {
+                mutableDictionary[HKSourceKey] = source.name;
+            }
+        }
+        else {
+#pragma clang diagnostic pop
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            mutableDictionary[HKSourceKey] = self.source.name;
+#pragma clang diagnostic pop
         }
     }
         

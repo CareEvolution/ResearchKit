@@ -652,7 +652,12 @@ ORK_MAKE_TEST_INIT(HKObjectType, (^{
         unarchiver.delegate = self;
         NSMutableSet<Class> *decodingClasses = [NSMutableSet setWithArray:classesWithSecureCoding];
         [decodingClasses addObject:[NSDate class]];
-        [decodingClasses addObject:[HKQueryAnchor class]];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+        if ([HKQueryAnchor class]) {
+            [decodingClasses addObject:[HKQueryAnchor class]];
+        }
+#pragma clang pop
         
         id newInstance = [unarchiver decodeObjectOfClasses:decodingClasses forKey:NSKeyedArchiveRootObjectKey];
         

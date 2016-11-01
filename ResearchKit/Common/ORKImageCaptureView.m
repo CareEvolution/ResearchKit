@@ -303,10 +303,15 @@
 }
 
 - (void)sessionWasInterrupted:(NSNotification *)notification {
-    AVCaptureSessionInterruptionReason reason = [notification.userInfo[AVCaptureSessionInterruptionReasonKey] integerValue];
-    if (reason == AVCaptureSessionInterruptionReasonVideoDeviceNotAvailableWithMultipleForegroundApps) {
-        [self setError:[[NSError alloc] initWithDomain:@"" code:0 userInfo:@{NSLocalizedDescriptionKey: ORKLocalizedString(@"CAMERA_UNAVAILABLE_MESSAGE", nil)}]];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+    if (&AVCaptureSessionInterruptionReasonKey) {
+        AVCaptureSessionInterruptionReason reason = [notification.userInfo[AVCaptureSessionInterruptionReasonKey] integerValue];
+        if (reason == AVCaptureSessionInterruptionReasonVideoDeviceNotAvailableWithMultipleForegroundApps) {
+            [self setError:[[NSError alloc] initWithDomain:@"" code:0 userInfo:@{NSLocalizedDescriptionKey: ORKLocalizedString(@"CAMERA_UNAVAILABLE_MESSAGE", nil)}]];
+        }
     }
+#pragma clang pop
 }
 
 - (void)sessionInterruptionEnded:(NSNotification *)notification {

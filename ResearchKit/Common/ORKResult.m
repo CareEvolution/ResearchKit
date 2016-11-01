@@ -2086,7 +2086,12 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 
 - (void)updateEnabledAssistiveTechnology {
     if (UIAccessibilityIsVoiceOverRunning()) {
-        _enabledAssistiveTechnology = [UIAccessibilityNotificationVoiceOverIdentifier copy];
+#pragma clang push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+        if ( &UIAccessibilityNotificationVoiceOverIdentifier ) {
+            _enabledAssistiveTechnology = [UIAccessibilityNotificationVoiceOverIdentifier copy];
+        }
+#pragma clang pop
     } else if (UIAccessibilityIsSwitchControlRunning()) {
         _enabledAssistiveTechnology = [UIAccessibilityNotificationSwitchControlIdentifier copy];
     }

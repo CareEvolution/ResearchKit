@@ -251,10 +251,15 @@ static const CGFloat BaseSpacing = 10;
         traits |= UIAccessibilityTraitSelected;
     }
     
-    // Don't echo if when a disk is placed.
-    if (!self.isHighLighted && UIAccessibilityFocusedElement(UIAccessibilityNotificationVoiceOverIdentifier) == self) {
-        traits |= UIAccessibilityTraitStartsMediaSession;
+#pragma clang push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+    if ( &UIAccessibilityNotificationVoiceOverIdentifier ) {
+        // Don't echo if when a disk is placed.
+        if (!self.isHighLighted && UIAccessibilityFocusedElement(UIAccessibilityNotificationVoiceOverIdentifier) == self) {
+            traits |= UIAccessibilityTraitStartsMediaSession;
+        }
     }
+#pragma clang pop
     
     return traits;
 }

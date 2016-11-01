@@ -107,7 +107,8 @@ ORK_CLASS_AVAILABLE
 /**
  Last anchor already seen.
  */
-@property (copy, readonly) HKQueryAnchor *lastAnchor;
+@property (copy, readonly) id lastAnchor;
+@property (readonly) NSUInteger lastAnchorValue;
 
 @end
 
@@ -144,7 +145,8 @@ ORK_CLASS_AVAILABLE
 /**
  Last anchor already seen.
  */
-@property (copy, readonly) HKQueryAnchor *lastAnchor;
+@property (copy, readonly) id lastAnchor;
+@property (readonly) NSUInteger lastAnchorValue;
 
 @end
 

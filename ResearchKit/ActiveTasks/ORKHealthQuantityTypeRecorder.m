@@ -45,7 +45,7 @@
     HKObserverQuery *_observerQuery;
     /// Either the HKQueryAnchor object *or* NSUInteger value are tracked since the initializer for
     /// iOS 8 and iOS 9 use different objects. Only one will actually be referenced in the initalizer.
-    HKQueryAnchor *_anchor;
+    id _anchor;
     NSUInteger _anchorValue;
     HKQuantitySample *_lastSample;
 }
@@ -85,7 +85,12 @@
         _unit = unit;
         self.continuesInBackground = YES;
         _anchorValue = HKAnchoredObjectQueryNoAnchor;
-        _anchor = [HKQueryAnchor anchorFromValue:_anchorValue];
+#pragma clang push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+        if ([HKQueryAnchor class]) {
+            _anchor = [HKQueryAnchor anchorFromValue:_anchorValue];
+        }
+#pragma clang pop
     }
     return self;
 }
@@ -107,7 +112,7 @@
 
 static const NSInteger _HealthAnchoredQueryLimit = 100;
 
-- (void)query_logResults:(NSArray *)results withAnchor:(HKQueryAnchor*)newAnchor anchorValue:(NSUInteger)anchorValue {
+- (void)query_logResults:(NSArray *)results withAnchor:(id)newAnchor anchorValue:(NSUInteger)newAnchorValue {
     
     NSUInteger resultCount = results.count;
     if (resultCount == 0) {
@@ -131,7 +136,7 @@ static const NSInteger _HealthAnchoredQueryLimit = 100;
         }
         
         _anchor = newAnchor;
-        _anchorValue = anchorValue;
+        _anchorValue = newAnchorValue;
         
         if (resultCount == _HealthAnchoredQueryLimit) {
             // Do another fetch immediately rather than wait for an observation
@@ -147,7 +152,7 @@ static const NSInteger _HealthAnchoredQueryLimit = 100;
     NSAssert(_samplePredicate != nil, @"Sample predicate should be non-nil if recording");
     
     __weak typeof(self) weakSelf = self;
-    void (^handleResults)(NSArray <__kindof HKSample *> *, HKQueryAnchor *, NSUInteger, NSError *) = ^ (NSArray *results, HKQueryAnchor *newAnchor, NSUInteger newAnchorValue, NSError *error) {
+    void (^handleResults)(NSArray <__kindof HKSample *> *, id, NSUInteger, NSError *) = ^ (NSArray *results, id newAnchor, NSUInteger newAnchorValue, NSError *error) {
         if (error) {
             // An error in the query's not the end of the world: we'll probably get another chance. Just log it.
             ORK_Log_Warning(@"Anchored query error: %@", error);
@@ -161,15 +166,17 @@ static const NSInteger _HealthAnchoredQueryLimit = 100;
     
     HKAnchoredObjectQuery *anchoredQuery;
     if ([HKAnchoredObjectQuery instancesRespondToSelector:@selector(initWithType:predicate:anchor:limit:resultsHandler:)]) {
-        
+#pragma clang push
+#pragma clang diagnostic ignored "-Wpartial-availability"
         anchoredQuery = [[HKAnchoredObjectQuery alloc] initWithType:_quantityType
                                                           predicate:_samplePredicate
                                                              anchor:_anchor
                                                               limit:_HealthAnchoredQueryLimit
                                                      resultsHandler:
-                         ^(HKAnchoredObjectQuery *query, NSArray *sampleObjects, NSArray *deletedObjects, HKQueryAnchor *newAnchor, NSError *error) {
+                         ^(HKAnchoredObjectQuery *query, NSArray *sampleObjects, NSArray *deletedObjects, id newAnchor, NSError *error) {
                              handleResults(sampleObjects, newAnchor, 0, error);
                          }];
+#pragma clang pop
     } else if ([HKAnchoredObjectQuery instancesRespondToSelector:@selector(initWithType:predicate:anchor:limit:completionHandler:)]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"

@@ -269,10 +269,13 @@ static const CGFloat LineWidthStepValue = 0.25f;
     dispatch_once(&onceToken, ^{
         
         isAvailable = NO;
-        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && 
+#pragma clang push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] &&
              self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
             isAvailable = YES;
         }
+#pragma clang pop
     });
     
     return isAvailable;
@@ -343,7 +346,12 @@ static CGPoint mmid_Point(CGPoint p1, CGPoint p2) {
     
     if ([self _isForceTouchAvailable] || [self _isTouchTypeStylus:touch]) {
         // If the device supports Force Touch, or is using a stylus, use it.
-        pressure = [touch force];
+#pragma clang push
+#pragma clang diagnostic ignored "-Wpartial-availability"
+        if ( [touch respondsToSelector:@selector(force)] ) {
+            pressure = [touch force];
+        }
+#pragma clang pop
     }
     else {
         // If not, use a heuristic based on the speed of

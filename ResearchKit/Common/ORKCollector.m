@@ -137,6 +137,7 @@ static NSString *const ItemIdentifierFormatWithTwoPlaceholders = @"org.researchk
         ORK_DECODE_OBJ(aDecoder, unit);
         ORK_DECODE_OBJ(aDecoder, startDate);
         ORK_DECODE_OBJ(aDecoder, lastAnchor);
+        ORK_DECODE_UINT32(aDecoder, lastAnchorValue);
     }
     return self;
 }
@@ -148,6 +149,7 @@ static NSString *const ItemIdentifierFormatWithTwoPlaceholders = @"org.researchk
     ORK_ENCODE_OBJ(aCoder, unit);
     ORK_ENCODE_OBJ(aCoder, startDate);
     ORK_ENCODE_OBJ(aCoder, lastAnchor);
+    ORK_ENCODE_UINT32(aCoder, lastAnchorValue);
 }
 
 - (NSArray *)serializableObjectsForObjects:(NSArray<HKSample *> *)objects {
@@ -177,6 +179,7 @@ static NSString *const ItemIdentifierFormatWithTwoPlaceholders = @"org.researchk
     collector->_sampleType = self.sampleType;
     collector->_unit = [self.unit copy];
     collector->_lastAnchor = self.lastAnchor;
+    collector->_lastAnchorValue = self.lastAnchorValue;
     
     return collector;
 }
@@ -189,7 +192,8 @@ static NSString *const ItemIdentifierFormatWithTwoPlaceholders = @"org.researchk
             ORKEqualObjects(_sampleType, castObject.sampleType) &&
             ORKEqualObjects(_unit, castObject.unit) &&
             ORKEqualObjects(_startDate, castObject.startDate) &&
-            ORKEqualObjects(_lastAnchor, castObject.lastAnchor));
+            ORKEqualObjects(_lastAnchor, castObject.lastAnchor) &&
+            _lastAnchorValue == castObject.lastAnchorValue);
 }
 
 @end
@@ -224,6 +228,7 @@ static NSString *const ItemIdentifierFormatWithTwoPlaceholders = @"org.researchk
         ORK_DECODE_OBJ_ARRAY(aDecoder, units, HKUnit);
         ORK_DECODE_OBJ(aDecoder, startDate);
         ORK_DECODE_OBJ(aDecoder, lastAnchor);
+        ORK_DECODE_UINT32(aDecoder, lastAnchorValue);
     }
     return self;
 }
@@ -236,6 +241,7 @@ static NSString *const ItemIdentifierFormatWithTwoPlaceholders = @"org.researchk
     ORK_ENCODE_OBJ(aCoder, units);
     ORK_ENCODE_OBJ(aCoder, startDate);
     ORK_ENCODE_OBJ(aCoder, lastAnchor);
+    ORK_DECODE_UINT32(aCoder, lastAnchorValue);
 }
 
 - (HKSampleType *)sampleType {
@@ -272,6 +278,7 @@ static NSString *const ItemIdentifierFormatWithTwoPlaceholders = @"org.researchk
     collector->_sampleTypes = [self.sampleTypes copy];
     collector->_units = [self.units copy];
     collector->_lastAnchor = self.lastAnchor;
+    collector->_lastAnchorValue = self.lastAnchorValue;
     
     return collector;
 }
@@ -285,7 +292,8 @@ static NSString *const ItemIdentifierFormatWithTwoPlaceholders = @"org.researchk
             ORKEqualObjects(_sampleTypes, castObject.sampleTypes) &&
             ORKEqualObjects(_units, castObject.units) &&
             ORKEqualObjects(_startDate, castObject.startDate) &&
-            ORKEqualObjects(_lastAnchor, castObject.lastAnchor));
+            ORKEqualObjects(_lastAnchor, castObject.lastAnchor) &&
+            _lastAnchorValue == castObject.lastAnchorValue);
 }
 
 @end
