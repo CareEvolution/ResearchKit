@@ -69,6 +69,24 @@ static NSArray *ORKNumericAnswerStyleTable() {
     return table;
 }
 
+static NSArray *ORKImageChoiceAnswerStyleTable() {
+    static NSArray *table = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        table = @[@"singleChoice", @"multipleChoice"];
+    });
+    return table;
+}
+
+static NSArray *ORKMeasurementSystemTable() {
+    static NSArray *table = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        table = @[@"local", @"metric", @"USC"];
+    });
+    return table;
+}
+
 static id tableMapForward(NSInteger index, NSArray *table) {
     return table[index];
 }
@@ -128,6 +146,22 @@ static ORKNumericAnswerStyle ORKNumericAnswerStyleFromString(NSString *s) {
 
 static NSString *ORKNumericAnswerStyleToString(ORKNumericAnswerStyle style) {
     return tableMapForward(style, ORKNumericAnswerStyleTable());
+}
+
+static ORKNumericAnswerStyle ORKImageChoiceAnswerStyleFromString(NSString *s) {
+    return tableMapReverse(s, ORKImageChoiceAnswerStyleTable());
+}
+
+static NSString *ORKImageChoiceAnswerStyleToString(ORKNumericAnswerStyle style) {
+    return tableMapForward(style, ORKImageChoiceAnswerStyleTable());
+}
+
+static ORKMeasurementSystem ORKMeasurementSystemFromString(NSString *s) {
+    return tableMapReverse(s, ORKMeasurementSystemTable());
+}
+
+static NSString *ORKMeasurementSystemToString(ORKMeasurementSystem measurementSystem) {
+    return tableMapForward(measurementSystem, ORKMeasurementSystemTable());
 }
 
 static NSDictionary *dictionaryFromCircularRegion(CLCircularRegion *region) {
@@ -1153,23 +1187,35 @@ encondingTable =
              return [[ORKHeightAnswerFormat alloc] initWithMeasurementSystem:((NSNumber *)GETPROP(dict, measurementSystem)).integerValue];
          },
          (@{
-            PROPERTY(measurementSystem, NSNumber, NSObject, NO, nil, nil),
+            PROPERTY(measurementSystem, NSNumber, NSObject, NO,
+                     ^id(id number) { return ORKMeasurementSystemToString(((NSNumber *)number).integerValue); },
+                     ^id(id string) { return @(ORKMeasurementSystemFromString(string)); }),
             })),
    ENTRY(ORKWeightAnswerFormat,
          ^id(NSDictionary *dict, ORKESerializationPropertyGetter getter) {
-             return [[ORKWeightAnswerFormat alloc] initWithMeasurementSystem:((NSNumber *)GETPROP(dict, measurementSystem)).integerValue];
+             return [[ORKWeightAnswerFormat alloc] initWithMeasurementSystem:((NSNumber *)GETPROP(dict, measurementSystem)).integerValue
+                                                            numericPrecision:((NSNumber *)GETPROP(dict, numericPrecision)).integerValue
+                                                                minimumValue:((NSNumber *)GETPROP(dict, minimumValue)).doubleValue
+                                                                maximumValue:((NSNumber *)GETPROP(dict, maximumValue)).doubleValue
+                                                                defaultValue:((NSNumber *)GETPROP(dict, defaultValue)).doubleValue];
          },
          (@{
-            PROPERTY(measurementSystem, NSNumber, NSObject, NO, nil, nil),
+            PROPERTY(measurementSystem, NSNumber, NSObject, NO,
+                     ^id(id number) { return ORKMeasurementSystemToString(((NSNumber *)number).integerValue); },
+                     ^id(id string) { return @(ORKMeasurementSystemFromString(string)); }),
+            PROPERTY(numericPrecision, NSNumber, NSObject, NO, nil, nil),
+            PROPERTY(minimumValue, NSNumber, NSObject, NO, nil, nil),
+            PROPERTY(maximumValue, NSNumber, NSObject, NO, nil, nil),
+            PROPERTY(defaultValue, NSNumber, NSObject, NO, nil, nil),
             })),
-  ENTRY(ORKLocationAnswerFormat,
+   ENTRY(ORKLocationAnswerFormat,
         ^id(NSDictionary *dict, ORKESerializationPropertyGetter getter) {
             return [[ORKLocationAnswerFormat alloc] init];
         },
         (@{
           PROPERTY(useCurrentLocation, NSNumber, NSObject, YES, nil, nil)
           })),
-  ENTRY(ORKLocationRecorderConfiguration,
+   ENTRY(ORKLocationRecorderConfiguration,
         ^id(NSDictionary *dict, ORKESerializationPropertyGetter getter) {
             return [[ORKLocationRecorderConfiguration alloc] initWithIdentifier:GETPROP(dict,identifier)];
         },
