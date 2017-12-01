@@ -134,6 +134,10 @@
 		781D54151DF886AB00223305 /* ORKTrailmakingStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 781D540F1DF886AB00223305 /* ORKTrailmakingStepViewController.m */; };
 		805685791C90C19500BF437A /* UIImage+ResearchKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 805685771C90C19500BF437A /* UIImage+ResearchKit.h */; };
 		8056857A1C90C19500BF437A /* UIImage+ResearchKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 805685781C90C19500BF437A /* UIImage+ResearchKit.m */; };
+		84BD164B1FD1EBBC00FE1A3C /* ORKWebViewStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 84BD16491FD1EBBC00FE1A3C /* ORKWebViewStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84BD164C1FD1EBBC00FE1A3C /* ORKWebViewStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BD164A1FD1EBBC00FE1A3C /* ORKWebViewStep.m */; };
+		84BD164F1FD1EBED00FE1A3C /* ORKWebViewStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 84BD164D1FD1EBED00FE1A3C /* ORKWebViewStepViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84BD16501FD1EBED00FE1A3C /* ORKWebViewStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84BD164E1FD1EBED00FE1A3C /* ORKWebViewStepViewController.m */; };
 		861D11A91AA691BB003C98A7 /* ORKScaleSliderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 861D11A71AA691BB003C98A7 /* ORKScaleSliderView.h */; };
 		861D11AA1AA691BB003C98A7 /* ORKScaleSliderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 861D11A81AA691BB003C98A7 /* ORKScaleSliderView.m */; };
 		861D11AD1AA7951F003C98A7 /* ORKChoiceAnswerFormatHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 861D11AB1AA7951F003C98A7 /* ORKChoiceAnswerFormatHelper.h */; };
@@ -724,6 +728,10 @@
 		781D540F1DF886AB00223305 /* ORKTrailmakingStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKTrailmakingStepViewController.m; sourceTree = "<group>"; };
 		805685771C90C19500BF437A /* UIImage+ResearchKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResearchKit.h"; sourceTree = "<group>"; };
 		805685781C90C19500BF437A /* UIImage+ResearchKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResearchKit.m"; sourceTree = "<group>"; };
+		84BD16491FD1EBBC00FE1A3C /* ORKWebViewStep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORKWebViewStep.h; sourceTree = "<group>"; };
+		84BD164A1FD1EBBC00FE1A3C /* ORKWebViewStep.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKWebViewStep.m; sourceTree = "<group>"; };
+		84BD164D1FD1EBED00FE1A3C /* ORKWebViewStepViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORKWebViewStepViewController.h; sourceTree = "<group>"; };
+		84BD164E1FD1EBED00FE1A3C /* ORKWebViewStepViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKWebViewStepViewController.m; sourceTree = "<group>"; };
 		861610BF1A8D8EDD00245F7A /* Artwork.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Artwork.xcassets; sourceTree = "<group>"; };
 		861D11A71AA691BB003C98A7 /* ORKScaleSliderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKScaleSliderView.h; sourceTree = "<group>"; };
 		861D11A81AA691BB003C98A7 /* ORKScaleSliderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKScaleSliderView.m; sourceTree = "<group>"; };
@@ -1568,6 +1576,17 @@
 			name = Trailmaking;
 			sourceTree = "<group>";
 		};
+		84BD16481FD1EB8400FE1A3C /* WebView Step */ = {
+			isa = PBXGroup;
+			children = (
+				84BD16491FD1EBBC00FE1A3C /* ORKWebViewStep.h */,
+				84BD164A1FD1EBBC00FE1A3C /* ORKWebViewStep.m */,
+				84BD164D1FD1EBED00FE1A3C /* ORKWebViewStepViewController.h */,
+				84BD164E1FD1EBED00FE1A3C /* ORKWebViewStepViewController.m */,
+			);
+			name = "WebView Step";
+			sourceTree = "<group>";
+		};
 		866DA5121D63D01C00C9AF3F /* DataCollection */ = {
 			isa = PBXGroup;
 			children = (
@@ -1858,6 +1877,7 @@
 				FFDDD8461D3453A200446806 /* Page Step */,
 				FF5CA60F1D2C2630001660A3 /* Table Step */,
 				BF9D62C41BD244C4000AA6A7 /* Wait Step */,
+				84BD16481FD1EB8400FE1A3C /* WebView Step */,
 				BF690AD61BAD3DC0009C5ADA /* Review Step */,
 				B12EFF491AB2155700A80147 /* Signature Step */,
 			);
@@ -2572,6 +2592,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF1D43851D4904C6007EE90B /* ORKVideoInstructionStep.h in Headers */,
+				84BD164B1FD1EBBC00FE1A3C /* ORKWebViewStep.h in Headers */,
 				BF5161501BE9C53D00174DDD /* ORKWaitStep.h in Headers */,
 				244EFAD21BCEFD83001850D9 /* ORKAnswerFormat_Private.h in Headers */,
 				BCA5C0351AEC05F20092AC8D /* ORKStepNavigationRule.h in Headers */,
@@ -2668,6 +2689,7 @@
 				86C40D681A8D7C5C00081FAC /* ORKQuestionStepViewController_Private.h in Headers */,
 				BCB6E6661B7D535F000D5B34 /* ORKXAxisView.h in Headers */,
 				86C40D121A8D7C5C00081FAC /* ORKDefines.h in Headers */,
+				84BD164F1FD1EBED00FE1A3C /* ORKWebViewStepViewController.h in Headers */,
 				86C40D401A8D7C5C00081FAC /* ORKInstructionStep.h in Headers */,
 				147503B71AEE807C004B17F3 /* ORKToneAudiometryContentView.h in Headers */,
 				86C40D981A8D7C5C00081FAC /* ORKStepViewController_Internal.h in Headers */,
@@ -3127,6 +3149,7 @@
 				86C40D7A1A8D7C5C00081FAC /* ORKScaleSlider.m in Sources */,
 				244103501B966D4C00EEAB0C /* ORKPasscodeViewController.m in Sources */,
 				86C40C801A8D7C5C00081FAC /* ORKActiveStep.m in Sources */,
+				84BD16501FD1EBED00FE1A3C /* ORKWebViewStepViewController.m in Sources */,
 				86C40D721A8D7C5C00081FAC /* ORKRoundTappingButton.m in Sources */,
 				86C40E2A1A8D7C5C00081FAC /* ORKSignatureView.m in Sources */,
 				866DA5281D63D04700C9AF3F /* ORKMotionActivityQueryOperation.m in Sources */,
@@ -3326,6 +3349,7 @@
 				BCC1CD9B1B7ED64F00D86886 /* ORKYAxisView.m in Sources */,
 				86C40D581A8D7C5C00081FAC /* ORKOrderedTask.m in Sources */,
 				86C40D601A8D7C5C00081FAC /* ORKQuestionStep.m in Sources */,
+				84BD164C1FD1EBBC00FE1A3C /* ORKWebViewStep.m in Sources */,
 				86C40E381A8D7C5C00081FAC /* ORKVisualConsentTransitionAnimator.m in Sources */,
 				BCB6E64B1B7D531C000D5B34 /* ORKPieChartView.m in Sources */,
 				10864C9F1B27146B000F4158 /* ORKPSATStep.m in Sources */,
