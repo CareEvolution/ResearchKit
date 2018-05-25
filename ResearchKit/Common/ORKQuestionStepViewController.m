@@ -40,8 +40,10 @@
 #import "ORKSurveyAnswerCellForPicker.h"
 #import "ORKSurveyAnswerCellForImageSelection.h"
 #import "ORKSurveyAnswerCellForLocation.h"
+#import "ORKSurveyAnswerCellForMedication.h"
 #import "ORKTableContainerView.h"
 #import "ORKTextChoiceCellGroup.h"
+#import "ORKMedicationChoiceCellGroup.h"
 
 #import "ORKNavigationContainerView_Internal.h"
 #import "ORKQuestionStepViewController_Private.h"
@@ -434,6 +436,9 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
             if (nqr.unit == nil) {
                 nqr.unit = [(ORKNumericAnswerFormat *)impliedAnswerFormat unit];
             }
+        } else if ([impliedAnswerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
+            ORKMedicationQuestionResult *mqr = (ORKMedicationQuestionResult *)result;
+            //validation?
         }
         
         result.startDate = parentResult.startDate;
@@ -494,7 +499,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 }
 
 - (id<NSCopying, NSCoding, NSObject>)answer {
-    if (self.questionStep.questionType == ORKQuestionTypeMultipleChoice && (_answer == nil || _answer == ORKNullAnswerValue())) {
+    if ((self.questionStep.questionType == ORKQuestionTypeMultipleChoice || self.questionStep.questionType == ORKQuestionTypeMedication) && (_answer == nil || _answer == ORKNullAnswerValue())) {
         _answer = [NSMutableArray array];
     }
     return _answer;
@@ -548,10 +553,21 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     
     if (section == ORKQuestionSectionAnswer) {
         if (_choiceCellGroup == nil) {
-            _choiceCellGroup = [[ORKTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:(ORKTextChoiceAnswerFormat *)impliedAnswerFormat
-                                                                                       answer:self.answer
-                                                                           beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
-                                                                          immediateNavigation:[self isStepImmediateNavigation]];
+            if ([impliedAnswerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
+                _choiceCellGroup = [[ORKMedicationChoiceCellGroup alloc] initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *) impliedAnswerFormat
+                                                                                            medications:self.answer
+                                                                                     beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
+                                                                                    immediateNavigation:[self isStepImmediateNavigation]];
+            } else {
+                _choiceCellGroup = [[ORKTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:(ORKTextChoiceAnswerFormat *)impliedAnswerFormat
+                                                                                           answer:self.answer
+                                                                               beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
+                                                                              immediateNavigation:[self isStepImmediateNavigation]];
+            }
+        }
+        if ([impliedAnswerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
+            NSArray<ORKMedication *> *medications = (NSArray<ORKMedication *> *)self.answer;
+            return medications.count + 1;
         }
         return _choiceCellGroup.size;
     }
@@ -574,7 +590,8 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
                                @(ORKQuestionTypeHeight) : [ORKSurveyAnswerCellForPicker class],
                                @(ORKQuestionTypeMultiplePicker) : [ORKSurveyAnswerCellForPicker class],
                                @(ORKQuestionTypeInteger): [ORKSurveyAnswerCellForNumber class],
-                               @(ORKQuestionTypeLocation): [ORKSurveyAnswerCellForLocation class]};
+                               @(ORKQuestionTypeLocation): [ORKSurveyAnswerCellForLocation class],
+                               @(ORKQuestionTypeMedication): [ORKSurveyAnswerCellForMedication class]};
     });
     
     // SingleSelectionPicker Cell && Other Cells
@@ -722,6 +739,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     
     switch (self.questionStep.questionType) {
         case ORKQuestionTypeSingleChoice:
+        case ORKQuestionTypeMedication:
         case ORKQuestionTypeMultipleChoice:{
             if ([self.questionStep isFormatFitsChoiceCells]) {
                 height = [self heightForChoiceItemOptionAtIndex:indexPath.row];
@@ -755,8 +773,24 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 }
 
 - (CGFloat)heightForChoiceItemOptionAtIndex:(NSInteger)index {
-    ORKTextChoice *option = [(ORKTextChoiceAnswerFormat *)_answerFormat textChoices][index];
-    CGFloat height = [ORKChoiceViewCell suggestedCellHeightForShortText:option.text LongText:option.detailText inTableView:_tableView];
+    NSString *optionText = @"";
+    NSString *detailText = @"";
+    if ([_answerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
+        NSArray<ORKMedication *> *medications = (NSArray<ORKMedication *> *)self.answer;
+        if (index == 0) {
+            optionText = @"[Select a medication]";
+            detailText = @"no, really ...";
+        } else {
+            ORKMedication *option = medications[index - 1];
+            optionText = option.medicationDescription;
+            detailText = @"Detail Text - undefined yet";
+        }
+    } else {
+        ORKTextChoice *option = [(ORKTextChoiceAnswerFormat *)_answerFormat textChoices][index];
+        optionText = option.text;
+        detailText = option.detailText;
+    }
+    CGFloat height = [ORKChoiceViewCell suggestedCellHeightForShortText:optionText LongText:detailText inTableView:_tableView];
     return height;
 }
 

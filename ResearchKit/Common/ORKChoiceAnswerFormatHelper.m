@@ -59,6 +59,9 @@
         } else if ([answerFormat isKindOfClass:[ORKTextScaleAnswerFormat class]]) {
             ORKTextScaleAnswerFormat *textScaleAnswerFormat = (ORKTextScaleAnswerFormat *)answerFormat;
             _choices = textScaleAnswerFormat.textChoices;
+        } else if ([answerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
+            ORKMedicationAnswerFormat *medicationAnswerFormat = (ORKMedicationAnswerFormat *)answerFormat;
+            _choices = @[@"Med 1", @"Med 2"];  //medicationAnswerFormat.
         } else {
             NSString *exceptionReason = [NSString stringWithFormat:@"%@ is not a currently supported answer format for the choice answer format helper.", NSStringFromClass([answerFormat class])];
             @throw [NSException exceptionWithName:NSGenericException reason:exceptionReason userInfo:nil];

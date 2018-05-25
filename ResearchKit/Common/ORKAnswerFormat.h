@@ -56,6 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class ORKHeightAnswerFormat;
 @class ORKLocationAnswerFormat;
 
+@class MedicationAnswerFormat;
+
 @class ORKTextChoice;
 @class ORKImageChoice;
 
@@ -1493,6 +1495,29 @@ ORK_CLASS_AVAILABLE
  By default, this value is YES.
  */
 @property (nonatomic, assign) BOOL useCurrentLocation;
+
+@end
+
+
+/**
+ The `ORKMedicationAnswerFormat` class represents the answer format for questions that collect a medication response
+ from the user.
+ 
+ An `ORKMedicationAnswerFormat` object produces an `ORKMedicationQuestionResult` object.
+ */
+ORK_CLASS_AVAILABLE
+@interface ORKMedicationAnswerFormat : ORKAnswerFormat
+
+/**
+ Indicates whether the user can respond with more than one medication
+ */
+
+@property (nonatomic, assign) BOOL singleChoice;
+
+//allow no medications as a response
+//ask if PRN
+//ask how taking (sig)
+//ask if taking differently than prescribed
 
 @end
 

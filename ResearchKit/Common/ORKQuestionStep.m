@@ -166,7 +166,7 @@
 }
 
 - (BOOL)isFormatFitsChoiceCells {
-    return ((self.questionType == ORKQuestionTypeSingleChoice && ![self isFormatChoiceWithImageOptions] && ![self isFormatChoiceValuePicker]) ||
+    return (((self.questionType == ORKQuestionTypeSingleChoice || self.questionType == ORKQuestionTypeMedication) && ![self isFormatChoiceWithImageOptions] && ![self isFormatChoiceValuePicker]) ||
             (self.questionType == ORKQuestionTypeMultipleChoice && ![self isFormatChoiceWithImageOptions]) ||
             self.questionType == ORKQuestionTypeBoolean);
 }

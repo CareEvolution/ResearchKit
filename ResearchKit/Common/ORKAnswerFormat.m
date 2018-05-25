@@ -77,6 +77,7 @@ NSString *ORKQuestionTypeString(ORKQuestionType questionType) {
             SQT_CASE(TimeInterval);
             SQT_CASE(Height);
             SQT_CASE(Location);
+            SQT_CASE(Medication);
     }
 #undef SQT_CASE
 }
@@ -2812,6 +2813,58 @@ static NSString *const formattedAddressLinesKey = @"FormattedAddressLines";
         MKStringFromMapPoint(MKMapPointForCoordinate(location.coordinate));
     }
     return answerString;
+}
+
+@end
+
+#pragma mark - ORKMedicationAnswerFormat
+
+@implementation ORKMedicationAnswerFormat
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _singleChoice = NO;
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        ORK_DECODE_BOOL(aDecoder, singleChoice);
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    ORK_ENCODE_BOOL(aCoder, singleChoice);
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (ORKQuestionType)questionType {
+    return ORKQuestionTypeMedication;
+}
+
+- (Class)questionResultClass {
+    return [ORKMedicationQuestionResult class];
+}
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+    ORKMedicationAnswerFormat *medicationAnswerFormat = [[[self class] allocWithZone:zone] init];
+    medicationAnswerFormat->_singleChoice = _singleChoice;
+    return medicationAnswerFormat;
+}
+
+- (BOOL)isEqual:(id)object {
+    BOOL isParentSame = [super isEqual:object];
+    
+    __typeof(self) castObject = object;
+    return (isParentSame && _singleChoice == castObject.singleChoice);
 }
 
 @end
