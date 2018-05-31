@@ -18,7 +18,7 @@
 #import "ORKSkin.h"
 
 
-@interface ORKSurveyAnswerCellForMedication () //<ORKMedicationSelectionViewDelegate>  TODO!!!
+@interface ORKSurveyAnswerCellForMedication () //<ORKMedicationSelectionViewDelegate>  EWS-TODO!!!
 
 @end
 

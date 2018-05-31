@@ -43,6 +43,8 @@
 
 #import "ORKHelpers_Internal.h"
 
+#import "ORKMedicationPicker.h"
+
 @import HealthKit;
 @import MapKit;
 
@@ -2833,6 +2835,7 @@ static NSString *const formattedAddressLinesKey = @"FormattedAddressLines";
     self = [super initWithCoder:aDecoder];
     if (self) {
         ORK_DECODE_BOOL(aDecoder, singleChoice);
+        ORK_DECODE_OBJ_CLASS(aDecoder, medicationPicker, ORKMedicationPicker);
     }
     return self;
 }
@@ -2840,6 +2843,7 @@ static NSString *const formattedAddressLinesKey = @"FormattedAddressLines";
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_BOOL(aCoder, singleChoice);
+    ORK_ENCODE_OBJ(aCoder, medicationPicker);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -2857,6 +2861,7 @@ static NSString *const formattedAddressLinesKey = @"FormattedAddressLines";
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKMedicationAnswerFormat *medicationAnswerFormat = [[[self class] allocWithZone:zone] init];
     medicationAnswerFormat->_singleChoice = _singleChoice;
+    medicationAnswerFormat->_medicationPicker = _medicationPicker;
     return medicationAnswerFormat;
 }
 
@@ -2864,7 +2869,9 @@ static NSString *const formattedAddressLinesKey = @"FormattedAddressLines";
     BOOL isParentSame = [super isEqual:object];
     
     __typeof(self) castObject = object;
-    return (isParentSame && _singleChoice == castObject.singleChoice);
+    return (isParentSame &&
+            _singleChoice == castObject.singleChoice &&
+            _medicationPicker == castObject.medicationPicker);
 }
 
 @end

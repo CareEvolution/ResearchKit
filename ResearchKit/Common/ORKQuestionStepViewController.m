@@ -65,7 +65,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 };
 
 
-@interface ORKQuestionStepViewController () <UITableViewDataSource,UITableViewDelegate, ORKSurveyAnswerCellDelegate> {
+@interface ORKQuestionStepViewController () <UITableViewDataSource,UITableViewDelegate, ORKSurveyAnswerCellDelegate, ORKMedicationChoiceCellGroupDelegate> {
     id _answer;
     
     ORKTableContainerView *_tableContainer;
@@ -101,10 +101,15 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 
 @property (nonatomic, copy) id<NSCopying, NSObject, NSCoding> originalAnswer;
 
+@property (nonatomic, strong) ORKMedicationChoiceCellGroup *medicationChoiceCellGroup;
+
 @end
 
 
 @implementation ORKQuestionStepViewController
+
+//EWS-TODO: make a plain ivar
+@synthesize medicationChoiceCellGroup;
 
 - (void)initializeInternalButtonItems {
     [super initializeInternalButtonItems];
@@ -552,24 +557,29 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     ORKAnswerFormat *impliedAnswerFormat = [_answerFormat impliedAnswerFormat];
     
     if (section == ORKQuestionSectionAnswer) {
-        if (_choiceCellGroup == nil) {
-            if ([impliedAnswerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
-                _choiceCellGroup = [[ORKMedicationChoiceCellGroup alloc] initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *) impliedAnswerFormat
-                                                                                            medications:self.answer
-                                                                                     beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
-                                                                                    immediateNavigation:[self isStepImmediateNavigation]];
-            } else {
+        if ([impliedAnswerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
+            if (self.medicationChoiceCellGroup == nil) {
+                ORKMedicationAnswerFormat *medicationAnswerFormat = (ORKMedicationAnswerFormat *)self.answerFormat;
+                ORKMedicationPicker *medicationPicker = medicationAnswerFormat.medicationPicker;
+                NSArray <ORKMedication*> *medications = (NSArray <ORKMedication *>*)self.answer;
+                self.medicationChoiceCellGroup = [[ORKMedicationChoiceCellGroup alloc] initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *) impliedAnswerFormat
+                                                                                                          medications:medications
+                                                                                                   beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
+                                                                                                  immediateNavigation:[self isStepImmediateNavigation]
+                                                                                                     medicationPicker:medicationPicker];
+                self.medicationChoiceCellGroup.delegate = self;
+            }
+            NSArray<ORKMedication *> *medications = (NSArray<ORKMedication *> *)self.answer;
+            return medications.count + 1;
+        } else {
+            if (_choiceCellGroup == nil) {
                 _choiceCellGroup = [[ORKTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:(ORKTextChoiceAnswerFormat *)impliedAnswerFormat
                                                                                            answer:self.answer
                                                                                beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
                                                                               immediateNavigation:[self isStepImmediateNavigation]];
             }
+            return _choiceCellGroup.size;
         }
-        if ([impliedAnswerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
-            NSArray<ORKMedication *> *medications = (NSArray<ORKMedication *> *)self.answer;
-            return medications.count + 1;
-        }
-        return _choiceCellGroup.size;
     }
     return 0;
 }
@@ -649,7 +659,14 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     ORKChoiceViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (cell == nil) {
-        cell = [_choiceCellGroup cellAtIndexPath:indexPath withReuseIdentifier:identifier];
+        if (_choiceCellGroup) {
+            cell = [_choiceCellGroup cellAtIndexPath:indexPath withReuseIdentifier:identifier];
+        } else {
+            cell = [self.medicationChoiceCellGroup cellAtIndexPath:indexPath withReuseIdentifier:identifier];
+        }
+    }
+    if (self.medicationChoiceCellGroup) {
+        [medicationChoiceCellGroup configureCell:cell atIndex:indexPath.row];
     }
     
     cell.userInteractionEnabled = !self.readOnlyMode;
@@ -717,12 +734,21 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [_choiceCellGroup didSelectCellAtIndexPath:indexPath];
+    if (_choiceCellGroup) {
+        [_choiceCellGroup didSelectCellAtIndexPath:indexPath];
+    } else {
+        [self.medicationChoiceCellGroup didSelectCellAtIndexPath:indexPath];
+    }
     
     // Capture `isStepImmediateNavigation` before saving an answer.
     BOOL immediateNavigation = [self isStepImmediateNavigation];
     
-    id answer = (self.questionStep.questionType == ORKQuestionTypeBoolean) ? [_choiceCellGroup answerForBoolean] :[_choiceCellGroup answer];
+    id answer;
+    if (self.medicationChoiceCellGroup) {
+        answer = self.answer;
+    } else {
+        answer = (self.questionStep.questionType == ORKQuestionTypeBoolean) ? [_choiceCellGroup answerForBoolean] : [_choiceCellGroup answer];
+    }
     
     [self saveAnswer:answer];
     self.hasChangedAnswer = YES;
@@ -774,17 +800,11 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 
 - (CGFloat)heightForChoiceItemOptionAtIndex:(NSInteger)index {
     NSString *optionText = @"";
-    NSString *detailText = @"";
+    NSString *detailText = nil;
     if ([_answerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
-        NSArray<ORKMedication *> *medications = (NSArray<ORKMedication *> *)self.answer;
-        if (index == 0) {
-            optionText = @"[Select a medication]";
-            detailText = @"no, really ...";
-        } else {
-            ORKMedication *option = medications[index - 1];
-            optionText = option.medicationDescription;
-            detailText = @"Detail Text - undefined yet";
-        }
+        ORKMedicationCellText *medicationCellText = [self.medicationChoiceCellGroup medicationCellTextForRow:index];
+        optionText = medicationCellText.shortText;
+        detailText = medicationCellText.longText;
     } else {
         ORKTextChoice *option = [(ORKTextChoiceAnswerFormat *)_answerFormat textChoices][index];
         optionText = option.text;
@@ -832,6 +852,23 @@ static NSString *const _ORKOriginalAnswerRestoreKey = @"originalAnswer";
     self.originalAnswer = [coder decodeObjectOfClasses:decodeableSet forKey:_ORKOriginalAnswerRestoreKey];
     
     [self answerDidChange];
+}
+
+#pragma mark - ORKMedicationChoiceCellGroupDelegate
+
+- (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup dismissMedicationPicker:(UIViewController *)medicationPicker {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup presentMedicationPicker:(UIViewController *)medicationPicker {
+    [self presentViewController:medicationPicker animated:YES completion:nil];
+}
+
+- (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup didUpdateMedications:(NSArray *)medications {
+    [self setAnswer:medications];
+    [self.tableView reloadData];
+    [_tableContainer layoutSubviews];
+    [_tableContainer setNeedsLayout];
 }
 
 @end

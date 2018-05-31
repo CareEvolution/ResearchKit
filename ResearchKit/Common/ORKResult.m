@@ -2734,12 +2734,14 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     ORKThrowMethodUnavailableException();
 }
 
-- (instancetype)initWithMedicationIdentifier:(ORKMedicationIdentifier *)medicationIdentifier
-        medicationDescription:(NSString *)medicationDescription {
+- (instancetype)initWithIdentifier:(ORKMedicationIdentifier *)medicationIdentifier
+             medicationDescription:(NSString *)medicationDescription
+               detailedDescription:(NSString *)detailedDescription {
     self = [super init];
     if (self) {
         _medicationIdentifier = medicationIdentifier;
         _medicationDescription = [medicationDescription copy];
+        _detailedDescription = [detailedDescription copy];
     }
     return self;
 }
@@ -2756,6 +2758,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     ORK_ENCODE_OBJ(aCoder, medicationIdentifier);
     ORK_ENCODE_OBJ(aCoder, medicationDescription);
+    ORK_ENCODE_OBJ(aCoder, detailedDescription);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -2763,6 +2766,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     if (self) {
         ORK_DECODE_OBJ_CLASS(aDecoder, medicationIdentifier, ORKMedicationIdentifier);
         ORK_DECODE_OBJ_CLASS(aDecoder, medicationDescription, NSString);
+        ORK_DECODE_OBJ_CLASS(aDecoder, detailedDescription, NSString);
     }
     return self;
 }
@@ -2774,7 +2778,12 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     
     __typeof(self) castObject = object;
     return (ORKEqualObjects(self.medicationIdentifier, castObject.medicationIdentifier) &&
-            ORKEqualObjects(self.medicationDescription, castObject.medicationDescription));
+            ORKEqualObjects(self.medicationDescription, castObject.medicationDescription) &&
+            ORKEqualObjects(self.detailedDescription, castObject.detailedDescription));
+}
+
+- (NSString *)description {
+    return [[super description] stringByAppendingString:[NSString stringWithFormat:@" medicationDescription = '%@'", self.medicationDescription]];
 }
 
 @end

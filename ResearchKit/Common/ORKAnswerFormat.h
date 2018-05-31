@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ORKHeightAnswerFormat;
 @class ORKLocationAnswerFormat;
 
-@class MedicationAnswerFormat;
+@class ORKMedicationPicker;
 
 @class ORKTextChoice;
 @class ORKImageChoice;
@@ -1513,6 +1513,13 @@ ORK_CLASS_AVAILABLE
  */
 
 @property (nonatomic, assign) BOOL singleChoice;
+//EWS-TODO - make sure this works!
+
+/**
+ A configured instance of a concrete subclass of ORKMedicationPicker to present to the user
+ */
+
+@property (nonatomic, strong) ORKMedicationPicker *medicationPicker;
 
 //allow no medications as a response
 //ask if PRN
@@ -1521,5 +1528,22 @@ ORK_CLASS_AVAILABLE
 
 @end
 
+/*
+@class ORKMedicationPicker;
+@class ORKMedication;
+
+@protocol ORKMedicationPickerDelegate <NSObject>
+
+- (void)medicationPicker:(ORKMedicationPicker *)medicationPicker selectedMedication:(ORKMedication *)medication;
+
+@end
+
+
+@interface ORKMedicationPicker : UIViewController
+
+@property (weak, nonatomic) id <ORKMedicationPickerDelegate> delegate;
+
+@end
+ */
 
 NS_ASSUME_NONNULL_END

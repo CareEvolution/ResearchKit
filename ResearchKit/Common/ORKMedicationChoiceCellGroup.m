@@ -1,5 +1,5 @@
 //
-//  ORKMedicationCHoiceCellGroup.m
+//  ORKMedicationChoiceCellGroup.m
 //  ResearchKit
 //
 //  Created by Eric Schramm on 5/24/18.
@@ -18,11 +18,33 @@
 
 #import "ORKResult.h"
 
+#import "ORKMedicationPicker.h"
+
+
+@implementation ORKMedicationCellText {
+    NSString *_shortText;
+    NSString *_longText;
+}
+
+- (instancetype)initWithShortText:(NSString *)shortText longText:(NSString *)longText {
+    self = [super init];
+    if (self) {
+        _shortText = shortText;
+        _longText = longText;
+    }
+    return self;
+}
+
+@end
+
+@interface ORKMedicationChoiceCellGroup () <ORKMedicationPickerDelegate>
+@end
+
 @implementation ORKMedicationChoiceCellGroup {
-    ORKChoiceAnswerFormatHelper *_helper;
     BOOL _singleChoice;
     BOOL _immediateNavigation;
     NSIndexPath *_beginningIndexPath;
+    ORKMedicationPicker *_medicationPicker;
     
     NSMutableDictionary *_cells;
 }
@@ -31,27 +53,29 @@
 - (instancetype)initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *)answerFormat
                                    medications:(NSArray<ORKMedication *> *)medications
                             beginningIndexPath:(NSIndexPath *)indexPath
-                           immediateNavigation:(BOOL)immediateNavigation {
+                           immediateNavigation:(BOOL)immediateNavigation
+                              medicationPicker:(nonnull ORKMedicationPicker *)medicationPicker {
     self = [super init];
     if (self) {
         _beginningIndexPath = indexPath;
-        _helper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         _singleChoice = answerFormat.singleChoice;
         _immediateNavigation = immediateNavigation;
         _cells = [NSMutableDictionary new];
+        _medicationPicker = medicationPicker;
         [self setMedications:medications];
+        _medicationPicker.delegate = self;
     }
     return self;
 }
 
 - (NSUInteger)size {
-    return [_helper choiceCount];
+    return (self.medications.count + 1);
 }
 
 - (void)setMedications:(NSArray<ORKMedication *> *)medications {
     _medications = medications;
     
-    [self setSelectedIndexes:[_helper selectedIndexesForAnswer:medications]];
+    //[self setSelectedIndexes:[_helper selectedIndexesForAnswer:medications]];
 }
 
 - (ORKChoiceViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(NSString *)identifier {
@@ -68,21 +92,26 @@
     if (cell == nil) {
         cell = [[ORKChoiceViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.immediateNavigation = _immediateNavigation;
-        if (index == 0) {
-            cell.shortLabel.text = @"[Select a Medication]";
-            cell.longLabel.text = @"detail text someday";
-        } else {
-            ORKMedication *medication = self.medications[index - 1];
-            cell.shortLabel.text = medication.medicationDescription;
-            cell.longLabel.text = @"detail text someday";
-        }
-        
         _cells[@(index)] = cell;
-        
-        [self setSelectedIndexes:[_helper selectedIndexesForAnswer:_medications]];
     }
+    //[self setSelectedIndexes:[_helper selectedIndexesForAnswer:_medications]];
     
     return cell;
+}
+
+- (void)configureCell:(ORKChoiceViewCell *)cell atIndex:(NSUInteger)index {  //called from ORKQuestionStepViewController
+    //consider deletions?
+    NSLog(@"Configuring cell at index: %@", @(index));
+    if (index == 0) {
+        cell.shortLabel.text = @"[Select a Medication]";
+        cell.shortLabel.textColor = [UIColor grayColor];
+        cell.longLabel.text = nil;
+    } else {
+        ORKMedication *medication = self.medications[index - 1];
+        cell.shortLabel.text = medication.medicationDescription;
+        cell.shortLabel.textColor = [UIColor blueColor];
+        cell.longLabel.text = medication.detailedDescription;
+    }
 }
 
 - (void)didSelectCellAtIndex:(NSUInteger)index {
@@ -96,9 +125,24 @@
             }
         }
     } else {
+        if ([touchedCell.shortLabel.text isEqualToString:@"[Select a Medication]"]) {
+            //spawn to add medication
+            if ([self.delegate respondsToSelector:@selector(medicationChoiceCellGroup:presentMedicationPicker:)]) {
+                [self.delegate medicationChoiceCellGroup:self presentMedicationPicker:_medicationPicker];
+            }
+        } else {
+            //remove medication
+            NSMutableArray *updatedMedications = [_medications mutableCopy];
+            [updatedMedications removeObjectAtIndex:index - 1];
+            [self setMedications:[updatedMedications copy]];
+            if ([self.delegate respondsToSelector:@selector(medicationChoiceCellGroup:didUpdateMedications:)]) {
+                [self.delegate medicationChoiceCellGroup:self didUpdateMedications:_medications];
+            }
+        }
+        /*
         touchedCell.selectedItem = !touchedCell.selectedItem;
         if (touchedCell.selectedItem) {
-            ORKTextChoice *touchedChoice = [_helper textChoiceAtIndex:index];
+             ORKTextChoice *touchedChoice = [_helper textChoiceAtIndex:index];
             for (NSNumber *num in _cells.allKeys) {
                 ORKChoiceViewCell *cell = _cells[num];
                 ORKTextChoice *choice = [_helper textChoiceAtIndex:num.unsignedIntegerValue];
@@ -106,10 +150,10 @@
                     cell.selectedItem = NO;
                 }
             }
-        }
+        }*/
     }
     
-    _medications = [_helper answerForSelectedIndexes:[self selectedIndexes]];
+    //_medications = [_helper answerForSelectedIndexes:[self selectedIndexes]];
 }
 
 - (void)didSelectCellAtIndexPath:(NSIndexPath *)indexPath {
@@ -120,7 +164,7 @@
 }
 
 - (BOOL)containsIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger count = _helper.choiceCount;
+    NSUInteger count = (self.medications.count + 1);
     
     return (indexPath.section == _beginningIndexPath.section) &&
     (indexPath.row >= _beginningIndexPath.row) &&
@@ -154,6 +198,28 @@
     }
     
     return [indexes copy];
+}
+
+- (void)medicationPicker:(ORKMedicationPicker *)medicationPicker selectedMedication:(ORKMedication *)medication {
+    if (medication) {
+        [self setMedications:[_medications arrayByAddingObject:medication]];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(medicationChoiceCellGroup:didUpdateMedications:)]) {
+        [self.delegate medicationChoiceCellGroup:self didUpdateMedications:_medications];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(medicationChoiceCellGroup:dismissMedicationPicker:)]) {
+        [self.delegate medicationChoiceCellGroup:self dismissMedicationPicker:medicationPicker];
+    }
+}
+
+- (ORKMedicationCellText *)medicationCellTextForRow:(NSInteger)row {
+    if (row == 0) {
+        return [[ORKMedicationCellText alloc] initWithShortText:@"[Select a Medication]" longText:nil];
+    }
+    ORKMedication *medication = self.medications[row - 1];
+    return [[ORKMedicationCellText alloc] initWithShortText:medication.medicationDescription longText:medication.detailedDescription];
 }
 
 @end

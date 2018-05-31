@@ -8,11 +8,34 @@
 
 @import Foundation;
 
+@class ORKMedicationChoiceCellGroup, UIViewController, ORKMedication;
+
+@protocol ORKMedicationChoiceCellGroupDelegate <NSObject>
+
+- (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup presentMedicationPicker:(UIViewController *)medicationPicker;
+- (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup dismissMedicationPicker:(UIViewController *)medicationPicker;
+- (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup didUpdateMedications:(NSArray <ORKMedication *> *)medications;
+
+@end
+
+
+@interface ORKMedicationCellText: NSObject
+
+@property (nonatomic, copy, readonly, nonnull) NSString *shortText;
+@property (nonatomic, copy, readonly, nullable) NSString *longText;
+
+- (instancetype) initWithShortText:(NSString * __nonnull)shortText longText:(NSString * __nullable)longText;
+
+@end
+
+
 NS_ASSUME_NONNULL_BEGIN
+
 
 @class ORKChoiceViewCell;
 @class ORKMedicationAnswerFormat;
 @class ORKMedication;
+@class ORKMedicationPicker;
 
 @interface ORKMedicationChoiceCellGroup : NSObject
 
@@ -20,9 +43,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *)answerFormat
                                    medications:(NSArray<ORKMedication *> *)medications
                             beginningIndexPath:(NSIndexPath *)indexPath
-                           immediateNavigation:(BOOL)immediateNavigation;
+                           immediateNavigation:(BOOL)immediateNavigation
+                              medicationPicker:(ORKMedicationPicker *)medicationPicker;
 
 @property (nonatomic, strong) NSArray<ORKMedication *> *medications;
+@property (weak, nonatomic) id <ORKMedicationChoiceCellGroupDelegate> delegate;
 
 - (nullable ORKChoiceViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(nullable NSString *)identifier;
 
@@ -31,6 +56,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)didSelectCellAtIndexPath:(NSIndexPath *)indexPath;
 
 - (NSUInteger)size;
+
+- (ORKMedicationCellText *)medicationCellTextForRow:(NSInteger)row;
+
+- (void)configureCell:(ORKChoiceViewCell *)cell atIndex:(NSUInteger)index;
 
 @end
 

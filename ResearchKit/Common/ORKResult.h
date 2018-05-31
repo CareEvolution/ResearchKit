@@ -1568,6 +1568,7 @@ ORK_CLASS_AVAILABLE
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithRxCUI:(NSString *)rxcui;
 
 /**
  The RxNorm representation of the medication
@@ -1584,6 +1585,7 @@ ORK_CLASS_AVAILABLE
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
+- (instancetype)initWithIdentifier:(ORKMedicationIdentifier *)medicationIdentifier medicationDescription:(NSString *)medicationDescription detailedDescription:(NSString * __nullable)detailedDescription;
 
 /**
  The codified representation of the medication
@@ -1593,7 +1595,12 @@ ORK_CLASS_AVAILABLE
 /**
  The human readable description of the medication
  */
-@property (nonatomic, copy, readonly, nullable) NSString *medicationDescription;
+@property (nonatomic, copy, readonly) NSString *medicationDescription;
+
+/**
+ Detailed descriptive text that will display in the longlabel of the ORKChoiceViewCell
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *detailedDescription;
 
 @end
 
