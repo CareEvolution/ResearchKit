@@ -572,6 +572,8 @@
 		DA23F07720B740B000C42358 /* ORKMedicationChoiceCellGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = DA23F07620B740B000C42358 /* ORKMedicationChoiceCellGroup.m */; };
 		DA86224420BF24F700C1763F /* ORKMedicationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = DA86224320BF24F700C1763F /* ORKMedicationPicker.m */; };
 		DA86224520BF266900C1763F /* ORKMedicationPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = DA86224220BF24E800C1763F /* ORKMedicationPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DAE3FFF120C0BC48005F3787 /* ORKMedicationChoiceViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = DAE3FFF020C0BC05005F3787 /* ORKMedicationChoiceViewCell.h */; };
+		DAE3FFF320C0BC65005F3787 /* ORKMedicationChoiceViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE3FFF220C0BC65005F3787 /* ORKMedicationChoiceViewCell.m */; };
 		FA7A9D2B1B082688005A2BEA /* ORKConsentDocumentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2A1B082688005A2BEA /* ORKConsentDocumentTests.m */; };
 		FA7A9D2F1B083DD3005A2BEA /* ORKConsentSectionFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A9D2D1B083DD3005A2BEA /* ORKConsentSectionFormatter.h */; };
 		FA7A9D301B083DD3005A2BEA /* ORKConsentSectionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2E1B083DD3005A2BEA /* ORKConsentSectionFormatter.m */; };
@@ -1218,6 +1220,8 @@
 		DA23F07620B740B000C42358 /* ORKMedicationChoiceCellGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKMedicationChoiceCellGroup.m; sourceTree = "<group>"; };
 		DA86224220BF24E800C1763F /* ORKMedicationPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORKMedicationPicker.h; sourceTree = "<group>"; };
 		DA86224320BF24F700C1763F /* ORKMedicationPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKMedicationPicker.m; sourceTree = "<group>"; };
+		DAE3FFF020C0BC05005F3787 /* ORKMedicationChoiceViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORKMedicationChoiceViewCell.h; sourceTree = "<group>"; };
+		DAE3FFF220C0BC65005F3787 /* ORKMedicationChoiceViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKMedicationChoiceViewCell.m; sourceTree = "<group>"; };
 		FA7A9D2A1B082688005A2BEA /* ORKConsentDocumentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKConsentDocumentTests.m; sourceTree = "<group>"; };
 		FA7A9D2D1B083DD3005A2BEA /* ORKConsentSectionFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKConsentSectionFormatter.h; sourceTree = "<group>"; };
 		FA7A9D2E1B083DD3005A2BEA /* ORKConsentSectionFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKConsentSectionFormatter.m; sourceTree = "<group>"; };
@@ -1793,6 +1797,8 @@
 				86C40B701A8D7C5C00081FAC /* ORKCaption1Label.m */,
 				86C40B711A8D7C5C00081FAC /* ORKChoiceViewCell.h */,
 				86C40B721A8D7C5C00081FAC /* ORKChoiceViewCell.m */,
+				DAE3FFF020C0BC05005F3787 /* ORKMedicationChoiceViewCell.h */,
+				DAE3FFF220C0BC65005F3787 /* ORKMedicationChoiceViewCell.m */,
 				86C40B731A8D7C5C00081FAC /* ORKContinueButton.h */,
 				86C40B741A8D7C5C00081FAC /* ORKContinueButton.m */,
 				86C40B751A8D7C5C00081FAC /* ORKCountdownLabel.h */,
@@ -2852,6 +2858,7 @@
 				86C40C321A8D7C5C00081FAC /* ORKFitnessStepViewController.h in Headers */,
 				FF5CA6121D2C2670001660A3 /* ORKTableStep.h in Headers */,
 				BCC1CD9A1B7ED64F00D86886 /* ORKYAxisView.h in Headers */,
+				DAE3FFF120C0BC48005F3787 /* ORKMedicationChoiceViewCell.h in Headers */,
 				86C40DBE1A8D7C5C00081FAC /* ORKTableViewCell.h in Headers */,
 				BCB6E64A1B7D531C000D5B34 /* ORKPieChartView.h in Headers */,
 				86C40C2E1A8D7C5C00081FAC /* ORKFitnessStep.h in Headers */,
@@ -3254,6 +3261,7 @@
 				9550E6741D58DBCF00C691B8 /* ORKTouchAnywhereStep.m in Sources */,
 				86C40C781A8D7C5C00081FAC /* HKSample+ORKJSONDictionary.m in Sources */,
 				86C40D421A8D7C5C00081FAC /* ORKInstructionStep.m in Sources */,
+				DAE3FFF320C0BC65005F3787 /* ORKMedicationChoiceViewCell.m in Sources */,
 				86C40C2C1A8D7C5C00081FAC /* ORKFitnessContentView.m in Sources */,
 				CBD34A571BB1FB9000F204EA /* ORKLocationSelectionView.m in Sources */,
 				D458520B1AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m in Sources */,

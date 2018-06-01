@@ -32,7 +32,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
-@class ORKChoiceViewCell;
+@class ORKMedicationChoiceViewCell;
 @class ORKMedicationAnswerFormat;
 @class ORKMedication;
 @class ORKMedicationPicker;
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray<ORKMedication *> *medications;
 @property (weak, nonatomic) id <ORKMedicationChoiceCellGroupDelegate> delegate;
 
-- (nullable ORKChoiceViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(nullable NSString *)identifier;
+- (nullable ORKMedicationChoiceViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(nullable NSString *)identifier;
 
 - (BOOL)containsIndexPath:(NSIndexPath *)indexPath;
 
@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (ORKMedicationCellText *)medicationCellTextForRow:(NSInteger)row;
 
-- (void)configureCell:(ORKChoiceViewCell *)cell atIndex:(NSUInteger)index;
+- (void)configureCell:(ORKMedicationChoiceViewCell *)cell atIndex:(NSUInteger)index;
 
 @end
 

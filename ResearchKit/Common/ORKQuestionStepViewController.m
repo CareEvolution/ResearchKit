@@ -32,6 +32,7 @@
 #import "ORKQuestionStepViewController.h"
 
 #import "ORKChoiceViewCell.h"
+#import "ORKMedicationChoiceViewCell.h"
 #import "ORKQuestionStepView.h"
 #import "ORKStepHeaderView_Internal.h"
 #import "ORKSurveyAnswerCellForScale.h"
@@ -443,6 +444,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
             }
         } else if ([impliedAnswerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
             ORKMedicationQuestionResult *mqr = (ORKMedicationQuestionResult *)result;
+            mqr.medicationAnswer = self.answer;
             //validation?
         }
         
@@ -570,7 +572,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
                 self.medicationChoiceCellGroup.delegate = self;
             }
             NSArray<ORKMedication *> *medications = (NSArray<ORKMedication *> *)self.answer;
-            return medications.count + 1;
+            return [self.medicationChoiceCellGroup size];
         } else {
             if (_choiceCellGroup == nil) {
                 _choiceCellGroup = [[ORKTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:(ORKTextChoiceAnswerFormat *)impliedAnswerFormat
@@ -666,7 +668,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
         }
     }
     if (self.medicationChoiceCellGroup) {
-        [medicationChoiceCellGroup configureCell:cell atIndex:indexPath.row];
+        [medicationChoiceCellGroup configureCell:(ORKMedicationChoiceViewCell *)cell atIndex:indexPath.row];
     }
     
     cell.userInteractionEnabled = !self.readOnlyMode;
