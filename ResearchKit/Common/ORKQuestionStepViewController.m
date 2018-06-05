@@ -571,7 +571,6 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
                                                                                                      medicationPicker:medicationPicker];
                 self.medicationChoiceCellGroup.delegate = self;
             }
-            NSArray<ORKMedication *> *medications = (NSArray<ORKMedication *> *)self.answer;
             return [self.medicationChoiceCellGroup size];
         } else {
             if (_choiceCellGroup == nil) {
