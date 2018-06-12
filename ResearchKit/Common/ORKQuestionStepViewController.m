@@ -444,7 +444,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
             }
         } else if ([impliedAnswerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
             ORKMedicationQuestionResult *mqr = (ORKMedicationQuestionResult *)result;
-            mqr.medicationAnswer = self.answer;
+            mqr.medications = self.answer;
             //validation?
         }
         

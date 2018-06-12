@@ -2792,13 +2792,13 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, medicationAnswer);
+    ORK_ENCODE_OBJ(aCoder, medications);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_ARRAY(aDecoder, medicationAnswer, ORKMedication);
+        ORK_DECODE_OBJ_ARRAY(aDecoder, medications, ORKMedication);
     }
     return self;
 }
@@ -2811,12 +2811,12 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     BOOL isParentSame = [super isEqual:object];
     
     __typeof(self) castObject = object;
-    return (isParentSame && ORKEqualObjects(self.medicationAnswer, castObject.medicationAnswer));
+    return (isParentSame && ORKEqualObjects(self.medications, castObject.medications));
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKMedicationQuestionResult *result = [super copyWithZone:zone];
-    result->_medicationAnswer = [self.medicationAnswer copy];
+    result->_medications = [self.medications copy];
     return result;
 }
 
@@ -2826,11 +2826,11 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 
 - (void)setAnswer:(id)answer {
     answer = [self validateAnswer:answer];
-    self.medicationAnswer = [answer copy];
+    self.medications = [answer copy];
 }
 
 - (id)answer {
-    return self.medicationAnswer;
+    return self.medications;
 }
 
 @end
