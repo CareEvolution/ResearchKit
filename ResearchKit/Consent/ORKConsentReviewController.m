@@ -62,7 +62,10 @@ static const CGFloat iPadStepTitleLabelFontSize = 50.0;
         _delegate = delegate;
         
         _agreeButton = [[UIBarButtonItem alloc] initWithTitle:ORKLocalizedString(@"BUTTON_AGREE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(ack)];
-        _agreeButton.enabled = !requiresScrollToBottom;
+        if (requiresScrollToBottom) {
+            _agreeButton.enabled = NO;
+            _agreeButton.accessibilityHint = @"must scroll to the bottom to enable this button";
+        }
         
         self.toolbarItems = @[
                              [[UIBarButtonItem alloc] initWithTitle:ORKLocalizedString(@"BUTTON_DISAGREE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancel)],
@@ -228,6 +231,7 @@ static const CGFloat iPadStepTitleLabelFontSize = 50.0;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (!_agreeButton.isEnabled && [self scrolledToBottom:_webView.scrollView]) {
             [_agreeButton setEnabled:YES];
+            _agreeButton.accessibilityHint = nil;
         }
     });
 }
@@ -235,6 +239,7 @@ static const CGFloat iPadStepTitleLabelFontSize = 50.0;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (!_agreeButton.isEnabled && [self scrolledToBottom:scrollView]) {
         _agreeButton.enabled = YES;
+        _agreeButton.accessibilityHint = nil;
     }
 }
 
