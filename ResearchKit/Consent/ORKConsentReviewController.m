@@ -184,16 +184,24 @@
     return YES;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!_agreeButton.isEnabled) {
-        CGPoint offset = scrollView.contentOffset;
-        CGRect bounds = scrollView.bounds;
-        UIEdgeInsets inset = scrollView.contentInset;
-        CGFloat currentOffset = offset.y + bounds.size.height - inset.bottom;
-        if (currentOffset - scrollView.contentSize.height >= 0) {
-            _agreeButton.enabled = YES;
-        }
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    if (!_agreeButton.isEnabled && [self scrolledToBottom:_webView.scrollView]) {
+        [_agreeButton setEnabled:YES];
     }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (!_agreeButton.isEnabled && [self scrolledToBottom:scrollView]) {
+        _agreeButton.enabled = YES;
+    }
+}
+
+- (BOOL)scrolledToBottom:(UIScrollView *)scrollView {
+    CGPoint offset = scrollView.contentOffset;
+    CGRect bounds = scrollView.bounds;
+    UIEdgeInsets inset = scrollView.contentInset;
+    CGFloat currentOffset = offset.y + bounds.size.height - inset.bottom;
+    return (currentOffset - scrollView.contentSize.height >= 0);
 }
 
 @end
