@@ -48,6 +48,10 @@
     
     if (self.step && [self isViewLoaded]) {
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+        config.allowsInlineMediaPlayback = true;
+        if ([config respondsToSelector:@selector(mediaTypesRequiringUserActionForPlayback)]) {
+            config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+        }
         WKUserContentController *controller = [[WKUserContentController alloc] init];
         [controller addScriptMessageHandler:self name:@"ResearchKit"];
         config.userContentController = controller;
