@@ -108,9 +108,24 @@
     [super tearDown];
 }
 
-- (NSString *)htmlWithContent:(NSString *)content {
-    NSString *boilerplateHeader = @"<html><head><style>@media print { .pagebreak { page-break-before: always; } }\nh1, h2 { text-align: center; }\nh2, h3 { margin-top: 3em; }\nbody, p, h1, h2, h3 { font-family: Helvetica; }\n.col-1-3 { width: 33.3%; float: left; padding-right: 20px; }\n.sigbox { position: relative; height: 100px; max-height:100px; display: inline-block; bottom: 10px }\n.inbox { position: relative; top: 100%%; transform: translateY(-100%%); -webkit-transform: translateY(-100%%);  }\n.grid:after { content: \"\"; display: table; clear: both; }\n.border { -webkit-box-sizing: border-box; box-sizing: border-box; }\n</style></head><body><div class='header'></div>";
-    NSString *boilerplateFooter = @"</body></html>";
+- (NSString *)htmlWithContent:(NSString *)content mobile:(BOOL)mobile {
+    NSString *boilerplateHeader =
+@"<html><head><meta name='viewport' content='width=device-width, initial-scale=1.0'><style>@media print { .pagebreak { page-break-before: always; } }\n\
+h1, h2 { text-align: center; }\n\
+h2, h3 { margin-top: 3em; }\n\
+body, p, h1, h2, h3 { font-family: Helvetica; }\n\
+.col-1-3 { width: 33.3%; float: left; padding-right: 20px; margin-top: 100px;}\n\
+.sigbox { position: relative; height: 100px; max-height:100px; display: inline-block; bottom: 10px }\n\
+.inbox { position: absolute; bottom:10px; top: 100%%; transform: translateY(-100%%); -webkit-transform: translateY(-100%%);  }\n\
+.inboxImage { position: relative; bottom:60px; top: 100%%; transform: translateY(-100%%); -webkit-transform: translateY(-100%%);  }\n\
+.grid:after { content: \"\"; display: table; clear: both; }\n\
+.border { -webkit-box-sizing: border-box; box-sizing: border-box; }\n\
+</style></head><body><div class='header'></div>";
+    NSMutableString *boilerplateFooter = [NSMutableString new];
+    if (mobile) {
+        [boilerplateFooter appendString:@"<h4 class=\"pagebreak\"></h4><p></p>"];
+    }
+    [boilerplateFooter appendString:@"</body></html>"];
 
     return [NSString stringWithFormat:@"%@%@%@", boilerplateHeader, content, boilerplateFooter];
 }
