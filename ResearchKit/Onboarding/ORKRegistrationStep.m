@@ -53,6 +53,7 @@ static NSArray <ORKFormItem*> *ORKRegistrationFormItems(ORKRegistrationStepOptio
     
     {
         ORKEmailAnswerFormat *answerFormat = [ORKAnswerFormat emailAnswerFormat];
+        answerFormat.usernameField = YES;
         
         ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:ORKRegistrationFormItemIdentifierEmail
                                                                text:ORKLocalizedString(@"EMAIL_FORM_ITEM_TITLE", nil)
@@ -71,6 +72,12 @@ static NSArray <ORKFormItem*> *ORKRegistrationFormItems(ORKRegistrationStepOptio
         answerFormat.autocapitalizationType = UITextAutocapitalizationTypeNone;
         answerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
         answerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
+        
+        if (@available(iOS 12.0, *)) {
+            answerFormat.textContentType = UITextContentTypeNewPassword;
+        } else {
+            answerFormat.textContentType = UITextContentTypePassword;
+        }
         
         ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:ORKRegistrationFormItemIdentifierPassword
                                                                text:ORKLocalizedString(@"PASSWORD_FORM_ITEM_TITLE", nil)
@@ -100,6 +107,7 @@ static NSArray <ORKFormItem*> *ORKRegistrationFormItems(ORKRegistrationStepOptio
     if (options & ORKRegistrationStepIncludeGivenName) {
         ORKTextAnswerFormat *answerFormat = [ORKAnswerFormat textAnswerFormat];
         answerFormat.multipleLines = NO;
+        answerFormat.textContentType = UITextContentTypeGivenName;
         
         ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:ORKRegistrationFormItemIdentifierGivenName
                                                                text:ORKLocalizedString(@"CONSENT_NAME_GIVEN", nil)
@@ -113,6 +121,7 @@ static NSArray <ORKFormItem*> *ORKRegistrationFormItems(ORKRegistrationStepOptio
     if (options & ORKRegistrationStepIncludeFamilyName) {
         ORKTextAnswerFormat *answerFormat = [ORKAnswerFormat textAnswerFormat];
         answerFormat.multipleLines = NO;
+        answerFormat.textContentType = UITextContentTypeFamilyName;
         
         ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:ORKRegistrationFormItemIdentifierFamilyName
                                                                text:ORKLocalizedString(@"CONSENT_NAME_FAMILY", nil)
@@ -174,6 +183,25 @@ static NSArray <ORKFormItem*> *ORKRegistrationFormItems(ORKRegistrationStepOptio
 
 
 @implementation ORKRegistrationStep
+
+- (instancetype)initWithIdentifier:(NSString *)identifier
+                             title:(NSString *)title
+                              text:(NSString *)text
+                     passcodeRules:(UITextInputPasswordRules *)passcodeRules
+passcodeValidationRegularExpression:(NSRegularExpression *)passcodeValidationRegularExpression
+            passcodeInvalidMessage:(NSString *)passcodeInvalidMessage
+                           options:(ORKRegistrationStepOption)options {
+    self = [self initWithIdentifier:identifier
+                              title:title
+                               text:text
+passcodeValidationRegularExpression:passcodeValidationRegularExpression
+             passcodeInvalidMessage:passcodeInvalidMessage
+                            options:options];
+    if (self) {
+        self.passcodeRules = passcodeRules;
+    }
+    return self;
+}
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
                              title:(NSString *)title
@@ -259,6 +287,14 @@ passcodeValidationRegularExpression:nil
 
 - (void)setPasscodeInvalidMessage:(NSString *)passcodeInvalidMessage {
     [self passwordAnswerFormat].invalidMessage = passcodeInvalidMessage;
+}
+
+- (UITextInputPasswordRules *)passcodeRules {
+    return [self passwordAnswerFormat].passwordRules;
+}
+
+- (void)setPasscodeRules:(UITextInputPasswordRules *)passcodeRules {
+    [self passwordAnswerFormat].passwordRules = passcodeRules;
 }
 
 + (BOOL)supportsSecureCoding {

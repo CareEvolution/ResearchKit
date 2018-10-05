@@ -29,7 +29,7 @@
  */
 
 
-@import Foundation;
+@import UIKit;
 #import <ResearchKit/ORKFormStep.h>
 
 
@@ -78,6 +78,28 @@ ORK_EXTERN NSString *const ORKRegistrationFormItemIdentifierDOB ORK_AVAILABLE_DE
  */
 ORK_CLASS_AVAILABLE
 @interface ORKRegistrationStep : ORKFormStep
+
+/**
+ Returns an initialized registration step using the specified identifier,
+ title, text, options, passcodeValidationRegularExpression, and passcodeInvalidMessage.
+ 
+ @param identifier                              The string that identifies the step (see `ORKStep`).
+ @param title                                   The title of the form (see `ORKStep`).
+ @param text                                    The text shown immediately below the title (see `ORKStep`).
+ @param passcodeRules                           A `UITextInputPasswordRules` object used for generating an automatic secure password that conforms to the `passcodeValidationRegularExpression` if the default generated passwords do not match.
+ @param passcodeValidationRegularExpression     The regular expression used to validate the passcode form item (see `ORKTextAnswerFormat`).
+ @param passcodeInvalidMessage                  The invalid message displayed for invalid input (see `ORKTextAnswerFormat`).
+ @param options                                 The options used for the step (see `ORKRegistrationStepOption`).
+ 
+ @return An initialized registration step object.
+ */
+- (instancetype)initWithIdentifier:(NSString *)identifier
+                             title:(nullable NSString *)title
+                              text:(nullable NSString *)text
+                     passcodeRules:(nullable UITextInputPasswordRules *)passcodeRules
+passcodeValidationRegularExpression:(nullable NSRegularExpression *)passcodeValidationRegularExpression
+            passcodeInvalidMessage:(nullable NSString *)passcodeInvalidMessage
+                           options:(ORKRegistrationStepOption)options API_AVAILABLE(ios(12.0));
 
 /**
  Returns an initialized registration step using the specified identifier,
@@ -139,6 +161,33 @@ passcodeValidationRegularExpression:(nullable NSRegularExpression *)passcodeVali
  By default, there is no invalid message.
  */
 @property (nonatomic, copy, nullable) NSString *passcodeInvalidMessage;
+
+/**
+ The invalid message displayed if the passcode does not match the validation regular expression.
+ This is a transparent property pointing to its definition in `ORKTextAnswerFormat`.
+ 
+ The passcode validation regular expression property must also be set along with this property.
+ By default, there is no invalid message.
+ */
+@property (nonatomic, nullable) UITextInputPasswordRules *passcodeRules API_AVAILABLE(ios(12.0));
+
+/**
+ The regular expression used to validate the phone number form item.
+ This is a transparent property pointing to its definition in `ORKTextAnswerFormat`.
+ 
+ The phone number invalid message property must also be set along with this property.
+ By default, there is no validation on the phone number.
+ */
+@property (nonatomic, copy, nullable) NSRegularExpression *phoneNumberValidationRegularExpression;
+
+/**
+ The invalid message displayed if the phone number does not match the validation regular expression.
+ This is a transparent property pointing to its definition in `ORKTextAnswerFormat`.
+ 
+ The phone number validation regular expression property must also be set along with this property.
+ By default, there is no invalid message.
+ */
+@property (nonatomic, copy, nullable) NSString *phoneNumberInvalidMessage;
 
 @end
 
