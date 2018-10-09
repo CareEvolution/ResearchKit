@@ -75,7 +75,7 @@ static NSArray <ORKFormItem*> *ORKRegistrationFormItems(ORKRegistrationStepOptio
         
         if (@available(iOS 12.0, *)) {
             answerFormat.textContentType = UITextContentTypeNewPassword;
-        } else {
+        } else if (@available(iOS 11.0, *)) {
             answerFormat.textContentType = UITextContentTypePassword;
         }
         

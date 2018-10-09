@@ -2496,7 +2496,12 @@ static NSString *const kSecureTextEntryEscapeString = @"*";
     _usernameField = usernameField;
     if ([self.impliedAnswerFormat isMemberOfClass:[ORKTextAnswerFormat class]]) {
         ORKTextAnswerFormat *textFormat = (ORKTextAnswerFormat *)self.impliedAnswerFormat;
-        textFormat.textContentType = usernameField ? UITextContentTypeUsername : UITextContentTypeEmailAddress;
+        
+        if (@available(iOS 11.0, *)) {
+            textFormat.textContentType = usernameField ? UITextContentTypeUsername : UITextContentTypeEmailAddress;
+        } else {
+            textFormat.textContentType = UITextContentTypeEmailAddress;
+        }
     }
 }
 
