@@ -114,6 +114,11 @@ typedef NS_ENUM(NSInteger, ORKQuestionType) {
     ORKQuestionTypeHeight,
 
     /**
+     In a weight question, the participant can enter a weight by using a weight picker.
+     */
+    ORKQuestionTypeWeight,
+    
+    /**
      In a location question, the participant can enter a location using a map view.
      */
     ORKQuestionTypeLocation
@@ -260,9 +265,9 @@ typedef NS_ENUM(NSInteger, ORKProgressIndicatorType) {
 
 
 /**
- System of measurements.
+ Measurement system.
  
- Used mainly by ORKHeightAnswerFormat.
+ Used by ORKHeightAnswerFormat and ORKWeightAnswerFormat.
  */
 typedef NS_ENUM(NSInteger, ORKMeasurementSystem) {
     /// Measurement system in use by the current locale.
@@ -274,5 +279,26 @@ typedef NS_ENUM(NSInteger, ORKMeasurementSystem) {
     /// United States customary system.
     ORKMeasurementSystemUSC,
 } ORK_ENUM_AVAILABLE;
+
+
+/**
+ Numeric precision.
+ 
+ Used by ORKWeightAnswerFormat.
+ */
+typedef NS_ENUM(NSInteger, ORKNumericPrecision) {
+    /// Default numeric precision.
+    ORKNumericPrecisionDefault = 0,
+    
+    /// Low numeric precision.
+    ORKNumericPrecisionLow,
+    
+    /// High numeric preicision.
+    ORKNumericPrecisionHigh,
+} ORK_ENUM_AVAILABLE;
+
+
+extern const double ORKDoubleDefaultValue ORK_AVAILABLE_DECL;
+
 
 NS_ASSUME_NONNULL_END

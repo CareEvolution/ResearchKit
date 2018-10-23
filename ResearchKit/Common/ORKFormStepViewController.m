@@ -804,7 +804,8 @@
                 case ORKQuestionTypeTimeOfDay:
                 case ORKQuestionTypeTimeInterval:
                 case ORKQuestionTypeMultiplePicker:
-                case ORKQuestionTypeHeight: {
+                case ORKQuestionTypeHeight:
+                case ORKQuestionTypeWeight: {
                     class = [ORKFormItemPickerCell class];
                     break;
                 }
