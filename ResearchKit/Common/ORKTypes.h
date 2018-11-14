@@ -121,7 +121,12 @@ typedef NS_ENUM(NSInteger, ORKQuestionType) {
     /**
      In a location question, the participant can enter a location using a map view.
      */
-    ORKQuestionTypeLocation
+    ORKQuestionTypeLocation,
+    
+    /**
+     In a medication question, the participant can enter a medication using a picker.
+     */
+    ORKQuestionTypeMedication
 } ORK_ENUM_AVAILABLE;
 
 

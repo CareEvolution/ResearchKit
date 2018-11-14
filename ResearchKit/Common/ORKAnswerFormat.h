@@ -57,6 +57,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class ORKWeightAnswerFormat;
 @class ORKLocationAnswerFormat;
 
+@class ORKMedicationPicker;
+
 @class ORKTextChoice;
 @class ORKImageChoice;
 
@@ -1594,5 +1596,52 @@ ORK_CLASS_AVAILABLE
 
 @end
 
+
+/**
+ The `ORKMedicationAnswerFormat` class represents the answer format for questions that collect a medication response
+ from the user.
+ 
+ An `ORKMedicationAnswerFormat` object produces an `ORKMedicationQuestionResult` object.
+ */
+ORK_CLASS_AVAILABLE
+@interface ORKMedicationAnswerFormat : ORKAnswerFormat
+
+/**
+ Indicates whether the user can respond with more than one medication
+ */
+
+@property (nonatomic, assign) BOOL singleChoice;
+//EWS-TODO - make sure this works!
+
+/**
+ A configured instance of a concrete subclass of ORKMedicationPicker to present to the user
+ */
+
+@property (nonatomic, strong) ORKMedicationPicker *medicationPicker;
+
+//allow no medications as a response
+//ask if PRN
+//ask how taking (sig)
+//ask if taking differently than prescribed
+
+@end
+
+/*
+@class ORKMedicationPicker;
+@class ORKMedication;
+
+@protocol ORKMedicationPickerDelegate <NSObject>
+
+- (void)medicationPicker:(ORKMedicationPicker *)medicationPicker selectedMedication:(ORKMedication *)medication;
+
+@end
+
+
+@interface ORKMedicationPicker : UIViewController
+
+@property (weak, nonatomic) id <ORKMedicationPickerDelegate> delegate;
+
+@end
+ */
 
 NS_ASSUME_NONNULL_END

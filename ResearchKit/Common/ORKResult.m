@@ -2642,3 +2642,194 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 }
 
 @end
+ 
+@implementation ORKMedicationIdentifier
+
+- (id)copyWithZone:(NSZone *)zone {
+    // This object is not mutable
+    return self;
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [NSException raise:NSInternalInconsistencyException
+                format:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
+}
+
+- (BOOL)isEqual:(id)object {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
+}
+
+@end
+
+@implementation ORKMedicationRxNormIdentifier
+
++ (instancetype)new {
+    ORKThrowMethodUnavailableException();
+}
+
+- (instancetype)init {
+    ORKThrowMethodUnavailableException();
+}
+
+- (instancetype)initWithRxCUI:(NSString *)rxcui {
+    self = [super init];
+    if (self) {
+        _rxcui = [rxcui copy];
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    // This object is not mutable
+    return self;
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    ORK_ENCODE_OBJ(aCoder, rxcui);
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        ORK_DECODE_OBJ_CLASS(aDecoder, rxcui, NSString);
+    }
+    return self;
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([self class] != [object class]) {
+        return NO;
+    }
+    
+    __typeof(self) castObject = object;
+    return (ORKEqualObjects(self.rxcui, castObject.rxcui));
+}
+
+@end
+
+@implementation ORKMedication
+
++ (instancetype)new {
+    ORKThrowMethodUnavailableException();
+}
+
+- (instancetype)init {
+    ORKThrowMethodUnavailableException();
+}
+
+- (instancetype)initWithIdentifier:(ORKMedicationIdentifier *)medicationIdentifier
+             medicationDescription:(NSString *)medicationDescription
+               detailedDescription:(NSString *)detailedDescription {
+    self = [super init];
+    if (self) {
+        _medicationIdentifier = medicationIdentifier;
+        _medicationDescription = [medicationDescription copy];
+        _detailedDescription = [detailedDescription copy];
+    }
+    return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    // This object is not mutable
+    return self;
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    ORK_ENCODE_OBJ(aCoder, medicationIdentifier);
+    ORK_ENCODE_OBJ(aCoder, medicationDescription);
+    ORK_ENCODE_OBJ(aCoder, detailedDescription);
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        ORK_DECODE_OBJ_CLASS(aDecoder, medicationIdentifier, ORKMedicationIdentifier);
+        ORK_DECODE_OBJ_CLASS(aDecoder, medicationDescription, NSString);
+        ORK_DECODE_OBJ_CLASS(aDecoder, detailedDescription, NSString);
+    }
+    return self;
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([self class] != [object class]) {
+        return NO;
+    }
+    
+    __typeof(self) castObject = object;
+    return (ORKEqualObjects(self.medicationIdentifier, castObject.medicationIdentifier) &&
+            ORKEqualObjects(self.medicationDescription, castObject.medicationDescription) &&
+            ORKEqualObjects(self.detailedDescription, castObject.detailedDescription));
+}
+
+- (NSString *)description {
+    return [[super description] stringByAppendingString:[NSString stringWithFormat:@" medicationDescription = '%@'", self.medicationDescription]];
+}
+
+@end
+
+@implementation ORKMedicationQuestionResult
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    ORK_ENCODE_OBJ(aCoder, medications);
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        ORK_DECODE_OBJ_ARRAY(aDecoder, medications, ORKMedication);
+    }
+    return self;
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (BOOL)isEqual:(id)object {
+    BOOL isParentSame = [super isEqual:object];
+    
+    __typeof(self) castObject = object;
+    return (isParentSame && ORKEqualObjects(self.medications, castObject.medications));
+}
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+    ORKMedicationQuestionResult *result = [super copyWithZone:zone];
+    result->_medications = [self.medications copy];
+    return result;
+}
+
++ (Class)answerClass {
+    return [NSArray class];
+}
+
+- (void)setAnswer:(id)answer {
+    answer = [self validateAnswer:answer];
+    self.medications = [answer copy];
+}
+
+- (id)answer {
+    return self.medications;
+}
+
+@end

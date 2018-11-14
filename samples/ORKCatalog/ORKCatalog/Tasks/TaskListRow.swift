@@ -105,6 +105,7 @@ enum TaskListRow: Int, CustomStringConvertible {
     case shoulderRangeOfMotion
     case trailMaking
     case videoInstruction
+    case medicationPickerQuestion
     
     class TaskListRowSection {
         var title: String
@@ -145,6 +146,7 @@ enum TaskListRow: Int, CustomStringConvertible {
                     .imageCapture,
                     .videoCapture,
                     .wait,
+                    .medicationPickerQuestion
                 ]),
             TaskListRowSection(title: "Onboarding", rows:
                 [
@@ -319,6 +321,9 @@ enum TaskListRow: Int, CustomStringConvertible {
             
         case .trailMaking:
             return NSLocalizedString("Trail Making Test", comment: "")
+        
+        case .medicationPickerQuestion:
+            return "Medication Picker Test"
         }
     }
     
@@ -635,6 +640,9 @@ enum TaskListRow: Int, CustomStringConvertible {
         
         case .videoInstruction:
             return videoInstruction
+            
+        case .medicationPickerQuestion:
+            return medicationPickerQuestionTask
         }
     }
 
@@ -1467,6 +1475,18 @@ enum TaskListRow: Int, CustomStringConvertible {
         videoInstructionStep.videoURL = URL(string: "https://www.apple.com/media/us/researchkit/2016/a63aa7d4_e6fd_483f_a59d_d962016c8093/films/carekit/researchkit-carekit-cc-us-20160321_r848-9dwc.mov")
         videoInstructionStep.thumbnailTime = 2 // Customizable thumbnail timestamp
         return ORKOrderedTask(identifier: String(describing: Identifier.videoInstructionTask), steps: [videoInstructionStep])
+    }
+    
+    private var medicationPickerQuestionTask: ORKTask {
+        
+        let answerFormat = ORKMedicationAnswerFormat()
+        answerFormat.medicationPicker = DummyMedPicker()
+        
+        let questionStep = ORKQuestionStep(identifier: "MedicationPickerStep", title: "Add a medication", answer: answerFormat)
+        
+        questionStep.text = "which medication are you using for pain"
+        
+        return ORKOrderedTask(identifier: "MedicationPickerStep", steps: [questionStep])
     }
     
     // MARK: Consent Document Creation Convenience
