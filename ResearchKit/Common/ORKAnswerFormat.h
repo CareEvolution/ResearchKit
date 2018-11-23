@@ -1611,7 +1611,6 @@ ORK_CLASS_AVAILABLE
  */
 
 @property (nonatomic, assign) BOOL singleChoice;
-//EWS-TODO - make sure this works!
 
 /**
  A configured instance of a concrete subclass of ORKMedicationPicker to present to the user
@@ -1619,29 +1618,7 @@ ORK_CLASS_AVAILABLE
 
 @property (nonatomic, strong) ORKMedicationPicker *medicationPicker;
 
-//allow no medications as a response
-//ask if PRN
-//ask how taking (sig)
-//ask if taking differently than prescribed
-
 @end
 
-/*
-@class ORKMedicationPicker;
-@class ORKMedication;
-
-@protocol ORKMedicationPickerDelegate <NSObject>
-
-- (void)medicationPicker:(ORKMedicationPicker *)medicationPicker selectedMedication:(ORKMedication *)medication;
-
-@end
-
-
-@interface ORKMedicationPicker : UIViewController
-
-@property (weak, nonatomic) id <ORKMedicationPickerDelegate> delegate;
-
-@end
- */
 
 NS_ASSUME_NONNULL_END
