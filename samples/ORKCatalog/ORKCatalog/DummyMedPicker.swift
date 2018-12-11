@@ -10,9 +10,9 @@ import ResearchKit
 
 class DummyMedPicker: ORKMedicationPicker {
     
-    let medications = [ORKMedication(identifier: ORKMedicationRxNormIdentifier(rxCUI: "123456"), medicationDescription: "acetaminophen (TYLENOL) tablet - 325 mg", detailedDescription: "every 4-6 hours"),
-                       ORKMedication(identifier: ORKMedicationRxNormIdentifier(rxCUI: "234567"), medicationDescription: "ibuprofen (MOTRIN) tablet - 200 mg", detailedDescription: "every 4-6 hours alternating"),
-                       ORKMedication(identifier: ORKMedicationRxNormIdentifier(rxCUI: "345678"), medicationDescription: "naproxen (ALEVE) tablet - 500 mg", detailedDescription: "every 12 hours scheduled")]
+    let medications = [ORKMedication(identifier: ORKMedicationRxNormIdentifier(rxCUIs: ["123456"]), medicationDescription: "acetaminophen (TYLENOL) tablet - 325 mg", detailedDescription: "every 4-6 hours"),
+                       ORKMedication(identifier: ORKMedicationRxNormIdentifier(rxCUIs: ["234567"]), medicationDescription: "ibuprofen (MOTRIN) tablet - 200 mg", detailedDescription: "every 4-6 hours alternating"),
+                       ORKMedication(identifier: ORKMedicationRxNormIdentifier(rxCUIs: ["345678"]), medicationDescription: "naproxen (ALEVE) tablet - 500 mg", detailedDescription: "every 12 hours scheduled")]
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1 

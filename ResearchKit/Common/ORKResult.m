@@ -2683,10 +2683,10 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     ORKThrowMethodUnavailableException();
 }
 
-- (instancetype)initWithRxCUI:(NSString *)rxcui {
+- (instancetype)initWithRxCUIs:(NSArray<NSString *> *)rxcuis {
     self = [super init];
     if (self) {
-        _rxcui = [rxcui copy];
+        _rxcuis = [rxcuis copy];
     }
     return self;
 }
@@ -2701,13 +2701,13 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_OBJ(aCoder, rxcui);
+    ORK_ENCODE_OBJ(aCoder, rxcuis);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, rxcui, NSString);
+        ORK_DECODE_OBJ_ARRAY(aDecoder, rxcuis, NSString);
     }
     return self;
 }
@@ -2718,7 +2718,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     }
     
     __typeof(self) castObject = object;
-    return (ORKEqualObjects(self.rxcui, castObject.rxcui));
+    return (ORKEqualObjects(self.rxcuis, castObject.rxcuis));
 }
 
 @end

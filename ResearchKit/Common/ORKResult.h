@@ -1568,12 +1568,12 @@ ORK_CLASS_AVAILABLE
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithRxCUI:(NSString *)rxcui;
+- (instancetype)initWithRxCUIs:(NSArray<NSString *> *)rxcuis;
 
 /**
  The RxNorm representation of the medication
  */
-@property (nonatomic, copy, readonly, nullable) NSString *rxcui;
+@property (nonatomic, copy, readonly, nullable) NSArray<NSString *> *rxcuis;
 
 @end
 
