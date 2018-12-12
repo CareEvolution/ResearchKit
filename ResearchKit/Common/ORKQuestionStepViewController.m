@@ -862,7 +862,7 @@ static NSString *const _ORKOriginalAnswerRestoreKey = @"originalAnswer";
 }
 
 - (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup presentMedicationPicker:(UIViewController *)medicationPicker {
-    [self presentViewController:medicationPicker animated:YES completion:nil];
+    [self.navigationController pushViewController:medicationPicker animated:YES];
 }
 
 - (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup didUpdateMedications:(NSArray *)medications {
