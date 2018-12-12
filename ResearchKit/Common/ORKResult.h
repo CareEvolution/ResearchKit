@@ -1620,7 +1620,7 @@ ORK_CLASS_AVAILABLE
 /**
  The answer representing the medication(s).
  */
-@property (nonatomic, copy) NSArray <ORKMedication *> *medications;
+@property (nonatomic, copy) NSArray <ORKMedication *> *medicationAnswers;
 
 @end
 
