@@ -120,16 +120,16 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 - (instancetype)initWithStep:(ORKStep *)step result:(ORKResult *)result {
     self = [self initWithStep:step];
     if (self) {
-		ORKStepResult *stepResult = (ORKStepResult *)result;
-		if (stepResult && [stepResult results].count > 0) {
+        ORKStepResult *stepResult = (ORKStepResult *)result;
+        if (stepResult && [stepResult results].count > 0) {
             ORKQuestionResult *questionResult = ORKDynamicCast([stepResult results].firstObject, ORKQuestionResult);
             id answer = [questionResult answer];
             if (questionResult != nil && answer == nil) {
                 answer = ORKNullAnswerValue();
             }
-			self.answer = answer;
+            self.answer = answer;
             self.originalAnswer = answer;
-		}
+        }
     }
     return self;
 }
@@ -222,7 +222,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
                 _questionView.continueSkipContainer.skipEnabled = [self skipButtonEnabled];
                 _questionView.continueSkipContainer.skipButton.accessibilityTraits = UIAccessibilityTraitStaticText;
             }
-
+            
             
             NSMutableArray *constraints = [NSMutableArray new];
             [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[questionView]|"
@@ -364,7 +364,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     _customQuestionView = customQuestionView;
     if ([_customQuestionView constraints].count == 0) {
         _customQuestionView.translatesAutoresizingMaskIntoConstraints = NO;
-
+        
         CGSize requiredSize = [_customQuestionView sizeThatFits:(CGSize){self.view.bounds.size.width, CGFLOAT_MAX}];
         
         NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_customQuestionView
@@ -496,7 +496,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     if (!self.questionStep.optional && !self.readOnlyMode) {
         self.skipButtonItem = nil;
     }
-
+    
     if ([self allowContinue] == NO) {
         self.continueButtonItem  = self.internalContinueButtonItem;
     }
@@ -623,7 +623,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     
     ORKSurveyAnswerCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
-    if (cell == nil) { 
+    if (cell == nil) {
         cell = [[class alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier step:[self questionStep] answer:self.answer delegate:self];
     }
     
@@ -634,7 +634,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
         [cell isKindOfClass:[ORKSurveyAnswerCellForPicker class]]) {
         cell.separatorInset = UIEdgeInsetsMake(0, ORKScreenMetricMaxDimension, 0, 0);
     }
-
+    
     if ([cell isKindOfClass:[ORKSurveyAnswerCellForPicker class]] && _visible) {
         [(ORKSurveyAnswerCellForPicker *)cell loadPicker];
     }
@@ -652,7 +652,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     //////////////////////////////////
     
     static NSString *identifier = nil;
-
+    
     assert (self.questionStep.isFormatFitsChoiceCells);
     
     identifier = [NSStringFromClass([self class]) stringByAppendingFormat:@"%@", @(indexPath.row)];
@@ -684,7 +684,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     if (!cell) {
         return YES;
     }
-
+    
     return [cell shouldContinue];
 }
 
@@ -757,7 +757,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     if (immediateNavigation) {
         // Proceed as continueButton tapped
         ORKSuppressPerformSelectorWarning(
-                                         [self.continueButtonItem.target performSelector:self.continueButtonItem.action withObject:self.continueButtonItem];);
+                                          [self.continueButtonItem.target performSelector:self.continueButtonItem.action withObject:self.continueButtonItem];);
     }
 }
 
@@ -858,7 +858,7 @@ static NSString *const _ORKOriginalAnswerRestoreKey = @"originalAnswer";
 #pragma mark - ORKMedicationChoiceCellGroupDelegate
 
 - (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup dismissMedicationPicker:(UIViewController *)medicationPicker {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup presentMedicationPicker:(UIViewController *)medicationPicker {
