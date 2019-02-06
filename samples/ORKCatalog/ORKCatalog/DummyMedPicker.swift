@@ -35,6 +35,6 @@ class DummyMedPicker: ORKMedicationPicker {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let medication = medications[indexPath.row]
-        delegate.medicationPicker(self, selectedMedication: medication)
+        delegate?.medicationPicker(self, didSelect: medication)
     }
 }
