@@ -11,6 +11,8 @@
 @class ORKMedicationPicker;
 @class ORKMedication;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol ORKMedicationPickerDelegate <NSObject>
 
 - (void)medicationPicker:(ORKMedicationPicker *)medicationPicker selectedMedication:(ORKMedication *)medication;
@@ -22,3 +24,5 @@
 @property (weak, nonatomic) id <ORKMedicationPickerDelegate> delegate;
 
 @end
+
+NS_ASSUME_NONNULL_END

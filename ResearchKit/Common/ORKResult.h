@@ -1573,7 +1573,7 @@ ORK_CLASS_AVAILABLE
 /**
  The RxNorm representation of the medication
  */
-@property (nonatomic, copy, readonly, nullable) NSArray<NSString *> *rxcuis;
+@property (nonatomic, copy, readonly) NSArray<NSString *> *rxcuis;
 
 @end
 
