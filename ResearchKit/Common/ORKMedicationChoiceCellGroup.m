@@ -161,7 +161,7 @@
     (indexPath.row < (_beginningIndexPath.row + count));
 }
 
-- (void)medicationPicker:(ORKMedicationPicker *)medicationPicker selectedMedication:(ORKMedication *)medication {
+- (void)medicationPicker:(ORKMedicationPicker *)medicationPicker didSelectMedication:(ORKMedication *)medication {
     if (medication) {
         if (_singleChoice) {
             [self setMedications:@[medication]];
