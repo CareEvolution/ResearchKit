@@ -14,7 +14,6 @@
 #import "ORKMedicationChoiceViewCell.h"
 
 #import "ORKAnswerFormat_Internal.h"
-#import "ORKChoiceAnswerFormatHelper.h"
 
 #import "ORKResult.h"
 
@@ -80,14 +79,6 @@
     _medications = medications;
 }
 
-- (ORKMedicationChoiceViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(NSString *)identifier {
-    if ([self containsIndexPath:indexPath] == NO) {
-        return nil;
-    }
-    
-    return [self cellAtIndex:indexPath.row-_beginningIndexPath.row withReuseIdentifier:identifier];
-}
-
 - (ORKMedicationChoiceViewCell *)cellAtIndex:(NSUInteger)index withReuseIdentifier:(NSString *)identifier {
     ORKMedicationChoiceViewCell *cell = _cells[@(index)];
     
@@ -100,7 +91,7 @@
     return cell;
 }
 
-- (void)configureCell:(ORKMedicationChoiceViewCell *)cell atIndex:(NSUInteger)index {  //called from ORKQuestionStepViewController
+- (void)configureCell:(ORKMedicationChoiceViewCell *)cell atIndex:(NSUInteger)index {  // called from ORKQuestionStepViewController
     if (_singleChoice) {
         if (self.medications.count == 0) {
             [self configureAsSelectMedicationCell:cell];
@@ -156,9 +147,9 @@
 - (BOOL)containsIndexPath:(NSIndexPath *)indexPath {
     NSUInteger count = (self.medications.count + 1);
     
-    return (indexPath.section == _beginningIndexPath.section) &&
-    (indexPath.row >= _beginningIndexPath.row) &&
-    (indexPath.row < (_beginningIndexPath.row + count));
+    return  (indexPath.section == _beginningIndexPath.section) &&
+                (indexPath.row >= _beginningIndexPath.row) &&
+                (indexPath.row < (_beginningIndexPath.row + count));
 }
 
 - (void)medicationPicker:(ORKMedicationPicker *)medicationPicker didSelectMedication:(ORKMedication *)medication {

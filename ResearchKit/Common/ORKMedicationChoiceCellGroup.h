@@ -7,6 +7,8 @@
 //
 
 @import Foundation;
+#import "ORKTextChoiceCellGroup.h"
+
 
 @class ORKMedicationChoiceCellGroup, UIViewController, ORKMedication;
 
@@ -37,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ORKMedication;
 @class ORKMedicationPicker;
 
-@interface ORKMedicationChoiceCellGroup : NSObject
+@interface ORKMedicationChoiceCellGroup : ORKTextChoiceCellGroup
 
 
 - (instancetype)initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *)answerFormat
@@ -49,16 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray<ORKMedication *> *medications;
 @property (weak, nonatomic) id <ORKMedicationChoiceCellGroupDelegate> delegate;
 
-- (nullable ORKMedicationChoiceViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(nullable NSString *)identifier;
-
-- (BOOL)containsIndexPath:(NSIndexPath *)indexPath;
-
-- (void)didSelectCellAtIndexPath:(NSIndexPath *)indexPath;
-
-- (NSUInteger)size;
-
 - (ORKMedicationCellText *)medicationCellTextForRow:(NSInteger)row;
-
 - (void)configureCell:(ORKMedicationChoiceViewCell *)cell atIndex:(NSUInteger)index;
 
 @end
