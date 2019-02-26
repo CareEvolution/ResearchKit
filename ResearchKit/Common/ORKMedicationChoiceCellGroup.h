@@ -45,7 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *)answerFormat
                                    medications:(NSArray<ORKMedication *> *)medications
                             beginningIndexPath:(NSIndexPath *)indexPath
-                           immediateNavigation:(BOOL)immediateNavigation
                               medicationPicker:(ORKMedicationPicker *)medicationPicker;
 
 @property (nonatomic, strong) NSArray<ORKMedication *> *medications;

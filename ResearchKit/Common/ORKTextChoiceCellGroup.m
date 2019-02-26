@@ -138,7 +138,7 @@
 }
 
 - (BOOL)containsIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger count = _helper.choiceCount;
+    NSUInteger count = [self size];
     
     return (indexPath.section == _beginningIndexPath.section) &&
             (indexPath.row >= _beginningIndexPath.row) &&

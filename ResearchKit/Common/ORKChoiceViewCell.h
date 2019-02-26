@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, getter=isImmediateNavigation) BOOL immediateNavigation;
 
+@property (nonatomic, assign, getter=isSelectable) BOOL selectable;
+
 @property (nonatomic, assign, getter=isSelectedItem) BOOL selectedItem;
 
 @end

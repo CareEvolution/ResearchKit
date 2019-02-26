@@ -32,7 +32,6 @@
 #import "ORKQuestionStepViewController.h"
 
 #import "ORKChoiceViewCell.h"
-#import "ORKMedicationChoiceViewCell.h"
 #import "ORKQuestionStepView.h"
 #import "ORKStepHeaderView_Internal.h"
 #import "ORKSurveyAnswerCellForScale.h"
@@ -562,7 +561,6 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
                 ORKMedicationChoiceCellGroup *medicationChoiceCellGroup = [[ORKMedicationChoiceCellGroup alloc] initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *) impliedAnswerFormat
                                                                                                                                    medications:medications
                                                                                                                             beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
-                                                                                                                           immediateNavigation:[self isStepImmediateNavigation]
                                                                                                                               medicationPicker:medicationPicker];
                 _choiceCellGroup = medicationChoiceCellGroup;
                 medicationChoiceCellGroup.delegate = self;
