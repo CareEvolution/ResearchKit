@@ -52,7 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id <ORKMedicationChoiceCellGroupDelegate> delegate;
 
 - (ORKMedicationCellText *)medicationCellTextForRow:(NSInteger)row;
-- (void)configureCell:(ORKMedicationChoiceViewCell *)cell atIndex:(NSUInteger)index;
 
 @end
 

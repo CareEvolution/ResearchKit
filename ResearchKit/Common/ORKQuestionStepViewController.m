@@ -102,14 +102,10 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 
 @property (nonatomic, copy) id<NSCopying, NSObject, NSCoding> originalAnswer;
 
-@property (nonatomic, strong) ORKMedicationChoiceCellGroup *medicationChoiceCellGroup;
-
 @end
 
 
 @implementation ORKQuestionStepViewController
-
-@synthesize medicationChoiceCellGroup;
 
 - (void)initializeInternalButtonItems {
     [super initializeInternalButtonItems];
@@ -557,28 +553,27 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     ORKAnswerFormat *impliedAnswerFormat = [_answerFormat impliedAnswerFormat];
     
     if (section == ORKQuestionSectionAnswer) {
-        if ([impliedAnswerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
-            if (self.medicationChoiceCellGroup == nil) {
+        if (_choiceCellGroup == nil) {
+            if ([impliedAnswerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
                 ORKMedicationAnswerFormat *medicationAnswerFormat = (ORKMedicationAnswerFormat *)self.answerFormat;
                 ORKMedicationPicker *medicationPicker = medicationAnswerFormat.medicationPicker;
                 NSArray <ORKMedication*> *medications = (NSArray <ORKMedication *>*)self.answer;
-                self.medicationChoiceCellGroup = [[ORKMedicationChoiceCellGroup alloc] initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *) impliedAnswerFormat
-                                                                                                          medications:medications
-                                                                                                   beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
-                                                                                                  immediateNavigation:[self isStepImmediateNavigation]
-                                                                                                     medicationPicker:medicationPicker];
-                self.medicationChoiceCellGroup.delegate = self;
-            }
-            return [self.medicationChoiceCellGroup size];
-        } else {
-            if (_choiceCellGroup == nil) {
+                
+                ORKMedicationChoiceCellGroup *medicationChoiceCellGroup = [[ORKMedicationChoiceCellGroup alloc] initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *) impliedAnswerFormat
+                                                                                                                                   medications:medications
+                                                                                                                            beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
+                                                                                                                           immediateNavigation:[self isStepImmediateNavigation]
+                                                                                                                              medicationPicker:medicationPicker];
+                _choiceCellGroup = medicationChoiceCellGroup;
+                medicationChoiceCellGroup.delegate = self;
+            } else {
                 _choiceCellGroup = [[ORKTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:(ORKTextChoiceAnswerFormat *)impliedAnswerFormat
                                                                                            answer:self.answer
                                                                                beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
                                                                               immediateNavigation:[self isStepImmediateNavigation]];
             }
-            return _choiceCellGroup.size;
         }
+        return _choiceCellGroup.size;
     }
     return 0;
 }
@@ -659,15 +654,9 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     ORKChoiceViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (cell == nil) {
-        if (_choiceCellGroup) {
-            cell = [_choiceCellGroup cellAtIndexPath:indexPath withReuseIdentifier:identifier];
-        } else {
-            cell = [self.medicationChoiceCellGroup cellAtIndexPath:indexPath withReuseIdentifier:identifier];
-        }
+        cell = [_choiceCellGroup cellAtIndexPath:indexPath withReuseIdentifier:identifier];
     }
-    if (self.medicationChoiceCellGroup) {
-        [medicationChoiceCellGroup configureCell:(ORKMedicationChoiceViewCell *)cell atIndex:indexPath.row];
-    }
+    [_choiceCellGroup configureCell:cell atIndex:indexPath.row];
     
     cell.userInteractionEnabled = !self.readOnlyMode;
     return cell;
@@ -736,18 +725,22 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     
     if (_choiceCellGroup) {
         [_choiceCellGroup didSelectCellAtIndexPath:indexPath];
-    } else {
-        [self.medicationChoiceCellGroup didSelectCellAtIndexPath:indexPath];
     }
     
     // Capture `isStepImmediateNavigation` before saving an answer.
     BOOL immediateNavigation = [self isStepImmediateNavigation];
     
     id answer;
-    if (self.medicationChoiceCellGroup) {
-        answer = self.answer;
-    } else {
-        answer = (self.questionStep.questionType == ORKQuestionTypeBoolean) ? [_choiceCellGroup answerForBoolean] : [_choiceCellGroup answer];
+    switch (self.questionStep.questionType) {
+        case ORKQuestionTypeBoolean:
+            answer = [_choiceCellGroup answerForBoolean];
+            break;
+        case ORKQuestionTypeMedication:
+            answer = self.answer;
+            break;
+        default:
+            answer = [_choiceCellGroup answer];
+            break;
     }
     
     [self saveAnswer:answer];
@@ -802,7 +795,8 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     NSString *optionText = @"";
     NSString *detailText = nil;
     if ([_answerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
-        ORKMedicationCellText *medicationCellText = [self.medicationChoiceCellGroup medicationCellTextForRow:index];
+        ORKMedicationChoiceCellGroup *medicationChoiceCellGroup = (ORKMedicationChoiceCellGroup *)_choiceCellGroup;
+        ORKMedicationCellText *medicationCellText = [medicationChoiceCellGroup medicationCellTextForRow:index];
         optionText = medicationCellText.shortText;
         detailText = medicationCellText.longText;
     } else {

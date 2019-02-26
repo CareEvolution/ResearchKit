@@ -48,6 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable ORKChoiceViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(nullable NSString *)identifier;
 
+- (void)configureCell:(ORKChoiceViewCell *)cell atIndex:(NSUInteger)index;
+
 - (BOOL)containsIndexPath:(NSIndexPath *)indexPath;
 
 - (void)didSelectCellAtIndexPath:(NSIndexPath *)indexPath;

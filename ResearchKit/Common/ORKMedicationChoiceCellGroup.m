@@ -91,18 +91,19 @@
     return cell;
 }
 
-- (void)configureCell:(ORKMedicationChoiceViewCell *)cell atIndex:(NSUInteger)index {  // called from ORKQuestionStepViewController
+- (void)configureCell:(ORKChoiceViewCell *)cell atIndex:(NSUInteger)index {  // called from ORKQuestionStepViewController
+    ORKMedicationChoiceViewCell *medicationChoiceViewCell = (ORKMedicationChoiceViewCell *)cell;
     if (_singleChoice) {
         if (self.medications.count == 0) {
-            [self configureAsSelectMedicationCell:cell];
+            [self configureAsSelectMedicationCell:medicationChoiceViewCell];
         } else {
-            [self configureCell:cell forMedication:self.medications[0]];
+            [self configureCell:medicationChoiceViewCell forMedication:self.medications[0]];
         }
     } else {
         if (index == 0) {
-            [self configureAsSelectMedicationCell:cell];
+            [self configureAsSelectMedicationCell:medicationChoiceViewCell];
         } else {
-            [self configureCell:cell forMedication:self.medications[index - 1]];
+            [self configureCell:medicationChoiceViewCell forMedication:self.medications[index - 1]];
         }
     }
 }
