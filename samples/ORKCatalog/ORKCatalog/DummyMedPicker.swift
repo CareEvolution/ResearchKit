@@ -8,11 +8,19 @@
 
 import ResearchKit
 
-class DummyMedPicker: ORKMedicationPicker {
+class DummyMedPicker: UITableViewController {
+    
+    weak var delegate: ORKMedicationPickerDelegate?
     
     let medications = [ORKMedication(identifier: ORKMedicationRxNormIdentifier(rxCUIs: ["123456"]), medicationDescription: "acetaminophen (TYLENOL) tablet - 325 mg", detailedDescription: "every 4-6 hours"),
                        ORKMedication(identifier: ORKMedicationRxNormIdentifier(rxCUIs: ["234567"]), medicationDescription: "ibuprofen (MOTRIN) tablet - 200 mg", detailedDescription: "every 4-6 hours alternating"),
                        ORKMedication(identifier: ORKMedicationRxNormIdentifier(rxCUIs: ["345678"]), medicationDescription: "naproxen (ALEVE) tablet - 500 mg", detailedDescription: "every 12 hours scheduled")]
+    
+    override func viewDidLoad() {
+        title = "Pain Medication Options"
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel(_:)))
+        navigationItem.leftBarButtonItem = cancelButton
+    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1 
@@ -36,5 +44,21 @@ class DummyMedPicker: ORKMedicationPicker {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let medication = medications[indexPath.row]
         delegate?.medicationPicker(self, didSelect: medication)
+    }
+}
+
+extension DummyMedPicker: ORKMedicationPicker {
+    
+    func summonMedPicker(fromPresenting presentingViewController: UIViewController) {
+        let navController = UINavigationController(rootViewController: self)
+        presentingViewController.present(navController, animated: true, completion: nil)
+    }
+    
+    func dismissMedPicker(fromPresenting presentingViewController: UIViewController) {
+        presentingViewController.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func cancel(_ sender: AnyObject) {
+        delegate?.medicationPickerDidCancel(self)
     }
 }

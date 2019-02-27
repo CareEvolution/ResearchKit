@@ -555,7 +555,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
         if (_choiceCellGroup == nil) {
             if ([impliedAnswerFormat isKindOfClass:[ORKMedicationAnswerFormat class]]) {
                 ORKMedicationAnswerFormat *medicationAnswerFormat = (ORKMedicationAnswerFormat *)self.answerFormat;
-                ORKMedicationPicker *medicationPicker = medicationAnswerFormat.medicationPicker;
+                id <ORKMedicationPicker> medicationPicker = medicationAnswerFormat.medicationPicker;
                 NSArray <ORKMedication*> *medications = (NSArray <ORKMedication *>*)self.answer;
                 
                 ORKMedicationChoiceCellGroup *medicationChoiceCellGroup = [[ORKMedicationChoiceCellGroup alloc] initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *) impliedAnswerFormat
@@ -848,12 +848,8 @@ static NSString *const _ORKOriginalAnswerRestoreKey = @"originalAnswer";
 
 #pragma mark - ORKMedicationChoiceCellGroupDelegate
 
-- (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup dismissMedicationPicker:(UIViewController *)medicationPicker {
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
-- (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup presentMedicationPicker:(UIViewController *)medicationPicker {
-    [self.navigationController pushViewController:medicationPicker animated:YES];
+- (UIViewController *)presentingViewControllerForMedicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup {
+    return self;
 }
 
 - (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup didUpdateMedications:(NSArray *)medications {

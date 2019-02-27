@@ -2980,7 +2980,6 @@ static NSString *const formattedAddressLinesKey = @"FormattedAddressLines";
     self = [super initWithCoder:aDecoder];
     if (self) {
         ORK_DECODE_BOOL(aDecoder, singleChoice);
-        ORK_DECODE_OBJ_CLASS(aDecoder, medicationPicker, ORKMedicationPicker);
     }
     return self;
 }
@@ -2988,7 +2987,6 @@ static NSString *const formattedAddressLinesKey = @"FormattedAddressLines";
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_BOOL(aCoder, singleChoice);
-    ORK_ENCODE_OBJ(aCoder, medicationPicker);
 }
 
 + (BOOL)supportsSecureCoding {

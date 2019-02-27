@@ -14,8 +14,7 @@
 
 @protocol ORKMedicationChoiceCellGroupDelegate <NSObject>
 
-- (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup presentMedicationPicker:(UIViewController *)medicationPicker;
-- (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup dismissMedicationPicker:(UIViewController *)medicationPicker;
+- (UIViewController *)presentingViewControllerForMedicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup;
 - (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup didUpdateMedications:(NSArray <ORKMedication *> *)medications;
 
 @end
@@ -37,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ORKMedicationChoiceViewCell;
 @class ORKMedicationAnswerFormat;
 @class ORKMedication;
-@class ORKMedicationPicker;
+@protocol ORKMedicationPicker;
 
 @interface ORKMedicationChoiceCellGroup : ORKTextChoiceCellGroup
 
@@ -45,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *)answerFormat
                                    medications:(NSArray<ORKMedication *> *)medications
                             beginningIndexPath:(NSIndexPath *)indexPath
-                              medicationPicker:(ORKMedicationPicker *)medicationPicker;
+                              medicationPicker:(nonnull id <ORKMedicationPicker>)medicationPicker;
 
 @property (nonatomic, strong) NSArray<ORKMedication *> *medications;
 @property (weak, nonatomic) id <ORKMedicationChoiceCellGroupDelegate> delegate;

@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ORKWeightAnswerFormat;
 @class ORKLocationAnswerFormat;
 
-@class ORKMedicationPicker;
+@protocol ORKMedicationPicker;
 
 @class ORKTextChoice;
 @class ORKImageChoice;
@@ -1613,10 +1613,10 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) BOOL singleChoice;
 
 /**
- A configured instance of a concrete subclass of ORKMedicationPicker to present to the user
+ An object that conforms to ORKMedicationPicker to present a medication selection UI to the user.
  */
 
-@property (nonatomic, strong) ORKMedicationPicker *medicationPicker;
+@property (nonatomic, strong) id <ORKMedicationPicker> medicationPicker;
 
 @end
 

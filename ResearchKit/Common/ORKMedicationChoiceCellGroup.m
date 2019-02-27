@@ -41,14 +41,14 @@
 
 @implementation ORKMedicationChoiceCellGroup {
     BOOL _singleChoice;
-    ORKMedicationPicker *_medicationPicker;
+    id <ORKMedicationPicker> _medicationPicker;
 }
 
 
 - (instancetype)initWithMedicationAnswerFormat:(ORKMedicationAnswerFormat *)answerFormat
                                    medications:(NSArray<ORKMedication *> *)medications
                             beginningIndexPath:(NSIndexPath *)indexPath
-                              medicationPicker:(nonnull ORKMedicationPicker *)medicationPicker {
+                              medicationPicker:(nonnull id <ORKMedicationPicker>)medicationPicker {
     self = [super init];
     if (self) {
         
@@ -107,11 +107,17 @@
 }
 
 - (void)didSelectCellAtIndex:(NSUInteger)index {
+    UIViewController *presentingViewController = nil;
+    if ([self.delegate respondsToSelector:@selector(presentingViewControllerForMedicationChoiceCellGroup:)]) {
+        presentingViewController = [self.delegate presentingViewControllerForMedicationChoiceCellGroup:self];
+    } else {
+        return;
+    }
     ORKChoiceViewCell *touchedCell = [self cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:nil];
     if ([touchedCell.shortLabel.text isEqualToString:@"[Add a Medication]"]) {
         //spawn to add medication
-        if ([self.delegate respondsToSelector:@selector(medicationChoiceCellGroup:presentMedicationPicker:)]) {
-            [self.delegate medicationChoiceCellGroup:self presentMedicationPicker:_medicationPicker];
+        if ([_medicationPicker respondsToSelector:@selector(summonMedPickerFromPresentingViewController:)]) {
+            [_medicationPicker summonMedPickerFromPresentingViewController:presentingViewController];
         }
     } else {
         //remove medication
@@ -124,7 +130,7 @@
     }
 }
 
-- (void)medicationPicker:(ORKMedicationPicker *)medicationPicker didSelectMedication:(ORKMedication *)medication {
+- (void)medicationPicker:(id <ORKMedicationPicker>)medicationPicker didSelectMedication:(ORKMedication *)medication {
     if (medication) {
         if (_singleChoice) {
             [self setMedications:@[medication]];
@@ -137,8 +143,17 @@
         [self.delegate medicationChoiceCellGroup:self didUpdateMedications:_medications];
     }
     
-    if ([self.delegate respondsToSelector:@selector(medicationChoiceCellGroup:dismissMedicationPicker:)]) {
-        [self.delegate medicationChoiceCellGroup:self dismissMedicationPicker:medicationPicker];
+    [self dismissMedicationPicker];
+}
+
+- (void)medicationPickerDidCancel:(nonnull id<ORKMedicationPicker>)medicationPicker {
+    [self dismissMedicationPicker];
+}
+
+- (void)dismissMedicationPicker {
+    if ([_medicationPicker respondsToSelector:@selector(dismissMedPickerFromPresentingViewController:)] &&
+        [self.delegate respondsToSelector:@selector(presentingViewControllerForMedicationChoiceCellGroup:)]) {
+        [_medicationPicker dismissMedPickerFromPresentingViewController:[self.delegate presentingViewControllerForMedicationChoiceCellGroup:self]];
     }
 }
 

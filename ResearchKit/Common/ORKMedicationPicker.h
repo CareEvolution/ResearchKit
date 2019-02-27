@@ -8,20 +8,25 @@
 
 @import UIKit;
 
-@class ORKMedicationPicker;
+@protocol ORKMedicationPicker;
 @class ORKMedication;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ORKMedicationPickerDelegate <NSObject>
 
-- (void)medicationPicker:(ORKMedicationPicker *)medicationPicker didSelectMedication:(ORKMedication *)medication;
+- (void)medicationPicker:(id <ORKMedicationPicker>)medicationPicker didSelectMedication:(ORKMedication *)medication;
+- (void)medicationPickerDidCancel:(id <ORKMedicationPicker>)medicationPicker;
 
 @end
 
-@interface ORKMedicationPicker : UITableViewController
 
-@property (weak, nonatomic) id <ORKMedicationPickerDelegate> delegate;
+@protocol ORKMedicationPicker <NSObject>
+
+@property (nonatomic, weak) id <ORKMedicationPickerDelegate> delegate;
+
+- (void)summonMedPickerFromPresentingViewController:(UIViewController *)presentingViewController;
+- (void)dismissMedPickerFromPresentingViewController:(UIViewController *)presentingViewController;
 
 @end
 
