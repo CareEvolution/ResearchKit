@@ -81,6 +81,10 @@ static const CGFloat AssumedStatusBarHeight = 20;
     UIView *_stepViewContainer;
     
     BOOL _keyboardIsUp;
+    
+    // CEV HACK
+    NSUInteger autoLayoutLoopCount;
+    BOOL addedCarriageReturn;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -130,6 +134,10 @@ static const CGFloat AssumedStatusBarHeight = 20;
         UISwipeGestureRecognizer *swipeOffRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeOffAction:)];
         swipeOffRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
         [self addGestureRecognizer:swipeOffRecognizer];
+        
+        // CEV HACK
+        addedCarriageReturn = NO;
+        autoLayoutLoopCount = 0;
     }
     return self;
 }
@@ -836,6 +844,39 @@ static const CGFloat AssumedStatusBarHeight = 20;
     _stepView = customView;
     [_stepViewContainer addSubview:_stepView];
     [self setNeedsUpdateConstraints];
+}
+
+- (void)layoutSubviews {
+    
+    /*
+     CEV HACK - Several cases of infinite looping behavior inside of auto-layout have been found
+     to crash our apps due to the length of text in an ORKInstructionStep among the various
+     vertically stacked views being at the threshold of causing the the ORKVerticalContainerView to
+     scroll.
+     
+     This detects excessive looping and adds a carriage return to the subheadLineLabel (text property
+     of ORKInstructionStep) which appears to break the loop by allowing the constraints to be
+     satisfied.
+     
+     For more info see: https://github.com/CareEvolution/CEVResearchKit/issues/116, https://github.com/CareEvolution/CEVResearchKit/issues/136
+    */
+    
+    autoLayoutLoopCount++;
+    
+    if (autoLayoutLoopCount > 50 && !addedCarriageReturn) {
+        if (_scrollContainer.subviews.count > 0 && _scrollContainer.subviews[0].subviews.count > 0 && _scrollContainer.subviews[0].subviews[0].subviews.count > 3) {
+            UIView *possibleSubheadLineLabel = _scrollContainer.subviews[0].subviews[0].subviews[3];
+            if ([possibleSubheadLineLabel isKindOfClass:[ORKSubheadlineLabel class]]) {
+                ORKSubheadlineLabel *subheadLineLabel = (ORKSubheadlineLabel *)possibleSubheadLineLabel;
+                NSMutableString *updatedText = [NSMutableString stringWithString:subheadLineLabel.text];
+                [updatedText appendString:@"\n"];
+                subheadLineLabel.text = updatedText;
+                addedCarriageReturn = YES;  // if this is not done, if the view is scrolled, more carriageReturns will be added stretching the view out
+            }
+        }
+    }
+    
+    [super layoutSubviews];
 }
 
 @end
