@@ -54,7 +54,7 @@ class ProfileViewController: UITableViewController, HealthClientType {
         
         // Ensure the table view automatically sizes its rows.
         tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
 
         // Request authrization to query the health objects that need to be shown.
         let typesToRequest = Set<HKObjectType>(healthObjectTypes)
