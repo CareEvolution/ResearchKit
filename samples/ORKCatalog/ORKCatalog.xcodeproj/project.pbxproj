@@ -251,6 +251,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				fr,
@@ -291,6 +292,8 @@
 				"en-AU",
 				"zh-HK",
 				"fr-CA",
+				"es-419",
+				pt,
 			);
 			mainGroup = 869230B51AAA890A00BFE11B;
 			productRefGroup = 869230BF1AAA890A00BFE11B /* Products */;
@@ -525,7 +528,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.researchkit-samplecode.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ORKCatalog;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -545,7 +548,7 @@
 				PRODUCT_NAME = ORKCatalog;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
