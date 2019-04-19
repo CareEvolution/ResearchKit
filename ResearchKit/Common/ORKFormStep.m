@@ -214,6 +214,7 @@
     ORKFormItem *item = [[[self class] allocWithZone:zone] initWithIdentifier:[_identifier copy] text:[_text copy] answerFormat:[_answerFormat copy]];
     item.optional = _optional;
     item.placeholder = _placeholder;
+    item.hideItemPredicate = _hideItemPredicate;
     return item;
 }
 
@@ -226,6 +227,7 @@
         ORK_DECODE_OBJ_CLASS(aDecoder, placeholder, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, answerFormat, ORKAnswerFormat);
         ORK_DECODE_OBJ_CLASS(aDecoder, step, ORKFormStep);
+        ORK_DECODE_OBJ_CLASS(aDecoder, hideItemPredicate, NSPredicate);
     }
     return self;
 }
@@ -237,7 +239,7 @@
     ORK_ENCODE_OBJ(aCoder, placeholder);
     ORK_ENCODE_OBJ(aCoder, answerFormat);
     ORK_ENCODE_OBJ(aCoder, step);
-
+    ORK_ENCODE_OBJ(aCoder, hideItemPredicate);
 }
 
 - (BOOL)isEqual:(id)object {
@@ -251,12 +253,13 @@
             && self.optional == castObject.optional
             && ORKEqualObjects(self.text, castObject.text)
             && ORKEqualObjects(self.placeholder, castObject.placeholder)
-            && ORKEqualObjects(self.answerFormat, castObject.answerFormat));
+            && ORKEqualObjects(self.answerFormat, castObject.answerFormat)
+            && ORKEqualObjects(self.hideItemPredicate, castObject.hideItemPredicate));
 }
 
 - (NSUInteger)hash {
      // Ignore the step reference - it's not part of the content of this item
-    return _identifier.hash ^ _text.hash ^ _placeholder.hash ^ _answerFormat.hash ^ (_optional ? 0xf : 0x0);
+    return _identifier.hash ^ _text.hash ^ _placeholder.hash ^ _answerFormat.hash ^ (_optional ? 0xf : 0x0) ^ _hideItemPredicate.hash;
 }
 
 - (ORKAnswerFormat *)impliedAnswerFormat {
