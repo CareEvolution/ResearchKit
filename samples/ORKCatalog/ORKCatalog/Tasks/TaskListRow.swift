@@ -111,6 +111,10 @@ enum TaskListRow: Int, CustomStringConvertible {
     case trailMaking
     case videoInstruction
     case webView
+    case predicateFormItemTest
+    case predicateInternalFormTask
+    case predicateInternalFormTaskBattleTest
+    case cascadingOther
     
     class TaskListRowSection {
         var title: String
@@ -129,6 +133,10 @@ enum TaskListRow: Int, CustomStringConvertible {
                 [
                     .form,
                     .survey,
+                    .predicateFormItemTest,
+                    .predicateInternalFormTask,
+                    .predicateInternalFormTaskBattleTest,
+                    .cascadingOther
                 ]),
             TaskListRowSection(title: "Survey Questions", rows:
                 [
@@ -349,6 +357,18 @@ enum TaskListRow: Int, CustomStringConvertible {
             
         case .webView:
             return NSLocalizedString("Web View", comment: "")
+        
+        case .predicateFormItemTest:
+            return "Demo - HideFormItem, previous Step"
+        
+        case .predicateInternalFormTask:
+            return "Demo - HideFormItem, same Step"
+        
+        case .predicateInternalFormTaskBattleTest:
+            return "Test - Randomize predicates"
+        
+        case .cascadingOther:
+            return "Demo - Cascading Other"
         }
     }
     
@@ -697,10 +717,136 @@ enum TaskListRow: Int, CustomStringConvertible {
             
         case .webView:
             return webView
+            
+        case .predicateFormItemTest:
+            return predicateFormTask
+            
+        case .predicateInternalFormTask:
+            return predicateInternalFormTask(battleTest: false)
+        
+        case .predicateInternalFormTaskBattleTest:
+            return predicateInternalFormTask(battleTest: true)
+        
+        case .cascadingOther:
+            return cascadingOther
+            
         }
     }
 
     // MARK: Task Creation Convenience
+    
+    struct Fruit {
+        let display: String
+        let title: String
+    }
+    
+    private var allFruit: [Fruit] {
+        return [
+            Fruit(display: "🍎", title: "apples"),
+            Fruit(display: "🍌", title: "bananas"),
+            Fruit(display: "🍒", title: "cherries"),
+            Fruit(display: "🍇", title: "grapes"),
+            Fruit(display: "🥭", title: "mangoes"),
+            Fruit(display: "🍊", title: "oranges"),
+            Fruit(display: "🍐", title: "pears"),
+            Fruit(display: "🍓", title: "strawberries")
+        ]
+    }
+    
+    private var predicateFormTask: ORKTask {
+        
+        let choices = allFruit.map { (fruit) -> ORKTextChoice in
+            ORKTextChoice(text: fruit.display, value: fruit.title as NSString)
+        }
+        let answerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: choices)
+        
+        let selectStep = ORKQuestionStep(identifier: "selectStep", title: "Select", question: "Choose which fruit to hide", answer: answerFormat)
+        
+        let showStep = ORKFormStep(identifier: "testHideStep", title: "Test Predicate", text: "verify items hidden as expected")
+        var formItems = [ORKFormItem]()
+        
+        let options = ["sweet", "tangy", "tart", "sour", "crisp"]
+        let fruitAnswerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: options.map({ (option) -> ORKTextChoice in
+            ORKTextChoice(text: option, value: option as NSString)
+        }) )
+        
+        for fruitItem in allFruit {
+            let formItem = ORKFormItem(identifier: fruitItem.title, text: "\(fruitItem.title) \(fruitItem.display) taste ...", answerFormat: fruitAnswerFormat)
+            let resultSelector = ORKResultSelector(resultIdentifier: "selectStep")
+            formItem.hideItemPredicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: fruitItem.title as NSString)
+            formItems.append(formItem)
+        }
+        
+        showStep.formItems = formItems
+        
+        return ORKOrderedTask(identifier: "testPredicateHide", steps: [selectStep, showStep])
+    }
+    
+    func predicateInternalFormTask(battleTest: Bool) -> ORKTask {
+        
+        let choices = allFruit.map { (fruit) -> ORKTextChoice in
+            ORKTextChoice(text: fruit.display, value: fruit.title as NSString)
+        }
+        let answerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: choices)
+        
+        let selectFormItem = ORKFormItem(identifier: "selectItem", text: "Choose which fruit to hide", answerFormat: answerFormat)
+        
+        let showStep = ORKFormStep(identifier: "testHideStep", title: "Test Predicate", text: "verify items hidden as expected")
+        var formItems = [selectFormItem]
+        
+        let options: [String]
+        
+        if battleTest {
+            options = ["sweet"]
+        } else {
+            options = ["sweet", "tangy", "tart", "sour", "crisp"]
+        }
+        
+        let fruitAnswerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: options.map({ (option) -> ORKTextChoice in
+            ORKTextChoice(text: option, value: option as NSString)
+        }) )
+        
+        for fruitItem in allFruit {
+            let formItem = ORKFormItem(identifier: fruitItem.title, text: "\(fruitItem.title) \(fruitItem.display) taste ...", answerFormat: fruitAnswerFormat)
+            let resultSelector = ORKResultSelector(stepIdentifier: "testHideStep", resultIdentifier: "selectItem")
+            
+            if battleTest {
+                let randomFruit = allFruit.randomElement()
+                formItem.hideItemPredicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: randomFruit!.title as NSString)
+                if Bool.random() {
+                    formItem.hideItemPredicate = NSCompoundPredicate(notPredicateWithSubpredicate: formItem.hideItemPredicate!);
+                }
+            } else {
+                formItem.hideItemPredicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: fruitItem.title as NSString)
+            }
+            formItems.append(formItem)
+        }
+        
+        showStep.formItems = formItems
+        
+        return ORKOrderedTask(identifier: "testPredicateHide", steps: [showStep])
+    }
+    
+    private var cascadingOther: ORKTask {
+        
+        let opioidsStep = ORKFormStep(identifier: "opioidsStep", title: "Current Opioids", text: "List of current opioids")
+        
+        let opioidList = ["acetaminophen - codeine", "hydroCODONE", "oxyCODONE", "OxyCONTIN", "TYLENOL #3", "VICODIN", "Other"]
+        let choices = opioidList.map { (opioid) -> ORKTextChoice in
+            ORKTextChoice(text: opioid, value: opioid as NSString)
+        }
+        let answerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: choices)
+        let questionItem = ORKFormItem(identifier: "opioidItem", text: "Which opioids are you currently taking?", answerFormat: answerFormat)
+        
+        let otherOpioidsItem = ORKFormItem(identifier: "otherOpioids", text: "List other opioids you are taking ", answerFormat: ORKTextAnswerFormat())
+        let resultSelector = ORKResultSelector(stepIdentifier: "opioidsStep", resultIdentifier: "opioidItem")
+        otherOpioidsItem.hideItemPredicate = NSCompoundPredicate(notPredicateWithSubpredicate: ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: "Other" as NSString))
+        
+        opioidsStep.formItems = [questionItem, otherOpioidsItem]
+        
+        return ORKOrderedTask(identifier: "opioidDemo", steps: [opioidsStep])
+    }
+
     
     /**
     This task demonstrates a form step, in which multiple items are presented
