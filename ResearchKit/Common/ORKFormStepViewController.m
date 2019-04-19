@@ -774,8 +774,12 @@
     }];
     
     if (animated) {
-        [_tableView deleteSections:sectionsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
-        [_tableView insertSections:sectionsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
+        if (sectionsToDelete.count > 0) {
+            [_tableView deleteSections:sectionsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        if (sectionsToInsert.count > 0) {
+            [_tableView insertSections:sectionsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
         [_tableView endUpdates];
     }
 }
@@ -1058,7 +1062,7 @@
         
         ORKTableSection *section = _sections[indexPath.section];
         ORKTableCellItem *cellItem = section.items[indexPath.row];
-        [section.textChoiceCellGroup didSelectCellAtIndexPath:indexPath];
+        [section.textChoiceCellGroup didSelectCellAtIndexPath:[self unfilteredIndexPathForIndexPath:indexPath]];
         id answer = ([cellItem.formItem.answerFormat isKindOfClass:[ORKBooleanAnswerFormat class]]) ? [section.textChoiceCellGroup answerForBoolean] : [section.textChoiceCellGroup answer];
         NSString *formItemIdentifier = cellItem.formItem.identifier;
         if (answer && formItemIdentifier) {
