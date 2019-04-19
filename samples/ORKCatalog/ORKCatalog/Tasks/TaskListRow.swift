@@ -129,14 +129,17 @@ enum TaskListRow: Int, CustomStringConvertible {
     /// Returns an array of all the task list row enum cases.
     static var sections: [ TaskListRowSection ] {
         return [
-            TaskListRowSection(title: "Surveys", rows:
+            TaskListRowSection(title: "Demo/Test HideItemPredicate", rows:
                 [
-                    .form,
-                    .survey,
                     .predicateFormItemTest,
                     .predicateInternalFormTask,
                     .predicateInternalFormTaskBattleTest,
                     .cascadingOther
+                ]),
+            TaskListRowSection(title: "Surveys", rows:
+                [
+                    .form,
+                    .survey
                 ]),
             TaskListRowSection(title: "Survey Questions", rows:
                 [
