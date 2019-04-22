@@ -109,6 +109,7 @@ enum TaskListRow: Int, CustomStringConvertible {
     case predicateInternalFormTask
     case predicateInternalFormTaskBattleTest
     case cascadingOther
+    case oldCascadingOther
     
     class TaskListRowSection {
         var title: String
@@ -128,6 +129,7 @@ enum TaskListRow: Int, CustomStringConvertible {
                     .predicateFormItemTest,
                     .predicateInternalFormTask,
                     .predicateInternalFormTaskBattleTest,
+                    .oldCascadingOther,
                     .cascadingOther
                 ]),
             TaskListRowSection(title: "Surveys", rows:
@@ -341,7 +343,10 @@ enum TaskListRow: Int, CustomStringConvertible {
             return "Test - Randomize predicates"
             
         case .cascadingOther:
-            return "Demo - Cascading Other"
+            return "Demo - New Cascading Other Case"
+            
+        case .oldCascadingOther:
+            return "Demo - Current Specify Other Case"
         }
     }
     
@@ -670,6 +675,9 @@ enum TaskListRow: Int, CustomStringConvertible {
             
         case .cascadingOther:
             return cascadingOther
+        
+        case .oldCascadingOther:
+            return oldCascadingOther
         }
     }
 
@@ -767,8 +775,30 @@ enum TaskListRow: Int, CustomStringConvertible {
         return ORKOrderedTask(identifier: "testPredicateHide", steps: [showStep])
     }
     
-    private var cascadingOther: ORKTask {
+    private var oldCascadingOther: ORKTask {
         
+        let opioidList = ["acetaminophen - codeine", "hydroCODONE", "oxyCODONE", "OxyCONTIN", "TYLENOL #3", "VICODIN", "Other"]
+        let choices = opioidList.map { (opioid) -> ORKTextChoice in
+            ORKTextChoice(text: opioid, value: opioid as NSString)
+        }
+        let answerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: choices)
+        let opioidsStep = ORKQuestionStep(identifier: "opioidsStep", title: "Which opioids are you currently taking?", answer: answerFormat)
+        
+        let otherOpioidsStep = ORKQuestionStep(identifier: "otherOpioids", title: "List other opioids you are taking ", answer: ORKTextAnswerFormat())
+        
+        let resultSelector = ORKResultSelector(resultIdentifier: "opioidsStep")
+        let skipPredicate = NSCompoundPredicate(notPredicateWithSubpredicate: ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: "Other" as NSString))
+        
+        let nextStep = ORKInstructionStep(identifier: "nextStep")
+        nextStep.text = "Other stuff after opioid question...."
+        
+        let orderedTask = ORKNavigableOrderedTask(identifier: "opioidDemo", steps: [opioidsStep, otherOpioidsStep, nextStep])
+        orderedTask.setSkip(ORKPredicateSkipStepNavigationRule(resultPredicate: skipPredicate), forStepIdentifier: "otherOpioids")
+        
+        return orderedTask
+    }
+    
+    private var cascadingOther: ORKTask {
         let opioidsStep = ORKFormStep(identifier: "opioidsStep", title: "Current Opioids", text: "List of current opioids")
         
         let opioidList = ["acetaminophen - codeine", "hydroCODONE", "oxyCODONE", "OxyCONTIN", "TYLENOL #3", "VICODIN", "Other"]
@@ -784,7 +814,10 @@ enum TaskListRow: Int, CustomStringConvertible {
         
         opioidsStep.formItems = [questionItem, otherOpioidsItem]
         
-        return ORKOrderedTask(identifier: "opioidDemo", steps: [opioidsStep])
+        let nextStep = ORKInstructionStep(identifier: "nextStep")
+        nextStep.text = "Other stuff after opioid question...."
+        
+        return ORKOrderedTask(identifier: "opioidDemo", steps: [opioidsStep, nextStep])
     }
     
     
