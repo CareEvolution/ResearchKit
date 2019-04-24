@@ -294,6 +294,7 @@
     NSMutableSet *_formItemCells;
     NSMutableArray<ORKTableSection *> *_sections;
     NSMutableArray<ORKTableSection *> *_allSections;
+    NSMutableArray<ORKFormItem *> *_filteredForms;
     BOOL _skipped;
     ORKFormItemCell *_currentFirstResponderCell;
 }
@@ -650,6 +651,7 @@
     
     NSArray<ORKTableSection *> *oldSections = _sections;
     _sections = [NSMutableArray new];
+    _filteredForms = [NSMutableArray new];
     
     ORKTaskResult *taskResult = self.taskViewController.result;
     NSArray<ORKFormItem *> *formItems = [self allFormItems];
@@ -670,6 +672,7 @@
             if ([oldSections containsObject:section]) {
                 [sectionsToDelete addIndex:[oldSections indexOfObject:section]];
             }
+            [_filteredForms addObject:formItem];
         }
     }];
     
@@ -751,6 +754,10 @@
     
     NSMutableArray *qResults = [NSMutableArray new];
     for (ORKFormItem *item in items) {
+        
+        if ([_filteredForms containsObject:item]) {
+            continue;
+        }
 
         // Skipped forms report a "null" value for every item -- by skipping, the user has explicitly said they don't want
         // to report any values from this form.
