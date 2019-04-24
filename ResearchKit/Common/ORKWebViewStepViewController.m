@@ -91,25 +91,27 @@
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    if (navigationAction.navigationType == WKNavigationTypeLinkActivated
-        && ([navigationAction.request.URL.scheme isEqualToString:@"http"]
-            || [navigationAction.request.URL.scheme isEqualToString:@"https"])) {
-        if (navigationAction.targetFrame != nil) {
-            if (@available(iOS 11.0, *)) {
-                SFSafariViewControllerConfiguration *cfg = [[SFSafariViewControllerConfiguration alloc] init];
-                cfg.barCollapsingEnabled = YES;
-                SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:navigationAction.request.URL configuration:cfg];
-                safari.preferredBarTintColor = self.navigationController.navigationBar.barTintColor;
-                safari.preferredControlTintColor = self.view.tintColor;
-                [self presentViewController:safari animated:YES completion:NULL];
-                decisionHandler(WKNavigationActionPolicyCancel);
-                return;
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
+        if (navigationAction.targetFrame != nil
+            && ([navigationAction.request.URL.scheme isEqualToString:@"http"]
+                || [navigationAction.request.URL.scheme isEqualToString:@"https"])) {
+                if (@available(iOS 11.0, *)) {
+                    SFSafariViewControllerConfiguration *cfg = [[SFSafariViewControllerConfiguration alloc] init];
+                    cfg.barCollapsingEnabled = YES;
+                    SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:navigationAction.request.URL configuration:cfg];
+                    safari.preferredBarTintColor = self.navigationController.navigationBar.barTintColor;
+                    safari.preferredControlTintColor = self.view.tintColor;
+                    [self presentViewController:safari animated:YES completion:NULL];
+                    decisionHandler(WKNavigationActionPolicyCancel);
+                    return;
+                }
             }
-        }
         
-        [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
-        decisionHandler(WKNavigationActionPolicyCancel);
-        return;
+        if ([[UIApplication sharedApplication] canOpenURL:navigationAction.request.URL]) {
+            [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }
     }
     decisionHandler(WKNavigationActionPolicyAllow);
 }
