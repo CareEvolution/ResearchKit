@@ -720,6 +720,7 @@ enum TaskListRow: Int, CustomStringConvertible {
         
         for fruitItem in allFruit {
             let formItem = ORKFormItem(identifier: fruitItem.title, text: "\(fruitItem.title) \(fruitItem.display) taste ...", answerFormat: fruitAnswerFormat)
+            formItem.isOptional = false
             let resultSelector = ORKResultSelector(resultIdentifier: "selectStep")
             formItem.hideItemPredicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: fruitItem.title as NSString)
             formItems.append(formItem)
