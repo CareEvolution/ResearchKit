@@ -620,8 +620,8 @@
 - (BOOL)allNonOptionalFormItemsHaveAnswers {
     ORKTaskResult *taskResult = self.taskViewController.result;
     for (ORKFormItem *item in [self formItems]) {
-        BOOL hideFormItem = [item.hideItemPredicate evaluateWithObject:@[taskResult]
-                                                 substitutionVariables:@{ORKResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
+        BOOL hideFormItem = [item.hidePredicate evaluateWithObject:@[taskResult]
+                                             substitutionVariables:@{ORKResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
         if (!item.optional && !hideFormItem) {
             id answer = _savedAnswers[item.identifier];
             if (ORKIsAnswerEmpty(answer) || ![item.impliedAnswerFormat isAnswerValid:answer]) {
@@ -663,8 +663,8 @@
     NSMutableIndexSet *sectionsToDelete = [NSMutableIndexSet indexSet];
     
     [formItems enumerateObjectsUsingBlock:^(ORKFormItem * _Nonnull formItem, NSUInteger idx, BOOL * _Nonnull stop) {
-        BOOL hideFormItem = [formItem.hideItemPredicate evaluateWithObject:@[taskResult]
-                                                     substitutionVariables:@{ORKResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
+        BOOL hideFormItem = [formItem.hidePredicate evaluateWithObject:@[taskResult]
+                                                 substitutionVariables:@{ORKResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
         ORKTableSection *section = _allSections[idx];
         if (!hideFormItem) {
             [_sections addObject:section];
