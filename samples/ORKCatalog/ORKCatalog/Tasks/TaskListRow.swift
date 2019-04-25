@@ -784,7 +784,7 @@ enum TaskListRow: Int, CustomStringConvertible {
             let formItem = ORKFormItem(identifier: fruitItem.title, text: "\(fruitItem.title) \(fruitItem.display) taste ...", answerFormat: fruitAnswerFormat)
             formItem.isOptional = false
             let resultSelector = ORKResultSelector(resultIdentifier: "selectStep")
-            formItem.hideItemPredicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: fruitItem.title as NSString)
+            formItem.hidePredicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: fruitItem.title as NSString)
             formItems.append(formItem)
         }
         
@@ -823,12 +823,12 @@ enum TaskListRow: Int, CustomStringConvertible {
             
             if battleTest {
                 let randomFruit = allFruit.randomElement()
-                formItem.hideItemPredicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: randomFruit!.title as NSString)
+                formItem.hidePredicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: randomFruit!.title as NSString)
                 if Bool.random() {
-                    formItem.hideItemPredicate = NSCompoundPredicate(notPredicateWithSubpredicate: formItem.hideItemPredicate!);
+                    formItem.hidePredicate = NSCompoundPredicate(notPredicateWithSubpredicate: formItem.hidePredicate!);
                 }
             } else {
-                formItem.hideItemPredicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: fruitItem.title as NSString)
+                formItem.hidePredicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: fruitItem.title as NSString)
             }
             formItems.append(formItem)
         }
@@ -873,7 +873,7 @@ enum TaskListRow: Int, CustomStringConvertible {
         
         let otherOpioidsItem = ORKFormItem(identifier: "otherOpioids", text: "List other opioids you are taking ", answerFormat: ORKTextAnswerFormat())
         let resultSelector = ORKResultSelector(stepIdentifier: "opioidsStep", resultIdentifier: "opioidItem")
-        otherOpioidsItem.hideItemPredicate = NSCompoundPredicate(notPredicateWithSubpredicate: ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: "Other" as NSString))
+        otherOpioidsItem.hidePredicate = NSCompoundPredicate(notPredicateWithSubpredicate: ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: "Other" as NSString))
         
         opioidsStep.formItems = [questionItem, otherOpioidsItem]
         
