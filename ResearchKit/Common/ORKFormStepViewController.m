@@ -705,8 +705,8 @@
 
 }
 
-- (NSIndexPath *)unfilteredIndexPathForIndexPath:(NSIndexPath *)filteredIndexPath {
-    return [NSIndexPath indexPathForRow:filteredIndexPath.row inSection:[_allSections indexOfObject:_sections[filteredIndexPath.section]]];
+- (NSIndexPath *)unhiddenIndexPathForIndexPath:(NSIndexPath *)hiddenIndexPath {
+    return [NSIndexPath indexPathForRow:hiddenIndexPath.row inSection:[_allSections indexOfObject:_sections[hiddenIndexPath.section]]];
 }
 
 - (void)updateButtonStates {
@@ -839,8 +839,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSIndexPath *unfilteredIndexPath = [self unfilteredIndexPathForIndexPath:indexPath];
-    NSString *identifier = [NSString stringWithFormat:@"%ld-%ld",(long)unfilteredIndexPath.section, (long)unfilteredIndexPath.row];
+    NSIndexPath *unhiddenIndexPath = [self unhiddenIndexPathForIndexPath:indexPath];
+    NSString *identifier = [NSString stringWithFormat:@"%ld-%ld",(long)unhiddenIndexPath.section, (long)unhiddenIndexPath.row];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
@@ -852,7 +852,7 @@
         
         if (section.textChoiceCellGroup) {
             [section.textChoiceCellGroup setAnswer:answer];
-            cell = [section.textChoiceCellGroup cellAtIndexPath:unfilteredIndexPath withReuseIdentifier:identifier];
+            cell = [section.textChoiceCellGroup cellAtIndexPath:unhiddenIndexPath withReuseIdentifier:identifier];
         } else {
             ORKAnswerFormat *answerFormat = [cellItem.formItem impliedAnswerFormat];
             ORKQuestionType type = answerFormat.questionType;
@@ -977,7 +977,7 @@
         
         ORKTableSection *section = _sections[indexPath.section];
         ORKTableCellItem *cellItem = section.items[indexPath.row];
-        [section.textChoiceCellGroup didSelectCellAtIndexPath:[self unfilteredIndexPathForIndexPath:indexPath]];
+        [section.textChoiceCellGroup didSelectCellAtIndexPath:[self unhiddenIndexPathForIndexPath:indexPath]];
         id answer = ([cellItem.formItem.answerFormat isKindOfClass:[ORKBooleanAnswerFormat class]]) ? [section.textChoiceCellGroup answerForBoolean] : [section.textChoiceCellGroup answer];
         NSString *formItemIdentifier = cellItem.formItem.identifier;
         if (answer && formItemIdentifier) {
