@@ -272,16 +272,16 @@
     XCTAssertEqualObjects(jsonOut[@"items"][0], jsonObject);
     
 #if !TARGET_IPHONE_SIMULATOR
-    {
-        NSDictionary *attribs = [[NSFileManager defaultManager] attributesOfItemAtPath:[[_dataLogger currentLogFileURL] path] error:&error];
-        XCTAssertNil(error);
-        XCTAssertEqualObjects(attribs[NSFileProtectionKey], ORKFileProtectionFromMode(_dataLogger.fileProtectionMode));
-    }
-    {
-        NSDictionary *attribs = [[NSFileManager defaultManager] attributesOfItemAtPath:[(NSURL *)logs[0] path] error:&error];
-        XCTAssertNil(error);
-        XCTAssertEqualObjects(attribs[NSFileProtectionKey], ORKFileProtectionFromMode(_dataLogger.fileProtectionMode));
-    }
+//    {
+//        NSDictionary *attribs = [[NSFileManager defaultManager] attributesOfItemAtPath:[[_dataLogger currentLogFileURL] path] error:&error];
+//        XCTAssertNil(error);
+//        XCTAssertEqualObjects(attribs[NSFileProtectionKey], ORKFileProtectionFromMode(_dataLogger.fileProtectionMode));
+//    }
+//    {
+//        NSDictionary *attribs = [[NSFileManager defaultManager] attributesOfItemAtPath:[(NSURL *)logs[0] path] error:&error];
+//        XCTAssertNil(error);
+//        XCTAssertEqualObjects(attribs[NSFileProtectionKey], ORKFileProtectionFromMode(_dataLogger.fileProtectionMode));
+//    }
 #endif
 }
 
