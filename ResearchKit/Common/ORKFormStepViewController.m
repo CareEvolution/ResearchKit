@@ -127,6 +127,8 @@
 // ORKTableCellItem
 @property (nonatomic, copy, readonly) NSArray *items;
 
+@property (nonatomic, copy, readonly) NSArray<ORKFormItem *> *formItems;
+
 @property (nonatomic, readonly) BOOL hasChoiceRows;
 
 @property (nonatomic, strong) ORKTextChoiceCellGroup *textChoiceCellGroup;
@@ -144,6 +146,7 @@
     self = [super init];
     if (self) {
         _items = [NSMutableArray new];
+        _formItems = [NSMutableArray new];
         self.title = nil;
         _index = index;
     }
@@ -173,6 +176,7 @@
         ORKTableCellItem *cellItem = [[ORKTableCellItem alloc] initWithFormItem:item];
        [(NSMutableArray *)self.items addObject:cellItem];
     }
+    [(NSMutableArray *)self.formItems addObject:item];
 }
 
 - (CGFloat)maxLabelWidth {
@@ -651,22 +655,25 @@
 }
 
 - (void)hideSections {
-    
     NSArray<ORKTableSection *> *oldSections = _sections;
     _sections = [NSMutableArray new];
     _hiddenFormItems = [NSMutableArray new];
     
     ORKTaskResult *taskResult = self.taskViewController.result;
-    NSArray<ORKFormItem *> *formItems = [self allFormItems];
     
     NSMutableIndexSet *sectionsToInsert = [NSMutableIndexSet indexSet];
     NSMutableIndexSet *sectionsToDelete = [NSMutableIndexSet indexSet];
     
-    [formItems enumerateObjectsUsingBlock:^(ORKFormItem * _Nonnull formItem, NSUInteger idx, BOOL * _Nonnull stop) {
-        BOOL hideFormItem = [formItem.hidePredicate evaluateWithObject:@[taskResult]
-                                                 substitutionVariables:@{ORKResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
-        ORKTableSection *section = _allSections[idx];
-        if (!hideFormItem) {
+    for (ORKTableSection *section in _allSections) {
+        BOOL hideSection = NO;
+        for (ORKFormItem *formItem in section.formItems) {
+            if ([formItem.hidePredicate evaluateWithObject:@[taskResult]
+                                     substitutionVariables:@{ORKResultPredicateTaskIdentifierVariableName : taskResult.identifier}]) {
+                hideSection = YES;
+                break;
+            }
+        }
+        if (!hideSection) {
             [_sections addObject:section];
             if (![oldSections containsObject:section]) {
                 [sectionsToInsert addIndex:_sections.count - 1];
@@ -675,9 +682,9 @@
             if ([oldSections containsObject:section]) {
                 [sectionsToDelete addIndex:[oldSections indexOfObject:section]];
             }
-            [_hiddenFormItems addObject:formItem];
+            [_hiddenFormItems addObjectsFromArray:section.formItems];
         }
-    }];
+    }
     
     if (_tableView != nil) {
         if (sectionsToInsert.count == 0 && sectionsToDelete.count == 0) {
