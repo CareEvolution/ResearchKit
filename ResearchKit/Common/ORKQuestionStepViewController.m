@@ -383,8 +383,8 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 
 - (void)updateButtonStates {
     if ([self isStepImmediateNavigation]) {
-        _continueSkipView.neverHasContinueButton = YES;
-        _continueSkipView.continueButtonItem = nil;
+//        _continueSkipView.neverHasContinueButton = YES;
+//        _continueSkipView.continueButtonItem = nil;
     }
     _questionView.continueSkipContainer.continueEnabled = [self continueButtonEnabled];
     _continueSkipView.continueEnabled = [self continueButtonEnabled];
@@ -547,12 +547,10 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     ORKAnswerFormat *impliedAnswerFormat = [_answerFormat impliedAnswerFormat];
     
     if (section == ORKQuestionSectionAnswer) {
-        if (_choiceCellGroup == nil) {
-            _choiceCellGroup = [[ORKTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:(ORKTextChoiceAnswerFormat *)impliedAnswerFormat
-                                                                                       answer:self.answer
-                                                                           beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
-                                                                          immediateNavigation:[self isStepImmediateNavigation]];
-        }
+        _choiceCellGroup = [[ORKTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:(ORKTextChoiceAnswerFormat *)impliedAnswerFormat
+                                                                                   answer:self.answer
+                                                                       beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
+                                                                      immediateNavigation:[self isStepImmediateNavigation]];
         return _choiceCellGroup.size;
     }
     return 0;
@@ -630,11 +628,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     
     identifier = [NSStringFromClass([self class]) stringByAppendingFormat:@"%@", @(indexPath.row)];
     
-    ORKChoiceViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if (cell == nil) {
-        cell = [_choiceCellGroup cellAtIndexPath:indexPath withReuseIdentifier:identifier];
-    }
+    ORKChoiceViewCell *cell = [_choiceCellGroup cellAtIndexPath:indexPath withReuseIdentifier:identifier];
     
     cell.userInteractionEnabled = !self.readOnlyMode;
     return cell;
