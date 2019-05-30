@@ -740,21 +740,11 @@
         }
         [_tableView beginUpdates];
         if (sectionsToDelete.count > 0) {
-            NSLog(@"Removing sections : %@", sectionsToDelete);
             [_tableView deleteSections:sectionsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
         }
         if (sectionsToInsert.count > 0) {
-            NSLog(@"Inserting sections: %@", sectionsToInsert);
             [_tableView insertSections:sectionsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
         }
-        NSMutableString *updatedSections = [NSMutableString string];
-        for (ORKTableSection *section in _sections) {
-            if (updatedSections.length > 0) {
-                [updatedSections appendString: @"\n"];
-            }
-            [updatedSections appendFormat:@"%@", section.title];
-        }
-        NSLog(@"Displaying in order: %@", updatedSections);
         
         [_tableView endUpdates];
         
