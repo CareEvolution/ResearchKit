@@ -687,6 +687,7 @@
                 if (cellItem) {
                     [_hiddenCellItems addObject:cellItem];
                 }
+                [_hiddenFormItems addObject:formItem];
             } else {
                 hideSection = NO;
             }
@@ -703,7 +704,6 @@
             if ([oldSections containsObject:section]) {
                 [sectionsToDelete addIndex:[oldSections indexOfObject:section]];
             }
-            [_hiddenFormItems addObjectsFromArray:section.formItems];
         }
     }
     
