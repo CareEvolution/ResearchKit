@@ -64,6 +64,8 @@
 
 @property (nonatomic, readonly) CGFloat labelWidth;
 
+@property (nonatomic, assign, getter=isHidden) BOOL hidden;
+
 // For choice types only
 @property (nonatomic, copy, readonly) ORKTextChoice *choice;
 
@@ -132,6 +134,8 @@
 @property (nonatomic, strong) ORKTextChoiceCellGroup *textChoiceCellGroup;
 
 - (void)addFormItem:(ORKFormItem *)item;
+- (void)setHidden:(BOOL)isHidden forFormItem:(ORKFormItem *)item;
+- (void)hideCellsForTableView:(UITableView *)tableView sectionIndex:(NSUInteger)sectionIndex;
 
 @property (nonatomic, readonly) CGFloat maxLabelWidth;
 
@@ -139,21 +143,17 @@
 
 
 @implementation ORKTableSection {
-    NSMutableArray<ORKTableCellItem *> *_allItems;
-    NSMutableDictionary<ORKFormItem *, NSNumber *> *_itemVisibility;
-    NSMutableArray<ORKTableCellItem *> *_hiddenCells;
+    NSMutableDictionary<ORKFormItem *, NSNumber *> *_itemIsHidden;
 }
 
 - (instancetype)initWithSectionIndex:(NSUInteger)index {
     self = [super init];
     if (self) {
-        _allItems = [NSMutableArray new];
         _items = [NSMutableArray new];
         _formItems = [NSMutableArray new];
         self.title = nil;
         _index = index;
-        _itemVisibility = [NSMutableDictionary new];
-        _hiddenCells = [NSMutableArray new];
+        _itemIsHidden = [NSMutableDictionary new];
     }
     return self;
 }
@@ -162,12 +162,8 @@
     _title = [[title uppercaseStringWithLocale:[NSLocale currentLocale]] copy];
 }
 
-- (void)setVisible:(BOOL)isVisible forFormItem:(ORKFormItem *)item {
-    _itemVisibility[item] = [NSNumber numberWithBool:isVisible];
-}
-
-- (NSUInteger)unhiddenIndexForHiddenIndex:(NSUInteger)hiddenIndex {
-    return [_allItems indexOfObject:_items[hiddenIndex]];
+- (void)setHidden:(BOOL)isHidden forFormItem:(ORKFormItem *)item {
+    _itemIsHidden[item] = [NSNumber numberWithBool:isHidden];
 }
 
 - (void)addFormItem:(ORKFormItem *)item {
@@ -183,38 +179,26 @@
         [textChoiceAnswerFormat.textChoices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             ORKTableCellItem *cellItem = [[ORKTableCellItem alloc] initWithFormItem:item choiceIndex:idx];
             [(NSMutableArray *)self.items addObject:cellItem];
-            [_allItems addObject:cellItem];
         }];
         
     } else {
         ORKTableCellItem *cellItem = [[ORKTableCellItem alloc] initWithFormItem:item];
         [(NSMutableArray *)self.items addObject:cellItem];
-        [_allItems addObject:cellItem];
     }
     [(NSMutableArray *)self.formItems addObject:item];
 }
 
 - (void)hideCellsForTableView:(UITableView *)tableView sectionIndex:(NSUInteger)sectionIndex {
     
-    NSArray <ORKTableCellItem *> *oldItems = _items;
-    _items = [NSMutableArray new];
     __block BOOL hasChanges = NO;
     
-    //if not a text choice section?
-    
-    [_formItems enumerateObjectsUsingBlock:^(ORKFormItem * _Nonnull formItem, NSUInteger idx, BOOL * _Nonnull stop) {
-        ORKTableCellItem *cellItem = _allItems[idx];
-        if ([_itemVisibility[formItem] boolValue]) {
-            [(NSMutableArray *)_items addObject:cellItem];
-            if (![oldItems containsObject:cellItem]) {
-                hasChanges = YES;
-            }
-        } else {
-            if ([oldItems containsObject:cellItem]) {
-                hasChanges = NO;
-            }
-            [_hiddenCells addObject:cellItem];
+    [self.formItems enumerateObjectsUsingBlock:^(ORKFormItem * _Nonnull formItem, NSUInteger idx, BOOL * _Nonnull stop) {
+        ORKTableCellItem *cellItem = _items[idx];
+        BOOL updatedHidden = [_itemIsHidden[formItem] boolValue];
+        if (cellItem.isHidden != updatedHidden) {
+            hasChanges = YES;
         }
+        cellItem.hidden = updatedHidden;
     }];
     
     if (tableView != nil && hasChanges) {
@@ -711,10 +695,10 @@
     for (ORKTableSection *section in _allSections) {
         BOOL hideSection = YES;
         for (ORKFormItem *formItem in section.formItems) {
-            BOOL formItemIsVisible = ![formItem.hidePredicate evaluateWithObject:@[taskResult]
-                                                           substitutionVariables:@{ORKResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
-            [section setVisible:formItemIsVisible forFormItem:formItem];
-            if (formItemIsVisible) {
+            BOOL formItemIsHidden = [formItem.hidePredicate evaluateWithObject:@[taskResult]
+                                                         substitutionVariables:@{ORKResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
+            [section setHidden:formItemIsHidden forFormItem:formItem];
+            if (!formItemIsHidden) {
                 hideSection = NO;
             }
         }
@@ -756,8 +740,7 @@
 }
 
 - (NSIndexPath *)unhiddenIndexPathForIndexPath:(NSIndexPath *)hiddenIndexPath {
-    ORKTableSection *section = _sections[hiddenIndexPath.section];
-    return [NSIndexPath indexPathForRow:[section unhiddenIndexForHiddenIndex:hiddenIndexPath.row] inSection:[_allSections indexOfObject:section]];
+    return [NSIndexPath indexPathForRow:hiddenIndexPath.row inSection:[_allSections indexOfObject:_sections[hiddenIndexPath.section]]];
 }
 
 - (void)updateButtonStates {
@@ -894,10 +877,10 @@
     NSString *identifier = [NSString stringWithFormat:@"%ld-%ld",(long)unhiddenIndexPath.section, (long)unhiddenIndexPath.row];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    ORKTableSection *section = (ORKTableSection *)_sections[indexPath.section];
+    ORKTableCellItem *cellItem = [section items][indexPath.row];
     
     if (cell == nil) {
-        ORKTableSection *section = (ORKTableSection *)_sections[indexPath.section];
-        ORKTableCellItem *cellItem = [section items][indexPath.row];
         ORKFormItem *formItem = cellItem.formItem;
         id answer = _savedAnswers[formItem.identifier];
         
@@ -986,6 +969,7 @@
         }
     }
     cell.userInteractionEnabled = !self.readOnlyMode;
+    cell.hidden = cellItem.isHidden;
     return cell;
 }
 
@@ -1023,7 +1007,7 @@
     if ([cell isKindOfClass:[ORKFormItemCell class]]) {
         [cell becomeFirstResponder];
     } else {
-        // Dismiss other textField's keyboard 
+        // Dismiss other textField's keyboard
         [tableView endEditing:NO];
         
         ORKTableSection *section = _sections[indexPath.section];
@@ -1046,12 +1030,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    ORKTableCellItem *cellItem = ([_sections[indexPath.section] items][indexPath.row]);
+    CGFloat cellHeight = cellItem.isHidden ? 0 : UITableViewAutomaticDimension;
     if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ORKChoiceViewCell class]]) {
-        ORKTableCellItem *cellItem = ([_sections[indexPath.section] items][indexPath.row]);
         return [ORKChoiceViewCell suggestedCellHeightForShortText:cellItem.choice.text LongText:cellItem.choice.detailText inTableView:_tableView];
     }
-    return UITableViewAutomaticDimension;
+    return cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
