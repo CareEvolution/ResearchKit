@@ -137,7 +137,8 @@ enum TaskListRow: Int, CustomStringConvertible {
                     .predicateInternalFormTask,
                     .predicateInternalFormTaskBattleTest,
                     .oldCascadingOther,
-                    .cascadingOther
+                    .cascadingOther,
+                    .testMixOfSingleAndMultiple
                 ]),
             TaskListRowSection(title: "Surveys", rows:
                 [
