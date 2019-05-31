@@ -116,6 +116,7 @@ enum TaskListRow: Int, CustomStringConvertible {
     case predicateInternalFormTaskBattleTest
     case cascadingOther
     case oldCascadingOther
+    case testMixOfSingleAndMultiple
     
     class TaskListRowSection {
         var title: String
@@ -377,6 +378,9 @@ enum TaskListRow: Int, CustomStringConvertible {
             
         case .oldCascadingOther:
             return "Demo - Current Specify Other Case"
+            
+        case .testMixOfSingleAndMultiple:
+            return "Demo - Test Mix of Single and Multiple"
         }
     }
     
@@ -740,6 +744,9 @@ enum TaskListRow: Int, CustomStringConvertible {
 
         case .oldCascadingOther:
             return oldCascadingOther
+            
+        case .testMixOfSingleAndMultiple:
+            return testMixOfSingleAndMultiple
         }
     }
 
@@ -881,6 +888,49 @@ enum TaskListRow: Int, CustomStringConvertible {
         nextStep.text = "Other stuff after opioid question...."
         
         return ORKOrderedTask(identifier: "opioidDemo", steps: [opioidsStep, nextStep])
+    }
+
+    struct FormatItem {
+        let answerFormat: ORKAnswerFormat
+        let title: String
+    }
+    
+    private var testMixOfSingleAndMultiple: ORKTask {
+        let testStep = ORKFormStep(identifier: "testStep", title: "Test Hide Predicate", text: nil)
+        let textChoices = [
+            ORKTextChoice(text: "apple", value: "apple" as NSString),
+            ORKTextChoice(text: "banana", value: "banana" as NSString),
+            ORKTextChoice(text: "cherry", value: "cherry" as NSString)
+        ]
+        let formatList: [FormatItem] = [
+            FormatItem(answerFormat: ORKAnswerFormat.booleanAnswerFormat(), title: "Boolean (alone)"),
+            FormatItem(answerFormat: ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices), title: "Text Choices (alone)"),
+            FormatItem(answerFormat: ORKAnswerFormat.dateAnswerFormat(), title: "Date Answer (combinable)"),
+            FormatItem(answerFormat: ORKAnswerFormat.decimalAnswerFormat(withUnit: "mg"), title: "Decimal (combinable)"),
+            FormatItem(answerFormat: ORKAnswerFormat.locationAnswerFormat(), title: "Location (alone)"),
+            FormatItem(answerFormat: ORKAnswerFormat.textAnswerFormat(), title: "Text (alone)"),
+            FormatItem(answerFormat: ORKTextAnswerFormat.timeIntervalAnswerFormat(), title: "Time Interval (combinable"),
+            FormatItem(answerFormat: ORKTextAnswerFormat.weightAnswerFormat(), title: "Weight (combinable)")
+            
+        ]
+        
+        let filterChoices = formatList.map { (formatItem) -> ORKTextChoice in
+            return ORKTextChoice(text: formatItem.title, value: formatItem.title as NSString)
+        }
+        let filterAnswerFormat = ORKTextChoiceAnswerFormat(style: .multipleChoice, textChoices: filterChoices)
+        let filterItem = ORKFormItem(identifier: "filterItem", text: "Hide which?", answerFormat: filterAnswerFormat)
+        var formItems = [filterItem]
+        
+        for formatItem in formatList {
+            let formItem = ORKFormItem(identifier: formatItem.title, text: formatItem.title, answerFormat: formatItem.answerFormat)
+            let resultSelector = ORKResultSelector(stepIdentifier: "testStep", resultIdentifier: "filterItem")
+            formItem.hidePredicate = ORKResultPredicate.predicateForChoiceQuestionResult(with: resultSelector, expectedAnswerValue: formatItem.title as NSString)
+            formItems.append(formItem)
+        }
+        
+        testStep.formItems = formItems
+        
+        return ORKOrderedTask(identifier: "testPredicateHide", steps: [testStep])
     }
 
     

@@ -800,7 +800,6 @@
             if ([oldSections containsObject:section]) {
                 [sectionsToDelete addIndex:[oldSections indexOfObject:section]];
             }
-            [_hiddenFormItems addObject:formItem];
         }
     }
 
