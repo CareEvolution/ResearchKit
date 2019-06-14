@@ -9,6 +9,7 @@
 @import Foundation;
 #import "ORKTextChoiceCellGroup.h"
 
+NS_ASSUME_NONNULL_BEGIN
 
 @class ORKMedicationChoiceCellGroup, UIViewController, ORKMedication;
 
@@ -25,12 +26,11 @@
 @property (nonatomic, copy, readonly, nonnull) NSString *shortText;
 @property (nonatomic, copy, readonly, nullable) NSString *longText;
 
-- (instancetype) initWithShortText:(NSString * __nonnull)shortText longText:(NSString * __nullable)longText;
+- (instancetype) initWithShortText:(NSString *)shortText longText:(NSString * __nullable)longText;
 
 @end
 
 
-NS_ASSUME_NONNULL_BEGIN
 
 
 @class ORKMedicationChoiceViewCell;
