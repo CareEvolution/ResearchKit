@@ -193,6 +193,7 @@
 "NULL_ANSWER" = "Select an answer";
 "PLACEHOLDER_IMAGE_CHOICES" = "Tap to select";
 "PLACEHOLDER_LONG_TEXT" = "Tap to write";
+"PLACEHOLDER_ADD_MEDICATION" = "Add a medication";
 
 /* Button titles */
 "BUTTON_AGREE" = "Agree";

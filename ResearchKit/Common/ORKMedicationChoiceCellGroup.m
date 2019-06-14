@@ -14,6 +14,7 @@
 #import "ORKChoiceViewCell.h"
 
 #import "ORKAnswerFormat_Internal.h"
+#import "ORKHelpers_Internal.h"
 
 #import "ORKResult.h"
 
@@ -94,7 +95,7 @@
 
 - (void)configureAsSelectMedicationCell:(ORKChoiceViewCell *)cell {
     cell.selectable = NO;
-    cell.shortLabel.text = @"[Add a Medication]";
+    cell.shortLabel.text = [NSString stringWithFormat:@"[%@]", ORKLocalizedString(@"PLACEHOLDER_ADD_MEDICATION", nil)];
     cell.shortLabel.textColor = [UIColor grayColor];
     cell.longLabel.text = nil;
 }
@@ -114,7 +115,7 @@
         return;
     }
     ORKChoiceViewCell *touchedCell = [self cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:nil];
-    if ([touchedCell.shortLabel.text isEqualToString:@"[Add a Medication]"]) {
+    if ([touchedCell.shortLabel.text isEqualToString:[NSString stringWithFormat:@"[%@]", ORKLocalizedString(@"PLACEHOLDER_ADD_MEDICATION", nil)]]) {
         //spawn to add medication
         if ([_medicationPicker respondsToSelector:@selector(summonMedPickerFromPresentingViewController:)]) {
             [_medicationPicker summonMedPickerFromPresentingViewController:presentingViewController];
@@ -159,7 +160,7 @@
 
 - (ORKMedicationCellText *)medicationCellTextForRow:(NSInteger)row {
     if ((_singleChoice && self.medications.count == 0) || (!_singleChoice && row == 0)) {
-        return [[ORKMedicationCellText alloc] initWithShortText:@"[Add a Medication]" longText:nil];
+        return [[ORKMedicationCellText alloc] initWithShortText:[NSString stringWithFormat:@"[%@]", ORKLocalizedString(@"PLACEHOLDER_ADD_MEDICATION", nil)] longText:nil];
     }
     ORKMedication *medication = self.medications[[self correctedIndexForRow:row]];
     return [[ORKMedicationCellText alloc] initWithShortText:medication.medicationDescription longText:medication.detailedDescription];
