@@ -31,6 +31,7 @@
 #import "ORKWebViewStepViewController.h"
 #import "ORKWebViewStep.h"
 #import <ResearchKit/ORKResult.h>
+@import SafariServices;
 
 @implementation ORKWebViewStepViewController {
     WKWebView *_webView;
@@ -87,6 +88,32 @@
         parentResult.results = @[childResult];
     }
     return parentResult;
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
+        if (navigationAction.targetFrame != nil
+            && ([navigationAction.request.URL.scheme isEqualToString:@"http"]
+                || [navigationAction.request.URL.scheme isEqualToString:@"https"])) {
+                if (@available(iOS 11.0, *)) {
+                    SFSafariViewControllerConfiguration *cfg = [[SFSafariViewControllerConfiguration alloc] init];
+                    cfg.barCollapsingEnabled = YES;
+                    SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:navigationAction.request.URL configuration:cfg];
+                    safari.preferredBarTintColor = self.navigationController.navigationBar.barTintColor;
+                    safari.preferredControlTintColor = self.view.tintColor;
+                    [self presentViewController:safari animated:YES completion:NULL];
+                    decisionHandler(WKNavigationActionPolicyCancel);
+                    return;
+                }
+            }
+        
+        if ([[UIApplication sharedApplication] canOpenURL:navigationAction.request.URL]) {
+            [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }
+    }
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {

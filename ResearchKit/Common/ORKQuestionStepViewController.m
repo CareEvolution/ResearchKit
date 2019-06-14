@@ -385,8 +385,8 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 
 - (void)updateButtonStates {
     if ([self isStepImmediateNavigation]) {
-        _continueSkipView.neverHasContinueButton = YES;
-        _continueSkipView.continueButtonItem = nil;
+//        _continueSkipView.neverHasContinueButton = YES;
+//        _continueSkipView.continueButtonItem = nil;
     }
     _questionView.continueSkipContainer.continueEnabled = [self continueButtonEnabled];
     _continueSkipView.continueEnabled = [self continueButtonEnabled];
