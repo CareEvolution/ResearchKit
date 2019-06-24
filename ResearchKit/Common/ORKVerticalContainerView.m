@@ -84,7 +84,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
     
     // CEV HACK
     NSUInteger autoLayoutLoopCount;
-    BOOL addedCarriageReturn;
+    NSUInteger carriageReturnsAdded;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -136,8 +136,9 @@ static const CGFloat AssumedStatusBarHeight = 20;
         [self addGestureRecognizer:swipeOffRecognizer];
         
         // CEV HACK
-        addedCarriageReturn = NO;
         autoLayoutLoopCount = 0;
+        carriageReturnsAdded = 0;
+        self.delegate = self;
     }
     return self;
 }
@@ -858,12 +859,17 @@ static const CGFloat AssumedStatusBarHeight = 20;
      of ORKInstructionStep) which appears to break the loop by allowing the constraints to be
      satisfied.
      
-     For more info see: https://github.com/CareEvolution/CEVResearchKit/issues/116, https://github.com/CareEvolution/CEVResearchKit/issues/136
-    */
+     Additional carriage returns will be added if the loop persists every 50 iterations.
+     
+     For more info see: https://github.com/CareEvolution/CEVResearchKit/issues/116,
+     https://github.com/CareEvolution/CEVResearchKit/issues/136,
+     https://github.com/CareEvolution/CEVResearchKit/issues/152
+     */
     
     autoLayoutLoopCount++;
     
-    if (autoLayoutLoopCount > 50 && !addedCarriageReturn) {
+    if (autoLayoutLoopCount % 50 == 0 &&
+        autoLayoutLoopCount / 50 > carriageReturnsAdded) {
         if (_scrollContainer.subviews.count > 0 && _scrollContainer.subviews[0].subviews.count > 0 && _scrollContainer.subviews[0].subviews[0].subviews.count > 3) {
             UIView *possibleSubheadLineLabel = _scrollContainer.subviews[0].subviews[0].subviews[3];
             if ([possibleSubheadLineLabel isKindOfClass:[ORKSubheadlineLabel class]]) {
@@ -871,12 +877,17 @@ static const CGFloat AssumedStatusBarHeight = 20;
                 NSMutableString *updatedText = [NSMutableString stringWithString:subheadLineLabel.text];
                 [updatedText appendString:@"\n"];
                 subheadLineLabel.text = updatedText;
-                addedCarriageReturn = YES;  // if this is not done, if the view is scrolled, more carriageReturns will be added stretching the view out
+                carriageReturnsAdded++;
             }
         }
     }
     
     [super layoutSubviews];
+}
+
+// CEV HACK
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    autoLayoutLoopCount = 0;
 }
 
 @end
