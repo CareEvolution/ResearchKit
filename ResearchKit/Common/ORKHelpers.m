@@ -38,6 +38,8 @@
 
 #import <CoreText/CoreText.h>
 
+#import "CEVRKTheme.h"
+
 
 NSURL *ORKCreateRandomBaseURL() {
     return [NSURL URLWithString:[NSString stringWithFormat:@"http://researchkit.%@/", [NSUUID UUID].UUIDString]];
@@ -394,7 +396,12 @@ UIFont *ORKThinFontWithSize(CGFloat size) {
 UIFont *ORKMediumFontWithSize(CGFloat size) {
     UIFont *font = nil;
     if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){.majorVersion = 8, .minorVersion = 2, .patchVersion = 0}]) {
-        font = [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
+        CEVRKTheme *theme = [CEVRKTheme sharedTheme];
+        if (theme.fontName) {
+            font = [UIFont fontWithName:theme.fontName size:size];
+        } else {
+            font = [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
+        }
     } else {
         font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:size];
         if (!font) {
