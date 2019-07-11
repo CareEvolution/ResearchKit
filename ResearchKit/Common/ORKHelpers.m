@@ -383,7 +383,12 @@ CGFloat ORKTableViewLeftMargin(UITableView *tableView) {
 UIFont *ORKThinFontWithSize(CGFloat size) {
     UIFont *font = nil;
     if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){.majorVersion = 8, .minorVersion = 2, .patchVersion = 0}]) {
-        font = [UIFont systemFontOfSize:size weight:UIFontWeightThin];
+        CEVRKTheme *theme = [CEVRKTheme sharedTheme];
+        if (theme.fontName) {
+            font = [UIFont fontWithName:theme.fontName size:size];
+        } else {
+            font = [UIFont systemFontOfSize:size weight:UIFontWeightThin];
+        }
     } else {
         font = [UIFont fontWithName:@".HelveticaNeueInterface-Thin" size:size];
         if (!font) {
@@ -414,7 +419,12 @@ UIFont *ORKMediumFontWithSize(CGFloat size) {
 UIFont *ORKLightFontWithSize(CGFloat size) {
     UIFont *font = nil;
     if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){.majorVersion = 8, .minorVersion = 2, .patchVersion = 0}]) {
-        font = [UIFont systemFontOfSize:size weight:UIFontWeightLight];
+        CEVRKTheme *theme = [CEVRKTheme sharedTheme];
+        if (theme.fontName) {
+            font = [UIFont fontWithName:theme.fontName size:size];
+        } else {
+            font = [UIFont systemFontOfSize:size weight:UIFontWeightLight];
+        }
     } else {
         font = [UIFont fontWithName:@".HelveticaNeueInterface-Light" size:size];
         if (!font) {
