@@ -14,6 +14,6 @@
 
 @property (nonatomic, retain) NSString *fontName;
 
-+ (id)sharedTheme;
++ (instancetype)sharedTheme;
 
 @end

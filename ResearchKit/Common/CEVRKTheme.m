@@ -16,7 +16,7 @@
 
 #pragma mark Singleton Methods
 
-+ (id)sharedTheme {
++ (instancetype)sharedTheme {
     static CEVRKTheme *sharedCEVRKTheme = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -25,7 +25,7 @@
     return sharedCEVRKTheme;
 }
 
-- (id)init {
+- (instancetype)init {
     if (self = [super init]) {
         fontName = nil;
     }
