@@ -8,12 +8,19 @@
 
 @import Foundation;
 
-@interface CEVRKTheme : NSObject {
-    NSString *fontName;
-}
+@interface CEVRKThemeContinueButton : NSObject
+
+@property (nonatomic, retain) NSNumber *widthPercent;
+@property (nonatomic, retain) NSNumber *verticalPadding;
+
+@end
+
+@interface CEVRKTheme : NSObject
 
 @property (nonatomic, retain) NSString *fontName;
+@property (nonatomic, retain) CEVRKThemeContinueButton *continueButtonSettings;
 
 + (instancetype)sharedTheme;
+- (void)updateWithTheme:(CEVRKTheme *)theme;
 
 @end

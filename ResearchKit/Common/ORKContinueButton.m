@@ -33,6 +33,8 @@
 
 #import "ORKSkin.h"
 
+#import "CEVRKTheme.h"
+
 
 static const CGFloat ContinueButtonTouchMargin = 10;
 
@@ -66,12 +68,24 @@ static const CGFloat ContinueButtonTouchMargin = 10;
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
-    CGFloat height = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) ?
+    NSNumber *buttonVerticalPadding = [[[CEVRKTheme sharedTheme] continueButtonSettings] verticalPadding];
+    CGFloat height = 0;
+    if (buttonVerticalPadding) {
+        CGSize buttonLabelSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+        height = buttonLabelSize.height + (buttonVerticalPadding.floatValue * 2);
+    } else {
+        height = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) ?
         ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightCompact, window) :
         ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightRegular, window);
+    }
     _heightConstraint.constant = height;
     
-    _widthConstraint.constant = ORKGetMetricForWindow(ORKScreenMetricContinueButtonWidth, self.window);
+    NSNumber *buttonWidthPercent = [[[CEVRKTheme sharedTheme] continueButtonSettings] widthPercent];
+    if (buttonWidthPercent) {
+        _widthConstraint.constant = window.frame.size.width * buttonWidthPercent.floatValue / 100;
+    } else {
+        _widthConstraint.constant = ORKGetMetricForWindow(ORKScreenMetricContinueButtonWidth, self.window);
+    }
 }
 
 - (void)setUpConstraints {

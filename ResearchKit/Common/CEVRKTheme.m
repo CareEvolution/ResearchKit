@@ -12,7 +12,7 @@
 
 @implementation CEVRKTheme
 
-@synthesize fontName;
+@synthesize continueButtonSettings;
 
 #pragma mark Singleton Methods
 
@@ -27,9 +27,17 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        fontName = nil;
+        continueButtonSettings = nil;
     }
     return self;
 }
 
+- (void)updateWithTheme:(CEVRKTheme *)theme {
+    self.continueButtonSettings = theme.continueButtonSettings;
+}
+
+@end
+
+@implementation CEVRKThemeContinueButton
+@synthesize widthPercent, verticalPadding;
 @end
