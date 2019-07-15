@@ -38,8 +38,6 @@
 
 #import <CoreText/CoreText.h>
 
-#import "CEVRKTheme.h"
-
 
 NSURL *ORKCreateRandomBaseURL() {
     return [NSURL URLWithString:[NSString stringWithFormat:@"http://researchkit.%@/", [NSUUID UUID].UUIDString]];
@@ -383,12 +381,7 @@ CGFloat ORKTableViewLeftMargin(UITableView *tableView) {
 UIFont *ORKThinFontWithSize(CGFloat size) {
     UIFont *font = nil;
     if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){.majorVersion = 8, .minorVersion = 2, .patchVersion = 0}]) {
-        CEVRKTheme *theme = [CEVRKTheme sharedTheme];
-        if (theme.fontName) {
-            font = [UIFont fontWithName:theme.fontName size:size];
-        } else {
-            font = [UIFont systemFontOfSize:size weight:UIFontWeightThin];
-        }
+        font = [UIFont systemFontOfSize:size weight:UIFontWeightThin];
     } else {
         font = [UIFont fontWithName:@".HelveticaNeueInterface-Thin" size:size];
         if (!font) {
@@ -401,12 +394,7 @@ UIFont *ORKThinFontWithSize(CGFloat size) {
 UIFont *ORKMediumFontWithSize(CGFloat size) {
     UIFont *font = nil;
     if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){.majorVersion = 8, .minorVersion = 2, .patchVersion = 0}]) {
-        CEVRKTheme *theme = [CEVRKTheme sharedTheme];
-        if (theme.fontName) {
-            font = [UIFont fontWithName:theme.fontName size:size];
-        } else {
-            font = [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
-        }
+        font = [UIFont systemFontOfSize:size weight:UIFontWeightMedium];
     } else {
         font = [UIFont fontWithName:@"HelveticaNeue-Medium" size:size];
         if (!font) {
@@ -419,12 +407,7 @@ UIFont *ORKMediumFontWithSize(CGFloat size) {
 UIFont *ORKLightFontWithSize(CGFloat size) {
     UIFont *font = nil;
     if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){.majorVersion = 8, .minorVersion = 2, .patchVersion = 0}]) {
-        CEVRKTheme *theme = [CEVRKTheme sharedTheme];
-        if (theme.fontName) {
-            font = [UIFont fontWithName:theme.fontName size:size];
-        } else {
-            font = [UIFont systemFontOfSize:size weight:UIFontWeightLight];
-        }
+        font = [UIFont systemFontOfSize:size weight:UIFontWeightLight];
     } else {
         font = [UIFont fontWithName:@".HelveticaNeueInterface-Light" size:size];
         if (!font) {
