@@ -12,7 +12,7 @@
 
 @implementation CEVRKTheme
 
-@synthesize continueButtonSettings;
+@synthesize themeName;
 
 #pragma mark Singleton Methods
 
@@ -27,59 +27,13 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        continueButtonSettings = nil;
+        themeName = nil;
     }
     return self;
 }
 
-- (void)updateWithTheme:(nullable CEVRKTheme *)theme {
-    self.continueButtonSettings = theme.continueButtonSettings;
-}
-
-@end
-
-@implementation CEVRKThemeContinueButton
-@synthesize widthPercent, verticalPadding;
-@end
-
-
-@implementation CEVRKGradient
-
-@synthesize grandientAnchors = _grandientAnchors;
-@synthesize axis = _axis;
-
-- (instancetype)initWithAxis:(UILayoutConstraintAxis)axis gradientAnchors:(NSArray<CEVRKGradientAnchor *> *)gradientAnchors {
-    if (self = [super init]) {
-        _axis = axis;
-        _grandientAnchors = gradientAnchors;
-        return self;
-    }
-    return nil;
-}
-
-@end
-
-
-@implementation CEVRKGradientAnchor
-
-@synthesize gradientHexColor = _gradientHexColor;
-@synthesize location = _location;
-
-- (instancetype)initWithGradientHexColor:(NSString *)gradientHexColor location:(CGFloat)location {
-    if (self = [super init]) {
-        _gradientHexColor = gradientHexColor;
-        _location = location;
-        return self;
-    }
-    return nil;
-}
-
-- (UIColor *)colorForAnchorHex {
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:self.gradientHexColor];
-    [scanner setScanLocation:1]; // bypass '#' character
-    [scanner scanHexInt:&rgbValue];
-    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+- (void)updateWithTheme:(NSString *)themeName {
+    self.themeName = themeName;
 }
 
 @end

@@ -68,23 +68,25 @@ static const CGFloat ContinueButtonTouchMargin = 10;
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
-    NSNumber *buttonVerticalPadding = [[[CEVRKTheme sharedTheme] continueButtonSettings] verticalPadding];
-    CGFloat height = 0;
-    if (buttonVerticalPadding) {
-        CGSize buttonLabelSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
-        height = buttonLabelSize.height + (buttonVerticalPadding.floatValue * 2);
-    } else {
-        height = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) ?
-        ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightCompact, window) :
-        ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightRegular, window);
-    }
+    CGFloat height = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) ?
+    ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightCompact, window) :
+    ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightRegular, window);
     _heightConstraint.constant = height;
     
-    NSNumber *buttonWidthPercent = [[[CEVRKTheme sharedTheme] continueButtonSettings] widthPercent];
-    if (buttonWidthPercent) {
-        _widthConstraint.constant = window.frame.size.width * buttonWidthPercent.floatValue / 100;
-    } else {
-        _widthConstraint.constant = ORKGetMetricForWindow(ORKScreenMetricContinueButtonWidth, self.window);
+    _widthConstraint.constant = ORKGetMetricForWindow(ORKScreenMetricContinueButtonWidth, self.window);
+    [self themeUpdatesForConstraints];
+}
+    
+- (void)themeUpdatesForConstraints {
+    NSString *themeName = [[CEVRKTheme sharedTheme] themeName];
+    if (!themeName || themeName.length == 0) {
+        return;
+    }
+    
+    if ([themeName isEqualToString:kThemeAllOfUs]) {
+        CGSize buttonLabelSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+        _heightConstraint.constant = buttonLabelSize.height + (16 * 2);     // padding of 16
+        _widthConstraint.constant = window.frame.size.width;                // width 100 %
     }
 }
 
@@ -135,60 +137,39 @@ static const CGFloat ContinueButtonTouchMargin = 10;
 }
 
 - (void)themeButtonOverrides {
-    CEVRKThemeContinueButton *continueButtonSettings = [[CEVRKTheme sharedTheme] continueButtonSettings];
-    if (!continueButtonSettings) {
+    
+    NSString *themeName = [[CEVRKTheme sharedTheme] themeName];
+    if (!themeName || themeName.length == 0) {
         return;
     }
     
-    CEVRKGradient *backgroundGradient = continueButtonSettings.backgroundGradient;
-    if (!backgroundGradient) {
-        return;
+    if ([themeName isEqualToString:kThemeAllOfUs]) {
+        
+        CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
+        gradient.frame = self.bounds;
+        gradient.colors = @[(id)ORKRGB(0xf38d7a).CGColor, (id)ORKRGB(0xf8c954).CGColor];
+        gradient.startPoint = CGPointMake(0, 0);
+        gradient.endPoint = CGPointMake(1, 0);
+        
+        //gradient.cornerRadius = 5.0f;
+        
+        [self.layer insertSublayer:gradient atIndex:0];
+        
+        //self.layer.borderColor = [[UIColor clearColor] CGColor];
+        //self.layer.borderWidth = 0.1f;
+        //self.layer.cornerRadius = 5.0f;
+        //self.layer.borderColor = [_disableTintColor CGColor];
+        
+        /*
+         if (self.titleLabel.text) {
+         NSDictionary *attributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17],
+         NSForegroundColorAttributeName : [ORKBorderedButton colorFromHexString:@"#262262"]
+         };
+         NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[self.titleLabel.text uppercaseString] attributes:attributes];
+         
+         [self setAttributedTitle:attributedString forState:UIControlStateNormal];
+         }*/
     }
-    
-    CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
-    gradient.frame = self.bounds;
-    
-    NSMutableArray *cgColors = [[NSMutableArray alloc] init];
-    NSMutableArray *locations = [[NSMutableArray alloc] init];
-    for (CEVRKGradientAnchor *anchor in backgroundGradient.grandientAnchors) {
-        [cgColors addObject:(id)[anchor colorForAnchorHex].CGColor];
-        [locations addObject:[NSNumber numberWithFloat:anchor.location]];
-    }
-    
-    switch (backgroundGradient.axis) {
-        case UILayoutConstraintAxisVertical:
-            gradient.startPoint = CGPointMake(0, 0);
-            gradient.endPoint = CGPointMake(0, 1);
-            break;
-        case UILayoutConstraintAxisHorizontal:
-            gradient.startPoint = CGPointMake(0, 0);
-            gradient.endPoint = CGPointMake(1, 0);
-        default:
-            break;
-    }
-    
-    gradient.colors = [cgColors copy];
-    gradient.locations = [locations copy];
-    
-    //gradient.cornerRadius = 5.0f;
-    
-    [self.layer insertSublayer:gradient atIndex:0];
-    NSLog(@"Adding gradient - frame: %f, %f, %f, %f", gradient.frame.origin.x, gradient.frame.origin.y, gradient.frame.size.width, gradient.frame.size.height);
-    
-    //self.layer.borderColor = [[UIColor clearColor] CGColor];
-    //self.layer.borderWidth = 0.1f;
-    //self.layer.cornerRadius = 5.0f;
-    //self.layer.borderColor = [_disableTintColor CGColor];
-    
-    /*
-     if (self.titleLabel.text) {
-     NSDictionary *attributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17],
-     NSForegroundColorAttributeName : [ORKBorderedButton colorFromHexString:@"#262262"]
-     };
-     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[self.titleLabel.text uppercaseString] attributes:attributes];
-     
-     [self setAttributedTitle:attributedString forState:UIControlStateNormal];
-     }*/
 }
 
 @end
