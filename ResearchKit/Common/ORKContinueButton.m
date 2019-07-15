@@ -129,4 +129,66 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     return isInside;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self themeButtonOverrides];
+}
+
+- (void)themeButtonOverrides {
+    CEVRKThemeContinueButton *continueButtonSettings = [[CEVRKTheme sharedTheme] continueButtonSettings];
+    if (!continueButtonSettings) {
+        return;
+    }
+    
+    CEVRKGradient *backgroundGradient = continueButtonSettings.backgroundGradient;
+    if (!backgroundGradient) {
+        return;
+    }
+    
+    CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
+    gradient.frame = self.bounds;
+    
+    NSMutableArray *cgColors = [[NSMutableArray alloc] init];
+    NSMutableArray *locations = [[NSMutableArray alloc] init];
+    for (CEVRKGradientAnchor *anchor in backgroundGradient.grandientAnchors) {
+        [cgColors addObject:(id)[anchor colorForAnchorHex].CGColor];
+        [locations addObject:[NSNumber numberWithFloat:anchor.location]];
+    }
+    
+    switch (backgroundGradient.axis) {
+        case UILayoutConstraintAxisVertical:
+            gradient.startPoint = CGPointMake(0, 0);
+            gradient.endPoint = CGPointMake(0, 1);
+            break;
+        case UILayoutConstraintAxisHorizontal:
+            gradient.startPoint = CGPointMake(0, 0);
+            gradient.endPoint = CGPointMake(1, 0);
+        default:
+            break;
+    }
+    
+    gradient.colors = [cgColors copy];
+    gradient.locations = [locations copy];
+    
+    //gradient.cornerRadius = 5.0f;
+    
+    [self.layer insertSublayer:gradient atIndex:0];
+    NSLog(@"Adding gradient - frame: %f, %f, %f, %f", gradient.frame.origin.x, gradient.frame.origin.y, gradient.frame.size.width, gradient.frame.size.height);
+    
+    //self.layer.borderColor = [[UIColor clearColor] CGColor];
+    //self.layer.borderWidth = 0.1f;
+    //self.layer.cornerRadius = 5.0f;
+    //self.layer.borderColor = [_disableTintColor CGColor];
+    
+    /*
+     if (self.titleLabel.text) {
+     NSDictionary *attributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17],
+     NSForegroundColorAttributeName : [ORKBorderedButton colorFromHexString:@"#262262"]
+     };
+     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[self.titleLabel.text uppercaseString] attributes:attributes];
+     
+     [self setAttributedTitle:attributedString forState:UIControlStateNormal];
+     }*/
+}
+
 @end
