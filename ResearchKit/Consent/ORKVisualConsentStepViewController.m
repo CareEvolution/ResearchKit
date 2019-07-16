@@ -410,6 +410,8 @@
         _animationView.accessibilityLabel = [NSString stringWithFormat:ORKLocalizedString(@"AX_IMAGE_ILLUSTRATION", nil), currentSection.title];
         _animationView.accessibilityTraits |= UIAccessibilityTraitImage;
     }
+    
+    [[self visualConsentDelegate] visualConsentStepViewController:self didShowSection:currentSection sectionIndex:currentIndex];
 }
 
 - (void)setScrollEnabled:(BOOL)enabled {
