@@ -34,6 +34,8 @@
 #import "ORKSkin.h"
 
 #import "CEVRKTheme.h"
+#import "ORKHelpers_Internal.h"
+#import "ORKHeadlineLabel.h"
 
 
 static const CGFloat ContinueButtonTouchMargin = 10;
@@ -65,6 +67,14 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     if (self.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass) {
         [self updateConstraintConstantsForWindow:self.window];
     }
+    
+    NSString *themeName = [[CEVRKTheme sharedTheme] themeName];
+    if (!themeName || themeName.length == 0) {
+        return;
+    }
+    if ([themeName isEqualToString:kThemeAllOfUs] && self.traitCollection.preferredContentSizeCategory != previousTraitCollection.preferredContentSizeCategory) {
+        [self updateButtonTextForAllOfUs];
+    }
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
@@ -74,22 +84,23 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     _heightConstraint.constant = height;
     
     _widthConstraint.constant = ORKGetMetricForWindow(ORKScreenMetricContinueButtonWidth, self.window);
-    [self themeUpdatesForConstraints];
+    [self themeUpdatesForConstraintsWithWindow:window];
 }
     
-- (void)themeUpdatesForConstraints {
+- (void)themeUpdatesForConstraintsWithWindow:(UIWindow *)window {
     NSString *themeName = [[CEVRKTheme sharedTheme] themeName];
     if (!themeName || themeName.length == 0) {
         return;
     }
     
     if ([themeName isEqualToString:kThemeAllOfUs]) {
-        CGSize buttonLabelSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17]}];
+        CGSize buttonLabelSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [ORKContinueButton defaultFont]}];
         _heightConstraint.constant = buttonLabelSize.height + (16 * 2);     // padding of 16
-        _widthConstraint.constant = window.frame.size.width;                // width 100 %
+        _widthConstraint.constant = window.frame.size.width - (20 * 2);     // width 100 % minus system padding
+        _widthConstraint.priority = 999;
     }
 }
-
+    
 - (void)setUpConstraints {
     _heightConstraint = [NSLayoutConstraint constraintWithItem:self
                                                      attribute:NSLayoutAttributeHeight
@@ -145,31 +156,41 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     
     if ([themeName isEqualToString:kThemeAllOfUs]) {
         
+        // remove any previous gradient layers if button resizes due to state changes
+        
+        for (NSInteger layerIndex = self.layer.sublayers.count - 1; layerIndex >= 0; layerIndex --) {
+            CALayer *layer = self.layer.sublayers[layerIndex];
+            if ([layer isKindOfClass:[CAGradientLayer class]]) {
+                [layer removeFromSuperlayer];
+            }
+        }
+        
         CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
         gradient.frame = self.bounds;
         gradient.colors = @[(id)ORKRGB(0xf38d7a).CGColor, (id)ORKRGB(0xf8c954).CGColor];
         gradient.startPoint = CGPointMake(0, 0);
         gradient.endPoint = CGPointMake(1, 0);
-        
-        //gradient.cornerRadius = 5.0f;
+        gradient.cornerRadius = 5.0f;
         
         [self.layer insertSublayer:gradient atIndex:0];
         
-        //self.layer.borderColor = [[UIColor clearColor] CGColor];
-        //self.layer.borderWidth = 0.1f;
-        //self.layer.cornerRadius = 5.0f;
-        //self.layer.borderColor = [_disableTintColor CGColor];
+        self.layer.borderWidth = 0;
         
-        /*
-         if (self.titleLabel.text) {
-         NSDictionary *attributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17],
-         NSForegroundColorAttributeName : [ORKBorderedButton colorFromHexString:@"#262262"]
-         };
-         NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[self.titleLabel.text uppercaseString] attributes:attributes];
-         
-         [self setAttributedTitle:attributedString forState:UIControlStateNormal];
-         }*/
+        [self updateButtonTextForAllOfUs];
     }
+}
+
+- (void)updateButtonTextForAllOfUs {
+    if (!self.titleLabel.text) {
+        return;
+    }
+    
+    UIFont *fontToMakeBold = [ORKContinueButton defaultFont];
+    NSDictionary *attributes = @{           NSFontAttributeName            : [UIFont boldSystemFontOfSize:fontToMakeBold.pointSize],
+                                            NSForegroundColorAttributeName : ORKRGB(0x262262),
+                                            NSKernAttributeName            : @(3)};  // 3 pts = 0.25 em
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[self.titleLabel.text uppercaseString] attributes:attributes];
+    [self setAttributedTitle:attributedString forState:UIControlStateNormal];
 }
 
 @end

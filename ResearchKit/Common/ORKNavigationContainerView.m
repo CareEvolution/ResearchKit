@@ -34,6 +34,8 @@
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
 
+#import "CEVRKTheme.h"
+
 
 @implementation ORKNavigationContainerView {
     NSLayoutConstraint *_skipToContinueButtonConstraint;
@@ -324,13 +326,18 @@
     }
     
     {
+        CGFloat distanceFromBottom = 0.0;
+        if ([[[CEVRKTheme sharedTheme] themeName] isEqualToString:kThemeAllOfUs]) {
+            distanceFromBottom = 44 - 52;  // difference in height between theme and standard for continue button
+        }
+        
         NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:_continueButton
                                                                             attribute:NSLayoutAttributeBottom
                                                                             relatedBy:NSLayoutRelationLessThanOrEqual
                                                                                toItem:self
                                                                             attribute:NSLayoutAttributeBottomMargin
                                                                            multiplier:1.0
-                                                                             constant:0.0];
+                                                                             constant:distanceFromBottom];
         bottomConstraint.priority = UILayoutPriorityDefaultHigh + 1;
         [constraints addObject:bottomConstraint];
     }
