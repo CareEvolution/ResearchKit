@@ -377,6 +377,7 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
         if (finished) {
             ORKStrongTypeOf(weakSelf) strongSelf = weakSelf;
             [strongSelf updateBackButton];
+            [[strongSelf consentReviewDelegate] consentReviewStepViewController:strongSelf didShowPhaseIndex:page];
             
             //register ScrollView to update hairline
             if ([viewController isKindOfClass:[ORKConsentReviewController class]]) {

@@ -36,6 +36,29 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class ORKVisualConsentStepViewController;
+@class ORKConsentSection;
+
+/**
+ Implement this delegate in order to observe the user's interaction with a visual consent step.
+ */
+ORK_CLASS_AVAILABLE
+@protocol ORKVisualConsentStepViewControllerDelegate<NSObject>
+
+@optional
+
+/**
+ Tells the delegate when each section of the consent document is displayed, as the user navigates through them.
+ 
+ @param stepViewController The step view controller providing the callback.
+ @param section            The consent section displayed.
+ @param index              The index of the consent section.
+ */
+- (void)visualConsentStepViewController:(ORKVisualConsentStepViewController *)stepViewController didShowSection:(ORKConsentSection *)section sectionIndex:(NSInteger)index;
+
+@end
+
+
 /**
  The `ORKVisualConsentStepViewController` class is a view controller subclass
  used to manage a visual consent step (`ORKVisualConsentStep`).
@@ -46,6 +69,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 ORK_CLASS_AVAILABLE
 @interface ORKVisualConsentStepViewController : ORKStepViewController
+
+/**
+ The delegate for visual consent interactions. This delegate is optional.
+ */
+@property (nonatomic, weak, nullable) id<ORKVisualConsentStepViewControllerDelegate> visualConsentDelegate;
 
 /**
  The view in which animations are displayed.
