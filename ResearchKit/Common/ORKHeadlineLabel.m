@@ -34,6 +34,8 @@
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
 
+#import "CEVRKTheme.h"
+
 
 @implementation ORKHeadlineLabel
 
@@ -44,7 +46,11 @@
     CGFloat fontSize = [[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] - defaultHeadlineSize + ORKGetMetricForWindow(surveyMode ? ORKScreenMetricFontSizeSurveyHeadline : ORKScreenMetricFontSizeHeadline, nil);
     CGFloat maxFontSize = ORKGetMetricForWindow(surveyMode ? ORKScreenMetricMaxFontSizeSurveyHeadline : ORKScreenMetricMaxFontSizeHeadline, nil);
     
-    return ORKLightFontWithSize(MIN(maxFontSize, fontSize));
+    if ([[[CEVRKTheme sharedTheme] themeName] isEqualToString:kThemeAllOfUs]) {
+        return [UIFont boldSystemFontOfSize:MIN(maxFontSize, fontSize)];
+    } else {
+        return ORKLightFontWithSize(MIN(maxFontSize, fontSize));
+    }
 }
 
 + (UIFont *)defaultFont {
@@ -62,6 +68,9 @@
 
 // Nasty override (hack)
 - (void)updateAppearance {
+    if ([[[CEVRKTheme sharedTheme] themeName] isEqualToString:kThemeAllOfUs]) {
+        self.textColor = ORKRGB(0x262262);
+    }
     self.font = [self defaultFont];
     [self invalidateIntrinsicContentSize];
 }
