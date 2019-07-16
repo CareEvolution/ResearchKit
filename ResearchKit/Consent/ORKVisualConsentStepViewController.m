@@ -411,7 +411,9 @@
         _animationView.accessibilityTraits |= UIAccessibilityTraitImage;
     }
     
-    [[self visualConsentDelegate] visualConsentStepViewController:self didShowSection:currentSection sectionIndex:currentIndex];
+    if ([[self visualConsentDelegate] respondsToSelector:@selector(visualConsentStepViewController:didShowSection:sectionIndex:)]) {
+        [[self visualConsentDelegate] visualConsentStepViewController:self didShowSection:currentSection sectionIndex:currentIndex];
+    }
 }
 
 - (void)setScrollEnabled:(BOOL)enabled {
