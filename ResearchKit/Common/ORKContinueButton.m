@@ -43,6 +43,7 @@ static const CGFloat ContinueButtonTouchMargin = 10;
 @implementation ORKContinueButton {
     NSLayoutConstraint *_heightConstraint;
     NSLayoutConstraint *_widthConstraint;
+    UIColor *_disableTintColor;
 }
 
 - (instancetype)initWithTitle:(NSString *)title isDoneButton:(BOOL)isDoneButton {
@@ -51,7 +52,8 @@ static const CGFloat ContinueButtonTouchMargin = 10;
         [self setTitle:title forState:UIControlStateNormal];
         self.isDoneButton = isDoneButton;
         self.contentEdgeInsets = (UIEdgeInsets){.left = 6, .right = 6};
-
+        _disableTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];  // same as super class setting
+        
         [self setUpConstraints];
     }
     return self;
@@ -167,7 +169,10 @@ static const CGFloat ContinueButtonTouchMargin = 10;
         
         [self updateButtonTextForAllOfUs];
         
+        
+        
         if (!self.isEnabled) {
+            self.layer.borderColor = _disableTintColor.CGColor;
             return;
         }
         
@@ -189,9 +194,11 @@ static const CGFloat ContinueButtonTouchMargin = 10;
         return;
     }
     
+    UIColor *textColor = self.isEnabled ? ORKRGB(0x262262) : _disableTintColor;
+    
     UIFont *fontToMakeBold = [ORKContinueButton defaultFont];
     NSDictionary *attributes = @{           NSFontAttributeName            : [UIFont boldSystemFontOfSize:fontToMakeBold.pointSize],
-                                            NSForegroundColorAttributeName : ORKRGB(0x262262),
+                                            NSForegroundColorAttributeName : textColor,
                                             NSKernAttributeName            : @(3)};  // 3 pts = 0.25 em
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[self.titleLabel.text uppercaseString] attributes:attributes];
     [self setAttributedTitle:attributedString forState:UIControlStateNormal];
