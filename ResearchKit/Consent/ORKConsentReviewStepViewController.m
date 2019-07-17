@@ -377,8 +377,13 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
         if (finished) {
             ORKStrongTypeOf(weakSelf) strongSelf = weakSelf;
             [strongSelf updateBackButton];
-            if ([[strongSelf consentReviewDelegate] respondsToSelector:@selector(consentReviewStepViewController:didShowPhaseIndex:)]) {
-                [[strongSelf consentReviewDelegate] consentReviewStepViewController:strongSelf didShowPhaseIndex:page];
+            
+            NSUInteger currentPageIndex = strongSelf->_currentPageIndex;
+            NSArray *pageIndices = strongSelf->_pageIndices;
+            if (currentPageIndex < pageIndices.count
+                && [[strongSelf consentReviewDelegate] respondsToSelector:@selector(consentReviewStepViewController:didShowPhaseIndex:)]) {
+                NSInteger phaseIndex = ((NSNumber *)pageIndices[currentPageIndex]).integerValue;
+                [[strongSelf consentReviewDelegate] consentReviewStepViewController:strongSelf didShowPhaseIndex:phaseIndex];
             }
             
             //register ScrollView to update hairline
