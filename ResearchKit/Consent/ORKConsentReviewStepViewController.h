@@ -41,6 +41,18 @@ NS_ASSUME_NONNULL_BEGIN
 @class ORKConsentReviewStepViewController;
 
 /**
+ Values that identify different phases of the consent review step. Which phases are shown to the user depend on the configuration of the associated ORKConsentSignature.
+ */
+typedef NS_ENUM(NSInteger, ORKConsentReviewPhase) {
+    /// The (optional) phase in which the user enters their name.
+    ORKConsentReviewPhaseName,
+    /// The phase in which the consent document is displayed for final review before agreeing.
+    ORKConsentReviewPhaseReviewDocument,
+    /// The (optional) phase in which the user enters a signature.
+    ORKConsentReviewPhaseSignature
+} ORK_ENUM_AVAILABLE;
+
+/**
  Implement this delegate in order to observe the user's interaction with a consent review step.
  */
 ORK_CLASS_AVAILABLE
@@ -52,9 +64,10 @@ ORK_CLASS_AVAILABLE
  Tells the delegate when various phases of consent review are displayed.
  
  @param stepViewController The step view controller providing the callback.
- @param index              A value indicating the phase of consent review. May not be contiguous (some phases may be skipped), depending on the signature requirements.
+ @param phase              The phase of consent review shown to the user.
+ @param pageIndex          Indicates the ordering of the phase shown to the user.
  */
-- (void)consentReviewStepViewController:(ORKConsentReviewStepViewController *)stepViewController didShowPhaseIndex:(NSInteger)index;
+- (void)consentReviewStepViewController:(ORKConsentReviewStepViewController *)stepViewController didShowPhase:(ORKConsentReviewPhase)phase pageIndex:(NSInteger)pageIndex;
 
 @end
 
