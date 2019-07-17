@@ -55,12 +55,6 @@
 #import "ORKSkin.h"
 
 
-typedef NS_ENUM(NSInteger, ORKConsentReviewPhase) {
-    ORKConsentReviewPhaseName,
-    ORKConsentReviewPhaseReviewDocument,
-    ORKConsentReviewPhaseSignature
-};
-
 @interface ORKConsentReviewStepViewController () <UIPageViewControllerDelegate, ORKStepViewControllerDelegate, ORKConsentReviewControllerDelegate> {
     ORKConsentSignature *_currentSignature;
     UIPageViewController *_pageViewController;
@@ -392,9 +386,9 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
             NSUInteger currentPageIndex = strongSelf->_currentPageIndex;
             NSArray *pageIndices = strongSelf->_pageIndices;
             if (currentPageIndex < pageIndices.count
-                && [[strongSelf consentReviewDelegate] respondsToSelector:@selector(consentReviewStepViewController:didShowPhaseIndex:)]) {
-                NSInteger phaseIndex = ((NSNumber *)pageIndices[currentPageIndex]).integerValue;
-                [[strongSelf consentReviewDelegate] consentReviewStepViewController:strongSelf didShowPhaseIndex:phaseIndex];
+                && [[strongSelf consentReviewDelegate] respondsToSelector:@selector(consentReviewStepViewController:didShowPhase:pageIndex:)]) {
+                ORKConsentReviewPhase phase = ((NSNumber *)pageIndices[currentPageIndex]).integerValue;
+                [[strongSelf consentReviewDelegate] consentReviewStepViewController:strongSelf didShowPhase:phase pageIndex:currentPageIndex];
             }
             
             //register ScrollView to update hairline
