@@ -165,6 +165,12 @@ static const CGFloat ContinueButtonTouchMargin = 10;
             }
         }
         
+        [self updateButtonTextForAllOfUs];
+        
+        if (!self.isEnabled) {
+            return;
+        }
+        
         CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
         gradient.frame = self.bounds;
         gradient.colors = @[(id)ORKRGB(0xf38d7a).CGColor, (id)ORKRGB(0xf8c954).CGColor];
@@ -175,8 +181,6 @@ static const CGFloat ContinueButtonTouchMargin = 10;
         [self.layer insertSublayer:gradient atIndex:0];
         
         self.layer.borderWidth = 0;
-        
-        [self updateButtonTextForAllOfUs];
     }
 }
 
