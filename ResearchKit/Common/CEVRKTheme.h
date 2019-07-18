@@ -8,17 +8,30 @@
 
 @import UIKit;
 
-static NSString * _Nonnull const kThemeAllOfUs = @"AllOfUs";
+typedef NS_ENUM(NSInteger, CEVRKThemeType) {
+    CEVRKThemeTypeDefault,
+    CEVRKThemeTypeAllOfUs
+} ORK_ENUM_AVAILABLE;
 
-NS_ASSUME_NONNULL_BEGIN
+
+@class ORKBorderedButton;
+@class ORKContinueButton;
 
 @interface CEVRKTheme : NSObject
 
-@property (nonatomic, retain, nullable) NSString *themeName;
++ (nonnull instancetype)sharedTheme;
+- (void)updateWithThemeType:(CEVRKThemeType)themeType;
 
-+ (instancetype)sharedTheme;
-- (void)updateWithTheme:(nullable NSString *)themeName;
+- (nullable UIFont *)headlineLabelFontWithSize:(CGFloat)fontSize;
+- (nullable UIColor *)headlineLabelFontColor;
+- (nullable UIColor *)taskViewControllerTintColor;
+- (nullable NSNumber *)navigationContrainerViewButtonConstraintFromContinueButton;
+- (nullable NSNumber *)continueButtonHeightForTextSize:(CGSize)textSize;
+- (nullable NSNumber *)continueButtonWidthForWindowWidth:(CGFloat)windowWidth;
+- (nullable UIColor *)disabledTintColor;
+- (void)updateAppearanceForContinueButton:(nonnull ORKContinueButton *)continueButton;
+- (void)updateTextForContinueButton:(nonnull ORKContinueButton *)continueButton;
+
+@property (nonatomic, assign) CEVRKThemeType themeType;
 
 @end
-
-NS_ASSUME_NONNULL_END

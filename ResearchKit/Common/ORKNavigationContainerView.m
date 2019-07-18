@@ -326,10 +326,7 @@
     }
     
     {
-        CGFloat distanceFromBottom = 0.0;
-        if ([[[CEVRKTheme sharedTheme] themeName] isEqualToString:kThemeAllOfUs]) {
-            distanceFromBottom = 44 - 52;  // difference in height between theme and standard for continue button
-        }
+        NSNumber *distanceFromBottom = [[CEVRKTheme sharedTheme] navigationContrainerViewButtonConstraintFromContinueButton] ?: @(0);
         
         NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:_continueButton
                                                                             attribute:NSLayoutAttributeBottom
@@ -337,7 +334,7 @@
                                                                                toItem:self
                                                                             attribute:NSLayoutAttributeBottomMargin
                                                                            multiplier:1.0
-                                                                             constant:distanceFromBottom];
+                                                                             constant:distanceFromBottom.floatValue];
         bottomConstraint.priority = UILayoutPriorityDefaultHigh + 1;
         [constraints addObject:bottomConstraint];
     }

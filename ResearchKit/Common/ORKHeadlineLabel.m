@@ -46,11 +46,9 @@
     CGFloat fontSize = [[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] - defaultHeadlineSize + ORKGetMetricForWindow(surveyMode ? ORKScreenMetricFontSizeSurveyHeadline : ORKScreenMetricFontSizeHeadline, nil);
     CGFloat maxFontSize = ORKGetMetricForWindow(surveyMode ? ORKScreenMetricMaxFontSizeSurveyHeadline : ORKScreenMetricMaxFontSizeHeadline, nil);
     
-    if ([[[CEVRKTheme sharedTheme] themeName] isEqualToString:kThemeAllOfUs]) {
-        return [UIFont boldSystemFontOfSize:MIN(maxFontSize, fontSize)];
-    } else {
-        return ORKLightFontWithSize(MIN(maxFontSize, fontSize));
-    }
+    CGFloat cappedFontSize = MIN(maxFontSize, fontSize);
+    
+    return [[CEVRKTheme sharedTheme] headlineLabelFontWithSize:cappedFontSize] ?: ORKLightFontWithSize(cappedFontSize);
 }
 
 + (UIFont *)defaultFont {
@@ -68,9 +66,11 @@
 
 // Nasty override (hack)
 - (void)updateAppearance {
-    if ([[[CEVRKTheme sharedTheme] themeName] isEqualToString:kThemeAllOfUs]) {
-        self.textColor = ORKRGB(0x262262);
+    UIColor *overrideColor = [[CEVRKTheme sharedTheme] headlineLabelFontColor];
+    if (overrideColor) {
+        self.textColor = overrideColor;
     }
+    
     self.font = [self defaultFont];
     [self invalidateIntrinsicContentSize];
 }

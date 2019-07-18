@@ -39,6 +39,7 @@ ORK_CLASS_AVAILABLE
 @interface ORKContinueButton : ORKBorderedButton
 
 - (instancetype)initWithTitle:(NSString *)title isDoneButton:(BOOL)isDoneButton;
++ (UIFont *)defaultFont;
 
 @property (nonatomic) BOOL isDoneButton;
 

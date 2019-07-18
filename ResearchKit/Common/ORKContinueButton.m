@@ -34,8 +34,6 @@
 #import "ORKSkin.h"
 
 #import "CEVRKTheme.h"
-#import "ORKHelpers_Internal.h"
-#import "ORKHeadlineLabel.h"
 
 
 static const CGFloat ContinueButtonTouchMargin = 10;
@@ -43,7 +41,6 @@ static const CGFloat ContinueButtonTouchMargin = 10;
 @implementation ORKContinueButton {
     NSLayoutConstraint *_heightConstraint;
     NSLayoutConstraint *_widthConstraint;
-    UIColor *_disableTintColor;
 }
 
 - (instancetype)initWithTitle:(NSString *)title isDoneButton:(BOOL)isDoneButton {
@@ -52,8 +49,7 @@ static const CGFloat ContinueButtonTouchMargin = 10;
         [self setTitle:title forState:UIControlStateNormal];
         self.isDoneButton = isDoneButton;
         self.contentEdgeInsets = (UIEdgeInsets){.left = 6, .right = 6};
-        _disableTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];  // same as super class setting
-        
+
         [self setUpConstraints];
     }
     return self;
@@ -70,12 +66,8 @@ static const CGFloat ContinueButtonTouchMargin = 10;
         [self updateConstraintConstantsForWindow:self.window];
     }
     
-    NSString *themeName = [[CEVRKTheme sharedTheme] themeName];
-    if (!themeName || themeName.length == 0) {
-        return;
-    }
-    if ([themeName isEqualToString:kThemeAllOfUs] && self.traitCollection.preferredContentSizeCategory != previousTraitCollection.preferredContentSizeCategory) {
-        [self updateButtonTextForAllOfUs];
+    if (self.traitCollection.preferredContentSizeCategory != previousTraitCollection.preferredContentSizeCategory) {
+        [[CEVRKTheme sharedTheme] updateTextForContinueButton:self];
     }
 }
 
@@ -83,23 +75,17 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     CGFloat height = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) ?
     ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightCompact, window) :
     ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightRegular, window);
-    _heightConstraint.constant = height;
     
-    _widthConstraint.constant = ORKGetMetricForWindow(ORKScreenMetricContinueButtonWidth, self.window);
-    [self themeUpdatesForConstraintsWithWindow:window];
-}
+    CGSize textSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [ORKContinueButton defaultFont]}];
+    _heightConstraint.constant = ([[CEVRKTheme sharedTheme] continueButtonHeightForTextSize:textSize] ?: @(height)).floatValue;
     
-- (void)themeUpdatesForConstraintsWithWindow:(UIWindow *)window {
-    NSString *themeName = [[CEVRKTheme sharedTheme] themeName];
-    if (!themeName || themeName.length == 0) {
-        return;
-    }
+    NSNumber *overrideWidth = [[CEVRKTheme sharedTheme] continueButtonWidthForWindowWidth:self.window.frame.size.width];
     
-    if ([themeName isEqualToString:kThemeAllOfUs]) {
-        CGSize buttonLabelSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [ORKContinueButton defaultFont]}];
-        _heightConstraint.constant = buttonLabelSize.height + (16 * 2);     // padding of 16
-        _widthConstraint.constant = window.frame.size.width - (20 * 2);     // width 100 % minus system padding
+    if (overrideWidth) {
+        _widthConstraint.constant = overrideWidth.floatValue;
         _widthConstraint.priority = 999;
+    } else {
+        _widthConstraint.constant = ORKGetMetricForWindow(ORKScreenMetricContinueButtonWidth, self.window);
     }
 }
     
@@ -146,62 +132,7 @@ static const CGFloat ContinueButtonTouchMargin = 10;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self themeButtonOverrides];
-}
-
-- (void)themeButtonOverrides {
-    
-    NSString *themeName = [[CEVRKTheme sharedTheme] themeName];
-    if (!themeName || themeName.length == 0) {
-        return;
-    }
-    
-    if ([themeName isEqualToString:kThemeAllOfUs]) {
-        
-        // remove any previous gradient layers if button resizes due to state changes
-        
-        for (NSInteger layerIndex = self.layer.sublayers.count - 1; layerIndex >= 0; layerIndex --) {
-            CALayer *layer = self.layer.sublayers[layerIndex];
-            if ([layer isKindOfClass:[CAGradientLayer class]]) {
-                [layer removeFromSuperlayer];
-            }
-        }
-        
-        [self updateButtonTextForAllOfUs];
-        
-        
-        
-        if (!self.isEnabled) {
-            self.layer.borderColor = _disableTintColor.CGColor;
-            return;
-        }
-        
-        CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
-        gradient.frame = self.bounds;
-        gradient.colors = @[(id)ORKRGB(0xf38d7a).CGColor, (id)ORKRGB(0xf8c954).CGColor];
-        gradient.startPoint = CGPointMake(0, 0);
-        gradient.endPoint = CGPointMake(1, 0);
-        gradient.cornerRadius = 5.0f;
-        
-        [self.layer insertSublayer:gradient atIndex:0];
-        
-        self.layer.borderWidth = 0;
-    }
-}
-
-- (void)updateButtonTextForAllOfUs {
-    if (!self.titleLabel.text) {
-        return;
-    }
-    
-    UIColor *textColor = self.isEnabled ? ORKRGB(0x262262) : _disableTintColor;
-    
-    UIFont *fontToMakeBold = [ORKContinueButton defaultFont];
-    NSDictionary *attributes = @{           NSFontAttributeName            : [UIFont boldSystemFontOfSize:fontToMakeBold.pointSize],
-                                            NSForegroundColorAttributeName : textColor,
-                                            NSKernAttributeName            : @(3)};  // 3 pts = 0.25 em
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[self.titleLabel.text uppercaseString] attributes:attributes];
-    [self setAttributedTitle:attributedString forState:UIControlStateNormal];
+    [[CEVRKTheme sharedTheme] updateAppearanceForContinueButton:self];
 }
 
 @end
