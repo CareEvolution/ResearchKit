@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class ORKStep;
 @class ORKTaskResult;
+@class CEVRKTheme;
 
 /**
 
@@ -106,6 +107,13 @@ ORK_AVAILABLE_DECL
  task that needs to be restored.
  */
 @property (nonatomic, copy, readonly) NSString *identifier;
+
+/**
+ The theme for the task.
+ 
+ Various UI elements may check the theme and use it to apply modifications.
+ */
+@property (nonatomic, retain, nullable) CEVRKTheme *theme;
 
 /**
  Returns the step after the specified step, if there is one.

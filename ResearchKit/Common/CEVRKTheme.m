@@ -11,31 +11,40 @@
 #import "CEVRKTheme.h"
 #import "ORKHelpers_Internal.h"
 #import "ORKContinueButton.h"
+#import "ORKTaskViewController.h"
+#import "ORKTask.h"
+
+@interface CEVRKTheme()
+@property (nonatomic, assign) CEVRKThemeType themeType;
+@end
 
 @implementation CEVRKTheme
 
-@synthesize themeType;
+@synthesize themeType = _themeType;
 
-#pragma mark Singleton Methods
-
-+ (instancetype)sharedTheme {
-    static CEVRKTheme *sharedCEVRKTheme = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedCEVRKTheme = [[self alloc] init];
-    });
-    return sharedCEVRKTheme;
++ (instancetype)initWithType:(CEVRKThemeType)type {
+    CEVRKTheme *theme = [[self alloc] init];
+    theme.themeType = type;
+    return theme;
 }
 
-- (instancetype)init {
-    if (self = [super init]) {
-        themeType = CEVRKThemeTypeDefault;
++ (instancetype)defaultTheme {
+    CEVRKTheme *defaultTheme = [[self alloc] init];
+    defaultTheme.themeType = CEVRKThemeTypeDefault;
+    return defaultTheme;
+}
+
++ (instancetype)themeForView:(UIView *)view {
+    id nextResponder = [view nextResponder];
+    if ([nextResponder isKindOfClass:[ORKStepViewController class]]) {
+        id <ORKTask> task = [(ORKStepViewController *)nextResponder taskViewController].task;
+        CEVRKTheme *theme = task.theme;
+        return theme ?: [CEVRKTheme defaultTheme];
+    } else if ([nextResponder isKindOfClass:[UIView class]]) {
+        return [CEVRKTheme themeForView:nextResponder];
+    } else {
+        return [CEVRKTheme defaultTheme];;
     }
-    return self;
-}
-
-- (void)updateWithThemeType:(CEVRKThemeType)themeType {
-    self.themeType = themeType;
 }
 
 - (UIFont *)headlineLabelFontWithSize:(CGFloat)fontSize {
@@ -107,7 +116,6 @@
     switch (self.themeType) {
         case CEVRKThemeTypeAllOfUs: {
             // remove any previous gradient layers if button resizes due to state changes
-            
             for (NSInteger layerIndex = continueButton.layer.sublayers.count - 1; layerIndex >= 0; layerIndex --) {
                 CALayer *layer = continueButton.layer.sublayers[layerIndex];
                 if ([layer isKindOfClass:[CAGradientLayer class]]) {

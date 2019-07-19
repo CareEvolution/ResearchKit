@@ -19,8 +19,10 @@ typedef NS_ENUM(NSInteger, CEVRKThemeType) {
 
 @interface CEVRKTheme : NSObject
 
-+ (nonnull instancetype)sharedTheme;
-- (void)updateWithThemeType:(CEVRKThemeType)themeType;
+- (nonnull instancetype)init NS_UNAVAILABLE;
++ (nonnull instancetype)initWithType:(CEVRKThemeType)type;
++ (nonnull instancetype)defaultTheme;
++ (nonnull instancetype)themeForView:(nonnull UIView *)view;
 
 - (nullable UIFont *)headlineLabelFontWithSize:(CGFloat)fontSize;
 - (nullable UIColor *)headlineLabelFontColor;
@@ -31,7 +33,5 @@ typedef NS_ENUM(NSInteger, CEVRKThemeType) {
 - (nullable UIColor *)disabledTintColor;
 - (void)updateAppearanceForContinueButton:(nonnull ORKContinueButton *)continueButton;
 - (void)updateTextForContinueButton:(nonnull ORKContinueButton *)continueButton;
-
-@property (nonatomic, assign) CEVRKThemeType themeType;
 
 @end

@@ -67,26 +67,32 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     }
     
     if (self.traitCollection.preferredContentSizeCategory != previousTraitCollection.preferredContentSizeCategory) {
-        [[CEVRKTheme sharedTheme] updateTextForContinueButton:self];
+        [[CEVRKTheme themeForView:self] updateTextForContinueButton:self];
     }
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
+    _heightConstraint.constant = [self buttonHeightForWindow:window];
+    _widthConstraint.constant = [self buttonWidthForWindow:window];
+}
+
+- (CGFloat)buttonWidthForWindow:(UIWindow *)window {
+    NSNumber *overrideWidth = [[CEVRKTheme themeForView:self] continueButtonWidthForWindowWidth:window.frame.size.width];
+    
+    if (overrideWidth) {
+        return overrideWidth.floatValue;
+    } else {
+        return ORKGetMetricForWindow(ORKScreenMetricContinueButtonWidth, self.window);
+    }
+}
+
+- (CGFloat)buttonHeightForWindow:(UIWindow *)window {
     CGFloat height = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) ?
     ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightCompact, window) :
     ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightRegular, window);
     
     CGSize textSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [ORKContinueButton defaultFont]}];
-    _heightConstraint.constant = ([[CEVRKTheme sharedTheme] continueButtonHeightForTextSize:textSize] ?: @(height)).floatValue;
-    
-    NSNumber *overrideWidth = [[CEVRKTheme sharedTheme] continueButtonWidthForWindowWidth:self.window.frame.size.width];
-    
-    if (overrideWidth) {
-        _widthConstraint.constant = overrideWidth.floatValue;
-        _widthConstraint.priority = 999;
-    } else {
-        _widthConstraint.constant = ORKGetMetricForWindow(ORKScreenMetricContinueButtonWidth, self.window);
-    }
+    return ([[CEVRKTheme themeForView:self] continueButtonHeightForTextSize:textSize] ?: @(height)).floatValue;
 }
     
 - (void)setUpConstraints {
@@ -132,7 +138,7 @@ static const CGFloat ContinueButtonTouchMargin = 10;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [[CEVRKTheme sharedTheme] updateAppearanceForContinueButton:self];
+    [[CEVRKTheme themeForView:self] updateAppearanceForContinueButton:self];
 }
 
 @end

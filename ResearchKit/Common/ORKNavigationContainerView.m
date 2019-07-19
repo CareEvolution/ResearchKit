@@ -326,7 +326,7 @@
     }
     
     {
-        NSNumber *distanceFromBottom = [[CEVRKTheme sharedTheme] navigationContrainerViewButtonConstraintFromContinueButton] ?: @(0);
+        NSNumber *distanceFromBottom = [[CEVRKTheme themeForView:self] navigationContrainerViewButtonConstraintFromContinueButton] ?: @(0);
         
         NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:_continueButton
                                                                             attribute:NSLayoutAttributeBottom

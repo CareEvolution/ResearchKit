@@ -636,7 +636,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    UIColor *overrideTintColor = [[CEVRKTheme sharedTheme] taskViewControllerTintColor];
+    UIColor *overrideTintColor = [[CEVRKTheme themeForView:self.view] taskViewControllerTintColor];
     if (overrideTintColor) {
         self.view.tintColor = overrideTintColor;
     }

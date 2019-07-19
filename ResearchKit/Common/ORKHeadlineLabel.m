@@ -46,9 +46,7 @@
     CGFloat fontSize = [[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] - defaultHeadlineSize + ORKGetMetricForWindow(surveyMode ? ORKScreenMetricFontSizeSurveyHeadline : ORKScreenMetricFontSizeHeadline, nil);
     CGFloat maxFontSize = ORKGetMetricForWindow(surveyMode ? ORKScreenMetricMaxFontSizeSurveyHeadline : ORKScreenMetricMaxFontSizeHeadline, nil);
     
-    CGFloat cappedFontSize = MIN(maxFontSize, fontSize);
-    
-    return [[CEVRKTheme sharedTheme] headlineLabelFontWithSize:cappedFontSize] ?: ORKLightFontWithSize(cappedFontSize);
+    return ORKLightFontWithSize(MIN(maxFontSize, fontSize));
 }
 
 + (UIFont *)defaultFont {
@@ -56,7 +54,8 @@
 }
 
 - (UIFont *)defaultFont {
-    return [[self class] defaultFontInSurveyMode:_useSurveyMode];
+    UIFont *defaultFontForSurveyMode = [[self class] defaultFontInSurveyMode:_useSurveyMode];
+    return [[CEVRKTheme themeForView:self] headlineLabelFontWithSize:defaultFontForSurveyMode.pointSize] ?: defaultFontForSurveyMode;
 }
 
 - (void)setUseSurveyMode:(BOOL)useSurveyMode {
@@ -66,7 +65,7 @@
 
 // Nasty override (hack)
 - (void)updateAppearance {
-    UIColor *overrideColor = [[CEVRKTheme sharedTheme] headlineLabelFontColor];
+    UIColor *overrideColor = [[CEVRKTheme themeForView:self] headlineLabelFontColor];
     if (overrideColor) {
         self.textColor = overrideColor;
     }
