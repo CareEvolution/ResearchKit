@@ -50,6 +50,6 @@ typedef NS_ENUM(NSInteger, CEVRKThemeType) {
  @return Theme for UI styling.
  */
 
-- (nonnull CEVRKTheme *)theme;
+- (nonnull CEVRKTheme *)cev_theme;
 
 @end

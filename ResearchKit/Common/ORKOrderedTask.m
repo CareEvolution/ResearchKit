@@ -89,7 +89,7 @@ ORKTaskProgress ORKTaskProgressMake(NSUInteger current, NSUInteger total) {
     NSString *_identifier;
 }
 
-@synthesize theme = _theme;
+@synthesize cev_theme = _cev_theme;
 
 + (instancetype)new {
     ORKThrowMethodUnavailableException();

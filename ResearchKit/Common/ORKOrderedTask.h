@@ -97,7 +97,7 @@ ORK_CLASS_AVAILABLE
  
  Various UI elements may check the theme and use it to apply modifications.
  */
-@property (nonatomic, retain, nullable) CEVRKTheme *theme;
+@property (nonatomic, retain, nullable) CEVRKTheme *cev_theme;
 
 /**
  Return a mutated copy of self with the steps included in the given array.

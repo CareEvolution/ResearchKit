@@ -37,9 +37,9 @@
 }
 
 + (instancetype)themeForElement:(id)element {
-    if ([element respondsToSelector:@selector(theme)]) {                // has theme
+    if ([element respondsToSelector:@selector(cev_theme)]) {             // has theme
         id <CEVRKThemedUIElement> themedElement = element;
-        CEVRKTheme *theme = [themedElement theme];
+        CEVRKTheme *theme = [themedElement cev_theme];
         return theme ?: [CEVRKTheme defaultTheme];
     } else if ([element isKindOfClass:[ORKStepViewController class]]) {  // is stepViewController, jump to task for theme
         id <ORKTask> task = [(ORKStepViewController *)element taskViewController].task;

@@ -113,7 +113,7 @@ ORK_AVAILABLE_DECL
  
  Various UI elements may check the theme and use it to apply modifications.
  */
-@property (nonatomic, retain, nullable) CEVRKTheme *theme;
+@property (nonatomic, retain, nullable) CEVRKTheme *cev_theme;
 
 /**
  Returns the step after the specified step, if there is one.
