@@ -22,10 +22,12 @@
 
 @synthesize themeType = _themeType;
 
-+ (instancetype)initWithType:(CEVRKThemeType)type {
-    CEVRKTheme *theme = [[self alloc] init];
-    theme.themeType = type;
-    return theme;
+- (instancetype)initWithType:(CEVRKThemeType)type {
+    if (self = [super init]) {
+        self.themeType = type;
+        return self;
+    }
+    return nil;
 }
 
 + (instancetype)defaultTheme {

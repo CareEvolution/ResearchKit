@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, CEVRKThemeType) {
 @interface CEVRKTheme : NSObject
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
-+ (nonnull instancetype)initWithType:(CEVRKThemeType)type;
+- (nonnull instancetype)initWithType:(CEVRKThemeType)type;
 + (nonnull instancetype)defaultTheme;
 + (nonnull instancetype)themeForElement:(nonnull id)element;
 
