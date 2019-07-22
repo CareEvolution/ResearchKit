@@ -55,7 +55,7 @@
 
 - (UIFont *)defaultFont {
     UIFont *defaultFontForSurveyMode = [[self class] defaultFontInSurveyMode:_useSurveyMode];
-    return [[CEVRKTheme themeForView:self] headlineLabelFontWithSize:defaultFontForSurveyMode.pointSize] ?: defaultFontForSurveyMode;
+    return [[CEVRKTheme themeForElement:self] headlineLabelFontWithSize:defaultFontForSurveyMode.pointSize] ?: defaultFontForSurveyMode;
 }
 
 - (void)setUseSurveyMode:(BOOL)useSurveyMode {
@@ -65,7 +65,7 @@
 
 // Nasty override (hack)
 - (void)updateAppearance {
-    UIColor *overrideColor = [[CEVRKTheme themeForView:self] headlineLabelFontColor];
+    UIColor *overrideColor = [[CEVRKTheme themeForElement:self] headlineLabelFontColor];
     if (overrideColor) {
         self.textColor = overrideColor;
     }

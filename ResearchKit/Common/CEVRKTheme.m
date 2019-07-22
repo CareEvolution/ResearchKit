@@ -34,16 +34,20 @@
     return defaultTheme;
 }
 
-+ (instancetype)themeForView:(UIView *)view {
-    id nextResponder = [view nextResponder];
-    if ([nextResponder isKindOfClass:[ORKStepViewController class]]) {
-        id <ORKTask> task = [(ORKStepViewController *)nextResponder taskViewController].task;
-        CEVRKTheme *theme = task.theme;
++ (instancetype)themeForElement:(id)element {
+    if ([element respondsToSelector:@selector(theme)]) {                // has theme
+        id <CEVRKThemedUIElement> themedElement = element;
+        CEVRKTheme *theme = [themedElement theme];
         return theme ?: [CEVRKTheme defaultTheme];
-    } else if ([nextResponder isKindOfClass:[UIView class]]) {
-        return [CEVRKTheme themeForView:nextResponder];
-    } else {
-        return [CEVRKTheme defaultTheme];;
+    } else if ([element isKindOfClass:[ORKStepViewController class]]) {  // is stepViewController, jump to task for theme
+        id <ORKTask> task = [(ORKStepViewController *)element taskViewController].task;
+        return [CEVRKTheme themeForElement:task];
+    } else if ([element respondsToSelector:@selector(nextResponder)]) {  // continue up responder chain
+        UIResponder *currentResponder = (UIResponder *)element;
+        id nextResponder = [currentResponder nextResponder];
+        return [CEVRKTheme themeForElement:nextResponder];
+    } else {                                                             // has reached end of chain or not in chain
+        return [CEVRKTheme defaultTheme];
     }
 }
 

@@ -33,12 +33,12 @@
 @import HealthKit;
 #import <ResearchKit/ORKTypes.h>
 
+#import "CEVRKTheme.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class ORKStep;
 @class ORKTaskResult;
-@class CEVRKTheme;
 
 /**
 
@@ -88,7 +88,7 @@ ORK_EXTERN ORKTaskProgress ORKTaskProgressMake(NSUInteger current, NSUInteger to
  `ORKConsentReviewStep`, can produce multiple screens.
  */
 ORK_AVAILABLE_DECL
-@protocol ORKTask <NSObject>
+@protocol ORKTask <NSObject, CEVRKThemedUIElement>
 
 @required
 /**

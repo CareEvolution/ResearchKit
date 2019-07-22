@@ -22,7 +22,7 @@ typedef NS_ENUM(NSInteger, CEVRKThemeType) {
 - (nonnull instancetype)init NS_UNAVAILABLE;
 + (nonnull instancetype)initWithType:(CEVRKThemeType)type;
 + (nonnull instancetype)defaultTheme;
-+ (nonnull instancetype)themeForView:(nonnull UIView *)view;
++ (nonnull instancetype)themeForElement:(nonnull id)element;
 
 - (nullable UIFont *)headlineLabelFontWithSize:(CGFloat)fontSize;
 - (nullable UIColor *)headlineLabelFontColor;
@@ -33,5 +33,23 @@ typedef NS_ENUM(NSInteger, CEVRKThemeType) {
 - (nullable UIColor *)disabledTintColor;
 - (void)updateAppearanceForContinueButton:(nonnull ORKContinueButton *)continueButton;
 - (void)updateTextForContinueButton:(nonnull ORKContinueButton *)continueButton;
+
+@end
+
+
+@protocol CEVRKThemedUIElement <NSObject>
+
+/**
+ Returns a theme for UI styling.
+ 
+ Any UIElement that can be in the responder chain can conform to this protocol
+ and provide a theme for UI customization. Useful for UI elements that are
+ ResearchKit objects or subclasses thereof that may be used outside of standard
+ ResearchKit view hieararchy.
+ 
+ @return Theme for UI styling.
+ */
+
+- (nonnull CEVRKTheme *)theme;
 
 @end
