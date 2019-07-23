@@ -40,16 +40,14 @@ typedef NS_ENUM(NSInteger, CEVRKThemeType) {
 @protocol CEVRKThemedUIElement <NSObject>
 
 /**
- Returns a theme for UI styling.
+ Stores a theme for UI styling.
  
  Any UIElement that can be in the responder chain can conform to this protocol
  and provide a theme for UI customization. Useful for UI elements that are
  ResearchKit objects or subclasses thereof that may be used outside of standard
  ResearchKit view hieararchy.
- 
- @return Theme for UI styling.
  */
 
-- (nullable CEVRKTheme *)cev_theme;
+@property (nonatomic, retain, nullable) CEVRKTheme *cev_theme;
 
 @end
