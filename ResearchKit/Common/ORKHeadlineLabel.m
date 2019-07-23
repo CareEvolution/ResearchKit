@@ -34,6 +34,8 @@
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
 
+#import "CEVRKTheme.h"
+
 
 @implementation ORKHeadlineLabel
 
@@ -52,7 +54,8 @@
 }
 
 - (UIFont *)defaultFont {
-    return [[self class] defaultFontInSurveyMode:_useSurveyMode];
+    UIFont *defaultFontForSurveyMode = [[self class] defaultFontInSurveyMode:_useSurveyMode];
+    return [[CEVRKTheme themeForElement:self] headlineLabelFontWithSize:defaultFontForSurveyMode.pointSize] ?: defaultFontForSurveyMode;
 }
 
 - (void)setUseSurveyMode:(BOOL)useSurveyMode {
@@ -62,6 +65,11 @@
 
 // Nasty override (hack)
 - (void)updateAppearance {
+    UIColor *overrideColor = [[CEVRKTheme themeForElement:self] headlineLabelFontColor];
+    if (overrideColor) {
+        self.textColor = overrideColor;
+    }
+    
     self.font = [self defaultFont];
     [self invalidateIntrinsicContentSize];
 }

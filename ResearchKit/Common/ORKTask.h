@@ -33,6 +33,7 @@
 @import HealthKit;
 #import <ResearchKit/ORKTypes.h>
 
+#import "CEVRKTheme.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -87,7 +88,7 @@ ORK_EXTERN ORKTaskProgress ORKTaskProgressMake(NSUInteger current, NSUInteger to
  `ORKConsentReviewStep`, can produce multiple screens.
  */
 ORK_AVAILABLE_DECL
-@protocol ORKTask <NSObject>
+@protocol ORKTask <NSObject, CEVRKThemedUIElement>
 
 @required
 /**
@@ -106,6 +107,13 @@ ORK_AVAILABLE_DECL
  task that needs to be restored.
  */
 @property (nonatomic, copy, readonly) NSString *identifier;
+
+/**
+ The theme for the task.
+ 
+ Various UI elements may check the theme and use it to apply modifications.
+ */
+@property (nonatomic, retain, nullable) CEVRKTheme *cev_theme;
 
 /**
  Returns the step after the specified step, if there is one.
