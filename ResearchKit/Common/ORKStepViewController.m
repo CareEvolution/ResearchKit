@@ -178,11 +178,6 @@
     [NSNotificationCenter.defaultCenter postNotification:notification];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    
-    [super viewDidAppear:animated];
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     _dismissing = YES;
