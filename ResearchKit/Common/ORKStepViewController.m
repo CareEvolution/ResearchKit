@@ -42,6 +42,7 @@
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
 
+#import "CEVRKTheme.h"
 
 @interface ORKStepViewController () {
     BOOL _hasBeenPresented;
@@ -167,6 +168,19 @@
     
     // clear dismissedDate
     self.dismissedDate = nil;
+    
+    // Certain nested UI Elements (e.g., ORKHeadlineLabel) are attached to view hierarchy late in the lifecycle. This can cause a noticable,
+    // unintended animation of state change as the view animates into view. Posting this notification and handling theme application upon
+    // receipt can ensure a redraw cycle of the receiving element can "see" the theme prior to being inside the responder chain so the first
+    // displayed draw is the expected theme.
+    NSDictionary *userInfo = @{CEVRKThemeKey : [CEVRKTheme themeForElement:self]};
+    NSNotification *notification = [NSNotification notificationWithName:CEVORKStepViewControllerViewWillAppearNotification object:nil userInfo:userInfo];
+    [NSNotificationCenter.defaultCenter postNotification:notification];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

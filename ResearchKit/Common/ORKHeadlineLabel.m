@@ -39,6 +39,8 @@
 
 @implementation ORKHeadlineLabel
 
+@synthesize cev_theme = _cev_theme;
+
 + (UIFont *)defaultFontInSurveyMode:(BOOL)surveyMode {
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
     const CGFloat defaultHeadlineSize = 17;
@@ -51,6 +53,17 @@
 
 + (UIFont *)defaultFont {
     return [self defaultFontInSurveyMode:NO];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    [NSNotificationCenter.defaultCenter addObserverForName:CEVORKStepViewControllerViewWillAppearNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+        CEVRKTheme *theme = note.userInfo[CEVRKThemeKey];
+        if ([theme isKindOfClass:[CEVRKTheme class]]) {
+            self.cev_theme = theme;
+            [self updateAppearance];
+        }
+    }];
+    return [super initWithFrame:frame];
 }
 
 - (UIFont *)defaultFont {
