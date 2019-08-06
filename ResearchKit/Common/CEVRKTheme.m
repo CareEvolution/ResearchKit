@@ -14,6 +14,9 @@
 #import "ORKTaskViewController.h"
 #import "ORKTask.h"
 
+NSNotificationName const CEVORKStepViewControllerViewWillAppearNotification = @"CEVORKStepViewControllerViewWillAppearNotification";
+NSString *const CEVRKThemeKey = @"cev_theme";
+
 @interface CEVRKTheme()
 @property (nonatomic, assign) CEVRKThemeType themeType;
 @end
@@ -40,7 +43,15 @@
     if ([element respondsToSelector:@selector(cev_theme)]) {             // has theme
         id <CEVRKThemedUIElement> themedElement = element;
         CEVRKTheme *theme = [themedElement cev_theme];
-        return theme ?: [CEVRKTheme defaultTheme];
+        if (theme) {                                                     // if theme is null, keep searching
+            return theme;
+        } else if ([element respondsToSelector:@selector(nextResponder)]) {
+            UIResponder *currentResponder = (UIResponder *)element;
+            id nextResponder = [currentResponder nextResponder];
+            return [CEVRKTheme themeForElement:nextResponder];
+        } else {
+            return [CEVRKTheme defaultTheme];
+        }
     } else if ([element isKindOfClass:[ORKStepViewController class]]) {  // is stepViewController, jump to task for theme
         id <ORKTask> task = [(ORKStepViewController *)element taskViewController].task;
         return [CEVRKTheme themeForElement:task];
@@ -51,6 +62,23 @@
     } else {                                                             // has reached end of chain or not in chain
         return [CEVRKTheme defaultTheme];
     }
+}
+
++ (NSString *)themeTitleForType:(CEVRKThemeType)type {
+    switch (type) {
+        case CEVRKThemeTypeDefault:
+            return @"Default Theme";
+            break;
+        case CEVRKThemeTypeAllOfUs:
+            return @"All of Us Theme";
+            break;
+        default:
+            return @"No theme - undefined";
+    }
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<CEVRKTheme: %p : %@>", self, [CEVRKTheme themeTitleForType:_themeType]];
 }
 
 - (UIFont *)headlineLabelFontWithSize:(CGFloat)fontSize {

@@ -36,8 +36,15 @@
 
 #import "CEVRKTheme.h"
 
+@interface ORKHeadlineLabel()
+
+@property (nonatomic, strong, nullable) CEVRKTheme *cev_theme;
+
+@end
 
 @implementation ORKHeadlineLabel
+
+@synthesize cev_theme = _cev_theme;
 
 + (UIFont *)defaultFontInSurveyMode:(BOOL)surveyMode {
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
@@ -51,6 +58,21 @@
 
 + (UIFont *)defaultFont {
     return [self defaultFontInSurveyMode:NO];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        __weak __typeof__(self) weakSelf = self;
+        [NSNotificationCenter.defaultCenter addObserverForName:CEVORKStepViewControllerViewWillAppearNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+            CEVRKTheme *theme = note.userInfo[CEVRKThemeKey];
+            if ([theme isKindOfClass:[CEVRKTheme class]]) {
+                weakSelf.cev_theme = theme;
+                [weakSelf updateAppearance];
+            }
+        }];
+    }
+    return self;
 }
 
 - (UIFont *)defaultFont {

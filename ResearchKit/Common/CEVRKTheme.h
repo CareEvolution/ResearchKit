@@ -8,6 +8,9 @@
 
 @import UIKit;
 
+extern NSNotificationName _Nonnull const CEVORKStepViewControllerViewWillAppearNotification;
+extern NSString * _Nonnull const CEVRKThemeKey;
+
 typedef NS_ENUM(NSInteger, CEVRKThemeType) {
     CEVRKThemeTypeDefault,
     CEVRKThemeTypeAllOfUs
