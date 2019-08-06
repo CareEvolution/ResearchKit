@@ -53,6 +53,22 @@
     }
 }
 
++ (NSString *)themeTitleForType:(CEVRKThemeType)type {
+    switch (type) {
+        case CEVRKThemeTypeDefault:
+            return @"Default Theme";
+            break;
+        case CEVRKThemeTypeAllOfUs:
+            return @"All of Us Theme";
+            break;
+        default:
+            return @"No theme - undefined";
+    }
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<CEVRKTheme: %p : %@>", self, [CEVRKTheme themeTitleForType:_themeType]];
+}
 - (UIFont *)headlineLabelFontWithSize:(CGFloat)fontSize {
     switch (self.themeType) {
         case CEVRKThemeTypeAllOfUs:
