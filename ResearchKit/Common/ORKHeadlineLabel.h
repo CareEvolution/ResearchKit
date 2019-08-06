@@ -32,7 +32,6 @@
 @import UIKit;
 #import "ORKLabel.h"
 
-@class CEVRKTheme;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -43,8 +42,6 @@ ORK_CLASS_AVAILABLE
 @interface ORKHeadlineLabel : ORKLabel
 
 @property (nonatomic, assign) BOOL useSurveyMode;
-
-@property (nonatomic, strong, nullable) CEVRKTheme *cev_theme;
 
 @end
 
