@@ -570,6 +570,8 @@
 		D458520A1AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = D45852081AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.h */; };
 		D458520B1AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D45852091AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m */; };
 		DA23F07120B7310F00C42358 /* ORKSurveyAnswerCellForMedication.h in Headers */ = {isa = PBXBuildFile; fileRef = DA23F07020B730CC00C42358 /* ORKSurveyAnswerCellForMedication.h */; };
+		DAF84CC922D682BC0028DE8F /* CEVRKTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF84CC822D682BC0028DE8F /* CEVRKTheme.m */; };
+		DAF84CCA22D683E10028DE8F /* CEVRKTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = DAF84CC722D6824E0028DE8F /* CEVRKTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA23F07320B7313900C42358 /* ORKSurveyAnswerCellForMedication.m in Sources */ = {isa = PBXBuildFile; fileRef = DA23F07220B7313900C42358 /* ORKSurveyAnswerCellForMedication.m */; };
 		DA23F07520B7407D00C42358 /* ORKMedicationChoiceCellGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = DA23F07420B7406200C42358 /* ORKMedicationChoiceCellGroup.h */; };
 		DA23F07720B740B000C42358 /* ORKMedicationChoiceCellGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = DA23F07620B740B000C42358 /* ORKMedicationChoiceCellGroup.m */; };
@@ -1214,6 +1216,8 @@
 		D442397C1AF17F7600559D96 /* ORKImageCaptureStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKImageCaptureStepViewController.m; sourceTree = "<group>"; };
 		D45852081AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKImageCaptureCameraPreviewView.h; sourceTree = "<group>"; };
 		D45852091AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKImageCaptureCameraPreviewView.m; sourceTree = "<group>"; };
+		DAF84CC722D6824E0028DE8F /* CEVRKTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRKTheme.h; sourceTree = "<group>"; };
+		DAF84CC822D682BC0028DE8F /* CEVRKTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRKTheme.m; sourceTree = "<group>"; };
 		DA23F07020B730CC00C42358 /* ORKSurveyAnswerCellForMedication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORKSurveyAnswerCellForMedication.h; sourceTree = "<group>"; };
 		DA23F07220B7313900C42358 /* ORKSurveyAnswerCellForMedication.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKSurveyAnswerCellForMedication.m; sourceTree = "<group>"; };
 		DA23F07420B7406200C42358 /* ORKMedicationChoiceCellGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKMedicationChoiceCellGroup.h; sourceTree = "<group>"; };
@@ -1434,6 +1438,8 @@
 				86C40B8C1A8D7C5C00081FAC /* ORKHelpers_Internal.h */,
 				86C40B7C1A8D7C5C00081FAC /* ORKHelpers_Private.h */,
 				86C40B8D1A8D7C5C00081FAC /* ORKHelpers.m */,
+				DAF84CC722D6824E0028DE8F /* CEVRKTheme.h */,
+				DAF84CC822D682BC0028DE8F /* CEVRKTheme.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -2853,6 +2859,7 @@
 				959A2BFC1D68B98700841B04 /* ORKRangeOfMotionStep.h in Headers */,
 				86C40D561A8D7C5C00081FAC /* ORKOrderedTask.h in Headers */,
 				86C40C4E1A8D7C5C00081FAC /* ORKTappingContentView.h in Headers */,
+				DAF84CCA22D683E10028DE8F /* CEVRKTheme.h in Headers */,
 				FF5051F01D66908C0065E677 /* ORKNavigablePageStep.h in Headers */,
 				86C40CA01A8D7C5C00081FAC /* ORKHealthQuantityTypeRecorder.h in Headers */,
 				24850E191BCDA9C7006E91FB /* ORKLoginStepViewController.h in Headers */,
@@ -3302,6 +3309,7 @@
 				86C40C641A8D7C5C00081FAC /* CLLocation+ORKJSONDictionary.m in Sources */,
 				86C40D041A8D7C5C00081FAC /* ORKContinueButton.m in Sources */,
 				24A4DA151B8D1115009C797A /* ORKPasscodeStep.m in Sources */,
+				DAF84CC922D682BC0028DE8F /* CEVRKTheme.m in Sources */,
 				86C40DEC1A8D7C5C00081FAC /* UIBarButtonItem+ORKBarButtonItem.m in Sources */,
 				106FF2AF1B6FACA8004EACF2 /* ORKDirectionView.m in Sources */,
 				BF1D438A1D4905FC007EE90B /* ORKVideoInstructionStepViewController.m in Sources */,

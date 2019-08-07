@@ -60,6 +60,7 @@
 @import CoreMotion;
 #import <CoreLocation/CoreLocation.h>
 
+#import "CEVRKTheme.h"
 
 typedef void (^_ORKLocationAuthorizationRequestHandler)(BOOL success);
 
@@ -634,6 +635,11 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    UIColor *overrideTintColor = [[CEVRKTheme themeForElement:self.view] taskViewControllerTintColor];
+    if (overrideTintColor) {
+        self.view.tintColor = overrideTintColor;
+    }
     
     if (!_task) {
         @throw [NSException exceptionWithName:NSGenericException reason:@"Attempted to present task view controller without a task" userInfo:nil];

@@ -105,4 +105,5 @@
 
 #import <ResearchKit/ORKDeprecated.h>
 
+#import <ResearchKit/CEVRKTheme.h>
 #import <ResearchKit/ORKMedicationPicker.h>

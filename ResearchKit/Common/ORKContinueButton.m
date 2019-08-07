@@ -33,6 +33,8 @@
 
 #import "ORKSkin.h"
 
+#import "CEVRKTheme.h"
+
 
 static const CGFloat ContinueButtonTouchMargin = 10;
 
@@ -63,17 +65,36 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     if (self.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass) {
         [self updateConstraintConstantsForWindow:self.window];
     }
+    
+    if (self.traitCollection.preferredContentSizeCategory != previousTraitCollection.preferredContentSizeCategory) {
+        [[CEVRKTheme themeForElement:self] updateTextForContinueButton:self];
+    }
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
-    CGFloat height = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) ?
-        ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightCompact, window) :
-        ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightRegular, window);
-    _heightConstraint.constant = height;
-    
-    _widthConstraint.constant = ORKGetMetricForWindow(ORKScreenMetricContinueButtonWidth, self.window);
+    _heightConstraint.constant = [self buttonHeightForWindow:window];
+    _widthConstraint.constant = [self buttonWidthForWindow:window];
 }
 
+- (CGFloat)buttonWidthForWindow:(UIWindow *)window {
+    NSNumber *overrideWidth = [[CEVRKTheme themeForElement:self] continueButtonWidthForWindowWidth:window.frame.size.width];
+    
+    if (overrideWidth) {
+        return overrideWidth.floatValue;
+    } else {
+        return ORKGetMetricForWindow(ORKScreenMetricContinueButtonWidth, self.window);
+    }
+}
+
+- (CGFloat)buttonHeightForWindow:(UIWindow *)window {
+    CGFloat height = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) ?
+    ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightCompact, window) :
+    ORKGetMetricForWindow(ORKScreenMetricContinueButtonHeightRegular, window);
+    
+    CGSize textSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [ORKContinueButton defaultFont]}];
+    return ([[CEVRKTheme themeForElement:self] continueButtonHeightForTextSize:textSize] ?: @(height)).floatValue;
+}
+    
 - (void)setUpConstraints {
     _heightConstraint = [NSLayoutConstraint constraintWithItem:self
                                                      attribute:NSLayoutAttributeHeight
@@ -113,6 +134,11 @@ static const CGFloat ContinueButtonTouchMargin = 10;
                                                              -ContinueButtonTouchMargin});
     BOOL isInside = [super pointInside:point withEvent:event] || CGRectContainsPoint(outsetRect, point);
     return isInside;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [[CEVRKTheme themeForElement:self] updateAppearanceForContinueButton:self];
 }
 
 @end
