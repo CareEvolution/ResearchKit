@@ -162,6 +162,8 @@ NSString *const CEVRKThemeKey = @"cev_theme";
             UIColor *disableTintColor = [self disabledTintColor];
             if (!continueButton.isEnabled && disableTintColor) {
                 continueButton.layer.borderColor = disableTintColor.CGColor;
+                continueButton.layer.cornerRadius = 5.0f;
+                continueButton.layer.borderWidth = 1.0f;
                 return;
             }
             
