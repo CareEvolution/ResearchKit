@@ -123,6 +123,8 @@ static NSString *localizedLearnMoreForType(ORKConsentSectionType sectionType) {
 
 @implementation ORKConsentSceneViewController
 
+@synthesize cev_theme = _cev_theme;
+
 - (instancetype)initWithSection:(ORKConsentSection *)section {
     self = [super init];
     if (self) {

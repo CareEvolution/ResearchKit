@@ -35,6 +35,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class ORKConsentSection;
+@class CEVRKTheme;
 
 @interface ORKConsentSceneViewController : UIViewController
 
@@ -47,6 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *learnMoreButtonTitle;
 
 @property (nonatomic, assign) BOOL imageHidden;
+
+@property (nonatomic, strong, nullable) CEVRKTheme *cev_theme;
 
 @end
 
