@@ -8,6 +8,8 @@
 
 @import UIKit;
 
+#import "ORKDefines.h"
+
 extern NSNotificationName _Nonnull const CEVORKStepViewControllerViewWillAppearNotification;
 extern NSString * _Nonnull const CEVRKThemeKey;
 
@@ -20,6 +22,7 @@ typedef NS_ENUM(NSInteger, CEVRKThemeType) {
 @class ORKBorderedButton;
 @class ORKContinueButton;
 
+ORK_CLASS_AVAILABLE
 @interface CEVRKTheme : NSObject
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
