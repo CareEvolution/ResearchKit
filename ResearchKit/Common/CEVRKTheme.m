@@ -40,26 +40,23 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 }
 
 + (instancetype)themeForElement:(id)element {
-    if ([element respondsToSelector:@selector(cev_theme)]) {             // has theme
+    if ([element respondsToSelector:@selector(cev_theme)]) {                                                      // has theme
         id <CEVRKThemedUIElement> themedElement = element;
         CEVRKTheme *theme = [themedElement cev_theme];
-        if (theme) {                                                     // if theme is null, keep searching
+        if (theme) {                                                                                              // if theme is null, keep searching
             return theme;
-        } else if ([element respondsToSelector:@selector(nextResponder)]) {
-            UIResponder *currentResponder = (UIResponder *)element;
-            id nextResponder = [currentResponder nextResponder];
-            return [CEVRKTheme themeForElement:nextResponder];
-        } else {
-            return [CEVRKTheme defaultTheme];
         }
-    } else if ([element isKindOfClass:[ORKStepViewController class]]) {  // is stepViewController, jump to task for theme
+    }
+    if ([element isKindOfClass:[ORKStepViewController class]]) {                                                  // is stepViewController, jump to task for theme
         id <ORKTask> task = [(ORKStepViewController *)element taskViewController].task;
         return [CEVRKTheme themeForElement:task];
-    } else if ([element respondsToSelector:@selector(nextResponder)]) {  // continue up responder chain
-        UIResponder *currentResponder = (UIResponder *)element;
-        id nextResponder = [currentResponder nextResponder];
+    } else if ([element respondsToSelector:@selector(nextResponder)] && [element nextResponder]) {                // continue up responder chain
+        id nextResponder = [element nextResponder];
         return [CEVRKTheme themeForElement:nextResponder];
-    } else {                                                             // has reached end of chain or not in chain
+    } else if ([element respondsToSelector:@selector(parentViewController)] && [element parentViewController]) {  // if has parentViewController, try that route
+        UIViewController *parentViewController = [element parentViewController];
+        return [CEVRKTheme themeForElement:parentViewController];
+    } else {                                                                                                      // has reached end of chain or not in chain
         return [CEVRKTheme defaultTheme];
     }
 }

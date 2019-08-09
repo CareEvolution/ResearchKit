@@ -55,8 +55,6 @@
 #import <MessageUI/MessageUI.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "CEVRKTheme.h"
-
 
 @interface ORKVisualConsentStepViewController () <UIPageViewControllerDelegate, ORKScrollViewObserverDelegate> {
     BOOL _hasAppeared;
@@ -648,7 +646,6 @@
     } else {
         ORKConsentSceneViewController *sceneViewController = [[ORKConsentSceneViewController alloc] initWithSection:[self visualSections][index]];
         consentViewController = sceneViewController;
-        consentViewController.cev_theme = [CEVRKTheme themeForElement:self];
         
         if (index == [self pageCount]-1) {
             sceneViewController.continueButtonItem = self.continueButtonItem;
