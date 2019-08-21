@@ -166,7 +166,11 @@ NSString *const CEVRKThemeKey = @"cev_theme";
             
             CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
             gradient.frame = continueButton.bounds;
-            gradient.colors = @[(id)ORKRGB(0xf38d7a).CGColor, (id)ORKRGB(0xf8c954).CGColor];
+            if (continueButton.highlighted || continueButton.selected) {
+                gradient.colors = @[(id)ORKRGB(0xcd6754).CGColor, (id)ORKRGB(0xd2a32e).CGColor];
+            } else {
+                gradient.colors = @[(id)ORKRGB(0xf38d7a).CGColor, (id)ORKRGB(0xf8c954).CGColor];
+            }
             gradient.startPoint = CGPointMake(0, 0);
             gradient.endPoint = CGPointMake(1, 0);
             gradient.cornerRadius = 5.0f;
