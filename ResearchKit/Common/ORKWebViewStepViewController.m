@@ -46,6 +46,7 @@
     _result = nil;
     [_webView removeFromSuperview];
     _webView = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
     
     if (self.step && [self isViewLoaded]) {
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
