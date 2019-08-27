@@ -71,6 +71,7 @@
         [self setupNavigationFooterView];
         [self setupConstraints];
         [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseAudio) name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
 }
 
@@ -151,6 +152,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self stepDidChange];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [self pauseAudio];
+    [super viewDidDisappear:animated];
+}
+
+- (void)pauseAudio {
+    // https://stackoverflow.com/a/44829559
+    NSString *script = @"var vids = document.getElementsByTagName('video'); var i; for (i of vids) { i.pause(); }";
+    [_webView evaluateJavaScript:script completionHandler:nil];
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
