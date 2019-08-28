@@ -31,49 +31,82 @@
 #import "ORKWebViewStepViewController.h"
 #import "ORKStepViewController_Internal.h"
 #import "ORKWebViewStep.h"
+#import <ResearchKit/ORKResult.h>
+@import SafariServices;
 
-#import "ORKResult_Private.h"
-#import "ORKCollectionResult_Private.h"
-#import "ORKWebViewStepResult.h"
-#import "ORKNavigationContainerView_Internal.h"
+@implementation ORKWebViewPreloader {
+    NSCache *_cache;
+}
+
++ (instancetype)shared {
+    static ORKWebViewPreloader *shared;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        shared = [[ORKWebViewPreloader alloc] init];
+    });
+    return shared;
+}
+
+- (instancetype)init {
+    if ((self = [super init])) {
+        _cache = [[NSCache alloc] init];
+        _cache.countLimit = 1;
+    }
+    return self;
+}
+
+- (void)preload:(NSString *)htmlString forKey:(NSString *)key {
+    WKWebView *webView = [self newWebView:htmlString];
+    [_cache setObject:webView forKey:key];
+}
+
+- (WKWebView *)webViewForKey:(NSString *)key {
+    WKWebView *webView = [_cache objectForKey:key];
+    [_cache removeObjectForKey:key];
+    if (webView == nil) {
+        webView = [self newWebView:nil];
+    }
+    return webView;
+}
+
+- (WKWebView *)newWebView:(NSString *)htmlString {
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    config.allowsInlineMediaPlayback = true;
+    if ([config respondsToSelector:@selector(mediaTypesRequiringUserActionForPlayback)]) {
+        config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+    }
+    WKUserContentController *controller = [[WKUserContentController alloc] init];
+    config.userContentController = controller;
+    
+    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
+    if (htmlString) {
+        [webView loadHTMLString:htmlString baseURL:nil];
+    }
+    return webView;
+}
+
+@end
 
 @implementation ORKWebViewStepViewController {
     WKWebView *_webView;
     NSString *_result;
-    ORKNavigationContainerView *_navigationFooterView;
-    NSArray<NSLayoutConstraint *> *_constraints;
-
 }
 
-- (ORKWebViewStep *)webViewStep {
-    return (ORKWebViewStep *)self.step;
-}
-
-- (void)stepDidChange {
-    _result = nil;
-    [_webView removeFromSuperview];
-    _webView = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
-    
-    if (self.step && [self isViewLoaded]) {
-        WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-        config.allowsInlineMediaPlayback = true;
-        if ([config respondsToSelector:@selector(mediaTypesRequiringUserActionForPlayback)]) {
-            config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
-        }
-        WKUserContentController *controller = [[WKUserContentController alloc] init];
-        [controller addScriptMessageHandler:self name:@"ResearchKit"];
-        config.userContentController = controller;
-        
-        _webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
+- (instancetype)initWithStep:(ORKStep *)step {
+    self = [super initWithStep:step];
+    if (self) {
+        _webView = [[ORKWebViewPreloader shared] webViewForKey:step.identifier];
+        [_webView.configuration.userContentController addScriptMessageHandler:self name:@"ResearchKit"];
+        _webView.frame = self.view.bounds;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _webView.navigationDelegate = self;
+        [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
         [self.view addSubview:_webView];
         [self setupNavigationFooterView];
         [self setupConstraints];
-        [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseAudio) name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
+    return self;
 }
 
 - (void)setupNavigationFooterView {
@@ -83,6 +116,15 @@
     _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
     _navigationFooterView.neverHasContinueButton = YES;
     [self.view addSubview:_navigationFooterView];
+}
+
+- (ORKWebViewStep *)webViewStep {
+    return (ORKWebViewStep *)self.step;
+}
+
+- (void)stepDidChange {
+    _result = nil;
+    [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
 }
 
 - (void)setupConstraints {
@@ -183,6 +225,32 @@
         parentResult.results = [parentResult.results arrayByAddingObject:childResult] ? : @[childResult];
     }
     return parentResult;
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
+        if (navigationAction.targetFrame != nil
+            && ([navigationAction.request.URL.scheme isEqualToString:@"http"]
+                || [navigationAction.request.URL.scheme isEqualToString:@"https"])) {
+                if (@available(iOS 11.0, *)) {
+                    SFSafariViewControllerConfiguration *cfg = [[SFSafariViewControllerConfiguration alloc] init];
+                    cfg.barCollapsingEnabled = YES;
+                    SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:navigationAction.request.URL configuration:cfg];
+                    safari.preferredBarTintColor = self.navigationController.navigationBar.barTintColor;
+                    safari.preferredControlTintColor = self.view.tintColor;
+                    [self presentViewController:safari animated:YES completion:NULL];
+                    decisionHandler(WKNavigationActionPolicyCancel);
+                    return;
+                }
+            }
+        
+        if ([[UIApplication sharedApplication] canOpenURL:navigationAction.request.URL]) {
+            [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }
+    }
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
