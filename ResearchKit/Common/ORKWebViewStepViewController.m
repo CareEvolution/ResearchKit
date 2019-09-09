@@ -33,9 +33,77 @@
 #import <ResearchKit/ORKResult.h>
 @import SafariServices;
 
+@implementation ORKWebViewPreloader {
+    NSCache *_cache;
+}
+
++ (instancetype)shared {
+    static ORKWebViewPreloader *shared;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        shared = [[ORKWebViewPreloader alloc] init];
+    });
+    return shared;
+}
+
+- (instancetype)init {
+    if ((self = [super init])) {
+        _cache = [[NSCache alloc] init];
+        _cache.countLimit = 1;
+    }
+    return self;
+}
+
+- (void)preload:(NSString *)htmlString forKey:(NSString *)key {
+    WKWebView *webView = [self newWebView:htmlString];
+    [_cache setObject:webView forKey:key];
+}
+
+- (WKWebView *)webViewForKey:(NSString *)key {
+    WKWebView *webView = [_cache objectForKey:key];
+    [_cache removeObjectForKey:key];
+    if (webView == nil) {
+        webView = [self newWebView:nil];
+    }
+    return webView;
+}
+
+- (WKWebView *)newWebView:(NSString *)htmlString {
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    config.allowsInlineMediaPlayback = true;
+    if ([config respondsToSelector:@selector(mediaTypesRequiringUserActionForPlayback)]) {
+        config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+    }
+    WKUserContentController *controller = [[WKUserContentController alloc] init];
+    config.userContentController = controller;
+    
+    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
+    if (htmlString) {
+        [webView loadHTMLString:htmlString baseURL:nil];
+    }
+    return webView;
+}
+
+@end
+
 @implementation ORKWebViewStepViewController {
     WKWebView *_webView;
     NSString *_result;
+}
+
+- (instancetype)initWithStep:(ORKStep *)step {
+    self = [super initWithStep:step];
+    if (self) {
+        _webView = [[ORKWebViewPreloader shared] webViewForKey:step.identifier];
+        [_webView.configuration.userContentController addScriptMessageHandler:self name:@"ResearchKit"];
+        _webView.frame = self.view.bounds;
+        _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        _webView.navigationDelegate = self;
+        [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
+        [self.view addSubview:_webView];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseAudio) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    }
+    return self;
 }
 
 - (ORKWebViewStep *)webViewStep {
@@ -44,31 +112,18 @@
 
 - (void)stepDidChange {
     _result = nil;
-    [_webView removeFromSuperview];
-    _webView = nil;
-    
-    if (self.step && [self isViewLoaded]) {
-        WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-        config.allowsInlineMediaPlayback = true;
-        if ([config respondsToSelector:@selector(mediaTypesRequiringUserActionForPlayback)]) {
-            config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
-        }
-        WKUserContentController *controller = [[WKUserContentController alloc] init];
-        [controller addScriptMessageHandler:self name:@"ResearchKit"];
-        config.userContentController = controller;
-        
-        _webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:config];
-        _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _webView.navigationDelegate = self;
-        [self.view addSubview:_webView];
-        
-        [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
-    }
+    [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self stepDidChange];
+- (void)viewDidDisappear:(BOOL)animated {
+    [self pauseAudio];
+    [super viewDidDisappear:animated];
+}
+
+- (void)pauseAudio {
+    // https://stackoverflow.com/a/44829559
+    NSString *script = @"var vids = document.getElementsByTagName('video'); var i; for (i of vids) { i.pause(); }";
+    [_webView evaluateJavaScript:script completionHandler:nil];
 }
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
