@@ -30,10 +30,12 @@
 
 @import UIKit;
 @import WebKit;
+#import <ResearchKit/ORKDefines.h>
 #import "ORKStepViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+ORK_CLASS_AVAILABLE
 @interface ORKWebViewPreloader: NSObject
 + (instancetype)shared;
 - (void)preload:(NSString *)htmlString forKey:(NSString *)key;
