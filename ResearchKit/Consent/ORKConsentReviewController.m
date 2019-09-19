@@ -40,12 +40,7 @@
 #import "ORKSkin.h"
 
 
-<<<<<<< HEAD
-@interface ORKConsentReviewController () <UIWebViewDelegate, UIScrollViewDelegate>
-=======
-static const CGFloat iPadStepTitleLabelFontSize = 50.0;
 @interface ORKConsentReviewController () <WKNavigationDelegate, UIScrollViewDelegate>
->>>>>>> 74f44435... Replace deprecated UIWebView in ORKConsentReviewController
 
 @end
 
