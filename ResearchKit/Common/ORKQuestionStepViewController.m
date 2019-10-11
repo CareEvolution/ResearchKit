@@ -854,7 +854,7 @@ static NSString *const _ORKOriginalAnswerRestoreKey = @"originalAnswer";
 
 - (void)medicationChoiceCellGroup:(ORKMedicationChoiceCellGroup *)medicationChoiceCellGroup didUpdateMedications:(NSArray *)medications {
     [self setAnswer:medications];
-    [self.tableView reloadData];
+    [self answerDidChange];
     [_tableContainer layoutSubviews];
     [_tableContainer setNeedsLayout];
 }
