@@ -54,6 +54,9 @@
         - stepViewContainer
  */
 
+@interface ORKVerticalContainerView () <UIScrollViewDelegate>
+@end
+
 @implementation ORKVerticalContainerView {
     UIView *_scrollContainer;
     UIView *_container;
