@@ -58,6 +58,9 @@ static const CGFloat AssumedStatusBarHeight = 20;
     - continueSkipContainer
  */
 
+@interface ORKVerticalContainerView () <UIScrollViewDelegate>
+@end
+
 @implementation ORKVerticalContainerView {
     UIView *_scrollContainer;
     UIView *_container;
