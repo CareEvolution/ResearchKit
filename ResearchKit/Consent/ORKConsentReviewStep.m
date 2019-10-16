@@ -106,7 +106,7 @@
 }
 
 - (NSUInteger)hash {
-    return super.hash ^ self.consentDocument.hash ^ self.signature.hash ^ self.reasonForConsent.hash ^ (_requiresScrollToBottom ? 0xf : 0x0) ^ (_autoAgree ? 0xf : 0x0);
+    return super.hash ^ self.consentDocument.hash ^ self.signature.hash ^ self.reasonForConsent.hash ^ (_requiresScrollToBottom ? 0xf : 0x0) ^ (_autoAgree ? 0xe : 0x1);
 }
 
 - (BOOL)showsProgress {
