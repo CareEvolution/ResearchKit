@@ -102,6 +102,11 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic) BOOL requiresScrollToBottom;
 
 /**
+ When set to YES, the consent document is not displayed and the user is sent straight to a signature.
+ */
+@property (nonatomic) BOOL autoAgree;
+
+/**
  A user-visible description of the reason for agreeing to consent in a localized string.
  
  The reason for consent is presented in the confirmation dialog that users see when giving their consent.

@@ -40,7 +40,7 @@
 #import "ORKSkin.h"
 
 
-@interface ORKConsentReviewController () <UIWebViewDelegate, UIScrollViewDelegate>
+@interface ORKConsentReviewController () <WKNavigationDelegate, UIScrollViewDelegate>
 
 @end
 
@@ -50,6 +50,7 @@
     NSString *_htmlString;
     NSMutableArray *_variableConstraints;
     UIBarButtonItem *_agreeButton;
+    BOOL _webViewFinishedLoading;
 }
 
 - (instancetype)initWithHTML:(NSString *)html delegate:(id<ORKConsentReviewControllerDelegate>)delegate requiresScrollToBottom:(BOOL)requiresScrollToBottom {
@@ -57,6 +58,7 @@
     if (self) {
         _htmlString = html;
         _delegate = delegate;
+        _webViewFinishedLoading = NO;
         
         _agreeButton = [[UIBarButtonItem alloc] initWithTitle:ORKLocalizedString(@"BUTTON_AGREE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(ack)];
         if (requiresScrollToBottom) {
@@ -80,12 +82,15 @@
     
     self.view.backgroundColor = ORKColor(ORKBackgroundColorKey);
     
-    _webView = [UIWebView new];
+    WKWebViewConfiguration *webViewConfiguration = [WKWebViewConfiguration new];
+    _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:webViewConfiguration];
     [_webView loadHTMLString:_htmlString baseURL:ORKCreateRandomBaseURL()];
     _webView.backgroundColor = ORKColor(ORKBackgroundColorKey);
     _webView.scrollView.backgroundColor = ORKColor(ORKBackgroundColorKey);
-    _webView.scrollView.delegate = self;
-    _webView.delegate = self;
+    if (!_agreeButton.isEnabled) {
+        _webView.scrollView.delegate = self;
+    }
+    _webView.navigationDelegate = self;
     [_webView setClipsToBounds:YES];
     _webView.translatesAutoresizingMaskIntoConstraints = NO;
     _toolbar.translatesAutoresizingMaskIntoConstraints = NO;
@@ -179,17 +184,20 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if (navigationType != UIWebViewNavigationTypeOther) {
-        [[UIApplication sharedApplication] openURL:request.URL];
-        return NO;
+- (void)webView:(WKWebView *) __unused webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if (navigationAction.navigationType != WKNavigationTypeOther) {
+        [[UIApplication sharedApplication] openURL:navigationAction.request.URL options:@{} completionHandler:^(BOOL __unused success) {
+            decisionHandler(WKNavigationActionPolicyCancel);
+        }];
+    } else {
+        decisionHandler(WKNavigationActionPolicyAllow);
     }
-    return YES;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    //need a delay here because of a race condition where the webview may not have fully rendered by the time this is called in which case scrolledToBottom returns YES because everything = 0
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *) __unused navigation {
+    //need a delay here because of a race condition where the webview may not have fully rendered by the time this is called in which case scrolledToBottom returns YES because everything == 0
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _webViewFinishedLoading = YES;
         if (!_agreeButton.isEnabled && [self scrolledToBottom:_webView.scrollView]) {
             [_agreeButton setEnabled:YES];
             _agreeButton.accessibilityHint = nil;
@@ -198,7 +206,8 @@
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!_agreeButton.isEnabled && [self scrolledToBottom:scrollView]) {
+    BOOL scrolledToBottom = [self scrolledToBottom:scrollView];
+    if (!_agreeButton.isEnabled && scrolledToBottom && _webViewFinishedLoading) {
         _agreeButton.enabled = YES;
         _agreeButton.accessibilityHint = nil;
     }
