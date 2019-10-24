@@ -968,6 +968,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     }
     
     ORKWeakTypeOf(self) weakSelf = self;
+    __block BOOL completed = false;
     [self.pageViewController setViewControllers:@[viewController] direction:direction animated:animated completion:^(BOOL finished) {
         
         if (weakSelf == nil) {
@@ -979,6 +980,11 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         
         ORK_Log_Debug(@"%@ %@", strongSelf, viewController);
         
+        // Re-enable user interaction and swipe down to dismiss after pageViewController animation.
+        completed = true;
+        weakSelf.presentationController.presentedView.gestureRecognizers.firstObject.enabled = true;
+        weakSelf.view.userInteractionEnabled = true;
+        
         // Set the progress label only if non-nil or if it is nil having previously set a progress label.
         if (progressLabel || strongSelf->_hasSetProgressLabel) {
             strongSelf.pageViewController.navigationItem.title = progressLabel;
@@ -989,6 +995,10 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         // Collect toolbarItems
         [strongSelf collectToolbarItemsFromViewController:viewController];
     }];
+    if (!completed) { // Disable user interaction and swipe down to dismiss during pageViewController animation.
+        self.presentationController.presentedView.gestureRecognizers.firstObject.enabled = false;
+        self.view.userInteractionEnabled = false;
+    }
 }
 
 - (BOOL)shouldPresentStep:(ORKStep *)step {
