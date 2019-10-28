@@ -29,80 +29,80 @@
  */
 
 
-#import <ResearchKit/ORKTypes.h>
+#import <ResearchKitLegacy/ORKTypes.h>
 
-#import <ResearchKit/ORKStep.h>
-#import <ResearchKit/ORKActiveStep.h>
-#import <ResearchKit/ORKConsentReviewStep.h>
-#import <ResearchKit/ORKConsentSharingStep.h>
-#import <ResearchKit/ORKFormStep.h>
-#import <ResearchKit/ORKImageCaptureStep.h>
-#import <ResearchKit/ORKInstructionStep.h>
-#import <ResearchKit/ORKLoginStep.h>
-#import <ResearchKit/ORKNavigablePageStep.h>
-#import <ResearchKit/ORKPageStep.h>
-#import <ResearchKit/ORKPasscodeStep.h>
-#import <ResearchKit/ORKQuestionStep.h>
-#import <ResearchKit/ORKRegistrationStep.h>
-#import <ResearchKit/ORKReviewStep.h>
-#import <ResearchKit/ORKSignatureStep.h>
-#import <ResearchKit/ORKTableStep.h>
-#import <ResearchKit/ORKTouchAnywhereStep.h>
-#import <ResearchKit/ORKVerificationStep.h>
-#import <ResearchKit/ORKVideoCaptureStep.h>
-#import <ResearchKit/ORKVisualConsentStep.h>
-#import <ResearchKit/ORKWaitStep.h>
-#import <ResearchKit/ORKVideoInstructionStep.h>
-#import <ResearchKit/ORKWebViewStep.h>
+#import <ResearchKitLegacy/ORKStep.h>
+#import <ResearchKitLegacy/ORKActiveStep.h>
+#import <ResearchKitLegacy/ORKConsentReviewStep.h>
+#import <ResearchKitLegacy/ORKConsentSharingStep.h>
+#import <ResearchKitLegacy/ORKFormStep.h>
+#import <ResearchKitLegacy/ORKImageCaptureStep.h>
+#import <ResearchKitLegacy/ORKInstructionStep.h>
+#import <ResearchKitLegacy/ORKLoginStep.h>
+#import <ResearchKitLegacy/ORKNavigablePageStep.h>
+#import <ResearchKitLegacy/ORKPageStep.h>
+#import <ResearchKitLegacy/ORKPasscodeStep.h>
+#import <ResearchKitLegacy/ORKQuestionStep.h>
+#import <ResearchKitLegacy/ORKRegistrationStep.h>
+#import <ResearchKitLegacy/ORKReviewStep.h>
+#import <ResearchKitLegacy/ORKSignatureStep.h>
+#import <ResearchKitLegacy/ORKTableStep.h>
+#import <ResearchKitLegacy/ORKTouchAnywhereStep.h>
+#import <ResearchKitLegacy/ORKVerificationStep.h>
+#import <ResearchKitLegacy/ORKVideoCaptureStep.h>
+#import <ResearchKitLegacy/ORKVisualConsentStep.h>
+#import <ResearchKitLegacy/ORKWaitStep.h>
+#import <ResearchKitLegacy/ORKVideoInstructionStep.h>
+#import <ResearchKitLegacy/ORKWebViewStep.h>
 
-#import <ResearchKit/ORKTask.h>
-#import <ResearchKit/ORKOrderedTask.h>
-#import <ResearchKit/ORKNavigableOrderedTask.h>
-#import <ResearchKit/ORKStepNavigationRule.h>
+#import <ResearchKitLegacy/ORKTask.h>
+#import <ResearchKitLegacy/ORKOrderedTask.h>
+#import <ResearchKitLegacy/ORKNavigableOrderedTask.h>
+#import <ResearchKitLegacy/ORKStepNavigationRule.h>
 
-#import <ResearchKit/ORKAnswerFormat.h>
-#import <ResearchKit/ORKHealthAnswerFormat.h>
+#import <ResearchKitLegacy/ORKAnswerFormat.h>
+#import <ResearchKitLegacy/ORKHealthAnswerFormat.h>
 
-#import <ResearchKit/ORKResult.h>
-#import <ResearchKit/ORKResultPredicate.h>
+#import <ResearchKitLegacy/ORKResult.h>
+#import <ResearchKitLegacy/ORKResultPredicate.h>
 
-#import <ResearchKit/ORKTextButton.h>
-#import <ResearchKit/ORKBorderedButton.h>
-#import <ResearchKit/ORKContinueButton.h>
+#import <ResearchKitLegacy/ORKTextButton.h>
+#import <ResearchKitLegacy/ORKBorderedButton.h>
+#import <ResearchKitLegacy/ORKContinueButton.h>
 
-#import <ResearchKit/ORKStepViewController.h>
-#import <ResearchKit/ORKActiveStepViewController.h>
-#import <ResearchKit/ORKCompletionStepViewController.h>
-#import <ResearchKit/ORKFormStepViewController.h>
-#import <ResearchKit/ORKInstructionStepViewController.h>
-#import <ResearchKit/ORKLoginStepViewController.h>
-#import <ResearchKit/ORKPageStepViewController.h>
-#import <ResearchKit/ORKPasscodeViewController.h>
-#import <ResearchKit/ORKQuestionStepViewController.h>
-#import <ResearchKit/ORKTableStepViewController.h>
-#import <ResearchKit/ORKTaskViewController.h>
-#import <ResearchKit/ORKTouchAnywhereStepViewController.h>
-#import <ResearchKit/ORKVerificationStepViewController.h>
-#import <ResearchKit/ORKWaitStepViewController.h>
-#import <ResearchKit/ORKWebViewStepViewController.h>
+#import <ResearchKitLegacy/ORKStepViewController.h>
+#import <ResearchKitLegacy/ORKActiveStepViewController.h>
+#import <ResearchKitLegacy/ORKCompletionStepViewController.h>
+#import <ResearchKitLegacy/ORKFormStepViewController.h>
+#import <ResearchKitLegacy/ORKInstructionStepViewController.h>
+#import <ResearchKitLegacy/ORKLoginStepViewController.h>
+#import <ResearchKitLegacy/ORKPageStepViewController.h>
+#import <ResearchKitLegacy/ORKPasscodeViewController.h>
+#import <ResearchKitLegacy/ORKQuestionStepViewController.h>
+#import <ResearchKitLegacy/ORKTableStepViewController.h>
+#import <ResearchKitLegacy/ORKTaskViewController.h>
+#import <ResearchKitLegacy/ORKTouchAnywhereStepViewController.h>
+#import <ResearchKitLegacy/ORKVerificationStepViewController.h>
+#import <ResearchKitLegacy/ORKWaitStepViewController.h>
+#import <ResearchKitLegacy/ORKWebViewStepViewController.h>
 
-#import <ResearchKit/ORKRecorder.h>
+#import <ResearchKitLegacy/ORKRecorder.h>
 
-#import <ResearchKit/ORKConsentDocument.h>
-#import <ResearchKit/ORKConsentSection.h>
-#import <ResearchKit/ORKConsentSignature.h>
+#import <ResearchKitLegacy/ORKConsentDocument.h>
+#import <ResearchKitLegacy/ORKConsentSection.h>
+#import <ResearchKitLegacy/ORKConsentSignature.h>
 
-#import <ResearchKit/ORKKeychainWrapper.h>
+#import <ResearchKitLegacy/ORKKeychainWrapper.h>
 
-#import <ResearchKit/ORKChartTypes.h>
-#import <ResearchKit/ORKBarGraphChartView.h>
-#import <ResearchKit/ORKDiscreteGraphChartView.h>
-#import <ResearchKit/ORKLineGraphChartView.h>
-#import <ResearchKit/ORKPieChartView.h>
+#import <ResearchKitLegacy/ORKChartTypes.h>
+#import <ResearchKitLegacy/ORKBarGraphChartView.h>
+#import <ResearchKitLegacy/ORKDiscreteGraphChartView.h>
+#import <ResearchKitLegacy/ORKLineGraphChartView.h>
+#import <ResearchKitLegacy/ORKPieChartView.h>
 
-#import <ResearchKit/ORKDataCollectionManager.h>
-#import <ResearchKit/ORKCollector.h>
+#import <ResearchKitLegacy/ORKDataCollectionManager.h>
+#import <ResearchKitLegacy/ORKCollector.h>
 
-#import <ResearchKit/ORKDeprecated.h>
+#import <ResearchKitLegacy/ORKDeprecated.h>
 
-#import <ResearchKit/CEVRKTheme.h>
+#import <ResearchKitLegacy/CEVRKTheme.h>

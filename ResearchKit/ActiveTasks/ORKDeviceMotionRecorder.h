@@ -30,7 +30,7 @@
 
 
 @import UIKit;
-#import <ResearchKit/ORKRecorder.h>
+#import <ResearchKitLegacy/ORKRecorder.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

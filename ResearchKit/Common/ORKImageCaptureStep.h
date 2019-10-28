@@ -30,7 +30,7 @@
 
 
 @import UIKit;
-#import <ResearchKit/ORKStep.h>
+#import <ResearchKitLegacy/ORKStep.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

@@ -30,7 +30,7 @@
 
 
 @import Foundation;
-#import <ResearchKit/ORKOrderedTask.h>
+#import <ResearchKitLegacy/ORKOrderedTask.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

@@ -31,7 +31,7 @@
 
 
 @import UIKit;
-#import <ResearchKit/ORKGraphChartView.h>
+#import <ResearchKitLegacy/ORKGraphChartView.h>
 
 
 /**

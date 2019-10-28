@@ -29,7 +29,7 @@
  */
 
 
-#import <ResearchKit/ORKAnswerFormat.h>
+#import <ResearchKitLegacy/ORKAnswerFormat.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

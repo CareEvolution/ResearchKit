@@ -29,7 +29,7 @@
  */
 
 
-#import <ResearchKit/ResearchKit_Private.h>
+#import <ResearchKitLegacy/ResearchKit_Private.h>
 
 
 /**

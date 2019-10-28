@@ -30,7 +30,7 @@
 
 
 #import <XCTest/XCTest.h>
-#import <ResearchKit/ResearchKit.h>
+#import <ResearchKitLegacy/ResearchKit.h>
 
 
 @interface ORKDataCollectionTests : XCTestCase <ORKDataCollectionManagerDelegate>

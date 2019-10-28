@@ -28,8 +28,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <ResearchKit/ORKPageStep.h>
-#import <ResearchKit/ORKOrderedTask.h>
+#import <ResearchKitLegacy/ORKPageStep.h>
+#import <ResearchKitLegacy/ORKOrderedTask.h>
 
 
 @interface ORKPageStep ()

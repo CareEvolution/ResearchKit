@@ -31,7 +31,7 @@
 
 @import UIKit;
 @import CoreLocation;
-#import <ResearchKit/ORKTypes.h>
+#import <ResearchKitLegacy/ORKTypes.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

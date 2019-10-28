@@ -29,7 +29,7 @@
  */
 
 
-#import <ResearchKit/ORKResult.h>
+#import <ResearchKitLegacy/ORKResult.h>
 @import MapKit;
 
 @class ORKPageStep;

@@ -30,7 +30,7 @@
 
 
 #import <Foundation/Foundation.h>
-#import <ResearchKit/ResearchKit.h>
+#import <ResearchKitLegacy/ResearchKit.h>
 #import <CoreMotion/CoreMotion.h>
 
 

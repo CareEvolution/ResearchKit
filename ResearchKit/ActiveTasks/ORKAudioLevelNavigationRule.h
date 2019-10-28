@@ -30,7 +30,7 @@
  */
 
 
-#import <ResearchKit/ORKStepNavigationRule.h>
+#import <ResearchKitLegacy/ORKStepNavigationRule.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

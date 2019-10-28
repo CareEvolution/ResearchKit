@@ -31,7 +31,7 @@
 
 @import UIKit;
 @import HealthKit;
-#import <ResearchKit/ORKStep.h>
+#import <ResearchKitLegacy/ORKStep.h>
 
 
 @class ORKRecorderConfiguration;

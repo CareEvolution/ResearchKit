@@ -29,7 +29,7 @@
  */
 
 
-#import <ResearchKit/ResearchKit.h>
+#import <ResearchKitLegacy/ResearchKit.h>
 #import <CoreMotion/CMDeviceMotion.h>
 
 

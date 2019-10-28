@@ -29,7 +29,7 @@
  */
 
 
-#import <ResearchKit/ORKConsentSection.h>
+#import <ResearchKitLegacy/ORKConsentSection.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

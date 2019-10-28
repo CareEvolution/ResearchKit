@@ -29,7 +29,7 @@
  */
 
 
-#import <ResearchKit/ORKStepNavigationRule.h>
+#import <ResearchKitLegacy/ORKStepNavigationRule.h>
 
 
 // This 'Private' header is needed because ORKESerialization uses ORKPredicateStepNavigationRule's

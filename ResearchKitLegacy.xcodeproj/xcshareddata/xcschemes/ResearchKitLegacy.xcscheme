@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B183A4731A8535D100C76870"
-               BuildableName = "ResearchKit.framework"
-               BlueprintName = "ResearchKit"
-               ReferencedContainer = "container:ResearchKit.xcodeproj">
+               BuildableName = "ResearchKitLegacy.framework"
+               BlueprintName = "ResearchKitLegacy"
+               ReferencedContainer = "container:ResearchKitLegacy.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -27,29 +27,27 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B183A4731A8535D100C76870"
+            BuildableName = "ResearchKitLegacy.framework"
+            BlueprintName = "ResearchKitLegacy"
+            ReferencedContainer = "container:ResearchKitLegacy.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "86CC8E991AC09332001CCD89"
-               BuildableName = "ResearchKitTests.xctest"
-               BlueprintName = "ResearchKitTests"
-               ReferencedContainer = "container:ResearchKit.xcodeproj">
+               BuildableName = "ResearchKitLegacyTests.xctest"
+               BlueprintName = "ResearchKitLegacyTests"
+               ReferencedContainer = "container:ResearchKitLegacy.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B183A4731A8535D100C76870"
-            BuildableName = "ResearchKit.framework"
-            BlueprintName = "ResearchKit"
-            ReferencedContainer = "container:ResearchKit.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -65,13 +63,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B183A4731A8535D100C76870"
-            BuildableName = "ResearchKit.framework"
-            BlueprintName = "ResearchKit"
-            ReferencedContainer = "container:ResearchKit.xcodeproj">
+            BuildableName = "ResearchKitLegacy.framework"
+            BlueprintName = "ResearchKitLegacy"
+            ReferencedContainer = "container:ResearchKitLegacy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -83,9 +79,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B183A4731A8535D100C76870"
-            BuildableName = "ResearchKit.framework"
-            BlueprintName = "ResearchKit"
-            ReferencedContainer = "container:ResearchKit.xcodeproj">
+            BuildableName = "ResearchKitLegacy.framework"
+            BlueprintName = "ResearchKitLegacy"
+            ReferencedContainer = "container:ResearchKitLegacy.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

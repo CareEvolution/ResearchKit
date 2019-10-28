@@ -29,7 +29,7 @@
  */
 
 
-#import <ResearchKit/ORKTaskViewController.h>
+#import <ResearchKitLegacy/ORKTaskViewController.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

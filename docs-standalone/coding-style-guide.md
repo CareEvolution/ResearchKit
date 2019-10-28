@@ -397,7 +397,7 @@ Use the same whitespace rules as when declaring *protocol conformance*, but omit
 
 
     #import <Foundation/Foundation.h>
-    #import <ResearchKit/ORKDefines.h>
+    #import <ResearchKitLegacy/ORKDefines.h>
 
 
     NS_ASSUME_NONNULL_BEGIN

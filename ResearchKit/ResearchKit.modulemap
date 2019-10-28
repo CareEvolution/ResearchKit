@@ -1,4 +1,4 @@
-framework module ResearchKit {
+framework module ResearchKitLegacy {
     umbrella header "ResearchKit.h"
     
     module Private {

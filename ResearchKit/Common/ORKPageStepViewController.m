@@ -30,7 +30,7 @@
 
 
 #import "ORKPageStepViewController.h"
-#import <ResearchKit/ResearchKit_Private.h>
+#import <ResearchKitLegacy/ResearchKit_Private.h>
 #import "ORKStepViewController_Internal.h"
 #import "UIBarButtonItem+ORKBarButtonItem.h"
 #import "ORKHelpers_Internal.h"

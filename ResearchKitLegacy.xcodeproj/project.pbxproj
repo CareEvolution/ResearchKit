@@ -435,7 +435,7 @@
 		86C40E341A8D7C5C00081FAC /* ORKVisualConsentStepViewController_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40C0D1A8D7C5C00081FAC /* ORKVisualConsentStepViewController_Internal.h */; };
 		86C40E361A8D7C5C00081FAC /* ORKVisualConsentTransitionAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40C0E1A8D7C5C00081FAC /* ORKVisualConsentTransitionAnimator.h */; };
 		86C40E381A8D7C5C00081FAC /* ORKVisualConsentTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40C0F1A8D7C5C00081FAC /* ORKVisualConsentTransitionAnimator.m */; };
-		86CC8EA01AC09332001CCD89 /* ResearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B183A5951A8535D100C76870 /* ResearchKit.framework */; };
+		86CC8EA01AC09332001CCD89 /* ResearchKitLegacy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B183A5951A8535D100C76870 /* ResearchKitLegacy.framework */; };
 		86CC8EB31AC09383001CCD89 /* ORKAccessibilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CC8EA81AC09383001CCD89 /* ORKAccessibilityTests.m */; };
 		86CC8EB41AC09383001CCD89 /* ORKChoiceAnswerFormatHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CC8EA91AC09383001CCD89 /* ORKChoiceAnswerFormatHelperTests.m */; };
 		86CC8EB51AC09383001CCD89 /* ORKConsentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CC8EAA1AC09383001CCD89 /* ORKConsentTests.m */; };
@@ -1036,7 +1036,7 @@
 		86C40C0E1A8D7C5C00081FAC /* ORKVisualConsentTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKVisualConsentTransitionAnimator.h; sourceTree = "<group>"; };
 		86C40C0F1A8D7C5C00081FAC /* ORKVisualConsentTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ORKVisualConsentTransitionAnimator.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		86C40C101A8D7C5C00081FAC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		86CC8E9A1AC09332001CCD89 /* ResearchKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ResearchKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		86CC8E9A1AC09332001CCD89 /* ResearchKitLegacyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ResearchKitLegacyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		86CC8EA71AC09383001CCD89 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86CC8EA81AC09383001CCD89 /* ORKAccessibilityTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKAccessibilityTests.m; sourceTree = "<group>"; };
 		86CC8EA91AC09383001CCD89 /* ORKChoiceAnswerFormatHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKChoiceAnswerFormatHelperTests.m; sourceTree = "<group>"; };
@@ -1070,7 +1070,7 @@
 		B12EA0171B0D76AD00F9F554 /* ORKToneAudiometryPracticeStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKToneAudiometryPracticeStepViewController.h; sourceTree = "<group>"; };
 		B12EA0181B0D76AD00F9F554 /* ORKToneAudiometryPracticeStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKToneAudiometryPracticeStepViewController.m; sourceTree = "<group>"; };
 		B14660481AA10DD7002F95C2 /* zh_TW */ = {isa = PBXFileReference; explicitFileType = text.plist.strings; name = zh_TW; path = zh_TW.lproj/ResearchKit.strings; sourceTree = "<group>"; };
-		B183A5951A8535D100C76870 /* ResearchKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ResearchKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B183A5951A8535D100C76870 /* ResearchKitLegacy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ResearchKitLegacy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B18AABE01A9F08D9003871B5 /* ResearchKit.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ResearchKit.modulemap; sourceTree = "<group>"; };
 		B1A860DB1A9693C400EA57B7 /* consent_01@2x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_01@2x.m4v"; sourceTree = "<group>"; };
 		B1A860DC1A9693C400EA57B7 /* consent_02@2x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_02@2x.m4v"; sourceTree = "<group>"; };
@@ -1249,7 +1249,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86CC8EA01AC09332001CCD89 /* ResearchKit.framework in Frameworks */,
+				86CC8EA01AC09332001CCD89 /* ResearchKitLegacy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1547,8 +1547,8 @@
 		3FFF183E1829DB1D00167070 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B183A5951A8535D100C76870 /* ResearchKit.framework */,
-				86CC8E9A1AC09332001CCD89 /* ResearchKitTests.xctest */,
+				B183A5951A8535D100C76870 /* ResearchKitLegacy.framework */,
+				86CC8E9A1AC09332001CCD89 /* ResearchKitLegacyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2905,9 +2905,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		86CC8E991AC09332001CCD89 /* ResearchKitTests */ = {
+		86CC8E991AC09332001CCD89 /* ResearchKitLegacyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 86CC8EA31AC09332001CCD89 /* Build configuration list for PBXNativeTarget "ResearchKitTests" */;
+			buildConfigurationList = 86CC8EA31AC09332001CCD89 /* Build configuration list for PBXNativeTarget "ResearchKitLegacyTests" */;
 			buildPhases = (
 				86CC8E961AC09332001CCD89 /* Sources */,
 				86CC8E971AC09332001CCD89 /* Frameworks */,
@@ -2918,14 +2918,14 @@
 			dependencies = (
 				86CC8EA21AC09332001CCD89 /* PBXTargetDependency */,
 			);
-			name = ResearchKitTests;
+			name = ResearchKitLegacyTests;
 			productName = "ResearchKit Tests";
-			productReference = 86CC8E9A1AC09332001CCD89 /* ResearchKitTests.xctest */;
+			productReference = 86CC8E9A1AC09332001CCD89 /* ResearchKitLegacyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B183A4731A8535D100C76870 /* ResearchKit */ = {
+		B183A4731A8535D100C76870 /* ResearchKitLegacy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B183A5921A8535D100C76870 /* Build configuration list for PBXNativeTarget "ResearchKit" */;
+			buildConfigurationList = B183A5921A8535D100C76870 /* Build configuration list for PBXNativeTarget "ResearchKitLegacy" */;
 			buildPhases = (
 				B183A4741A8535D100C76870 /* Headers */,
 				B183A4F71A8535D100C76870 /* Sources */,
@@ -2937,9 +2937,9 @@
 			);
 			dependencies = (
 			);
-			name = ResearchKit;
+			name = ResearchKitLegacy;
 			productName = ResearchKit;
-			productReference = B183A5951A8535D100C76870 /* ResearchKit.framework */;
+			productReference = B183A5951A8535D100C76870 /* ResearchKitLegacy.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -2964,7 +2964,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3FFF18381829DB1D00167070 /* Build configuration list for PBXProject "ResearchKit" */;
+			buildConfigurationList = 3FFF18381829DB1D00167070 /* Build configuration list for PBXProject "ResearchKitLegacy" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -3025,8 +3025,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B183A4731A8535D100C76870 /* ResearchKit */,
-				86CC8E991AC09332001CCD89 /* ResearchKitTests */,
+				B183A4731A8535D100C76870 /* ResearchKitLegacy */,
+				86CC8E991AC09332001CCD89 /* ResearchKitLegacyTests */,
 				B18FF3A41A9FE25700C0C3B0 /* docs */,
 			);
 		};
@@ -3383,12 +3383,12 @@
 /* Begin PBXTargetDependency section */
 		86CC8EA21AC09332001CCD89 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B183A4731A8535D100C76870 /* ResearchKit */;
+			target = B183A4731A8535D100C76870 /* ResearchKitLegacy */;
 			targetProxy = 86CC8EA11AC09332001CCD89 /* PBXContainerItemProxy */;
 		};
 		B11DF3B11AA10795009E76D2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B183A4731A8535D100C76870 /* ResearchKit */;
+			target = B183A4731A8535D100C76870 /* ResearchKitLegacy */;
 			targetProxy = B11DF3B01AA10795009E76D2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -3613,7 +3613,7 @@
 				MODULEMAP_FILE = ResearchKit/ResearchKit.modulemap;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.researchkit.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = ResearchKit;
+				PRODUCT_NAME = ResearchKitLegacy;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3645,7 +3645,7 @@
 				MODULEMAP_FILE = ResearchKit/ResearchKit.modulemap;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.researchkit.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = ResearchKit;
+				PRODUCT_NAME = ResearchKitLegacy;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -3671,7 +3671,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3FFF18381829DB1D00167070 /* Build configuration list for PBXProject "ResearchKit" */ = {
+		3FFF18381829DB1D00167070 /* Build configuration list for PBXProject "ResearchKitLegacy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3FFF18691829DB1E00167070 /* Debug */,
@@ -3680,7 +3680,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		86CC8EA31AC09332001CCD89 /* Build configuration list for PBXNativeTarget "ResearchKitTests" */ = {
+		86CC8EA31AC09332001CCD89 /* Build configuration list for PBXNativeTarget "ResearchKitLegacyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				86CC8EA41AC09332001CCD89 /* Debug */,
@@ -3689,7 +3689,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B183A5921A8535D100C76870 /* Build configuration list for PBXNativeTarget "ResearchKit" */ = {
+		B183A5921A8535D100C76870 /* Build configuration list for PBXNativeTarget "ResearchKitLegacy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B183A5931A8535D100C76870 /* Debug */,

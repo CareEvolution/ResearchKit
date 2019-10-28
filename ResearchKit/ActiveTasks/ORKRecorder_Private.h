@@ -29,8 +29,8 @@
  */
 
 
-#import <ResearchKit/ORKRecorder.h>
-#import <ResearchKit/ORKTypes.h>
+#import <ResearchKitLegacy/ORKRecorder.h>
+#import <ResearchKitLegacy/ORKTypes.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

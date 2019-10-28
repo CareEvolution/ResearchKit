@@ -30,7 +30,7 @@
 
 #import "ORKWebViewStepViewController.h"
 #import "ORKWebViewStep.h"
-#import <ResearchKit/ORKResult.h>
+#import <ResearchKitLegacy/ORKResult.h>
 @import SafariServices;
 
 @implementation ORKWebViewPreloader {

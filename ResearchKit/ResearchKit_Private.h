@@ -29,76 +29,76 @@
  */
 
 
-#import <ResearchKit/ResearchKit.h>
+#import <ResearchKitLegacy/ResearchKit.h>
 
-#import <ResearchKit/ORKHelpers_Private.h>
+#import <ResearchKitLegacy/ORKHelpers_Private.h>
 
 // Active step support
-#import <ResearchKit/ORKDataLogger.h>
-#import <ResearchKit/ORKErrors.h>
+#import <ResearchKitLegacy/ORKDataLogger.h>
+#import <ResearchKitLegacy/ORKErrors.h>
 
-#import <ResearchKit/ORKAnswerFormat_Private.h>
-#import <ResearchKit/ORKConsentSection_Private.h>
-#import <ResearchKit/ORKOrderedTask_Private.h>
-#import <ResearchKit/ORKPageStep_Private.h>
-#import <ResearchKit/ORKRecorder_Private.h>
-#import <ResearchKit/ORKResult_Private.h>
-#import <ResearchKit/ORKStepNavigationRule_Private.h>
-#import <ResearchKit/ORKAudioLevelNavigationRule.h>
+#import <ResearchKitLegacy/ORKAnswerFormat_Private.h>
+#import <ResearchKitLegacy/ORKConsentSection_Private.h>
+#import <ResearchKitLegacy/ORKOrderedTask_Private.h>
+#import <ResearchKitLegacy/ORKPageStep_Private.h>
+#import <ResearchKitLegacy/ORKRecorder_Private.h>
+#import <ResearchKitLegacy/ORKResult_Private.h>
+#import <ResearchKitLegacy/ORKStepNavigationRule_Private.h>
+#import <ResearchKitLegacy/ORKAudioLevelNavigationRule.h>
 
-#import <ResearchKit/ORKAudioStep.h>
-#import <ResearchKit/ORKCompletionStep.h>
-#import <ResearchKit/ORKCountdownStep.h>
-#import <ResearchKit/ORKFitnessStep.h>
-#import <ResearchKit/ORKHolePegTestPlaceStep.h>
-#import <ResearchKit/ORKHolePegTestRemoveStep.h>
-#import <ResearchKit/ORKPSATStep.h>
-#import <ResearchKit/ORKRangeOfMotionStep.h>
-#import <ResearchKit/ORKReactionTimeStep.h>
-#import <ResearchKit/ORKShoulderRangeOfMotionStep.h>
-#import <ResearchKit/ORKSpatialSpanMemoryStep.h>
-#import <ResearchKit/ORKStroopStep.h>
-#import <ResearchKit/ORKTappingIntervalStep.h>
-#import <ResearchKit/ORKTimedWalkStep.h>
-#import <ResearchKit/ORKToneAudiometryPracticeStep.h>
-#import <ResearchKit/ORKToneAudiometryStep.h>
-#import <ResearchKit/ORKTowerOfHanoiStep.h>
-#import <ResearchKit/ORKTrailmakingStep.h>
-#import <ResearchKit/ORKWalkingTaskStep.h>
+#import <ResearchKitLegacy/ORKAudioStep.h>
+#import <ResearchKitLegacy/ORKCompletionStep.h>
+#import <ResearchKitLegacy/ORKCountdownStep.h>
+#import <ResearchKitLegacy/ORKFitnessStep.h>
+#import <ResearchKitLegacy/ORKHolePegTestPlaceStep.h>
+#import <ResearchKitLegacy/ORKHolePegTestRemoveStep.h>
+#import <ResearchKitLegacy/ORKPSATStep.h>
+#import <ResearchKitLegacy/ORKRangeOfMotionStep.h>
+#import <ResearchKitLegacy/ORKReactionTimeStep.h>
+#import <ResearchKitLegacy/ORKShoulderRangeOfMotionStep.h>
+#import <ResearchKitLegacy/ORKSpatialSpanMemoryStep.h>
+#import <ResearchKitLegacy/ORKStroopStep.h>
+#import <ResearchKitLegacy/ORKTappingIntervalStep.h>
+#import <ResearchKitLegacy/ORKTimedWalkStep.h>
+#import <ResearchKitLegacy/ORKToneAudiometryPracticeStep.h>
+#import <ResearchKitLegacy/ORKToneAudiometryStep.h>
+#import <ResearchKitLegacy/ORKTowerOfHanoiStep.h>
+#import <ResearchKitLegacy/ORKTrailmakingStep.h>
+#import <ResearchKitLegacy/ORKWalkingTaskStep.h>
 
-#import <ResearchKit/ORKTaskViewController_Private.h>
-#import <ResearchKit/ORKQuestionStepViewController_Private.h>
+#import <ResearchKitLegacy/ORKTaskViewController_Private.h>
+#import <ResearchKitLegacy/ORKQuestionStepViewController_Private.h>
 
-#import <ResearchKit/ORKAudioStepViewController.h>
-#import <ResearchKit/ORKConsentReviewStepViewController.h>
-#import <ResearchKit/ORKConsentSharingStepViewController.h>
-#import <ResearchKit/ORKCountdownStepViewController.h>
-#import <ResearchKit/ORKFitnessStepViewController.h>
-#import <ResearchKit/ORKHolePegTestPlaceStepViewController.h>
-#import <ResearchKit/ORKHolePegTestRemoveStepViewController.h>
-#import <ResearchKit/ORKImageCaptureStepViewController.h>
-#import <ResearchKit/ORKPasscodeStepViewController.h>
-#import <ResearchKit/ORKPSATStepViewController.h>
-#import <ResearchKit/ORKQuestionStepViewController.h>
-#import <ResearchKit/ORKReviewStepViewController.h>
-#import <ResearchKit/ORKSignatureStepViewController.h>
-#import <ResearchKit/ORKSpatialSpanMemoryStepViewController.h>
-#import <ResearchKit/ORKStroopStepViewController.h>
-#import <ResearchKit/ORKTappingIntervalStepViewController.h>
-#import <ResearchKit/ORKToneAudiometryPracticeStepViewController.h>
-#import <ResearchKit/ORKToneAudiometryStepViewController.h>
-#import <ResearchKit/ORKTimedWalkStepViewController.h>
-#import <ResearchKit/ORKVisualConsentStepViewController.h>
-#import <ResearchKit/ORKWalkingTaskStepViewController.h>
-#import <ResearchKit/ORKVideoInstructionStepViewController.h>
+#import <ResearchKitLegacy/ORKAudioStepViewController.h>
+#import <ResearchKitLegacy/ORKConsentReviewStepViewController.h>
+#import <ResearchKitLegacy/ORKConsentSharingStepViewController.h>
+#import <ResearchKitLegacy/ORKCountdownStepViewController.h>
+#import <ResearchKitLegacy/ORKFitnessStepViewController.h>
+#import <ResearchKitLegacy/ORKHolePegTestPlaceStepViewController.h>
+#import <ResearchKitLegacy/ORKHolePegTestRemoveStepViewController.h>
+#import <ResearchKitLegacy/ORKImageCaptureStepViewController.h>
+#import <ResearchKitLegacy/ORKPasscodeStepViewController.h>
+#import <ResearchKitLegacy/ORKPSATStepViewController.h>
+#import <ResearchKitLegacy/ORKQuestionStepViewController.h>
+#import <ResearchKitLegacy/ORKReviewStepViewController.h>
+#import <ResearchKitLegacy/ORKSignatureStepViewController.h>
+#import <ResearchKitLegacy/ORKSpatialSpanMemoryStepViewController.h>
+#import <ResearchKitLegacy/ORKStroopStepViewController.h>
+#import <ResearchKitLegacy/ORKTappingIntervalStepViewController.h>
+#import <ResearchKitLegacy/ORKToneAudiometryPracticeStepViewController.h>
+#import <ResearchKitLegacy/ORKToneAudiometryStepViewController.h>
+#import <ResearchKitLegacy/ORKTimedWalkStepViewController.h>
+#import <ResearchKitLegacy/ORKVisualConsentStepViewController.h>
+#import <ResearchKitLegacy/ORKWalkingTaskStepViewController.h>
+#import <ResearchKitLegacy/ORKVideoInstructionStepViewController.h>
 
-#import <ResearchKit/ORKAccelerometerRecorder.h>
-#import <ResearchKit/ORKAudioRecorder.h>
-#import <ResearchKit/ORKDeviceMotionRecorder.h>
-#import <ResearchKit/ORKHealthQuantityTypeRecorder.h>
-#import <ResearchKit/ORKLocationRecorder.h>
-#import <ResearchKit/ORKPedometerRecorder.h>
-#import <ResearchKit/ORKTouchRecorder.h>
+#import <ResearchKitLegacy/ORKAccelerometerRecorder.h>
+#import <ResearchKitLegacy/ORKAudioRecorder.h>
+#import <ResearchKitLegacy/ORKDeviceMotionRecorder.h>
+#import <ResearchKitLegacy/ORKHealthQuantityTypeRecorder.h>
+#import <ResearchKitLegacy/ORKLocationRecorder.h>
+#import <ResearchKitLegacy/ORKPedometerRecorder.h>
+#import <ResearchKitLegacy/ORKTouchRecorder.h>
 
 // For custom steps
-#import <ResearchKit/ORKCustomStepView.h>
+#import <ResearchKitLegacy/ORKCustomStepView.h>
