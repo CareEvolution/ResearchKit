@@ -31,7 +31,7 @@
 
 
 @import XCTest;
-@import ResearchKit.Private;
+@import ResearchKitLegacy.Private;
 
 #import "ORKChoiceViewCell.h"
 #import "ORKTextChoiceCellGroup.h"

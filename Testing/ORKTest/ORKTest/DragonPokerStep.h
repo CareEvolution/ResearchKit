@@ -30,7 +30,7 @@
 
 
 @import Foundation;
-@import ResearchKit;
+@import ResearchKitLegacy;
 
 /// Example implementation of an override of the class method -instantiateStepViewControllerWithResult:
 /// In this example, only show the cancel button on Tuesdays

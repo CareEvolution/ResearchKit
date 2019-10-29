@@ -31,7 +31,7 @@
 
 #import "FooterView.h"
 
-@import ResearchKit;
+@import ResearchKitLegacy;
 
 
 @implementation FooterView

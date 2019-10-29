@@ -40,7 +40,7 @@
 #import "ORKTest-Swift.h"
 #import "DragonPokerStep.h"
 
-@import ResearchKit;
+@import ResearchKitLegacy;
 
 @import AVFoundation;
 

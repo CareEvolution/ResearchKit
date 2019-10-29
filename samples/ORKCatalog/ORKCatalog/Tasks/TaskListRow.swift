@@ -30,7 +30,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
 */
 
-import ResearchKit
+import ResearchKitLegacy
 import AudioToolbox
 
 /**

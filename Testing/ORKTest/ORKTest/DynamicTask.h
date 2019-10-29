@@ -30,7 +30,7 @@
 
 
 @import UIKit;
-@import ResearchKit;
+@import ResearchKitLegacy;
 
 
 /*

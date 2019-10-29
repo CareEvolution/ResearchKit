@@ -30,7 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import UIKit
-import ResearchKit
+import ResearchKitLegacy
 
 func executeAfterDelay(_ delay:Double, closure:@escaping ()->()) {
     let delayTime = DispatchTime.now() + delay

@@ -32,8 +32,8 @@
 
 #import "ORKESerialization.h"
 
-@import ResearchKit;
-@import ResearchKit.Private;
+@import ResearchKitLegacy;
+@import ResearchKitLegacy.Private;
 
 @import MapKit;
 

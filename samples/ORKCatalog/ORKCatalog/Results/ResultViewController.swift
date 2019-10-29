@@ -29,7 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 import UIKit
-import ResearchKit
+import ResearchKitLegacy
 
 /**
     The purpose of this view controller is to show you the kinds of data

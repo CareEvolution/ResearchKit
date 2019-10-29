@@ -30,7 +30,7 @@
 
 
 @import XCTest;
-@import ResearchKit.Private;
+@import ResearchKitLegacy.Private;
 
 #import "HKSample+ORKJSONDictionary.h"
 

@@ -30,7 +30,7 @@
 */
 
 import UIKit
-import ResearchKit
+import ResearchKitLegacy
 
 /**
     This example displays a catalog of tasks, each consisting of one or two steps,
