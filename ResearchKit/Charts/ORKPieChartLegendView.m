@@ -44,33 +44,33 @@ static const CGFloat MinimumInteritemSpacing = 10.0;
 static const CGFloat MinimumLineSpacing = 6.0;
 
 
-@implementation ORKPieChartLegendView {
-    __weak ORKPieChartView *_parentPieChartView;
-    ORKPieChartLegendCell *_sizingCell;
+@implementation ORKLegacyPieChartLegendView {
+    __weak ORKLegacyPieChartView *_parentPieChartView;
+    ORKLegacyPieChartLegendCell *_sizingCell;
     CGFloat _sumOfValues;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
          collectionViewLayout:(UICollectionViewLayout *)collectionViewLayout {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 #pragma clang diagnostic pop
 
-- (instancetype)initWithParentPieChartView:(ORKPieChartView *)parentPieChartView {
-    ORKPieChartLegendCollectionViewLayout *pieChartLegendCollectionViewLayout = [[ORKPieChartLegendCollectionViewLayout alloc] init];
+- (instancetype)initWithParentPieChartView:(ORKLegacyPieChartView *)parentPieChartView {
+    ORKLegacyPieChartLegendCollectionViewLayout *pieChartLegendCollectionViewLayout = [[ORKLegacyPieChartLegendCollectionViewLayout alloc] init];
     pieChartLegendCollectionViewLayout.minimumInteritemSpacing = MinimumInteritemSpacing;
     pieChartLegendCollectionViewLayout.minimumLineSpacing = MinimumLineSpacing;
     pieChartLegendCollectionViewLayout.estimatedItemSize = CGSizeMake(100.0, 30.0);
     self = [super initWithFrame:CGRectZero collectionViewLayout:pieChartLegendCollectionViewLayout];
     if (self) {
-        [self registerClass:[ORKPieChartLegendCell class] forCellWithReuseIdentifier:@"cell"];
-        _sizingCell = [[ORKPieChartLegendCell alloc] initWithFrame:CGRectZero];
+        [self registerClass:[ORKLegacyPieChartLegendCell class] forCellWithReuseIdentifier:@"cell"];
+        _sizingCell = [[ORKLegacyPieChartLegendCell alloc] initWithFrame:CGRectZero];
         
         _parentPieChartView = parentPieChartView;
         _sumOfValues = 0;
@@ -152,7 +152,7 @@ static const CGFloat MinimumLineSpacing = 6.0;
     CGFloat value = [_parentPieChartView.dataSource pieChartView:_parentPieChartView valueForSegmentAtIndex:indexPath.item];
     NSString *title = [_parentPieChartView.dataSource pieChartView:_parentPieChartView titleForSegmentAtIndex:indexPath.item];
     
-    ORKPieChartLegendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    ORKLegacyPieChartLegendCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.tag = indexPath.item;
     cell.titleLabel.text = title;
     cell.titleLabel.font = _labelFont;

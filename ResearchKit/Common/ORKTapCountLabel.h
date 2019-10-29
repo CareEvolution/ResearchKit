@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Display tapping count in tapping interval active task
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTapCountLabel : ORKLabel
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTapCountLabel : ORKLegacyLabel
 
 @end
 

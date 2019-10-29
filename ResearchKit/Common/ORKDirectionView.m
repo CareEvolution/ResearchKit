@@ -38,29 +38,29 @@ static const CGFloat ArrowWidth = 8;
 static const CGFloat ArrowLineWidth = 4;
 
 
-@interface ORKArrowView : UIView
+@interface ORKLegacyArrowView : UIView
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
-- (instancetype)initWithOrientation:(ORKBodySagittal)orientation NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithOrientation:(ORKLegacyBodySagittal)orientation NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, assign) ORKBodySagittal orientation;
+@property (nonatomic, assign) ORKLegacyBodySagittal orientation;
 @property (nonatomic, assign) BOOL completed;
 
 @end
 
 
-@implementation ORKArrowView
+@implementation ORKLegacyArrowView
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 
-- (instancetype)initWithOrientation:(ORKBodySagittal)orientation {
+- (instancetype)initWithOrientation:(ORKLegacyBodySagittal)orientation {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         self.opaque = NO;
@@ -93,7 +93,7 @@ static const CGFloat ArrowLineWidth = 4;
     [self.tintColor setStroke];
     
     CGMutablePathRef path = CGPathCreateMutable();
-    if (self.orientation == ORKBodySagittalLeft) {
+    if (self.orientation == ORKLegacyBodySagittalLeft) {
         CGPathMoveToPoint(path, NULL, ArrowLineWidth + ArrowWidth, ArrowLineWidth);
         CGPathAddLineToPoint(path, NULL, ArrowLineWidth, ArrowLineWidth + ArrowWidth);
         CGPathAddLineToPoint(path, NULL, ArrowLineWidth + ArrowWidth, ArrowLineWidth + 2 * ArrowWidth);
@@ -113,12 +113,12 @@ static const CGFloat ArrowLineWidth = 4;
 @end
 
 
-@interface ORKDirectionView ()
+@interface ORKLegacyDirectionView ()
 
-@property (nonatomic, assign) ORKBodySagittal orientation;
-@property (nonatomic, strong) ORKArrowView *leftArrow;
-@property (nonatomic, strong) ORKArrowView *middleArrow;
-@property (nonatomic, strong) ORKArrowView *rightArrow;
+@property (nonatomic, assign) ORKLegacyBodySagittal orientation;
+@property (nonatomic, strong) ORKLegacyArrowView *leftArrow;
+@property (nonatomic, strong) ORKLegacyArrowView *middleArrow;
+@property (nonatomic, strong) ORKLegacyArrowView *rightArrow;
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, copy) NSArray *constraints;
@@ -126,31 +126,31 @@ static const CGFloat ArrowLineWidth = 4;
 @end
 
 
-@implementation ORKDirectionView
+@implementation ORKLegacyDirectionView
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 
-- (instancetype)initWithOrientation:(ORKBodySagittal)orientation {
+- (instancetype)initWithOrientation:(ORKLegacyBodySagittal)orientation {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         self.opaque = NO;
         self.orientation = orientation;
         
-        self.leftArrow = [[ORKArrowView alloc] initWithOrientation:self.orientation];
+        self.leftArrow = [[ORKLegacyArrowView alloc] initWithOrientation:self.orientation];
         self.leftArrow.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:self.leftArrow];
         
-        self.middleArrow = [[ORKArrowView alloc] initWithOrientation:self.orientation];
+        self.middleArrow = [[ORKLegacyArrowView alloc] initWithOrientation:self.orientation];
         self.middleArrow.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:self.middleArrow];
         
-        self.rightArrow = [[ORKArrowView alloc] initWithOrientation:self.orientation];
+        self.rightArrow = [[ORKLegacyArrowView alloc] initWithOrientation:self.orientation];
         self.rightArrow.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:self.rightArrow];
         
@@ -167,7 +167,7 @@ static const CGFloat ArrowLineWidth = 4;
     self.middleArrow.completed = NO;
     self.rightArrow.completed = NO;
     
-    if (self.orientation == ORKBodySagittalLeft) {
+    if (self.orientation == ORKLegacyBodySagittalLeft) {
         switch (index) {
             case 3:
                 self.leftArrow.completed = YES;

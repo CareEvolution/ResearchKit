@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKFormStepViewController ()
+@interface ORKLegacyFormStepViewController ()
 
 - (void)setSkipButtonItem:(UIBarButtonItem *)skipButtonItem;
 

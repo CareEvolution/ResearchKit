@@ -44,12 +44,12 @@
 // #define LAYOUT_TEST 1
 // #define LAYOUT_DEBUG 1
 
-@interface ORKFitnessContentView () {
-    ORKQuantityLabel *_timerLabel;
-    ORKQuantityPairView *_quantityPairView;
+@interface ORKLegacyFitnessContentView () {
+    ORKLegacyQuantityLabel *_timerLabel;
+    ORKLegacyQuantityPairView *_quantityPairView;
     UIView *_imageSpacer1;
     UIView *_imageSpacer2;
-    ORKTintedImageView *_imageView;
+    ORKLegacyTintedImageView *_imageView;
     NSLengthFormatter *_lengthFormatter;
     NSLayoutConstraint *_imageRatioConstraint;
     NSLayoutConstraint *_topConstraint;
@@ -58,21 +58,21 @@
 @end
 
 
-@implementation ORKFitnessContentView
+@implementation ORKLegacyFitnessContentView
 
-- (ORKActiveStepQuantityView *)distanceView {
+- (ORKLegacyActiveStepQuantityView *)distanceView {
     return _quantityPairView.leftView;
 }
 
-- (ORKActiveStepQuantityView *)heartRateView {
+- (ORKLegacyActiveStepQuantityView *)heartRateView {
     return _quantityPairView.rightView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _timerLabel = [ORKQuantityLabel new];
-        _quantityPairView = [ORKQuantityPairView new];
+        _timerLabel = [ORKLegacyQuantityLabel new];
+        _quantityPairView = [ORKLegacyQuantityPairView new];
         _imageSpacer1 = [UIView new];
         _imageSpacer1.translatesAutoresizingMaskIntoConstraints = NO;
         _imageSpacer2 = [UIView new];
@@ -81,7 +81,7 @@
         [self addSubview:_imageSpacer2];
         [self heartRateView].image = [UIImage imageNamed:@"heart-fitness" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
         [self updateLengthFormatter];
-        _imageView = [ORKTintedImageView new];
+        _imageView = [ORKLegacyTintedImageView new];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.shouldApplyTint = YES;
         _timerLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -109,7 +109,7 @@
 #endif
       
         [self setDistanceInMeters:0];
-        [self heartRateView].title = ORKLocalizedString(@"FITNESS_HEARTRATE_TITLE", nil);
+        [self heartRateView].title = ORKLegacyLocalizedString(@"FITNESS_HEARTRATE_TITLE", nil);
 
         [self addSubview:_quantityPairView];
         [self addSubview:_imageView];
@@ -144,8 +144,8 @@
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
-    const CGFloat CaptionBaselineToTimerTop = ORKGetMetricForWindow(ORKScreenMetricCaptionBaselineToFitnessTimerTop, window);
-    const CGFloat CaptionBaselineToStepViewTop = ORKGetMetricForWindow(ORKScreenMetricLearnMoreBaselineToStepViewTop, window);
+    const CGFloat CaptionBaselineToTimerTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricCaptionBaselineToFitnessTimerTop, window);
+    const CGFloat CaptionBaselineToStepViewTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLearnMoreBaselineToStepViewTop, window);
     _topConstraint.constant = (CaptionBaselineToTimerTop - CaptionBaselineToStepViewTop);
 }
 
@@ -226,7 +226,7 @@
                                                                                       toItem:nil
                                                                                    attribute:NSLayoutAttributeNotAnAttribute
                                                                                   multiplier:1.0
-                                                                                    constant:ORKScreenMetricMaxDimension];
+                                                                                    constant:ORKLegacyScreenMetricMaxDimension];
     imageSpacerHeightConstraint.priority = UILayoutPriorityDefaultLow - 1;
     [constraints addObject:imageSpacerHeightConstraint];
     
@@ -242,7 +242,7 @@
                                                                              toItem:nil
                                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                                          multiplier:1.0
-                                                                           constant:ORKScreenMetricMaxDimension];
+                                                                           constant:ORKLegacyScreenMetricMaxDimension];
     maxWidthConstraint.priority = UILayoutPriorityRequired - 1;
     [constraints addObject:maxWidthConstraint];
     
@@ -319,7 +319,7 @@
     HKQuantity *quantity = [HKQuantity quantityWithUnit:[HKUnit meterUnit] doubleValue:displayDistance];
     distanceString = [_lengthFormatter.numberFormatter stringFromNumber:@([quantity doubleValueForUnit:hkUnit]*conversionFactor)];
     
-    [self distanceView].title = [NSString localizedStringWithFormat:ORKLocalizedString(@"FITNESS_DISTANCE_TITLE_FORMAT", nil), unitString];
+    [self distanceView].title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"FITNESS_DISTANCE_TITLE_FORMAT", nil), unitString];
     [self distanceView].value = distanceString;
 }
 

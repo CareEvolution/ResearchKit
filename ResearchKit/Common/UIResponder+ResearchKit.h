@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIResponder (ORKFirstResponderAdditions)
+@interface UIResponder (ORKLegacyFirstResponderAdditions)
 
 - (void)ork_updateCurrentFirstResponder:(nullable NSMutableArray *)sender;
 

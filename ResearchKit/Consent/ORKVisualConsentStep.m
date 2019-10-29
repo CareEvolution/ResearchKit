@@ -39,13 +39,13 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKVisualConsentStep
+@implementation ORKLegacyVisualConsentStep
 
 + (Class)stepViewControllerClass {
-    return [ORKVisualConsentStepViewController class];
+    return [ORKLegacyVisualConsentStepViewController class];
 }
 
-- (instancetype)initWithIdentifier:(NSString *)identifier document:(ORKConsentDocument *)consentDocument {
+- (instancetype)initWithIdentifier:(NSString *)identifier document:(ORKLegacyConsentDocument *)consentDocument {
     self = [super initWithIdentifier:identifier];
     if (self) {
         self.consentDocument = consentDocument;
@@ -54,7 +54,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKVisualConsentStep *step = [super copyWithZone:zone];
+    ORKLegacyVisualConsentStep *step = [super copyWithZone:zone];
     step.consentDocument = self.consentDocument;
     return step;
 }
@@ -62,14 +62,14 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, consentDocument, ORKConsentDocument);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, consentDocument, ORKLegacyConsentDocument);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, consentDocument);
+    ORKLegacy_ENCODE_OBJ(aCoder, consentDocument);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -81,7 +81,7 @@
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.consentDocument, castObject.consentDocument));
+            ORKLegacyEqualObjects(self.consentDocument, castObject.consentDocument));
 }
 
 - (NSUInteger)hash {

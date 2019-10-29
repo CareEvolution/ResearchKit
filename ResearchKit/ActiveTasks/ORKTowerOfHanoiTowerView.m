@@ -42,7 +42,7 @@ static const CGFloat DiskHeight = 10;
 static const CGFloat DiskSpacing = 8;
 static const CGFloat BaseSpacing = 10;
 
-@implementation ORKTowerOfHanoiTowerView {
+@implementation ORKLegacyTowerOfHanoiTowerView {
     NSInteger _maximumNumberOfDisks;
     UIView *_base;
     NSMutableArray *_diskViews;
@@ -194,7 +194,7 @@ static const CGFloat BaseSpacing = 10;
 
 - (void)updateDisks {
     [_diskViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    ORKRemoveConstraintsForRemovedViews(_variableConstraints, _diskViews);
+    ORKLegacyRemoveConstraintsForRemovedViews(_variableConstraints, _diskViews);
 
     [_diskViews removeAllObjects];
     [_diskSizes removeAllObjects];
@@ -232,17 +232,17 @@ static const CGFloat BaseSpacing = 10;
 }
 
 - (NSString *)accessibilityLabel {
-    NSString *targetDisk = (self.isTargeted ? ORKLocalizedString(@"AX_TOWER_OF_HANOI_TARGET_DISK", nil) : nil);
-    return ORKAccessibilityStringForVariables(ORKLocalizedString(@"AX_TOWER_OF_HANOI_TOWER", nil), targetDisk);
+    NSString *targetDisk = (self.isTargeted ? ORKLegacyLocalizedString(@"AX_TOWER_OF_HANOI_TARGET_DISK", nil) : nil);
+    return ORKLegacyAccessibilityStringForVariables(ORKLegacyLocalizedString(@"AX_TOWER_OF_HANOI_TOWER", nil), targetDisk);
 }
 
 - (NSString *)accessibilityHint {
     if (!self.isHighLighted && [self.delegate towerOfHanoiHighlightedTowerView] != nil) {
-        return ORKLocalizedString(@"AX_TOWER_OF_HANOI_PLACE_DISK", nil);
+        return ORKLegacyLocalizedString(@"AX_TOWER_OF_HANOI_PLACE_DISK", nil);
     }
     
     BOOL hasDisks = ([self.dataSource numberOfDisksInTowerOfHanoiView:self] > 0);
-    return (self.isHighLighted ? nil : (hasDisks ? ORKLocalizedString(@"AX_TOWER_OF_HANOI_SELECT_DISK", nil) : nil));
+    return (self.isHighLighted ? nil : (hasDisks ? ORKLegacyLocalizedString(@"AX_TOWER_OF_HANOI_SELECT_DISK", nil) : nil));
 }
 
 - (UIAccessibilityTraits)accessibilityTraits {
@@ -264,10 +264,10 @@ static const CGFloat BaseSpacing = 10;
     NSString *disksString = @"";
     
     for (NSNumber *diskSize in _diskSizes) {
-        disksString = ORKAccessibilityStringForVariables(disksString, diskSize.stringValue, @", ");
+        disksString = ORKLegacyAccessibilityStringForVariables(disksString, diskSize.stringValue, @", ");
     }
     
-    NSString *value = (_diskSizes.count > 0 ? [NSString stringWithFormat:ORKLocalizedString(@"AX_TOWER_OF_HANOI_TOWER_CONTAINS", nil), disksString] : ORKLocalizedString(@"AX_TOWER_OF_HANOI_TOWER_EMPTY", nil));
+    NSString *value = (_diskSizes.count > 0 ? [NSString stringWithFormat:ORKLegacyLocalizedString(@"AX_TOWER_OF_HANOI_TOWER_CONTAINS", nil), disksString] : ORKLegacyLocalizedString(@"AX_TOWER_OF_HANOI_TOWER_EMPTY", nil));
     
     return value;
 }

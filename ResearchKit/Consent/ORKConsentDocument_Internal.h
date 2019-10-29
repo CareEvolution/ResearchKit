@@ -35,15 +35,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKHTMLPDFWriter;
-@class ORKConsentSectionFormatter;
-@class ORKConsentSignatureFormatter;
+@class ORKLegacyHTMLPDFWriter;
+@class ORKLegacyConsentSectionFormatter;
+@class ORKLegacyConsentSignatureFormatter;
 
-@interface ORKConsentDocument ()
+@interface ORKLegacyConsentDocument ()
 
-@property (nonatomic, strong, nullable) ORKHTMLPDFWriter *writer;
-@property (nonatomic, strong, nullable) ORKConsentSectionFormatter *sectionFormatter;
-@property (nonatomic, strong, nullable) ORKConsentSignatureFormatter *signatureFormatter;
+@property (nonatomic, strong, nullable) ORKLegacyHTMLPDFWriter *writer;
+@property (nonatomic, strong, nullable) ORKLegacyConsentSectionFormatter *sectionFormatter;
+@property (nonatomic, strong, nullable) ORKLegacyConsentSignatureFormatter *signatureFormatter;
 
 + (NSString *)wrapHTMLBody:(NSString *)body mobile:(BOOL)mobile;
 

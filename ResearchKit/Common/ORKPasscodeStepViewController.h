@@ -36,13 +36,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- An `ORKPasscodeStepViewController` object is the view controller for an `ORKPasscodeStep` object.
+ An `ORKLegacyPasscodeStepViewController` object is the view controller for an `ORKLegacyPasscodeStep` object.
  
  A passcode view controller can be instantiated indirectly by adding a passcode step to a consent task 
  and present the task using a task view controller. When appropriate, the task view controller instantiates the step
  view controller for the step.
  */
-@interface ORKPasscodeStepViewController : ORKStepViewController
+@interface ORKLegacyPasscodeStepViewController : ORKLegacyStepViewController
 
 @end
 

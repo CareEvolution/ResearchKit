@@ -40,10 +40,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKActiveStep
+@implementation ORKLegacyActiveStep
 
 + (Class)stepViewControllerClass {
-    return [ORKActiveStepViewController class];
+    return [ORKLegacyActiveStepViewController class];
 }
 
 - (BOOL)startsFinished {
@@ -87,7 +87,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKActiveStep *step = [super copyWithZone:zone];
+    ORKLegacyActiveStep *step = [super copyWithZone:zone];
     step.stepDuration = self.stepDuration;
     step.shouldStartTimerAutomatically = self.shouldStartTimerAutomatically;
     step.shouldSpeakCountDown = self.shouldSpeakCountDown;
@@ -109,42 +109,42 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self ) {
-        ORK_DECODE_DOUBLE(aDecoder, stepDuration);
-        ORK_DECODE_BOOL(aDecoder, shouldStartTimerAutomatically);
-        ORK_DECODE_BOOL(aDecoder, shouldSpeakCountDown);
-        ORK_DECODE_BOOL(aDecoder, shouldSpeakRemainingTimeAtHalfway);
-        ORK_DECODE_BOOL(aDecoder, shouldShowDefaultTimer);
-        ORK_DECODE_BOOL(aDecoder, shouldPlaySoundOnStart);
-        ORK_DECODE_BOOL(aDecoder, shouldPlaySoundOnFinish);
-        ORK_DECODE_BOOL(aDecoder, shouldVibrateOnStart);
-        ORK_DECODE_BOOL(aDecoder, shouldVibrateOnFinish);
-        ORK_DECODE_BOOL(aDecoder, shouldUseNextAsSkipButton);
-        ORK_DECODE_BOOL(aDecoder, shouldContinueOnFinish);
-        ORK_DECODE_OBJ_CLASS(aDecoder, spokenInstruction, NSString);
-        ORK_DECODE_OBJ_CLASS(aDecoder, finishedSpokenInstruction, NSString);
-        ORK_DECODE_IMAGE(aDecoder, image);
-        ORK_DECODE_OBJ_ARRAY(aDecoder, recorderConfigurations, ORKRecorderConfiguration);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, stepDuration);
+        ORKLegacy_DECODE_BOOL(aDecoder, shouldStartTimerAutomatically);
+        ORKLegacy_DECODE_BOOL(aDecoder, shouldSpeakCountDown);
+        ORKLegacy_DECODE_BOOL(aDecoder, shouldSpeakRemainingTimeAtHalfway);
+        ORKLegacy_DECODE_BOOL(aDecoder, shouldShowDefaultTimer);
+        ORKLegacy_DECODE_BOOL(aDecoder, shouldPlaySoundOnStart);
+        ORKLegacy_DECODE_BOOL(aDecoder, shouldPlaySoundOnFinish);
+        ORKLegacy_DECODE_BOOL(aDecoder, shouldVibrateOnStart);
+        ORKLegacy_DECODE_BOOL(aDecoder, shouldVibrateOnFinish);
+        ORKLegacy_DECODE_BOOL(aDecoder, shouldUseNextAsSkipButton);
+        ORKLegacy_DECODE_BOOL(aDecoder, shouldContinueOnFinish);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, spokenInstruction, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, finishedSpokenInstruction, NSString);
+        ORKLegacy_DECODE_IMAGE(aDecoder, image);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, recorderConfigurations, ORKLegacyRecorderConfiguration);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_DOUBLE(aCoder, stepDuration);
-    ORK_ENCODE_BOOL(aCoder, shouldStartTimerAutomatically);
-    ORK_ENCODE_BOOL(aCoder, shouldSpeakCountDown);
-    ORK_ENCODE_BOOL(aCoder, shouldSpeakRemainingTimeAtHalfway);
-    ORK_ENCODE_BOOL(aCoder, shouldShowDefaultTimer);
-    ORK_ENCODE_BOOL(aCoder, shouldPlaySoundOnStart);
-    ORK_ENCODE_BOOL(aCoder, shouldPlaySoundOnFinish);
-    ORK_ENCODE_BOOL(aCoder, shouldVibrateOnStart);
-    ORK_ENCODE_BOOL(aCoder, shouldVibrateOnFinish);
-    ORK_ENCODE_BOOL(aCoder, shouldUseNextAsSkipButton);
-    ORK_ENCODE_BOOL(aCoder, shouldContinueOnFinish);
-    ORK_ENCODE_IMAGE(aCoder, image);
-    ORK_ENCODE_OBJ(aCoder, spokenInstruction);
-    ORK_ENCODE_OBJ(aCoder, finishedSpokenInstruction);
-    ORK_ENCODE_OBJ(aCoder, recorderConfigurations);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, stepDuration);
+    ORKLegacy_ENCODE_BOOL(aCoder, shouldStartTimerAutomatically);
+    ORKLegacy_ENCODE_BOOL(aCoder, shouldSpeakCountDown);
+    ORKLegacy_ENCODE_BOOL(aCoder, shouldSpeakRemainingTimeAtHalfway);
+    ORKLegacy_ENCODE_BOOL(aCoder, shouldShowDefaultTimer);
+    ORKLegacy_ENCODE_BOOL(aCoder, shouldPlaySoundOnStart);
+    ORKLegacy_ENCODE_BOOL(aCoder, shouldPlaySoundOnFinish);
+    ORKLegacy_ENCODE_BOOL(aCoder, shouldVibrateOnStart);
+    ORKLegacy_ENCODE_BOOL(aCoder, shouldVibrateOnFinish);
+    ORKLegacy_ENCODE_BOOL(aCoder, shouldUseNextAsSkipButton);
+    ORKLegacy_ENCODE_BOOL(aCoder, shouldContinueOnFinish);
+    ORKLegacy_ENCODE_IMAGE(aCoder, image);
+    ORKLegacy_ENCODE_OBJ(aCoder, spokenInstruction);
+    ORKLegacy_ENCODE_OBJ(aCoder, finishedSpokenInstruction);
+    ORKLegacy_ENCODE_OBJ(aCoder, recorderConfigurations);
 }
 
 - (BOOL)isEqual:(id)object {
@@ -152,10 +152,10 @@
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.spokenInstruction, castObject.spokenInstruction) &&
-            ORKEqualObjects(self.finishedSpokenInstruction, castObject.finishedSpokenInstruction) &&
-            ORKEqualObjects(self.recorderConfigurations, castObject.recorderConfigurations) &&
-            ORKEqualObjects(self.image, castObject.image) &&
+            ORKLegacyEqualObjects(self.spokenInstruction, castObject.spokenInstruction) &&
+            ORKLegacyEqualObjects(self.finishedSpokenInstruction, castObject.finishedSpokenInstruction) &&
+            ORKLegacyEqualObjects(self.recorderConfigurations, castObject.recorderConfigurations) &&
+            ORKLegacyEqualObjects(self.image, castObject.image) &&
             (self.stepDuration == castObject.stepDuration) &&
             (self.shouldShowDefaultTimer == castObject.shouldShowDefaultTimer) &&
             (self.shouldStartTimerAutomatically == castObject.shouldStartTimerAutomatically) &&
@@ -171,7 +171,7 @@
 
 - (NSSet<HKObjectType *> *)requestedHealthKitTypesForReading {
     NSMutableSet<HKObjectType *> *set = [NSMutableSet set];
-    for (ORKRecorderConfiguration *config in self.recorderConfigurations) {
+    for (ORKLegacyRecorderConfiguration *config in self.recorderConfigurations) {
         NSSet<HKObjectType *> *subset = [config requestedHealthKitTypesForReading];
         if (subset) {
             [set unionSet:subset];
@@ -180,9 +180,9 @@
     return set;
 }
 
-- (ORKPermissionMask)requestedPermissions {
-    ORKPermissionMask mask = [super requestedPermissions];
-    for (ORKRecorderConfiguration *config in self.recorderConfigurations) {
+- (ORKLegacyPermissionMask)requestedPermissions {
+    ORKLegacyPermissionMask mask = [super requestedPermissions];
+    for (ORKLegacyRecorderConfiguration *config in self.recorderConfigurations) {
         mask |= [config requestedPermissionMask];
     }
     return mask;

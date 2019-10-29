@@ -35,13 +35,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKActiveStep;
-@class ORKActiveStepCustomView;
+@class ORKLegacyActiveStep;
+@class ORKLegacyActiveStepCustomView;
 
-@interface ORKActiveStepView : ORKVerticalContainerView
+@interface ORKLegacyActiveStepView : ORKLegacyVerticalContainerView
 
-@property (nonatomic, strong, nullable) ORKActiveStep *activeStep;
-@property (nonatomic, strong, nullable) ORKActiveStepCustomView *activeCustomView;
+@property (nonatomic, strong, nullable) ORKLegacyActiveStep *activeStep;
+@property (nonatomic, strong, nullable) ORKLegacyActiveStepCustomView *activeCustomView;
 
 - (void)updateTitle:(nullable NSString *)title text:(nullable NSString *)text;
 

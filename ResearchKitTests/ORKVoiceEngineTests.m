@@ -35,7 +35,7 @@
 #import "ORKVoiceEngine_Internal.h"
 
 
-@interface ORKMockSpeechSynthesizer : AVSpeechSynthesizer
+@interface ORKLegacyMockSpeechSynthesizer : AVSpeechSynthesizer
 
 @property (nonatomic, readonly) BOOL didStopSpeaking;
 @property (nonatomic, readonly) BOOL didSpeakText;
@@ -46,7 +46,7 @@
 @end
 
 
-@implementation ORKMockSpeechSynthesizer
+@implementation ORKLegacyMockSpeechSynthesizer
 
 - (BOOL)isSpeaking {
     return self.mockSpeaking;
@@ -66,18 +66,18 @@
 @end
 
 
-@interface ORKTestVoiceEngine : ORKVoiceEngine
+@interface ORKLegacyTestVoiceEngine : ORKLegacyVoiceEngine
 
 @end
 
 
-@implementation ORKTestVoiceEngine {
-    ORKMockSpeechSynthesizer *_speechSynthesizer;
+@implementation ORKLegacyTestVoiceEngine {
+    ORKLegacyMockSpeechSynthesizer *_speechSynthesizer;
 }
 
 - (AVSpeechSynthesizer *)speechSynthesizer {
     if (!_speechSynthesizer) {
-        _speechSynthesizer = [[ORKMockSpeechSynthesizer alloc] init];
+        _speechSynthesizer = [[ORKLegacyMockSpeechSynthesizer alloc] init];
     }
     return _speechSynthesizer;
 }
@@ -85,24 +85,24 @@
 @end
 
 
-@interface ORKVoiceEngineTests : XCTestCase
+@interface ORKLegacyVoiceEngineTests : XCTestCase
 
 @end
 
 
-@implementation ORKVoiceEngineTests {
-    ORKVoiceEngine *_voiceEngine;
-    ORKMockSpeechSynthesizer *_mockSpeechSynthesizer;
+@implementation ORKLegacyVoiceEngineTests {
+    ORKLegacyVoiceEngine *_voiceEngine;
+    ORKLegacyMockSpeechSynthesizer *_mockSpeechSynthesizer;
 }
 
 - (void)setUp {
     [super setUp];
-    _voiceEngine = [[ORKTestVoiceEngine alloc] init];
-    _mockSpeechSynthesizer = (ORKMockSpeechSynthesizer *)_voiceEngine.speechSynthesizer;
+    _voiceEngine = [[ORKLegacyTestVoiceEngine alloc] init];
+    _mockSpeechSynthesizer = (ORKLegacyMockSpeechSynthesizer *)_voiceEngine.speechSynthesizer;
 }
 
 - (void)testSharedInstance {
-    XCTAssertEqualObjects([ORKVoiceEngine sharedVoiceEngine], [ORKVoiceEngine sharedVoiceEngine]);
+    XCTAssertEqualObjects([ORKLegacyVoiceEngine sharedVoiceEngine], [ORKLegacyVoiceEngine sharedVoiceEngine]);
 }
 
 - (void)testSpeakText {

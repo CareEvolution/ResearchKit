@@ -46,26 +46,26 @@
 
 // #define LAYOUT_DEBUG 1
 
-@implementation ORKScaleSliderView {
-    id<ORKScaleAnswerFormatProvider> _formatProvider;
-    ORKScaleSlider *_slider;
-    ORKScaleRangeDescriptionLabel *_leftRangeDescriptionLabel;
-    ORKScaleRangeDescriptionLabel *_rightRangeDescriptionLabel;
+@implementation ORKLegacyScaleSliderView {
+    id<ORKLegacyScaleAnswerFormatProvider> _formatProvider;
+    ORKLegacyScaleSlider *_slider;
+    ORKLegacyScaleRangeDescriptionLabel *_leftRangeDescriptionLabel;
+    ORKLegacyScaleRangeDescriptionLabel *_rightRangeDescriptionLabel;
     UIView *_leftRangeView;
     UIView *_rightRangeView;
-    ORKScaleValueLabel *_valueLabel;
-    NSMutableArray<ORKScaleRangeLabel *> *_textChoiceLabels;
+    ORKLegacyScaleValueLabel *_valueLabel;
+    NSMutableArray<ORKLegacyScaleRangeLabel *> *_textChoiceLabels;
     NSNumber *_currentNumberValue;
 }
 
-- (instancetype)initWithFormatProvider:(id<ORKScaleAnswerFormatProvider>)formatProvider
-                              delegate:(id<ORKScaleSliderViewDelegate>)delegate {
+- (instancetype)initWithFormatProvider:(id<ORKLegacyScaleAnswerFormatProvider>)formatProvider
+                              delegate:(id<ORKLegacyScaleSliderViewDelegate>)delegate {
     self = [self initWithFrame:CGRectZero];
     if (self) {
         _formatProvider = formatProvider;
         _delegate = delegate;
         
-        _slider = [[ORKScaleSlider alloc] initWithFrame:CGRectZero];
+        _slider = [[ORKLegacyScaleSlider alloc] initWithFrame:CGRectZero];
         _slider.userInteractionEnabled = YES;
         _slider.contentMode = UIViewContentModeRedraw;
         [self addSubview:_slider];
@@ -81,7 +81,7 @@
         BOOL isVertical = [formatProvider isVertical];
         _slider.vertical = isVertical;
 
-        NSArray<ORKTextChoice *> *textChoices = [[self textScaleFormatProvider] textChoices];
+        NSArray<ORKLegacyTextChoice *> *textChoices = [[self textScaleFormatProvider] textChoices];
         _slider.textChoices = textChoices;
         
         _slider.gradientColors = [formatProvider gradientColors];
@@ -91,8 +91,8 @@
             // Generate an array of labels for all the text choices
             _textChoiceLabels = [NSMutableArray new];
             for (int i = 0; i <= numberOfSteps; i++) {
-                ORKTextChoice *textChoice = textChoices[i];
-                ORKScaleRangeLabel *stepLabel = [[ORKScaleRangeLabel alloc] initWithFrame:CGRectZero];
+                ORKLegacyTextChoice *textChoice = textChoices[i];
+                ORKLegacyScaleRangeLabel *stepLabel = [[ORKLegacyScaleRangeLabel alloc] initWithFrame:CGRectZero];
                 stepLabel.text = textChoice.text;
                 stepLabel.textAlignment = NSTextAlignmentLeft;
                 stepLabel.numberOfLines = 0;
@@ -101,24 +101,24 @@
                 [_textChoiceLabels addObject:stepLabel];
             }
         } else {
-            _valueLabel = [[ORKScaleValueLabel alloc] initWithFrame:CGRectZero];
+            _valueLabel = [[ORKLegacyScaleValueLabel alloc] initWithFrame:CGRectZero];
             _valueLabel.textAlignment = NSTextAlignmentCenter;
             _valueLabel.text = @" ";
             [self addSubview:_valueLabel];
             
-            _leftRangeLabel = [[ORKScaleRangeLabel alloc] initWithFrame:CGRectZero];
+            _leftRangeLabel = [[ORKLegacyScaleRangeLabel alloc] initWithFrame:CGRectZero];
             _leftRangeLabel.textAlignment = NSTextAlignmentCenter;
             [self addSubview:_leftRangeLabel];
             
-            _leftRangeDescriptionLabel = [[ORKScaleRangeDescriptionLabel alloc] initWithFrame:CGRectZero];
+            _leftRangeDescriptionLabel = [[ORKLegacyScaleRangeDescriptionLabel alloc] initWithFrame:CGRectZero];
             _leftRangeDescriptionLabel.numberOfLines = -1;
             [self addSubview:_leftRangeDescriptionLabel];
             
-            _rightRangeLabel = [[ORKScaleRangeLabel alloc] initWithFrame:CGRectZero];
+            _rightRangeLabel = [[ORKLegacyScaleRangeLabel alloc] initWithFrame:CGRectZero];
             _rightRangeLabel.textAlignment = NSTextAlignmentCenter;
             [self addSubview:_rightRangeLabel];
             
-            _rightRangeDescriptionLabel = [[ORKScaleRangeDescriptionLabel alloc] initWithFrame:CGRectZero];
+            _rightRangeDescriptionLabel = [[ORKLegacyScaleRangeDescriptionLabel alloc] initWithFrame:CGRectZero];
             _rightRangeDescriptionLabel.numberOfLines = -1;
             [self addSubview:_rightRangeDescriptionLabel];
             
@@ -138,18 +138,18 @@
 #endif
             
             if ([formatProvider minimumImage]) {
-                _leftRangeView = [[ORKScaleRangeImageView alloc] initWithImage:[formatProvider minimumImage]];
+                _leftRangeView = [[ORKLegacyScaleRangeImageView alloc] initWithImage:[formatProvider minimumImage]];
             } else {
-                ORKScaleRangeLabel *leftRangeLabel = [[ORKScaleRangeLabel alloc] initWithFrame:CGRectZero];
+                ORKLegacyScaleRangeLabel *leftRangeLabel = [[ORKLegacyScaleRangeLabel alloc] initWithFrame:CGRectZero];
                 leftRangeLabel.textAlignment = NSTextAlignmentCenter;
                 leftRangeLabel.text = [formatProvider localizedStringForNumber:[formatProvider minimumNumber]];
                 _leftRangeView = leftRangeLabel;
             }
             
             if ([formatProvider maximumImage]) {
-                _rightRangeView = [[ORKScaleRangeImageView alloc] initWithImage:[formatProvider maximumImage]];
+                _rightRangeView = [[ORKLegacyScaleRangeImageView alloc] initWithImage:[formatProvider maximumImage]];
             } else {
-                ORKScaleRangeLabel *rightRangeLabel = [[ORKScaleRangeLabel alloc] initWithFrame:CGRectZero];
+                ORKLegacyScaleRangeLabel *rightRangeLabel = [[ORKLegacyScaleRangeLabel alloc] initWithFrame:CGRectZero];
                 rightRangeLabel.textAlignment = NSTextAlignmentCenter;
                 rightRangeLabel.text = [formatProvider localizedStringForNumber:[formatProvider maximumNumber]];
                 _rightRangeView = rightRangeLabel;
@@ -188,7 +188,7 @@
 
 - (void)setUpConstraints {
     BOOL isVertical = [_formatProvider isVertical];
-    NSArray<ORKTextChoice *> *textChoices = _slider.textChoices;
+    NSArray<ORKLegacyTextChoice *> *textChoices = _slider.textChoices;
     NSDictionary *views = nil;
     if (isVertical && textChoices) {
         views = NSDictionaryOfVariableBindings(_slider);
@@ -466,9 +466,9 @@
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
-- (id<ORKTextScaleAnswerFormatProvider>)textScaleFormatProvider {
-    if ([[_formatProvider class] conformsToProtocol:@protocol(ORKTextScaleAnswerFormatProvider)]) {
-        return (id<ORKTextScaleAnswerFormatProvider>)_formatProvider;
+- (id<ORKLegacyTextScaleAnswerFormatProvider>)textScaleFormatProvider {
+    if ([[_formatProvider class] conformsToProtocol:@protocol(ORKLegacyTextScaleAnswerFormatProvider)]) {
+        return (id<ORKLegacyTextScaleAnswerFormatProvider>)_formatProvider;
     }
     return nil;
 }
@@ -490,7 +490,7 @@
     
     if (_currentNumberValue) {
         if ([self textScaleFormatProvider]) {
-            ORKTextChoice *textChoice = [[self textScaleFormatProvider] textChoiceAtIndex:[self currentTextChoiceIndex]];
+            ORKLegacyTextChoice *textChoice = [[self textScaleFormatProvider] textChoiceAtIndex:[self currentTextChoiceIndex]];
             self.valueLabel.text = textChoice.text;
         } else {
             NSNumber *newValue = [_formatProvider normalizedValueForNumber:_currentNumberValue];
@@ -546,7 +546,7 @@
 - (void)setCurrentAnswerValue:(id)currentAnswerValue {
     if ([self textScaleFormatProvider]) {
         
-        if (ORKIsAnswerEmpty(currentAnswerValue)) {
+        if (ORKLegacyIsAnswerEmpty(currentAnswerValue)) {
             [self setCurrentTextChoiceValue:nil];
         } else {
             [self setCurrentTextChoiceValue:[currentAnswerValue firstObject]];

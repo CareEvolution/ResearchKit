@@ -34,31 +34,31 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKTowerOfHanoiTowerView;
+@class ORKLegacyTowerOfHanoiTowerView;
 
-@protocol ORKTowerOfHanoiTowerViewDataSource <NSObject>
+@protocol ORKLegacyTowerOfHanoiTowerViewDataSource <NSObject>
 
 @required
-- (NSUInteger)numberOfDisksInTowerOfHanoiView:(ORKTowerOfHanoiTowerView *)towerView;
-- (NSNumber *)towerOfHanoiView:(ORKTowerOfHanoiTowerView *)towerView diskAtIndex:(NSUInteger)index;
+- (NSUInteger)numberOfDisksInTowerOfHanoiView:(ORKLegacyTowerOfHanoiTowerView *)towerView;
+- (NSNumber *)towerOfHanoiView:(ORKLegacyTowerOfHanoiTowerView *)towerView diskAtIndex:(NSUInteger)index;
 
 @end
 
-@protocol ORKTowerOfHanoiTowerViewDelegate <NSObject>
+@protocol ORKLegacyTowerOfHanoiTowerViewDelegate <NSObject>
 
 @required
-- (void)towerOfHanoiTowerViewWasSelected:(ORKTowerOfHanoiTowerView *)towerView;
-- (ORKTowerOfHanoiTowerView *)towerOfHanoiHighlightedTowerView;
+- (void)towerOfHanoiTowerViewWasSelected:(ORKLegacyTowerOfHanoiTowerView *)towerView;
+- (ORKLegacyTowerOfHanoiTowerView *)towerOfHanoiHighlightedTowerView;
 
 @end
 
 
-@interface ORKTowerOfHanoiTowerView : UIView
+@interface ORKLegacyTowerOfHanoiTowerView : UIView
 
 @property (nonatomic, getter=isHighLighted) BOOL highlighted;
 @property (nonatomic, getter=isTargeted) BOOL targeted;
-@property (nonatomic, weak) id <ORKTowerOfHanoiTowerViewDataSource> dataSource;
-@property (nonatomic, weak) id <ORKTowerOfHanoiTowerViewDelegate> delegate;
+@property (nonatomic, weak) id <ORKLegacyTowerOfHanoiTowerViewDataSource> dataSource;
+@property (nonatomic, weak) id <ORKLegacyTowerOfHanoiTowerViewDelegate> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame maximumNumberOfDisks:(NSUInteger)maximumNumberOfDisks;
 

@@ -32,20 +32,20 @@
 #import "ORKPageStep_Private.h"
 
 
-@implementation ORKNavigablePageStep
+@implementation ORKLegacyNavigablePageStep
 
 @dynamic pageTask;
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
-    return [self initWithIdentifier:identifier pageTask:[[ORKOrderedTask alloc] initWithIdentifier:identifier steps:nil]];
+    return [self initWithIdentifier:identifier pageTask:[[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:nil]];
 }
 
-- (instancetype)initWithIdentifier:(NSString *)identifier steps:(NSArray<ORKStep *> *)steps {
-    return [self initWithIdentifier:identifier pageTask:[[ORKOrderedTask alloc] initWithIdentifier:identifier steps:steps]];
+- (instancetype)initWithIdentifier:(NSString *)identifier steps:(NSArray<ORKLegacyStep *> *)steps {
+    return [self initWithIdentifier:identifier pageTask:[[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps]];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                          pageTask:(ORKOrderedTask *)task {
+                          pageTask:(ORKLegacyOrderedTask *)task {
     return [super initWithIdentifier:identifier pageTask:task];
 }
 

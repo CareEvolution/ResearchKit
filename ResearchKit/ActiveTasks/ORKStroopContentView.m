@@ -36,7 +36,7 @@
 #import "ORKBorderedButton.h"
 
 
-@implementation ORKStroopContentView {
+@implementation ORKLegacyStroopContentView {
     UILabel *_colorLabel;
 }
 
@@ -52,21 +52,21 @@
         [_colorLabel setAdjustsFontSizeToFitWidth:YES];
         
         
-        self.RButton = [[ORKBorderedButton alloc] init];
+        self.RButton = [[ORKLegacyBorderedButton alloc] init];
         self.RButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.RButton setTitle:ORKLocalizedString(@"STROOP_COLOR_RED_INITIAL", nil) forState:UIControlStateNormal];
+        [self.RButton setTitle:ORKLegacyLocalizedString(@"STROOP_COLOR_RED_INITIAL", nil) forState:UIControlStateNormal];
         
-        self.GButton = [[ORKBorderedButton alloc] init];
+        self.GButton = [[ORKLegacyBorderedButton alloc] init];
         self.GButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.GButton setTitle:ORKLocalizedString(@"STROOP_COLOR_GREEN_INITIAL", nil) forState:UIControlStateNormal];
+        [self.GButton setTitle:ORKLegacyLocalizedString(@"STROOP_COLOR_GREEN_INITIAL", nil) forState:UIControlStateNormal];
         
-        self.BButton = [[ORKBorderedButton alloc] init];
+        self.BButton = [[ORKLegacyBorderedButton alloc] init];
         self.BButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.BButton setTitle:ORKLocalizedString(@"STROOP_COLOR_BLUE_INITIAL", nil) forState:UIControlStateNormal];
+        [self.BButton setTitle:ORKLegacyLocalizedString(@"STROOP_COLOR_BLUE_INITIAL", nil) forState:UIControlStateNormal];
         
-        self.YButton = [[ORKBorderedButton alloc] init];
+        self.YButton = [[ORKLegacyBorderedButton alloc] init];
         self.YButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.YButton setTitle:ORKLocalizedString(@"STROOP_COLOR_YELLOW_INITIAL", nil) forState:UIControlStateNormal];
+        [self.YButton setTitle:ORKLegacyLocalizedString(@"STROOP_COLOR_YELLOW_INITIAL", nil) forState:UIControlStateNormal];
         
         [self addSubview:_colorLabel];
         [self addSubview:self.RButton];

@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Primary title for any step view controller.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKHeadlineLabel : ORKLabel
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyHeadlineLabel : ORKLegacyLabel
 
 @property (nonatomic, assign) BOOL useSurveyMode;
 

@@ -36,8 +36,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKStroopStepViewController : ORKActiveStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyStroopStepViewController : ORKLegacyActiveStepViewController
 
 @end
 

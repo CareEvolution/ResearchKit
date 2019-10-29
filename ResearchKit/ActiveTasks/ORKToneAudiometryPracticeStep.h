@@ -36,8 +36,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKToneAudiometryPracticeStep : ORKActiveStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyToneAudiometryPracticeStep : ORKLegacyActiveStep
 
 @end
 

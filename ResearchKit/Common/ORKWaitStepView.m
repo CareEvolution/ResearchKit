@@ -46,14 +46,14 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKWaitStepView {
+@implementation ORKLegacyWaitStepView {
     NSArray *_customConstraints;
-    ORKProgressIndicatorType _indicatorType;
+    ORKLegacyProgressIndicatorType _indicatorType;
     UIActivityIndicatorView *_activityIndicatorView;
     NSNumberFormatter *_percentFormatter;
 }
 
-- (instancetype)initWithIndicatorType:(ORKProgressIndicatorType)type {
+- (instancetype)initWithIndicatorType:(ORKLegacyProgressIndicatorType)type {
     self = [super init];
     if (self) {
         
@@ -61,11 +61,11 @@
         
         self.stepView = [UIView new];
         switch (_indicatorType) {
-            case ORKProgressIndicatorTypeProgressBar:
+            case ORKLegacyProgressIndicatorTypeProgressBar:
                 _progressView = [UIProgressView new];
                 [self.stepView addSubview:_progressView];
                 break;
-            case ORKProgressIndicatorTypeIndeterminate:
+            case ORKLegacyProgressIndicatorTypeIndeterminate:
                 _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
                 [_activityIndicatorView startAnimating];
                 [self.stepView addSubview:_activityIndicatorView];
@@ -87,7 +87,7 @@
     
     if (indicatorView) {
         
-        const CGFloat horizontalMargin = 2 * ORKStandardHorizontalMarginForView(self);
+        const CGFloat horizontalMargin = 2 * ORKLegacyStandardHorizontalMarginForView(self);
         
         self.stepView.translatesAutoresizingMaskIntoConstraints = NO;
         indicatorView.translatesAutoresizingMaskIntoConstraints = NO;

@@ -39,8 +39,8 @@
 
 static const CGFloat ImageVerticalPadding = 3.0;
 
-@implementation ORKYAxisView {
-    __weak ORKGraphChartView *_parentGraphChartView;
+@implementation ORKLegacyYAxisView {
+    __weak ORKLegacyGraphChartView *_parentGraphChartView;
     UIImageView *_maxImageView;
     UIImageView *_minImageView;
     
@@ -51,17 +51,17 @@ static const CGFloat ImageVerticalPadding = 3.0;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 #pragma clang diagnostic pop
 
-- (instancetype)initWithParentGraphChartView:(ORKGraphChartView *)parentGraphChartView {
+- (instancetype)initWithParentGraphChartView:(ORKLegacyGraphChartView *)parentGraphChartView {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         _parentGraphChartView = parentGraphChartView;
@@ -129,10 +129,10 @@ static const CGFloat ImageVerticalPadding = 3.0;
             
             CALayer *tickLayer = [CALayer layer];
             CGFloat tickYPosition = CGRectGetHeight(self.bounds) * (1 - factor);
-            CGFloat tickXOrigin = CGRectGetWidth(self.bounds) - ORKGraphChartViewAxisTickLength;
+            CGFloat tickXOrigin = CGRectGetWidth(self.bounds) - ORKLegacyGraphChartViewAxisTickLength;
             tickLayer.frame = CGRectMake(tickXOrigin,
                                          tickYPosition - 0.5,
-                                         ORKGraphChartViewAxisTickLength,
+                                         ORKLegacyGraphChartViewAxisTickLength,
                                          1);
             tickLayer.backgroundColor = _parentGraphChartView.axisColor.CGColor;
 
@@ -143,7 +143,7 @@ static const CGFloat ImageVerticalPadding = 3.0;
             CGFloat labelYPosition = tickYPosition - labelHeight / 2;
             UILabel *tickLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                                            labelYPosition,
-                                                                           width - (ORKGraphChartViewAxisTickLength + ORKGraphChartViewYAxisTickPadding),
+                                                                           width - (ORKLegacyGraphChartViewAxisTickLength + ORKLegacyGraphChartViewYAxisTickPadding),
                                                                            labelHeight)];
             
             CGFloat yValue = minimumValue + (maximumValue - minimumValue) * factor;
@@ -179,14 +179,14 @@ static const CGFloat ImageVerticalPadding = 3.0;
         CGFloat factor = factorNumber.floatValue;
         CALayer *tickLayer = _tickLayersByFactor[factorNumber];
         CGFloat tickYPosition = CGRectGetHeight(self.bounds) * (1 - factor);
-        CGFloat tickXOrigin = CGRectGetWidth(self.bounds) - ORKGraphChartViewAxisTickLength;
+        CGFloat tickXOrigin = CGRectGetWidth(self.bounds) - ORKLegacyGraphChartViewAxisTickLength;
         tickLayer.frame = CGRectMake(tickXOrigin,
                                      tickYPosition - 0.5,
-                                     ORKGraphChartViewAxisTickLength,
+                                     ORKLegacyGraphChartViewAxisTickLength,
                                      1);
         
         UILabel *tickLabel = _tickLabelsByFactor[factorNumber];
-        tickLabel.center = CGPointMake(tickXOrigin - (ORKGraphChartViewYAxisTickPadding + tickLabel.bounds.size.width / 2), tickYPosition);
+        tickLabel.center = CGPointMake(tickXOrigin - (ORKLegacyGraphChartViewYAxisTickPadding + tickLabel.bounds.size.width / 2), tickYPosition);
     }
 }
 

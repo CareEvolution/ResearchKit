@@ -35,22 +35,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKHealthQuantityTypeRecorder;
+@class ORKLegacyHealthQuantityTypeRecorder;
 
-@protocol ORKHealthQuantityTypeRecorderDelegate <ORKRecorderDelegate>
+@protocol ORKLegacyHealthQuantityTypeRecorderDelegate <ORKLegacyRecorderDelegate>
 
 @optional
-- (void)healthQuantityTypeRecorderDidUpdate:(ORKHealthQuantityTypeRecorder *)healthQuantityTypeRecorder;
+- (void)healthQuantityTypeRecorderDidUpdate:(ORKLegacyHealthQuantityTypeRecorder *)healthQuantityTypeRecorder;
 
 @end
 
 
 /**
- The `ORKHealthQuantityTypeRecorder` class represents a recorder for collecting real time sample data from HealthKit, such as heart rate, during
+ The `ORKLegacyHealthQuantityTypeRecorder` class represents a recorder for collecting real time sample data from HealthKit, such as heart rate, during
  an active task.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKHealthQuantityTypeRecorder : ORKRecorder
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyHealthQuantityTypeRecorder : ORKLegacyRecorder
 
 @property (nonatomic, copy, readonly) HKQuantityType *quantityType;
 
@@ -72,7 +72,7 @@ ORK_CLASS_AVAILABLE
 - (instancetype)initWithIdentifier:(NSString *)identifier
                 healthQuantityType:(HKQuantityType *)quantityType
                               unit:(HKUnit *)unit
-                              step:(nullable ORKStep *)step
+                              step:(nullable ORKLegacyStep *)step
                    outputDirectory:(nullable NSURL *)outputDirectory NS_DESIGNATED_INITIALIZER;
 
 @end

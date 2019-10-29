@@ -36,8 +36,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKReactionTimeViewController : ORKActiveStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyReactionTimeViewController : ORKLegacyActiveStepViewController
 
 @end
 

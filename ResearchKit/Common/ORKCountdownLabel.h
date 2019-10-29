@@ -38,13 +38,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Coundown label in active steps
  */
-ORK_CLASS_AVAILABLE
-@interface ORKCountdownLabel : ORKLabel
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyCountdownLabel : ORKLegacyLabel
 
 @end
 
 
-@interface ORKCountdownLabel ()
+@interface ORKLegacyCountdownLabel ()
 
 - (void)setCountDownValue:(NSInteger)value;
 

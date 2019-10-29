@@ -38,17 +38,17 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLoginStepViewController
+@implementation ORKLegacyLoginStepViewController
 
 - (void)setContinueButtonItem:(UIBarButtonItem *)continueButtonItem {
     [super setContinueButtonItem:continueButtonItem];
-    continueButtonItem.title = ORKLocalizedString(@"LOGIN_CONTINUE_BUTTON_TITLE", nil);
+    continueButtonItem.title = ORKLegacyLocalizedString(@"LOGIN_CONTINUE_BUTTON_TITLE", nil);
 }
 
 - (void)setSkipButtonItem:(UIBarButtonItem *)skipButtonItem {
     [super setSkipButtonItem:skipButtonItem];
     
-    [skipButtonItem setTitle:ORKLocalizedString(@"FORGOT_PASSWORD_BUTTON_TITLE", nil)];
+    [skipButtonItem setTitle:ORKLegacyLocalizedString(@"FORGOT_PASSWORD_BUTTON_TITLE", nil)];
     [skipButtonItem setTarget:self];
     [skipButtonItem setAction:@selector(forgotPasswordButtonHandler:)];
 }
@@ -60,9 +60,9 @@
 }
 
 - (void)cancelButtonHandler:(id)sender {
-    ORKStrongTypeOf(self.taskViewController.delegate) strongDelegate = self.taskViewController.delegate;
+    ORKLegacyStrongTypeOf(self.taskViewController.delegate) strongDelegate = self.taskViewController.delegate;
     if ([strongDelegate respondsToSelector:@selector(taskViewController:didFinishWithReason:error:)]) {
-        [strongDelegate taskViewController:self.taskViewController didFinishWithReason:ORKTaskViewControllerFinishReasonDiscarded error:nil];
+        [strongDelegate taskViewController:self.taskViewController didFinishWithReason:ORKLegacyTaskViewControllerFinishReasonDiscarded error:nil];
     }
 }
 

@@ -34,13 +34,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef _Nullable id (^ORKESerializationPropertyGetter)(NSDictionary *dict, NSString *property);
-typedef _Nullable id (^ORKESerializationInitBlock)(NSDictionary *dict, ORKESerializationPropertyGetter getter);
-typedef _Nullable id (^ORKESerializationObjectToJSONBlock)(id object);
-typedef _Nullable id (^ORKESerializationJSONToObjectBlock)(id jsonObject);
+typedef _Nullable id (^ORKLegacyESerializationPropertyGetter)(NSDictionary *dict, NSString *property);
+typedef _Nullable id (^ORKLegacyESerializationInitBlock)(NSDictionary *dict, ORKLegacyESerializationPropertyGetter getter);
+typedef _Nullable id (^ORKLegacyESerializationObjectToJSONBlock)(id object);
+typedef _Nullable id (^ORKLegacyESerializationJSONToObjectBlock)(id jsonObject);
 
 
-@interface ORKESerializer : NSObject
+@interface ORKLegacyESerializer : NSObject
 
 + (nullable NSDictionary *)JSONObjectForObject:(id)object error:(NSError **)error;
 
@@ -55,18 +55,18 @@ typedef _Nullable id (^ORKESerializationJSONToObjectBlock)(id jsonObject);
 @end
 
 
-@interface ORKESerializer (Registration)
+@interface ORKLegacyESerializer (Registration)
 
 + (void)registerSerializableClass:(Class)serializableClass
-                        initBlock:(nullable ORKESerializationInitBlock)initBlock;
+                        initBlock:(nullable ORKLegacyESerializationInitBlock)initBlock;
 
 + (void)registerSerializableClassPropertyName:(NSString *)propertyName
                                      forClass:(Class)serializableClass
                                    valueClass:(Class)valueClass
                                containerClass:(nullable Class)containerClass
                                writeAfterInit:(BOOL)writeAfterInit
-                            objectToJSONBlock:(nullable ORKESerializationObjectToJSONBlock)objectToJSON
-                            jsonToObjectBlock:(nullable ORKESerializationJSONToObjectBlock)jsonToObjectBlock;
+                            objectToJSONBlock:(nullable ORKLegacyESerializationObjectToJSONBlock)objectToJSON
+                            jsonToObjectBlock:(nullable ORKLegacyESerializationJSONToObjectBlock)jsonToObjectBlock;
 
 @end
 

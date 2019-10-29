@@ -37,13 +37,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKTouchAnywhereStep` class represents a step that displays a title with custom instructions
+ The `ORKLegacyTouchAnywhereStep` class represents a step that displays a title with custom instructions
  and the text "Touch anywhere to continue." The user can touch almost anywhere on the
  screen and the step will end and the task will continue. The back button is still
  tappable.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTouchAnywhereStep : ORKActiveStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTouchAnywhereStep : ORKLegacyActiveStep
 
 - (instancetype)init NS_UNAVAILABLE;
 

@@ -35,16 +35,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKStep;
+@class ORKLegacyStep;
 
 /**
- The `ORKTouchRecorderConfiguration` is a recorder configuration class for
- generating an `ORKTouchRecorder`.
+ The `ORKLegacyTouchRecorderConfiguration` is a recorder configuration class for
+ generating an `ORKLegacyTouchRecorder`.
  
  It is currently considered private, and is not used in any of the active tasks.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTouchRecorderConfiguration : ORKRecorderConfiguration
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTouchRecorderConfiguration : ORKLegacyRecorderConfiguration
 
 /**
  Returns an initialized touch recorder configuration.
@@ -69,7 +69,7 @@ ORK_CLASS_AVAILABLE
 @end
 
 
-@interface ORKRecorder ()
+@interface ORKLegacyRecorder ()
 
 /**
  Returns an initialized recorder.
@@ -78,11 +78,11 @@ ORK_CLASS_AVAILABLE
  
  @param identifier          The unique identifier of the recorder.
  @param step                The step for which this recorder is being created.
- @param outputDirectory     The directory in which all output file data should be written (if producing `ORKFileResult` instances).
+ @param outputDirectory     The directory in which all output file data should be written (if producing `ORKLegacyFileResult` instances).
  
  @return An initialized recorder.
  */
-- (instancetype)initWithIdentifier:(NSString *)identifier step:(nullable ORKStep *)step outputDirectory:(nullable NSURL *)outputDirectory;
+- (instancetype)initWithIdentifier:(NSString *)identifier step:(nullable ORKLegacyStep *)step outputDirectory:(nullable NSURL *)outputDirectory;
 
 /**
  A preparation step to provide viewController and view before record starting.
@@ -112,12 +112,12 @@ ORK_CLASS_AVAILABLE
  @param fileProtection  Level of file protection desired
  @param url             URL of file to protect.
  */
-- (void)applyFileProtection:(ORKFileProtectionMode)fileProtection toFileAtURL:(NSURL *)url;
+- (void)applyFileProtection:(ORKLegacyFileProtectionMode)fileProtection toFileAtURL:(NSURL *)url;
 
 @end
 
 
-@interface ORKRecorderConfiguration ()
+@interface ORKLegacyRecorderConfiguration ()
 
 /**
  Returns an initialized recorder configuration.
@@ -144,7 +144,7 @@ ORK_CLASS_AVAILABLE
  
  This method is typically overridden in new recorder configuration subclasses.
  */
-- (ORKPermissionMask)requestedPermissionMask;
+- (ORKLegacyPermissionMask)requestedPermissionMask;
 
 @end
 

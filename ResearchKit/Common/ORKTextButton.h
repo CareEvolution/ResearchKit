@@ -37,15 +37,15 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  "Skip" button or "Learn More" button.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTextButton : UIButton
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTextButton : UIButton
 @property (nonatomic) BOOL isInTransition;
 @end
 
 
-@interface ORKTextButton ()
+@interface ORKLegacyTextButton ()
 
-- (void)init_ORKTextButton;
+- (void)init_ORKLegacyTextButton;
 
 @end
 

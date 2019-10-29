@@ -36,7 +36,7 @@
 #import "ORKHelpers_Internal.h"
 
 
-@interface ORKAudioRecorder ()
+@interface ORKLegacyAudioRecorder ()
 
 @property (nonatomic, strong) AVAudioRecorder *audioRecorder;
 
@@ -47,10 +47,10 @@
 @end
 
 
-@implementation ORKAudioRecorder
+@implementation ORKLegacyAudioRecorder
 
 - (void)dealloc {
-    ORK_Log_Debug(@"Remove audiorecorder %p", self);
+    ORKLegacy_Log_Debug(@"Remove audiorecorder %p", self);
     [_audioRecorder stop];
     _audioRecorder = nil;
 }
@@ -64,7 +64,7 @@
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
                   recorderSettings:(NSDictionary *)recorderSettings
-                              step:(ORKStep *)step
+                              step:(ORKLegacyStep *)step
                    outputDirectory:(NSURL *)outputDirectory {
     self = [super initWithIdentifier:identifier step:step outputDirectory:outputDirectory];
     if (self) {
@@ -85,7 +85,7 @@
     if (_savedSessionCategory) {
         NSError *error;
         if (![[AVAudioSession sharedInstance] setCategory:_savedSessionCategory error:&error]) {
-            ORK_Log_Error(@"Failed to restore the audio session category: %@", [error localizedDescription]);
+            ORKLegacy_Log_Error(@"Failed to restore the audio session category: %@", [error localizedDescription]);
         }
         _savedSessionCategory = nil;
     }
@@ -113,7 +113,7 @@
             return;
         }
         
-        ORK_Log_Debug(@"Create audioRecorder %p", self);
+        ORKLegacy_Log_Debug(@"Create audioRecorder %p", self);
         _audioRecorder = [[AVAudioRecorder alloc]
                           initWithURL:soundFileURL
                           settings:self.recorderSettings
@@ -202,7 +202,7 @@
 #if !TARGET_IPHONE_SIMULATOR
         [_audioRecorder stop];
         
-        [self applyFileProtection:ORKFileProtectionComplete toFileAtURL:[self recordingFileURL]];
+        [self applyFileProtection:ORKLegacyFileProtectionComplete toFileAtURL:[self recordingFileURL]];
 #endif
         [self restoreSavedAudioSessionCategory];
     }
@@ -249,7 +249,7 @@
     NSURL *url = [self recordingFileURL];
     if (!url) {
         if (error) {
-            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteInvalidFileNameError userInfo:@{NSLocalizedDescriptionKey:ORKLocalizedString(@"ERROR_RECORDER_NO_OUTPUT_DIRECTORY", nil)}];
+            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteInvalidFileNameError userInfo:@{NSLocalizedDescriptionKey:ORKLegacyLocalizedString(@"ERROR_RECORDER_NO_OUTPUT_DIRECTORY", nil)}];
         }
         return NO;
     }
@@ -267,7 +267,7 @@
     }
     
     [fileManager createFileAtPath:[url path] contents:nil attributes:nil];
-    [fileManager setAttributes:@{NSFileProtectionKey: ORKFileProtectionFromMode(ORKFileProtectionCompleteUnlessOpen)} ofItemAtPath:[url path] error:error];
+    [fileManager setAttributes:@{NSFileProtectionKey: ORKLegacyFileProtectionFromMode(ORKLegacyFileProtectionCompleteUnlessOpen)} ofItemAtPath:[url path] error:error];
     return YES;
 }
 
@@ -280,7 +280,7 @@
 @end
 
 
-@implementation ORKAudioRecorderConfiguration
+@implementation ORKLegacyAudioRecorderConfiguration
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
@@ -301,9 +301,9 @@
 }
 #pragma clang diagnostic pop
 
-- (ORKRecorder *)recorderForStep:(ORKStep *)step
+- (ORKLegacyRecorder *)recorderForStep:(ORKLegacyStep *)step
                  outputDirectory:(NSURL *)outputDirectory {
-    return [[ORKAudioRecorder alloc] initWithIdentifier:self.identifier
+    return [[ORKLegacyAudioRecorder alloc] initWithIdentifier:self.identifier
                                        recorderSettings:self.recorderSettings
                                                    step:step
                                         outputDirectory:outputDirectory];
@@ -312,14 +312,14 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, recorderSettings, NSDictionary);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, recorderSettings, NSDictionary);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, recorderSettings);
+    ORKLegacy_ENCODE_OBJ(aCoder, recorderSettings);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -331,11 +331,11 @@
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.recorderSettings, castObject.recorderSettings));
+            ORKLegacyEqualObjects(self.recorderSettings, castObject.recorderSettings));
 }
 
-- (ORKPermissionMask)requestedPermissionMask {
-    return ORKPermissionAudioRecording;
+- (ORKLegacyPermissionMask)requestedPermissionMask {
+    return ORKLegacyPermissionAudioRecording;
 }
 
 @end

@@ -38,7 +38,7 @@
 #import <WebKit/WebKit.h>
 
 
-@interface ORKConsentLearnMoreViewController () <WKNavigationDelegate>
+@interface ORKLegacyConsentLearnMoreViewController () <WKNavigationDelegate>
 
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, copy) NSString *content;
@@ -47,12 +47,12 @@
 @end
 
 
-@implementation ORKConsentLearnMoreViewController
+@implementation ORKLegacyConsentLearnMoreViewController
 
 - (instancetype)initWithHTMLContent:(NSString *)content {
     self = [super init];
     if (self) {
-        self.content = [ORKConsentDocument wrapHTMLBody:content mobile:YES];
+        self.content = [ORKLegacyConsentDocument wrapHTMLBody:content mobile:YES];
     }
     return self;
 }
@@ -69,14 +69,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = ORKColor(ORKBackgroundColorKey);
+    self.view.backgroundColor = ORKLegacyColor(ORKLegacyBackgroundColorKey);
   
     WKWebViewConfiguration *webViewConfiguration = [WKWebViewConfiguration new];
     _webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:webViewConfiguration];
     
-    const CGFloat horizMargin = ORKStandardLeftMarginForTableViewCell(self.view);
-    _webView.backgroundColor = ORKColor(ORKBackgroundColorKey);
-    _webView.scrollView.backgroundColor = ORKColor(ORKBackgroundColorKey);
+    const CGFloat horizMargin = ORKLegacyStandardLeftMarginForTableViewCell(self.view);
+    _webView.backgroundColor = ORKLegacyColor(ORKLegacyBackgroundColorKey);
+    _webView.scrollView.backgroundColor = ORKLegacyColor(ORKLegacyBackgroundColorKey);
     
     _webView.clipsToBounds = NO;
     _webView.scrollView.clipsToBounds = NO;
@@ -89,7 +89,7 @@
     if (_contentURL) {
         [_webView loadRequest:[NSURLRequest requestWithURL:_contentURL]];
     } else {
-        [_webView loadHTMLString:self.content baseURL:ORKCreateRandomBaseURL()];
+        [_webView loadHTMLString:self.content baseURL:ORKLegacyCreateRandomBaseURL()];
     }
     
     [self.view addSubview:_webView];
@@ -104,7 +104,7 @@
     NSMutableArray *constraints = [NSMutableArray new];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_webView);
-    const CGFloat horizMargin = ORKStandardLeftMarginForTableViewCell(self.view);
+    const CGFloat horizMargin = ORKLegacyStandardLeftMarginForTableViewCell(self.view);
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-horizMargin-[_webView]-horizMargin-|"
                                                                              options:(NSLayoutFormatOptions)0
                                                                              metrics:@{ @"horizMargin": @(horizMargin) }

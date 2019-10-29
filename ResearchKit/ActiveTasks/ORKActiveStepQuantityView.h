@@ -35,12 +35,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKQuantityLabel : ORKLabel
+@interface ORKLegacyQuantityLabel : ORKLegacyLabel
 
 @end
 
 
-@interface ORKActiveStepQuantityView : UIView
+@interface ORKLegacyActiveStepQuantityView : UIView
 
 @property (nonatomic, strong, nullable) NSString *title;
 @property (nonatomic, strong, nullable) NSString *value;
@@ -53,10 +53,10 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface ORKQuantityPairView : UIView
+@interface ORKLegacyQuantityPairView : UIView
 
-@property (nonatomic, strong, nullable) ORKActiveStepQuantityView *leftView;
-@property (nonatomic, strong, nullable) ORKActiveStepQuantityView *rightView;
+@property (nonatomic, strong, nullable) ORKLegacyActiveStepQuantityView *leftView;
+@property (nonatomic, strong, nullable) ORKLegacyActiveStepQuantityView *rightView;
 
 @property (nonatomic, assign) BOOL keylineHidden;
 

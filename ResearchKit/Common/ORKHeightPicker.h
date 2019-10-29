@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKHeightPicker : NSObject <ORKPicker>
+@interface ORKLegacyHeightPicker : NSObject <ORKLegacyPicker>
 
 @end
 

@@ -40,7 +40,7 @@
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
 
-@protocol ORKSignatureGestureRecognizerDelegate <NSObject>
+@protocol ORKLegacySignatureGestureRecognizerDelegate <NSObject>
 
 - (void)gestureTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
 - (void)gestureTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
@@ -49,9 +49,9 @@
 @end
 
 
-@interface ORKSignatureGestureRecognizer : UIGestureRecognizer
+@interface ORKLegacySignatureGestureRecognizer : UIGestureRecognizer
 
-@property (nonatomic, weak) id<ORKSignatureGestureRecognizerDelegate> eventDelegate;
+@property (nonatomic, weak) id<ORKLegacySignatureGestureRecognizerDelegate> eventDelegate;
 
 @end
 
@@ -59,7 +59,7 @@
 static const CGFloat TopToSigningLineRatio = 0.7;
 
 
-@implementation ORKSignatureGestureRecognizer
+@implementation ORKLegacySignatureGestureRecognizer
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if (touches.count > 1 || self.numberOfTouches > 1) {
@@ -104,7 +104,7 @@ static const CGFloat DefaultLineWidthVariation = 3;
 static const CGFloat MaxPressureForStrokeVelocity = 9;
 static const CGFloat LineWidthStepValue = 0.25f;
 
-@interface ORKSignatureView () <ORKSignatureGestureRecognizerDelegate> {
+@interface ORKLegacySignatureView () <ORKLegacySignatureGestureRecognizerDelegate> {
     CGPoint currentPoint;
     CGPoint previousPoint1;
     CGPoint previousPoint2;
@@ -122,15 +122,15 @@ static const CGFloat LineWidthStepValue = 0.25f;
 @end
 
 
-@implementation ORKSignatureView {
+@implementation ORKLegacySignatureView {
     NSLayoutConstraint *_heightConstraint;
     NSLayoutConstraint *_widthConstraint;
 }
 
 + (void)initialize {
-    if (self == [ORKSignatureView class]) {
-        if ([[ORKSignatureView appearance] backgroundColor] == nil) {
-            [[ORKSignatureView appearance] setBackgroundColor:ORKColor(ORKBackgroundColorKey)];
+    if (self == [ORKLegacySignatureView class]) {
+        if ([[ORKLegacySignatureView appearance] backgroundColor] == nil) {
+            [[ORKLegacySignatureView appearance] setBackgroundColor:ORKLegacyColor(ORKLegacyBackgroundColorKey)];
         }
     }
 }
@@ -152,8 +152,8 @@ static const CGFloat LineWidthStepValue = 0.25f;
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
-    _heightConstraint.constant = ORKGetMetricForWindow(ORKScreenMetricSignatureViewHeight, window);
-    _widthConstraint.constant = ORKWidthForSignatureView(window);
+    _heightConstraint.constant = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricSignatureViewHeight, window);
+    _widthConstraint.constant = ORKLegacyWidthForSignatureView(window);
 }
 
 - (void)setUpConstraints {
@@ -207,15 +207,15 @@ static const CGFloat LineWidthStepValue = 0.25f;
 
 - (void)makeSignatureGestureRecognizer {
     if (nil == _signatureGestureRecognizer) {
-        _signatureGestureRecognizer = [ORKSignatureGestureRecognizer new];
-        ((ORKSignatureGestureRecognizer *)_signatureGestureRecognizer).eventDelegate = self;
+        _signatureGestureRecognizer = [ORKLegacySignatureGestureRecognizer new];
+        ((ORKLegacySignatureGestureRecognizer *)_signatureGestureRecognizer).eventDelegate = self;
         [self addGestureRecognizer:_signatureGestureRecognizer];
     }
 }
 
 - (UIColor *)lineColor {
     if (_lineColor == nil) {
-        _lineColor = ORKColor(ORKSignatureColorKey);
+        _lineColor = ORKLegacyColor(ORKLegacySignatureColorKey);
     }
     return _lineColor;
 }
@@ -231,7 +231,7 @@ static const CGFloat LineWidthStepValue = 0.25f;
     CGFloat height = self.bounds.size.height;
     CGFloat x1 = 0;
     CGFloat y1 = height * TopToSigningLineRatio;
-    UIFont *font = [ORKSelectionTitleLabel defaultFont];
+    UIFont *font = [ORKLegacySelectionTitleLabel defaultFont];
     return (CGPoint){x1, y1 - 5 - font.pointSize + font.descender};
 }
 
@@ -435,8 +435,8 @@ static CGPoint mmid_Point(CGPoint p1, CGPoint p2) {
     }
     
     if (![self signatureExists] && (!self.currentPath || [self.currentPath isEmpty])) {
-        [ORKLocalizedString(@"CONSENT_SIGNATURE_PLACEHOLDER", nil) drawAtPoint:[self placeholderPoint]
-                                           withAttributes:@{ NSFontAttributeName: [ORKSelectionTitleLabel defaultFont],
+        [ORKLegacyLocalizedString(@"CONSENT_SIGNATURE_PLACEHOLDER", nil) drawAtPoint:[self placeholderPoint]
+                                           withAttributes:@{ NSFontAttributeName: [ORKLegacySelectionTitleLabel defaultFont],
                                                              NSForegroundColorAttributeName: [[UIColor blackColor] colorWithAlphaComponent:0.2]}];
     }
     
@@ -499,15 +499,15 @@ static CGPoint mmid_Point(CGPoint p1, CGPoint p2) {
 }
 
 - (NSString *)accessibilityLabel {
-    return ORKLocalizedString(@"AX_SIGNVIEW_LABEL", nil);
+    return ORKLegacyLocalizedString(@"AX_SIGNVIEW_LABEL", nil);
 }
 
 - (NSString *)accessibilityValue {
-    return (self.signatureExists ? ORKLocalizedString(@"AX_SIGNVIEW_SIGNED", nil) : ORKLocalizedString(@"AX_SIGNVIEW_UNSIGNED", nil));
+    return (self.signatureExists ? ORKLegacyLocalizedString(@"AX_SIGNVIEW_SIGNED", nil) : ORKLegacyLocalizedString(@"AX_SIGNVIEW_UNSIGNED", nil));
 }
 
 - (NSString *)accessibilityHint {
-    return ORKLocalizedString(@"AX_SIGNVIEW_HINT", nil);
+    return ORKLegacyLocalizedString(@"AX_SIGNVIEW_HINT", nil);
 }
 
 - (UIAccessibilityTraits)accessibilityTraits {

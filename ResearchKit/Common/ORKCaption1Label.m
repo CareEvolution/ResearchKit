@@ -34,13 +34,13 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKCaption1Label
+@implementation ORKLegacyCaption1Label
 
 + (UIFont *)defaultFont {
     // medium , 17
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleCaption1];
     const CGFloat defaultSize = 12;
-    return ORKMediumFontWithSize([[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] + 17.0 - defaultSize);
+    return ORKLegacyMediumFontWithSize([[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] + 17.0 - defaultSize);
 }
 
 @end

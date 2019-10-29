@@ -37,7 +37,7 @@
 #import "ORKHTMLPDFWriter.h"
 
 
-@interface ORKMockHTMLPDFWriter : ORKHTMLPDFWriter
+@interface ORKLegacyMockHTMLPDFWriter : ORKLegacyHTMLPDFWriter
 
 @property (nonatomic, copy) NSString *html;
 @property (nonatomic, copy) void (^completionBlock)(NSData *, NSError *);
@@ -45,7 +45,7 @@
 @end
 
 
-@implementation ORKMockHTMLPDFWriter
+@implementation ORKLegacyMockHTMLPDFWriter
 
 - (void)writePDFFromHTML:(NSString *)html withCompletionBlock:(void (^)(NSData *, NSError *))completionBlock {
     self.html = html;
@@ -55,52 +55,52 @@
 @end
 
 
-@interface ORKMockConsentSectionFormatter : ORKConsentSectionFormatter
+@interface ORKLegacyMockConsentSectionFormatter : ORKLegacyConsentSectionFormatter
 
 @end
 
 
-@implementation ORKMockConsentSectionFormatter
+@implementation ORKLegacyMockConsentSectionFormatter
 
-- (NSString *)HTMLForSection:(ORKConsentSection *)section {
+- (NSString *)HTMLForSection:(ORKLegacyConsentSection *)section {
     return @"html for section";
 }
 
 @end
 
 
-@interface ORKMockConsentSignatureFormatter : ORKConsentSignatureFormatter
+@interface ORKLegacyMockConsentSignatureFormatter : ORKLegacyConsentSignatureFormatter
 
 @end
 
 
-@implementation ORKMockConsentSignatureFormatter
+@implementation ORKLegacyMockConsentSignatureFormatter
 
-- (NSString *)HTMLForSignature:(ORKConsentSignature *)signature {
+- (NSString *)HTMLForSignature:(ORKLegacyConsentSignature *)signature {
     return @"html for signature";
 }
 
 @end
 
 
-@interface ORKConsentDocumentTests : XCTestCase
+@interface ORKLegacyConsentDocumentTests : XCTestCase
 
-@property (nonatomic, strong) ORKConsentDocument *document;
-@property (nonatomic, strong) ORKMockHTMLPDFWriter *mockWriter;
+@property (nonatomic, strong) ORKLegacyConsentDocument *document;
+@property (nonatomic, strong) ORKLegacyMockHTMLPDFWriter *mockWriter;
 
 @end
 
 
-@implementation ORKConsentDocumentTests
+@implementation ORKLegacyConsentDocumentTests
 
 - (void)setUp {
     [super setUp];
 
-    self.mockWriter = [[ORKMockHTMLPDFWriter alloc] init];
+    self.mockWriter = [[ORKLegacyMockHTMLPDFWriter alloc] init];
 
-    self.document = [[ORKConsentDocument alloc] initWithHTMLPDFWriter:self.mockWriter
-                                              consentSectionFormatter:[[ORKMockConsentSectionFormatter alloc] init]
-                                            consentSignatureFormatter:[[ORKMockConsentSignatureFormatter alloc] init]];
+    self.document = [[ORKLegacyConsentDocument alloc] initWithHTMLPDFWriter:self.mockWriter
+                                              consentSectionFormatter:[[ORKLegacyMockConsentSectionFormatter alloc] init]
+                                            consentSignatureFormatter:[[ORKLegacyMockConsentSignatureFormatter alloc] init]];
 }
 
 - (void)tearDown {
@@ -139,14 +139,14 @@ body, p, h1, h2, h3 { font-family: Helvetica; }\n\
 - (void)testMakePDFWithCompletionHandler_withoutHTMLReviewContent_callsWriterWithCorrectHTML {
     self.document.title = @"A Title";
     self.document.sections = @[
-                               [[ORKConsentSection alloc] init],
-                               [[ORKConsentSection alloc] init]
+                               [[ORKLegacyConsentSection alloc] init],
+                               [[ORKLegacyConsentSection alloc] init]
                                ];
     self.document.signaturePageTitle = @"Signature Page Title";
     self.document.signaturePageContent = @"signature page content";
     self.document.signatures = @[
-                                 [[ORKConsentSignature alloc] init],
-                                 [[ORKConsentSignature alloc] init]
+                                 [[ORKLegacyConsentSignature alloc] init],
+                                 [[ORKLegacyConsentSignature alloc] init]
                                  ];
 
     NSString *content = @"<h3>A Title</h3>"

@@ -34,12 +34,12 @@
 #import "ORKAccessibility.h"
 
 
-@implementation ORKAnswerTextField
+@implementation ORKLegacyAnswerTextField
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [self init_ORKAnswerTextField];
+        [self init_ORKLegacyAnswerTextField];
     }
     return self;
 }
@@ -47,12 +47,12 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self init_ORKAnswerTextField];
+        [self init_ORKLegacyAnswerTextField];
     }
     return self;
 }
 
-- (void)init_ORKAnswerTextField {
+- (void)init_ORKLegacyAnswerTextField {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateAppearance)
                                                  name:UIContentSizeCategoryDidChangeNotification

@@ -36,14 +36,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKVisualConsentStepViewController;
-@class ORKConsentSection;
+@class ORKLegacyVisualConsentStepViewController;
+@class ORKLegacyConsentSection;
 
 /**
  Implement this delegate in order to observe the user's interaction with a visual consent step.
  */
-ORK_CLASS_AVAILABLE
-@protocol ORKVisualConsentStepViewControllerDelegate<NSObject>
+ORKLegacy_CLASS_AVAILABLE
+@protocol ORKLegacyVisualConsentStepViewControllerDelegate<NSObject>
 
 @optional
 
@@ -54,26 +54,26 @@ ORK_CLASS_AVAILABLE
  @param section            The consent section displayed.
  @param index              The index of the consent section.
  */
-- (void)visualConsentStepViewController:(ORKVisualConsentStepViewController *)stepViewController didShowSection:(ORKConsentSection *)section sectionIndex:(NSInteger)index;
+- (void)visualConsentStepViewController:(ORKLegacyVisualConsentStepViewController *)stepViewController didShowSection:(ORKLegacyConsentSection *)section sectionIndex:(NSInteger)index;
 
 @end
 
 
 /**
- The `ORKVisualConsentStepViewController` class is a view controller subclass
- used to manage a visual consent step (`ORKVisualConsentStep`).
+ The `ORKLegacyVisualConsentStepViewController` class is a view controller subclass
+ used to manage a visual consent step (`ORKLegacyVisualConsentStep`).
  
  You should not need to instantiate a visual consent step view controller directly. Instead, include
  a visual consent step in a task, and present a task view controller for that 
  task.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKVisualConsentStepViewController : ORKStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyVisualConsentStepViewController : ORKLegacyStepViewController
 
 /**
  The delegate for visual consent interactions. This delegate is optional.
  */
-@property (nonatomic, weak, nullable) id<ORKVisualConsentStepViewControllerDelegate> visualConsentDelegate;
+@property (nonatomic, weak, nullable) id<ORKLegacyVisualConsentStepViewControllerDelegate> visualConsentDelegate;
 
 /**
  The view in which animations are displayed.

@@ -33,11 +33,11 @@
 @import ResearchKit.Private;
 
 
-@interface ORKAnswerFormatTests : XCTestCase
+@interface ORKLegacyAnswerFormatTests : XCTestCase
 
 @end
 
-@protocol ORKComfirmAnswerFormat_Private <NSObject>
+@protocol ORKLegacyComfirmAnswerFormat_Private <NSObject>
 
 @property (nonatomic, copy, readonly) NSString *originalItemIdentifier;
 @property (nonatomic, copy, readonly) NSString *errorMessage;
@@ -45,32 +45,32 @@
 @end
 
 
-@implementation ORKAnswerFormatTests
+@implementation ORKLegacyAnswerFormatTests
 
 - (void)testValidEmailAnswerFormat {
     // Test email regular expression validation with correct input.
-    XCTAssert([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"someone@researchkit.org"]);
-    XCTAssert([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"some.one@researchkit.org"]);
-    XCTAssert([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"someone@researchkit.org.uk"]);
-    XCTAssert([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"some_one@researchkit.org"]);
-    XCTAssert([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"some-one@researchkit.org"]);
-    XCTAssert([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"someone1@researchkit.org"]);
-    XCTAssert([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"Someone1@ResearchKit.org"]);
+    XCTAssert([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"someone@researchkit.org"]);
+    XCTAssert([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"some.one@researchkit.org"]);
+    XCTAssert([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"someone@researchkit.org.uk"]);
+    XCTAssert([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"some_one@researchkit.org"]);
+    XCTAssert([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"some-one@researchkit.org"]);
+    XCTAssert([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"someone1@researchkit.org"]);
+    XCTAssert([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"Someone1@ResearchKit.org"]);
 }
 
 - (void)testInvalidEmailAnswerFormat {
     // Test email regular expression validation with incorrect input.
-    XCTAssertFalse([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"emailtest"]);
-    XCTAssertFalse([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"emailtest@"]);
-    XCTAssertFalse([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"emailtest@researchkit"]);
-    XCTAssertFalse([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"emailtest@.org"]);
-    XCTAssertFalse([[ORKEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"12345"]);
+    XCTAssertFalse([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"emailtest"]);
+    XCTAssertFalse([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"emailtest@"]);
+    XCTAssertFalse([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"emailtest@researchkit"]);
+    XCTAssertFalse([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"emailtest@.org"]);
+    XCTAssertFalse([[ORKLegacyEmailAnswerFormat emailAnswerFormat] isAnswerValidWithString:@"12345"]);
 }
 
 - (void)testInvalidRegularExpressionAnswerFormat {
     
     // Setup an answer format
-    ORKTextAnswerFormat *answerFormat = [ORKAnswerFormat textAnswerFormat];
+    ORKLegacyTextAnswerFormat *answerFormat = [ORKLegacyAnswerFormat textAnswerFormat];
     answerFormat.multipleLines = NO;
     answerFormat.keyboardType = UIKeyboardTypeASCIICapable;
     NSRegularExpression *validationRegularExpression =
@@ -88,7 +88,7 @@
 - (void)testConfirmAnswerFormat {
     
     // Setup an answer format
-    ORKTextAnswerFormat *answerFormat = [ORKAnswerFormat textAnswerFormat];
+    ORKLegacyTextAnswerFormat *answerFormat = [ORKLegacyAnswerFormat textAnswerFormat];
     answerFormat.multipleLines = NO;
     answerFormat.secureTextEntry = YES;
     answerFormat.keyboardType = UIKeyboardTypeASCIICapable;
@@ -107,10 +107,10 @@
     answerFormat.spellCheckingType = UITextSpellCheckingTypeDefault;
     
     
-    ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"foo" text:@"enter value" answerFormat:answerFormat optional:NO];
+    ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"foo" text:@"enter value" answerFormat:answerFormat optional:NO];
     
     // -- method under test
-    ORKFormItem *confirmItem = [item confirmationAnswerFormItemWithIdentifier:@"bar"
+    ORKLegacyFormItem *confirmItem = [item confirmationAnswerFormItemWithIdentifier:@"bar"
                                                                          text:@"enter again"
                                                                  errorMessage:@"doesn't match"];
     
@@ -119,15 +119,15 @@
     XCTAssertFalse(confirmItem.optional);
     
     // Inspect the answer format
-    ORKAnswerFormat *confirmFormat = confirmItem.answerFormat;
+    ORKLegacyAnswerFormat *confirmFormat = confirmItem.answerFormat;
     
-    // ORKAnswerFormat that is returned should be a subclass of ORKTextAnswerFormat.
+    // ORKLegacyAnswerFormat that is returned should be a subclass of ORKLegacyTextAnswerFormat.
     // The actual subclass that is returned is private to the API and should not be accessed directly.
     XCTAssertNotNil(confirmFormat);
-    XCTAssertTrue([confirmFormat isKindOfClass:[ORKTextAnswerFormat class]]);
-    if (![confirmFormat isKindOfClass:[ORKTextAnswerFormat class]]) { return; }
+    XCTAssertTrue([confirmFormat isKindOfClass:[ORKLegacyTextAnswerFormat class]]);
+    if (![confirmFormat isKindOfClass:[ORKLegacyTextAnswerFormat class]]) { return; }
     
-    ORKTextAnswerFormat *confirmAnswer = (ORKTextAnswerFormat*)confirmFormat;
+    ORKLegacyTextAnswerFormat *confirmAnswer = (ORKLegacyTextAnswerFormat*)confirmFormat;
     
     // These properties should match the original format
     XCTAssertFalse(confirmAnswer.multipleLines);
@@ -166,13 +166,13 @@
 - (void)testConfirmAnswerFormat_Optional_YES {
     
     // Setup an answer format
-    ORKTextAnswerFormat *answerFormat = [ORKAnswerFormat textAnswerFormat];
+    ORKLegacyTextAnswerFormat *answerFormat = [ORKLegacyAnswerFormat textAnswerFormat];
     answerFormat.multipleLines = NO;
     
-    ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"foo" text:@"enter value" answerFormat:answerFormat optional:YES];
+    ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"foo" text:@"enter value" answerFormat:answerFormat optional:YES];
     
     // -- method under test
-    ORKFormItem *confirmItem = [item confirmationAnswerFormItemWithIdentifier:@"bar"
+    ORKLegacyFormItem *confirmItem = [item confirmationAnswerFormItemWithIdentifier:@"bar"
                                                                          text:@"enter again"
                                                                  errorMessage:@"doesn't match"];
     
@@ -184,10 +184,10 @@
 - (void)testConfirmAnswerFormat_MultipleLines_YES {
     
     // Setup an answer format
-    ORKTextAnswerFormat *answerFormat = [ORKAnswerFormat textAnswerFormat];
+    ORKLegacyTextAnswerFormat *answerFormat = [ORKLegacyAnswerFormat textAnswerFormat];
     answerFormat.multipleLines = YES;
     
-    ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:@"foo" text:@"enter value" answerFormat:answerFormat optional:YES];
+    ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"foo" text:@"enter value" answerFormat:answerFormat optional:YES];
     
     // -- method under test
     XCTAssertThrows([item confirmationAnswerFormItemWithIdentifier:@"bar"

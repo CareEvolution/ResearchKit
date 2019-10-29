@@ -35,7 +35,7 @@
 /// Example implementation of an override of the class method -instantiateStepViewControllerWithResult:
 /// In this example, only show the cancel button on Tuesdays
 
-@interface DragonPokerStep : ORKFormStep
+@interface DragonPokerStep : ORKLegacyFormStep
 
 @end
 

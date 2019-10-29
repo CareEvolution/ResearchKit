@@ -54,27 +54,27 @@
 #import "ORKSkin.h"
 
 
-@interface ORKReviewStepViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ORKLegacyReviewStepViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) ORKTableContainerView *tableContainer;
+@property (nonatomic, strong) ORKLegacyTableContainerView *tableContainer;
 
 @end
 
 
 
-@implementation ORKReviewStepViewController {
-    ORKNavigationContainerView *_continueSkipView;
+@implementation ORKLegacyReviewStepViewController {
+    ORKLegacyNavigationContainerView *_continueSkipView;
 }
  
-- (instancetype)initWithReviewStep:(ORKReviewStep *)reviewStep steps:(NSArray<ORKStep *>*)steps resultSource:(id<ORKTaskResultSource>)resultSource {
+- (instancetype)initWithReviewStep:(ORKLegacyReviewStep *)reviewStep steps:(NSArray<ORKLegacyStep *>*)steps resultSource:(id<ORKLegacyTaskResultSource>)resultSource {
     self = [self initWithStep:reviewStep];
     if (self && [self reviewStep]) {
-        NSArray<ORKStep *> *stepsToFilter = [self reviewStep].isStandalone ? [self reviewStep].steps : steps;
-        NSMutableArray<ORKStep *> *filteredSteps = [[NSMutableArray alloc] init];
-        ORKWeakTypeOf(self) weakSelf = self;
+        NSArray<ORKLegacyStep *> *stepsToFilter = [self reviewStep].isStandalone ? [self reviewStep].steps : steps;
+        NSMutableArray<ORKLegacyStep *> *filteredSteps = [[NSMutableArray alloc] init];
+        ORKLegacyWeakTypeOf(self) weakSelf = self;
         [stepsToFilter enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            ORKStrongTypeOf(self) strongSelf = weakSelf;
-            BOOL includeStep = [obj isKindOfClass:[ORKQuestionStep class]] || [obj isKindOfClass:[ORKFormStep class]] || (![[strongSelf reviewStep] excludeInstructionSteps] && [obj isKindOfClass:[ORKInstructionStep class]]);
+            ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
+            BOOL includeStep = [obj isKindOfClass:[ORKLegacyQuestionStep class]] || [obj isKindOfClass:[ORKLegacyFormStep class]] || (![[strongSelf reviewStep] excludeInstructionSteps] && [obj isKindOfClass:[ORKLegacyInstructionStep class]]);
             if (includeStep) {
                 [filteredSteps addObject:obj];
             }
@@ -121,7 +121,7 @@
     _continueSkipView = nil;
     
     if ([self reviewStep]) {
-        _tableContainer = [[ORKTableContainerView alloc] initWithFrame:self.view.bounds];
+        _tableContainer = [[ORKLegacyTableContainerView alloc] initWithFrame:self.view.bounds];
         _tableContainer.tableView.delegate = self;
         _tableContainer.tableView.dataSource = self;
         _tableContainer.tableView.clipsToBounds = YES;
@@ -143,8 +143,8 @@
     }
 }
 
-- (ORKReviewStep *)reviewStep {
-    return [self.step isKindOfClass:[ORKReviewStep class]] ? (ORKReviewStep *) self.step : nil;
+- (ORKLegacyReviewStep *)reviewStep {
+    return [self.step isKindOfClass:[ORKLegacyReviewStep class]] ? (ORKLegacyReviewStep *) self.step : nil;
 }
 
 #pragma mark UITableViewDataSource
@@ -161,13 +161,13 @@
     tableView.layoutMargins = UIEdgeInsetsZero;
     static NSString *identifier = nil;
     identifier = [NSStringFromClass([self class]) stringByAppendingFormat:@"%@", @(indexPath.row)];
-    ORKChoiceViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    ORKLegacyChoiceViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
-        cell = [[ORKChoiceViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[ORKLegacyChoiceViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     cell.immediateNavigation = YES;
-    ORKStep *step = _steps[indexPath.row];
-    ORKStepResult *stepResult = [_resultSource stepResultForStepIdentifier:step.identifier];
+    ORKLegacyStep *step = _steps[indexPath.row];
+    ORKLegacyStepResult *stepResult = [_resultSource stepResultForStepIdentifier:step.identifier];
     cell.shortLabel.text = step.title != nil ? step.title : step.text;
     cell.longLabel.text = [self answerStringForStep:step withStepResult:stepResult];
     return cell;
@@ -175,23 +175,23 @@
 
 #pragma mark answer string
 
-- (NSString *)answerStringForStep:(ORKStep *)step withStepResult:(ORKStepResult *)stepResult {
+- (NSString *)answerStringForStep:(ORKLegacyStep *)step withStepResult:(ORKLegacyStepResult *)stepResult {
     NSString *answerString = nil;
     if (step && stepResult && [step.identifier isEqualToString:stepResult.identifier]) {
-        if ([step isKindOfClass:[ORKQuestionStep class]]) {
-            ORKQuestionStep *questionStep = (ORKQuestionStep *)step;
-            if (stepResult.firstResult && [stepResult.firstResult isKindOfClass:[ORKQuestionResult class]]) {
-                ORKQuestionResult *questionResult = (ORKQuestionResult *)stepResult.firstResult;
+        if ([step isKindOfClass:[ORKLegacyQuestionStep class]]) {
+            ORKLegacyQuestionStep *questionStep = (ORKLegacyQuestionStep *)step;
+            if (stepResult.firstResult && [stepResult.firstResult isKindOfClass:[ORKLegacyQuestionResult class]]) {
+                ORKLegacyQuestionResult *questionResult = (ORKLegacyQuestionResult *)stepResult.firstResult;
                 answerString = [self answerStringForQuestionStep:questionStep withQuestionResult:questionResult];
             }
-        } else if ([step isKindOfClass:[ORKFormStep class]]) {
-            answerString = [self answerStringForFormStep:(ORKFormStep *)step withStepResult:stepResult];
+        } else if ([step isKindOfClass:[ORKLegacyFormStep class]]) {
+            answerString = [self answerStringForFormStep:(ORKLegacyFormStep *)step withStepResult:stepResult];
         }
     }
     return answerString;
 }
 
-- (NSString *)answerStringForQuestionStep:(ORKQuestionStep *)questionStep withQuestionResult:(ORKQuestionResult *)questionResult {
+- (NSString *)answerStringForQuestionStep:(ORKLegacyQuestionStep *)questionStep withQuestionResult:(ORKLegacyQuestionResult *)questionResult {
     NSString *answerString = nil;
     if (questionStep && questionResult && questionStep.answerFormat && [questionResult isKindOfClass:questionStep.answerFormat.questionResultClass] && questionResult.answer) {
         answerString = [questionStep.answerFormat stringForAnswer:questionResult.answer];
@@ -199,14 +199,14 @@
     return answerString;
 }
 
-- (NSString *)answerStringForFormStep:(ORKFormStep *)formStep withStepResult:(ORKStepResult *)stepResult {
+- (NSString *)answerStringForFormStep:(ORKLegacyFormStep *)formStep withStepResult:(ORKLegacyStepResult *)stepResult {
     NSString *answerString = nil;
     if (formStep && formStep.formItems && stepResult) {
         NSMutableArray *answerStrings = [[NSMutableArray alloc] init];
-        for (ORKFormItem *formItem in formStep.formItems) {
-            ORKResult *formItemResult = [stepResult resultForIdentifier:formItem.identifier];
-            if (formItemResult && [formItemResult isKindOfClass:[ORKQuestionResult class]]) {
-                ORKQuestionResult *questionResult = (ORKQuestionResult *)formItemResult;
+        for (ORKLegacyFormItem *formItem in formStep.formItems) {
+            ORKLegacyResult *formItemResult = [stepResult resultForIdentifier:formItem.identifier];
+            if (formItemResult && [formItemResult isKindOfClass:[ORKLegacyQuestionResult class]]) {
+                ORKLegacyQuestionResult *questionResult = (ORKLegacyQuestionResult *)formItemResult;
                 if (formItem.answerFormat && [questionResult isKindOfClass:formItem.answerFormat.questionResultClass] && questionResult.answer) {
                     NSString *formItemTextString = formItem.text;
                     NSString *formItemAnswerString = [formItem.answerFormat stringForAnswer:questionResult.answer];
@@ -231,11 +231,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ORKStep *step = _steps[indexPath.row];
-    ORKStepResult *stepResult = [_resultSource stepResultForStepIdentifier:step.identifier];
+    ORKLegacyStep *step = _steps[indexPath.row];
+    ORKLegacyStepResult *stepResult = [_resultSource stepResultForStepIdentifier:step.identifier];
     NSString *shortText = step.title != nil ? step.title : step.text;
     NSString *longText = [self answerStringForStep:step withStepResult:stepResult];
-    CGFloat height = [ORKChoiceViewCell suggestedCellHeightForShortText:shortText LongText:longText inTableView:_tableContainer.tableView];
+    CGFloat height = [ORKLegacyChoiceViewCell suggestedCellHeightForShortText:shortText LongText:longText inTableView:_tableContainer.tableView];
     return height;
 }
 

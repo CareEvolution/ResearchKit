@@ -34,9 +34,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKPredicateStepNavigationRule ()
+@interface ORKLegacyPredicateStepNavigationRule ()
 
-+ (NSArray *)leafResultsFromTaskResult:(ORKTaskResult *)ORKTaskResult;
++ (NSArray *)leafResultsFromTaskResult:(ORKLegacyTaskResult *)ORKLegacyTaskResult;
 
 @end
 

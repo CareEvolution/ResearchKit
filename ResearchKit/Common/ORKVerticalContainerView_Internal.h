@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKVerticalContainerView ()
+@interface ORKLegacyVerticalContainerView ()
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window;
 

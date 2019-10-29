@@ -46,9 +46,9 @@ static NSString *const HKCorrelatedObjectsKey = @"objects";
 // static NSString *const HKSourceIdentifierKey = @"sourceBundleIdentifier";
 
 
-@implementation HKSample (ORKJSONDictionary)
+@implementation HKSample (ORKLegacyJSONDictionary)
 
-- (NSMutableDictionary *)ork_JSONMutableDictionaryWithOptions:(ORKSampleJSONOptions)options unit:(HKUnit *)unit {
+- (NSMutableDictionary *)ork_JSONMutableDictionaryWithOptions:(ORKLegacySampleJSONOptions)options unit:(HKUnit *)unit {
     NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionaryWithCapacity:12];
     
     // Type identification
@@ -60,36 +60,36 @@ static NSString *const HKCorrelatedObjectsKey = @"objects";
     // Start and end dates
     NSDate *startDate = [self startDate];
     if (startDate) {
-        mutableDictionary[HKSampleStartDateKey] = ORKStringFromDateISO8601(startDate);
+        mutableDictionary[HKSampleStartDateKey] = ORKLegacyStringFromDateISO8601(startDate);
     }
     
     NSDate *endDate = [self endDate];
     if (endDate) {
-        mutableDictionary[HKSampleEndDateKey] = ORKStringFromDateISO8601(endDate);
+        mutableDictionary[HKSampleEndDateKey] = ORKLegacyStringFromDateISO8601(endDate);
     }
     if (unit) {
         mutableDictionary[HKUnitKey] = [unit unitString];
     }
-    if ((options & ORKSampleIncludeUUID)) {
+    if ((options & ORKLegacySampleIncludeUUID)) {
         NSUUID *uuid = [self UUID];
         if (uuid) {
             mutableDictionary[HKUUIDKey] = uuid.UUIDString;
         }
     }
     
-    if ( (options & ORKSampleIncludeMetadata) && self.metadata.count > 0) {
+    if ( (options & ORKLegacySampleIncludeMetadata) && self.metadata.count > 0) {
         NSMutableDictionary *metadata = [self.metadata mutableCopy];
         for (NSString *k in metadata) {
             id obj = metadata[k];
             if ([obj isKindOfClass:[NSDate class]]) {
-                metadata[k] = ORKStringFromDateISO8601(obj);
+                metadata[k] = ORKLegacyStringFromDateISO8601(obj);
             }
         }
         
         mutableDictionary[HKMetadataKey] = metadata;
     }
     
-    if (options & ORKSampleIncludeSource) {
+    if (options & ORKLegacySampleIncludeSource) {
         HKSource *source = [[self sourceRevision] source];
         if (source.name) {
             mutableDictionary[HKSourceKey] = source.name;
@@ -99,21 +99,21 @@ static NSString *const HKCorrelatedObjectsKey = @"objects";
     return mutableDictionary;
 }
 
-- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)options unit:(HKUnit *)unit {
+- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)options unit:(HKUnit *)unit {
     return [self ork_JSONMutableDictionaryWithOptions:options unit:unit];
 }
 
 @end
 
 
-@interface HKCategorySample (ORKJSONDictionary)
+@interface HKCategorySample (ORKLegacyJSONDictionary)
 
 @end
 
 
-@implementation HKCategorySample (ORKJSONDictionary)
+@implementation HKCategorySample (ORKLegacyJSONDictionary)
 
-- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)options unit:(HKUnit *)unit {
+- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)options unit:(HKUnit *)unit {
     NSMutableDictionary *dictionary = [self ork_JSONMutableDictionaryWithOptions:options unit:unit];
     
     NSInteger value = self.value;
@@ -125,14 +125,14 @@ static NSString *const HKCorrelatedObjectsKey = @"objects";
 @end
 
 
-@interface HKQuantitySample (ORKJSONDictionary)
+@interface HKQuantitySample (ORKLegacyJSONDictionary)
 
 @end
 
 
-@implementation HKQuantitySample (ORKJSONDictionary)
+@implementation HKQuantitySample (ORKLegacyJSONDictionary)
 
-- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)options unit:(HKUnit *)unit {
+- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)options unit:(HKUnit *)unit {
     NSMutableDictionary *dictionary = [self ork_JSONMutableDictionaryWithOptions:options unit:unit];
     
     HKQuantity *quantity = [self quantity];
@@ -146,9 +146,9 @@ static NSString *const HKCorrelatedObjectsKey = @"objects";
 @end
 
 
-@implementation HKCorrelation (ORKJSONDictionary)
+@implementation HKCorrelation (ORKLegacyJSONDictionary)
 
-- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)options sampleTypes:(NSArray *)sampleTypes units:(NSArray *)units {
+- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)options sampleTypes:(NSArray *)sampleTypes units:(NSArray *)units {
     NSMutableDictionary *mutableDictionary = [self ork_JSONMutableDictionaryWithOptions:options unit:nil];
     
     // The correlated objects

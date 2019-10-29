@@ -37,13 +37,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKRecorder;
-@class ORKResult;
-@class ORKStep;
+@class ORKLegacyRecorder;
+@class ORKLegacyResult;
+@class ORKLegacyStep;
 
 /**
- The `ORKRecorderConfiguration` class is the abstract base class for recorder configurations
- that can be attached to an active step (`ORKActiveStep`).
+ The `ORKLegacyRecorderConfiguration` class is the abstract base class for recorder configurations
+ that can be attached to an active step (`ORKLegacyActiveStep`).
  
  Recorder configurations provide an easy way to collect CoreMotion
  or other sensor data into a serialized format during the duration of an active step.
@@ -51,20 +51,20 @@ NS_ASSUME_NONNULL_BEGIN
  use the existing APIs directly.
  
  To use a recorder, include its configuration in the `recorderConfigurations` property
- of an `ORKActiveStep` object, include that step in a task, and present it with
+ of an `ORKLegacyActiveStep` object, include that step in a task, and present it with
  a task view controller.
  
- To add a new recorder, subclass both `ORKRecorderConfiguration` and `ORKRecorder`,
- and add the new `ORKRecorderConfiguration` subclass to an `ORKActiveStep` object.
+ To add a new recorder, subclass both `ORKLegacyRecorderConfiguration` and `ORKLegacyRecorder`,
+ and add the new `ORKLegacyRecorderConfiguration` subclass to an `ORKLegacyActiveStep` object.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKRecorderConfiguration : NSObject <NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyRecorderConfiguration : NSObject <NSSecureCoding>
 
 /*
- The `init` and `new` methods are unavailable outside the framework on `ORKRecorderConfiguration`,
+ The `init` and `new` methods are unavailable outside the framework on `ORKLegacyRecorderConfiguration`,
  because it is an abstract class.
  
- `ORKRecorderConfiguration` classes should be initialized with custom designated
+ `ORKLegacyRecorderConfiguration` classes should be initialized with custom designated
  initializers on each subclass.
  */
 + (instancetype)new NS_UNAVAILABLE;
@@ -74,7 +74,7 @@ ORK_CLASS_AVAILABLE
  A short string that uniquely identifies the recorder configuration within the step.
  
  The identifier is reproduced in the results of a recorder created from this configuration. In fact, the only way to link a result
- (an `ORKFileResult` object) to the recorder that generated it is to look at the value of
+ (an `ORKLegacyFileResult` object) to the recorder that generated it is to look at the value of
  `identifier`. To accurately identify recorder results, you need to ensure that recorder identifiers
  are unique within each step.
  
@@ -88,11 +88,11 @@ ORK_CLASS_AVAILABLE
  Returns a recorder instance using this configuration.
  
  @param step                The step for which this recorder is being created.
- @param outputDirectory     The directory in which all output file data should be written (if producing `ORKFileResult` instances).
+ @param outputDirectory     The directory in which all output file data should be written (if producing `ORKLegacyFileResult` instances).
  
  @return A configured recorder instance.
  */
-- (nullable ORKRecorder *)recorderForStep:(nullable ORKStep *)step outputDirectory:(nullable NSURL *)outputDirectory;
+- (nullable ORKLegacyRecorder *)recorderForStep:(nullable ORKLegacyStep *)step outputDirectory:(nullable NSURL *)outputDirectory;
 
 /**
  Returns the HealthKit types for which this recorder requires read access in a set of `HKSampleType` objects.
@@ -111,18 +111,18 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKAccelerometerRecorderConfiguration` subclass configures
+ The `ORKLegacyAccelerometerRecorderConfiguration` subclass configures
  the collection of accelerometer data during an active step.
  
- Accelerometer data is serialized to JSON and returned as an `ORKFileResult` object.
+ Accelerometer data is serialized to JSON and returned as an `ORKLegacyFileResult` object.
  For details on the format, see `CMAccelerometerData+ORKJSONDictionary`.
  
  To use a recorder, include its configuration in the `recorderConfigurations` property
- of an `ORKActiveStep` object, include that step in a task, and present it with
+ of an `ORKLegacyActiveStep` object, include that step in a task, and present it with
  a task view controller.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKAccelerometerRecorderConfiguration : ORKRecorderConfiguration
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyAccelerometerRecorderConfiguration : ORKLegacyRecorderConfiguration
 
 /**
  The frequency of accelerometer data collection in samples per second (Hz).
@@ -154,17 +154,17 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKAudioRecorderConfiguration` class represents a configuration that records
+ The `ORKLegacyAudioRecorderConfiguration` class represents a configuration that records
  audio data during an active step.
  
- An `ORKAudioRecorderConfiguration` generates an `ORKAudioRecorder` object.
+ An `ORKLegacyAudioRecorderConfiguration` generates an `ORKLegacyAudioRecorder` object.
  
  To use a recorder, include its configuration in the `recorderConfigurations` property
- of an `ORKActiveStep` object, include that step in a task, and present it with
+ of an `ORKLegacyActiveStep` object, include that step in a task, and present it with
  a task view controller.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKAudioRecorderConfiguration : ORKRecorderConfiguration
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyAudioRecorderConfiguration : ORKLegacyRecorderConfiguration
 
 /**
  The audio format settings for the recorder.
@@ -173,7 +173,7 @@ ORK_CLASS_AVAILABLE
  For information on the settings available for an audio recorder, see "AV Foundation Audio Settings Constants" in
  the AVFoundation documentation.
  
- The results are returned as an `ORKFileResult` object, which points to an audio file.
+ The results are returned as an `ORKLegacyFileResult` object, which points to an audio file.
  */
 @property (nonatomic, readonly, nullable) NSDictionary *recorderSettings;
 
@@ -204,22 +204,22 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKDeviceMotionRecorderConfiguration` class represents a configuration
+ The `ORKLegacyDeviceMotionRecorderConfiguration` class represents a configuration
  that records device motion data during an active step.
  
  Device motion data is the processed motion data provided by CoreMotion and obtained
  from a `CMMotionManager` object. The data can include measures of the overall device orientation
  obtained from combining accelerometer, magnetometer, and gyroscope data.
  
- Device motion data is serialized to JSON and returned as an `ORKFileResult` object.
+ Device motion data is serialized to JSON and returned as an `ORKLegacyFileResult` object.
  For details on the format, see `CMDeviceMotion+ORKJSONDictionary`.
  
  To use a recorder, include its configuration in the `recorderConfigurations` property
- of an `ORKActiveStep` object, include that step in a task, and present it with
+ of an `ORKLegacyActiveStep` object, include that step in a task, and present it with
  a task view controller.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKDeviceMotionRecorderConfiguration : ORKRecorderConfiguration
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyDeviceMotionRecorderConfiguration : ORKLegacyRecorderConfiguration
 
 /**
  The frequency of motion data collection in samples per second (Hz).
@@ -251,7 +251,7 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKPedometerRecorderConfiguration` class represents a configuration
+ The `ORKLegacyPedometerRecorderConfiguration` class represents a configuration
  that records pedometer data during an active step.
  
  Pedometer data consists of information about the processed steps provided by CoreMotion, obtained
@@ -259,15 +259,15 @@ ORK_CLASS_AVAILABLE
  start of recording, updating the value every time a significant number of steps have
  been detected.
  
- Pedometer data is serialized to JSON and returned as an `ORKFileResult` object.
+ Pedometer data is serialized to JSON and returned as an `ORKLegacyFileResult` object.
  For details on the format, see `CMPedometerData+ORKJSONDictionary`.
  
  To use a recorder, include its configuration in the `recorderConfigurations` property
- of an `ORKActiveStep` object, include that step in a task, and present it with
+ of an `ORKLegacyActiveStep` object, include that step in a task, and present it with
  a task view controller.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKPedometerRecorderConfiguration : ORKRecorderConfiguration
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyPedometerRecorderConfiguration : ORKLegacyRecorderConfiguration
 
 /**
  Returns an initialized pedometer recorder configuration.
@@ -296,7 +296,7 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKLocationRecorderConfiguration` class represents a configuration
+ The `ORKLegacyLocationRecorderConfiguration` class represents a configuration
  that records location data during an active step.
  
  The location data reported is the location provided by CoreLocation.
@@ -305,17 +305,17 @@ ORK_CLASS_AVAILABLE
  view controller requests access to location data at the end of the
  initial instruction steps in the task.
  
- Location data is serialized to JSON and returned as an `ORKFileResult` object.
+ Location data is serialized to JSON and returned as an `ORKLegacyFileResult` object.
  For details on the format, see `CLLocation+ORKJSONDictionary`.
  
  To use a recorder, include its configuration in the `recorderConfigurations` property
- of an `ORKActiveStep` object, include that step in a task, and present it with
+ of an `ORKLegacyActiveStep` object, include that step in a task, and present it with
  a task view controller.
  
  No additional parameters besides the identifier are required.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKLocationRecorderConfiguration : ORKRecorderConfiguration
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyLocationRecorderConfiguration : ORKLegacyRecorderConfiguration
 
 /**
  Returns an initialized location recorder configuration.
@@ -341,21 +341,21 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKHealthQuantityTypeRecorderConfiguration` class represents a configuration
+ The `ORKLegacyHealthQuantityTypeRecorderConfiguration` class represents a configuration
  that records data from a HealthKit quantity type during an active step.
  
  Before you can use this configuration, you must use Xcode to enable the appropriate HealthKit entitlement
  for your app.
  
- HealthKit quantity type data is serialized to JSON and returned as an `ORKFileResult` object.
+ HealthKit quantity type data is serialized to JSON and returned as an `ORKLegacyFileResult` object.
  For details on the format, see `HKSample+ORKJSONDictionary`.
  
  To use a recorder, include its configuration in the `recorderConfigurations` property
- of an `ORKActiveStep` object, include that step in a task, and present it with
+ of an `ORKLegacyActiveStep` object, include that step in a task, and present it with
  a task view controller.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKHealthQuantityTypeRecorderConfiguration : ORKRecorderConfiguration
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyHealthQuantityTypeRecorderConfiguration : ORKLegacyRecorderConfiguration
 
 /**
  Returns an initialized health quantity type recorder configuration using the specified quantity type and unit designation.
@@ -393,13 +393,13 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKRecorderDelegate` protocol defines methods that the delegate of an `ORKRecorder` object should use to handle errors and log the
+ The `ORKLegacyRecorderDelegate` protocol defines methods that the delegate of an `ORKLegacyRecorder` object should use to handle errors and log the
  completed results.
  
- This protocol is implemented by `ORKActiveStepViewController`; your app should not
+ This protocol is implemented by `ORKLegacyActiveStepViewController`; your app should not
 need to implement it.
  */
-@protocol ORKRecorderDelegate <NSObject>
+@protocol ORKLegacyRecorderDelegate <NSObject>
 
 /**
  Tells the delegate that the recorder has completed with the specified result.
@@ -409,7 +409,7 @@ need to implement it.
  @param recorder        The generating recorder object.
  @param result          The generated result.
  */
-- (void)recorder:(ORKRecorder *)recorder didCompleteWithResult:(nullable ORKResult *)result;
+- (void)recorder:(ORKLegacyRecorder *)recorder didCompleteWithResult:(nullable ORKLegacyResult *)result;
 
 /**
  Tells the delegate that recording failed.
@@ -419,21 +419,21 @@ need to implement it.
  @param recorder        The generating recorder object.
  @param error           The error that occurred.
  */
-- (void)recorder:(ORKRecorder *)recorder didFailWithError:(NSError *)error;
+- (void)recorder:(ORKLegacyRecorder *)recorder didFailWithError:(NSError *)error;
 
 @end
 
 
 /**
- A recorder is the runtime companion to an `ORKRecorderConfiguration` object, and is
+ A recorder is the runtime companion to an `ORKLegacyRecorderConfiguration` object, and is
  usually generated by one.
  
  During active tasks, it is often useful to collect one or more pieces of data
  from sensors on the device. In research tasks, it's not always
  necessary to display that data, but it's important to record it in a controlled manner.
  
- An active step (`ORKActiveStep`) has an array of recorder configurations
- (`ORKRecorderConfiguration`) that identify the types of data it needs to record
+ An active step (`ORKLegacyActiveStep`) has an array of recorder configurations
+ (`ORKLegacyRecorderConfiguration`) that identify the types of data it needs to record
  for the duration of the step. When a step starts, the active step view controller
  instantiates a recorder for each of the step's recorder configurations.
  The step view controller starts the recorder when the active step is started, and stops the
@@ -441,24 +441,24 @@ need to implement it.
  
  The results of recording are typically written to a file specified by the value of the `outputDirectory` property.
  
- Usually, the `ORKActiveStepViewController` object is the recorder's delegate, and it
+ Usually, the `ORKLegacyActiveStepViewController` object is the recorder's delegate, and it
  receives callbacks when errors occur or when recording is complete.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKRecorder : NSObject
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyRecorder : NSObject
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 
 /// @name Configuration
 
-@property (nonatomic, weak, nullable) id<ORKRecorderDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORKLegacyRecorderDelegate> delegate;
 
 /**
  A short string that uniquely identifies the recorder (usually assigned by the recorder configuration).
  
  The identifier is reproduced in the results of a recorder created from this configuration. In fact, the only way to link a result
- (an `ORKFileResult` object) to the recorder that generated it is to look at the value of
+ (an `ORKLegacyFileResult` object) to the recorder that generated it is to look at the value of
  `identifier`. To accurately identify recorder results, you need to ensure that recorder identifiers
  are unique within each step.
  
@@ -471,17 +471,17 @@ ORK_CLASS_AVAILABLE
 /**
  The step that produced this recorder, configured during initialization.
  */
-@property (nonatomic, strong, readonly, nullable) ORKStep *step;
+@property (nonatomic, strong, readonly, nullable) ORKLegacyStep *step;
 
 /**
  The configuration that produced this recorder.
  */
-@property (nonatomic, strong, readonly, nullable) ORKRecorderConfiguration *configuration;
+@property (nonatomic, strong, readonly, nullable) ORKLegacyRecorderConfiguration *configuration;
 
 /**
  The file URL of the output directory configured during initialization.
  
- Typically, you set the `outputDirectory` property for the `ORKTaskViewController` object
+ Typically, you set the `outputDirectory` property for the `ORKLegacyTaskViewController` object
  before presenting the task.
  */
 @property (nonatomic, copy, readonly, nullable) NSURL *outputDirectory;

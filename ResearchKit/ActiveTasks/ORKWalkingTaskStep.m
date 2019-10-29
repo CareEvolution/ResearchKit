@@ -38,10 +38,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKWalkingTaskStep
+@implementation ORKLegacyWalkingTaskStep
 
 + (Class)stepViewControllerClass {
-    return [ORKWalkingTaskStepViewController class];
+    return [ORKLegacyWalkingTaskStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -55,17 +55,17 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    NSInteger const ORKShortWalkTaskMinimumNumberOfStepsPerLeg = 1;
+    NSInteger const ORKLegacyShortWalkTaskMinimumNumberOfStepsPerLeg = 1;
     
-    if ( self.numberOfStepsPerLeg < ORKShortWalkTaskMinimumNumberOfStepsPerLeg) {
+    if ( self.numberOfStepsPerLeg < ORKLegacyShortWalkTaskMinimumNumberOfStepsPerLeg) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:[NSString stringWithFormat:@"numberOfStepsPerLeg cannot be less than %@.", @(ORKShortWalkTaskMinimumNumberOfStepsPerLeg)]
+                                       reason:[NSString stringWithFormat:@"numberOfStepsPerLeg cannot be less than %@.", @(ORKLegacyShortWalkTaskMinimumNumberOfStepsPerLeg)]
                                      userInfo:nil];
     }
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKWalkingTaskStep *step = [super copyWithZone:zone];
+    ORKLegacyWalkingTaskStep *step = [super copyWithZone:zone];
     step.numberOfStepsPerLeg = self.numberOfStepsPerLeg;
     return step;
 }
@@ -77,14 +77,14 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_INTEGER(aDecoder, numberOfStepsPerLeg);
+        ORKLegacy_DECODE_INTEGER(aDecoder, numberOfStepsPerLeg);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_INTEGER(aCoder, numberOfStepsPerLeg);
+    ORKLegacy_ENCODE_INTEGER(aCoder, numberOfStepsPerLeg);
 }
 
 + (BOOL)supportsSecureCoding {

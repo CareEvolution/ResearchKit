@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKPieChartLegendCell : UICollectionViewCell
+@interface ORKLegacyPieChartLegendCell : UICollectionViewCell
 
 @property (nonatomic, strong) UILabel *titleLabel;
 

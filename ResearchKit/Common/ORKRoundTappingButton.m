@@ -32,12 +32,12 @@
 #import "ORKRoundTappingButton.h"
 
 
-@implementation ORKRoundTappingButton
+@implementation ORKLegacyRoundTappingButton
 
 static const CGFloat RoundTappingButtonDiameter = 104;
 
-- (void)init_ORKTextButton {
-    [super init_ORKTextButton];
+- (void)init_ORKLegacyTextButton {
+    [super init_ORKLegacyTextButton];
     self.fadeDelay = 0.2;
     self.diameter = RoundTappingButtonDiameter;
 }

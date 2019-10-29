@@ -32,13 +32,13 @@
 @import HealthKit;
 
 #if defined(__cplusplus)
-#  define ORK_EXTERN extern "C" __attribute__((visibility("default")))
+#  define ORKLegacy_EXTERN extern "C" __attribute__((visibility("default")))
 #else
-#  define ORK_EXTERN extern __attribute__((visibility("default")))
+#  define ORKLegacy_EXTERN extern __attribute__((visibility("default")))
 #endif
 
-#define ORK_CLASS_AVAILABLE __attribute__((visibility("default")))
-#define ORK_ENUM_AVAILABLE
-#define ORK_AVAILABLE_DECL
+#define ORKLegacy_CLASS_AVAILABLE __attribute__((visibility("default")))
+#define ORKLegacy_ENUM_AVAILABLE
+#define ORKLegacy_AVAILABLE_DECL
 
-#define ORK_IOS_10_WATCHOS_3_AVAILABLE (NSClassFromString(@"HKWorkoutConfiguration") != nil)
+#define ORKLegacy_IOS_10_WATCHOS_3_AVAILABLE (NSClassFromString(@"HKWorkoutConfiguration") != nil)

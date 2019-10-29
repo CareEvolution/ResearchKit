@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKReactionTimeContentView : ORKActiveStepCustomView
+@interface ORKLegacyReactionTimeContentView : ORKLegacyActiveStepCustomView
 
 - (void)setStimulusHidden:(BOOL)hidden;
 

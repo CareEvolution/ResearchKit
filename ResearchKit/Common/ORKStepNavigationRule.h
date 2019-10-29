@@ -36,32 +36,32 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKNullStepIdentifier` constant can be used as the destination step identifier for any
- `ORKStepNavigationRule` concrete subclass to denote that the ongoing task should end after the
+ The `ORKLegacyNullStepIdentifier` constant can be used as the destination step identifier for any
+ `ORKLegacyStepNavigationRule` concrete subclass to denote that the ongoing task should end after the
  navigation rule is triggered.
  */
-ORK_EXTERN NSString *const ORKNullStepIdentifier ORK_AVAILABLE_DECL;
+ORKLegacy_EXTERN NSString *const ORKLegacyNullStepIdentifier ORKLegacy_AVAILABLE_DECL;
 
-@class ORKStep;
-@class ORKResult;
-@class ORKTaskResult;
-@class ORKResultPredicate;
+@class ORKLegacyStep;
+@class ORKLegacyResult;
+@class ORKLegacyTaskResult;
+@class ORKLegacyResultPredicate;
 
 /**
- The `ORKStepNavigationRule` class is the abstract base class for concrete step navigation rules.
+ The `ORKLegacyStepNavigationRule` class is the abstract base class for concrete step navigation rules.
  
- Step navigation rules can be used within an `ORKNavigableOrderedTask` object. You assign step
+ Step navigation rules can be used within an `ORKLegacyNavigableOrderedTask` object. You assign step
  navigation rules to be triggered by the task steps. Each step can have one rule at most.
 
  Subclasses must implement the `identifierForDestinationStepWithTaskResult:` method, which returns
  the identifier of the destination step for the rule.
  
- Two concrete subclasses are included: `ORKPredicateStepNavigationRule` can match any answer
- combination in the results of the ongoing task and jump accordingly; `ORKDirectStepNavigationRule`
+ Two concrete subclasses are included: `ORKLegacyPredicateStepNavigationRule` can match any answer
+ combination in the results of the ongoing task and jump accordingly; `ORKLegacyDirectStepNavigationRule`
  unconditionally navigates to the step specified by the destination step identifier.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKStepNavigationRule : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyStepNavigationRule : NSObject <NSCopying, NSSecureCoding>
 
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
@@ -70,20 +70,20 @@ ORK_CLASS_AVAILABLE
  Returns the target step identifier.
  
  Subclasses must implement this method to calculate the next step based on the passed task result.
- The `ORKNullStepIdentifier` constant can be returned to indicate that the ongoing task should end
+ The `ORKLegacyNullStepIdentifier` constant can be returned to indicate that the ongoing task should end
  after the step navigation rule is triggered.
  
  @param taskResult      The up-to-date task result, used for calculating the destination step.
  
  @return The identifier of the destination step.
  */
-- (NSString *)identifierForDestinationStepWithTaskResult:(ORKTaskResult *)taskResult;
+- (NSString *)identifierForDestinationStepWithTaskResult:(ORKLegacyTaskResult *)taskResult;
 
 @end
 
 
 /**
- The `ORKPredicateStepNavigationRule` can be used to match any answer combination in the results of
+ The `ORKLegacyPredicateStepNavigationRule` can be used to match any answer combination in the results of
  the ongoing task (or in those of previously completed tasks) and jump accordingly. You must provide
  one or more result predicates (each predicate can match one or more step results within the task).
  
@@ -94,17 +94,17 @@ ORK_CLASS_AVAILABLE
  different task results). This rule allows you to define arbitrarily complex task navigation
  behaviors.
  
- The `ORKResultPredicate` class provides convenience class methods to build predicates for all the
- `ORKQuestionResult` subtypes. Predicates must supply both the task result identifier and the
+ The `ORKLegacyResultPredicate` class provides convenience class methods to build predicates for all the
+ `ORKLegacyQuestionResult` subtypes. Predicates must supply both the task result identifier and the
  question result identifier, in addition to one or more expected answers.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKPredicateStepNavigationRule : ORKStepNavigationRule
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyPredicateStepNavigationRule : ORKLegacyStepNavigationRule
 
 /*
  The `init` and `new` methods are unavailable.
  
- `ORKStepNavigationRule` classes should be initialized with custom designated initializers on each
+ `ORKLegacyStepNavigationRule` classes should be initialized with custom designated initializers on each
  subclass.
  */
 + (instancetype)new NS_UNAVAILABLE;
@@ -121,7 +121,7 @@ ORK_CLASS_AVAILABLE
                                         must contain one step identifier for each of the predicates
                                         in the result predicates parameters. If you want for a
                                         certain predicate match to end te task, you achieve that by
-                                        using the `ORKNullStepIdentifier` constant.
+                                        using the `ORKLegacyNullStepIdentifier` constant.
  @param defaultStepIdentifier       The identifier of the step, which is used if none of the
                                         result predicates match. If this argument is `nil` and none
                                         of the predicates match, the default ordered task navigation
@@ -173,9 +173,9 @@ ORK_CLASS_AVAILABLE
  results with duplicate identifiers. Question results *can have* equal identifiers provided that
  they belong to different task results.
  
- Each object in the array should be of the `ORKTaskResult` class.
+ Each object in the array should be of the `ORKLegacyTaskResult` class.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKTaskResult *> *additionalTaskResults;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacyTaskResult *> *additionalTaskResults;
 
 /**
  The array of result predicates. 
@@ -200,16 +200,16 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKDirectStepNavigationRule` class can be used to unconditionally jump to a destination step
+ The `ORKLegacyDirectStepNavigationRule` class can be used to unconditionally jump to a destination step
  specified by its identifier or to finish the task early.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKDirectStepNavigationRule : ORKStepNavigationRule
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyDirectStepNavigationRule : ORKLegacyStepNavigationRule
 
 /*
  The `init` and `new` methods are unavailable.
  
- `ORKStepNavigationRule` classes should be initialized with custom designated initializers on each
+ `ORKLegacyStepNavigationRule` classes should be initialized with custom designated initializers on each
  subclass.
  */
 + (instancetype)new NS_UNAVAILABLE;
@@ -219,7 +219,7 @@ ORK_CLASS_AVAILABLE
  Returns an initialized direct-step navigation rule using the specified destination step identifier.
  
  @param destinationStepIdentifier   The identifier of the destination step. Pass the
-                                        `ORKNullStepIdentifier` constant if you want to finish the
+                                        `ORKLegacyNullStepIdentifier` constant if you want to finish the
                                         ongoing task when the direct-step navigation rule is
                                         triggered.
  
@@ -245,22 +245,22 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKSkipStepNavigationRule` class is the abstract base class for concrete skip step navigation
+ The `ORKLegacySkipStepNavigationRule` class is the abstract base class for concrete skip step navigation
  rules.
  
- Skip step navigation rules can be used within an `ORKNavigableOrderedTask` object. You assign skip
+ Skip step navigation rules can be used within an `ORKLegacyNavigableOrderedTask` object. You assign skip
  step navigation rules to be triggered before a task step is shown. Each step can have one skip rule
  at most.
  
  Subclasses must implement the `identifierForDestinationStepWithTaskResult:` method, which returns
  the identifier of the destination step for the rule.
  
- Two concrete subclasses are included: `ORKPredicateStepNavigationRule` can match any answer
- combination in the results of the ongoing task and jump accordingly; `ORKDirectStepNavigationRule`
+ Two concrete subclasses are included: `ORKLegacyPredicateStepNavigationRule` can match any answer
+ combination in the results of the ongoing task and jump accordingly; `ORKLegacyDirectStepNavigationRule`
  unconditionally navigates to the step specified by the destination step identifier.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKSkipStepNavigationRule : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacySkipStepNavigationRule : NSObject <NSCopying, NSSecureCoding>
 
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
@@ -276,17 +276,17 @@ ORK_CLASS_AVAILABLE
  
  @return YES if the step should skip.
  */
-- (BOOL)stepShouldSkipWithTaskResult:(ORKTaskResult *)taskResult;
+- (BOOL)stepShouldSkipWithTaskResult:(ORKLegacyTaskResult *)taskResult;
 
 @end
 
-ORK_CLASS_AVAILABLE
-@interface ORKPredicateSkipStepNavigationRule : ORKSkipStepNavigationRule
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyPredicateSkipStepNavigationRule : ORKLegacySkipStepNavigationRule
 
 /*
  The `init` and `new` methods are unavailable.
  
- `ORKStepNavigationRule` classes should be initialized with custom designated initializers on each
+ `ORKLegacyStepNavigationRule` classes should be initialized with custom designated initializers on each
  subclass.
  */
 + (instancetype)new NS_UNAVAILABLE;
@@ -325,9 +325,9 @@ ORK_CLASS_AVAILABLE
  results with duplicate identifiers. Question results *can have* equal identifiers provided that
  they belong to different task results.
  
- Each object in the array should be of the `ORKTaskResult` class.
+ Each object in the array should be of the `ORKLegacyTaskResult` class.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKTaskResult *> *additionalTaskResults;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacyTaskResult *> *additionalTaskResults;
 
 /**
  The result predicate to match.
@@ -338,14 +338,14 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKStepModifier` class is an abstract base class for an object that can be used to modify a step
+ The `ORKLegacyStepModifier` class is an abstract base class for an object that can be used to modify a step
  if a given navigation rule is matched.
  
- Step modifiers can be used within an `ORKNavigableOrderedTask` object. You assign step modifiers 
+ Step modifiers can be used within an `ORKLegacyNavigableOrderedTask` object. You assign step modifiers 
  to be triggered after a task step is shown. Each step can have one step modifier at most.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKStepModifier: NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyStepModifier: NSObject <NSCopying, NSSecureCoding>
 
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
@@ -356,25 +356,25 @@ ORK_CLASS_AVAILABLE
  @param step            The step that is associated with this modifier
  @param taskResult      The current task result
  */
-- (void)modifyStep:(ORKStep *)step withTaskResult:(ORKTaskResult *)taskResult;
+- (void)modifyStep:(ORKLegacyStep *)step withTaskResult:(ORKLegacyTaskResult *)taskResult;
 
 @end
 
 
 /**
- The `ORKKeyValueStepModifier` class is an class for an object that can be used to modify a step
+ The `ORKLegacyKeyValueStepModifier` class is an class for an object that can be used to modify a step
  if a given navigation rule is matched.
  
- Step modifiers can be used within an `ORKNavigableOrderedTask` object. You assign step modifiers
+ Step modifiers can be used within an `ORKLegacyNavigableOrderedTask` object. You assign step modifiers
  to be triggered after a task step is shown. Each step can have one step modifier at most.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKKeyValueStepModifier: ORKStepModifier
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyKeyValueStepModifier: ORKLegacyStepModifier
 
 /*
  The `init` and `new` methods are unavailable.
  
- `ORKStepNavigationRule` classes should be initialized with custom designated initializers on each
+ `ORKLegacyStepNavigationRule` classes should be initialized with custom designated initializers on each
  subclass.
  */
 + (instancetype)new NS_UNAVAILABLE;

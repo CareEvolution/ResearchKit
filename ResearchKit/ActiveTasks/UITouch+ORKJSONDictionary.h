@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UITouch (ORKJSONDictionary)
+@interface UITouch (ORKLegacyJSONDictionary)
 
 - (NSDictionary *)ork_JSONDictionaryInView:(UIView *)view allTouches:(NSArray *)allTouches;
 

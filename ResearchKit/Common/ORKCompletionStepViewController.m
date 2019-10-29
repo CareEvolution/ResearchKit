@@ -43,7 +43,7 @@
 #import "ORKHelpers_Internal.h"
 
 
-@interface ORKCompletionStepView : ORKActiveStepCustomView
+@interface ORKLegacyCompletionStepView : ORKLegacyActiveStepCustomView
 
 @property (nonatomic) CGFloat animationPoint;
 
@@ -52,7 +52,7 @@
 @end
 
 
-@implementation ORKCompletionStepView {
+@implementation ORKLegacyCompletionStepView {
     CAShapeLayer *_shapeLayer;
 }
 
@@ -138,14 +138,14 @@ static const CGFloat TickViewSize = 122;
 @end
 
 
-@implementation ORKCompletionStepViewController {
-    ORKCompletionStepView *_completionStepView;
+@implementation ORKLegacyCompletionStepViewController {
+    ORKLegacyCompletionStepView *_completionStepView;
 }
 
 - (void)stepDidChange {
     [super stepDidChange];
     
-    _completionStepView = [ORKCompletionStepView new];
+    _completionStepView = [ORKLegacyCompletionStepView new];
     if (self.checkmarkColor) {
         _completionStepView.tintColor = self.checkmarkColor;
     }
@@ -169,7 +169,7 @@ static const CGFloat TickViewSize = 122;
     
     UILabel *captionLabel = self.stepView.headerView.captionLabel;
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, captionLabel);
-    _completionStepView.accessibilityLabel = [NSString localizedStringWithFormat:ORKLocalizedString(@"AX_IMAGE_ILLUSTRATION", nil), captionLabel.accessibilityLabel];
+    _completionStepView.accessibilityLabel = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"AX_IMAGE_ILLUSTRATION", nil), captionLabel.accessibilityLabel];
 }
 
 - (void)setCheckmarkColor:(UIColor *)checkmarkColor {

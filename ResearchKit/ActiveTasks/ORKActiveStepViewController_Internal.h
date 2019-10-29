@@ -34,19 +34,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKActiveStepTimer;
-@class ORKActiveStepView;
+@class ORKLegacyActiveStepTimer;
+@class ORKLegacyActiveStepView;
 
-@interface ORKActiveStepViewController ()
+@interface ORKLegacyActiveStepViewController ()
 
 /**
  The customViewContainer allows custom view to be its subview.
  
- @note When ORKTouchRecorder is present, its gesture recognizer attaches to customViewContainer.
+ @note When ORKLegacyTouchRecorder is present, its gesture recognizer attaches to customViewContainer.
  */
 @property (nonatomic, strong, readonly, nullable) UIView *customViewContainer;
 
-@property (nonatomic, strong, readonly, nullable) ORKActiveStepView *activeStepView;
+@property (nonatomic, strong, readonly, nullable) ORKLegacyActiveStepView *activeStepView;
 
 @property (nonatomic, readonly) NSTimeInterval timeRemaining;
 @property (nonatomic, readonly) BOOL timerActive;
@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, getter=isStarted) BOOL started;
 
-- (void)countDownTimerFired:(ORKActiveStepTimer *)timer finished:(BOOL)finished; // Let subclass receive timer fires
+- (void)countDownTimerFired:(ORKLegacyActiveStepTimer *)timer finished:(BOOL)finished; // Let subclass receive timer fires
 
 - (void)applicationWillResignActive:(NSNotification *)notification;
 - (void)applicationDidBecomeActive:(NSNotification *)notification;

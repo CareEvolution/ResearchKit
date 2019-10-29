@@ -38,22 +38,22 @@ NS_ASSUME_NONNULL_BEGIN
 typedef struct {
     NSInteger width;
     NSInteger height;
-} ORKGridSize;
+} ORKLegacyGridSize;
 
-@class ORKSpatialSpanMemoryGameView;
+@class ORKLegacySpatialSpanMemoryGameView;
 
-@protocol ORKSpatialSpanMemoryGameViewDelegate<NSObject>
+@protocol ORKLegacySpatialSpanMemoryGameViewDelegate<NSObject>
 
-- (void)gameView:(ORKSpatialSpanMemoryGameView *)gameView didTapTileWithIndex:(NSInteger)tileIndex recognizer:(UITapGestureRecognizer *)recognizer;
+- (void)gameView:(ORKLegacySpatialSpanMemoryGameView *)gameView didTapTileWithIndex:(NSInteger)tileIndex recognizer:(UITapGestureRecognizer *)recognizer;
 
 @end
 
 
-@interface ORKSpatialSpanMemoryGameView : UIView <ORKSpatialSpanTargetViewDelegate>
+@interface ORKLegacySpatialSpanMemoryGameView : UIView <ORKLegacySpatialSpanTargetViewDelegate>
 
-@property (nonatomic, weak, nullable) id<ORKSpatialSpanMemoryGameViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORKLegacySpatialSpanMemoryGameViewDelegate> delegate;
 
-@property (nonatomic, assign) ORKGridSize gridSize;
+@property (nonatomic, assign) ORKLegacyGridSize gridSize;
 
 @property (nonatomic, readonly) NSInteger numberOfTiles;
 
@@ -63,15 +63,15 @@ typedef struct {
 
 - (void)resetTilesAnimated:(BOOL)animated;
 
-- (void)setState:(ORKSpatialSpanTargetState)state forTileIndex:(NSInteger)tileIndex animated:(BOOL)animated;
-- (ORKSpatialSpanTargetState)stateForTileIndex:(NSInteger)tileIndex;
+- (void)setState:(ORKLegacySpatialSpanTargetState)state forTileIndex:(NSInteger)tileIndex animated:(BOOL)animated;
+- (ORKLegacySpatialSpanTargetState)stateForTileIndex:(NSInteger)tileIndex;
 
 @end
 
 
-@interface ORKSpatialSpanMemoryContentView : ORKActiveStepCustomView
+@interface ORKLegacySpatialSpanMemoryContentView : ORKLegacyActiveStepCustomView
 
-@property (nonatomic, strong, readonly) ORKSpatialSpanMemoryGameView *gameView;
+@property (nonatomic, strong, readonly) ORKLegacySpatialSpanMemoryGameView *gameView;
 
 @property (nonatomic, assign, getter=isFooterHidden) BOOL footerHidden;
 

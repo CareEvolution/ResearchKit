@@ -48,21 +48,21 @@
 @import AVFoundation;
 
 
-@interface ORKAudioStepViewController ()
+@interface ORKLegacyAudioStepViewController ()
 
 @property (nonatomic, strong) AVAudioRecorder *avAudioRecorder;
 
 @end
 
 
-@implementation ORKAudioStepViewController {
-    ORKAudioContentView *_audioContentView;
-    ORKAudioRecorder *_audioRecorder;
-    ORKActiveStepTimer *_timer;
+@implementation ORKLegacyAudioStepViewController {
+    ORKLegacyAudioContentView *_audioContentView;
+    ORKLegacyAudioRecorder *_audioRecorder;
+    ORKLegacyActiveStepTimer *_timer;
     NSError *_audioRecorderError;
 }
 
-- (instancetype)initWithStep:(ORKStep *)step {
+- (instancetype)initWithStep:(ORKLegacyStep *)step {
     self = [super initWithStep:step];
     if (self) {
         // Continue audio recording in the background
@@ -81,7 +81,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _audioContentView = [ORKAudioContentView new];
+    _audioContentView = [ORKLegacyAudioContentView new];
     _audioContentView.timeLeft = self.audioStep.stepDuration;
 
     if (self.alertThreshold > 0) {
@@ -97,10 +97,10 @@
 }
 
 - (void)recordersDidChange {
-    ORKAudioRecorder *audioRecorder = nil;
-    for (ORKRecorder *recorder in self.recorders) {
-        if ([recorder isKindOfClass:[ORKAudioRecorder class]]) {
-            audioRecorder = (ORKAudioRecorder *)recorder;
+    ORKLegacyAudioRecorder *audioRecorder = nil;
+    for (ORKLegacyRecorder *recorder in self.recorders) {
+        if ([recorder isKindOfClass:[ORKLegacyAudioRecorder class]]) {
+            audioRecorder = (ORKLegacyAudioRecorder *)recorder;
             break;
         }
     }
@@ -108,8 +108,8 @@
     [self audioRecorderDidChange];
 }
 
-- (ORKAudioStep *)audioStep {
-    return (ORKAudioStep *)self.step;
+- (ORKLegacyAudioStep *)audioStep {
+    return (ORKLegacyAudioStep *)self.step;
 }
 
 - (void)doSample {
@@ -127,9 +127,9 @@
 - (void)startNewTimerIfNeeded {
     if (!_timer) {
         NSTimeInterval duration = self.audioStep.stepDuration;
-        ORKWeakTypeOf(self) weakSelf = self;
-        _timer = [[ORKActiveStepTimer alloc] initWithDuration:duration interval:duration / 100 runtime:0 handler:^(ORKActiveStepTimer *timer, BOOL finished) {
-            ORKStrongTypeOf(self) strongSelf = weakSelf;
+        ORKLegacyWeakTypeOf(self) weakSelf = self;
+        _timer = [[ORKLegacyActiveStepTimer alloc] initWithDuration:duration interval:duration / 100 runtime:0 handler:^(ORKLegacyActiveStepTimer *timer, BOOL finished) {
+            ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
             [strongSelf doSample];
             if (finished) {
                 [strongSelf finish];
@@ -182,7 +182,7 @@
     _avAudioRecorder = recorder;
 }
 
-- (void)recorder:(ORKRecorder *)recorder didFailWithError:(NSError *)error {
+- (void)recorder:(ORKLegacyRecorder *)recorder didFailWithError:(NSError *)error {
     [super recorder:recorder didFailWithError:error];
     _audioRecorderError = error;
     _audioContentView.failed = YES;

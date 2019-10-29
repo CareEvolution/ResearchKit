@@ -34,13 +34,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKNavigationContainerView;
-@class ORKStepHeaderView;
-@class ORKTintedImageView;
+@class ORKLegacyNavigationContainerView;
+@class ORKLegacyStepHeaderView;
+@class ORKLegacyTintedImageView;
 
-@interface ORKVerticalContainerView : UIScrollView
+@interface ORKLegacyVerticalContainerView : UIScrollView
 
-@property (nonatomic, strong, readonly) ORKTintedImageView *imageView;
+@property (nonatomic, strong, readonly) ORKLegacyTintedImageView *imageView;
 
 @property (nonatomic, strong, readonly) UIView *customViewContainer;
 
@@ -49,9 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) UIView *customView;
 
-@property (nonatomic, strong, readonly) ORKStepHeaderView *headerView;
+@property (nonatomic, strong, readonly) ORKLegacyStepHeaderView *headerView;
 
-@property (nonatomic, strong, readonly) ORKNavigationContainerView *continueSkipContainer;
+@property (nonatomic, strong, readonly) ORKLegacyNavigationContainerView *continueSkipContainer;
 
 @property (nonatomic, assign) BOOL continueHugsContent;
 

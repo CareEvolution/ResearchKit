@@ -38,10 +38,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKSpatialSpanMemoryStep
+@implementation ORKLegacySpatialSpanMemoryStep
 
 + (Class)stepViewControllerClass {
-    return [ORKSpatialSpanMemoryStepViewController class];
+    return [ORKLegacySpatialSpanMemoryStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -54,7 +54,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKSpatialSpanMemoryStep *step = [super copyWithZone:zone];
+    ORKLegacySpatialSpanMemoryStep *step = [super copyWithZone:zone];
     step.initialSpan = self.initialSpan;
     step.minimumSpan = self.minimumSpan;
     step.maximumSpan = self.maximumSpan;
@@ -70,16 +70,16 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    NSInteger const ORKSpatialSpanMemoryTaskMinimumInitialSpan = 2;
-    NSInteger const ORKSpatialSpanMemoryTaskMaximumSpan = 20;
-    NSTimeInterval const ORKSpatialSpanMemoryTaskMinimumPlaySpeed = 0.5;
-    NSTimeInterval const ORKSpatialSpanMemoryTaskMaximumPlaySpeed = 20;
-    NSInteger const ORKSpatialSpanMemoryTaskMinimumMaxTests = 1;
-    NSInteger const ORKSpatialSpanMemoryTaskMinimumMaxConsecutiveFailures = 1;
+    NSInteger const ORKLegacySpatialSpanMemoryTaskMinimumInitialSpan = 2;
+    NSInteger const ORKLegacySpatialSpanMemoryTaskMaximumSpan = 20;
+    NSTimeInterval const ORKLegacySpatialSpanMemoryTaskMinimumPlaySpeed = 0.5;
+    NSTimeInterval const ORKLegacySpatialSpanMemoryTaskMaximumPlaySpeed = 20;
+    NSInteger const ORKLegacySpatialSpanMemoryTaskMinimumMaxTests = 1;
+    NSInteger const ORKLegacySpatialSpanMemoryTaskMinimumMaxConsecutiveFailures = 1;
     
-    if ( self.initialSpan < ORKSpatialSpanMemoryTaskMinimumInitialSpan) {
+    if ( self.initialSpan < ORKLegacySpatialSpanMemoryTaskMinimumInitialSpan) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:[NSString stringWithFormat:@"initialSpan cannot be less than %@.", @(ORKSpatialSpanMemoryTaskMinimumInitialSpan)]
+                                       reason:[NSString stringWithFormat:@"initialSpan cannot be less than %@.", @(ORKLegacySpatialSpanMemoryTaskMinimumInitialSpan)]
                                      userInfo:nil];
     }
     
@@ -91,33 +91,33 @@
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"maximumSpan cannot be less than initialSpan." userInfo:nil];
     }
     
-    if ( self.maximumSpan > ORKSpatialSpanMemoryTaskMaximumSpan) {
+    if ( self.maximumSpan > ORKLegacySpatialSpanMemoryTaskMaximumSpan) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:[NSString stringWithFormat:@"maximumSpan cannot be more than %@.", @(ORKSpatialSpanMemoryTaskMaximumSpan)]
+                                       reason:[NSString stringWithFormat:@"maximumSpan cannot be more than %@.", @(ORKLegacySpatialSpanMemoryTaskMaximumSpan)]
                                      userInfo:nil];
     }
     
-    if  (self.playSpeed < ORKSpatialSpanMemoryTaskMinimumPlaySpeed) {
+    if  (self.playSpeed < ORKLegacySpatialSpanMemoryTaskMinimumPlaySpeed) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:[NSString stringWithFormat:@"playSpeed cannot be shorter than %@ seconds.", @(ORKSpatialSpanMemoryTaskMinimumPlaySpeed)]
+                                       reason:[NSString stringWithFormat:@"playSpeed cannot be shorter than %@ seconds.", @(ORKLegacySpatialSpanMemoryTaskMinimumPlaySpeed)]
                                      userInfo:nil];
     }
     
-    if  (self.playSpeed > ORKSpatialSpanMemoryTaskMaximumPlaySpeed) {
+    if  (self.playSpeed > ORKLegacySpatialSpanMemoryTaskMaximumPlaySpeed) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:[NSString stringWithFormat:@"playSpeed cannot be longer than %@ seconds.", @(ORKSpatialSpanMemoryTaskMaximumPlaySpeed)]
+                                       reason:[NSString stringWithFormat:@"playSpeed cannot be longer than %@ seconds.", @(ORKLegacySpatialSpanMemoryTaskMaximumPlaySpeed)]
                                      userInfo:nil];
     }
     
-    if  (self.maximumTests < ORKSpatialSpanMemoryTaskMinimumMaxTests) {
+    if  (self.maximumTests < ORKLegacySpatialSpanMemoryTaskMinimumMaxTests) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:[NSString stringWithFormat:@"maximumTests cannot be less than %@.", @(ORKSpatialSpanMemoryTaskMinimumMaxTests)]
+                                       reason:[NSString stringWithFormat:@"maximumTests cannot be less than %@.", @(ORKLegacySpatialSpanMemoryTaskMinimumMaxTests)]
                                      userInfo:nil];
     }
     
-    if  (self.maximumConsecutiveFailures < ORKSpatialSpanMemoryTaskMinimumMaxConsecutiveFailures) {
+    if  (self.maximumConsecutiveFailures < ORKLegacySpatialSpanMemoryTaskMinimumMaxConsecutiveFailures) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:[NSString stringWithFormat:@"maximumConsecutiveFailures cannot be less than %@.", @(ORKSpatialSpanMemoryTaskMinimumMaxConsecutiveFailures)]
+                                       reason:[NSString stringWithFormat:@"maximumConsecutiveFailures cannot be less than %@.", @(ORKLegacySpatialSpanMemoryTaskMinimumMaxConsecutiveFailures)]
                                      userInfo:nil];
     }
 }
@@ -129,30 +129,30 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_INTEGER(aDecoder, initialSpan);
-        ORK_DECODE_INTEGER(aDecoder, minimumSpan);
-        ORK_DECODE_INTEGER(aDecoder, maximumSpan);
-        ORK_DECODE_INTEGER(aDecoder, playSpeed);
-        ORK_DECODE_INTEGER(aDecoder, maximumTests);
-        ORK_DECODE_INTEGER(aDecoder, maximumConsecutiveFailures);
-        ORK_DECODE_BOOL(aDecoder, requireReversal);
-        ORK_DECODE_IMAGE(aDecoder, customTargetImage);
-        ORK_DECODE_OBJ_CLASS(aDecoder, customTargetPluralName, NSString);
+        ORKLegacy_DECODE_INTEGER(aDecoder, initialSpan);
+        ORKLegacy_DECODE_INTEGER(aDecoder, minimumSpan);
+        ORKLegacy_DECODE_INTEGER(aDecoder, maximumSpan);
+        ORKLegacy_DECODE_INTEGER(aDecoder, playSpeed);
+        ORKLegacy_DECODE_INTEGER(aDecoder, maximumTests);
+        ORKLegacy_DECODE_INTEGER(aDecoder, maximumConsecutiveFailures);
+        ORKLegacy_DECODE_BOOL(aDecoder, requireReversal);
+        ORKLegacy_DECODE_IMAGE(aDecoder, customTargetImage);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, customTargetPluralName, NSString);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_INTEGER(aCoder, initialSpan);
-    ORK_ENCODE_INTEGER(aCoder, minimumSpan);
-    ORK_ENCODE_INTEGER(aCoder, maximumSpan);
-    ORK_ENCODE_INTEGER(aCoder, playSpeed);
-    ORK_ENCODE_INTEGER(aCoder, maximumTests);
-    ORK_ENCODE_INTEGER(aCoder, maximumConsecutiveFailures);
-    ORK_ENCODE_BOOL(aCoder, requireReversal);
-    ORK_ENCODE_IMAGE(aCoder, customTargetImage);
-    ORK_ENCODE_OBJ(aCoder, customTargetPluralName);
+    ORKLegacy_ENCODE_INTEGER(aCoder, initialSpan);
+    ORKLegacy_ENCODE_INTEGER(aCoder, minimumSpan);
+    ORKLegacy_ENCODE_INTEGER(aCoder, maximumSpan);
+    ORKLegacy_ENCODE_INTEGER(aCoder, playSpeed);
+    ORKLegacy_ENCODE_INTEGER(aCoder, maximumTests);
+    ORKLegacy_ENCODE_INTEGER(aCoder, maximumConsecutiveFailures);
+    ORKLegacy_ENCODE_BOOL(aCoder, requireReversal);
+    ORKLegacy_ENCODE_IMAGE(aCoder, customTargetImage);
+    ORKLegacy_ENCODE_OBJ(aCoder, customTargetPluralName);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -170,7 +170,7 @@
             (self.playSpeed == castObject.playSpeed) &&
             (self.maximumTests == castObject.maximumTests) &&
             (self.maximumConsecutiveFailures == castObject.maximumConsecutiveFailures) &&
-            (ORKEqualObjects(self.customTargetPluralName, castObject.customTargetPluralName)) &&
+            (ORKLegacyEqualObjects(self.customTargetPluralName, castObject.customTargetPluralName)) &&
             (self.requireReversal == castObject.requireReversal));
 }
 

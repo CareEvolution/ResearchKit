@@ -50,14 +50,14 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKWaitStepViewController {
-    ORKWaitStepView *_waitStepView;
-    ORKProgressIndicatorType _indicatorType;
+@implementation ORKLegacyWaitStepViewController {
+    ORKLegacyWaitStepView *_waitStepView;
+    ORKLegacyProgressIndicatorType _indicatorType;
     NSString *_updatedText;
 }
 
-- (ORKWaitStep *)waitStep {
-    return (ORKWaitStep *)self.step;
+- (ORKLegacyWaitStep *)waitStep {
+    return (ORKLegacyWaitStep *)self.step;
 }
 
 - (void)stepDidChange {
@@ -71,7 +71,7 @@
             _updatedText = [self waitStep].text;
         }
         
-        _waitStepView = [[ORKWaitStepView alloc] initWithIndicatorType:[self waitStep].indicatorType];
+        _waitStepView = [[ORKLegacyWaitStepView alloc] initWithIndicatorType:[self waitStep].indicatorType];
         _waitStepView.frame = self.view.bounds;
         _waitStepView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self.view addSubview:_waitStepView];

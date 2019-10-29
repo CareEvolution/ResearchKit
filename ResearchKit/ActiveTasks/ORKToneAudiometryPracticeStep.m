@@ -33,10 +33,10 @@
 #import "ORKToneAudiometryPracticeStepViewController.h"
 
 
-@implementation ORKToneAudiometryPracticeStep
+@implementation ORKLegacyToneAudiometryPracticeStep
 
 + (Class)stepViewControllerClass {
-    return [ORKToneAudiometryPracticeStepViewController class];
+    return [ORKLegacyToneAudiometryPracticeStepViewController class];
 }
 
 - (BOOL)startsFinished {

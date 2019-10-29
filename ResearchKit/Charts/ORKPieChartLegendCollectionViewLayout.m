@@ -35,14 +35,14 @@
 #import "ORKPieChartLegendView.h"
 
 
-@interface ORKPieChartLegendCollectionViewLayout ()
+@interface ORKLegacyPieChartLegendCollectionViewLayout ()
 
-@property (nonatomic, readonly) ORKPieChartLegendView *collectionView;
+@property (nonatomic, readonly) ORKLegacyPieChartLegendView *collectionView;
 
 @end
 
 
-@implementation ORKPieChartLegendCollectionViewLayout
+@implementation ORKLegacyPieChartLegendCollectionViewLayout
 
 @dynamic collectionView;
 

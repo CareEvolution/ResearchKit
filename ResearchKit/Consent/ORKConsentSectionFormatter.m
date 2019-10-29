@@ -34,9 +34,9 @@
 #import "ORKConsentSection_Private.h"
 
 
-@implementation ORKConsentSectionFormatter
+@implementation ORKLegacyConsentSectionFormatter
 
-- (NSString *)HTMLForSection:(ORKConsentSection *)section {
+- (NSString *)HTMLForSection:(ORKLegacyConsentSection *)section {
     NSString *title = section.formalTitle ?: (section.title ?: @"");
     NSString *content = section.htmlContent ?: (section.escapedContent ?: @"");
     return [NSString stringWithFormat:@"<h4>%@</h4><p>%@</p>", title, content];

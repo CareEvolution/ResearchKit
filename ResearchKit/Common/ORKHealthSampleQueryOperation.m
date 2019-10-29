@@ -38,10 +38,10 @@
 
 static NSUInteger const QueryLimitSize = 1000;
 
-@implementation ORKHealthSampleQueryOperation {
+@implementation ORKLegacyHealthSampleQueryOperation {
     // All of these are strong references created at init time
-    ORKCollector<ORKHealthCollectable> *_collector;
-    __weak ORKDataCollectionManager *_manager;
+    ORKLegacyCollector<ORKLegacyHealthCollectable> *_collector;
+    __weak ORKLegacyDataCollectionManager *_manager;
     HKQueryAnchor *_currentAnchor;
     dispatch_semaphore_t _sem;
 }
@@ -61,7 +61,7 @@ static NSUInteger const QueryLimitSize = 1000;
     return shouldContinue;
 }
 
-- (instancetype)initWithCollector:(ORKCollector<ORKHealthCollectable> *)collector mananger:(ORKDataCollectionManager *)manager {
+- (instancetype)initWithCollector:(ORKLegacyCollector<ORKLegacyHealthCollectable> *)collector mananger:(ORKLegacyDataCollectionManager *)manager {
     NSParameterAssert(collector);
     NSParameterAssert(manager);
     
@@ -72,8 +72,8 @@ static NSUInteger const QueryLimitSize = 1000;
         _currentAnchor = nil;
         _sem = dispatch_semaphore_create(0);
         
-        self.startBlock = ^void(ORKOperation* operation) {
-            [(ORKHealthSampleQueryOperation*)operation doNextQuery];
+        self.startBlock = ^void(ORKLegacyOperation* operation) {
+            [(ORKLegacyHealthSampleQueryOperation*)operation doNextQuery];
         };
         
     }
@@ -84,8 +84,8 @@ static NSUInteger const QueryLimitSize = 1000;
     return [NSString stringWithFormat:@"<%@(%p):%@>",NSStringFromClass([self class]), self, _collector];
 }
 
-- (void)finishWithErrorCode:(ORKErrorCode)error {
-    self.error = [NSError errorWithDomain:ORKErrorDomain code:error userInfo:nil];
+- (void)finishWithErrorCode:(ORKLegacyErrorCode)error {
+    self.error = [NSError errorWithDomain:ORKLegacyErrorDomain code:error userInfo:nil];
     [self safeFinish];
 }
 
@@ -101,7 +101,7 @@ static NSUInteger const QueryLimitSize = 1000;
     // Check if everything's valid and we should continue with collection
     __block BOOL shouldContinue = YES;
     
-    [_manager onWorkQueueSync:^BOOL(ORKDataCollectionManager *manager) {
+    [_manager onWorkQueueSync:^BOOL(ORKLegacyDataCollectionManager *manager) {
         
         shouldContinue = [self _shouldContinue];
         
@@ -128,12 +128,12 @@ static NSUInteger const QueryLimitSize = 1000;
     }
     
     if (!shouldContinue) {
-        [self finishWithErrorCode:ORKErrorInvalidObject];
+        [self finishWithErrorCode:ORKLegacyErrorInvalidObject];
         [self.lock unlock];
         return;
     }
     
-    __weak ORKHealthSampleQueryOperation * weakSelf = self;
+    __weak ORKLegacyHealthSampleQueryOperation * weakSelf = self;
     
     NSPredicate *predicate = nil;
     if (startDate) {
@@ -151,15 +151,15 @@ static NSUInteger const QueryLimitSize = 1000;
                                                                                      HKQueryAnchor *newAnchor,
                                                                                      NSError *error) {
                                                                         
-                                                                        ORKHealthSampleQueryOperation *op = weakSelf;
-                                                                        ORK_Log_Debug(@"\nHK Query returned: %@\n", @{@"sampleType": sampleType, @"items":@([sampleObjects count]), @"newAnchor":[newAnchor description]?:@"nil"});
+                                                                        ORKLegacyHealthSampleQueryOperation *op = weakSelf;
+                                                                        ORKLegacy_Log_Debug(@"\nHK Query returned: %@\n", @{@"sampleType": sampleType, @"items":@([sampleObjects count]), @"newAnchor":[newAnchor description]?:@"nil"});
                                                                         // Signal that query returned
                                                                         dispatch_semaphore_signal(_sem);
                                                                         [op handleResults:sampleObjects newAnchor:newAnchor error:error itemIdentifier:itemIdentifier];
                                                                  }];
 
     
-    ORK_Log_Debug(@"\nHK Query: %@ \n", @{@"identifier": sampleType.identifier, @"anchor": anchor.description ? :@"", @"startDate": [NSDateFormatter localizedStringFromDate:startDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]});
+    ORKLegacy_Log_Debug(@"\nHK Query: %@ \n", @{@"identifier": sampleType.identifier, @"anchor": anchor.description ? :@"", @"startDate": [NSDateFormatter localizedStringFromDate:startDate dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]});
     [_manager.healthStore executeQuery:syncQuery];
     
     [self.lock unlock];
@@ -175,11 +175,11 @@ static NSUInteger const QueryLimitSize = 1000;
 }
 
 - (void)timeoutForAnchor:(HKQueryAnchor *)anchor {
-    ORK_Log_Debug(@"Query timeout: cancel operation %@", self);
+    ORKLegacy_Log_Debug(@"Query timeout: cancel operation %@", self);
     [self.lock lock];
     
     if ([self isExecuting] && ![self isCancelled] && [anchor isEqual:_currentAnchor]) {
-        self.error = [NSError errorWithDomain:ORKErrorDomain code:ORKErrorException userInfo:@{NSLocalizedDescriptionKey:@"Query timeout"}];
+        self.error = [NSError errorWithDomain:ORKLegacyErrorDomain code:ORKLegacyErrorException userInfo:@{NSLocalizedDescriptionKey:@"Query timeout"}];
         [self safeFinish];
     }
     
@@ -213,23 +213,23 @@ static NSUInteger const QueryLimitSize = 1000;
     
     BOOL doContinue = (results && [results count] > 0);
     if (doContinue) {        
-        id<ORKDataCollectionManagerDelegate> delegate = _manager.delegate;
+        id<ORKLegacyDataCollectionManagerDelegate> delegate = _manager.delegate;
         
         BOOL handoutSuccess = NO;
         
         if (delegate) {
-            if ([_collector isKindOfClass:[ORKHealthCollector class]]
+            if ([_collector isKindOfClass:[ORKLegacyHealthCollector class]]
                 && [delegate respondsToSelector:@selector(healthCollector:didCollectSamples:)]) {
-                handoutSuccess = [delegate healthCollector:(ORKHealthCollector *)_collector didCollectSamples:results];
-            } else if ([_collector isKindOfClass:[ORKHealthCorrelationCollector class]]
+                handoutSuccess = [delegate healthCollector:(ORKLegacyHealthCollector *)_collector didCollectSamples:results];
+            } else if ([_collector isKindOfClass:[ORKLegacyHealthCorrelationCollector class]]
                        && [delegate respondsToSelector:@selector(healthCorrelationCollector:didCollectCorrelations:)]) {
-                handoutSuccess = [delegate healthCorrelationCollector:(ORKHealthCorrelationCollector *)_collector didCollectCorrelations:(NSArray<HKCorrelation *> *)results];
+                handoutSuccess = [delegate healthCorrelationCollector:(ORKLegacyHealthCorrelationCollector *)_collector didCollectCorrelations:(NSArray<HKCorrelation *> *)results];
             }
         }
         
         if (!handoutSuccess) {
             doContinue = NO;
-            self.error = [NSError errorWithDomain:ORKErrorDomain code:ORKErrorException userInfo:@{NSLocalizedFailureReasonErrorKey: @"Results were not properly delivered to the data collection manager delegate."}];
+            self.error = [NSError errorWithDomain:ORKLegacyErrorDomain code:ORKLegacyErrorException userInfo:@{NSLocalizedFailureReasonErrorKey: @"Results were not properly delivered to the data collection manager delegate."}];
         }
     }
     

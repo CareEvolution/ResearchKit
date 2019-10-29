@@ -35,12 +35,12 @@
 #import "HKSample+ORKJSONDictionary.h"
 
 
-@interface ORKHKSampleTests : XCTestCase
+@interface ORKLegacyHKSampleTests : XCTestCase
 
 @end
 
 
-@implementation ORKHKSampleTests
+@implementation ORKLegacyHKSampleTests
 
 - (void)testHKSampleSerialization {
     NSDate *d1 = [NSDate dateWithTimeIntervalSinceReferenceDate:0];
@@ -49,12 +49,12 @@
     NSString *identifier = HKQuantityTypeIdentifierStepCount;
     HKQuantitySample *quantitySample = [HKQuantitySample quantitySampleWithType:[HKQuantityType quantityTypeForIdentifier:identifier] quantity:[HKQuantity quantityWithUnit:[HKUnit countUnit] doubleValue:5] startDate:d1 endDate:d2];
     
-    NSDictionary *dict = [quantitySample ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)(ORKSampleIncludeMetadata|ORKSampleIncludeSource|ORKSampleIncludeUUID) unit:[HKUnit countUnit]];
+    NSDictionary *dict = [quantitySample ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)(ORKLegacySampleIncludeMetadata|ORKLegacySampleIncludeSource|ORKLegacySampleIncludeUUID) unit:[HKUnit countUnit]];
     
     XCTAssertEqualObjects(dict[@"uuid"], [quantitySample UUID].UUIDString, @"");
     XCTAssertEqualObjects(dict[@"type"], identifier, @"");
-    XCTAssertEqualObjects(dict[@"startDate"], ORKStringFromDateISO8601(d1), @"");
-    XCTAssertEqualObjects(dict[@"endDate"], ORKStringFromDateISO8601(d2), @"");
+    XCTAssertEqualObjects(dict[@"startDate"], ORKLegacyStringFromDateISO8601(d1), @"");
+    XCTAssertEqualObjects(dict[@"endDate"], ORKLegacyStringFromDateISO8601(d2), @"");
     XCTAssertEqualObjects(dict[@"value"], @(5), @"");
     XCTAssertNil(dict[@"sourceBundleIdentifier"], @"");
     XCTAssertNil(dict[@"sourceName"], @"");
@@ -71,11 +71,11 @@
     HKQuantitySample *quantitySample = [HKQuantitySample quantitySampleWithType:[HKQuantityType quantityTypeForIdentifier:identifier] quantity:[HKQuantity quantityWithUnit:[HKUnit countUnit] doubleValue:5] startDate:d1 endDate:d2 metadata:testMeta ];
     
     // No metadata if not requested
-    NSDictionary *dict = [quantitySample ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)(ORKSampleIncludeSource) unit:[HKUnit countUnit]];
+    NSDictionary *dict = [quantitySample ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)(ORKLegacySampleIncludeSource) unit:[HKUnit countUnit]];
     XCTAssertNil(dict[@"metadata"], @"");
     
     // Verify metadata appears when requested
-    dict = [quantitySample ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)(ORKSampleIncludeMetadata|ORKSampleIncludeSource|ORKSampleIncludeUUID) unit:[HKUnit countUnit]];
+    dict = [quantitySample ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)(ORKLegacySampleIncludeMetadata|ORKLegacySampleIncludeSource|ORKLegacySampleIncludeUUID) unit:[HKUnit countUnit]];
     XCTAssertEqualObjects(testMeta, dict[@"metadata"], @"");
 }
 
@@ -92,15 +92,15 @@
     
     HKCorrelation *correlation = [HKCorrelation correlationWithType:[HKCorrelationType correlationTypeForIdentifier:identifier] startDate:d1 endDate:d2 objects:[NSSet setWithObjects:dPressure, sPressure, nil]];
     
-    NSDictionary *dict = [correlation ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)(ORKSampleIncludeMetadata|ORKSampleIncludeSource|ORKSampleIncludeUUID) sampleTypes:@[diastolicType,systolicType] units:@[unit, unit]];
+    NSDictionary *dict = [correlation ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)(ORKLegacySampleIncludeMetadata|ORKLegacySampleIncludeSource|ORKLegacySampleIncludeUUID) sampleTypes:@[diastolicType,systolicType] units:@[unit, unit]];
     
-    NSDictionary *dd = [dPressure ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)(ORKSampleIncludeMetadata|ORKSampleIncludeSource|ORKSampleIncludeUUID) unit:unit];
-    NSDictionary *ds = [sPressure ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)(ORKSampleIncludeMetadata|ORKSampleIncludeSource|ORKSampleIncludeUUID) unit:unit];
+    NSDictionary *dd = [dPressure ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)(ORKLegacySampleIncludeMetadata|ORKLegacySampleIncludeSource|ORKLegacySampleIncludeUUID) unit:unit];
+    NSDictionary *ds = [sPressure ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)(ORKLegacySampleIncludeMetadata|ORKLegacySampleIncludeSource|ORKLegacySampleIncludeUUID) unit:unit];
     
     XCTAssertEqualObjects(dict[@"uuid"], [correlation UUID].UUIDString, @"");
     XCTAssertEqualObjects(dict[@"type"], identifier, @"");
-    XCTAssertEqualObjects(dict[@"startDate"], ORKStringFromDateISO8601(d1), @"");
-    XCTAssertEqualObjects(dict[@"endDate"], ORKStringFromDateISO8601(d2), @"");
+    XCTAssertEqualObjects(dict[@"startDate"], ORKLegacyStringFromDateISO8601(d1), @"");
+    XCTAssertEqualObjects(dict[@"endDate"], ORKLegacyStringFromDateISO8601(d2), @"");
     XCTAssertNil(dict[@"sourceBundleIdentifier"], @"");
     XCTAssertNil(dict[@"sourceName"], @"");
     XCTAssertNil(dict[@"metadata"], @"");

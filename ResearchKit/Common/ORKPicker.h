@@ -34,20 +34,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ORKPickerDelegate <NSObject>
+@protocol ORKLegacyPickerDelegate <NSObject>
 
 - (void)picker:(id)picker answerDidChangeTo:(nullable id)answer;
 
 @end
 
 
-@class ORKAnswerFormat;
+@class ORKLegacyAnswerFormat;
 
-@protocol ORKPicker <NSObject>
+@protocol ORKLegacyPicker <NSObject>
 
-- (instancetype)initWithAnswerFormat:(ORKAnswerFormat *)answerFormat answer:(nullable id)answer pickerDelegate:(id<ORKPickerDelegate>)delegate;
+- (instancetype)initWithAnswerFormat:(ORKLegacyAnswerFormat *)answerFormat answer:(nullable id)answer pickerDelegate:(id<ORKLegacyPickerDelegate>)delegate;
 
-@property (nonatomic, weak, nullable) id<ORKPickerDelegate> pickerDelegate;
+@property (nonatomic, weak, nullable) id<ORKLegacyPickerDelegate> pickerDelegate;
 
 @property (nonatomic, strong, nullable) id answer;
 
@@ -60,9 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface ORKPicker : NSObject
+@interface ORKLegacyPicker : NSObject
 
-+ (id<ORKPicker>)pickerWithAnswerFormat:(ORKAnswerFormat *)answerFormat answer:(nullable id)answer delegate:(id<ORKPickerDelegate>) delegate;
++ (id<ORKLegacyPicker>)pickerWithAnswerFormat:(ORKLegacyAnswerFormat *)answerFormat answer:(nullable id)answer delegate:(id<ORKLegacyPickerDelegate>) delegate;
 
 @end
 

@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKNavigationContainerView : UIView
+@interface ORKLegacyNavigationContainerView : UIView
 
 @property (nonatomic, strong, nullable) UIBarButtonItem *skipButtonItem;
 @property (nonatomic, strong, nullable) UIBarButtonItem *continueButtonItem;

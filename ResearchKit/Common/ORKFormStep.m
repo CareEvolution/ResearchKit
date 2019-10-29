@@ -40,10 +40,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKFormStep
+@implementation ORKLegacyFormStep
 
 + (Class)stepViewControllerClass {
-    return [ORKFormStepViewController class];
+    return [ORKLegacyFormStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
@@ -72,7 +72,7 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    for (ORKFormItem *item in _formItems) {
+    for (ORKLegacyFormItem *item in _formItems) {
         [item.answerFormat validateParameters];
     }
     
@@ -90,8 +90,8 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKFormStep *step = [super copyWithZone:zone];
-    step.formItems = ORKArrayCopyObjects(_formItems);
+    ORKLegacyFormStep *step = [super copyWithZone:zone];
+    step.formItems = ORKLegacyArrayCopyObjects(_formItems);
     step.footnote = self.footnote;
     return step;
 }
@@ -101,8 +101,8 @@
     
     __typeof(self) castObject = object;
     return isParentSame &&
-        ORKEqualObjects(self.formItems, castObject.formItems) &&
-        ORKEqualObjects(self.footnote, castObject.footnote);
+        ORKLegacyEqualObjects(self.formItems, castObject.formItems) &&
+        ORKLegacyEqualObjects(self.footnote, castObject.footnote);
 }
 
 - (NSUInteger)hash {
@@ -112,31 +112,31 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_ARRAY(aDecoder, formItems, ORKFormItem);
-        ORK_DECODE_OBJ_CLASS(aDecoder, footnote, NSString);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, formItems, ORKLegacyFormItem);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, footnote, NSString);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, formItems);
-    ORK_ENCODE_OBJ(aCoder, footnote);
+    ORKLegacy_ENCODE_OBJ(aCoder, formItems);
+    ORKLegacy_ENCODE_OBJ(aCoder, footnote);
 }
 
 + (BOOL)supportsSecureCoding {
     return YES;
 }
 
-- (void)setFormItems:(NSArray<ORKFormItem *> *)formItems {
+- (void)setFormItems:(NSArray<ORKLegacyFormItem *> *)formItems {
     // unset removed formItems
-    for (ORKFormItem *item in _formItems) {
+    for (ORKLegacyFormItem *item in _formItems) {
          item.step = nil;
     }
     
     _formItems = formItems;
     
-    for (ORKFormItem *item in _formItems) {
+    for (ORKLegacyFormItem *item in _formItems) {
         item.step = self;
     }
 }
@@ -144,8 +144,8 @@
 - (NSSet<HKObjectType *> *)requestedHealthKitTypesForReading {
     NSMutableSet<HKObjectType *> *healthTypes = [NSMutableSet set];
     
-    for (ORKFormItem *formItem in self.formItems) {
-        ORKAnswerFormat *answerFormat = [formItem answerFormat];
+    for (ORKLegacyFormItem *formItem in self.formItems) {
+        ORKLegacyAnswerFormat *answerFormat = [formItem answerFormat];
         HKObjectType *objType = [answerFormat healthKitObjectTypeForAuthorization];
         if (objType) {
             [healthTypes addObject:objType];
@@ -158,16 +158,16 @@
 @end
 
 
-@implementation ORKFormItem
+@implementation ORKLegacyFormItem
 
-- (instancetype)initWithIdentifier:(NSString *)identifier text:(NSString *)text answerFormat:(ORKAnswerFormat *)answerFormat {
+- (instancetype)initWithIdentifier:(NSString *)identifier text:(NSString *)text answerFormat:(ORKLegacyAnswerFormat *)answerFormat {
     return [self initWithIdentifier:identifier text:text answerFormat:answerFormat optional:YES];
 }
 
-- (instancetype)initWithIdentifier:(NSString *)identifier text:(NSString *)text answerFormat:(ORKAnswerFormat *)answerFormat optional:(BOOL)optional {
+- (instancetype)initWithIdentifier:(NSString *)identifier text:(NSString *)text answerFormat:(ORKLegacyAnswerFormat *)answerFormat optional:(BOOL)optional {
     self = [super init];
     if (self) {
-        ORKThrowInvalidArgumentExceptionIfNil(identifier);
+        ORKLegacyThrowInvalidArgumentExceptionIfNil(identifier);
         _identifier = [identifier copy];
         _text = [text copy];
         _answerFormat = [answerFormat copy];
@@ -184,20 +184,20 @@
     return self;
 }
 
-- (ORKFormItem *)confirmationAnswerFormItemWithIdentifier:(NSString *)identifier
+- (ORKLegacyFormItem *)confirmationAnswerFormItemWithIdentifier:(NSString *)identifier
                                                      text:(nullable NSString *)text
                                              errorMessage:(NSString *)errorMessage {
     
-    if (![self.answerFormat conformsToProtocol:@protocol(ORKConfirmAnswerFormatProvider)]) {
+    if (![self.answerFormat conformsToProtocol:@protocol(ORKLegacyConfirmAnswerFormatProvider)]) {
         @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                        reason:[NSString stringWithFormat:@"Answer format %@ does not conform to confirmation protocol", self.answerFormat]
                                      userInfo:nil];
     }
     
-    ORKAnswerFormat *answerFormat = [(id <ORKConfirmAnswerFormatProvider>)self.answerFormat
+    ORKLegacyAnswerFormat *answerFormat = [(id <ORKLegacyConfirmAnswerFormatProvider>)self.answerFormat
                                      confirmationAnswerFormatWithOriginalItemIdentifier:self.identifier
                                      errorMessage:errorMessage];
-    ORKFormItem *item = [[ORKFormItem alloc] initWithIdentifier:identifier
+    ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:identifier
                                                            text:text
                                                    answerFormat:answerFormat
                                                        optional:self.optional];
@@ -209,7 +209,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKFormItem *item = [[[self class] allocWithZone:zone] initWithIdentifier:[_identifier copy] text:[_text copy] answerFormat:[_answerFormat copy]];
+    ORKLegacyFormItem *item = [[[self class] allocWithZone:zone] initWithIdentifier:[_identifier copy] text:[_text copy] answerFormat:[_answerFormat copy]];
     item.optional = _optional;
     item.placeholder = _placeholder;
     item.hidePredicate = _hidePredicate;
@@ -219,25 +219,25 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
-        ORK_DECODE_BOOL(aDecoder, optional);
-        ORK_DECODE_OBJ_CLASS(aDecoder, text, NSString);
-        ORK_DECODE_OBJ_CLASS(aDecoder, placeholder, NSString);
-        ORK_DECODE_OBJ_CLASS(aDecoder, answerFormat, ORKAnswerFormat);
-        ORK_DECODE_OBJ_CLASS(aDecoder, step, ORKFormStep);
-        ORK_DECODE_OBJ_CLASS(aDecoder, hidePredicate, NSPredicate);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
+        ORKLegacy_DECODE_BOOL(aDecoder, optional);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, text, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, placeholder, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, answerFormat, ORKLegacyAnswerFormat);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, step, ORKLegacyFormStep);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, hidePredicate, NSPredicate);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_OBJ(aCoder, identifier);
-    ORK_ENCODE_BOOL(aCoder, optional);
-    ORK_ENCODE_OBJ(aCoder, text);
-    ORK_ENCODE_OBJ(aCoder, placeholder);
-    ORK_ENCODE_OBJ(aCoder, answerFormat);
-    ORK_ENCODE_OBJ(aCoder, step);
-    ORK_ENCODE_OBJ(aCoder, hidePredicate);
+    ORKLegacy_ENCODE_OBJ(aCoder, identifier);
+    ORKLegacy_ENCODE_BOOL(aCoder, optional);
+    ORKLegacy_ENCODE_OBJ(aCoder, text);
+    ORKLegacy_ENCODE_OBJ(aCoder, placeholder);
+    ORKLegacy_ENCODE_OBJ(aCoder, answerFormat);
+    ORKLegacy_ENCODE_OBJ(aCoder, step);
+    ORKLegacy_ENCODE_OBJ(aCoder, hidePredicate);
 }
 
 - (BOOL)isEqual:(id)object {
@@ -247,12 +247,12 @@
     
     // Ignore the step reference - it's not part of the content of this item
     __typeof(self) castObject = object;
-    return (ORKEqualObjects(self.identifier, castObject.identifier)
+    return (ORKLegacyEqualObjects(self.identifier, castObject.identifier)
             && self.optional == castObject.optional
-            && ORKEqualObjects(self.text, castObject.text)
-            && ORKEqualObjects(self.placeholder, castObject.placeholder)
-            && ORKEqualObjects(self.answerFormat, castObject.answerFormat)
-            && ORKEqualObjects(self.hidePredicate, castObject.hidePredicate));
+            && ORKLegacyEqualObjects(self.text, castObject.text)
+            && ORKLegacyEqualObjects(self.placeholder, castObject.placeholder)
+            && ORKLegacyEqualObjects(self.answerFormat, castObject.answerFormat)
+            && ORKLegacyEqualObjects(self.hidePredicate, castObject.hidePredicate));
 }
 
 - (NSUInteger)hash {
@@ -260,11 +260,11 @@
     return _identifier.hash ^ _text.hash ^ _placeholder.hash ^ _answerFormat.hash ^ (_optional ? 0xf : 0x0) ^ _hidePredicate.hash;
 }
 
-- (ORKAnswerFormat *)impliedAnswerFormat {
+- (ORKLegacyAnswerFormat *)impliedAnswerFormat {
     return [self.answerFormat impliedAnswerFormat];
 }
 
-- (ORKQuestionType)questionType {
+- (ORKLegacyQuestionType)questionType {
     return [[self impliedAnswerFormat] questionType];
 }
 

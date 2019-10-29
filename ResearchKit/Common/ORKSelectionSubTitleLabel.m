@@ -32,7 +32,7 @@
 #import "ORKSelectionSubTitleLabel.h"
 
 
-@implementation ORKSelectionSubTitleLabel
+@implementation ORKLegacySelectionSubTitleLabel
 
 + (UIFont *)defaultFont {
     // regular, 14. Increased by 1 due review feedback.

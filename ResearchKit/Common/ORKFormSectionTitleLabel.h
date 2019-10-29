@@ -34,8 +34,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKFormSectionTitleLabel : ORKLabel
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyFormSectionTitleLabel : ORKLegacyLabel
 
 @end
 

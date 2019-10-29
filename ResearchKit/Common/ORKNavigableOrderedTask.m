@@ -45,13 +45,13 @@
 #import "ORKCompletionStep.h"
 
 
-@implementation ORKNavigableOrderedTask {
-    NSMutableDictionary<NSString *, ORKStepNavigationRule *> *_stepNavigationRules;
-    NSMutableDictionary<NSString *, ORKSkipStepNavigationRule *> *_skipStepNavigationRules;
-    NSMutableDictionary<NSString *, ORKStepModifier *> *_stepModifiers;
+@implementation ORKLegacyNavigableOrderedTask {
+    NSMutableDictionary<NSString *, ORKLegacyStepNavigationRule *> *_stepNavigationRules;
+    NSMutableDictionary<NSString *, ORKLegacySkipStepNavigationRule *> *_skipStepNavigationRules;
+    NSMutableDictionary<NSString *, ORKLegacyStepModifier *> *_stepModifiers;
 }
 
-- (instancetype)initWithIdentifier:(NSString *)identifier steps:(NSArray<ORKStep *> *)steps {
+- (instancetype)initWithIdentifier:(NSString *)identifier steps:(NSArray<ORKLegacyStep *> *)steps {
     self = [super initWithIdentifier:identifier steps:steps];
     if (self) {
         _stepNavigationRules = nil;
@@ -61,9 +61,9 @@
     return self;
 }
 
-- (void)setNavigationRule:(ORKStepNavigationRule *)stepNavigationRule forTriggerStepIdentifier:(NSString *)triggerStepIdentifier {
-    ORKThrowInvalidArgumentExceptionIfNil(stepNavigationRule);
-    ORKThrowInvalidArgumentExceptionIfNil(triggerStepIdentifier);
+- (void)setNavigationRule:(ORKLegacyStepNavigationRule *)stepNavigationRule forTriggerStepIdentifier:(NSString *)triggerStepIdentifier {
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(stepNavigationRule);
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(triggerStepIdentifier);
     
     if (!_stepNavigationRules) {
         _stepNavigationRules = [NSMutableDictionary new];
@@ -71,28 +71,28 @@
     _stepNavigationRules[triggerStepIdentifier] = stepNavigationRule;
 }
 
-- (ORKStepNavigationRule *)navigationRuleForTriggerStepIdentifier:(NSString *)triggerStepIdentifier {
-    ORKThrowInvalidArgumentExceptionIfNil(triggerStepIdentifier);
+- (ORKLegacyStepNavigationRule *)navigationRuleForTriggerStepIdentifier:(NSString *)triggerStepIdentifier {
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(triggerStepIdentifier);
 
     return _stepNavigationRules[triggerStepIdentifier];
 }
 
 - (void)removeNavigationRuleForTriggerStepIdentifier:(NSString *)triggerStepIdentifier {
-    ORKThrowInvalidArgumentExceptionIfNil(triggerStepIdentifier);
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(triggerStepIdentifier);
     
     [_stepNavigationRules removeObjectForKey:triggerStepIdentifier];
 }
 
-- (NSDictionary<NSString *, ORKStepNavigationRule *> *)stepNavigationRules {
+- (NSDictionary<NSString *, ORKLegacyStepNavigationRule *> *)stepNavigationRules {
     if (!_stepNavigationRules) {
         return @{};
     }
     return [_stepNavigationRules copy];
 }
 
-- (void)setSkipNavigationRule:(ORKSkipStepNavigationRule *)skipStepNavigationRule forStepIdentifier:(NSString *)stepIdentifier {
-    ORKThrowInvalidArgumentExceptionIfNil(skipStepNavigationRule);
-    ORKThrowInvalidArgumentExceptionIfNil(stepIdentifier);
+- (void)setSkipNavigationRule:(ORKLegacySkipStepNavigationRule *)skipStepNavigationRule forStepIdentifier:(NSString *)stepIdentifier {
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(skipStepNavigationRule);
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(stepIdentifier);
     
     if (!_skipStepNavigationRules) {
         _skipStepNavigationRules = [NSMutableDictionary new];
@@ -100,28 +100,28 @@
     _skipStepNavigationRules[stepIdentifier] = skipStepNavigationRule;
 }
 
-- (ORKSkipStepNavigationRule *)skipNavigationRuleForStepIdentifier:(NSString *)stepIdentifier {
-    ORKThrowInvalidArgumentExceptionIfNil(stepIdentifier);
+- (ORKLegacySkipStepNavigationRule *)skipNavigationRuleForStepIdentifier:(NSString *)stepIdentifier {
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(stepIdentifier);
     
     return _skipStepNavigationRules[stepIdentifier];
 }
 
 - (void)removeSkipNavigationRuleForStepIdentifier:(NSString *)stepIdentifier {
-    ORKThrowInvalidArgumentExceptionIfNil(stepIdentifier);
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(stepIdentifier);
     
     [_skipStepNavigationRules removeObjectForKey:stepIdentifier];
 }
 
-- (NSDictionary<NSString *, ORKSkipStepNavigationRule *> *)skipStepNavigationRules {
+- (NSDictionary<NSString *, ORKLegacySkipStepNavigationRule *> *)skipStepNavigationRules {
     if (!_skipStepNavigationRules) {
         return @{};
     }
     return [_skipStepNavigationRules copy];
 }
 
-- (void)setStepModifier:(ORKStepModifier *)stepModifier forStepIdentifier:(NSString *)stepIdentifier {
-    ORKThrowInvalidArgumentExceptionIfNil(stepModifier);
-    ORKThrowInvalidArgumentExceptionIfNil(stepIdentifier);
+- (void)setStepModifier:(ORKLegacyStepModifier *)stepModifier forStepIdentifier:(NSString *)stepIdentifier {
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(stepModifier);
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(stepIdentifier);
     
     if (!_stepModifiers) {
         _stepModifiers = [NSMutableDictionary new];
@@ -129,57 +129,57 @@
     _stepModifiers[stepIdentifier] = stepModifier;
 }
 
-- (ORKStepModifier *)stepModifierForStepIdentifier:(NSString *)stepIdentifier {
-    ORKThrowInvalidArgumentExceptionIfNil(stepIdentifier);
+- (ORKLegacyStepModifier *)stepModifierForStepIdentifier:(NSString *)stepIdentifier {
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(stepIdentifier);
     return _stepModifiers[stepIdentifier];
 }
 
 - (void)removeStepModifierForStepIdentifier:(NSString *)stepIdentifier {
-    ORKThrowInvalidArgumentExceptionIfNil(stepIdentifier);
+    ORKLegacyThrowInvalidArgumentExceptionIfNil(stepIdentifier);
     
     [_stepModifiers removeObjectForKey:stepIdentifier];
 }
 
-- (NSDictionary<NSString *, ORKStepModifier *> *)stepModifiers {
+- (NSDictionary<NSString *, ORKLegacyStepModifier *> *)stepModifiers {
     if (!_stepModifiers) {
         return @{};
     }
     return [_stepModifiers copy];
 }
 
-- (ORKStep *)stepAfterStep:(ORKStep *)step withResult:(ORKTaskResult *)result {
-    ORKStep *nextStep = nil;
-    ORKStepNavigationRule *navigationRule = _stepNavigationRules[step.identifier];
+- (ORKLegacyStep *)stepAfterStep:(ORKLegacyStep *)step withResult:(ORKLegacyTaskResult *)result {
+    ORKLegacyStep *nextStep = nil;
+    ORKLegacyStepNavigationRule *navigationRule = _stepNavigationRules[step.identifier];
     NSString *nextStepIdentifier = [navigationRule identifierForDestinationStepWithTaskResult:result];
-    if (![nextStepIdentifier isEqualToString:ORKNullStepIdentifier]) { // If ORKNullStepIdentifier, return nil to end task
+    if (![nextStepIdentifier isEqualToString:ORKLegacyNullStepIdentifier]) { // If ORKLegacyNullStepIdentifier, return nil to end task
         if (nextStepIdentifier) {
             nextStep = [self stepWithIdentifier:nextStepIdentifier];
             
             if (step && nextStep && [self indexOfStep:nextStep] <= [self indexOfStep:step]) {
-                ORK_Log_Warning(@"Index of next step (\"%@\") is equal or lower than index of current step (\"%@\") in ordered task. Make sure this is intentional as you could loop idefinitely without appropriate navigation rules. Also please note that you'll get duplicate result entries each time you loop over the same step.", nextStep.identifier, step.identifier);
+                ORKLegacy_Log_Warning(@"Index of next step (\"%@\") is equal or lower than index of current step (\"%@\") in ordered task. Make sure this is intentional as you could loop idefinitely without appropriate navigation rules. Also please note that you'll get duplicate result entries each time you loop over the same step.", nextStep.identifier, step.identifier);
             }
         } else {
             nextStep = [super stepAfterStep:step withResult:result];
         }
         
-        ORKSkipStepNavigationRule *skipNavigationRule = _skipStepNavigationRules[nextStep.identifier];
+        ORKLegacySkipStepNavigationRule *skipNavigationRule = _skipStepNavigationRules[nextStep.identifier];
         if ([skipNavigationRule stepShouldSkipWithTaskResult:result]) {
             return [self stepAfterStep:nextStep withResult:result];
         }
     }
     
     if (nextStep != nil) {
-        ORKStepModifier *stepModifier = [self stepModifierForStepIdentifier:nextStep.identifier];
+        ORKLegacyStepModifier *stepModifier = [self stepModifierForStepIdentifier:nextStep.identifier];
         [stepModifier modifyStep:nextStep withTaskResult:result];
     }
     
     return nextStep;
 }
 
-- (ORKStep *)stepBeforeStep:(ORKStep *)step withResult:(ORKTaskResult *)result {
-    ORKStep *previousStep = nil;
+- (ORKLegacyStep *)stepBeforeStep:(ORKLegacyStep *)step withResult:(ORKLegacyTaskResult *)result {
+    ORKLegacyStep *previousStep = nil;
     __block NSInteger indexOfCurrentStepResult = -1;
-    [result.results enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(ORKResult *result, NSUInteger idx, BOOL *stop) {
+    [result.results enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(ORKLegacyResult *result, NSUInteger idx, BOOL *stop) {
         if ([result.identifier isEqualToString:step.identifier]) {
             indexOfCurrentStepResult = idx;
             *stop = YES;
@@ -191,13 +191,13 @@
     return previousStep;
 }
 
-// Assume ORKNavigableOrderedTask doesn't have a linear order unless user specifically overrides
-- (ORKTaskProgress)progressOfCurrentStep:(ORKStep *)step withResult:(ORKTaskResult *)result {
+// Assume ORKLegacyNavigableOrderedTask doesn't have a linear order unless user specifically overrides
+- (ORKLegacyTaskProgress)progressOfCurrentStep:(ORKLegacyStep *)step withResult:(ORKLegacyTaskResult *)result {
     if (_shouldReportProgress) {
         return [super progressOfCurrentStep:step withResult:result];
     }
 
-    return ORKTaskProgressMake(0, 0);
+    return ORKLegacyTaskProgressMake(0, 0);
 }
 
 #pragma mark Serialization private methods
@@ -220,10 +220,10 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_MUTABLE_DICTIONARY(aDecoder, stepNavigationRules, NSString, ORKStepNavigationRule);
-        ORK_DECODE_OBJ_MUTABLE_DICTIONARY(aDecoder, skipStepNavigationRules, NSString, ORKSkipStepNavigationRule);
-        ORK_DECODE_OBJ_MUTABLE_DICTIONARY(aDecoder, stepModifiers, NSString, ORKStepModifier);
-        ORK_DECODE_BOOL(aDecoder, shouldReportProgress);
+        ORKLegacy_DECODE_OBJ_MUTABLE_DICTIONARY(aDecoder, stepNavigationRules, NSString, ORKLegacyStepNavigationRule);
+        ORKLegacy_DECODE_OBJ_MUTABLE_DICTIONARY(aDecoder, skipStepNavigationRules, NSString, ORKLegacySkipStepNavigationRule);
+        ORKLegacy_DECODE_OBJ_MUTABLE_DICTIONARY(aDecoder, stepModifiers, NSString, ORKLegacyStepModifier);
+        ORKLegacy_DECODE_BOOL(aDecoder, shouldReportProgress);
     }
     return self;
 }
@@ -231,19 +231,19 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     
-    ORK_ENCODE_OBJ(aCoder, stepNavigationRules);
-    ORK_ENCODE_OBJ(aCoder, skipStepNavigationRules);
-    ORK_ENCODE_OBJ(aCoder, stepModifiers);
-    ORK_ENCODE_BOOL(aCoder, shouldReportProgress);
+    ORKLegacy_ENCODE_OBJ(aCoder, stepNavigationRules);
+    ORKLegacy_ENCODE_OBJ(aCoder, skipStepNavigationRules);
+    ORKLegacy_ENCODE_OBJ(aCoder, stepModifiers);
+    ORKLegacy_ENCODE_BOOL(aCoder, shouldReportProgress);
 }
 
 #pragma mark NSCopying
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     __typeof(self) task = [super copyWithZone:zone];
-    task->_stepNavigationRules = ORKMutableDictionaryCopyObjects(_stepNavigationRules);
-    task->_skipStepNavigationRules = ORKMutableDictionaryCopyObjects(_skipStepNavigationRules);
-    task->_stepModifiers = ORKMutableDictionaryCopyObjects(_stepModifiers);
+    task->_stepNavigationRules = ORKLegacyMutableDictionaryCopyObjects(_stepNavigationRules);
+    task->_skipStepNavigationRules = ORKLegacyMutableDictionaryCopyObjects(_skipStepNavigationRules);
+    task->_stepModifiers = ORKLegacyMutableDictionaryCopyObjects(_stepModifiers);
     task->_shouldReportProgress = _shouldReportProgress;
     return task;
 }
@@ -253,9 +253,9 @@
     
     __typeof(self) castObject = object;
     return isParentSame
-    && ORKEqualObjects(self.stepNavigationRules, castObject.stepNavigationRules)
-    && ORKEqualObjects(self.skipStepNavigationRules, castObject.skipStepNavigationRules)
-    && ORKEqualObjects(self.stepModifiers, castObject.stepModifiers)
+    && ORKLegacyEqualObjects(self.stepNavigationRules, castObject.stepNavigationRules)
+    && ORKLegacyEqualObjects(self.skipStepNavigationRules, castObject.skipStepNavigationRules)
+    && ORKLegacyEqualObjects(self.stepModifiers, castObject.stepModifiers)
     && self.shouldReportProgress == castObject.shouldReportProgress;
 }
 
@@ -265,42 +265,42 @@
 
 #pragma mark - Predefined
 
-NSString *const ORKHolePegTestDominantPlaceStepIdentifier = @"hole.peg.test.dominant.place";
-NSString *const ORKHolePegTestDominantRemoveStepIdentifier = @"hole.peg.test.dominant.remove";
-NSString *const ORKHolePegTestNonDominantPlaceStepIdentifier = @"hole.peg.test.non.dominant.place";
-NSString *const ORKHolePegTestNonDominantRemoveStepIdentifier = @"hole.peg.test.non.dominant.remove";
+NSString *const ORKLegacyHolePegTestDominantPlaceStepIdentifier = @"hole.peg.test.dominant.place";
+NSString *const ORKLegacyHolePegTestDominantRemoveStepIdentifier = @"hole.peg.test.dominant.remove";
+NSString *const ORKLegacyHolePegTestNonDominantPlaceStepIdentifier = @"hole.peg.test.non.dominant.place";
+NSString *const ORKLegacyHolePegTestNonDominantRemoveStepIdentifier = @"hole.peg.test.non.dominant.remove";
 
-+ (ORKNavigableOrderedTask *)holePegTestTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyNavigableOrderedTask *)holePegTestTaskWithIdentifier:(NSString *)identifier
                                     intendedUseDescription:(nullable NSString *)intendedUseDescription
-                                              dominantHand:(ORKBodySagittal)dominantHand
+                                              dominantHand:(ORKLegacyBodySagittal)dominantHand
                                               numberOfPegs:(int)numberOfPegs
                                                  threshold:(double)threshold
                                                    rotated:(BOOL)rotated
                                                  timeLimit:(NSTimeInterval)timeLimit
-                                                   options:(ORKPredefinedTaskOption)options {
+                                                   options:(ORKLegacyPredefinedTaskOption)options {
     
     NSMutableArray *steps = [NSMutableArray array];
-    BOOL dominantHandLeft = (dominantHand == ORKBodySagittalLeft);
+    BOOL dominantHandLeft = (dominantHand == ORKLegacyBodySagittalLeft);
     NSTimeInterval stepDuration = (timeLimit == 0) ? CGFLOAT_MAX : timeLimit;
     
-    if (!(options & ORKPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
         NSString *pegs = [NSNumberFormatter localizedStringFromNumber:@(numberOfPegs) numberStyle:NSNumberFormatterNoStyle];
         {
-            ORKInstructionStep *step = [[ORKInstructionStep alloc] initWithIdentifier:ORKInstruction0StepIdentifier];
-            step.title = [[NSString alloc] initWithFormat:ORKLocalizedString(@"HOLE_PEG_TEST_TITLE_%@", nil), pegs];
+            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
+            step.title = [[NSString alloc] initWithFormat:ORKLegacyLocalizedString(@"HOLE_PEG_TEST_TITLE_%@", nil), pegs];
             step.text = intendedUseDescription;
-            step.detailText = [[NSString alloc] initWithFormat:ORKLocalizedString(@"HOLE_PEG_TEST_INTRO_TEXT_%@", nil), pegs];
+            step.detailText = [[NSString alloc] initWithFormat:ORKLegacyLocalizedString(@"HOLE_PEG_TEST_INTRO_TEXT_%@", nil), pegs];
             step.image = [UIImage imageNamed:@"phoneholepeg" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKStepArrayAddStep(steps, step);
+            ORKLegacyStepArrayAddStep(steps, step);
         }
         
         {
-            ORKInstructionStep *step = [[ORKInstructionStep alloc] initWithIdentifier:ORKInstruction1StepIdentifier];
-            step.title = [[NSString alloc] initWithFormat:ORKLocalizedString(@"HOLE_PEG_TEST_TITLE_%@", nil), pegs];
-            step.text = dominantHandLeft ? [[NSString alloc] initWithFormat:ORKLocalizedString(@"HOLE_PEG_TEST_INTRO_TEXT_2_LEFT_HAND_FIRST_%@", nil), pegs, pegs] : [[NSString alloc] initWithFormat:ORKLocalizedString(@"HOLE_PEG_TEST_INTRO_TEXT_2_RIGHT_HAND_FIRST_%@", nil), pegs, pegs];
-            step.detailText = ORKLocalizedString(@"HOLE_PEG_TEST_CALL_TO_ACTION", nil);
+            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
+            step.title = [[NSString alloc] initWithFormat:ORKLegacyLocalizedString(@"HOLE_PEG_TEST_TITLE_%@", nil), pegs];
+            step.text = dominantHandLeft ? [[NSString alloc] initWithFormat:ORKLegacyLocalizedString(@"HOLE_PEG_TEST_INTRO_TEXT_2_LEFT_HAND_FIRST_%@", nil), pegs, pegs] : [[NSString alloc] initWithFormat:ORKLegacyLocalizedString(@"HOLE_PEG_TEST_INTRO_TEXT_2_RIGHT_HAND_FIRST_%@", nil), pegs, pegs];
+            step.detailText = ORKLegacyLocalizedString(@"HOLE_PEG_TEST_CALL_TO_ACTION", nil);
             UIImage *image1 = [UIImage imageNamed:@"holepegtest1" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             UIImage *image2 = [UIImage imageNamed:@"holepegtest2" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             UIImage *image3 = [UIImage imageNamed:@"holepegtest3" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
@@ -310,15 +310,15 @@ NSString *const ORKHolePegTestNonDominantRemoveStepIdentifier = @"hole.peg.test.
             step.image = [UIImage animatedImageWithImages:@[image1, image2, image3, image4, image5, image6] duration:4];
             step.shouldTintImages = YES;
             
-            ORKStepArrayAddStep(steps, step);
+            ORKLegacyStepArrayAddStep(steps, step);
         }
     }
     
     {
         {
-            ORKHolePegTestPlaceStep *step = [[ORKHolePegTestPlaceStep alloc] initWithIdentifier:ORKHolePegTestDominantPlaceStepIdentifier];
-            step.title = dominantHandLeft ? ORKLocalizedString(@"HOLE_PEG_TEST_PLACE_INSTRUCTION_LEFT_HAND", nil) : ORKLocalizedString(@"HOLE_PEG_TEST_PLACE_INSTRUCTION_RIGHT_HAND", nil);
-            step.text = ORKLocalizedString(@"HOLE_PEG_TEST_TEXT", nil);
+            ORKLegacyHolePegTestPlaceStep *step = [[ORKLegacyHolePegTestPlaceStep alloc] initWithIdentifier:ORKLegacyHolePegTestDominantPlaceStepIdentifier];
+            step.title = dominantHandLeft ? ORKLegacyLocalizedString(@"HOLE_PEG_TEST_PLACE_INSTRUCTION_LEFT_HAND", nil) : ORKLegacyLocalizedString(@"HOLE_PEG_TEST_PLACE_INSTRUCTION_RIGHT_HAND", nil);
+            step.text = ORKLegacyLocalizedString(@"HOLE_PEG_TEST_TEXT", nil);
             step.spokenInstruction = step.title;
             step.movingDirection = dominantHand;
             step.dominantHandTested = YES;
@@ -328,30 +328,30 @@ NSString *const ORKHolePegTestNonDominantRemoveStepIdentifier = @"hole.peg.test.
             step.shouldTintImages = YES;
             step.stepDuration = stepDuration;
             
-            ORKStepArrayAddStep(steps, step);
+            ORKLegacyStepArrayAddStep(steps, step);
         }
         
         {
-            ORKHolePegTestRemoveStep *step = [[ORKHolePegTestRemoveStep alloc] initWithIdentifier:ORKHolePegTestDominantRemoveStepIdentifier];
-            step.title = dominantHandLeft ? ORKLocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_LEFT_HAND", nil) : ORKLocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_RIGHT_HAND", nil);
-            step.text = ORKLocalizedString(@"HOLE_PEG_TEST_TEXT", nil);
+            ORKLegacyHolePegTestRemoveStep *step = [[ORKLegacyHolePegTestRemoveStep alloc] initWithIdentifier:ORKLegacyHolePegTestDominantRemoveStepIdentifier];
+            step.title = dominantHandLeft ? ORKLegacyLocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_LEFT_HAND", nil) : ORKLegacyLocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_RIGHT_HAND", nil);
+            step.text = ORKLegacyLocalizedString(@"HOLE_PEG_TEST_TEXT", nil);
             step.spokenInstruction = step.title;
-            step.movingDirection = (dominantHand == ORKBodySagittalLeft) ? ORKBodySagittalRight : ORKBodySagittalLeft;
+            step.movingDirection = (dominantHand == ORKLegacyBodySagittalLeft) ? ORKLegacyBodySagittalRight : ORKLegacyBodySagittalLeft;
             step.dominantHandTested = YES;
             step.numberOfPegs = numberOfPegs;
             step.threshold = threshold;
             step.shouldTintImages = YES;
             step.stepDuration = stepDuration;
             
-            ORKStepArrayAddStep(steps, step);
+            ORKLegacyStepArrayAddStep(steps, step);
         }
         
         {
-            ORKHolePegTestPlaceStep *step = [[ORKHolePegTestPlaceStep alloc] initWithIdentifier:ORKHolePegTestNonDominantPlaceStepIdentifier];
-            step.title = dominantHandLeft ? ORKLocalizedString(@"HOLE_PEG_TEST_PLACE_INSTRUCTION_RIGHT_HAND", nil) : ORKLocalizedString(@"HOLE_PEG_TEST_PLACE_INSTRUCTION_LEFT_HAND", nil);
-            step.text = ORKLocalizedString(@"HOLE_PEG_TEST_TEXT", nil);
+            ORKLegacyHolePegTestPlaceStep *step = [[ORKLegacyHolePegTestPlaceStep alloc] initWithIdentifier:ORKLegacyHolePegTestNonDominantPlaceStepIdentifier];
+            step.title = dominantHandLeft ? ORKLegacyLocalizedString(@"HOLE_PEG_TEST_PLACE_INSTRUCTION_RIGHT_HAND", nil) : ORKLegacyLocalizedString(@"HOLE_PEG_TEST_PLACE_INSTRUCTION_LEFT_HAND", nil);
+            step.text = ORKLegacyLocalizedString(@"HOLE_PEG_TEST_TEXT", nil);
             step.spokenInstruction = step.title;
-            step.movingDirection = (dominantHand == ORKBodySagittalLeft) ? ORKBodySagittalRight : ORKBodySagittalLeft;
+            step.movingDirection = (dominantHand == ORKLegacyBodySagittalLeft) ? ORKLegacyBodySagittalRight : ORKLegacyBodySagittalLeft;
             step.dominantHandTested = NO;
             step.numberOfPegs = numberOfPegs;
             step.threshold = threshold;
@@ -359,13 +359,13 @@ NSString *const ORKHolePegTestNonDominantRemoveStepIdentifier = @"hole.peg.test.
             step.shouldTintImages = YES;
             step.stepDuration = stepDuration;
             
-            ORKStepArrayAddStep(steps, step);
+            ORKLegacyStepArrayAddStep(steps, step);
         }
         
         {
-            ORKHolePegTestRemoveStep *step = [[ORKHolePegTestRemoveStep alloc] initWithIdentifier:ORKHolePegTestNonDominantRemoveStepIdentifier];
-            step.title = dominantHandLeft ? ORKLocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_RIGHT_HAND", nil) : ORKLocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_LEFT_HAND", nil);
-            step.text = ORKLocalizedString(@"HOLE_PEG_TEST_TEXT", nil);
+            ORKLegacyHolePegTestRemoveStep *step = [[ORKLegacyHolePegTestRemoveStep alloc] initWithIdentifier:ORKLegacyHolePegTestNonDominantRemoveStepIdentifier];
+            step.title = dominantHandLeft ? ORKLegacyLocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_RIGHT_HAND", nil) : ORKLegacyLocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_LEFT_HAND", nil);
+            step.text = ORKLegacyLocalizedString(@"HOLE_PEG_TEST_TEXT", nil);
             step.spokenInstruction = step.title;
             step.movingDirection = dominantHand;
             step.dominantHandTested = NO;
@@ -374,25 +374,25 @@ NSString *const ORKHolePegTestNonDominantRemoveStepIdentifier = @"hole.peg.test.
             step.shouldTintImages = YES;
             step.stepDuration = stepDuration;
             
-            ORKStepArrayAddStep(steps, step);
+            ORKLegacyStepArrayAddStep(steps, step);
         }
     }
     
-    if (!(options & ORKPredefinedTaskOptionExcludeConclusion)) {
-        ORKCompletionStep *step = [self makeCompletionStep];
-        ORKStepArrayAddStep(steps, step);
+    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
+        ORKLegacyCompletionStep *step = [self makeCompletionStep];
+        ORKLegacyStepArrayAddStep(steps, step);
     }
     
     
     // The task is actually dynamic. The direct navigation rules are used for skipping the peg
     // removal steps if the user doesn't succeed in placing all the pegs in the allotted time
-    // (the rules are removed from `ORKHolePegTestPlaceStepViewController` if she succeeds).
-    ORKNavigableOrderedTask *task = [[ORKNavigableOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    // (the rules are removed from `ORKLegacyHolePegTestPlaceStepViewController` if she succeeds).
+    ORKLegacyNavigableOrderedTask *task = [[ORKLegacyNavigableOrderedTask alloc] initWithIdentifier:identifier steps:steps];
     
-    ORKStepNavigationRule *navigationRule = [[ORKDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORKHolePegTestNonDominantPlaceStepIdentifier];
-    [task setNavigationRule:navigationRule forTriggerStepIdentifier:ORKHolePegTestDominantPlaceStepIdentifier];
-    navigationRule = [[ORKDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORKConclusionStepIdentifier];
-    [task setNavigationRule:navigationRule forTriggerStepIdentifier:ORKHolePegTestNonDominantPlaceStepIdentifier];
+    ORKLegacyStepNavigationRule *navigationRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORKLegacyHolePegTestNonDominantPlaceStepIdentifier];
+    [task setNavigationRule:navigationRule forTriggerStepIdentifier:ORKLegacyHolePegTestDominantPlaceStepIdentifier];
+    navigationRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORKLegacyConclusionStepIdentifier];
+    [task setNavigationRule:navigationRule forTriggerStepIdentifier:ORKLegacyHolePegTestNonDominantPlaceStepIdentifier];
     
     return task;
 }

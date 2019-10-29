@@ -36,7 +36,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKVerificationStep` class represents a step that serves as placeholder
+ The `ORKLegacyVerificationStep` class represents a step that serves as placeholder
  step to use while the user attempts to verify their account.
  
  The verification step contains a text field and a resend email button. The button 
@@ -46,8 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
  The developer should redirect user back to the app once the verification is done 
  and move forward automatically.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKVerificationStep : ORKStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyVerificationStep : ORKLegacyStep
 
 - (instancetype)initWithIdentifier:(NSString *)identifier NS_UNAVAILABLE;
 
@@ -55,8 +55,8 @@ ORK_CLASS_AVAILABLE
  Returns an initialized verification step using the specified identifier,
  title, text, and class.
   
- @param identifier                          The string that identifies the step (see `ORKStep`).
- @param text                                The text shown immediately below the title (see `ORKStep`).
+ @param identifier                          The string that identifies the step (see `ORKLegacyStep`).
+ @param text                                The text shown immediately below the title (see `ORKLegacyStep`).
  @param verificationViewControllerClass     The subclassed verification view controller class.
  
  @return An initialized verification step object.

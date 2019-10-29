@@ -38,32 +38,32 @@
 #import "ORKAccessibilityFunctions.h"
 
 
-@interface ORKMultipleValuePicker () <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface ORKLegacyMultipleValuePicker () <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (nonatomic, strong) NSArray <ORKChoiceAnswerFormatHelper *> *helpers;
+@property (nonatomic, strong) NSArray <ORKLegacyChoiceAnswerFormatHelper *> *helpers;
 
 @end
 
 
-@implementation ORKMultipleValuePicker {
+@implementation ORKLegacyMultipleValuePicker {
     UIPickerView *_pickerView;
     id _answer;
     NSString *_separator;
     BOOL _shouldShowSeparator;
-    __weak id<ORKPickerDelegate> _pickerDelegate;
+    __weak id<ORKLegacyPickerDelegate> _pickerDelegate;
 }
 
 @synthesize pickerDelegate = _pickerDelegate;
 
-- (instancetype)initWithAnswerFormat:(ORKMultipleValuePickerAnswerFormat *)answerFormat answer:(id)answer pickerDelegate:(id<ORKPickerDelegate>)delegate {
+- (instancetype)initWithAnswerFormat:(ORKLegacyMultipleValuePickerAnswerFormat *)answerFormat answer:(id)answer pickerDelegate:(id<ORKLegacyPickerDelegate>)delegate {
     self = [super init];
     if (self) {
-        NSAssert([answerFormat isKindOfClass:[ORKMultipleValuePickerAnswerFormat class]], @"answerFormat should be ORKMultipleValuePickerAnswerFormat");
+        NSAssert([answerFormat isKindOfClass:[ORKLegacyMultipleValuePickerAnswerFormat class]], @"answerFormat should be ORKLegacyMultipleValuePickerAnswerFormat");
     
         // setup the helpers
         NSMutableArray *helpers = [NSMutableArray new];
-        for (ORKValuePickerAnswerFormat *valuePicker in answerFormat.valuePickers) {
-            [helpers addObject:[[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:valuePicker]];
+        for (ORKLegacyValuePickerAnswerFormat *valuePicker in answerFormat.valuePickers) {
+            [helpers addObject:[[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:valuePicker]];
         }
         _helpers = [helpers copy];
 
@@ -151,7 +151,7 @@
 }
 
 - (NSString *)selectedLabelText {
-    if ( _answer == ORKNullAnswerValue() || _answer == nil ) {
+    if ( _answer == ORKLegacyNullAnswerValue() || _answer == nil ) {
         return nil;
     }
     
@@ -187,13 +187,13 @@
 - (void)valueDidChange {
     
     __block NSMutableArray *answers = [NSMutableArray new];
-    [self.helpers enumerateObjectsUsingBlock:^(ORKChoiceAnswerFormatHelper * _Nonnull helper, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.helpers enumerateObjectsUsingBlock:^(ORKLegacyChoiceAnswerFormatHelper * _Nonnull helper, NSUInteger idx, BOOL * _Nonnull stop) {
         NSUInteger pickerIdx = [self convertToPickerViewComponent:idx];
         NSInteger row = [_pickerView selectedRowInComponent:pickerIdx];
         id answer = [helper answerForSelectedIndex:row];
         if ([answer isKindOfClass:[NSArray class]]) {
             id obj = [(NSArray*)answer firstObject];
-            if ((obj != nil) && (obj != ORKNullAnswerValue())) {
+            if ((obj != nil) && (obj != ORKLegacyNullAnswerValue())) {
                 [answers addObject: obj];
             }
         } else {
@@ -201,7 +201,7 @@
         }
     }];
 
-    _answer = (answers.count == self.helpers.count) ? answers : ORKNullAnswerValue();
+    _answer = (answers.count == self.helpers.count) ? answers : ORKLegacyNullAnswerValue();
     if ([self.pickerDelegate respondsToSelector:@selector(picker:answerDidChangeTo:)]) {
         [self.pickerDelegate picker:self answerDidChangeTo:_answer];
     }
@@ -212,7 +212,7 @@
 
 - (void)accessibilityFocusOnPickerElement {
     if (UIAccessibilityIsVoiceOverRunning()) {
-        ORKAccessibilityPerformBlockAfterDelay(0.75, ^{
+        ORKLegacyAccessibilityPerformBlockAfterDelay(0.75, ^{
             NSArray *axElements = [self.pickerView accessibilityElements];
             if ([axElements count] > 0) {
                 UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, [axElements objectAtIndex:0]);

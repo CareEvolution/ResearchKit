@@ -36,8 +36,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKToneAudiometryStep : ORKActiveStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyToneAudiometryStep : ORKLegacyActiveStep
 
 @property (nonatomic, assign) NSTimeInterval toneDuration;
 

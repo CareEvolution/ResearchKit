@@ -31,7 +31,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ORKDefaultFont <NSObject>
+@protocol ORKLegacyDefaultFont <NSObject>
 
 + (UIFont *)defaultFont;
 

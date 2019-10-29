@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CMDeviceMotion (ORKJSONDictionary)
+@interface CMDeviceMotion (ORKLegacyJSONDictionary)
 
 - (NSDictionary *)ork_JSONDictionary;
 

@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKSurveyAnswerCellForImageSelection : ORKSurveyAnswerCell
+@interface ORKLegacySurveyAnswerCellForImageSelection : ORKLegacySurveyAnswerCell
 
 @end
 

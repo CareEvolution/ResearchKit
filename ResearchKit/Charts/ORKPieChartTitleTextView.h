@@ -36,9 +36,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKPieChartView;
+@class ORKLegacyPieChartView;
 
-@interface ORKPieChartTitleTextView : UIView
+@interface ORKLegacyPieChartTitleTextView : UIView
 
 @property (nonatomic) UILabel *titleLabel;
 @property (nonatomic) UILabel *textLabel;
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 
-- (instancetype)initWithParentPieChartView:(ORKPieChartView *)parentPieChartView NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithParentPieChartView:(ORKLegacyPieChartView *)parentPieChartView NS_DESIGNATED_INITIALIZER;
 
 - (void)showNoDataLabel:(BOOL)showNoDataLabel;
 

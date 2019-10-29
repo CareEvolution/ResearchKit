@@ -34,11 +34,11 @@
 
 
 /*
- This custom task is used to verify correct behavior of `ORKTaskViewController`
- when it is used on a task that is not an `ORKOrderedTask` subclass.
+ This custom task is used to verify correct behavior of `ORKLegacyTaskViewController`
+ when it is used on a task that is not an `ORKLegacyOrderedTask` subclass.
  
  This also tests turning off navigation-bar progress indication for a task.
  */
-@interface DynamicTask : NSObject <ORKTask>
+@interface DynamicTask : NSObject <ORKLegacyTask>
 
 @end

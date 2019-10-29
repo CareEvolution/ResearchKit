@@ -37,17 +37,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKAnswerTextView` class represents the text view of the answer.
+ The `ORKLegacyAnswerTextView` class represents the text view of the answer.
  
  @note The answer text view is used in the answer page and the form page.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKAnswerTextView : UITextView <ORKDefaultFont>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyAnswerTextView : UITextView <ORKLegacyDefaultFont>
 
 @end
 
 
-@interface ORKAnswerTextView ()
+@interface ORKLegacyAnswerTextView ()
 
 @property (nonatomic, copy, nullable) NSString *placeholder;
 

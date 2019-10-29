@@ -36,7 +36,7 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKAnswerTextView {
+@implementation ORKLegacyAnswerTextView {
     UITextView *_placeholderTextView;
 }
 
@@ -131,7 +131,7 @@
 }
 
 - (void)setPlaceholder:(NSString *)placeholder {
-    _placeholder = placeholder ? : ORKLocalizedString(@"PLACEHOLDER_LONG_TEXT", nil);
+    _placeholder = placeholder ? : ORKLegacyLocalizedString(@"PLACEHOLDER_LONG_TEXT", nil);
     _placeholderTextView.text = _placeholder;
 }
 

@@ -33,14 +33,14 @@
 #import "ORKStepViewController_Internal.h"
 
 
-@implementation ORKShoulderRangeOfMotionStepViewController
+@implementation ORKLegacyShoulderRangeOfMotionStepViewController
 
-#pragma mark - ORKActiveTaskViewController
+#pragma mark - ORKLegacyActiveTaskViewController
 
-- (ORKResult *)result {
-    ORKStepResult *stepResult = [super result];
+- (ORKLegacyResult *)result {
+    ORKLegacyStepResult *stepResult = [super result];
     
-    ORKRangeOfMotionResult *result = [[ORKRangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
+    ORKLegacyRangeOfMotionResult *result = [[ORKLegacyRangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
     result.flexed = 90.0 - _flexedAngle;
     result.extended = result.flexed + _rangeOfMotionAngle;
     

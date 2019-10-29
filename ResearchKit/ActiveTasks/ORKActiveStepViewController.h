@@ -37,17 +37,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKActiveStepViewController` class is the base class for displaying `ORKActiveStep`
- subclasses. The predefined active tasks defined in `ORKOrderedTask` all make use
- of subclasses of `ORKActiveStep`, paired with `ORKActiveStepViewController`
+ The `ORKLegacyActiveStepViewController` class is the base class for displaying `ORKLegacyActiveStep`
+ subclasses. The predefined active tasks defined in `ORKLegacyOrderedTask` all make use
+ of subclasses of `ORKLegacyActiveStep`, paired with `ORKLegacyActiveStepViewController`
  subclasses.
  
  An active step view controller is typically instantiated by a task view controller
  when it encounters an active step in a task. Active steps generally include some form of sensor-driven data collection, or involve some highly interactive content, such as a cognitive task or game.
  
- Examples of active step view controller subclasses include `ORKWalkingTaskStepViewController`,
- `ORKCountdownStepViewController`, `ORKSpatialSpanMemoryStepViewController`,
- `ORKFitnessStepViewController`, and `ORKAudioStepViewController`.
+ Examples of active step view controller subclasses include `ORKLegacyWalkingTaskStepViewController`,
+ `ORKLegacyCountdownStepViewController`, `ORKLegacySpatialSpanMemoryStepViewController`,
+ `ORKLegacyFitnessStepViewController`, and `ORKLegacyAudioStepViewController`.
  
  The primary feature that active step view controllers enable is life cycle. After an active step is presented, it can be started to start a timer. When the timer expires, the
  step is  considered finished. Some steps may have the concept of suspend and resume, such as when
@@ -57,16 +57,16 @@ NS_ASSUME_NONNULL_BEGIN
  being displayed to clearly indicate when data is being collected
  for the task.
  
- When you develop a new active step, you should subclass `ORKActiveStepViewController`
+ When you develop a new active step, you should subclass `ORKLegacyActiveStepViewController`
  and define your specific UI. When subclassing, pay special attention to the life cycle
  methods, `start`, `finish`, `suspend`, and `resume`. Also, be sure to test for
  the expected behavior when the user suspends and resumes the app, during task
  save and restore, and during UIKit's UI state restoration.
  
- See also: `ORKActiveStep`.
+ See also: `ORKLegacyActiveStep`.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKActiveStepViewController : ORKStepViewController <ORKRecorderDelegate>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyActiveStepViewController : ORKLegacyStepViewController <ORKLegacyRecorderDelegate>
 
 /// @name UI Customization
 
@@ -97,11 +97,11 @@ ORK_CLASS_AVAILABLE
  The array of recorders currently in use by the active step. (read-only)
  
  Recorders are generated when the step starts, based on the recorder
- configurations of the step. Each recorder is an instance of `ORKRecorder`, and
+ configurations of the step. Each recorder is an instance of `ORKLegacyRecorder`, and
  is created by the active step view controller using the array of recorder
  configurations in the step.
  
- See also: `ORKRecorderConfiguration` and `ORKActiveStep`.
+ See also: `ORKLegacyRecorderConfiguration` and `ORKLegacyActiveStep`.
  */
 @property (nonatomic, strong, readonly, nullable) NSArray *recorders;
 

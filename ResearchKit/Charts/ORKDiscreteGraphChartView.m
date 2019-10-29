@@ -41,14 +41,14 @@
 
 #if TARGET_INTERFACE_BUILDER
 
-@interface ORKIBDiscreteGraphChartViewDataSource : ORKIBValueRangeGraphChartViewDataSource
+@interface ORKLegacyIBDiscreteGraphChartViewDataSource : ORKLegacyIBValueRangeGraphChartViewDataSource
 
 + (instancetype)sharedInstance;
 
 @end
 
 
-@implementation ORKIBDiscreteGraphChartViewDataSource
+@implementation ORKLegacyIBDiscreteGraphChartViewDataSource
 
 + (instancetype)sharedInstance {
     static id sharedInstance;
@@ -64,20 +64,20 @@
     if (self) {
         self.plotPoints = @[
                             @[
-                                [[ORKValueRange alloc] initWithMinimumValue:0 maximumValue: 2],
-                                [[ORKValueRange alloc] initWithMinimumValue:1 maximumValue: 4],
-                                [[ORKValueRange alloc] initWithMinimumValue:2 maximumValue: 6],
-                                [[ORKValueRange alloc] initWithMinimumValue:3 maximumValue: 8],
-                                [[ORKValueRange alloc] initWithMinimumValue:5 maximumValue:10],
-                                [[ORKValueRange alloc] initWithMinimumValue:8 maximumValue:13]
+                                [[ORKLegacyValueRange alloc] initWithMinimumValue:0 maximumValue: 2],
+                                [[ORKLegacyValueRange alloc] initWithMinimumValue:1 maximumValue: 4],
+                                [[ORKLegacyValueRange alloc] initWithMinimumValue:2 maximumValue: 6],
+                                [[ORKLegacyValueRange alloc] initWithMinimumValue:3 maximumValue: 8],
+                                [[ORKLegacyValueRange alloc] initWithMinimumValue:5 maximumValue:10],
+                                [[ORKLegacyValueRange alloc] initWithMinimumValue:8 maximumValue:13]
                               ],
                             @[
-                                [[ORKValueRange alloc] initWithValue:1],
-                                [[ORKValueRange alloc] initWithMinimumValue:2 maximumValue:6],
-                                [[ORKValueRange alloc] initWithMinimumValue:3 maximumValue:10],
-                                [[ORKValueRange alloc] initWithMinimumValue:5 maximumValue:11],
-                                [[ORKValueRange alloc] initWithMinimumValue:7 maximumValue:13],
-                                [[ORKValueRange alloc] initWithMinimumValue:10 maximumValue:13]
+                                [[ORKLegacyValueRange alloc] initWithValue:1],
+                                [[ORKLegacyValueRange alloc] initWithMinimumValue:2 maximumValue:6],
+                                [[ORKLegacyValueRange alloc] initWithMinimumValue:3 maximumValue:10],
+                                [[ORKLegacyValueRange alloc] initWithMinimumValue:5 maximumValue:11],
+                                [[ORKLegacyValueRange alloc] initWithMinimumValue:7 maximumValue:13],
+                                [[ORKLegacyValueRange alloc] initWithMinimumValue:10 maximumValue:13]
                               ]
                             ];
     }
@@ -89,7 +89,7 @@
 #endif
 
 
-@implementation ORKDiscreteGraphChartView
+@implementation ORKLegacyDiscreteGraphChartView
 
 #pragma mark - Init
 
@@ -115,11 +115,11 @@
 - (void)updateLineLayersForPlotIndex:(NSInteger)plotIndex {
     NSUInteger pointCount = self.dataPoints[plotIndex].count;
     for (NSUInteger pointIndex = 0; pointIndex < pointCount; pointIndex++) {
-        ORKValueRange *dataPointValue = self.dataPoints[plotIndex][pointIndex];
+        ORKLegacyValueRange *dataPointValue = self.dataPoints[plotIndex][pointIndex];
         if (!dataPointValue.isUnset && !dataPointValue.isEmptyRange) {
             CAShapeLayer *lineLayer = graphLineLayer();
             lineLayer.strokeColor = [self colorForPlotIndex:plotIndex].CGColor;
-            lineLayer.lineWidth = ORKGraphChartViewPointAndLineWidth;
+            lineLayer.lineWidth = ORKLegacyGraphChartViewPointAndLineWidth;
             
             [self.plotView.layer addSublayer:lineLayer];
             [self.lineLayers[plotIndex] addObject:[NSMutableArray arrayWithObject:lineLayer]];
@@ -129,12 +129,12 @@
 
 - (void)layoutLineLayersForPlotIndex:(NSInteger)plotIndex {
     NSUInteger lineLayerIndex = 0;
-    CGFloat positionOnXAxis = ORKCGFloatInvalidValue;
-    ORKValueRange *positionOnYAxis = nil;
+    CGFloat positionOnXAxis = ORKLegacyCGFloatInvalidValue;
+    ORKLegacyValueRange *positionOnYAxis = nil;
     NSUInteger pointCount = self.yAxisPoints[plotIndex].count;
     for (NSUInteger pointIndex = 0; pointIndex < pointCount; pointIndex++) {
         
-        ORKValueRange *dataPointValue = self.dataPoints[plotIndex][pointIndex];
+        ORKLegacyValueRange *dataPointValue = self.dataPoints[plotIndex][pointIndex];
         
         if (!dataPointValue.isUnset && !dataPointValue.isEmptyRange) {
             
@@ -155,7 +155,7 @@
 }
 
 - (CGFloat)xOffsetForPlotIndex:(NSInteger)plotIndex {
-    return xOffsetForPlotIndex(plotIndex, [self numberOfPlots], ORKGraphChartViewPointAndLineWidth);
+    return xOffsetForPlotIndex(plotIndex, [self numberOfPlots], ORKLegacyGraphChartViewPointAndLineWidth);
 }
     
 - (CGFloat)snappedXPosition:(CGFloat)xPosition plotIndex:(NSInteger)plotIndex {
@@ -175,7 +175,7 @@
 - (void)prepareForInterfaceBuilder {
     [super prepareForInterfaceBuilder];
 #if TARGET_INTERFACE_BUILDER
-    self.dataSource = [ORKIBDiscreteGraphChartViewDataSource sharedInstance];
+    self.dataSource = [ORKLegacyIBDiscreteGraphChartViewDataSource sharedInstance];
 #endif
 }
 

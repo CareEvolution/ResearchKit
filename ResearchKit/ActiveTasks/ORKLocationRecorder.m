@@ -40,8 +40,8 @@
 #import <CoreLocation/CoreLocation.h>
 
 
-@interface ORKLocationRecorder () <CLLocationManagerDelegate> {
-    ORKDataLogger *_logger;
+@interface ORKLegacyLocationRecorder () <CLLocationManagerDelegate> {
+    ORKLegacyDataLogger *_logger;
     NSError *_recordingError;
     BOOL _started;
 }
@@ -53,9 +53,9 @@
 @end
 
 
-@implementation ORKLocationRecorder
+@implementation ORKLegacyLocationRecorder
 
-- (instancetype)initWithIdentifier:(NSString *)identifier step:(ORKStep *)step outputDirectory:(NSURL *)outputDirectory {
+- (instancetype)initWithIdentifier:(NSString *)identifier step:(ORKLegacyStep *)step outputDirectory:(NSURL *)outputDirectory {
     self = [super initWithIdentifier:identifier step:step outputDirectory:outputDirectory];
     if (self) {
         self.continuesInBackground = YES;
@@ -172,14 +172,14 @@
 @end
 
 
-@implementation ORKLocationRecorderConfiguration
+@implementation ORKLegacyLocationRecorderConfiguration
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     return [super initWithIdentifier:identifier];
 }
 
-- (ORKRecorder *)recorderForStep:(ORKStep *)step outputDirectory:(NSURL *)outputDirectory {
-    return [[ORKLocationRecorder alloc] initWithIdentifier:self.identifier step:step outputDirectory:outputDirectory];
+- (ORKLegacyRecorder *)recorderForStep:(ORKLegacyStep *)step outputDirectory:(NSURL *)outputDirectory {
+    return [[ORKLegacyLocationRecorder alloc] initWithIdentifier:self.identifier step:step outputDirectory:outputDirectory];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -197,8 +197,8 @@
     return isParentSame;
 }
 
-- (ORKPermissionMask)requestedPermissionMask {
-    return ORKPermissionCoreLocation;
+- (ORKLegacyPermissionMask)requestedPermissionMask {
+    return ORKLegacyPermissionCoreLocation;
 }
 
 @end

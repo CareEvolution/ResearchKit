@@ -33,35 +33,35 @@
 @import ResearchKit.Private;
 
 
-@interface ORKStepTests : XCTestCase
+@interface ORKLegacyStepTests : XCTestCase
 
 @end
 
 
-@implementation ORKStepTests
+@implementation ORKLegacyStepTests
 
 - (void)testFormStep {
     // Test duplicate form step identifier validation
-    ORKFormStep *formStep = [[ORKFormStep alloc] initWithIdentifier:@"form" title:@"Form" text:@"Form test"];
+    ORKLegacyFormStep *formStep = [[ORKLegacyFormStep alloc] initWithIdentifier:@"form" title:@"Form" text:@"Form test"];
     NSMutableArray *items = [NSMutableArray new];
     
-    ORKFormItem *item = nil;
-    item = [[ORKFormItem alloc] initWithIdentifier:@"formItem1"
+    ORKLegacyFormItem *item = nil;
+    item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"formItem1"
                                               text:@"formItem1"
-                                      answerFormat:[ORKNumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
+                                      answerFormat:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
     [items addObject:item];
 
-    item = [[ORKFormItem alloc] initWithIdentifier:@"formItem2"
+    item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"formItem2"
                                               text:@"formItem2"
-                                      answerFormat:[ORKNumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
+                                      answerFormat:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
     [items addObject:item];
 
     [formStep setFormItems:items];
     XCTAssertNoThrow([formStep validateParameters]);
 
-    item = [[ORKFormItem alloc] initWithIdentifier:@"formItem2"
+    item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"formItem2"
                                               text:@"formItem2"
-                                      answerFormat:[ORKNumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
+                                      answerFormat:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
     [items addObject:item];
 
     [formStep setFormItems:items];
@@ -69,7 +69,7 @@
 }
 
 - (void)testReactionTimeStep {
-    ORKReactionTimeStep *validReactionTimeStep = [[ORKReactionTimeStep alloc] initWithIdentifier:@"ReactionTimeStep"];
+    ORKLegacyReactionTimeStep *validReactionTimeStep = [[ORKLegacyReactionTimeStep alloc] initWithIdentifier:@"ReactionTimeStep"];
     
     validReactionTimeStep.maximumStimulusInterval = 8;
     validReactionTimeStep.minimumStimulusInterval = 4;
@@ -79,7 +79,7 @@
 
     XCTAssertNoThrow([validReactionTimeStep validateParameters]);
     
-    ORKReactionTimeStep *reactionTimeStep = [validReactionTimeStep copy];
+    ORKLegacyReactionTimeStep *reactionTimeStep = [validReactionTimeStep copy];
     XCTAssertEqualObjects(reactionTimeStep, validReactionTimeStep);
 
     // minimumStimulusInterval cannot be zero or less
@@ -111,48 +111,48 @@
 
 - (void)testPageResult {
     
-    NSArray *steps = @[[[ORKStep alloc] initWithIdentifier:@"step1"],
-                       [[ORKStep alloc] initWithIdentifier:@"step2"],
-                       [[ORKStep alloc] initWithIdentifier:@"step3"],
+    NSArray *steps = @[[[ORKLegacyStep alloc] initWithIdentifier:@"step1"],
+                       [[ORKLegacyStep alloc] initWithIdentifier:@"step2"],
+                       [[ORKLegacyStep alloc] initWithIdentifier:@"step3"],
                        ];
-    ORKPageStep *pageStep = [[ORKPageStep alloc] initWithIdentifier:@"pageStep" steps:steps];
+    ORKLegacyPageStep *pageStep = [[ORKLegacyPageStep alloc] initWithIdentifier:@"pageStep" steps:steps];
     
-    ORKChoiceQuestionResult *step1Result1 = [[ORKChoiceQuestionResult alloc] initWithIdentifier:@"step1.result1"];
+    ORKLegacyChoiceQuestionResult *step1Result1 = [[ORKLegacyChoiceQuestionResult alloc] initWithIdentifier:@"step1.result1"];
     step1Result1.choiceAnswers = @[ @(1) ];
-    ORKChoiceQuestionResult *step1Result2 = [[ORKChoiceQuestionResult alloc] initWithIdentifier:@"step1.result2"];
+    ORKLegacyChoiceQuestionResult *step1Result2 = [[ORKLegacyChoiceQuestionResult alloc] initWithIdentifier:@"step1.result2"];
     step1Result2.choiceAnswers = @[ @(2) ];
-    ORKChoiceQuestionResult *step2Result1 = [[ORKChoiceQuestionResult alloc] initWithIdentifier:@"step2.result1"];
+    ORKLegacyChoiceQuestionResult *step2Result1 = [[ORKLegacyChoiceQuestionResult alloc] initWithIdentifier:@"step2.result1"];
     step2Result1.choiceAnswers = @[ @(3) ];
     
-    ORKStepResult *inputResult = [[ORKStepResult alloc] initWithStepIdentifier:@"pageStep"
+    ORKLegacyStepResult *inputResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:@"pageStep"
                                                                        results:@[step1Result1, step1Result2, step2Result1]];
     
-    ORKPageResult *pageResult = [[ORKPageResult alloc] initWithPageStep:pageStep stepResult:inputResult];
+    ORKLegacyPageResult *pageResult = [[ORKLegacyPageResult alloc] initWithPageStep:pageStep stepResult:inputResult];
     
     // Check steps going forward
-    ORKStep *step1 = [pageStep stepAfterStepWithIdentifier:nil withResult:pageResult];
+    ORKLegacyStep *step1 = [pageStep stepAfterStepWithIdentifier:nil withResult:pageResult];
     XCTAssertNotNil(step1);
     XCTAssertEqualObjects(step1.identifier, @"step1");
     
-    ORKStep *step2 = [pageStep stepAfterStepWithIdentifier:@"step1" withResult:pageResult];
+    ORKLegacyStep *step2 = [pageStep stepAfterStepWithIdentifier:@"step1" withResult:pageResult];
     XCTAssertNotNil(step2);
     XCTAssertEqualObjects(step2.identifier, @"step2");
     
-    ORKStep *step3 = [pageStep stepAfterStepWithIdentifier:@"step2" withResult:pageResult];
+    ORKLegacyStep *step3 = [pageStep stepAfterStepWithIdentifier:@"step2" withResult:pageResult];
     XCTAssertNotNil(step3);
     XCTAssertEqualObjects(step3.identifier, @"step3");
     
-    ORKStep *step4 = [pageStep stepAfterStepWithIdentifier:@"step3" withResult:pageResult];
+    ORKLegacyStep *step4 = [pageStep stepAfterStepWithIdentifier:@"step3" withResult:pageResult];
     XCTAssertNil(step4);
     
     // Check steps going backward
-    ORKStep *backStep2 = [pageStep stepBeforeStepWithIdentifier:@"step3" withResult:pageResult];
+    ORKLegacyStep *backStep2 = [pageStep stepBeforeStepWithIdentifier:@"step3" withResult:pageResult];
     XCTAssertEqualObjects(backStep2, step2);
     
-    ORKStep *backStep1 = [pageStep stepBeforeStepWithIdentifier:@"step2" withResult:pageResult];
+    ORKLegacyStep *backStep1 = [pageStep stepBeforeStepWithIdentifier:@"step2" withResult:pageResult];
     XCTAssertEqualObjects(backStep1, step1);
     
-    ORKStep *backStepNil = [pageStep stepBeforeStepWithIdentifier:@"step1" withResult:pageResult];
+    ORKLegacyStep *backStepNil = [pageStep stepBeforeStepWithIdentifier:@"step1" withResult:pageResult];
     XCTAssertNil(backStepNil);
     
     // Check identifier

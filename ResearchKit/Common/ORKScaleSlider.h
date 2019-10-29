@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKScaleSlider : UISlider
+@interface ORKLegacyScaleSlider : UISlider
 
 @property (nonatomic, assign) BOOL showThumb;
 

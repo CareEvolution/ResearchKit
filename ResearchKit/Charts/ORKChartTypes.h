@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Defines the common attributes of chart values.
  */
-@protocol ORKValueCollectionType
+@protocol ORKLegacyValueCollectionType
 
 /**
  A Boolean value indicating that the value is unset. (read-only)
@@ -51,11 +51,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- The `ORKValueRange` class represents a range between two values of the double type. It can be used
+ The `ORKLegacyValueRange` class represents a range between two values of the double type. It can be used
  in graph chart plots to draw value ranges.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKValueRange : NSObject <ORKValueCollectionType>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyValueRange : NSObject <ORKLegacyValueCollectionType>
 
 /**
  Returns a value range initialized using the specified `minimumValue` and `maximumValue`.
@@ -80,13 +80,13 @@ ORK_CLASS_AVAILABLE
 - (instancetype)initWithValue:(double)value;
 
 /**
- Returns a value range initialized using the `ORKDoubleInvalidValue` value for both `minimumValue`
+ Returns a value range initialized using the `ORKLegacyDoubleInvalidValue` value for both `minimumValue`
  and `maximumValue`. This denotes an unset or invalid value range. It is useful, for example, for
  representing unavailable data in discontinous graph chart plots.
  
  This method is a convenience initializer.
  
- @return A value range object initialized with the `ORKDoubleInvalidValue` value.
+ @return A value range object initialized with the `ORKLegacyDoubleInvalidValue` value.
  */
 - (instancetype)init;
 
@@ -107,7 +107,7 @@ ORK_CLASS_AVAILABLE
 
 /**
  A Boolean value indicating that both `minimum value` and `maximum value` are equal to the
- `ORKDoubleInvalidValue` value. (read-only)
+ `ORKLegacyDoubleInvalidValue` value. (read-only)
  */
 @property (nonatomic, readonly) BOOL isUnset;
 
@@ -115,11 +115,11 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKValueStack` class represents an arbitrary list of values of the double type. It can be used
+ The `ORKLegacyValueStack` class represents an arbitrary list of values of the double type. It can be used
  in graph chart plots to draw stacked values.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKValueStack : NSObject <ORKValueCollectionType>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyValueStack : NSObject <ORKLegacyValueCollectionType>
 
 /**
  Returns an empty value stack.

@@ -32,4 +32,4 @@
 #import "ORKTypes.h"
 
 
-const double ORKDoubleDefaultValue = DBL_MAX;
+const double ORKLegacyDoubleDefaultValue = DBL_MAX;

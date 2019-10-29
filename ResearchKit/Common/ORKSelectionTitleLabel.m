@@ -34,13 +34,13 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKSelectionTitleLabel
+@implementation ORKLegacySelectionTitleLabel
 
 + (UIFont *)defaultFont {
     // medium, 17. Increased by 1 due review feedback.
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
     const CGFloat defaultSize = 17;
-    return ORKMediumFontWithSize([[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] + 18 - defaultSize);
+    return ORKLegacyMediumFontWithSize([[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] + 18 - defaultSize);
 }
 
 @end

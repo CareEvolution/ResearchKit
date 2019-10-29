@@ -50,10 +50,10 @@
 #define BOUND(lo, hi, v) (((v) < (lo)) ? (lo) : (((v) > (hi)) ? (hi) : (v)))
 
 
-@implementation ORKTrailmakingStepViewController {
-    ORKTrailmakingContentView *_trailmakingContentView;
+@implementation ORKLegacyTrailmakingStepViewController {
+    ORKLegacyTrailmakingContentView *_trailmakingContentView;
     NSArray *_testPoints;
-    ORKTrailMakingTypeIdentifier _trailType;
+    ORKLegacyTrailMakingTypeIdentifier _trailType;
     int _nextIndex;
     int _errors;
     NSMutableArray *_taps;
@@ -61,16 +61,16 @@
     UILabel *_timerLabel;
 }
 
-- (instancetype)initWithStep:(ORKStep *)step {
+- (instancetype)initWithStep:(ORKLegacyStep *)step {
     self = [super initWithStep:step];
     if (self) {
         _testPoints = [self fetchRandomTest];
         _taps = [NSMutableArray array];
         
-        if ([step isKindOfClass:[ORKTrailmakingStep class]]) {
-            _trailType = [((ORKTrailmakingStep*)step) trailType];
+        if ([step isKindOfClass:[ORKLegacyTrailmakingStep class]]) {
+            _trailType = [((ORKLegacyTrailmakingStep*)step) trailType];
         } else {
-            _trailType = ORKTrailMakingTypeIdentifierA;
+            _trailType = ORKLegacyTrailMakingTypeIdentifierA;
         }
     }
     return self;
@@ -87,11 +87,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _trailmakingContentView = [[ORKTrailmakingContentView alloc] initWithType:_trailType];
+    _trailmakingContentView = [[ORKLegacyTrailmakingContentView alloc] initWithType:_trailType];
     
     self.activeStepView.activeCustomView = _trailmakingContentView;
     
-    for (ORKRoundTappingButton* b in _trailmakingContentView.tapButtons) {
+    for (ORKLegacyRoundTappingButton* b in _trailmakingContentView.tapButtons) {
         [b addTarget:self action:@selector(buttonPressed:forEvent:) forControlEvents:UIControlEventTouchDown];
     }
     
@@ -103,12 +103,12 @@
 
 - (void)timerUpdated:(NSTimer*)timer {
     NSTimeInterval elapsed = [[NSDate date] timeIntervalSinceDate: self.presentedDate];
-    NSString *text = [NSString localizedStringWithFormat:ORKLocalizedString(@"TRAILMAKING_TIMER", nil), elapsed];
+    NSString *text = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"TRAILMAKING_TIMER", nil), elapsed];
     
     if (_errors == 1) {
-        text = [NSString localizedStringWithFormat:ORKLocalizedString(@"TRAILMAKING_ERROR", nil), text, _errors];
+        text = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"TRAILMAKING_ERROR", nil), text, _errors];
     } else if (_errors > 1) {
-        text = [NSString localizedStringWithFormat:ORKLocalizedString(@"TRAILMAKING_ERROR_PLURAL", nil), text, _errors];
+        text = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"TRAILMAKING_ERROR_PLURAL", nil), text, _errors];
     }
     
     _timerLabel.text = text;
@@ -138,7 +138,7 @@
         
     int idx = 0;
     
-    for (ORKRoundTappingButton* b in _trailmakingContentView.tapButtons) {
+    for (ORKLegacyRoundTappingButton* b in _trailmakingContentView.tapButtons) {
         CGPoint pp = [[_testPoints objectAtIndex:idx] CGPointValue];
         
         if (r.size.width > r.size.height)
@@ -177,7 +177,7 @@
     NSUInteger buttonIndex = [_trailmakingContentView.tapButtons indexOfObject:button];
     if (buttonIndex != NSNotFound) {
         
-        ORKTrailmakingTap* tap = [[ORKTrailmakingTap alloc] init];
+        ORKLegacyTrailmakingTap* tap = [[ORKLegacyTrailmakingTap alloc] init];
         tap.timestamp = [[NSDate date] timeIntervalSinceDate: self.presentedDate];
         tap.index = buttonIndex;
         
@@ -251,8 +251,8 @@
     return reverse ? [[points reverseObjectEnumerator] allObjects] : [points copy];
 }
 
-- (ORKStepResult *)result {
-    ORKStepResult *stepResult = [super result];
+- (ORKLegacyStepResult *)result {
+    ORKLegacyStepResult *stepResult = [super result];
     
     // "Now" is the end time of the result, which is either actually now,
     // or the last time we were in the responder chain.
@@ -260,7 +260,7 @@
     
     NSMutableArray *results = [NSMutableArray arrayWithArray:stepResult.results];
     
-    ORKTrailmakingResult *trailmakingResult = [[ORKTrailmakingResult alloc] initWithIdentifier:self.step.identifier];
+    ORKLegacyTrailmakingResult *trailmakingResult = [[ORKLegacyTrailmakingResult alloc] initWithIdentifier:self.step.identifier];
     trailmakingResult.startDate = stepResult.startDate;
     trailmakingResult.endDate = now;
     trailmakingResult.taps = [_taps copy];

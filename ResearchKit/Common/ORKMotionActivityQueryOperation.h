@@ -33,16 +33,16 @@
 #import "ORKDataCollectionManager_Internal.h"
 
 
-@class ORKMotionActivityCollector;
+@class ORKLegacyMotionActivityCollector;
 
 /**
  Operation for extracting and preparing CoreMotion data for upload. This operation
  runs until there is no more CoreMotion data available, or until otherwise stopped.
  */
-@interface ORKMotionActivityQueryOperation : ORKOperation
+@interface ORKLegacyMotionActivityQueryOperation : ORKLegacyOperation
 
-- (instancetype)initWithCollector:(ORKMotionActivityCollector*)collector
+- (instancetype)initWithCollector:(ORKLegacyMotionActivityCollector*)collector
                       queryQueue:(NSOperationQueue*)queue
-                         manager:(ORKDataCollectionManager *)manager;
+                         manager:(ORKLegacyDataCollectionManager *)manager;
 
 @end

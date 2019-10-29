@@ -32,15 +32,15 @@
 #import "ORKWebViewStepViewController.h"
 #import "ORKHelpers_Internal.h"
 
-@implementation ORKWebViewStep
+@implementation ORKLegacyWebViewStep
 
 + (Class)stepViewControllerClass {
-    return [ORKWebViewStepViewController class];
+    return [ORKLegacyWebViewStepViewController class];
 }
 
 + (instancetype)webViewStepWithIdentifier:(NSString *)identifier
                                      html:(NSString *)html {
-    ORKWebViewStep *step = [[ORKWebViewStep alloc] initWithIdentifier:identifier];
+    ORKLegacyWebViewStep *step = [[ORKLegacyWebViewStep alloc] initWithIdentifier:identifier];
     step.html = html;
     return step;
 }
@@ -58,14 +58,14 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, html, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, html, NSString);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, html);
+    ORKLegacy_ENCODE_OBJ(aCoder, html);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -73,7 +73,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKWebViewStep *step = [super copyWithZone:zone];
+    ORKLegacyWebViewStep *step = [super copyWithZone:zone];
     step.html = self.html;
     return step;
 }

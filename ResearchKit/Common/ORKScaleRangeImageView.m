@@ -35,7 +35,7 @@
 static const CGFloat ScaleRangeImageHeight = 30;
 static const CGFloat ScaleRangeImageWidth = 30;
 
-@implementation ORKScaleRangeImageView
+@implementation ORKLegacyScaleRangeImageView
 
 - (CGSize)intrinsicContentSize {
     return CGSizeMake(ScaleRangeImageWidth, ScaleRangeImageHeight);

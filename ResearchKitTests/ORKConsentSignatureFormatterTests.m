@@ -35,21 +35,21 @@
 #import "ORKConsentSignatureFormatter.h"
 
 
-@interface ORKConsentSignatureFormatterTests : XCTestCase
+@interface ORKLegacyConsentSignatureFormatterTests : XCTestCase
 
-@property (nonatomic, strong) ORKConsentSignatureFormatter *formatter;
-@property (nonatomic, strong) ORKConsentSignature *signature;
+@property (nonatomic, strong) ORKLegacyConsentSignatureFormatter *formatter;
+@property (nonatomic, strong) ORKLegacyConsentSignature *signature;
 
 @end
 
 
-@implementation ORKConsentSignatureFormatterTests
+@implementation ORKLegacyConsentSignatureFormatterTests
 
 - (void)setUp {
     [super setUp];
 
-    self.formatter = [[ORKConsentSignatureFormatter alloc] init];
-    self.signature = [[ORKConsentSignature alloc] init];
+    self.formatter = [[ORKLegacyConsentSignatureFormatter alloc] init];
+    self.signature = [[ORKLegacyConsentSignature alloc] init];
     self.signature.title = @"User";
 }
 

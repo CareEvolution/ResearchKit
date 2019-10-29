@@ -36,59 +36,59 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKRegistrationStepOption` flags let you include particular fields in addition
+ The `ORKLegacyRegistrationStepOption` flags let you include particular fields in addition
  to the default fields (email and password) in the registration step.
  */
-typedef NS_OPTIONS(NSUInteger, ORKRegistrationStepOption) {
+typedef NS_OPTIONS(NSUInteger, ORKLegacyRegistrationStepOption) {
     /// Default behavior.
-    ORKRegistrationStepDefault = 0,
+    ORKLegacyRegistrationStepDefault = 0,
     
     /// Include the given name field.
-    ORKRegistrationStepIncludeGivenName = (1 << 1),
+    ORKLegacyRegistrationStepIncludeGivenName = (1 << 1),
     
     /// Include the family name field.
-    ORKRegistrationStepIncludeFamilyName = (1 << 2),
+    ORKLegacyRegistrationStepIncludeFamilyName = (1 << 2),
     
     /// Include the gender field.
-    ORKRegistrationStepIncludeGender = (1 << 3),
+    ORKLegacyRegistrationStepIncludeGender = (1 << 3),
     
     /// Include the date of birth field.
-    ORKRegistrationStepIncludeDOB = (1 << 4)
-} ORK_ENUM_AVAILABLE;
+    ORKLegacyRegistrationStepIncludeDOB = (1 << 4)
+} ORKLegacy_ENUM_AVAILABLE;
 
 
 /**
  Constants for the form items included in the registration step.
  These allow for convenient retrieval of user's inputted data from the result.
  */
-ORK_EXTERN NSString *const ORKRegistrationFormItemIdentifierEmail ORK_AVAILABLE_DECL;
-ORK_EXTERN NSString *const ORKRegistrationFormItemIdentifierPassword ORK_AVAILABLE_DECL;
-ORK_EXTERN NSString *const ORKRegistrationFormItemIdentifierGivenName ORK_AVAILABLE_DECL;
-ORK_EXTERN NSString *const ORKRegistrationFormItemIdentifierFamilyName ORK_AVAILABLE_DECL;
-ORK_EXTERN NSString *const ORKRegistrationFormItemIdentifierGender ORK_AVAILABLE_DECL;
-ORK_EXTERN NSString *const ORKRegistrationFormItemIdentifierDOB ORK_AVAILABLE_DECL;
+ORKLegacy_EXTERN NSString *const ORKLegacyRegistrationFormItemIdentifierEmail ORKLegacy_AVAILABLE_DECL;
+ORKLegacy_EXTERN NSString *const ORKLegacyRegistrationFormItemIdentifierPassword ORKLegacy_AVAILABLE_DECL;
+ORKLegacy_EXTERN NSString *const ORKLegacyRegistrationFormItemIdentifierGivenName ORKLegacy_AVAILABLE_DECL;
+ORKLegacy_EXTERN NSString *const ORKLegacyRegistrationFormItemIdentifierFamilyName ORKLegacy_AVAILABLE_DECL;
+ORKLegacy_EXTERN NSString *const ORKLegacyRegistrationFormItemIdentifierGender ORKLegacy_AVAILABLE_DECL;
+ORKLegacy_EXTERN NSString *const ORKLegacyRegistrationFormItemIdentifierDOB ORKLegacy_AVAILABLE_DECL;
 
 
 /**
- The `ORKRegistrationStep` class represents a form step that provides fields commonly used
+ The `ORKLegacyRegistrationStep` class represents a form step that provides fields commonly used
  for account registration.
  
  The registration step contains email and password fields by default. Optionally, any 
  of the additional fields can be included based on context and requirements.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKRegistrationStep : ORKFormStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyRegistrationStep : ORKLegacyFormStep
 
 /**
  Returns an initialized registration step using the specified identifier,
  title, text, options, passcodeValidationRegularExpression, and passcodeInvalidMessage.
  
- @param identifier                              The string that identifies the step (see `ORKStep`).
- @param title                                   The title of the form (see `ORKStep`).
- @param text                                    The text shown immediately below the title (see `ORKStep`).
- @param passcodeValidationRegularExpression     The regular expression used to validate the passcode form item (see `ORKTextAnswerFormat`).
- @param passcodeInvalidMessage                  The invalid message displayed for invalid input (see `ORKTextAnswerFormat`).
- @param options                                 The options used for the step (see `ORKRegistrationStepOption`).
+ @param identifier                              The string that identifies the step (see `ORKLegacyStep`).
+ @param title                                   The title of the form (see `ORKLegacyStep`).
+ @param text                                    The text shown immediately below the title (see `ORKLegacyStep`).
+ @param passcodeValidationRegularExpression     The regular expression used to validate the passcode form item (see `ORKLegacyTextAnswerFormat`).
+ @param passcodeInvalidMessage                  The invalid message displayed for invalid input (see `ORKLegacyTextAnswerFormat`).
+ @param options                                 The options used for the step (see `ORKLegacyRegistrationStepOption`).
  
  @return An initialized registration step object.
  */
@@ -97,34 +97,34 @@ ORK_CLASS_AVAILABLE
                               text:(nullable NSString *)text
 passcodeValidationRegularExpression:(nullable NSRegularExpression *)passcodeValidationRegularExpression
             passcodeInvalidMessage:(nullable NSString *)passcodeInvalidMessage
-                           options:(ORKRegistrationStepOption)options;
+                           options:(ORKLegacyRegistrationStepOption)options;
 
 /**
  Returns an initialized registration step using the specified identifier,
  title, text, and options.
   
- @param identifier    The string that identifies the step (see `ORKStep`).
- @param title         The title of the form (see `ORKStep`).
- @param text          The text shown immediately below the title (see `ORKStep`).
- @param options       The options used for the step (see `ORKRegistrationStepOption`).
+ @param identifier    The string that identifies the step (see `ORKLegacyStep`).
+ @param title         The title of the form (see `ORKLegacyStep`).
+ @param text          The text shown immediately below the title (see `ORKLegacyStep`).
+ @param options       The options used for the step (see `ORKLegacyRegistrationStepOption`).
  
  @return An initialized registration step object.
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
                              title:(nullable NSString *)title
                               text:(nullable NSString *)text
-                           options:(ORKRegistrationStepOption)options;
+                           options:(ORKLegacyRegistrationStepOption)options;
 
 /**
  The options used for the step.
  
  These options allow one or more fields to be included in the registration step.
  */
-@property (nonatomic, readonly) ORKRegistrationStepOption options;
+@property (nonatomic, readonly) ORKLegacyRegistrationStepOption options;
 
 /**
  The regular expression used to validate the passcode form item.
- This is a transparent property pointing to its definition in `ORKTextAnswerFormat`.
+ This is a transparent property pointing to its definition in `ORKLegacyTextAnswerFormat`.
  
  The passcode invalid message property must also be set along with this property.
  By default, there is no validation on the passcode.
@@ -133,7 +133,7 @@ passcodeValidationRegularExpression:(nullable NSRegularExpression *)passcodeVali
 
 /**
  The invalid message displayed if the passcode does not match the validation regular expression.
- This is a transparent property pointing to its definition in `ORKTextAnswerFormat`.
+ This is a transparent property pointing to its definition in `ORKLegacyTextAnswerFormat`.
  
  The passcode validation regular expression property must also be set along with this property.
  By default, there is no invalid message.

@@ -37,15 +37,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKImageCaptureStepViewController` class represents the step view controller that
- corresponds to an `ORKImageCaptureStep` class.
+ The `ORKLegacyImageCaptureStepViewController` class represents the step view controller that
+ corresponds to an `ORKLegacyImageCaptureStep` class.
  
  It is not usually necessary to instantiate this view controller directly.
  Instead, add an image capture step to a task, and present the task in a task
  view controller.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKImageCaptureStepViewController : ORKStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyImageCaptureStepViewController : ORKLegacyStepViewController
 
 @end
 

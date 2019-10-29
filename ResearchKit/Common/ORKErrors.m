@@ -32,5 +32,5 @@
 #import "ORKErrors.h"
 
 
-NSString *const ORKErrorDomain = @"ORKErrorDomain";
-NSString *const ORKInvalidArgumentException = @"ORKInvalidArgumentException";
+NSString *const ORKLegacyErrorDomain = @"ORKErrorDomain";
+NSString *const ORKLegacyInvalidArgumentException = @"ORKInvalidArgumentException";

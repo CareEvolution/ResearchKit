@@ -35,33 +35,33 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKQuestionStep;
-@class ORKSurveyAnswerCell;
+@class ORKLegacyQuestionStep;
+@class ORKLegacySurveyAnswerCell;
 
-@protocol ORKSurveyAnswerCellDelegate
+@protocol ORKLegacySurveyAnswerCellDelegate
 
 @required
-- (void)answerCell:(ORKSurveyAnswerCell *)cell answerDidChangeTo:(id)answer dueUserAction:(BOOL)dueUserAction;
-- (void)answerCell:(ORKSurveyAnswerCell *)cell invalidInputAlertWithMessage:(NSString *)input;
-- (void)answerCell:(ORKSurveyAnswerCell *)cell invalidInputAlertWithTitle:(NSString *)title message:(NSString *)message;
+- (void)answerCell:(ORKLegacySurveyAnswerCell *)cell answerDidChangeTo:(id)answer dueUserAction:(BOOL)dueUserAction;
+- (void)answerCell:(ORKLegacySurveyAnswerCell *)cell invalidInputAlertWithMessage:(NSString *)input;
+- (void)answerCell:(ORKLegacySurveyAnswerCell *)cell invalidInputAlertWithTitle:(NSString *)title message:(NSString *)message;
 
 @end
 
 
-@interface ORKSurveyAnswerCell : ORKTableViewCell {
+@interface ORKLegacySurveyAnswerCell : ORKLegacyTableViewCell {
 @protected
     id _answer;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
               reuseIdentifier:(NSString *)reuseIdentifier
-                         step:(ORKQuestionStep *)step
+                         step:(ORKLegacyQuestionStep *)step
                        answer:(id)answer
-                     delegate:(id<ORKSurveyAnswerCellDelegate>)delegate;
+                     delegate:(id<ORKLegacySurveyAnswerCellDelegate>)delegate;
 
-@property (nonatomic, weak, nullable) ORKQuestionStep *step;
+@property (nonatomic, weak, nullable) ORKLegacyQuestionStep *step;
 
-@property (nonatomic, weak, nullable) id<ORKSurveyAnswerCellDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORKLegacySurveyAnswerCellDelegate> delegate;
 
 @property (nonatomic, copy, nullable) id answer;
 
@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface ORKSurveyAnswerCell (ORKSurveyAnswerCellInternal)
+@interface ORKLegacySurveyAnswerCell (ORKLegacySurveyAnswerCellInternal)
 
 - (void)prepareView;
 

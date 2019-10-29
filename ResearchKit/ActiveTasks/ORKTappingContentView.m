@@ -45,16 +45,16 @@
 // #define LAYOUT_DEBUG 1
 
 
-@interface ORKTappingContentView ()
+@interface ORKLegacyTappingContentView ()
 
-@property (nonatomic, strong) ORKSubheadlineLabel *tapCaptionLabel;
-@property (nonatomic, strong) ORKTapCountLabel *tapCountLabel;
+@property (nonatomic, strong) ORKLegacySubheadlineLabel *tapCaptionLabel;
+@property (nonatomic, strong) ORKLegacyTapCountLabel *tapCountLabel;
 @property (nonatomic, strong) UIProgressView *progressView;
 
 @end
 
 
-@implementation ORKTappingContentView {
+@implementation ORKLegacyTappingContentView {
     UIView *_buttonContainer;
     NSNumberFormatter *_formatter;
     NSLayoutConstraint *_topToProgressViewConstraint;
@@ -66,10 +66,10 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _tapCaptionLabel = [ORKSubheadlineLabel new];
+        _tapCaptionLabel = [ORKLegacySubheadlineLabel new];
         _tapCaptionLabel.textAlignment = NSTextAlignmentCenter;
         _tapCaptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _tapCountLabel = [ORKTapCountLabel new];
+        _tapCountLabel = [ORKLegacyTapCountLabel new];
         _tapCountLabel.textAlignment = NSTextAlignmentCenter;
         _tapCountLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _buttonContainer = [UIView new];
@@ -81,13 +81,13 @@
         [_progressView setIsAccessibilityElement:YES];
         [_progressView setAlpha:0];
         
-        _tapButton1 = [[ORKRoundTappingButton alloc] init];
+        _tapButton1 = [[ORKLegacyRoundTappingButton alloc] init];
         _tapButton1.translatesAutoresizingMaskIntoConstraints = NO;
-        [_tapButton1 setTitle:ORKLocalizedString(@"TAP_BUTTON_TITLE", nil) forState:UIControlStateNormal];
+        [_tapButton1 setTitle:ORKLegacyLocalizedString(@"TAP_BUTTON_TITLE", nil) forState:UIControlStateNormal];
         
-        _tapButton2 = [[ORKRoundTappingButton alloc] init];
+        _tapButton2 = [[ORKLegacyRoundTappingButton alloc] init];
         _tapButton2.translatesAutoresizingMaskIntoConstraints = NO;
-        [_tapButton2 setTitle:ORKLocalizedString(@"TAP_BUTTON_TITLE", nil) forState:UIControlStateNormal];
+        [_tapButton2 setTitle:ORKLegacyLocalizedString(@"TAP_BUTTON_TITLE", nil) forState:UIControlStateNormal];
         
         _lastTappedButton = -1;
         
@@ -101,7 +101,7 @@
         
         self.translatesAutoresizingMaskIntoConstraints = NO;
         
-        _tapCaptionLabel.text = ORKLocalizedString(@"TOTAL_TAPS_LABEL", nil);
+        _tapCaptionLabel.text = ORKLegacyLocalizedString(@"TOTAL_TAPS_LABEL", nil);
         [self setTapCount:0];
         
         [self setUpConstraints];
@@ -146,14 +146,14 @@
     }
 }
 
-- (void)resetStep:(ORKActiveStepViewController *)viewController {
+- (void)resetStep:(ORKLegacyActiveStepViewController *)viewController {
     [super resetStep:viewController];
     [self setTapCount:0];
     _tapButton1.enabled = YES;
     _tapButton2.enabled = YES;
 }
 
-- (void)finishStep:(ORKActiveStepViewController *)viewController {
+- (void)finishStep:(ORKLegacyActiveStepViewController *)viewController {
     [super finishStep:viewController];
     _tapButton1.enabled = NO;
     _tapButton2.enabled = NO;
@@ -165,7 +165,7 @@
 }
 
 - (void)updateLayoutMargins {
-    CGFloat margin = ORKStandardHorizontalMarginForView(self);
+    CGFloat margin = ORKLegacyStandardHorizontalMarginForView(self);
     self.layoutMargins = (UIEdgeInsets){.left = margin * 2, .right=margin * 2};
 }
 
@@ -236,7 +236,7 @@
                                                                                       toItem:nil
                                                                                    attribute:NSLayoutAttributeNotAnAttribute
                                                                                   multiplier:1.0
-                                                                                    constant:ORKScreenMetricMaxDimension];
+                                                                                    constant:ORKLegacyScreenMetricMaxDimension];
     progressViewWidthConstraint.priority = UILayoutPriorityRequired - 1;
     [constraints addObject:progressViewWidthConstraint];
     
@@ -283,9 +283,9 @@
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
-    const CGFloat HeaderBaselineToCaptionTop = ORKGetMetricForWindow(ORKScreenMetricCaptionBaselineToTappingLabelTop, window);
-    const CGFloat AssumedHeaderBaselineToStepViewTop = ORKGetMetricForWindow(ORKScreenMetricLearnMoreBaselineToStepViewTop, window);
-    CGFloat margin = ORKStandardHorizontalMarginForView(self);
+    const CGFloat HeaderBaselineToCaptionTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricCaptionBaselineToTappingLabelTop, window);
+    const CGFloat AssumedHeaderBaselineToStepViewTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLearnMoreBaselineToStepViewTop, window);
+    CGFloat margin = ORKLegacyStandardHorizontalMarginForView(self);
     self.layoutMargins = (UIEdgeInsets){.left = margin * 2, .right = margin * 2};
     
     static const CGFloat CaptionBaselineToTapCountBaseline = 56;
@@ -295,8 +295,8 @@
     // On the iPad, we want to stretch this out a bit so it feels less compressed.
     CGFloat topToProgressViewOffset = 0.0;
     CGFloat topToCaptionLabelOffset = 0.0;
-    ORKScreenType screenType = ORKGetVerticalScreenTypeForWindow(window);
-    if (screenType == ORKScreenTypeiPad || screenType == ORKScreenTypeiPad12_9) {
+    ORKLegacyScreenType screenType = ORKLegacyGetVerticalScreenTypeForWindow(window);
+    if (screenType == ORKLegacyScreenTypeiPad || screenType == ORKLegacyScreenTypeiPad12_9) {
         topToProgressViewOffset = 0;
         topToCaptionLabelOffset = AssumedHeaderBaselineToStepViewTop;
     } else {

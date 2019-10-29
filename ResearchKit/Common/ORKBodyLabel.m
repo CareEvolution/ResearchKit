@@ -32,7 +32,7 @@
 #import "ORKBodyLabel.h"
 
 
-@implementation ORKBodyLabel
+@implementation ORKLegacyBodyLabel
 
 + (UIFont *)defaultFont {
     // Unused

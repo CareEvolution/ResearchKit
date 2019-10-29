@@ -42,17 +42,17 @@
 static const CGFloat LabelRightMargin = 44.0;
 
 
-@implementation ORKChoiceViewCell {
+@implementation ORKLegacyChoiceViewCell {
     UIImageView *_checkView;
-    ORKSelectionTitleLabel *_shortLabel;
-    ORKSelectionSubTitleLabel *_longLabel;
+    ORKLegacySelectionTitleLabel *_shortLabel;
+    ORKLegacySelectionSubTitleLabel *_longLabel;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.clipsToBounds = YES;
-        _checkView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"checkmark" inBundle:ORKBundle() compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+        _checkView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"checkmark" inBundle:ORKLegacyBundle() compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         self.accessoryView = _checkView;
     }
     return self;
@@ -61,8 +61,8 @@ static const CGFloat LabelRightMargin = 44.0;
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat firstBaselineOffsetFromTop = ORKGetMetricForWindow(ORKScreenMetricChoiceCellFirstBaselineOffsetFromTop, self.window);
-    CGFloat labelLastBaselineToLabelFirstBaseline = ORKGetMetricForWindow(ORKScreenMetricChoiceCellLabelLastBaselineToLabelFirstBaseline, self.window);
+    CGFloat firstBaselineOffsetFromTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricChoiceCellFirstBaselineOffsetFromTop, self.window);
+    CGFloat labelLastBaselineToLabelFirstBaseline = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricChoiceCellLabelLastBaselineToLabelFirstBaseline, self.window);
     
     CGFloat cellLeftMargin = self.separatorInset.left;
 
@@ -83,7 +83,7 @@ static const CGFloat LabelRightMargin = 44.0;
             self.shortLabel.frame = CGRectMake(cellLeftMargin, 0,
                                                labelWidth, 1);
             
-            ORKAdjustHeightForLabel(self.shortLabel);
+            ORKLegacyAdjustHeightForLabel(self.shortLabel);
             
             CGRect rect = self.shortLabel.frame;
             
@@ -97,7 +97,7 @@ static const CGFloat LabelRightMargin = 44.0;
             self.longLabel.frame = CGRectMake(cellLeftMargin, 0,
                                               labelWidth, 1);
             
-            ORKAdjustHeightForLabel(self.longLabel);
+            ORKLegacyAdjustHeightForLabel(self.longLabel);
             
             CGRect rect = self.longLabel.frame;
             
@@ -113,18 +113,18 @@ static const CGFloat LabelRightMargin = 44.0;
     [self updateSelectedItem];
 }
 
-- (ORKSelectionTitleLabel *)shortLabel {
+- (ORKLegacySelectionTitleLabel *)shortLabel {
     if (_shortLabel == nil ) {
-        _shortLabel = [ORKSelectionTitleLabel new];
+        _shortLabel = [ORKLegacySelectionTitleLabel new];
         _shortLabel.numberOfLines = 0;
         [self.contentView addSubview:_shortLabel];
     }
     return _shortLabel;
 }
 
-- (ORKSelectionSubTitleLabel *)longLabel {
+- (ORKLegacySelectionSubTitleLabel *)longLabel {
     if (_longLabel == nil) {
-        _longLabel = [ORKSelectionSubTitleLabel new];
+        _longLabel = [ORKLegacySelectionSubTitleLabel new];
         _longLabel.numberOfLines = 0;
         _longLabel.textColor = [UIColor ork_darkGrayColor];
         [self.contentView addSubview:_longLabel];
@@ -162,39 +162,39 @@ static const CGFloat LabelRightMargin = 44.0;
 + (CGFloat)suggestedCellHeightForShortText:(NSString *)shortText LongText:(NSString *)longText inTableView:(UITableView *)tableView {
     CGFloat height = 0;
     
-    CGFloat firstBaselineOffsetFromTop = ORKGetMetricForWindow(ORKScreenMetricChoiceCellFirstBaselineOffsetFromTop, tableView.window);
-    CGFloat labelLastBaselineToLabelFirstBaseline = ORKGetMetricForWindow(ORKScreenMetricChoiceCellLabelLastBaselineToLabelFirstBaseline, tableView.window);
-    CGFloat lastBaselineToBottom = ORKGetMetricForWindow(ORKScreenMetricChoiceCellLastBaselineToBottom, tableView.window);
-    CGFloat cellLeftMargin =  ORKStandardLeftMarginForTableViewCell(tableView);
+    CGFloat firstBaselineOffsetFromTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricChoiceCellFirstBaselineOffsetFromTop, tableView.window);
+    CGFloat labelLastBaselineToLabelFirstBaseline = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricChoiceCellLabelLastBaselineToLabelFirstBaseline, tableView.window);
+    CGFloat lastBaselineToBottom = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricChoiceCellLastBaselineToBottom, tableView.window);
+    CGFloat cellLeftMargin =  ORKLegacyStandardLeftMarginForTableViewCell(tableView);
     CGFloat labelWidth =  tableView.bounds.size.width - (cellLeftMargin + LabelRightMargin);
    
     if (shortText.length > 0) {
-        static ORKSelectionTitleLabel *shortLabel;
+        static ORKLegacySelectionTitleLabel *shortLabel;
         if (shortLabel == nil) {
-            shortLabel = [ORKSelectionTitleLabel new];
+            shortLabel = [ORKLegacySelectionTitleLabel new];
             shortLabel.numberOfLines = 0;
         }
         
         shortLabel.frame = CGRectMake(0, 0, labelWidth, 0);
         shortLabel.text = shortText;
         
-        ORKAdjustHeightForLabel(shortLabel);
+        ORKLegacyAdjustHeightForLabel(shortLabel);
         CGFloat shortLabelFirstBaselineApproximateOffsetFromTop = shortLabel.font.ascender;
     
         height += firstBaselineOffsetFromTop - shortLabelFirstBaselineApproximateOffsetFromTop + shortLabel.frame.size.height;
     }
     
     if (longText.length > 0) {
-        static ORKSelectionSubTitleLabel *longLabel;
+        static ORKLegacySelectionSubTitleLabel *longLabel;
         if (longLabel == nil) {
-            longLabel = [ORKSelectionSubTitleLabel new];
+            longLabel = [ORKLegacySelectionSubTitleLabel new];
             longLabel.numberOfLines = 0;
         }
         
         longLabel.frame = CGRectMake(0, 0, labelWidth, 0);
         longLabel.text = longText;
         
-        ORKAdjustHeightForLabel(longLabel);
+        ORKLegacyAdjustHeightForLabel(longLabel);
         
         CGFloat longLabelApproximateFirstBaselineOffset = longLabel.font.ascender;
         
@@ -208,7 +208,7 @@ static const CGFloat LabelRightMargin = 44.0;
     
     height += lastBaselineToBottom;
    
-    CGFloat minCellHeight = ORKGetMetricForWindow(ORKScreenMetricTableCellDefaultHeight, tableView.window);
+    CGFloat minCellHeight = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricTableCellDefaultHeight, tableView.window);
     
     return MAX(height, minCellHeight);
 }
@@ -216,7 +216,7 @@ static const CGFloat LabelRightMargin = 44.0;
 #pragma mark - Accessibility
 
 - (NSString *)accessibilityLabel {
-    return ORKAccessibilityStringForVariables(self.shortLabel.accessibilityLabel, self.longLabel.accessibilityLabel);
+    return ORKLegacyAccessibilityStringForVariables(self.shortLabel.accessibilityLabel, self.longLabel.accessibilityLabel);
 }
 
 - (UIAccessibilityTraits)accessibilityTraits {

@@ -34,33 +34,33 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKPageStep` class is a concrete subclass of `ORKStep`, used for presenting a subgrouping of
- `ORKStepViewController` views using a `UIPageViewController`.
+ The `ORKLegacyPageStep` class is a concrete subclass of `ORKLegacyStep`, used for presenting a subgrouping of
+ `ORKLegacyStepViewController` views using a `UIPageViewController`.
  
- To use `ORKPageStep`, instantiate the object, fill in its properties, and include it in a task. 
+ To use `ORKLegacyPageStep`, instantiate the object, fill in its properties, and include it in a task. 
  Next, create a task view controller for the task and present it.
  
- The base class implementation will instatiate a read-only `ORKPageStepViewController` to display
- a series of substeps. For each substep, the `ORKStepViewController` will be instantiated and added
- as a child of the `UIPageViewController` contained by the parent `ORKPageStepViewController`..
+ The base class implementation will instatiate a read-only `ORKLegacyPageStepViewController` to display
+ a series of substeps. For each substep, the `ORKLegacyStepViewController` will be instantiated and added
+ as a child of the `UIPageViewController` contained by the parent `ORKLegacyPageStepViewController`..
  
- Customization can be handled by overriding the base class implementations in either `ORKPageStep`
- or `ORKPageStepViewController`.
+ Customization can be handled by overriding the base class implementations in either `ORKLegacyPageStep`
+ or `ORKLegacyPageStepViewController`.
  */
 
-ORK_CLASS_AVAILABLE
-@interface ORKPageStep : ORKStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyPageStep : ORKLegacyStep
 
 /**
  Returns an initialized page step using the specified identifier and array of steps.
  
  @param identifier  The unique identifier for the step.
- @param steps       An array of `ORKStep` objects in the order in which they should be presented.
+ @param steps       An array of `ORKLegacyStep` objects in the order in which they should be presented.
  
  @return An initialized page step.
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                             steps:(nullable NSArray<ORKStep *> *)steps NS_DESIGNATED_INITIALIZER;
+                             steps:(nullable NSArray<ORKLegacyStep *> *)steps NS_DESIGNATED_INITIALIZER;
 
 /**
  Returns a page step initialized from data in the given unarchiver.
@@ -77,11 +77,11 @@ ORK_CLASS_AVAILABLE
 /**
  The array of steps in the page step. (read-only)
  
- Each element in the array must be a subclass of `ORKStep`.
+ Each element in the array must be a subclass of `ORKLegacyStep`.
  The associated page step view controller presents the steps in
  array order.
  */
-@property (nonatomic, copy, readonly) NSArray<ORKStep *> *steps;
+@property (nonatomic, copy, readonly) NSArray<ORKLegacyStep *> *steps;
 
 /**
  Returns the step after the specified step, if there is one.
@@ -95,7 +95,7 @@ ORK_CLASS_AVAILABLE
  
  @return The step that comes after the specified step, or `nil` if there isn't one.
  */
-- (nullable ORKStep *)stepAfterStepWithIdentifier:(nullable NSString *)identifier withResult:(ORKTaskResult *)result;
+- (nullable ORKLegacyStep *)stepAfterStepWithIdentifier:(nullable NSString *)identifier withResult:(ORKLegacyTaskResult *)result;
 
 /**
  Returns the step that precedes the specified step, if there is one.
@@ -109,7 +109,7 @@ ORK_CLASS_AVAILABLE
  
  @return The step that precedes the reference step, or `nil` if there isn't one.
  */
-- (nullable ORKStep *)stepBeforeStepWithIdentifier:(NSString *)identifier withResult:(ORKTaskResult *)result;
+- (nullable ORKLegacyStep *)stepBeforeStepWithIdentifier:(NSString *)identifier withResult:(ORKLegacyTaskResult *)result;
 
 
 /**
@@ -118,7 +118,7 @@ ORK_CLASS_AVAILABLE
  @param identifier  The identifier of the step to restore.
  @return            The step that matches the specified identifier, or `nil` if there isn't one.
  */
-- (nullable ORKStep *)stepWithIdentifier:(NSString *)identifier;
+- (nullable ORKLegacyStep *)stepWithIdentifier:(NSString *)identifier;
 
 @end
 

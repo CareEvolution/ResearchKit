@@ -34,16 +34,16 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKTouchAnywhereStep
+@implementation ORKLegacyTouchAnywhereStep
 
 + (Class)stepViewControllerClass {
-    return [ORKTouchAnywhereStepViewController class];
+    return [ORKLegacyTouchAnywhereStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier instructionText:(NSString *)instructionText {
     self = [super initWithIdentifier:identifier];
     if (self) {
-        self.text = ORKLocalizedString(@"TOUCH_ANYWHERE_LABEL", nil);
+        self.text = ORKLegacyLocalizedString(@"TOUCH_ANYWHERE_LABEL", nil);
         self.title = instructionText;
     }
     return self;

@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLoginStep ()
+@interface ORKLegacyLoginStep ()
 
 @property (nonatomic, copy, readonly) NSString *loginViewControllerString;
 

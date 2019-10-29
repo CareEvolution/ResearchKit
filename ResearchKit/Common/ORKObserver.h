@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKObserver : NSObject
+@interface ORKLegacyObserver : NSObject
 
 @property (nonatomic, strong) NSArray *keyPaths;
 @property (nonatomic, strong) id target;
@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@protocol ORKScrollViewObserverDelegate <NSObject>
+@protocol ORKLegacyScrollViewObserverDelegate <NSObject>
 
 @required
 - (void)observedScrollViewDidScroll:(UIScrollView *)scrollView;
@@ -62,9 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface ORKScrollViewObserver  : ORKObserver
+@interface ORKLegacyScrollViewObserver  : ORKLegacyObserver
 
-- (instancetype)initWithTargetView:(UIScrollView *)scrollView delegate:(id <ORKScrollViewObserverDelegate>)delegate;
+- (instancetype)initWithTargetView:(UIScrollView *)scrollView delegate:(id <ORKLegacyScrollViewObserverDelegate>)delegate;
 
 @end
 

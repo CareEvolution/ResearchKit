@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLineGraphAccessibilityElement : UIAccessibilityElement
+@interface ORKLegacyLineGraphAccessibilityElement : UIAccessibilityElement
 
 - (nonnull instancetype)initWithAccessibilityContainer:(nonnull UIView *)container index:(NSInteger)index maxIndex:(NSInteger)maxIndex;
 

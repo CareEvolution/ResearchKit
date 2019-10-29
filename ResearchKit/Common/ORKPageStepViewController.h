@@ -32,29 +32,29 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKPageStepViewController : ORKStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyPageStepViewController : ORKLegacyStepViewController
 
 /**
- The `ORKPageStep` associated with this view controller.
+ The `ORKLegacyPageStep` associated with this view controller.
  */
-@property (nonatomic, readonly, nullable) ORKPageStep *pageStep;
+@property (nonatomic, readonly, nullable) ORKLegacyPageStep *pageStep;
 
 /**
  Returns the step view controller to associate with this step. By default, this will
  return the step view controller instantiated by the given step.
  
- @returns `ORKStepViewController` subclass for this step.
+ @returns `ORKLegacyStepViewController` subclass for this step.
  */
-- (ORKStepViewController *)stepViewControllerForStep:(ORKStep *)step;
+- (ORKLegacyStepViewController *)stepViewControllerForStep:(ORKLegacyStep *)step;
 
 /**
- Returns an `ORKTaskResultSource` for the steps that are included as substeps for this
+ Returns an `ORKLegacyTaskResultSource` for the steps that are included as substeps for this
  page view controller.
  
- @returns `ORKTaskResultSource` for the step results
+ @returns `ORKLegacyTaskResultSource` for the step results
  */
-- (id <ORKTaskResultSource>)resultSource;
+- (id <ORKLegacyTaskResultSource>)resultSource;
 
 /**
  Go to the given step.
@@ -63,7 +63,7 @@ ORK_CLASS_AVAILABLE
  @param direction   The direction in which navigate
  @param animated    Should the change of view controllers be animated.
  */
-- (void)goToStep:(ORKStep *)step direction:(UIPageViewControllerNavigationDirection)direction animated:(BOOL)animated;
+- (void)goToStep:(ORKLegacyStep *)step direction:(UIPageViewControllerNavigationDirection)direction animated:(BOOL)animated;
 
 @end
 

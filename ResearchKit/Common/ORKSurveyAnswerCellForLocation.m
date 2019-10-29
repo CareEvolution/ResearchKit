@@ -44,30 +44,30 @@
 @import MapKit;
 
 
-@interface ORKSurveyAnswerCellForLocation () <ORKLocationSelectionViewDelegate>
+@interface ORKLegacySurveyAnswerCellForLocation () <ORKLegacyLocationSelectionViewDelegate>
     
 @end
 
 
-@implementation ORKSurveyAnswerCellForLocation {
-    ORKLocationSelectionView *_selectionView;
+@implementation ORKLegacySurveyAnswerCellForLocation {
+    ORKLegacyLocationSelectionView *_selectionView;
 }
 
 - (BOOL)becomeFirstResponder {
     return [_selectionView becomeFirstResponder];
 }
 
-- (void)setStep:(ORKQuestionStep *)step {
+- (void)setStep:(ORKLegacyQuestionStep *)step {
     [super setStep:step];
 }
 
 + (CGFloat)suggestedCellHeightForView:(UIView *)view {
-    return [ORKLocationSelectionView.class textFieldHeight] + [ORKLocationSelectionView.class textFieldBottomMargin]*2 + ORKGetMetricForWindow(ORKScreenMetricLocationQuestionMapHeight, nil);
+    return [ORKLegacyLocationSelectionView.class textFieldHeight] + [ORKLegacyLocationSelectionView.class textFieldBottomMargin]*2 + ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLocationQuestionMapHeight, nil);
 }
 
 - (void)prepareView {
-    _selectionView = [[ORKLocationSelectionView alloc] initWithFormMode:NO
-                                                     useCurrentLocation:((ORKLocationAnswerFormat *)self.step.answerFormat).useCurrentLocation
+    _selectionView = [[ORKLegacyLocationSelectionView alloc] initWithFormMode:NO
+                                                     useCurrentLocation:((ORKLegacyLocationAnswerFormat *)self.step.answerFormat).useCurrentLocation
                                                           leadingMargin:self.separatorInset.left];
     _selectionView.delegate = self;
     _selectionView.tintColor = self.tintColor;
@@ -80,7 +80,7 @@
     NSMutableArray *constraints = [NSMutableArray new];
 
     NSDictionary *views = NSDictionaryOfVariableBindings(_selectionView);
-    ORKEnableAutoLayoutForViews([views allValues]);
+    ORKLegacyEnableAutoLayoutForViews([views allValues]);
     
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_selectionView]|"
                                                                  options:NSLayoutFormatDirectionLeadingToTrailing
@@ -106,15 +106,15 @@
 
 - (void)answerDidChange {
     _selectionView.answer = self.answer;
-    NSString *placeholder = self.step.placeholder ? : ORKLocalizedString(@"PLACEHOLDER_TEXT_OR_NUMBER", nil);
+    NSString *placeholder = self.step.placeholder ? : ORKLegacyLocalizedString(@"PLACEHOLDER_TEXT_OR_NUMBER", nil);
     [_selectionView setPlaceholderText:placeholder];
 }
 
-- (void)locationSelectionViewDidChange:(ORKLocationSelectionView *)view {
+- (void)locationSelectionViewDidChange:(ORKLegacyLocationSelectionView *)view {
     [self ork_setAnswer:_selectionView.answer];
 }
 
-- (void)locationSelectionView:(ORKLocationSelectionView *)view didFailWithErrorTitle:(NSString *)title message:(NSString *)message {
+- (void)locationSelectionView:(ORKLegacyLocationSelectionView *)view didFailWithErrorTitle:(NSString *)title message:(NSString *)message {
     [self showValidityAlertWithTitle:title message:message];
 }
 

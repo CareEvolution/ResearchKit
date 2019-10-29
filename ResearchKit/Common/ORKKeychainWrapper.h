@@ -36,11 +36,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKKeychainWrapper` class is an abstraction layer for the iOS keychain
+ The `ORKLegacyKeychainWrapper` class is an abstraction layer for the iOS keychain
  communication.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKKeychainWrapper : NSObject
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyKeychainWrapper : NSObject
 
 /**
  Sets the given object in the keychain for the provided key.

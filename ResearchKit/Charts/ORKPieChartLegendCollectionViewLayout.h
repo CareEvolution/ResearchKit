@@ -37,6 +37,6 @@
 // in which the cells are distributed as equally as possible between rows
 // and each row is laid out as compactly as possible within its center
 // (rather than spreading to take all available space like in the UICollectionViewFlowLayout)
-@interface ORKPieChartLegendCollectionViewLayout : UICollectionViewFlowLayout
+@interface ORKLegacyPieChartLegendCollectionViewLayout : UICollectionViewFlowLayout
 
 @end

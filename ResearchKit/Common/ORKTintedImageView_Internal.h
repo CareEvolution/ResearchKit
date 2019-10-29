@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKTintedImageCache : NSCache
+@interface ORKLegacyTintedImageCache : NSCache
 
 + (instancetype)sharedCache;
 

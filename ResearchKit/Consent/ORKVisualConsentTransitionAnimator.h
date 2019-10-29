@@ -34,22 +34,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKVisualConsentStepViewController;
-@class ORKVisualConsentTransitionAnimator;
-@protocol ORKVisualConsentTransitionAnimatorDelegate;
+@class ORKLegacyVisualConsentStepViewController;
+@class ORKLegacyVisualConsentTransitionAnimator;
+@protocol ORKLegacyVisualConsentTransitionAnimatorDelegate;
 
-typedef void (^ORKVisualConsentAnimationCompletionHandler)(ORKVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction);
+typedef void (^ORKLegacyVisualConsentAnimationCompletionHandler)(ORKLegacyVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction);
 
-@interface ORKVisualConsentTransitionAnimator : NSObject
+@interface ORKLegacyVisualConsentTransitionAnimator : NSObject
 
-- (instancetype)initWithVisualConsentStepViewController:(ORKVisualConsentStepViewController *)stepViewController
+- (instancetype)initWithVisualConsentStepViewController:(ORKLegacyVisualConsentStepViewController *)stepViewController
                                                movieURL:(NSURL *)movieURL;
 
 @property (nonatomic, readonly, copy) NSURL *movieURL;
 
 - (void)animateTransitionWithDirection:(UIPageViewControllerNavigationDirection)direction
-                           loadHandler:(nullable ORKVisualConsentAnimationCompletionHandler)loadHandler
-                     completionHandler:(nullable ORKVisualConsentAnimationCompletionHandler)handler;
+                           loadHandler:(nullable ORKLegacyVisualConsentAnimationCompletionHandler)loadHandler
+                     completionHandler:(nullable ORKLegacyVisualConsentAnimationCompletionHandler)handler;
 
 // Call to invalidate display link and remove any observations.
 - (void)finish;

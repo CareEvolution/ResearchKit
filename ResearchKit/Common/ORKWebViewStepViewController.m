@@ -33,15 +33,15 @@
 #import <ResearchKitLegacy/ORKResult.h>
 @import SafariServices;
 
-@implementation ORKWebViewPreloader {
+@implementation ORKLegacyWebViewPreloader {
     NSCache *_cache;
 }
 
 + (instancetype)shared {
-    static ORKWebViewPreloader *shared;
+    static ORKLegacyWebViewPreloader *shared;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        shared = [[ORKWebViewPreloader alloc] init];
+        shared = [[ORKLegacyWebViewPreloader alloc] init];
     });
     return shared;
 }
@@ -86,15 +86,15 @@
 
 @end
 
-@implementation ORKWebViewStepViewController {
+@implementation ORKLegacyWebViewStepViewController {
     WKWebView *_webView;
     NSString *_result;
 }
 
-- (instancetype)initWithStep:(ORKStep *)step {
+- (instancetype)initWithStep:(ORKLegacyStep *)step {
     self = [super initWithStep:step];
     if (self) {
-        _webView = [[ORKWebViewPreloader shared] webViewForKey:step.identifier];
+        _webView = [[ORKLegacyWebViewPreloader shared] webViewForKey:step.identifier];
         [_webView.configuration.userContentController addScriptMessageHandler:self name:@"ResearchKit"];
         _webView.frame = self.view.bounds;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -106,8 +106,8 @@
     return self;
 }
 
-- (ORKWebViewStep *)webViewStep {
-    return (ORKWebViewStep *)self.step;
+- (ORKLegacyWebViewStep *)webViewStep {
+    return (ORKLegacyWebViewStep *)self.step;
 }
 
 - (void)stepDidChange {
@@ -134,10 +134,10 @@
     }
 }
 
-- (ORKStepResult *)result {
-    ORKStepResult *parentResult = [super result];
+- (ORKLegacyStepResult *)result {
+    ORKLegacyStepResult *parentResult = [super result];
     if (parentResult) {
-        ORKWebViewStepResult *childResult = [[ORKWebViewStepResult alloc] initWithIdentifier:self.step.identifier];
+        ORKLegacyWebViewStepResult *childResult = [[ORKLegacyWebViewStepResult alloc] initWithIdentifier:self.step.identifier];
         childResult.result = _result;
         childResult.endDate = parentResult.endDate;
         parentResult.results = @[childResult];

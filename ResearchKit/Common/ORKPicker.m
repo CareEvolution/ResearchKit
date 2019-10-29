@@ -43,59 +43,59 @@
 /**
  Creates a picker appropriate to the type required by answerformat
  
- @param answerFormat   An ORKAnswerFormat object which specified the format of the result
+ @param answerFormat   An ORKLegacyAnswerFormat object which specified the format of the result
  @param answer         The current answer (to set as the picker's current result)
- @param delegate       A delegate who conforms to ORKPickerDelegate
+ @param delegate       A delegate who conforms to ORKLegacyPickerDelegate
  
  @return The picker object
  */
-id<ORKPicker> createORKPicker(ORKAnswerFormat *answerFormat, id answer, id<ORKPickerDelegate> delegate) {
-    id<ORKPicker> picker;
+id<ORKLegacyPicker> createORKLegacyPicker(ORKLegacyAnswerFormat *answerFormat, id answer, id<ORKLegacyPickerDelegate> delegate) {
+    id<ORKLegacyPicker> picker;
     
-    if ([answerFormat isKindOfClass:[ORKValuePickerAnswerFormat class]]) {
-        picker = [[ORKValuePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
-    } else if ([answerFormat isKindOfClass:[ORKTimeIntervalAnswerFormat class]]) {
-        picker = [[ORKTimeIntervalPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
-    } else if ([answerFormat isKindOfClass:[ORKDateAnswerFormat class]] || [answerFormat isKindOfClass:[ORKTimeOfDayAnswerFormat class]]) {
-        picker = [[ORKDateTimePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
-    } else if ([answerFormat isKindOfClass:[ORKHeightAnswerFormat class]]) {
-        picker = [[ORKHeightPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
-    } else if ([answerFormat isKindOfClass:[ORKWeightAnswerFormat class]]) {
-        picker = [[ORKWeightPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
-    } else if ([answerFormat isKindOfClass:[ORKMultipleValuePickerAnswerFormat class]]) {
-        picker = [[ORKMultipleValuePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    if ([answerFormat isKindOfClass:[ORKLegacyValuePickerAnswerFormat class]]) {
+        picker = [[ORKLegacyValuePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    } else if ([answerFormat isKindOfClass:[ORKLegacyTimeIntervalAnswerFormat class]]) {
+        picker = [[ORKLegacyTimeIntervalPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    } else if ([answerFormat isKindOfClass:[ORKLegacyDateAnswerFormat class]] || [answerFormat isKindOfClass:[ORKLegacyTimeOfDayAnswerFormat class]]) {
+        picker = [[ORKLegacyDateTimePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    } else if ([answerFormat isKindOfClass:[ORKLegacyHeightAnswerFormat class]]) {
+        picker = [[ORKLegacyHeightPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    } else if ([answerFormat isKindOfClass:[ORKLegacyWeightAnswerFormat class]]) {
+        picker = [[ORKLegacyWeightPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    } else if ([answerFormat isKindOfClass:[ORKLegacyMultipleValuePickerAnswerFormat class]]) {
+        picker = [[ORKLegacyMultipleValuePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
     }
 
     return picker;
 }
 
 
-@implementation ORKPicker : NSObject
+@implementation ORKLegacyPicker : NSObject
 
 /**
  Creates a picker appropriate to the type required by answerformat
  
- @param answerFormat   An ORKAnswerFormat object which specified the format of the result
+ @param answerFormat   An ORKLegacyAnswerFormat object which specified the format of the result
  @param answer         A default answer (to set as the picker's current result), or nil if no answer specified.
- @param delegate       A delegate who conforms to ORKPickerDelegate
+ @param delegate       A delegate who conforms to ORKLegacyPickerDelegate
  
  @return The picker object
  */
-+ (id<ORKPicker>)pickerWithAnswerFormat:(ORKAnswerFormat *)answerFormat answer:(id)answer delegate:(id<ORKPickerDelegate>) delegate {
-    id<ORKPicker> picker;
++ (id<ORKLegacyPicker>)pickerWithAnswerFormat:(ORKLegacyAnswerFormat *)answerFormat answer:(id)answer delegate:(id<ORKLegacyPickerDelegate>) delegate {
+    id<ORKLegacyPicker> picker;
     
-    if ([answerFormat isKindOfClass:[ORKValuePickerAnswerFormat class]]) {
-        picker = [[ORKValuePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
-    } else if ([answerFormat isKindOfClass:[ORKTimeIntervalAnswerFormat class]]) {
-        picker = [[ORKTimeIntervalPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
-    } else if ([answerFormat isKindOfClass:[ORKDateAnswerFormat class]] || [answerFormat isKindOfClass:[ORKTimeOfDayAnswerFormat class]]) {
-        picker = [[ORKDateTimePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
-    } else if ([answerFormat isKindOfClass:[ORKHeightAnswerFormat class]]) {
-        picker = [[ORKHeightPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
-    } else if ([answerFormat isKindOfClass:[ORKWeightAnswerFormat class]]) {
-        picker = [[ORKWeightPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
-    } else if ([answerFormat isKindOfClass:[ORKMultipleValuePickerAnswerFormat class]]) {
-        picker = [[ORKMultipleValuePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    if ([answerFormat isKindOfClass:[ORKLegacyValuePickerAnswerFormat class]]) {
+        picker = [[ORKLegacyValuePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    } else if ([answerFormat isKindOfClass:[ORKLegacyTimeIntervalAnswerFormat class]]) {
+        picker = [[ORKLegacyTimeIntervalPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    } else if ([answerFormat isKindOfClass:[ORKLegacyDateAnswerFormat class]] || [answerFormat isKindOfClass:[ORKLegacyTimeOfDayAnswerFormat class]]) {
+        picker = [[ORKLegacyDateTimePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    } else if ([answerFormat isKindOfClass:[ORKLegacyHeightAnswerFormat class]]) {
+        picker = [[ORKLegacyHeightPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    } else if ([answerFormat isKindOfClass:[ORKLegacyWeightAnswerFormat class]]) {
+        picker = [[ORKLegacyWeightPicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
+    } else if ([answerFormat isKindOfClass:[ORKLegacyMultipleValuePickerAnswerFormat class]]) {
+        picker = [[ORKLegacyMultipleValuePicker alloc] initWithAnswerFormat:answerFormat answer:answer pickerDelegate:delegate];
     }
     
     return picker;

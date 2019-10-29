@@ -41,22 +41,22 @@
 #import "ORKSkin.h"
 
 
-@interface ORKSurveyAnswerCellForText () <UITextViewDelegate>
+@interface ORKLegacySurveyAnswerCellForText () <UITextViewDelegate>
 
-@property (nonatomic, strong) ORKAnswerTextView *textView;
+@property (nonatomic, strong) ORKLegacyAnswerTextView *textView;
 
 @end
 
 
-@implementation ORKSurveyAnswerCellForText {
+@implementation ORKLegacySurveyAnswerCellForText {
     NSInteger _maxLength;
 }
 
 - (void)applyAnswerFormat {
-    ORKAnswerFormat *answerFormat = [self.step.answerFormat impliedAnswerFormat];
+    ORKLegacyAnswerFormat *answerFormat = [self.step.answerFormat impliedAnswerFormat];
     
-    if ([answerFormat isKindOfClass:[ORKTextAnswerFormat class]]) {
-        ORKTextAnswerFormat *textAnswerFormat = (ORKTextAnswerFormat *)answerFormat;
+    if ([answerFormat isKindOfClass:[ORKLegacyTextAnswerFormat class]]) {
+        ORKLegacyTextAnswerFormat *textAnswerFormat = (ORKLegacyTextAnswerFormat *)answerFormat;
         _maxLength = [textAnswerFormat maximumLength];
         self.textView.autocorrectionType = textAnswerFormat.autocorrectionType;
         self.textView.autocapitalizationType = textAnswerFormat.autocapitalizationType;
@@ -72,21 +72,21 @@
     return [self.textView becomeFirstResponder];
 }
 
-- (void)setStep:(ORKQuestionStep *)step {
+- (void)setStep:(ORKLegacyQuestionStep *)step {
     [super setStep:step];
     [self applyAnswerFormat];
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    self.layoutMargins = ORKStandardLayoutMarginsForTableViewCell(self);
+    self.layoutMargins = ORKLegacyStandardLayoutMarginsForTableViewCell(self);
 }
 
 - (void)prepareView {
     if (self.textView == nil ) {
         self.preservesSuperviewLayoutMargins = NO;
-        self.layoutMargins = ORKStandardLayoutMarginsForTableViewCell(self);
+        self.layoutMargins = ORKLegacyStandardLayoutMarginsForTableViewCell(self);
         
-        self.textView = [[ORKAnswerTextView alloc] initWithFrame:CGRectZero];
+        self.textView = [[ORKLegacyAnswerTextView alloc] initWithFrame:CGRectZero];
         
         self.textView.delegate = self;
         self.textView.editable = YES;
@@ -95,7 +95,7 @@
         
         self.textView.placeholder = self.step.placeholder;
         
-        ORKEnableAutoLayoutForViews(@[_textView]);
+        ORKLegacyEnableAutoLayoutForViews(@[_textView]);
         
         [self setUpConstraints];
         
@@ -108,7 +108,7 @@
 
 - (void)answerDidChange {
     id answer = self.answer;
-    self.textView.text = (answer == ORKNullAnswerValue()) ? nil : self.answer;
+    self.textView.text = (answer == ORKLegacyNullAnswerValue()) ? nil : self.answer;
 }
 
 - (void)setUpConstraints {
@@ -135,11 +135,11 @@
 }
 
 - (void)textDidChange {
-    [self ork_setAnswer:(self.textView.text.length > 0) ? self.textView.text : ORKNullAnswerValue()];
+    [self ork_setAnswer:(self.textView.text.length > 0) ? self.textView.text : ORKLegacyNullAnswerValue()];
 }
 
 - (BOOL)shouldContinue {
-    ORKTextAnswerFormat *answerFormat = (ORKTextAnswerFormat *)[self.step impliedAnswerFormat];
+    ORKLegacyTextAnswerFormat *answerFormat = (ORKLegacyTextAnswerFormat *)[self.step impliedAnswerFormat];
     if (![answerFormat isAnswerValidWithString:self.textView.text]) {
         [self showValidityAlertWithMessage:[[self.step impliedAnswerFormat] localizedInvalidValueStringWithAnswerString:self.answer]];
         return NO;
@@ -183,24 +183,24 @@
 @end
 
 
-@interface ORKSurveyAnswerCellForTextField ()
+@interface ORKLegacySurveyAnswerCellForTextField ()
 
-@property (nonatomic, strong) ORKAnswerTextField *textField;
+@property (nonatomic, strong) ORKLegacyAnswerTextField *textField;
 
 @end
 
 
-@implementation ORKSurveyAnswerCellForTextField
+@implementation ORKLegacySurveyAnswerCellForTextField
 
 - (BOOL)becomeFirstResponder {
     return [self.textField becomeFirstResponder];
 }
 
 - (void)textFieldCell_initialize {
-    _textField = [[ORKAnswerTextField alloc] initWithFrame:CGRectZero];
+    _textField = [[ORKLegacyAnswerTextField alloc] initWithFrame:CGRectZero];
     _textField.text = @"";
     
-    _textField.placeholder = self.step.placeholder ? : ORKLocalizedString(@"PLACEHOLDER_TEXT_OR_NUMBER", nil);
+    _textField.placeholder = self.step.placeholder ? : ORKLegacyLocalizedString(@"PLACEHOLDER_TEXT_OR_NUMBER", nil);
     _textField.textAlignment = NSTextAlignmentNatural;
     _textField.delegate = self;
     _textField.keyboardType = UIKeyboardTypeDefault;
@@ -208,13 +208,13 @@
     [_textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     [self addSubview:_textField];
-    ORKEnableAutoLayoutForViews(@[_textField]);
+    ORKLegacyEnableAutoLayoutForViews(@[_textField]);
     
     [self setUpConstraints];
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    self.contentView.layoutMargins = ORKStandardLayoutMarginsForTableViewCell(self);
+    self.contentView.layoutMargins = ORKLegacyStandardLayoutMarginsForTableViewCell(self);
 }
 
 - (void)setUpConstraints {
@@ -249,7 +249,7 @@
 }
 
 - (BOOL)shouldContinue {
-    ORKTextAnswerFormat *answerFormat = (ORKTextAnswerFormat *)[self.step impliedAnswerFormat];
+    ORKLegacyTextAnswerFormat *answerFormat = (ORKLegacyTextAnswerFormat *)[self.step impliedAnswerFormat];
     if (![answerFormat isAnswerValidWithString:self.textField.text]) {
         [self showValidityAlertWithMessage:[[self.step impliedAnswerFormat] localizedInvalidValueStringWithAnswerString:self.answer]];
         return NO;
@@ -260,8 +260,8 @@
 
 - (void)answerDidChange {
     id answer = self.answer;
-    ORKAnswerFormat *answerFormat = [self.step impliedAnswerFormat];
-    ORKTextAnswerFormat *textFormat = (ORKTextAnswerFormat *)answerFormat;
+    ORKLegacyAnswerFormat *answerFormat = [self.step impliedAnswerFormat];
+    ORKLegacyTextAnswerFormat *textFormat = (ORKLegacyTextAnswerFormat *)answerFormat;
     if (textFormat) {
         self.textField.autocorrectionType = textFormat.autocorrectionType;
         self.textField.autocapitalizationType = textFormat.autocapitalizationType;
@@ -269,21 +269,21 @@
         self.textField.keyboardType = textFormat.keyboardType;
         self.textField.secureTextEntry = textFormat.secureTextEntry;
     }
-    NSString *displayValue = (answer && answer != ORKNullAnswerValue()) ? answer : nil;
+    NSString *displayValue = (answer && answer != ORKLegacyNullAnswerValue()) ? answer : nil;
     
     self.textField.text = displayValue;
 }
 
 - (void)textFieldDidChange:(UITextField *)textField {
     NSString *text = self.textField.text;
-    [self ork_setAnswer:text.length ? text : ORKNullAnswerValue()];
+    [self ork_setAnswer:text.length ? text : ORKLegacyNullAnswerValue()];
 }
 
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    ORKAnswerFormat *impliedFormat = [self.step impliedAnswerFormat];
-    NSAssert([impliedFormat isKindOfClass:[ORKTextAnswerFormat class]], @"answerFormat should be ORKTextAnswerFormat type instance.");
+    ORKLegacyAnswerFormat *impliedFormat = [self.step impliedAnswerFormat];
+    NSAssert([impliedFormat isKindOfClass:[ORKLegacyTextAnswerFormat class]], @"answerFormat should be ORKLegacyTextAnswerFormat type instance.");
     
     NSString *text = [textField.text stringByReplacingCharactersInRange:range withString:string];
     
@@ -293,7 +293,7 @@
     
         text = [[text componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
     
-        NSInteger maxLength = [(ORKTextAnswerFormat *)impliedFormat maximumLength];
+        NSInteger maxLength = [(ORKLegacyTextAnswerFormat *)impliedFormat maximumLength];
     
         if (maxLength > 0 && text.length > maxLength) {
             [self showValidityAlertWithMessage:[[self.step impliedAnswerFormat] localizedInvalidValueStringWithAnswerString:text]];
@@ -301,7 +301,7 @@
         }
     }
     
-    [self ork_setAnswer:text.length ? text : ORKNullAnswerValue()];
+    [self ork_setAnswer:text.length ? text : ORKLegacyNullAnswerValue()];
     
     return YES;
 }
@@ -317,7 +317,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     NSString *text = self.textField.text;
-    [self ork_setAnswer:text.length ? text : ORKNullAnswerValue()];
+    [self ork_setAnswer:text.length ? text : ORKLegacyNullAnswerValue()];
 }
 
 @end

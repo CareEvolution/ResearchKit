@@ -37,15 +37,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- An `ORKInstructionStepViewController` object is the view controller for an `ORKInstructionStep` object.
+ An `ORKLegacyInstructionStepViewController` object is the view controller for an `ORKLegacyInstructionStep` object.
  
  In general, you don't need to instantiate an instruction step view controller directly.
  Instead, add an instruction step to a task and present the task using a
  task view controller. When appropriate, the task view controller instantiates the step
  view controller for the step.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKInstructionStepViewController : ORKStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyInstructionStepViewController : ORKLegacyStepViewController
 
 @end
 

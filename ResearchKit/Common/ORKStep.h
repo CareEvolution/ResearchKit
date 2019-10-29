@@ -36,33 +36,33 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_EXTERN NSString *const ORKNullStepIdentifier ORK_AVAILABLE_DECL;
+ORKLegacy_EXTERN NSString *const ORKLegacyNullStepIdentifier ORKLegacy_AVAILABLE_DECL;
 
-@class ORKStepViewController;
-@class ORKResult;
+@class ORKLegacyStepViewController;
+@class ORKLegacyResult;
 
-@protocol ORKTask;
+@protocol ORKLegacyTask;
 
 /**
- `ORKStep` is the base class for the steps that can compose a task for presentation
- in an `ORKTaskViewController` object. Each `ORKStep` object represents one logical piece of data
+ `ORKLegacyStep` is the base class for the steps that can compose a task for presentation
+ in an `ORKLegacyTaskViewController` object. Each `ORKLegacyStep` object represents one logical piece of data
  entry or activity in a larger task.
  
- A step can be a question, an active test, or a simple instruction. An `ORKStep`
- subclass is usually paired with an `ORKStepViewController` subclass that displays the step.
+ A step can be a question, an active test, or a simple instruction. An `ORKLegacyStep`
+ subclass is usually paired with an `ORKLegacyStepViewController` subclass that displays the step.
  
- To use a step, instantiate an `ORKStep` object and populate its properties. Add the step to a task,
- such as an `ORKOrderedTask` object, and then present the task using a task view controller (an
- `ORKTaskViewController` object).
+ To use a step, instantiate an `ORKLegacyStep` object and populate its properties. Add the step to a task,
+ such as an `ORKLegacyOrderedTask` object, and then present the task using a task view controller (an
+ `ORKLegacyTaskViewController` object).
  
- To implement a new type of step, subclass `ORKStep` and add your additional
- properties. Separately, subclass `ORKStepViewController` and implement
+ To implement a new type of step, subclass `ORKLegacyStep` and add your additional
+ properties. Separately, subclass `ORKLegacyStepViewController` and implement
  your user interface. Note that if your step is timed or requires sensor data collection,
- you should consider subclassing `ORKActiveStep` and `ORKActiveStepViewController`
+ you should consider subclassing `ORKLegacyActiveStep` and `ORKLegacyActiveStepViewController`
  instead.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKStep : NSObject <NSSecureCoding, NSCopying>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyStep : NSObject <NSSecureCoding, NSCopying>
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -100,7 +100,7 @@ ORK_CLASS_AVAILABLE
  A short string that uniquely identifies the step within the task.
  
  The identifier is reproduced in the results of a step. In fact, the only way to link a result
- (an `ORKStepResult` object) to the step that generated it is to look at the value of
+ (an `ORKLegacyStepResult` object) to the step that generated it is to look at the value of
  `identifier`. To accurately identify step results, you need to ensure that step identifiers 
  are unique within each task.
  
@@ -114,7 +114,7 @@ ORK_CLASS_AVAILABLE
  A Boolean value indicating whether a task can be restored to the step
  during state restoration. (read-only)
  
- By default, the value of this property is `YES`, but subclasses of `ORKStep` might use `NO`.
+ By default, the value of this property is `YES`, but subclasses of `ORKLegacyStep` might use `NO`.
  
  If a task cannot be restored to the step, the task is typically restored to the
  last restorable step in the task, or to the first step, if
@@ -151,12 +151,12 @@ ORK_CLASS_AVAILABLE
 /**
  The task that contains the step.
  
- The value of `task` is usually set when a step is added to the `ORKOrderedTask` object.
+ The value of `task` is usually set when a step is added to the `ORKLegacyOrderedTask` object.
  Although it's a good idea to set this property when you implement a custom task, it's important
  to note that the use of this property is a convenience, and should not be relied
  upon within the ResearchKit framework.
  */
-@property (nonatomic, weak, nullable) id<ORKTask> task;
+@property (nonatomic, weak, nullable) id<ORKLegacyTask> task;
 
 /**
  The set of access permissions required for the step. (read-only)
@@ -169,7 +169,7 @@ ORK_CLASS_AVAILABLE
  By default, the property scans the recorders and collates the permissions
  required by the recorders. Subclasses may override this implementation.
  */
-@property (nonatomic, readonly) ORKPermissionMask requestedPermissions;
+@property (nonatomic, readonly) ORKLegacyPermissionMask requestedPermissions;
 
 /**
  The set of HealthKit types the step requests for reading. (read-only)
@@ -187,7 +187,7 @@ ORK_CLASS_AVAILABLE
  Checks the parameters of the step and throws exceptions on invalid parameters.
  
  This method is called when there is a need to validate the step's parameters, which is typically
- the case when adding a step to an `ORKStepViewController` object, and when presenting the
+ the case when adding a step to an `ORKLegacyStepViewController` object, and when presenting the
  step view controller.
  
  Subclasses should override this method to provide validation of their additional
@@ -205,9 +205,9 @@ ORK_CLASS_AVAILABLE
  Instantiates a step view controller for this class.
  
  This method is called when a step is about to be presented. The default implementation returns
- a view controller that is appropriate to this step by allocating an instance of `ORKStepViewController`
+ a view controller that is appropriate to this step by allocating an instance of `ORKLegacyStepViewController`
  using the `-stepViewControllerClass` method and initializing that instance by calling `initWithIdentifier:result:`
- on the provided `ORKStepViewController` class instance.
+ on the provided `ORKLegacyStepViewController` class instance.
  
  Override this method if you need to customize the behavior before presenting the step or if 
  the view controller is presented using a nib or storyboard.
@@ -216,7 +216,7 @@ ORK_CLASS_AVAILABLE
  
  @return A newly initialized step view controller.
  */
-- (ORKStepViewController *)instantiateStepViewControllerWithResult:(ORKResult *)result;
+- (ORKLegacyStepViewController *)instantiateStepViewControllerWithResult:(ORKLegacyResult *)result;
 
 @end
 

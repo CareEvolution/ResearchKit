@@ -36,13 +36,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKAccelerometerRecorder` class represents a recorder that requests and collects raw accelerometer data from CoreMotion at a fixed frequency.
+ The `ORKLegacyAccelerometerRecorder` class represents a recorder that requests and collects raw accelerometer data from CoreMotion at a fixed frequency.
  
  The accelerometer recorder continues to record when the application enters the
  background by using the background task support provided by UIApplication.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKAccelerometerRecorder : ORKRecorder
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyAccelerometerRecorder : ORKLegacyRecorder
 
 /**
  The frequency of accelerometer data collected from CoreMotion, in hertz (Hz).
@@ -61,7 +61,7 @@ ORK_CLASS_AVAILABLE
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
                          frequency:(double)frequency
-                              step:(nullable ORKStep *)step
+                              step:(nullable ORKLegacyStep *)step
                    outputDirectory:(nullable NSURL *)outputDirectory;
 
 @end

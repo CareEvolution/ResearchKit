@@ -33,12 +33,12 @@
 #import <ResearchKitLegacy/ResearchKit.h>
 
 
-@interface ORKDataCollectionTests : XCTestCase <ORKDataCollectionManagerDelegate>
+@interface ORKLegacyDataCollectionTests : XCTestCase <ORKLegacyDataCollectionManagerDelegate>
 
 @end
 
 
-@implementation ORKDataCollectionTests {
+@implementation ORKLegacyDataCollectionTests {
     XCTestExpectation *_completionExpectation;
     XCTestExpectation *_healthCollectionExpectation;
     XCTestExpectation *_correlationCollectionExpectation;
@@ -86,16 +86,16 @@
     return storePath;
 }
 
-static ORKDataCollectionManager *createManagerWithCollectors(NSURL *url,
+static ORKLegacyDataCollectionManager *createManagerWithCollectors(NSURL *url,
                                                              NSDate *startDate,
-                                                             ORKMotionActivityCollector **motionCollector,
-                                                             ORKHealthCollector **healthCollector,
-                                                             ORKHealthCorrelationCollector **healthCorrelationCollector,
+                                                             ORKLegacyMotionActivityCollector **motionCollector,
+                                                             ORKLegacyHealthCollector **healthCollector,
+                                                             ORKLegacyHealthCorrelationCollector **healthCorrelationCollector,
                                                              NSError **error) {
     
-    ORKDataCollectionManager *manager = [[ORKDataCollectionManager alloc] initWithPersistenceDirectoryURL:url];
+    ORKLegacyDataCollectionManager *manager = [[ORKLegacyDataCollectionManager alloc] initWithPersistenceDirectoryURL:url];
     
-    ORKMotionActivityCollector *mac = [manager addMotionActivityCollectorWithStartDate:startDate error:error];
+    ORKLegacyMotionActivityCollector *mac = [manager addMotionActivityCollectorWithStartDate:startDate error:error];
     if (motionCollector) {
         *motionCollector = mac;
     }
@@ -106,7 +106,7 @@ static ORKDataCollectionManager *createManagerWithCollectors(NSURL *url,
     
     HKQuantityType *type = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
     HKUnit *unit = [[HKUnit countUnit] unitDividedByUnit:[HKUnit minuteUnit]];
-    ORKHealthCollector *hc = [manager addHealthCollectorWithSampleType:type
+    ORKLegacyHealthCollector *hc = [manager addHealthCollectorWithSampleType:type
                                                                   unit:unit
                                                              startDate:startDate
                                                                  error:error];
@@ -124,7 +124,7 @@ static ORKDataCollectionManager *createManagerWithCollectors(NSURL *url,
                                              [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic]];
     NSArray<HKUnit *> *units = @[[HKUnit unitFromString:@"mmHg"], [HKUnit unitFromString:@"mmHg"]];
     
-    ORKHealthCorrelationCollector *hcc = [manager addHealthCorrelationCollectorWithCorrelationType:correlationType
+    ORKLegacyHealthCorrelationCollector *hcc = [manager addHealthCorrelationCollectorWithCorrelationType:correlationType
                                                                                        sampleTypes:sampleTypes
                                                                                              units:units
                                                                                          startDate:startDate
@@ -162,12 +162,12 @@ static ORKDataCollectionManager *createManagerWithCollectors(NSURL *url,
 
 - (void)testBasicOperations {
     
-    ORKMotionActivityCollector *motionCollector;
-    ORKHealthCollector *healthCollector;
-    ORKHealthCorrelationCollector *healthCorrelationCollector;
+    ORKLegacyMotionActivityCollector *motionCollector;
+    ORKLegacyHealthCollector *healthCollector;
+    ORKLegacyHealthCorrelationCollector *healthCorrelationCollector;
     NSError *error;
     // Create
-    ORKDataCollectionManager *manager = createManagerWithCollectors([NSURL fileURLWithPath:[self cleanStorePath]],
+    ORKLegacyDataCollectionManager *manager = createManagerWithCollectors([NSURL fileURLWithPath:[self cleanStorePath]],
                                                                     [NSDate date],
                                                                     &motionCollector,
                                                                     &healthCollector,
@@ -178,7 +178,7 @@ static ORKDataCollectionManager *createManagerWithCollectors(NSURL *url,
     XCTAssertEqual(manager.collectors.count, 3);
     
     // Re-init
-    manager = [[ORKDataCollectionManager alloc] initWithPersistenceDirectoryURL:[NSURL fileURLWithPath:[self storePath]]];
+    manager = [[ORKLegacyDataCollectionManager alloc] initWithPersistenceDirectoryURL:[NSURL fileURLWithPath:[self storePath]]];
     XCTAssertEqual(manager.collectors.count, 3);
     
     // Remove Collector
@@ -261,11 +261,11 @@ typedef NS_OPTIONS (NSInteger, SampleDataType) {
 
 - (void)testDataCollection {
     
-    ORKMotionActivityCollector *motionCollector;
-    ORKHealthCollector *healthCollector;
-    ORKHealthCorrelationCollector *healthCorrelationCollector;
+    ORKLegacyMotionActivityCollector *motionCollector;
+    ORKLegacyHealthCollector *healthCollector;
+    ORKLegacyHealthCorrelationCollector *healthCorrelationCollector;
     __block NSError *error;
-    ORKDataCollectionManager *manager = createManagerWithCollectors([NSURL fileURLWithPath:[self cleanStorePath]],
+    ORKLegacyDataCollectionManager *manager = createManagerWithCollectors([NSURL fileURLWithPath:[self cleanStorePath]],
                                                                     [NSDate dateWithTimeIntervalSinceNow:-10],
                                                                     &motionCollector,
                                                                     &healthCollector,
@@ -327,11 +327,11 @@ typedef NS_OPTIONS (NSInteger, SampleDataType) {
 
 - (void)testDataCollectionWithoutCollectors {
     
-    ORKMotionActivityCollector *motionCollector;
-    ORKHealthCollector *healthCollector;
-    ORKHealthCorrelationCollector *healthCorrelationCollector;
+    ORKLegacyMotionActivityCollector *motionCollector;
+    ORKLegacyHealthCollector *healthCollector;
+    ORKLegacyHealthCorrelationCollector *healthCorrelationCollector;
     __block NSError *error;
-    ORKDataCollectionManager *manager = createManagerWithCollectors([NSURL fileURLWithPath:[self cleanStorePath]],
+    ORKLegacyDataCollectionManager *manager = createManagerWithCollectors([NSURL fileURLWithPath:[self cleanStorePath]],
                                                                     [NSDate date],
                                                                     &motionCollector,
                                                                     &healthCollector,
@@ -357,15 +357,15 @@ typedef NS_OPTIONS (NSInteger, SampleDataType) {
     _acceptDelivery = NO;
     _errorCount = 0;
     
-    ORKMotionActivityCollector *motionCollector;
-    ORKHealthCollector *healthCollector;
-    ORKHealthCorrelationCollector *healthCorrelationCollector;
+    ORKLegacyMotionActivityCollector *motionCollector;
+    ORKLegacyHealthCollector *healthCollector;
+    ORKLegacyHealthCorrelationCollector *healthCorrelationCollector;
     __block NSError *error;
     
     // Make sure the startDate isn't earlier that the dates
     // of the samples added on '-testDataCollection'.
     // Othersie, you'll get the samples from that test too.
-    ORKDataCollectionManager *manager = createManagerWithCollectors([NSURL fileURLWithPath:[self cleanStorePath]],
+    ORKLegacyDataCollectionManager *manager = createManagerWithCollectors([NSURL fileURLWithPath:[self cleanStorePath]],
                                                                     [NSDate dateWithTimeIntervalSinceNow:-5],
                                                                     &motionCollector,
                                                                     &healthCollector,
@@ -394,7 +394,7 @@ typedef NS_OPTIONS (NSInteger, SampleDataType) {
 
 #pragma mark - delegate
 
-- (BOOL)healthCollector:(ORKHealthCollector *)collector
+- (BOOL)healthCollector:(ORKLegacyHealthCollector *)collector
       didCollectSamples:(NSArray<HKSample *> *)samples {
     XCTAssertEqual(samples.count, 1);
     [_healthCollectionExpectation fulfill];
@@ -402,7 +402,7 @@ typedef NS_OPTIONS (NSInteger, SampleDataType) {
     return _acceptDelivery;
 }
 
-- (BOOL)healthCorrelationCollector:(ORKHealthCorrelationCollector *)collector
+- (BOOL)healthCorrelationCollector:(ORKLegacyHealthCorrelationCollector *)collector
             didCollectCorrelations:(NSArray<HKCorrelation *> *)correlations {
     XCTAssertEqual(correlations.count, 1);
     [_correlationCollectionExpectation fulfill];
@@ -410,19 +410,19 @@ typedef NS_OPTIONS (NSInteger, SampleDataType) {
     return _acceptDelivery;
 }
 
-- (BOOL)motionActivityCollector:(ORKMotionActivityCollector *)collector
+- (BOOL)motionActivityCollector:(ORKLegacyMotionActivityCollector *)collector
      didCollectMotionActivities:(NSArray<CMMotionActivity *> *)motionActivities {
     XCTAssertGreaterThan(motionActivities.count, 0);
     NSLog(@"Did collect CMMotionActivity samples");
     return _acceptDelivery;
 }
 
-- (void)dataCollectionManagerDidCompleteCollection:(ORKDataCollectionManager *)manager {
+- (void)dataCollectionManagerDidCompleteCollection:(ORKLegacyDataCollectionManager *)manager {
     NSLog(@"dataCollectionManagerDidCompleteCollection %@", @(_acceptDelivery));
     [_completionExpectation fulfill];
 }
 
-- (void)collector:(ORKCollector *)collector didDetectError:(NSError *)error {
+- (void)collector:(ORKLegacyCollector *)collector didDetectError:(NSError *)error {
     NSLog(@"didDetectError %@", error);
     if (_acceptDelivery) {
         XCTAssertNil(error);

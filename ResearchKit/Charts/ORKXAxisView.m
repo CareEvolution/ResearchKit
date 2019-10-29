@@ -40,25 +40,25 @@
 
 static const CGFloat LastLabelHeight = 20.0;
 
-@implementation ORKXAxisView {
-    __weak ORKGraphChartView *_parentGraphChartView;
+@implementation ORKLegacyXAxisView {
+    __weak ORKLegacyGraphChartView *_parentGraphChartView;
     CALayer *_lineLayer;
     NSMutableArray<UILabel *> *_titleLabels;
     NSMutableArray<CALayer *> *_titleTickLayers;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 #pragma clang diagnostic pop
 
-- (instancetype)initWithParentGraphChartView:(ORKGraphChartView *)parentGraphChartView {
+- (instancetype)initWithParentGraphChartView:(ORKLegacyGraphChartView *)parentGraphChartView {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         _parentGraphChartView = parentGraphChartView;
@@ -79,7 +79,7 @@ static const CGFloat LastLabelHeight = 20.0;
     NSUInteger numberOfTitleLabels = _titleTickLayers.count;
     for (CALayer *titleTickLayer in _titleTickLayers) {
         CGFloat positionOnXAxis = xAxisPoint(index, numberOfTitleLabels, width);
-        titleTickLayer.frame = CGRectMake(positionOnXAxis - scalePixelAdjustment(), -ORKGraphChartViewAxisTickLength + scalePixelAdjustment(), 1, ORKGraphChartViewAxisTickLength);
+        titleTickLayer.frame = CGRectMake(positionOnXAxis - scalePixelAdjustment(), -ORKLegacyGraphChartViewAxisTickLength + scalePixelAdjustment(), 1, ORKLegacyGraphChartViewAxisTickLength);
         index++;
     }
     _titleLabels.lastObject.layer.cornerRadius = LastLabelHeight * 0.5;
@@ -186,7 +186,7 @@ static const CGFloat LastLabelHeight = 20.0;
         for (NSInteger i = 0; i < numberOfTitleLabels; i++) {
             CALayer *titleTickLayer = [CALayer layer];
             CGFloat positionOnXAxis = xAxisPoint(i, numberOfTitleLabels, self.bounds.size.width);
-            titleTickLayer.frame = CGRectMake(positionOnXAxis - 0.5, -ORKGraphChartViewAxisTickLength, 1, ORKGraphChartViewAxisTickLength);
+            titleTickLayer.frame = CGRectMake(positionOnXAxis - 0.5, -ORKLegacyGraphChartViewAxisTickLength, 1, ORKLegacyGraphChartViewAxisTickLength);
             titleTickLayer.backgroundColor = _axisColor.CGColor;
 
             [self.layer addSublayer:titleTickLayer];

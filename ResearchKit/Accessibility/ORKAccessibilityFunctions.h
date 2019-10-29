@@ -35,24 +35,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKScaleSlider;
+@class ORKLegacyScaleSlider;
 
-// Used to properly format values from the ORKScaleSlider.
-ORK_EXTERN NSString *ORKAccessibilityFormatScaleSliderValue(CGFloat value, ORKScaleSlider *slider);
-ORK_EXTERN NSString *ORKAccessibilityFormatContinuousScaleSliderValue(CGFloat value, ORKScaleSlider *slider);
+// Used to properly format values from the ORKLegacyScaleSlider.
+ORKLegacy_EXTERN NSString *ORKLegacyAccessibilityFormatScaleSliderValue(CGFloat value, ORKLegacyScaleSlider *slider);
+ORKLegacy_EXTERN NSString *ORKLegacyAccessibilityFormatContinuousScaleSliderValue(CGFloat value, ORKLegacyScaleSlider *slider);
 
 // Performs a block on the main thread after a delay. If Voice Over is not running, the block is performed immediately.
-ORK_EXTERN void ORKAccessibilityPerformBlockAfterDelay(NSTimeInterval delay, void(^block)(void));
+ORKLegacy_EXTERN void ORKLegacyAccessibilityPerformBlockAfterDelay(NSTimeInterval delay, void(^block)(void));
 
 // Convenience for posting an accessibility notification after a delay.
-ORK_INLINE void ORKAccessibilityPostNotificationAfterDelay(UIAccessibilityNotifications notification, _Nullable id argument, NSTimeInterval delay) {
-    ORKAccessibilityPerformBlockAfterDelay(delay, ^{
+ORKLegacy_INLINE void ORKLegacyAccessibilityPostNotificationAfterDelay(UIAccessibilityNotifications notification, _Nullable id argument, NSTimeInterval delay) {
+    ORKLegacyAccessibilityPerformBlockAfterDelay(delay, ^{
         UIAccessibilityPostNotification(notification, argument);
     });
 }
 
 // Creates a string suitable for Voice Over by joining the variables with ", " and avoiding nil and empty strings.
-#define ORKAccessibilityStringForVariables(...) _ORKAccessibilityStringForVariables(ORK_NARG(__VA_ARGS__),  ##__VA_ARGS__)
-ORK_EXTERN NSString *_ORKAccessibilityStringForVariables(NSInteger numParameters, NSString *baseString, ...);
+#define ORKLegacyAccessibilityStringForVariables(...) _ORKLegacyAccessibilityStringForVariables(ORKLegacy_NARG(__VA_ARGS__),  ##__VA_ARGS__)
+ORKLegacy_EXTERN NSString *_ORKLegacyAccessibilityStringForVariables(NSInteger numParameters, NSString *baseString, ...);
 
 NS_ASSUME_NONNULL_END

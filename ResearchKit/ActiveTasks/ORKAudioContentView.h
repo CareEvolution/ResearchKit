@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKAudioContentView : ORKActiveStepCustomView
+@interface ORKLegacyAudioContentView : ORKLegacyActiveStepCustomView
 
 @property (nonatomic, copy, nullable) UIColor *keyColor;
 @property (nonatomic, copy, nullable) UIColor *alertColor;

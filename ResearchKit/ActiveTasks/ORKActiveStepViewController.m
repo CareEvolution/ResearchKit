@@ -53,9 +53,9 @@
 #import "ORKSkin.h"
 
 
-@interface ORKActiveStepViewController () {
-    ORKActiveStepView *_activeStepView;
-    ORKActiveStepTimer *_activeStepTimer;
+@interface ORKLegacyActiveStepViewController () {
+    ORKLegacyActiveStepView *_activeStepView;
+    ORKLegacyActiveStepTimer *_activeStepTimer;
 
     NSArray *_recorderResults;
     
@@ -69,9 +69,9 @@
 @end
 
 
-@implementation ORKActiveStepViewController
+@implementation ORKLegacyActiveStepViewController
 
-- (instancetype)initWithStep:(ORKStep *)step {
+- (instancetype)initWithStep:(ORKLegacyStep *)step {
     
     self = [super initWithStep:step];
     if (self) {
@@ -96,19 +96,19 @@
     }
 }
 
-- (ORKActiveStep *)activeStep {
-    NSAssert(self.step == nil || [self.step isKindOfClass:[ORKActiveStep class]], @"Step should be a subclass of an ORKActiveStep");
-    return (ORKActiveStep *)self.step;
+- (ORKLegacyActiveStep *)activeStep {
+    NSAssert(self.step == nil || [self.step isKindOfClass:[ORKLegacyActiveStep class]], @"Step should be a subclass of an ORKLegacyActiveStep");
+    return (ORKLegacyActiveStep *)self.step;
 }
 
-- (ORKActiveStepView *)activeStepView {
+- (ORKLegacyActiveStepView *)activeStepView {
     return _activeStepView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _activeStepView = [[ORKActiveStepView alloc] initWithFrame:self.view.bounds];
+    _activeStepView = [[ORKLegacyActiveStepView alloc] initWithFrame:self.view.bounds];
     _activeStepView.translatesAutoresizingMaskIntoConstraints = NO;
     [_activeStepView setCustomView:_customView];
     [self updateContinueButtonItem];
@@ -146,7 +146,7 @@
     return _activeStepView.customViewContainer;
 }
 
-- (ORKTintedImageView *)imageView {
+- (ORKLegacyTintedImageView *)imageView {
     __unused UIView *view = [self view];
     return _activeStepView.imageView;
 }
@@ -158,14 +158,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    ORK_Log_Debug(@"%@",self);
+    ORKLegacy_Log_Debug(@"%@",self);
 
     [self.taskViewController setRegisteredScrollView:_activeStepView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    ORK_Log_Debug(@"%@",self);
+    ORKLegacy_Log_Debug(@"%@",self);
     
     // Wait for animation complete 
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -180,7 +180,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    ORK_Log_Debug(@"%@",self);
+    ORKLegacy_Log_Debug(@"%@",self);
     
     [self suspend];
 }
@@ -209,8 +209,8 @@
     _activeStepView.continueSkipContainer.continueEnabled = finished;
 }
 
-- (ORKStepResult *)result {
-    ORKStepResult *sResult = [super result];
+- (ORKLegacyStepResult *)result {
+    ORKLegacyStepResult *sResult = [super result];
     if (_recorderResults) {
         sResult.results = [sResult.results arrayByAddingObjectsFromArray:_recorderResults] ? : _recorderResults;
     }
@@ -231,16 +231,16 @@
 - (void)prepareRecorders {
     // Stop any existing recorders
     [self recordersWillStop];
-    for (ORKRecorder *recorder in self.recorders) {
+    for (ORKLegacyRecorder *recorder in self.recorders) {
         recorder.delegate = nil;
         [recorder stop];
     }
     NSMutableArray *recorders = [NSMutableArray array];
     
-    for (ORKRecorderConfiguration * provider in self.activeStep.recorderConfigurations) {
+    for (ORKLegacyRecorderConfiguration * provider in self.activeStep.recorderConfigurations) {
         // If the outputDirectory is nil, recorders which require one will generate an error.
         // We start them anyway, because we don't know which recorders will require an outputDirectory.
-        ORKRecorder *recorder = [provider recorderForStep:self.step
+        ORKLegacyRecorder *recorder = [provider recorderForStep:self.step
                                           outputDirectory:self.outputDirectory];
         recorder.configuration = provider;
         recorder.delegate = self;
@@ -264,11 +264,11 @@
     
     self.finished = [[self activeStep] startsFinished];
     
-    ORK_Log_Debug(@"%@", self);
+    ORKLegacy_Log_Debug(@"%@", self);
     _activeStepView.activeStep = self.activeStep;
     
     if ([self.activeStep hasCountDown]) {
-        ORKActiveStepTimerView *timerView = [ORKActiveStepTimerView new];
+        ORKLegacyActiveStepTimerView *timerView = [ORKLegacyActiveStepTimerView new];
         _activeStepView.activeCustomView = timerView;
     } else {
         _activeStepView.activeCustomView = nil;
@@ -283,7 +283,7 @@
 - (void)startRecorders {
     [self recordersWillStart];
     // Start recorders
-    for (ORKRecorder *recorder in self.recorders) {
+    for (ORKLegacyRecorder *recorder in self.recorders) {
         [recorder viewController:self willStartStepWithView:self.customViewContainer];
         [recorder start];
     }
@@ -291,7 +291,7 @@
 
 - (void)stopRecorders {
     [self recordersWillStop];
-    for (ORKRecorder *recorder in self.recorders) {
+    for (ORKLegacyRecorder *recorder in self.recorders) {
         [recorder stop];
     }
 }
@@ -305,7 +305,7 @@
 }
 
 - (void)start {
-    ORK_Log_Debug(@"%@",self);
+    ORKLegacy_Log_Debug(@"%@",self);
     self.started = YES;
     [self startTimer];
     [_activeStepView.activeCustomView startStep:self];
@@ -324,14 +324,14 @@
     if (self.activeStep.hasVoice && self.activeStep.spokenInstruction) {
         // Let VO speak "Step x of y" before the instruction.
         // If VO is not running, the text is spoken immediately.
-        ORKAccessibilityPerformBlockAfterDelay(1.5, ^{
-            [[ORKVoiceEngine sharedVoiceEngine] speakText:self.activeStep.spokenInstruction];
+        ORKLegacyAccessibilityPerformBlockAfterDelay(1.5, ^{
+            [[ORKLegacyVoiceEngine sharedVoiceEngine] speakText:self.activeStep.spokenInstruction];
         });
     }
 }
 
 - (void)suspend {
-    ORK_Log_Debug(@"%@",self);
+    ORKLegacy_Log_Debug(@"%@",self);
     if (self.finished || !self.started) {
         return;
     }
@@ -343,7 +343,7 @@
 }
 
 - (void)resume {
-    ORK_Log_Debug(@"%@",self);
+    ORKLegacy_Log_Debug(@"%@",self);
     if (self.finished || !self.started) {
         return;
     }
@@ -355,7 +355,7 @@
 }
 
 - (void)finish {
-    ORK_Log_Debug(@"%@",self);
+    ORKLegacy_Log_Debug(@"%@",self);
     if (self.finished) {
         return;
     }
@@ -371,7 +371,7 @@
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
     }
     if (self.activeStep.hasVoice && self.activeStep.finishedSpokenInstruction) {
-        [[ORKVoiceEngine sharedVoiceEngine] speakText:self.activeStep.finishedSpokenInstruction];
+        [[ORKLegacyVoiceEngine sharedVoiceEngine] speakText:self.activeStep.finishedSpokenInstruction];
     }
     if (!self.activeStep.startsFinished) {
         if (self.activeStep.shouldContinueOnFinish) {
@@ -401,28 +401,28 @@
     NSTimeInterval stepDuration = self.activeStep.stepDuration;
     
     if (stepDuration > 0) {
-        ORKWeakTypeOf(self) weakSelf = self;
-        _activeStepTimer = [[ORKActiveStepTimer alloc] initWithDuration:stepDuration
+        ORKLegacyWeakTypeOf(self) weakSelf = self;
+        _activeStepTimer = [[ORKLegacyActiveStepTimer alloc] initWithDuration:stepDuration
                                                         interval:_timerUpdateInterval
                                                          runtime:0
-                                                         handler:^(ORKActiveStepTimer *timer, BOOL finished) {
-                                                             ORKStrongTypeOf(self) strongSelf = weakSelf;
+                                                         handler:^(ORKLegacyActiveStepTimer *timer, BOOL finished) {
+                                                             ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
                                                              [strongSelf countDownTimerFired:timer finished:finished];
                                                          }];
         [_activeStepTimer resume];
     }
 }
 
-- (void)countDownTimerFired:(ORKActiveStepTimer *)timer finished:(BOOL)finished {
+- (void)countDownTimerFired:(ORKLegacyActiveStepTimer *)timer finished:(BOOL)finished {
     if (finished) {
         [self finish];
     }
     NSInteger countDownValue = (NSInteger)round(timer.duration - timer.runtime);
-    ORKActiveStepCustomView *customView = _activeStepView.activeCustomView;
+    ORKLegacyActiveStepCustomView *customView = _activeStepView.activeCustomView;
     [customView updateDisplay:self];
     
     
-    ORKVoiceEngine *voice = [ORKVoiceEngine sharedVoiceEngine];
+    ORKLegacyVoiceEngine *voice = [ORKLegacyVoiceEngine sharedVoiceEngine];
     
     if (!finished && self.activeStep.shouldSpeakCountDown) {
         // Speak entire countdown if VO is running.
@@ -439,7 +439,7 @@
     BOOL isHalfway = !_hasSpokenHalfwayCountdown && timer.runtime > timer.duration / 2.0;
     if (!finished && self.activeStep.shouldSpeakRemainingTimeAtHalfway && !UIAccessibilityIsVoiceOverRunning() && isHalfway) {
         _hasSpokenHalfwayCountdown = YES;
-        NSString *text = [NSString localizedStringWithFormat:ORKLocalizedString(@"COUNTDOWN_SPOKEN_REMAINING_%@", nil), @(countDownValue)];
+        NSString *text = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"COUNTDOWN_SPOKEN_REMAINING_%@", nil), @(countDownValue)];
         [voice speakText:text];
     }
 }
@@ -460,16 +460,16 @@
 - (void)stepDidFinish {
 }
 
-#pragma mark - ORKRecorderDelegate
+#pragma mark - ORKLegacyRecorderDelegate
 
-- (void)recorder:(ORKRecorder *)recorder didCompleteWithResult:(ORKResult *)result {
+- (void)recorder:(ORKLegacyRecorder *)recorder didCompleteWithResult:(ORKLegacyResult *)result {
     _recorderResults = [_recorderResults arrayByAddingObject:result];
     [self notifyDelegateOnResultChange];
 }
 
-- (void)recorder:(ORKRecorder *)recorder didFailWithError:(NSError *)error {
+- (void)recorder:(ORKLegacyRecorder *)recorder didFailWithError:(NSError *)error {
     if (error) {
-        ORKStrongTypeOf(self.delegate) strongDelegate = self.delegate;
+        ORKLegacyStrongTypeOf(self.delegate) strongDelegate = self.delegate;
         if ([strongDelegate respondsToSelector:@selector(stepViewController:recorder:didFailWithError:)]) {
             [strongDelegate stepViewController:self recorder:recorder didFailWithError:error];
         }
@@ -485,21 +485,21 @@
     }
 }
 
-static NSString *const _ORKFinishedRestoreKey = @"finished";
-static NSString *const _ORKRecorderResultsRestoreKey = @"recorderResults";
+static NSString *const _ORKLegacyFinishedRestoreKey = @"finished";
+static NSString *const _ORKLegacyRecorderResultsRestoreKey = @"recorderResults";
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
     
-    [coder encodeBool:_finished forKey:_ORKFinishedRestoreKey];
-    [coder encodeObject:_recorderResults forKey:_ORKRecorderResultsRestoreKey];
+    [coder encodeBool:_finished forKey:_ORKLegacyFinishedRestoreKey];
+    [coder encodeObject:_recorderResults forKey:_ORKLegacyRecorderResultsRestoreKey];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     
-    self.finished = [coder decodeBoolForKey:_ORKFinishedRestoreKey];
-    _recorderResults = [coder decodeObjectOfClass:[NSArray class] forKey:_ORKRecorderResultsRestoreKey];
+    self.finished = [coder decodeBoolForKey:_ORKLegacyFinishedRestoreKey];
+    _recorderResults = [coder decodeObjectOfClass:[NSArray class] forKey:_ORKLegacyRecorderResultsRestoreKey];
 }
 
 @end

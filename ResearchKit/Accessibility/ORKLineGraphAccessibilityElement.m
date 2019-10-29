@@ -31,7 +31,7 @@
 #import "ORKLineGraphAccessibilityElement.h"
 
 
-@interface ORKLineGraphAccessibilityElement()
+@interface ORKLegacyLineGraphAccessibilityElement()
 
 @property (assign, nonatomic) NSInteger index;
 @property (assign, nonatomic) NSInteger maxIndex;
@@ -39,7 +39,7 @@
 @end
 
 
-@implementation ORKLineGraphAccessibilityElement
+@implementation ORKLegacyLineGraphAccessibilityElement
 
 - (nonnull instancetype)initWithAccessibilityContainer:(nonnull UIView *)container index:(NSInteger)index maxIndex:(NSInteger)maxIndex {
     self = [super initWithAccessibilityContainer:container];

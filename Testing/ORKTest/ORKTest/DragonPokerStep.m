@@ -39,7 +39,7 @@
 @end
 
 
-@interface DragonPokerStepViewController : ORKFormStepViewController
+@interface DragonPokerStepViewController : ORKLegacyFormStepViewController
 
 @property (nonatomic) BOOL shouldShowCancelButton;
 
@@ -51,7 +51,7 @@
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     self = [super initWithIdentifier:identifier];
     if (self) {
-        ORKFormItem *formItem = [[ORKFormItem alloc] initWithIdentifier:@"question1" text:@"Are you tall?" answerFormat:[ORKAnswerFormat booleanAnswerFormat]];
+        ORKLegacyFormItem *formItem = [[ORKLegacyFormItem alloc] initWithIdentifier:@"question1" text:@"Are you tall?" answerFormat:[ORKLegacyAnswerFormat booleanAnswerFormat]];
         self.formItems = @[formItem];
     }
     return self;
@@ -64,7 +64,7 @@
     return _playDate;
     }
 
-- (ORKStepViewController *)instantiateStepViewControllerWithResult:(ORKResult *)result {
+- (ORKLegacyStepViewController *)instantiateStepViewControllerWithResult:(ORKLegacyResult *)result {
     
     DragonPokerStepViewController *viewController = [[DragonPokerStepViewController alloc] initWithStep:self result:result];
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitWeekday fromDate:self.playDate];

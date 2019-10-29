@@ -42,12 +42,12 @@
 // Enable this define to see outlines and colors of all the views laid out at this level.
 // #define LAYOUT_DEBUG
 
-@interface ORKTableContainerView () <UIGestureRecognizerDelegate>
+@interface ORKLegacyTableContainerView () <UIGestureRecognizerDelegate>
 
 @end
 
 
-@implementation ORKTableContainerView {
+@implementation ORKLegacyTableContainerView {
     UIView *_realFooterView;
     
     NSLayoutConstraint *_bottomConstraint;
@@ -70,12 +70,12 @@
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         
         _tableView = [[UITableView alloc] initWithFrame:self.bounds style:style];
-        _tableView.backgroundColor = ORKColor(ORKBackgroundColorKey);
+        _tableView.backgroundColor = ORKLegacyColor(ORKLegacyBackgroundColorKey);
         _tableView.allowsSelection = YES;
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
         _tableView.preservesSuperviewLayoutMargins = YES;
         _tableView.clipsToBounds = NO; // Do not clip scroll indicators on iPad
-        _tableView.scrollIndicatorInsets = ORKScrollIndicatorInsetsForScrollView(self);
+        _tableView.scrollIndicatorInsets = ORKLegacyScrollIndicatorInsetsForScrollView(self);
         [self addSubview:_tableView];
         
         _scrollView = _tableView;
@@ -87,12 +87,12 @@
 #endif
         _tableView.tableFooterView = _realFooterView;
         
-        _stepHeaderView = [ORKStepHeaderView new];
+        _stepHeaderView = [ORKLegacyStepHeaderView new];
 #ifdef LAYOUT_DEBUG
         _stepHeaderView.backgroundColor = [[UIColor blueColor] colorWithAlphaComponent:0.3];
 #endif
         
-        _continueSkipContainerView = [ORKNavigationContainerView new];
+        _continueSkipContainerView = [ORKLegacyNavigationContainerView new];
         _continueSkipContainerView.preservesSuperviewLayoutMargins = NO;
         _continueSkipContainerView.translatesAutoresizingMaskIntoConstraints = NO;
         _continueSkipContainerView.topMargin = 20;
@@ -125,7 +125,7 @@
     [super layoutSubviews];
 
     CGRect bounds = self.bounds;
-    _tableView.frame = UIEdgeInsetsInsetRect(bounds, ORKStandardFullScreenLayoutMarginsForView(self));
+    _tableView.frame = UIEdgeInsetsInsetRect(bounds, ORKLegacyStandardFullScreenLayoutMarginsForView(self));
     // make the contentSize to be correct after changing the frame
     [_tableView layoutIfNeeded];
     {
@@ -259,7 +259,7 @@
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {
     [super willMoveToWindow:newWindow];
-    _continueSkipContainerView.topMargin = ORKGetMetricForWindow(ORKScreenMetricContinueButtonTopMargin, newWindow);
+    _continueSkipContainerView.topMargin = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricContinueButtonTopMargin, newWindow);
     if (newWindow) {
         [self registerForKeyboardNotifications:YES];
     } else {
@@ -310,7 +310,7 @@
     
     // If there's room, we'd like to leave space below so you can tap on the next cell
     // Only go 3/4 of a cell extra; otherwise user might think they tapped the wrong cell
-    CGFloat desiredExtraSpace  = floor(ORKGetMetricForWindow(ORKScreenMetricTextFieldCellHeight, self.window) * (3 / 4.0));
+    CGFloat desiredExtraSpace  = floor(ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricTextFieldCellHeight, self.window) * (3 / 4.0));
     CGFloat visibleSpaceAboveDesiredRect = CGRectGetMinY(desiredRect) - offsetY;
     CGFloat visibleSpaceBelowDesiredRect = offsetY + visibleHeight - CGRectGetMaxY(desiredRect);
     if ((visibleSpaceAboveDesiredRect > 0) && (visibleSpaceBelowDesiredRect < desiredExtraSpace)) {
@@ -375,7 +375,7 @@
     CGSize intersectionSize = [self keyboardIntersectionSizeFromNotification:notification];
     
     // Assume the overlap is at the bottom of the view
-    ORKUpdateScrollViewBottomInset(self.tableView, intersectionSize.height);
+    ORKLegacyUpdateScrollViewBottomInset(self.tableView, intersectionSize.height);
     
     _keyboardIsUp = YES;
     [self animateLayoutForKeyboardNotification:notification];
@@ -385,14 +385,14 @@
     CGSize intersectionSize = [self keyboardIntersectionSizeFromNotification:notification];
     
     // Assume the overlap is at the bottom of the view
-    ORKUpdateScrollViewBottomInset(self.tableView, intersectionSize.height);
+    ORKLegacyUpdateScrollViewBottomInset(self.tableView, intersectionSize.height);
     
     _keyboardIsUp = YES;
     [self animateLayoutForKeyboardNotification:notification];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    ORKUpdateScrollViewBottomInset(self.tableView, 0);
+    ORKLegacyUpdateScrollViewBottomInset(self.tableView, 0);
     
     _keyboardIsUp = NO;
     [self animateLayoutForKeyboardNotification:notification];

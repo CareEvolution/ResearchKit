@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class CMDeviceMotion;
 
-@protocol ORKDeviceMotionRecorderDelegate <ORKRecorderDelegate>
+@protocol ORKLegacyDeviceMotionRecorderDelegate <ORKLegacyRecorderDelegate>
 
 @optional
 
@@ -46,13 +46,13 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- The `ORKDeviceMotionRecorder` class represents a recorder that requests and collects device motion data from CoreMotion at a fixed frequency.
+ The `ORKLegacyDeviceMotionRecorder` class represents a recorder that requests and collects device motion data from CoreMotion at a fixed frequency.
  
  To ensure that the motion recorder continues to record when the app enters the
  background, use the background task support provided by `UIApplication`.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKDeviceMotionRecorder : ORKRecorder
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyDeviceMotionRecorder : ORKLegacyRecorder
 
 /**
  The frequency of motion data collection from CoreMotion in hertz (Hz).
@@ -71,7 +71,7 @@ ORK_CLASS_AVAILABLE
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
                          frequency:(double)frequency
-                              step:(nullable ORKStep *)step
+                              step:(nullable ORKLegacyStep *)step
                    outputDirectory:(nullable NSURL *)outputDirectory NS_DESIGNATED_INITIALIZER;
 
 @end

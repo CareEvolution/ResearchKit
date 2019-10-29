@@ -73,12 +73,12 @@ static NSString *const ActivityKey = @"activity";
 static NSString *const ConfidenceKey = @"confidence";
 
 
-@implementation CMMotionActivity (ORKJSONDictionary)
+@implementation CMMotionActivity (ORKLegacyJSONDictionary)
 
 - (NSDictionary *)ork_JSONDictionary {
     return @{ConfidenceKey: stringFromActivityConfidence(self.confidence),
              ActivityKey: activityArray(self),
-             StartDateKey: ORKStringFromDateISO8601(self.startDate)};
+             StartDateKey: ORKLegacyStringFromDateISO8601(self.startDate)};
 }
 
 @end

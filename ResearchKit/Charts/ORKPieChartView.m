@@ -44,7 +44,7 @@
 
 #if TARGET_INTERFACE_BUILDER
 
-@interface ORKIBPieChartViewDataSourceSegment : NSObject
+@interface ORKLegacyIBPieChartViewDataSourceSegment : NSObject
 
 @property (nonatomic, assign) CGFloat value;
 
@@ -55,24 +55,24 @@
 @end
 
 
-@interface ORKIBPieChartViewDataSource : NSObject <ORKPieChartViewDataSource>
+@interface ORKLegacyIBPieChartViewDataSource : NSObject <ORKLegacyPieChartViewDataSource>
 
 + (instancetype)sharedInstance;
 
-@property (nonatomic, strong, nullable) NSArray <ORKIBPieChartViewDataSourceSegment *> *segments;
+@property (nonatomic, strong, nullable) NSArray <ORKLegacyIBPieChartViewDataSourceSegment *> *segments;
 
 @end
 
 
-@implementation ORKIBPieChartViewDataSourceSegment
+@implementation ORKLegacyIBPieChartViewDataSourceSegment
 
 @end
 
 
-@implementation ORKIBPieChartViewDataSource
+@implementation ORKLegacyIBPieChartViewDataSource
 
 + (instancetype)sharedInstance {
-    static ORKIBPieChartViewDataSource *sharedInstance;
+    static ORKLegacyIBPieChartViewDataSource *sharedInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self class] new];
@@ -83,17 +83,17 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        ORKIBPieChartViewDataSourceSegment *segment1 = [ORKIBPieChartViewDataSourceSegment new];
+        ORKLegacyIBPieChartViewDataSourceSegment *segment1 = [ORKLegacyIBPieChartViewDataSourceSegment new];
         segment1.value = 10.0;
         segment1.title = @"Title 1";
         segment1.color = [UIColor colorWithRed:217.0/225 green:217.0/255 blue:217.0/225 alpha:1];
         
-        ORKIBPieChartViewDataSourceSegment *segment2 = [ORKIBPieChartViewDataSourceSegment new];
+        ORKLegacyIBPieChartViewDataSourceSegment *segment2 = [ORKLegacyIBPieChartViewDataSourceSegment new];
         segment2.value = 25.0;
         segment2.title = @"Title 2";
         segment2.color = [UIColor colorWithRed:142.0/255 green:142.0/255 blue:147.0/255 alpha:1];
         
-        ORKIBPieChartViewDataSourceSegment *segment3 = [ORKIBPieChartViewDataSourceSegment new];
+        ORKLegacyIBPieChartViewDataSourceSegment *segment3 = [ORKLegacyIBPieChartViewDataSourceSegment new];
         segment3.value = 45.0;
         segment3.title = @"Title 3";
         segment3.color = [UIColor colorWithRed:244.0/225 green:190.0/255 blue:74.0/225 alpha:1];
@@ -102,18 +102,18 @@
     }
     return self;
 }
-- (NSInteger)numberOfSegmentsInPieChartView:(ORKPieChartView *)pieChartView {
+- (NSInteger)numberOfSegmentsInPieChartView:(ORKLegacyPieChartView *)pieChartView {
     return self.segments.count;
 }
-- (CGFloat)pieChartView:(ORKPieChartView *)pieChartView valueForSegmentAtIndex:(NSInteger)index {
+- (CGFloat)pieChartView:(ORKLegacyPieChartView *)pieChartView valueForSegmentAtIndex:(NSInteger)index {
     return self.segments[index].value;
 }
 
-- (UIColor *)pieChartView:(ORKPieChartView *)pieChartView colorForSegmentAtIndex:(NSInteger)index {
+- (UIColor *)pieChartView:(ORKLegacyPieChartView *)pieChartView colorForSegmentAtIndex:(NSInteger)index {
     return self.segments[index].color;
 }
 
-- (NSString *)pieChartView:(ORKPieChartView *)pieChartView titleForSegmentAtIndex:(NSInteger)index {
+- (NSString *)pieChartView:(ORKLegacyPieChartView *)pieChartView titleForSegmentAtIndex:(NSInteger)index {
     return self.segments[index].title;
 }
 
@@ -126,7 +126,7 @@ static const CGFloat TitleToPiePadding = 8.0;
 static const CGFloat PieToLegendPadding = 8.0;
 
 
-@implementation ORKPieChartSection
+@implementation ORKLegacyPieChartSection
 
 - (instancetype)initWithLabel:(UILabel *)label angle:(CGFloat)angle {
     if (self = [super init]) {
@@ -153,12 +153,12 @@ static const CGFloat PieToLegendPadding = 8.0;
 @end
 
 
-@implementation ORKPieChartView {
+@implementation ORKLegacyPieChartView {
     NSMutableArray<NSLayoutConstraint *> *_variableConstraints;
 
-    ORKPieChartPieView *_pieView;
-    ORKPieChartLegendView *_legendView;
-    ORKPieChartTitleTextView *_titleTextView;
+    ORKLegacyPieChartPieView *_pieView;
+    ORKLegacyPieChartLegendView *_legendView;
+    ORKLegacyPieChartTitleTextView *_titleTextView;
     BOOL _shouldInvalidateLegendViewIntrinsicContentSize;
 }
 
@@ -192,7 +192,7 @@ static const CGFloat PieToLegendPadding = 8.0;
     [self updateLegendView];
 }
 
-- (void)setDataSource:(id<ORKPieChartViewDataSource>)dataSource {
+- (void)setDataSource:(id<ORKLegacyPieChartViewDataSource>)dataSource {
     _dataSource = dataSource;
     [self reloadData];
 }
@@ -225,7 +225,7 @@ static const CGFloat PieToLegendPadding = 8.0;
 
 - (void)setNoDataText:(NSString *)noDataText {
     if (!noDataText) {
-        noDataText = ORKLocalizedString(@"CHART_NO_DATA_TEXT", nil);
+        noDataText = ORKLegacyLocalizedString(@"CHART_NO_DATA_TEXT", nil);
     }
     _titleTextView.noDataLabel.text = noDataText;
 }
@@ -236,7 +236,7 @@ static const CGFloat PieToLegendPadding = 8.0;
 
 - (void)setTitleColor:(UIColor *)titleColor {
     if (!titleColor) {
-        titleColor = ORKColor(ORKChartDefaultTextColorKey);
+        titleColor = ORKLegacyColor(ORKLegacyChartDefaultTextColorKey);
     }
     _titleTextView.titleLabel.textColor = titleColor;
 }
@@ -247,7 +247,7 @@ static const CGFloat PieToLegendPadding = 8.0;
 
 - (void)setTextColor:(UIColor *)textColor {
     if (!textColor) {
-        textColor = ORKColor(ORKChartDefaultTextColorKey);
+        textColor = ORKLegacyColor(ORKLegacyChartDefaultTextColorKey);
     }
     _titleTextView.textLabel.textColor = textColor;
 }
@@ -293,10 +293,10 @@ static const CGFloat PieToLegendPadding = 8.0;
     
     _legendView = nil; // legend lazily initialized on demand
     
-    _pieView = [[ORKPieChartPieView alloc] initWithParentPieChartView:self];
+    _pieView = [[ORKLegacyPieChartPieView alloc] initWithParentPieChartView:self];
     [self addSubview:_pieView];
     
-    _titleTextView = [[ORKPieChartTitleTextView alloc] initWithParentPieChartView:self];
+    _titleTextView = [[ORKLegacyPieChartTitleTextView alloc] initWithParentPieChartView:self];
     [self addSubview:_titleTextView];
     
     [self updateContentSizeCategoryFonts];
@@ -326,7 +326,7 @@ static const CGFloat PieToLegendPadding = 8.0;
                                                                                   toItem:nil
                                                                                attribute:NSLayoutAttributeNotAnAttribute
                                                                               multiplier:1.0
-                                                                                constant:ORKScreenMetricMaxDimension];
+                                                                                constant:ORKLegacyScreenMetricMaxDimension];
     maximumHeightConstraint.priority = UILayoutPriorityDefaultLow - 1;
     [constraints addObject:maximumHeightConstraint];
 
@@ -388,9 +388,9 @@ static const CGFloat PieToLegendPadding = 8.0;
     if ([_dataSource respondsToSelector:@selector(pieChartView:titleForSegmentAtIndex:)]) {
         if (_legendView) {
             [_legendView removeFromSuperview];
-            ORKRemoveConstraintsForRemovedViews(_variableConstraints, @[_legendView]);
+            ORKLegacyRemoveConstraintsForRemovedViews(_variableConstraints, @[_legendView]);
         }
-        _legendView = [[ORKPieChartLegendView alloc] initWithParentPieChartView:self];
+        _legendView = [[ORKLegacyPieChartLegendView alloc] initWithParentPieChartView:self];
         [self addSubview:_legendView];
         _legendView.labelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
         _shouldInvalidateLegendViewIntrinsicContentSize = YES;
@@ -430,7 +430,7 @@ static const CGFloat PieToLegendPadding = 8.0;
     } else {
         // Default colors: use tintColor reducing alpha progressively
         NSInteger numberOfSegments = [_dataSource numberOfSegmentsInPieChartView:self];
-        color = ORKOpaqueColorWithReducedAlphaFromBaseColor(self.tintColor, index, numberOfSegments);
+        color = ORKLegacyOpaqueColorWithReducedAlphaFromBaseColor(self.tintColor, index, numberOfSegments);
         }
     return color;
 }
@@ -470,7 +470,7 @@ static const CGFloat PieToLegendPadding = 8.0;
 - (void)prepareForInterfaceBuilder {
     [super prepareForInterfaceBuilder];
 #if TARGET_INTERFACE_BUILDER
-    self.dataSource = [ORKIBPieChartViewDataSource sharedInstance];
+    self.dataSource = [ORKLegacyIBPieChartViewDataSource sharedInstance];
 #endif
 }
 

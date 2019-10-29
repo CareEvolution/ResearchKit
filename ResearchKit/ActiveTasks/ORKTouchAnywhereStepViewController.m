@@ -39,7 +39,7 @@
 #import "ORKSkin.h"
 
 
-@interface ORKTouchAnywhereView : ORKActiveStepCustomView {
+@interface ORKLegacyTouchAnywhereView : ORKLegacyActiveStepCustomView {
     NSLayoutConstraint *_topConstraint;
 }
 
@@ -48,12 +48,12 @@
 @end
 
 
-@implementation ORKTouchAnywhereView
+@implementation ORKLegacyTouchAnywhereView
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _progressView = [ORKProgressView new];
+        _progressView = [ORKLegacyProgressView new];
         _progressView.translatesAutoresizingMaskIntoConstraints = NO;
 
         [self addSubview:_progressView];
@@ -95,26 +95,26 @@
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
     const CGFloat CaptionBaselineToProgressTop = 100;
-    const CGFloat CaptionBaselineToStepViewTop = ORKGetMetricForWindow(ORKScreenMetricLearnMoreBaselineToStepViewTop, window);
+    const CGFloat CaptionBaselineToStepViewTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLearnMoreBaselineToStepViewTop, window);
     _topConstraint.constant = CaptionBaselineToProgressTop - CaptionBaselineToStepViewTop;
 }
 
 @end
 
 
-@interface ORKTouchAnywhereStepViewController ()
+@interface ORKLegacyTouchAnywhereStepViewController ()
 
-@property (nonatomic, strong) ORKTouchAnywhereView *touchAnywhereView;
+@property (nonatomic, strong) ORKLegacyTouchAnywhereView *touchAnywhereView;
 @property (nonatomic, strong) UITapGestureRecognizer *gestureRecognizer;
 
 @end
 
 
-@implementation ORKTouchAnywhereStepViewController
+@implementation ORKLegacyTouchAnywhereStepViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _touchAnywhereView = [[ORKTouchAnywhereView alloc] init];
+    _touchAnywhereView = [[ORKLegacyTouchAnywhereView alloc] init];
     _touchAnywhereView.translatesAutoresizingMaskIntoConstraints = NO;
     self.activeStepView.activeCustomView = _touchAnywhereView;
     self.cancelButtonItem = nil;

@@ -47,14 +47,14 @@
 #import "ORKSkin.h"
 
 
-@interface ORKConsentSceneView ()
+@interface ORKLegacyConsentSceneView ()
 
-@property (nonatomic, strong) ORKConsentSection *consentSection;
+@property (nonatomic, strong) ORKLegacyConsentSection *consentSection;
 
 @end
 
 
-@implementation ORKConsentSceneView
+@implementation ORKLegacyConsentSceneView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -65,10 +65,10 @@
     return self;
 }
 
-- (void)setConsentSection:(ORKConsentSection *)consentSection {
+- (void)setConsentSection:(ORKLegacyConsentSection *)consentSection {
     _consentSection = consentSection;
     
-    BOOL isOverview = (consentSection.type == ORKConsentSectionTypeOverview);
+    BOOL isOverview = (consentSection.type == ORKLegacyConsentSectionTypeOverview);
     self.verticalCenteringEnabled = isOverview;
     self.continueHugsContent =  isOverview;
     
@@ -85,45 +85,45 @@
 @end
 
 
-static NSString *localizedLearnMoreForType(ORKConsentSectionType sectionType) {
-    NSString *str = ORKLocalizedString(@"BUTTON_LEARN_MORE", nil);
+static NSString *localizedLearnMoreForType(ORKLegacyConsentSectionType sectionType) {
+    NSString *str = ORKLegacyLocalizedString(@"BUTTON_LEARN_MORE", nil);
     switch (sectionType) {
-        case ORKConsentSectionTypeOverview:
-            str = ORKLocalizedString(@"LEARN_MORE_WELCOME", nil);
+        case ORKLegacyConsentSectionTypeOverview:
+            str = ORKLegacyLocalizedString(@"LEARN_MORE_WELCOME", nil);
             break;
-        case ORKConsentSectionTypeDataGathering:
-            str = ORKLocalizedString(@"LEARN_MORE_DATA_GATHERING", nil);
+        case ORKLegacyConsentSectionTypeDataGathering:
+            str = ORKLegacyLocalizedString(@"LEARN_MORE_DATA_GATHERING", nil);
             break;
-        case ORKConsentSectionTypePrivacy:
-            str = ORKLocalizedString(@"LEARN_MORE_PRIVACY", nil);
+        case ORKLegacyConsentSectionTypePrivacy:
+            str = ORKLegacyLocalizedString(@"LEARN_MORE_PRIVACY", nil);
             break;
-        case ORKConsentSectionTypeDataUse:
-            str = ORKLocalizedString(@"LEARN_MORE_DATA_USE", nil);
+        case ORKLegacyConsentSectionTypeDataUse:
+            str = ORKLegacyLocalizedString(@"LEARN_MORE_DATA_USE", nil);
             break;
-        case ORKConsentSectionTypeTimeCommitment:
-            str = ORKLocalizedString(@"LEARN_MORE_TIME_COMMITMENT", nil);
+        case ORKLegacyConsentSectionTypeTimeCommitment:
+            str = ORKLegacyLocalizedString(@"LEARN_MORE_TIME_COMMITMENT", nil);
             break;
-        case ORKConsentSectionTypeStudySurvey:
-            str = ORKLocalizedString(@"LEARN_MORE_STUDY_SURVEY", nil);
+        case ORKLegacyConsentSectionTypeStudySurvey:
+            str = ORKLegacyLocalizedString(@"LEARN_MORE_STUDY_SURVEY", nil);
             break;
-        case ORKConsentSectionTypeStudyTasks:
-            str = ORKLocalizedString(@"LEARN_MORE_TASKS", nil);
+        case ORKLegacyConsentSectionTypeStudyTasks:
+            str = ORKLegacyLocalizedString(@"LEARN_MORE_TASKS", nil);
             break;
-        case ORKConsentSectionTypeWithdrawing:
-            str = ORKLocalizedString(@"LEARN_MORE_WITHDRAWING", nil);
+        case ORKLegacyConsentSectionTypeWithdrawing:
+            str = ORKLegacyLocalizedString(@"LEARN_MORE_WITHDRAWING", nil);
             break;
-        case ORKConsentSectionTypeOnlyInDocument:
+        case ORKLegacyConsentSectionTypeOnlyInDocument:
             assert(0); // assert and fall through to custom
-        case ORKConsentSectionTypeCustom:
+        case ORKLegacyConsentSectionTypeCustom:
             break;
     }
     return str;
 }
 
 
-@implementation ORKConsentSceneViewController
+@implementation ORKLegacyConsentSceneViewController
 
-- (instancetype)initWithSection:(ORKConsentSection *)section {
+- (instancetype)initWithSection:(ORKLegacyConsentSection *)section {
     self = [super init];
     if (self) {
         _section = section;
@@ -133,7 +133,7 @@ static NSString *localizedLearnMoreForType(ORKConsentSectionType sectionType) {
 }
 
 - (void)loadView {
-    _sceneView = [ORKConsentSceneView new];
+    _sceneView = [ORKLegacyConsentSceneView new];
     self.view = _sceneView;
 }
 
@@ -174,11 +174,11 @@ static NSString *localizedLearnMoreForType(ORKConsentSectionType sectionType) {
 }
 
 - (void)scrollToTopAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
-    ORKConsentSceneView *consentSceneView = (ORKConsentSceneView *)self.view;
+    ORKLegacyConsentSceneView *consentSceneView = (ORKLegacyConsentSceneView *)self.view;
     CGRect targetBounds = consentSceneView.bounds;
     targetBounds.origin.y = 0;
     if (animated) {
-        [UIView animateWithDuration:ORKScrollToTopAnimationDuration animations:^{
+        [UIView animateWithDuration:ORKLegacyScrollToTopAnimationDuration animations:^{
             consentSceneView.bounds = targetBounds;
         } completion:completion];
     } else {
@@ -192,14 +192,14 @@ static NSString *localizedLearnMoreForType(ORKConsentSectionType sectionType) {
 #pragma mark - Action
 
 - (IBAction)showContent:(id)sender {
-    ORKConsentLearnMoreViewController *viewController = nil;
+    ORKLegacyConsentLearnMoreViewController *viewController = nil;
     
     if (_section.contentURL) {
-        viewController = [[ORKConsentLearnMoreViewController alloc] initWithContentURL:_section.contentURL];
+        viewController = [[ORKLegacyConsentLearnMoreViewController alloc] initWithContentURL:_section.contentURL];
     } else {
-        viewController = [[ORKConsentLearnMoreViewController alloc] initWithHTMLContent:((_section.htmlContent.length > 0) ? _section.htmlContent : _section.escapedContent)];
+        viewController = [[ORKLegacyConsentLearnMoreViewController alloc] initWithHTMLContent:((_section.htmlContent.length > 0) ? _section.htmlContent : _section.escapedContent)];
     }
-    viewController.title = _section.title ?: ORKLocalizedString(@"CONSENT_LEARN_MORE_TITLE", nil);
+    viewController.title = _section.title ?: ORKLegacyLocalizedString(@"CONSENT_LEARN_MORE_TITLE", nil);
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:navigationController animated:YES completion:nil];

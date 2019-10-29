@@ -41,13 +41,13 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKConsentReviewStep
+@implementation ORKLegacyConsentReviewStep
 
 + (Class)stepViewControllerClass {
-    return [ORKConsentReviewStepViewController class];
+    return [ORKLegacyConsentReviewStepViewController class];
 }
 
-- (instancetype)initWithIdentifier:(NSString *)identifier signature:(ORKConsentSignature *)signature inDocument:(ORKConsentDocument *)consentDocument {
+- (instancetype)initWithIdentifier:(NSString *)identifier signature:(ORKLegacyConsentSignature *)signature inDocument:(ORKLegacyConsentDocument *)consentDocument {
     self = [super initWithIdentifier:identifier];
     if (self) {
         _consentDocument = consentDocument;
@@ -59,7 +59,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKConsentReviewStep *step = [super copyWithZone:zone];
+    ORKLegacyConsentReviewStep *step = [super copyWithZone:zone];
     step->_consentDocument = self.consentDocument;
     step->_signature = self.signature;
     step->_reasonForConsent = self.reasonForConsent;
@@ -71,22 +71,22 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, consentDocument, ORKConsentDocument);
-        ORK_DECODE_OBJ_CLASS(aDecoder, signature, ORKConsentSignature);
-        ORK_DECODE_OBJ_CLASS(aDecoder, reasonForConsent, NSString);
-        ORK_DECODE_BOOL(aDecoder, requiresScrollToBottom);
-        ORK_DECODE_BOOL(aDecoder, autoAgree);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, consentDocument, ORKLegacyConsentDocument);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, signature, ORKLegacyConsentSignature);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, reasonForConsent, NSString);
+        ORKLegacy_DECODE_BOOL(aDecoder, requiresScrollToBottom);
+        ORKLegacy_DECODE_BOOL(aDecoder, autoAgree);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, consentDocument);
-    ORK_ENCODE_OBJ(aCoder, signature);
-    ORK_ENCODE_OBJ(aCoder, reasonForConsent);
-    ORK_ENCODE_BOOL(aCoder, requiresScrollToBottom);
-    ORK_ENCODE_BOOL(aCoder, autoAgree);
+    ORKLegacy_ENCODE_OBJ(aCoder, consentDocument);
+    ORKLegacy_ENCODE_OBJ(aCoder, signature);
+    ORKLegacy_ENCODE_OBJ(aCoder, reasonForConsent);
+    ORKLegacy_ENCODE_BOOL(aCoder, requiresScrollToBottom);
+    ORKLegacy_ENCODE_BOOL(aCoder, autoAgree);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -98,9 +98,9 @@
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.consentDocument, castObject.consentDocument) &&
-            ORKEqualObjects(self.signature, castObject.signature) &&
-            ORKEqualObjects(self.reasonForConsent, castObject.reasonForConsent)) &&
+            ORKLegacyEqualObjects(self.consentDocument, castObject.consentDocument) &&
+            ORKLegacyEqualObjects(self.signature, castObject.signature) &&
+            ORKLegacyEqualObjects(self.reasonForConsent, castObject.reasonForConsent)) &&
             (self.requiresScrollToBottom == castObject.requiresScrollToBottom) &&
             (self.autoAgree == castObject.autoAgree);
 }

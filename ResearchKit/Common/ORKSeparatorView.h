@@ -35,8 +35,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKSeparatorView : UIView
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacySeparatorView : UIView
 
 @end
 

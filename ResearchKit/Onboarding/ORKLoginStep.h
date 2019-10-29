@@ -39,18 +39,18 @@ NS_ASSUME_NONNULL_BEGIN
  Constants for the form items included in the login step.
  These allow for convenient retrieval of user's inputted data from the result.
  */
-ORK_EXTERN NSString *const ORKLoginFormItemIdentifierEmail ORK_AVAILABLE_DECL;
-ORK_EXTERN NSString *const ORKLoginFormItemIdentifierPassword ORK_AVAILABLE_DECL;
+ORKLegacy_EXTERN NSString *const ORKLegacyLoginFormItemIdentifierEmail ORKLegacy_AVAILABLE_DECL;
+ORKLegacy_EXTERN NSString *const ORKLegacyLoginFormItemIdentifierPassword ORKLegacy_AVAILABLE_DECL;
 
 
 /**
- The `ORKLoginStep` class represents a form step that provides fields commonly used
+ The `ORKLegacyLoginStep` class represents a form step that provides fields commonly used
  for account login.
  
  The login step contains email and password fields.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKLoginStep : ORKFormStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyLoginStep : ORKLegacyFormStep
 
 - (instancetype)initWithIdentifier:(NSString *)identifier NS_UNAVAILABLE;
 
@@ -61,9 +61,9 @@ ORK_CLASS_AVAILABLE
 /**
  Returns an initialized login step using the specified identifier, title, text, and options.
  
- @param identifier                      The string that identifies the step (see `ORKStep`).
- @param title                           The title of the form (see `ORKStep`).
- @param text                            The text shown immediately below the title (see `ORKStep`).
+ @param identifier                      The string that identifies the step (see `ORKLegacyStep`).
+ @param title                           The title of the form (see `ORKLegacyStep`).
+ @param text                            The text shown immediately below the title (see `ORKLegacyStep`).
  @param loginViewControllerClass        The subclassed login step view controller class.
  
  @return An initialized login step object.

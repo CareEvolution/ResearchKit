@@ -44,8 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  Also displays an image during the task.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKFitnessStep : ORKActiveStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyFitnessStep : ORKLegacyActiveStep
 
 @end
 

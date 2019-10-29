@@ -39,14 +39,14 @@
 
 #if TARGET_INTERFACE_BUILDER
 
-@interface ORKIBBarGraphChartViewDataSource : ORKIBGraphChartViewDataSource <ORKValueStackGraphChartViewDataSource>
+@interface ORKLegacyIBBarGraphChartViewDataSource : ORKLegacyIBGraphChartViewDataSource <ORKLegacyValueStackGraphChartViewDataSource>
 
 + (instancetype)sharedInstance;
 
 @end
 
 
-@implementation ORKIBBarGraphChartViewDataSource
+@implementation ORKLegacyIBBarGraphChartViewDataSource
 
 + (instancetype)sharedInstance {
     static id sharedInstance;
@@ -62,27 +62,27 @@
     if (self) {
         self.plotPoints = @[
                             @[
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @4, @6 ]],
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @2, @4, @4 ]],
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @2, @6, @3, @6 ]],
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @3, @8, @10, @12 ]],
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @5, @10, @12, @8 ]],
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @8, @13, @18 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @4, @6 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @2, @4, @4 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @2, @6, @3, @6 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @3, @8, @10, @12 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @5, @10, @12, @8 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @8, @13, @18 ]],
                                 ],
                             @[
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @14 ]],
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @6, @6 ]],
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @3, @10, @12 ]],
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @5, @11, @14 ]],
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @7, @13, @20 ]],
-                                [[ORKValueStack alloc] initWithStackedValues:@[ @10, @13, @25 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @14 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @6, @6 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @3, @10, @12 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @5, @11, @14 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @7, @13, @20 ]],
+                                [[ORKLegacyValueStack alloc] initWithStackedValues:@[ @10, @13, @25 ]],
                                 ]
                             ];
     }
     return self;
 }
 
-- (ORKValueStack *)graphChartView:(ORKGraphChartView *)graphChartView dataPointForPointIndex:(NSInteger)pointIndex plotIndex:(NSInteger)plotIndex {
+- (ORKLegacyValueStack *)graphChartView:(ORKLegacyGraphChartView *)graphChartView dataPointForPointIndex:(NSInteger)pointIndex plotIndex:(NSInteger)plotIndex {
     return self.plotPoints[plotIndex][pointIndex];
 }
 
@@ -93,16 +93,16 @@
 static const CGFloat BarWidth = 10.0;
 
 
-@interface ORKBarGraphChartView ()
+@interface ORKLegacyBarGraphChartView ()
 
-@property (nonatomic) NSMutableArray<NSMutableArray<ORKValueStack *> *> *dataPoints; // Actual data
+@property (nonatomic) NSMutableArray<NSMutableArray<ORKLegacyValueStack *> *> *dataPoints; // Actual data
 
-@property (nonatomic) NSMutableArray<NSMutableArray<ORKValueStack *> *> *yAxisPoints; // Normalized for the plot view height
+@property (nonatomic) NSMutableArray<NSMutableArray<ORKLegacyValueStack *> *> *yAxisPoints; // Normalized for the plot view height
 
 @end
 
 
-@implementation ORKBarGraphChartView
+@implementation ORKLegacyBarGraphChartView
 
 @dynamic dataSource;
 @dynamic dataPoints;
@@ -110,27 +110,27 @@ static const CGFloat BarWidth = 10.0;
 
 #pragma mark - Draw
 
-- (ORKValueStack *)dataPointForPointIndex:(NSInteger)pointIndex plotIndex:(NSInteger)plotIndex {
+- (ORKLegacyValueStack *)dataPointForPointIndex:(NSInteger)pointIndex plotIndex:(NSInteger)plotIndex {
     return [self.dataSource graphChartView:self dataPointForPointIndex:pointIndex plotIndex:plotIndex];
 }
 
-- (ORKValueStack *)dummyPoint {
-    return [ORKValueStack new];
+- (ORKLegacyValueStack *)dummyPoint {
+    return [ORKLegacyValueStack new];
 }
 
 - (BOOL)shouldDrawLinesForPlotIndex:(NSInteger)plotIndex {
     return YES;
 }
 
-- (NSMutableArray<ORKValueStack *> *)normalizedCanvasDataPointsForPlotIndex:(NSInteger)plotIndex canvasHeight:(CGFloat)viewHeight {
-    NSMutableArray<ORKValueStack *> *normalizedDataPoints = [NSMutableArray new];
+- (NSMutableArray<ORKLegacyValueStack *> *)normalizedCanvasDataPointsForPlotIndex:(NSInteger)plotIndex canvasHeight:(CGFloat)viewHeight {
+    NSMutableArray<ORKLegacyValueStack *> *normalizedDataPoints = [NSMutableArray new];
     
     if (plotIndex < self.dataPoints.count) {
         NSUInteger pointCount = self.dataPoints[plotIndex].count;
         for (NSUInteger pointIndex = 0; pointIndex < pointCount; pointIndex++) {
             
             NSMutableArray *normalizedDoubleStackValues = [NSMutableArray new];
-            ORKValueStack *dataPointValue = self.dataPoints[plotIndex][pointIndex];
+            ORKLegacyValueStack *dataPointValue = self.dataPoints[plotIndex][pointIndex];
             
             if (!dataPointValue.isUnset) {
                 double range = self.maximumValue - self.minimumValue;
@@ -149,7 +149,7 @@ static const CGFloat BarWidth = 10.0;
                     [normalizedDoubleStackValues addObject:@(normalizedValue)];
                 }
             }
-            [normalizedDataPoints addObject:[[ORKValueStack alloc] initWithStackedValues:normalizedDoubleStackValues]];
+            [normalizedDataPoints addObject:[[ORKLegacyValueStack alloc] initWithStackedValues:normalizedDoubleStackValues]];
         }
     }
     
@@ -157,8 +157,8 @@ static const CGFloat BarWidth = 10.0;
 }
 
 - (void)calculateMinAndMaxValues {
-    self.minimumValue = ORKDoubleInvalidValue;
-    self.maximumValue = ORKDoubleInvalidValue;
+    self.minimumValue = ORKLegacyDoubleInvalidValue;
+    self.maximumValue = ORKLegacyDoubleInvalidValue;
     
     BOOL maximumValueProvided = NO;
     
@@ -178,29 +178,29 @@ static const CGFloat BarWidth = 10.0;
         for (NSInteger plotIndex = 0; plotIndex < numberOfPlots; plotIndex++) {
             NSInteger numberOfPlotPoints = self.dataPoints[plotIndex].count;
             for (NSInteger pointIndex = 0; pointIndex < numberOfPlotPoints; pointIndex++) {
-                ORKValueStack *point = self.dataPoints[plotIndex][pointIndex];
+                ORKLegacyValueStack *point = self.dataPoints[plotIndex][pointIndex];
                 if (!maximumValueProvided &&
-                    point.totalValue != ORKDoubleInvalidValue &&
-                    ((self.maximumValue == ORKDoubleInvalidValue) || (point.totalValue > self.maximumValue))) {
+                    point.totalValue != ORKLegacyDoubleInvalidValue &&
+                    ((self.maximumValue == ORKLegacyDoubleInvalidValue) || (point.totalValue > self.maximumValue))) {
                     self.maximumValue = point.totalValue;
                 }
             }
         }
     }
     
-    if (self.maximumValue == ORKDoubleInvalidValue) {
+    if (self.maximumValue == ORKLegacyDoubleInvalidValue) {
         self.maximumValue = 0;
     }
 }
 
 - (UIColor *)colorForPlotIndex:(NSInteger)plotIndex subpointIndex:(NSInteger)subpointIndex totalSubpoints:(NSInteger)totalSubpoints {
-    return ORKOpaqueColorWithReducedAlphaFromBaseColor([super colorForPlotIndex:plotIndex subpointIndex:subpointIndex totalSubpoints:(NSInteger)totalSubpoints], subpointIndex, totalSubpoints);
+    return ORKLegacyOpaqueColorWithReducedAlphaFromBaseColor([super colorForPlotIndex:plotIndex subpointIndex:subpointIndex totalSubpoints:(NSInteger)totalSubpoints], subpointIndex, totalSubpoints);
 }
 
 - (void)updateLineLayersForPlotIndex:(NSInteger)plotIndex {
     NSUInteger pointCount = self.dataPoints[plotIndex].count;
     for (NSUInteger pointIndex = 0; pointIndex < pointCount; pointIndex++) {
-        ORKValueStack *dataPointValue = self.dataPoints[plotIndex][pointIndex];
+        ORKLegacyValueStack *dataPointValue = self.dataPoints[plotIndex][pointIndex];
         NSMutableArray *lineLayers = [NSMutableArray new];
         if (!dataPointValue.isUnset) {
             NSUInteger numberOfStackedValues = dataPointValue.stackedValues.count;
@@ -218,13 +218,13 @@ static const CGFloat BarWidth = 10.0;
 
 - (void)layoutLineLayersForPlotIndex:(NSInteger)plotIndex {
     NSUInteger lineLayerIndex = 0;
-    double positionOnXAxis = ORKDoubleInvalidValue;
-    ORKValueStack *positionsOnYAxis = nil;
+    double positionOnXAxis = ORKLegacyDoubleInvalidValue;
+    ORKLegacyValueStack *positionsOnYAxis = nil;
     NSUInteger pointCount = self.yAxisPoints[plotIndex].count;
     for (NSUInteger pointIndex = 0; pointIndex < pointCount; pointIndex++) {
         float previousYValue = self.plotView.bounds.size.height;
 
-        ORKValueStack *dataPointValue = self.dataPoints[plotIndex][pointIndex];
+        ORKLegacyValueStack *dataPointValue = self.dataPoints[plotIndex][pointIndex];
         positionsOnYAxis = self.yAxisPoints[plotIndex][pointIndex];
 
         if (!dataPointValue.isUnset) {
@@ -282,7 +282,7 @@ static const CGFloat BarWidth = 10.0;
 - (void)prepareForInterfaceBuilder {
     [super prepareForInterfaceBuilder];
 #if TARGET_INTERFACE_BUILDER
-    self.dataSource = [ORKIBBarGraphChartViewDataSource sharedInstance];
+    self.dataSource = [ORKLegacyIBBarGraphChartViewDataSource sharedInstance];
 #endif
 }
 

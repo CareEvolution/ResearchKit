@@ -34,13 +34,13 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKRangeOfMotionStep
+@implementation ORKLegacyRangeOfMotionStep
 
 + (Class)stepViewControllerClass {
-    return [ORKRangeOfMotionStepViewController class];
+    return [ORKLegacyRangeOfMotionStepViewController class];
 }
 
-- (instancetype)initWithIdentifier:(NSString *)identifier limbOption:(ORKPredefinedTaskLimbOption)limbOption {
+- (instancetype)initWithIdentifier:(NSString *)identifier limbOption:(ORKLegacyPredefinedTaskLimbOption)limbOption {
     self = [super initWithIdentifier:identifier];
     if (self) {
         self.shouldVibrateOnStart = YES;
@@ -57,9 +57,9 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    if (self.limbOption != ORKPredefinedTaskLimbOptionLeft && self.limbOption != ORKPredefinedTaskLimbOptionRight) {
+    if (self.limbOption != ORKLegacyPredefinedTaskLimbOptionLeft && self.limbOption != ORKLegacyPredefinedTaskLimbOptionRight) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:ORKLocalizedString(@"LIMB_OPTION_LEFT_OR_RIGHT_ERROR", nil)
+                                       reason:ORKLegacyLocalizedString(@"LIMB_OPTION_LEFT_OR_RIGHT_ERROR", nil)
                                      userInfo:nil];
     }
 }
@@ -73,7 +73,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKRangeOfMotionStep *step = [super copyWithZone:zone];
+    ORKLegacyRangeOfMotionStep *step = [super copyWithZone:zone];
     step.limbOption = self.limbOption;
     return step;
 }
@@ -81,14 +81,14 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_INTEGER(aDecoder, limbOption);
+        ORKLegacy_DECODE_INTEGER(aDecoder, limbOption);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_INTEGER(aCoder, limbOption);
+    ORKLegacy_ENCODE_INTEGER(aCoder, limbOption);
 }
 
 - (BOOL)isEqual:(id)object {

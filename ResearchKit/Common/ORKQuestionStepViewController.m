@@ -57,24 +57,24 @@
 #import "ORKSkin.h"
 
 
-typedef NS_ENUM(NSInteger, ORKQuestionSection) {
-    ORKQuestionSectionAnswer = 0,
-    ORKQuestionSection_COUNT
+typedef NS_ENUM(NSInteger, ORKLegacyQuestionSection) {
+    ORKLegacyQuestionSectionAnswer = 0,
+    ORKLegacyQuestionSection_COUNT
 };
 
 
-@interface ORKQuestionStepViewController () <UITableViewDataSource,UITableViewDelegate, ORKSurveyAnswerCellDelegate> {
+@interface ORKLegacyQuestionStepViewController () <UITableViewDataSource,UITableViewDelegate, ORKLegacySurveyAnswerCellDelegate> {
     id _answer;
     
-    ORKTableContainerView *_tableContainer;
-    ORKStepHeaderView *_headerView;
-    ORKNavigationContainerView *_continueSkipView;
-    ORKAnswerDefaultSource *_defaultSource;
+    ORKLegacyTableContainerView *_tableContainer;
+    ORKLegacyStepHeaderView *_headerView;
+    ORKLegacyNavigationContainerView *_continueSkipView;
+    ORKLegacyAnswerDefaultSource *_defaultSource;
     
     NSCalendar *_savedSystemCalendar;
     NSTimeZone *_savedSystemTimeZone;
     
-    ORKTextChoiceCellGroup *_choiceCellGroup;
+    ORKLegacyTextChoiceCellGroup *_choiceCellGroup;
     
     id _defaultAnswer;
     
@@ -82,14 +82,14 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 }
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) ORKQuestionStepView *questionView;
+@property (nonatomic, strong) ORKLegacyQuestionStepView *questionView;
 
-@property (nonatomic, strong) ORKAnswerFormat *answerFormat;
+@property (nonatomic, strong) ORKLegacyAnswerFormat *answerFormat;
 @property (nonatomic, copy) id<NSCopying, NSObject, NSCoding> answer;
 
-@property (nonatomic, strong) ORKContinueButton *continueActionButton;
+@property (nonatomic, strong) ORKLegacyContinueButton *continueActionButton;
 
-@property (nonatomic, strong) ORKSurveyAnswerCell *answerCell;
+@property (nonatomic, strong) ORKLegacySurveyAnswerCell *answerCell;
 
 @property (nonatomic, readonly) UILabel *questionLabel;
 @property (nonatomic, readonly) UILabel *promptLabel;
@@ -102,22 +102,22 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 @end
 
 
-@implementation ORKQuestionStepViewController
+@implementation ORKLegacyQuestionStepViewController
 
 - (void)initializeInternalButtonItems {
     [super initializeInternalButtonItems];
-    self.internalSkipButtonItem.title = ORKLocalizedString(@"BUTTON_SKIP_QUESTION", nil);
+    self.internalSkipButtonItem.title = ORKLegacyLocalizedString(@"BUTTON_SKIP_QUESTION", nil);
 }
 
-- (instancetype)initWithStep:(ORKStep *)step result:(ORKResult *)result {
+- (instancetype)initWithStep:(ORKLegacyStep *)step result:(ORKLegacyResult *)result {
     self = [self initWithStep:step];
     if (self) {
-		ORKStepResult *stepResult = (ORKStepResult *)result;
+		ORKLegacyStepResult *stepResult = (ORKLegacyStepResult *)result;
 		if (stepResult && [stepResult results].count > 0) {
-            ORKQuestionResult *questionResult = ORKDynamicCast([stepResult results].firstObject, ORKQuestionResult);
+            ORKLegacyQuestionResult *questionResult = ORKLegacyDynamicCast([stepResult results].firstObject, ORKLegacyQuestionResult);
             id answer = [questionResult answer];
             if (questionResult != nil && answer == nil) {
-                answer = ORKNullAnswerValue();
+                answer = ORKLegacyNullAnswerValue();
             }
 			self.answer = answer;
             self.originalAnswer = answer;
@@ -126,10 +126,10 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     return self;
 }
 
-- (instancetype)initWithStep:(ORKStep *)step {
+- (instancetype)initWithStep:(ORKLegacyStep *)step {
     self = [super initWithStep:step];
     if (self) {
-        _defaultSource = [ORKAnswerDefaultSource sourceWithHealthStore:[HKHealthStore new]];
+        _defaultSource = [ORKLegacyAnswerDefaultSource sourceWithHealthStore:[HKHealthStore new]];
     }
     return self;
 }
@@ -152,7 +152,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
         _questionView = nil;
         
         if ([self.questionStep formatRequiresTableView] && !_customQuestionView) {
-            _tableContainer = [[ORKTableContainerView alloc] initWithFrame:self.view.bounds];
+            _tableContainer = [[ORKLegacyTableContainerView alloc] initWithFrame:self.view.bounds];
             
             // Create a new one (with correct style)
             _tableView = _tableContainer.tableView;
@@ -182,7 +182,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
             }
             [_tableContainer setNeedsLayout];
         } else if (self.step) {
-            _questionView = [ORKQuestionStepView new];
+            _questionView = [ORKLegacyQuestionStepView new];
             _questionView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
             _questionView.questionStep = [self questionStep];
             [self.view addSubview:_questionView];
@@ -193,7 +193,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
                 _customQuestionView.answer = [self answer];
                 _customQuestionView.userInteractionEnabled = !self.readOnlyMode;
             } else {
-                ORKQuestionStepCellHolderView *cellHolderView = [ORKQuestionStepCellHolderView new];
+                ORKLegacyQuestionStepCellHolderView *cellHolderView = [ORKLegacyQuestionStepCellHolderView new];
                 cellHolderView.delegate = self;
                 cellHolderView.cell = [self answerCellForTableView:nil];
                 [NSLayoutConstraint activateConstraints:
@@ -249,7 +249,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 
 - (void)showValidityAlertWithMessage:(NSString *)text {
     // Ignore if our answer is null
-    if (self.answer == ORKNullAnswerValue()) {
+    if (self.answer == ORKLegacyNullAnswerValue()) {
         return;
     }
     
@@ -267,7 +267,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     }
     
     NSMutableSet *types = [NSMutableSet set];
-    ORKAnswerFormat *format = [[self questionStep] answerFormat];
+    ORKLegacyAnswerFormat *format = [[self questionStep] answerFormat];
     HKObjectType *objType = [format healthKitObjectTypeForAuthorization];
     if (objType) {
         [types addObject:objType];
@@ -301,7 +301,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
         if (_customQuestionView) {
             _customQuestionView.answer = _answer;
         } else {
-            ORKQuestionStepCellHolderView *holder = (ORKQuestionStepCellHolderView *)_questionView.questionCustomView;
+            ORKLegacyQuestionStepCellHolderView *holder = (ORKLegacyQuestionStepCellHolderView *)_questionView.questionCustomView;
             holder.answer = _answer;
             [self.answerCell setAnswer:_answer];
         }
@@ -317,7 +317,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
                 [self defaultAnswerDidChange];
             });
         } else {
-            ORK_Log_Warning(@"Error fetching default: %@", error);
+            ORKLegacy_Log_Warning(@"Error fetching default: %@", error);
         }
     }];
 }
@@ -335,8 +335,8 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     [super viewDidAppear:animated];
     
     // Delay creating the date picker until the view has appeared (to avoid animation stutter)
-    ORKSurveyAnswerCellForPicker *cell = (ORKSurveyAnswerCellForPicker *)[(ORKQuestionStepCellHolderView *)_questionView.questionCustomView cell];
-    if ([cell isKindOfClass:[ORKSurveyAnswerCellForPicker class]]) {
+    ORKLegacySurveyAnswerCellForPicker *cell = (ORKLegacySurveyAnswerCellForPicker *)[(ORKLegacyQuestionStepCellHolderView *)_questionView.questionCustomView cell];
+    if ([cell isKindOfClass:[ORKLegacySurveyAnswerCellForPicker class]]) {
         [cell loadPicker];
     }
     
@@ -351,7 +351,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     _visible = NO;
 }
 
-- (void)setCustomQuestionView:(ORKQuestionStepCustomView *)customQuestionView {
+- (void)setCustomQuestionView:(ORKLegacyQuestionStepCustomView *)customQuestionView {
     [_customQuestionView removeFromSuperview];
     _customQuestionView = customQuestionView;
     if ([_customQuestionView constraints].count == 0) {
@@ -414,25 +414,25 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     [self updateButtonStates];
 }
 
-- (ORKStepResult *)result {
-    ORKStepResult *parentResult = [super result];
-    ORKQuestionStep *questionStep = self.questionStep;
+- (ORKLegacyStepResult *)result {
+    ORKLegacyStepResult *parentResult = [super result];
+    ORKLegacyQuestionStep *questionStep = self.questionStep;
     
     if (self.answer) {
-        ORKQuestionResult *result = [questionStep.answerFormat resultWithIdentifier:questionStep.identifier answer:self.answer];
-        ORKAnswerFormat *impliedAnswerFormat = [questionStep impliedAnswerFormat];
+        ORKLegacyQuestionResult *result = [questionStep.answerFormat resultWithIdentifier:questionStep.identifier answer:self.answer];
+        ORKLegacyAnswerFormat *impliedAnswerFormat = [questionStep impliedAnswerFormat];
         
-        if ([impliedAnswerFormat isKindOfClass:[ORKDateAnswerFormat class]]) {
-            ORKDateQuestionResult *dateQuestionResult = (ORKDateQuestionResult *)result;
+        if ([impliedAnswerFormat isKindOfClass:[ORKLegacyDateAnswerFormat class]]) {
+            ORKLegacyDateQuestionResult *dateQuestionResult = (ORKLegacyDateQuestionResult *)result;
             if (dateQuestionResult.dateAnswer) {
-                NSCalendar *usedCalendar = [(ORKDateAnswerFormat *)impliedAnswerFormat calendar] ? : _savedSystemCalendar;
+                NSCalendar *usedCalendar = [(ORKLegacyDateAnswerFormat *)impliedAnswerFormat calendar] ? : _savedSystemCalendar;
                 dateQuestionResult.calendar = [NSCalendar calendarWithIdentifier:usedCalendar.calendarIdentifier ? : [NSCalendar currentCalendar].calendarIdentifier];
                 dateQuestionResult.timeZone = _savedSystemTimeZone ? : [NSTimeZone systemTimeZone];
             }
-        } else if ([impliedAnswerFormat isKindOfClass:[ORKNumericAnswerFormat class]]) {
-            ORKNumericQuestionResult *nqr = (ORKNumericQuestionResult *)result;
+        } else if ([impliedAnswerFormat isKindOfClass:[ORKLegacyNumericAnswerFormat class]]) {
+            ORKLegacyNumericQuestionResult *nqr = (ORKLegacyNumericQuestionResult *)result;
             if (nqr.unit == nil) {
-                nqr.unit = [(ORKNumericAnswerFormat *)impliedAnswerFormat unit];
+                nqr.unit = [(ORKLegacyNumericAnswerFormat *)impliedAnswerFormat unit];
             }
         }
         
@@ -447,13 +447,13 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 
 #pragma mark - Internal
 
-- (ORKQuestionStep *)questionStep {
-    assert(!self.step || [self.step isKindOfClass:[ORKQuestionStep class]]);
-    return (ORKQuestionStep *)self.step;
+- (ORKLegacyQuestionStep *)questionStep {
+    assert(!self.step || [self.step isKindOfClass:[ORKLegacyQuestionStep class]]);
+    return (ORKLegacyQuestionStep *)self.step;
 }
 
 - (BOOL)hasAnswer {
-    return !ORKIsAnswerEmpty(self.answer);
+    return !ORKLegacyIsAnswerEmpty(self.answer);
 }
 
 - (void)saveAnswer:(id)answer {
@@ -465,9 +465,9 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 
 - (void)skipForward {
     // Null out the answer before proceeding
-    [self saveAnswer:ORKNullAnswerValue()];
-    ORKSurveyAnswerCell *cell = self.answerCell;
-    cell.answer = ORKNullAnswerValue();
+    [self saveAnswer:ORKLegacyNullAnswerValue()];
+    ORKLegacySurveyAnswerCell *cell = self.answerCell;
+    cell.answer = ORKLegacyNullAnswerValue();
     
     [super skipForward];
 }
@@ -494,7 +494,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 }
 
 - (id<NSCopying, NSCoding, NSObject>)answer {
-    if (self.questionStep.questionType == ORKQuestionTypeMultipleChoice && (_answer == nil || _answer == ORKNullAnswerValue())) {
+    if (self.questionStep.questionType == ORKLegacyQuestionTypeMultipleChoice && (_answer == nil || _answer == ORKLegacyNullAnswerValue())) {
         _answer = [NSMutableArray array];
     }
     return _answer;
@@ -515,7 +515,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 - (BOOL)skipButtonEnabled {
     BOOL enabled = [self questionStep].optional;
     if (self.isBeingReviewed) {
-        enabled = self.readOnlyMode ? NO : enabled && !ORKIsAnswerEmpty(self.originalAnswer);
+        enabled = self.readOnlyMode ? NO : enabled && !ORKLegacyIsAnswerEmpty(self.originalAnswer);
     }
     return enabled;
 }
@@ -530,9 +530,9 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     return [self.questionStep isFormatImmediateNavigation] && [self hasAnswer] == NO && !self.isBeingReviewed;
 }
 
-#pragma mark - ORKQuestionStepCustomViewDelegate
+#pragma mark - ORKLegacyQuestionStepCustomViewDelegate
 
-- (void)customQuestionStepView:(ORKQuestionStepCustomView *)customQuestionStepView didChangeAnswer:(id)answer; {
+- (void)customQuestionStepView:(ORKLegacyQuestionStepCustomView *)customQuestionStepView didChangeAnswer:(id)answer; {
     [self saveAnswer:answer];
     self.hasChangedAnswer = YES;
 }
@@ -540,14 +540,14 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return ORKQuestionSection_COUNT;
+    return ORKLegacyQuestionSection_COUNT;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    ORKAnswerFormat *impliedAnswerFormat = [_answerFormat impliedAnswerFormat];
+    ORKLegacyAnswerFormat *impliedAnswerFormat = [_answerFormat impliedAnswerFormat];
     
-    if (section == ORKQuestionSectionAnswer) {
-        _choiceCellGroup = [[ORKTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:(ORKTextChoiceAnswerFormat *)impliedAnswerFormat
+    if (section == ORKLegacyQuestionSectionAnswer) {
+        _choiceCellGroup = [[ORKLegacyTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:(ORKLegacyTextChoiceAnswerFormat *)impliedAnswerFormat
                                                                                    answer:self.answer
                                                                        beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]
                                                                       immediateNavigation:[self isStepImmediateNavigation]];
@@ -556,43 +556,43 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     return 0;
 }
 
-- (ORKSurveyAnswerCell *)answerCellForTableView:(UITableView *)tableView {
+- (ORKLegacySurveyAnswerCell *)answerCellForTableView:(UITableView *)tableView {
     static NSDictionary *typeAndCellMapping = nil;
     static NSString *identifier = nil;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        typeAndCellMapping = @{@(ORKQuestionTypeScale): [ORKSurveyAnswerCellForScale class],
-                               @(ORKQuestionTypeDecimal): [ORKSurveyAnswerCellForNumber class],
-                               @(ORKQuestionTypeText): [ORKSurveyAnswerCellForText class],
-                               @(ORKQuestionTypeTimeOfDay): [ORKSurveyAnswerCellForPicker class],
-                               @(ORKQuestionTypeDate): [ORKSurveyAnswerCellForPicker class],
-                               @(ORKQuestionTypeDateAndTime): [ORKSurveyAnswerCellForPicker class],
-                               @(ORKQuestionTypeTimeInterval): [ORKSurveyAnswerCellForPicker class],
-                               @(ORKQuestionTypeHeight) : [ORKSurveyAnswerCellForPicker class],
-                               @(ORKQuestionTypeWeight) : [ORKSurveyAnswerCellForPicker class],
-                               @(ORKQuestionTypeMultiplePicker) : [ORKSurveyAnswerCellForPicker class],
-                               @(ORKQuestionTypeInteger): [ORKSurveyAnswerCellForNumber class],
-                               @(ORKQuestionTypeLocation): [ORKSurveyAnswerCellForLocation class]};
+        typeAndCellMapping = @{@(ORKLegacyQuestionTypeScale): [ORKLegacySurveyAnswerCellForScale class],
+                               @(ORKLegacyQuestionTypeDecimal): [ORKLegacySurveyAnswerCellForNumber class],
+                               @(ORKLegacyQuestionTypeText): [ORKLegacySurveyAnswerCellForText class],
+                               @(ORKLegacyQuestionTypeTimeOfDay): [ORKLegacySurveyAnswerCellForPicker class],
+                               @(ORKLegacyQuestionTypeDate): [ORKLegacySurveyAnswerCellForPicker class],
+                               @(ORKLegacyQuestionTypeDateAndTime): [ORKLegacySurveyAnswerCellForPicker class],
+                               @(ORKLegacyQuestionTypeTimeInterval): [ORKLegacySurveyAnswerCellForPicker class],
+                               @(ORKLegacyQuestionTypeHeight) : [ORKLegacySurveyAnswerCellForPicker class],
+                               @(ORKLegacyQuestionTypeWeight) : [ORKLegacySurveyAnswerCellForPicker class],
+                               @(ORKLegacyQuestionTypeMultiplePicker) : [ORKLegacySurveyAnswerCellForPicker class],
+                               @(ORKLegacyQuestionTypeInteger): [ORKLegacySurveyAnswerCellForNumber class],
+                               @(ORKLegacyQuestionTypeLocation): [ORKLegacySurveyAnswerCellForLocation class]};
     });
     
     // SingleSelectionPicker Cell && Other Cells
     Class class = typeAndCellMapping[@(self.questionStep.questionType)];
     
     if ([self.questionStep isFormatChoiceWithImageOptions]) {
-        class = [ORKSurveyAnswerCellForImageSelection class];
+        class = [ORKLegacySurveyAnswerCellForImageSelection class];
     } else if ([self.questionStep isFormatTextfield]) {
         // Override for single-line text entry
-        class = [ORKSurveyAnswerCellForTextField class];
-    } else if ([[self.questionStep impliedAnswerFormat] isKindOfClass:[ORKValuePickerAnswerFormat class]]) {
-        class = [ORKSurveyAnswerCellForPicker class];
+        class = [ORKLegacySurveyAnswerCellForTextField class];
+    } else if ([[self.questionStep impliedAnswerFormat] isKindOfClass:[ORKLegacyValuePickerAnswerFormat class]]) {
+        class = [ORKLegacySurveyAnswerCellForPicker class];
     }
     
     identifier = NSStringFromClass(class);
     
     NSAssert(class != nil, @"class should not be nil");
     
-    ORKSurveyAnswerCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    ORKLegacySurveyAnswerCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (cell == nil) { 
         cell = [[class alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier step:[self questionStep] answer:self.answer delegate:self];
@@ -601,13 +601,13 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     self.answerCell = cell;
     
     if ([self.questionStep isFormatTextfield] ||
-        [cell isKindOfClass:[ORKSurveyAnswerCellForScale class]] ||
-        [cell isKindOfClass:[ORKSurveyAnswerCellForPicker class]]) {
-        cell.separatorInset = UIEdgeInsetsMake(0, ORKScreenMetricMaxDimension, 0, 0);
+        [cell isKindOfClass:[ORKLegacySurveyAnswerCellForScale class]] ||
+        [cell isKindOfClass:[ORKLegacySurveyAnswerCellForPicker class]]) {
+        cell.separatorInset = UIEdgeInsetsMake(0, ORKLegacyScreenMetricMaxDimension, 0, 0);
     }
 
-    if ([cell isKindOfClass:[ORKSurveyAnswerCellForPicker class]] && _visible) {
-        [(ORKSurveyAnswerCellForPicker *)cell loadPicker];
+    if ([cell isKindOfClass:[ORKLegacySurveyAnswerCellForPicker class]] && _visible) {
+        [(ORKLegacySurveyAnswerCellForPicker *)cell loadPicker];
     }
     
     return cell;
@@ -628,7 +628,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     
     identifier = [NSStringFromClass([self class]) stringByAppendingFormat:@"%@", @(indexPath.row)];
     
-    ORKChoiceViewCell *cell = [_choiceCellGroup cellAtIndexPath:indexPath withReuseIdentifier:identifier];
+    ORKLegacyChoiceViewCell *cell = [_choiceCellGroup cellAtIndexPath:indexPath withReuseIdentifier:identifier];
     
     cell.userInteractionEnabled = !self.readOnlyMode;
     return cell;
@@ -636,11 +636,11 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.layoutMargins = UIEdgeInsetsZero;
-    cell.separatorInset = (UIEdgeInsets){.left = ORKStandardLeftMarginForTableViewCell(tableView)};
+    cell.separatorInset = (UIEdgeInsets){.left = ORKLegacyStandardLeftMarginForTableViewCell(tableView)};
 }
 
 - (BOOL)shouldContinue {
-    ORKSurveyAnswerCell *cell = self.answerCell;
+    ORKLegacySurveyAnswerCell *cell = self.answerCell;
     if (!cell) {
         return YES;
     }
@@ -671,7 +671,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
             return;
         }
         
-        ORKSuppressPerformSelectorWarning(
+        ORKLegacySuppressPerformSelectorWarning(
                                           [self.continueButtonItem.target performSelector:self.continueButtonItem.action withObject:self.continueButtonItem];);
     }
 }
@@ -679,7 +679,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 #pragma mark - UITableViewDelegate
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section != ORKQuestionSectionAnswer) {
+    if (indexPath.section != ORKLegacyQuestionSectionAnswer) {
         return nil;
     }
     if (NO == self.questionStep.isFormatFitsChoiceCells) {
@@ -689,7 +689,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.section == ORKQuestionSectionAnswer;
+    return indexPath.section == ORKLegacyQuestionSectionAnswer;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -700,45 +700,45 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     // Capture `isStepImmediateNavigation` before saving an answer.
     BOOL immediateNavigation = [self isStepImmediateNavigation];
     
-    id answer = (self.questionStep.questionType == ORKQuestionTypeBoolean) ? [_choiceCellGroup answerForBoolean] :[_choiceCellGroup answer];
+    id answer = (self.questionStep.questionType == ORKLegacyQuestionTypeBoolean) ? [_choiceCellGroup answerForBoolean] :[_choiceCellGroup answer];
     
     [self saveAnswer:answer];
     self.hasChangedAnswer = YES;
     
     if (immediateNavigation) {
         // Proceed as continueButton tapped
-        ORKSuppressPerformSelectorWarning(
+        ORKLegacySuppressPerformSelectorWarning(
                                          [self.continueButtonItem.target performSelector:self.continueButtonItem.action withObject:self.continueButtonItem];);
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = [ORKSurveyAnswerCell suggestedCellHeightForView:tableView];
+    CGFloat height = [ORKLegacySurveyAnswerCell suggestedCellHeightForView:tableView];
     
     switch (self.questionStep.questionType) {
-        case ORKQuestionTypeSingleChoice:
-        case ORKQuestionTypeMultipleChoice:{
+        case ORKLegacyQuestionTypeSingleChoice:
+        case ORKLegacyQuestionTypeMultipleChoice:{
             if ([self.questionStep isFormatFitsChoiceCells]) {
                 height = [self heightForChoiceItemOptionAtIndex:indexPath.row];
             } else {
-                height = [ORKSurveyAnswerCellForPicker suggestedCellHeightForView:tableView];
+                height = [ORKLegacySurveyAnswerCellForPicker suggestedCellHeightForView:tableView];
             }
         }
             break;
-        case ORKQuestionTypeInteger:
-        case ORKQuestionTypeDecimal:{
-            height = [ORKSurveyAnswerCellForNumber suggestedCellHeightForView:tableView];
+        case ORKLegacyQuestionTypeInteger:
+        case ORKLegacyQuestionTypeDecimal:{
+            height = [ORKLegacySurveyAnswerCellForNumber suggestedCellHeightForView:tableView];
         }
             break;
-        case ORKQuestionTypeText:{
-            height = [ORKSurveyAnswerCellForText suggestedCellHeightForView:tableView];
+        case ORKLegacyQuestionTypeText:{
+            height = [ORKLegacySurveyAnswerCellForText suggestedCellHeightForView:tableView];
         }
             break;
-        case ORKQuestionTypeTimeOfDay:
-        case ORKQuestionTypeTimeInterval:
-        case ORKQuestionTypeDate:
-        case ORKQuestionTypeDateAndTime:{
-            height = [ORKSurveyAnswerCellForPicker suggestedCellHeightForView:tableView];
+        case ORKLegacyQuestionTypeTimeOfDay:
+        case ORKLegacyQuestionTypeTimeInterval:
+        case ORKLegacyQuestionTypeDate:
+        case ORKLegacyQuestionTypeDateAndTime:{
+            height = [ORKLegacySurveyAnswerCellForPicker suggestedCellHeightForView:tableView];
         }
             break;
         default:{
@@ -750,14 +750,14 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 }
 
 - (CGFloat)heightForChoiceItemOptionAtIndex:(NSInteger)index {
-    ORKTextChoice *option = [(ORKTextChoiceAnswerFormat *)_answerFormat textChoices][index];
-    CGFloat height = [ORKChoiceViewCell suggestedCellHeightForShortText:option.text LongText:option.detailText inTableView:_tableView];
+    ORKLegacyTextChoice *option = [(ORKLegacyTextChoiceAnswerFormat *)_answerFormat textChoices][index];
+    CGFloat height = [ORKLegacyChoiceViewCell suggestedCellHeightForShortText:option.text LongText:option.detailText inTableView:_tableView];
     return height;
 }
 
-#pragma mark - ORKSurveyAnswerCellDelegate
+#pragma mark - ORKLegacySurveyAnswerCellDelegate
 
-- (void)answerCell:(ORKSurveyAnswerCell *)cell answerDidChangeTo:(id)answer dueUserAction:(BOOL)dueUserAction {
+- (void)answerCell:(ORKLegacySurveyAnswerCell *)cell answerDidChangeTo:(id)answer dueUserAction:(BOOL)dueUserAction {
     [self saveAnswer:answer];
     
     if (self.hasChangedAnswer == NO && dueUserAction == YES) {
@@ -765,32 +765,32 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     }
 }
 
-- (void)answerCell:(ORKSurveyAnswerCell *)cell invalidInputAlertWithMessage:(NSString *)input {
+- (void)answerCell:(ORKLegacySurveyAnswerCell *)cell invalidInputAlertWithMessage:(NSString *)input {
     [self showValidityAlertWithMessage:input];
 }
 
-- (void)answerCell:(ORKSurveyAnswerCell *)cell invalidInputAlertWithTitle:(NSString *)title message:(NSString *)message {
+- (void)answerCell:(ORKLegacySurveyAnswerCell *)cell invalidInputAlertWithTitle:(NSString *)title message:(NSString *)message {
     [self showValidityAlertWithTitle:title message:message];
 }
 
-static NSString *const _ORKAnswerRestoreKey = @"answer";
-static NSString *const _ORKHasChangedAnswerRestoreKey = @"hasChangedAnswer";
-static NSString *const _ORKOriginalAnswerRestoreKey = @"originalAnswer";
+static NSString *const _ORKLegacyAnswerRestoreKey = @"answer";
+static NSString *const _ORKLegacyHasChangedAnswerRestoreKey = @"hasChangedAnswer";
+static NSString *const _ORKLegacyOriginalAnswerRestoreKey = @"originalAnswer";
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
     
-    [coder encodeObject:_answer forKey:_ORKAnswerRestoreKey];
-    [coder encodeBool:_hasChangedAnswer forKey:_ORKHasChangedAnswerRestoreKey];
-    [coder encodeObject:_originalAnswer forKey:_ORKOriginalAnswerRestoreKey];
+    [coder encodeObject:_answer forKey:_ORKLegacyAnswerRestoreKey];
+    [coder encodeBool:_hasChangedAnswer forKey:_ORKLegacyHasChangedAnswerRestoreKey];
+    [coder encodeObject:_originalAnswer forKey:_ORKLegacyOriginalAnswerRestoreKey];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     NSSet *decodeableSet = [NSSet setWithObjects:[NSNumber class], [NSString class], [NSDateComponents class], [NSArray class], nil];
-    self.answer = [coder decodeObjectOfClasses:decodeableSet forKey:_ORKAnswerRestoreKey];
-    self.hasChangedAnswer = [coder decodeBoolForKey:_ORKHasChangedAnswerRestoreKey];
-    self.originalAnswer = [coder decodeObjectOfClasses:decodeableSet forKey:_ORKOriginalAnswerRestoreKey];
+    self.answer = [coder decodeObjectOfClasses:decodeableSet forKey:_ORKLegacyAnswerRestoreKey];
+    self.hasChangedAnswer = [coder decodeBoolForKey:_ORKLegacyHasChangedAnswerRestoreKey];
+    self.originalAnswer = [coder decodeObjectOfClasses:decodeableSet forKey:_ORKLegacyOriginalAnswerRestoreKey];
     
     [self answerDidChange];
 }

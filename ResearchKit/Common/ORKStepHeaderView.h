@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKStepHeaderView : UIView
+@interface ORKLegacyStepHeaderView : UIView
 
 @property (nonatomic, strong, nullable) UIBarButtonItem *learnMoreButtonItem;
 

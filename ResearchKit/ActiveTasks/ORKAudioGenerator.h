@@ -58,10 +58,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKAudioGenerator` class represents an audio tone generator.
+ The `ORKLegacyAudioGenerator` class represents an audio tone generator.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKAudioGenerator : NSObject
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyAudioGenerator : NSObject
 
 /**
  Plays a tone at a specific frequency in stereo.
@@ -83,7 +83,7 @@ ORK_CLASS_AVAILABLE
  @param duration The fade-in duration.
  */
 - (void)playSoundAtFrequency:(double)frequency
-                   onChannel:(ORKAudioChannel)channel
+                   onChannel:(ORKLegacyAudioChannel)channel
               fadeInDuration:(NSTimeInterval)duration;
 
 /**

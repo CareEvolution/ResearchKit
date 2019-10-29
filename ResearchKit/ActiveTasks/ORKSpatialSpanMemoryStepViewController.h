@@ -37,10 +37,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- View controller corresponding to `ORKSpatialSpanMemoryStep`.
+ View controller corresponding to `ORKLegacySpatialSpanMemoryStep`.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKSpatialSpanMemoryStepViewController : ORKActiveStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacySpatialSpanMemoryStepViewController : ORKLegacyActiveStepViewController
 
 @end
 

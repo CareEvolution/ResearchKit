@@ -35,21 +35,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKSpatialSpanTargetView;
+@class ORKLegacySpatialSpanTargetView;
 
-@protocol ORKSpatialSpanTargetViewDelegate<NSObject>
+@protocol ORKLegacySpatialSpanTargetViewDelegate<NSObject>
 
-- (void)targetView:(ORKSpatialSpanTargetView *)targetView recognizer:(UITapGestureRecognizer *)recognizer;
+- (void)targetView:(ORKLegacySpatialSpanTargetView *)targetView recognizer:(UITapGestureRecognizer *)recognizer;
 
 @end
 
 
-@interface ORKSpatialSpanTargetView : UIView
+@interface ORKLegacySpatialSpanTargetView : UIView
 
-@property (nonatomic, weak, nullable) id<ORKSpatialSpanTargetViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORKLegacySpatialSpanTargetViewDelegate> delegate;
 
-@property (nonatomic, assign) ORKSpatialSpanTargetState state;
-- (void)setState:(ORKSpatialSpanTargetState)state animated:(BOOL)animated;
+@property (nonatomic, assign) ORKLegacySpatialSpanTargetState state;
+- (void)setState:(ORKLegacySpatialSpanTargetState)state animated:(BOOL)animated;
 
 @property (nonatomic, strong, nullable) UIColor *color;
 

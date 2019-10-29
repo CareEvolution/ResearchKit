@@ -38,12 +38,12 @@
 #import "ORKHelpers_Internal.h"
 
 
-@interface ORKRateObservedPlayer : AVPlayer
+@interface ORKLegacyRateObservedPlayer : AVPlayer
 
 @end
 
 
-@implementation ORKRateObservedPlayer {
+@implementation ORKLegacyRateObservedPlayer {
     id _observer;
 }
 
@@ -63,14 +63,14 @@
 @end
 
 
-@implementation ORKVideoInstructionStepViewController {
+@implementation ORKLegacyVideoInstructionStepViewController {
     Float64 _playbackStoppedTime;
     BOOL _playbackCompleted;
 }
 
-- (ORKVideoInstructionStep *)videoInstructionStep {
-    NSAssert(self.step == nil || [self.step isKindOfClass:[ORKVideoInstructionStep class]], @"View controller is only valid with a ORKVideoInstructionStep step class.");
-    return (ORKVideoInstructionStep *)self.step;
+- (ORKLegacyVideoInstructionStep *)videoInstructionStep {
+    NSAssert(self.step == nil || [self.step isKindOfClass:[ORKLegacyVideoInstructionStep class]], @"View controller is only valid with a ORKLegacyVideoInstructionStep step class.");
+    return (ORKLegacyVideoInstructionStep *)self.step;
 }
 
 - (void)stepDidChange {
@@ -84,7 +84,7 @@
         [self.stepView.instructionImageView addGestureRecognizer:tapRecognizer];
         
         if (self.stepView.instructionImageView.image) {
-            UIImageView *playImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play" inBundle:ORKBundle() compatibleWithTraitCollection:nil]];
+            UIImageView *playImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"play" inBundle:ORKLegacyBundle() compatibleWithTraitCollection:nil]];
             self.stepView.instructionImageView.userInteractionEnabled = YES;
             [self.stepView.instructionImageView addSubview:playImageView];
             
@@ -119,7 +119,7 @@
 - (void)play {
     AVAsset* asset = [AVAsset assetWithURL:[self videoInstructionStep].videoURL];
     AVPlayerItem* playerItem = [AVPlayerItem playerItemWithAsset:asset];
-    ORKRateObservedPlayer* player = [[ORKRateObservedPlayer alloc] initWithPlayerItem:playerItem andObserver:self];
+    ORKLegacyRateObservedPlayer* player = [[ORKLegacyRateObservedPlayer alloc] initWithPlayerItem:playerItem andObserver:self];
     player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
     AVPlayerViewController *playerViewController = [[AVPlayerViewController alloc] init];
     playerViewController.player = player;
@@ -143,10 +143,10 @@
     }
 }
 
-- (ORKStepResult *)result {
-    ORKStepResult *parentResult = [super result];
+- (ORKLegacyStepResult *)result {
+    ORKLegacyStepResult *parentResult = [super result];
     if (parentResult) {
-        ORKVideoInstructionStepResult *childResult = [[ORKVideoInstructionStepResult alloc]
+        ORKLegacyVideoInstructionStepResult *childResult = [[ORKLegacyVideoInstructionStepResult alloc]
                                                       initWithIdentifier:self.step.identifier];
         childResult.playbackStoppedTime = _playbackStoppedTime;
         childResult.playbackCompleted = _playbackCompleted;

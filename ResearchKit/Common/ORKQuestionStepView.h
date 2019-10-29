@@ -35,13 +35,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKQuestionStep;
-@class ORKQuestionStepCustomView;
+@class ORKLegacyQuestionStep;
+@class ORKLegacyQuestionStepCustomView;
 
-@interface ORKQuestionStepView : ORKVerticalContainerView
+@interface ORKLegacyQuestionStepView : ORKLegacyVerticalContainerView
 
-@property (nonatomic, strong, nullable) ORKQuestionStep *questionStep;
-@property (nonatomic, strong, nullable) ORKQuestionStepCustomView *questionCustomView;
+@property (nonatomic, strong, nullable) ORKLegacyQuestionStep *questionStep;
+@property (nonatomic, strong, nullable) ORKLegacyQuestionStepCustomView *questionCustomView;
 
 @end
 

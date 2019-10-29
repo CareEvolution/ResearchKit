@@ -34,13 +34,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKSelectionTitleLabel;
-@class ORKSelectionSubTitleLabel;
+@class ORKLegacySelectionTitleLabel;
+@class ORKLegacySelectionSubTitleLabel;
 
-@interface ORKChoiceViewCell : UITableViewCell
+@interface ORKLegacyChoiceViewCell : UITableViewCell
 
-@property (nonatomic, strong, readonly) ORKSelectionTitleLabel *shortLabel;
-@property (nonatomic, strong, readonly) ORKSelectionSubTitleLabel *longLabel;
+@property (nonatomic, strong, readonly) ORKLegacySelectionTitleLabel *shortLabel;
+@property (nonatomic, strong, readonly) ORKLegacySelectionSubTitleLabel *longLabel;
 
 + (CGFloat)suggestedCellHeightForShortText:(nullable NSString *)shortText LongText:(nullable NSString *)longText inTableView:(nullable UITableView *)tableView;
 

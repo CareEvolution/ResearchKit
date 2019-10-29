@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKReactionTimeStimulusView : UIView
+@interface ORKLegacyReactionTimeStimulusView : UIView
 
 - (void)reset;
 

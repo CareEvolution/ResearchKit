@@ -35,9 +35,9 @@
 #import <tgmath.h>
 
 
-@implementation ORKVideoCaptureCameraPreviewView {
+@implementation ORKLegacyVideoCaptureCameraPreviewView {
     AVCaptureVideoPreviewLayer *_previewLayer;
-    ORKTintedImageView *_templateImageView;
+    ORKLegacyTintedImageView *_templateImageView;
     NSLayoutConstraint *_templateImageViewTopInsetConstraint;
     NSLayoutConstraint *_templateImageViewLeftInsetConstraint;
     NSLayoutConstraint *_templateImageViewBottomInsetConstraint;
@@ -52,7 +52,7 @@
         _previewLayer.needsDisplayOnBoundsChange = YES;
         [self.layer addSublayer:_previewLayer];
         
-        _templateImageView = [ORKTintedImageView new];
+        _templateImageView = [ORKLegacyTintedImageView new];
         _templateImageView.contentMode = UIViewContentModeScaleAspectFit;
         _templateImageView.shouldApplyTint = YES;
         _templateImageView.hidden = YES;
@@ -221,7 +221,7 @@
 }
 
 - (NSString *)accessibilityLabel {
-    return ORKLocalizedString(@"AX_VIDEO_CAPTURE_LABEL", nil);
+    return ORKLegacyLocalizedString(@"AX_VIDEO_CAPTURE_LABEL", nil);
 }
 
 - (UIAccessibilityTraits)accessibilityTraits {

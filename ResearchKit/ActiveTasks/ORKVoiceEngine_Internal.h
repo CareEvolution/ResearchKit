@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKVoiceEngine ()
+@interface ORKLegacyVoiceEngine ()
 
 @property (nonatomic, strong, readonly) AVSpeechSynthesizer *speechSynthesizer;
 

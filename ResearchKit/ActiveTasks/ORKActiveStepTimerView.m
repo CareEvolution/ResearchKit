@@ -47,7 +47,7 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKActiveStepTimerView {
+@implementation ORKLegacyActiveStepTimerView {
     BOOL _started;
     BOOL _registeredForNotifications;
     
@@ -61,7 +61,7 @@
     if (self) {
         // Count Down
         {
-            _countDownLabel = [ORKCountdownLabel new];
+            _countDownLabel = [ORKLegacyCountdownLabel new];
             _countDownLabel.textAlignment = NSTextAlignmentCenter;
             _countDownLabel.text = @" ";
             
@@ -69,8 +69,8 @@
         }
         // Count down start button
         {
-            _startTimerButton = [ORKTextButton new];
-            [_startTimerButton setTitle:ORKLocalizedString(@"BUTTON_START_TIMER", nil) forState:UIControlStateNormal];
+            _startTimerButton = [ORKLegacyTextButton new];
+            [_startTimerButton setTitle:ORKLegacyLocalizedString(@"BUTTON_START_TIMER", nil) forState:UIControlStateNormal];
             [_startTimerButton addTarget:self action:@selector(startTimerButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
             _startTimerButton.exclusiveTouch = YES;
             
@@ -86,7 +86,7 @@
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
-    ORKActiveStepViewController *viewController = self.activeStepViewController;
+    ORKLegacyActiveStepViewController *viewController = self.activeStepViewController;
     if (viewController) {
         [self updateDisplay:viewController];
     }
@@ -110,7 +110,7 @@
     [self setRegisteredForNotifications:(self.window != nil)];
 }
 
-- (void)setStep:(ORKActiveStep *)step {
+- (void)setStep:(ORKLegacyActiveStep *)step {
     _step = step;
     _countDownLabel.hidden = !(_step.hasCountDown);
     BOOL hasTimerButton = (_step.hasCountDown && _step.shouldStartTimerAutomatically == NO);
@@ -127,38 +127,38 @@
     UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, _countDownLabel);
 }
 
-- (void)updateDisplay:(ORKActiveStepViewController *)viewController {
+- (void)updateDisplay:(ORKLegacyActiveStepViewController *)viewController {
     NSInteger countDownValue = (NSInteger)round(viewController.timeRemaining);
     [_countDownLabel setCountDownValue:countDownValue];
 }
 
-- (void)resetStep:(ORKActiveStepViewController *)viewController {
-    self.step = (ORKActiveStep *)viewController.step;
+- (void)resetStep:(ORKLegacyActiveStepViewController *)viewController {
+    self.step = (ORKLegacyActiveStep *)viewController.step;
 }
 
-- (void)startStep:(ORKActiveStepViewController *)viewController {
+- (void)startStep:(ORKLegacyActiveStepViewController *)viewController {
     _startTimerButton.alpha = 0;
 }
 
-- (void)suspendStep:(ORKActiveStepViewController *)viewController {
+- (void)suspendStep:(ORKLegacyActiveStepViewController *)viewController {
 }
 
-- (void)resumeStep:(ORKActiveStepViewController *)viewController {
-    self.step = (ORKActiveStep *)viewController.step;
+- (void)resumeStep:(ORKLegacyActiveStepViewController *)viewController {
+    self.step = (ORKLegacyActiveStep *)viewController.step;
     if ([viewController timerActive]) {
         _startTimerButton.alpha = 0;
         [self updateDisplay:viewController];
     }
 }
 
-- (void)finishStep:(ORKActiveStepViewController *)viewController {
+- (void)finishStep:(ORKLegacyActiveStepViewController *)viewController {
 }
 
 static const CGFloat CountDownLabelToButtonMargin = 2.0;
 
 - (void)setUpConstraints {
     NSDictionary *views = NSDictionaryOfVariableBindings(_countDownLabel, _startTimerButton);
-    ORKEnableAutoLayoutForViews(views.allValues);
+    ORKLegacyEnableAutoLayoutForViews(views.allValues);
     
     NSMutableArray *constraints = [NSMutableArray new];
     

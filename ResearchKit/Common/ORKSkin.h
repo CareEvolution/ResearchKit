@@ -36,54 +36,54 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// Color used for toolbar
-ORK_EXTERN NSString *const ORKToolBarTintColorKey;
+ORKLegacy_EXTERN NSString *const ORKLegacyToolBarTintColorKey;
 
 /// Color used for view's backgroud
-ORK_EXTERN NSString *const ORKBackgroundColorKey;
+ORKLegacy_EXTERN NSString *const ORKLegacyBackgroundColorKey;
 
 /// Color used for signature
-ORK_EXTERN NSString *const ORKSignatureColorKey;
+ORKLegacy_EXTERN NSString *const ORKLegacySignatureColorKey;
 
 /// Color used for a light-colored tint
-ORK_EXTERN NSString *const ORKLightTintColorKey;
+ORKLegacy_EXTERN NSString *const ORKLegacyLightTintColorKey;
 
 /// Color used for a dark-colored tint
-ORK_EXTERN NSString *const ORKDarkTintColorKey;
+ORKLegacy_EXTERN NSString *const ORKLegacyDarkTintColorKey;
 
 /// Color used for caption text
-ORK_EXTERN NSString *const ORKCaptionTextColorKey;
+ORKLegacy_EXTERN NSString *const ORKLegacyCaptionTextColorKey;
 
 /// Color used for a "blue" highlight
-ORK_EXTERN NSString *const ORKBlueHighlightColorKey;
+ORKLegacy_EXTERN NSString *const ORKLegacyBlueHighlightColorKey;
 
-/// Default color used for legend, title and text on ORKPieChartView
-ORK_EXTERN NSString *const ORKChartDefaultTextColorKey;
+/// Default color used for legend, title and text on ORKLegacyPieChartView
+ORKLegacy_EXTERN NSString *const ORKLegacyChartDefaultTextColorKey;
 
-/// Default color used for axes of ORKGraphChartView
-ORK_EXTERN NSString *const ORKGraphAxisColorKey;
+/// Default color used for axes of ORKLegacyGraphChartView
+ORKLegacy_EXTERN NSString *const ORKLegacyGraphAxisColorKey;
 
-/// Default color used for titles on axes of ORKGraphChartView
-ORK_EXTERN NSString *const ORKGraphAxisTitleColorKey;
+/// Default color used for titles on axes of ORKLegacyGraphChartView
+ORKLegacy_EXTERN NSString *const ORKLegacyGraphAxisTitleColorKey;
 
-/// Default color used for scrubber line of ORKGraphChartView
-ORK_EXTERN NSString *const ORKGraphScrubberLineColorKey;
+/// Default color used for scrubber line of ORKLegacyGraphChartView
+ORKLegacy_EXTERN NSString *const ORKLegacyGraphScrubberLineColorKey;
 
-/// Default color used for scrubber thumb of ORKGraphChartView
-ORK_EXTERN NSString *const ORKGraphScrubberThumbColorKey;
+/// Default color used for scrubber thumb of ORKLegacyGraphChartView
+ORKLegacy_EXTERN NSString *const ORKLegacyGraphScrubberThumbColorKey;
 
-/// Default color used for reference line of ORKGraphChartView
-ORK_EXTERN NSString *const ORKGraphReferenceLineColorKey;
+/// Default color used for reference line of ORKLegacyGraphChartView
+ORKLegacy_EXTERN NSString *const ORKLegacyGraphReferenceLineColorKey;
 
-/// Default color used for auxiliary image tint of ORKInstructionStepView
-ORK_EXTERN NSString *const ORKAuxiliaryImageTintColorKey;
+/// Default color used for auxiliary image tint of ORKLegacyInstructionStepView
+ORKLegacy_EXTERN NSString *const ORKLegacyAuxiliaryImageTintColorKey;
 
-/// Return the color for a specified ORK...ColorKey
-UIColor *ORKColor(NSString *colorKey);
+/// Return the color for a specified ORKLegacy...ColorKey
+UIColor *ORKLegacyColor(NSString *colorKey);
 
-/// Modify the color for a specified ORK...ColorKey. (for customization)
-void ORKColorSetColorForKey(NSString *key, UIColor *color);
+/// Modify the color for a specified ORKLegacy...ColorKey. (for customization)
+void ORKLegacyColorSetColorForKey(NSString *key, UIColor *color);
 
-@interface UIColor (ORKColor)
+@interface UIColor (ORKLegacyColor)
 
 + (UIColor *)ork_midGrayTintColor;
 + (UIColor *)ork_redColor;
@@ -92,74 +92,74 @@ void ORKColorSetColorForKey(NSString *key, UIColor *color);
 
 @end
 
-extern const CGFloat ORKScreenMetricMaxDimension;
+extern const CGFloat ORKLegacyScreenMetricMaxDimension;
 
-typedef NS_ENUM(NSInteger, ORKScreenMetric) {
-    ORKScreenMetricTopToCaptionBaseline,
-    ORKScreenMetricFontSizeHeadline,
-    ORKScreenMetricMaxFontSizeHeadline,
-    ORKScreenMetricFontSizeSurveyHeadline,
-    ORKScreenMetricMaxFontSizeSurveyHeadline,
-    ORKScreenMetricFontSizeSubheadline,
-    ORKScreenMetricFontSizeFootnote,
-    ORKScreenMetricCaptionBaselineToFitnessTimerTop,
-    ORKScreenMetricCaptionBaselineToTappingLabelTop,
-    ORKScreenMetricCaptionBaselineToInstructionBaseline,
-    ORKScreenMetricInstructionBaselineToLearnMoreBaseline,
-    ORKScreenMetricLearnMoreBaselineToStepViewTop,
-    ORKScreenMetricLearnMoreBaselineToStepViewTopWithNoLearnMore,
-    ORKScreenMetricContinueButtonTopMargin,
-    ORKScreenMetricContinueButtonTopMarginForIntroStep,
-    ORKScreenMetricTopToIllustration,
-    ORKScreenMetricIllustrationToCaptionBaseline,
-    ORKScreenMetricIllustrationHeight,
-    ORKScreenMetricInstructionImageHeight,
-    ORKScreenMetricContinueButtonHeightRegular,
-    ORKScreenMetricContinueButtonHeightCompact,
-    ORKScreenMetricContinueButtonWidth,
-    ORKScreenMetricMinimumStepHeaderHeightForMemoryGame,
-    ORKScreenMetricMinimumStepHeaderHeightForTowerOfHanoiPuzzle,
-    ORKScreenMetricTableCellDefaultHeight,
-    ORKScreenMetricTextFieldCellHeight,
-    ORKScreenMetricChoiceCellFirstBaselineOffsetFromTop,
-    ORKScreenMetricChoiceCellLastBaselineToBottom,
-    ORKScreenMetricChoiceCellLabelLastBaselineToLabelFirstBaseline,
-    ORKScreenMetricLearnMoreButtonSideMargin,
-    ORKScreenMetricHeadlineSideMargin,
-    ORKScreenMetricToolbarHeight,
-    ORKScreenMetricVerticalScaleHeight,
-    ORKScreenMetricSignatureViewHeight,
-    ORKScreenMetricPSATKeyboardViewWidth,
-    ORKScreenMetricPSATKeyboardViewHeight,
-    ORKScreenMetricLocationQuestionMapHeight,
-    ORKScreenMetricTopToIconImageViewTop,
-    ORKScreenMetricIconImageViewToCaptionBaseline,
-    ORKScreenMetricVerificationTextBaselineToResendButtonBaseline,
-    ORKScreenMetric_COUNT
+typedef NS_ENUM(NSInteger, ORKLegacyScreenMetric) {
+    ORKLegacyScreenMetricTopToCaptionBaseline,
+    ORKLegacyScreenMetricFontSizeHeadline,
+    ORKLegacyScreenMetricMaxFontSizeHeadline,
+    ORKLegacyScreenMetricFontSizeSurveyHeadline,
+    ORKLegacyScreenMetricMaxFontSizeSurveyHeadline,
+    ORKLegacyScreenMetricFontSizeSubheadline,
+    ORKLegacyScreenMetricFontSizeFootnote,
+    ORKLegacyScreenMetricCaptionBaselineToFitnessTimerTop,
+    ORKLegacyScreenMetricCaptionBaselineToTappingLabelTop,
+    ORKLegacyScreenMetricCaptionBaselineToInstructionBaseline,
+    ORKLegacyScreenMetricInstructionBaselineToLearnMoreBaseline,
+    ORKLegacyScreenMetricLearnMoreBaselineToStepViewTop,
+    ORKLegacyScreenMetricLearnMoreBaselineToStepViewTopWithNoLearnMore,
+    ORKLegacyScreenMetricContinueButtonTopMargin,
+    ORKLegacyScreenMetricContinueButtonTopMarginForIntroStep,
+    ORKLegacyScreenMetricTopToIllustration,
+    ORKLegacyScreenMetricIllustrationToCaptionBaseline,
+    ORKLegacyScreenMetricIllustrationHeight,
+    ORKLegacyScreenMetricInstructionImageHeight,
+    ORKLegacyScreenMetricContinueButtonHeightRegular,
+    ORKLegacyScreenMetricContinueButtonHeightCompact,
+    ORKLegacyScreenMetricContinueButtonWidth,
+    ORKLegacyScreenMetricMinimumStepHeaderHeightForMemoryGame,
+    ORKLegacyScreenMetricMinimumStepHeaderHeightForTowerOfHanoiPuzzle,
+    ORKLegacyScreenMetricTableCellDefaultHeight,
+    ORKLegacyScreenMetricTextFieldCellHeight,
+    ORKLegacyScreenMetricChoiceCellFirstBaselineOffsetFromTop,
+    ORKLegacyScreenMetricChoiceCellLastBaselineToBottom,
+    ORKLegacyScreenMetricChoiceCellLabelLastBaselineToLabelFirstBaseline,
+    ORKLegacyScreenMetricLearnMoreButtonSideMargin,
+    ORKLegacyScreenMetricHeadlineSideMargin,
+    ORKLegacyScreenMetricToolbarHeight,
+    ORKLegacyScreenMetricVerticalScaleHeight,
+    ORKLegacyScreenMetricSignatureViewHeight,
+    ORKLegacyScreenMetricPSATKeyboardViewWidth,
+    ORKLegacyScreenMetricPSATKeyboardViewHeight,
+    ORKLegacyScreenMetricLocationQuestionMapHeight,
+    ORKLegacyScreenMetricTopToIconImageViewTop,
+    ORKLegacyScreenMetricIconImageViewToCaptionBaseline,
+    ORKLegacyScreenMetricVerificationTextBaselineToResendButtonBaseline,
+    ORKLegacyScreenMetric_COUNT
 };
 
-typedef NS_ENUM(NSInteger, ORKScreenType) {
-    ORKScreenTypeiPhoneX,
-    ORKScreenTypeiPhone6Plus,
-    ORKScreenTypeiPhone6,
-    ORKScreenTypeiPhone5,
-    ORKScreenTypeiPhone4,
-    ORKScreenTypeiPad,
-    ORKScreenTypeiPad12_9,
-    ORKScreenType_COUNT
+typedef NS_ENUM(NSInteger, ORKLegacyScreenType) {
+    ORKLegacyScreenTypeiPhoneX,
+    ORKLegacyScreenTypeiPhone6Plus,
+    ORKLegacyScreenTypeiPhone6,
+    ORKLegacyScreenTypeiPhone5,
+    ORKLegacyScreenTypeiPhone4,
+    ORKLegacyScreenTypeiPad,
+    ORKLegacyScreenTypeiPad12_9,
+    ORKLegacyScreenType_COUNT
 };
 
-ORKScreenType ORKGetVerticalScreenTypeForWindow(UIWindow * _Nullable window);
-CGFloat ORKGetMetricForWindow(ORKScreenMetric metric, UIWindow * _Nullable window);
+ORKLegacyScreenType ORKLegacyGetVerticalScreenTypeForWindow(UIWindow * _Nullable window);
+CGFloat ORKLegacyGetMetricForWindow(ORKLegacyScreenMetric metric, UIWindow * _Nullable window);
 
-CGFloat ORKStandardLeftMarginForTableViewCell(UIView *view);
-CGFloat ORKStandardHorizontalMarginForView(UIView *view);
-UIEdgeInsets ORKStandardLayoutMarginsForTableViewCell(UIView *view);
-UIEdgeInsets ORKStandardFullScreenLayoutMarginsForView(UIView *view);
-UIEdgeInsets ORKScrollIndicatorInsetsForScrollView(UIView *view);
-CGFloat ORKWidthForSignatureView(UIWindow * _Nullable window);
+CGFloat ORKLegacyStandardLeftMarginForTableViewCell(UIView *view);
+CGFloat ORKLegacyStandardHorizontalMarginForView(UIView *view);
+UIEdgeInsets ORKLegacyStandardLayoutMarginsForTableViewCell(UIView *view);
+UIEdgeInsets ORKLegacyStandardFullScreenLayoutMarginsForView(UIView *view);
+UIEdgeInsets ORKLegacyScrollIndicatorInsetsForScrollView(UIView *view);
+CGFloat ORKLegacyWidthForSignatureView(UIWindow * _Nullable window);
 
-void ORKUpdateScrollViewBottomInset(UIScrollView *scrollView, CGFloat bottomInset);
+void ORKLegacyUpdateScrollViewBottomInset(UIScrollView *scrollView, CGFloat bottomInset);
 
 
 NS_ASSUME_NONNULL_END

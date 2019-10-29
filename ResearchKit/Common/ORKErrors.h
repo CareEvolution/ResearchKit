@@ -35,25 +35,25 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// Error domain for errors with codes in `ORKErrorCode`.
-ORK_EXTERN NSString *const ORKErrorDomain ORK_AVAILABLE_DECL;
+/// Error domain for errors with codes in `ORKLegacyErrorCode`.
+ORKLegacy_EXTERN NSString *const ORKLegacyErrorDomain ORKLegacy_AVAILABLE_DECL;
 
 /// The exception thrown when an invalid argument is passed to a method or function.
-ORK_EXTERN NSString *const ORKInvalidArgumentException ORK_AVAILABLE_DECL;
+ORKLegacy_EXTERN NSString *const ORKLegacyInvalidArgumentException ORKLegacy_AVAILABLE_DECL;
 
-/// `ORKErrorCode` codes are used for errors in the domain `ORKErrorDomain`.
-typedef NS_ENUM(NSInteger, ORKErrorCode) {
+/// `ORKLegacyErrorCode` codes are used for errors in the domain `ORKLegacyErrorDomain`.
+typedef NS_ENUM(NSInteger, ORKLegacyErrorCode) {
     /// No matching object was found.
-    ORKErrorObjectNotFound = 1,
+    ORKLegacyErrorObjectNotFound = 1,
     
     /// An object was invalid and processing could not continue.
-    ORKErrorInvalidObject,
+    ORKLegacyErrorInvalidObject,
     
     /// An exception was caught during an operation.
-    ORKErrorException,
+    ORKLegacyErrorException,
     
     /// Multiple errors were encountered during an operation.
-    ORKErrorMultipleErrors
-} ORK_ENUM_AVAILABLE;
+    ORKLegacyErrorMultipleErrors
+} ORKLegacy_ENUM_AVAILABLE;
 
 NS_ASSUME_NONNULL_END

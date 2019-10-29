@@ -36,17 +36,17 @@
 #import "ORKQuestionStep_Internal.h"
 
 
-@interface ORKSurveyAnswerCellForPicker () <ORKPickerDelegate, UIPickerViewDelegate> {
+@interface ORKLegacySurveyAnswerCellForPicker () <ORKLegacyPickerDelegate, UIPickerViewDelegate> {
     UIPickerView *_tempPicker;
     BOOL _valueChangedDueUserAction;
 }
 
-@property (nonatomic, strong) id<ORKPicker> picker;
+@property (nonatomic, strong) id<ORKLegacyPicker> picker;
 
 @end
 
 
-@implementation ORKSurveyAnswerCellForPicker
+@implementation ORKLegacySurveyAnswerCellForPicker
 
 - (void)prepareView {
     [super prepareView];
@@ -65,7 +65,7 @@
 
 - (void)loadPicker {
     if (_picker == nil) {
-        _picker = [ORKPicker pickerWithAnswerFormat:[self.step impliedAnswerFormat] answer:self.answer delegate:self];
+        _picker = [ORKLegacyPicker pickerWithAnswerFormat:[self.step impliedAnswerFormat] answer:self.answer delegate:self];
         
         [self.picker pickerWillAppear];
         

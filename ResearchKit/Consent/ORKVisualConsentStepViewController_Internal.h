@@ -34,11 +34,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKEAGLMoviePlayerView;
+@class ORKLegacyEAGLMoviePlayerView;
 
-@interface ORKVisualConsentStepViewController ()
+@interface ORKLegacyVisualConsentStepViewController ()
 
-- (nullable ORKEAGLMoviePlayerView *)animationPlayerView;
+- (nullable ORKLegacyEAGLMoviePlayerView *)animationPlayerView;
 
 @end
 

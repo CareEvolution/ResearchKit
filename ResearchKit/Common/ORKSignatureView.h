@@ -35,16 +35,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKSignatureView;
+@class ORKLegacySignatureView;
 
-@protocol ORKSignatureViewDelegate <NSObject>
+@protocol ORKLegacySignatureViewDelegate <NSObject>
 
-- (void)signatureViewDidEditImage:(ORKSignatureView *)signatureView;
+- (void)signatureViewDidEditImage:(ORKLegacySignatureView *)signatureView;
 
 @end
 
 
-@interface ORKSignatureView : UIView
+@interface ORKLegacySignatureView : UIView
 
 @property (nonatomic, strong, nullable) UIColor *lineColor;
 @property (nonatomic) CGFloat lineWidth;
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic) CGFloat lineWidthVariation;
 
-@property (nonatomic, weak, nullable) id<ORKSignatureViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORKLegacySignatureViewDelegate> delegate;
 @property (nonatomic, strong, nullable) UIGestureRecognizer *signatureGestureRecognizer;
 @property (nonatomic, copy, nullable) NSArray <UIBezierPath *> *signaturePath;
 

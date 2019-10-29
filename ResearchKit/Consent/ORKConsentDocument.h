@@ -36,20 +36,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKConsentSection;
-@class ORKConsentSectionFormatter;
-@class ORKConsentSignature;
-@class ORKConsentSignatureFormatter;
-@class ORKHTMLPDFWriter;
+@class ORKLegacyConsentSection;
+@class ORKLegacyConsentSectionFormatter;
+@class ORKLegacyConsentSignature;
+@class ORKLegacyConsentSignatureFormatter;
+@class ORKLegacyHTMLPDFWriter;
 
 /**
- The `ORKConsentDocument` class represents the content of an informed consent
+ The `ORKLegacyConsentDocument` class represents the content of an informed consent
  document, which is a document that's used to obtain informed consent from participants
- in a medical or other research study. The ResearchKit framework uses an `ORKConsentDocument` object
- to provide content for visual consent steps (`ORKVisualConsentStep`) and for consent review steps (`ORKConsentReviewStep`).
+ in a medical or other research study. The ResearchKit framework uses an `ORKLegacyConsentDocument` object
+ to provide content for visual consent steps (`ORKLegacyVisualConsentStep`) and for consent review steps (`ORKLegacyConsentReviewStep`).
  
- The `sections` of an `ORKConsentDocument` object are instances of `ORKConsentSection`.
- When an `ORKConsentDocument` object is attached to an visual consent step, these
+ The `sections` of an `ORKLegacyConsentDocument` object are instances of `ORKLegacyConsentSection`.
+ When an `ORKLegacyConsentDocument` object is attached to an visual consent step, these
  sections provide the content for the visual consent screens, and for the
  Learn More pages that are accessible from them. When attached to an consent review step,
  the sections can provide the content for the consent document to
@@ -70,8 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
  The document should be in the user's language, and all the content of
  the document should be appropriately localized.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKConsentDocument : NSObject <NSSecureCoding, NSCopying>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyConsentDocument : NSObject <NSSecureCoding, NSCopying>
 
 /// @name Properties
 
@@ -90,14 +90,14 @@ ORK_CLASS_AVAILABLE
  visual consent sequence.
  
  All sections appear in the animated process, except for those sections of the
- type `ORKConsentSectionTypeOnlyInDocument`.
+ type `ORKLegacyConsentSectionTypeOnlyInDocument`.
  
  If the `htmlReviewContent` property is not set, this content is also used to
  populate the document for review in the consent review step.
  
  The PDF file contains all sections.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKConsentSection *> *sections;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacyConsentSection *> *sections;
 
 /// @name Signatures for consent review
 
@@ -120,16 +120,16 @@ ORK_CLASS_AVAILABLE
  
  To add a signature to the document after consent review, the `signatures` array
  needs to be modified to incorporate the new signature content prior to PDF
- generation. For more information, see `[ORKConsentSignatureResult applyToDocument:]`.
+ generation. For more information, see `[ORKLegacyConsentSignatureResult applyToDocument:]`.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKConsentSignature *> *signatures;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacyConsentSignature *> *signatures;
 
 /**
  Adds a signature to the array of signatures.
  
  @param signature    The signature object to add to the document.
  */
-- (void)addSignature:(ORKConsentSignature *)signature;
+- (void)addSignature:(ORKLegacyConsentSignature *)signature;
 
 /// @name Alternative content provision
 
@@ -148,16 +148,16 @@ ORK_CLASS_AVAILABLE
 /// @name PDF generation
 
 /**
- Initializer with ORKHTMLPDFWriter parameter. Allows for injecting mock dependency for the
+ Initializer with ORKLegacyHTMLPDFWriter parameter. Allows for injecting mock dependency for the
  purposes of isolated unit testing.
 
- @param writer              The instance of the ORKHTMLPDFWriter upon which the class depends.
- @param sectionFormatter    An instance of ORKConsentSectionFormatter
- @param signatureFormatter  An instance of ORKConsentSignatureFormatter
+ @param writer              The instance of the ORKLegacyHTMLPDFWriter upon which the class depends.
+ @param sectionFormatter    An instance of ORKLegacyConsentSectionFormatter
+ @param signatureFormatter  An instance of ORKLegacyConsentSignatureFormatter
  */
-- (instancetype)initWithHTMLPDFWriter:(ORKHTMLPDFWriter *)writer
-              consentSectionFormatter:(ORKConsentSectionFormatter *)sectionFormatter
-            consentSignatureFormatter:(ORKConsentSignatureFormatter *)signatureFormatter;
+- (instancetype)initWithHTMLPDFWriter:(ORKLegacyHTMLPDFWriter *)writer
+              consentSectionFormatter:(ORKLegacyConsentSectionFormatter *)sectionFormatter
+            consentSignatureFormatter:(ORKLegacyConsentSignatureFormatter *)signatureFormatter;
 
 /**
  Writes the document's content into a PDF file.

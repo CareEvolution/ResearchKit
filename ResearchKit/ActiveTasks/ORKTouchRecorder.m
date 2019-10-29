@@ -38,21 +38,21 @@
 #import "UITouch+ORKJSONDictionary.h"
 
 
-@protocol ORKTouchRecordingDelegate <NSObject>
+@protocol ORKLegacyTouchRecordingDelegate <NSObject>
 
 - (void)view:(UIView *)view didDetectTouch:(UITouch *)touch;
 
 @end
 
 
-@interface ORKTouchGestureRecognizer : UIGestureRecognizer
+@interface ORKLegacyTouchGestureRecognizer : UIGestureRecognizer
 
-@property (nonatomic, weak) id<ORKTouchRecordingDelegate> eventDelegate;
+@property (nonatomic, weak) id<ORKLegacyTouchRecordingDelegate> eventDelegate;
 
 @end
 
 
-@implementation ORKTouchGestureRecognizer
+@implementation ORKLegacyTouchGestureRecognizer
 
 - (void)reportTouches:(NSSet *)touches {
     
@@ -80,18 +80,18 @@
 @end
 
 
-@interface ORKTouchRecordingView : UIView
+@interface ORKLegacyTouchRecordingView : UIView
 
-@property (nonatomic, weak) id<ORKTouchRecordingDelegate> delegate;
+@property (nonatomic, weak) id<ORKLegacyTouchRecordingDelegate> delegate;
 
 @end
 
 
-@interface ORKTouchRecorder () <ORKTouchRecordingDelegate> {
-    ORKDataLogger *_logger;
+@interface ORKLegacyTouchRecorder () <ORKLegacyTouchRecordingDelegate> {
+    ORKLegacyDataLogger *_logger;
 }
 
-@property (nonatomic, strong) ORKTouchGestureRecognizer *gestureRecognizer;
+@property (nonatomic, strong) ORKLegacyTouchGestureRecognizer *gestureRecognizer;
 
 @property (nonatomic, strong) NSMutableArray *touchArray;
 
@@ -102,7 +102,7 @@
 @end
 
 
-@implementation ORKTouchRecorder
+@implementation ORKLegacyTouchRecorder
 
 - (void)dealloc {
     [_logger finishCurrentLog];
@@ -138,9 +138,9 @@
     }
 }
 
-- (ORKTouchGestureRecognizer *)gestureRecognizer {
+- (ORKLegacyTouchGestureRecognizer *)gestureRecognizer {
     if (_gestureRecognizer == nil) {
-        _gestureRecognizer = [ORKTouchGestureRecognizer new];
+        _gestureRecognizer = [ORKLegacyTouchGestureRecognizer new];
         _gestureRecognizer.eventDelegate = self;
     }
     return _gestureRecognizer;
@@ -187,7 +187,7 @@
     _logger = nil;
 }
 
-#pragma mark - ORKTouchRecordingDelegate
+#pragma mark - ORKLegacyTouchRecordingDelegate
 
 - (void)view:(UIView *)view didDetectTouch:(UITouch *)touch {
     
@@ -205,14 +205,14 @@
 @end
 
 
-@implementation ORKTouchRecorderConfiguration
+@implementation ORKLegacyTouchRecorderConfiguration
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     return [super initWithIdentifier:identifier];
 }
 
-- (ORKRecorder *)recorderForStep:(ORKStep *)step outputDirectory:(NSURL *)outputDirectory {
-    ORKTouchRecorder *recorder = [[ORKTouchRecorder alloc] initWithIdentifier:self.identifier
+- (ORKLegacyRecorder *)recorderForStep:(ORKLegacyStep *)step outputDirectory:(NSURL *)outputDirectory {
+    ORKLegacyTouchRecorder *recorder = [[ORKLegacyTouchRecorder alloc] initWithIdentifier:self.identifier
                                                                          step:step
                                                               outputDirectory:outputDirectory];
     return recorder;

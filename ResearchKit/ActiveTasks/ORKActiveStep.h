@@ -34,36 +34,36 @@
 #import <ResearchKitLegacy/ORKStep.h>
 
 
-@class ORKRecorderConfiguration;
+@class ORKLegacyRecorderConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKActiveStep` class is the base class for steps in active tasks, which
+ The `ORKLegacyActiveStep` class is the base class for steps in active tasks, which
  are steps that collect sensor data in a semi-controlled environment, as opposed
  to the purely passive data collection enabled by HealthKit, or the more subjective data
  collected when users fill in surveys.
  
- In addition to the behaviors of `ORKStep`, active steps have the concept of
+ In addition to the behaviors of `ORKLegacyStep`, active steps have the concept of
  life cycle, which includes a defined start and finish.
  
  The ResearchKit framework provides built-in behaviors that allow active steps to play voice prompts, speak a count down, and have a
  defined duration.
  
- To present an active step in your app, it's likely that you will subclass `ORKActiveStep` and
- `ORKActiveStepViewController` to present custom UI and custom
- prompts. For example subclasses, see `ORKSpatialSpanMemoryStep` or `ORKFitnessStep`.
- Active steps may also need `ORKResult` subclasses to record their results
+ To present an active step in your app, it's likely that you will subclass `ORKLegacyActiveStep` and
+ `ORKLegacyActiveStepViewController` to present custom UI and custom
+ prompts. For example subclasses, see `ORKLegacySpatialSpanMemoryStep` or `ORKLegacyFitnessStep`.
+ Active steps may also need `ORKLegacyResult` subclasses to record their results
  if these don't come purely from recorders.
  
  If you develop a new active step subclass, consider contributing your
  code to the ResearchKit project so that it's available for others to use in
  their studies.
  
- See also: `ORKActiveStepViewController`
+ See also: `ORKLegacyActiveStepViewController`
  */
-ORK_CLASS_AVAILABLE
-@interface ORKActiveStep : ORKStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyActiveStep : ORKLegacyStep
 
 /**
  The duration of the step in seconds.
@@ -76,7 +76,7 @@ automatically navigates forward when the timer expires.
  
  The default value of this property is `0`, which disables the built-in timer.
  
- See also: `ORKActiveStepViewController`
+ See also: `ORKLegacyActiveStepViewController`
  */
 @property (nonatomic) NSTimeInterval stepDuration;
 
@@ -119,7 +119,7 @@ automatically navigates forward when the timer expires.
  require the user to take some explicit action to start the step, such as tapping a button.
  
  Usually the explicit action needs to come from custom UI in an
- `ORKActiveStepViewController` subclass.
+ `ORKLegacyActiveStepViewController` subclass.
  
  The default value of this property is `NO`.
  */
@@ -167,7 +167,7 @@ The default value of this property is `NO`.
  A Boolean value indicating whether to transition automatically when the step finishes.
  
  When the value of this property is `YES`, the active step view controller automatically performs the
- continue action when the `[ORKActiveStepViewController finish]` method
+ continue action when the `[ORKLegacyActiveStepViewController finish]` method
  is called.
  
  The default value of this property is `NO`.
@@ -210,9 +210,9 @@ The default value of this property is `NO`.
  The set of recorder configurations is scanned when populating the
  `requestedHealthKitTypesForReading` and `requestedPermissions` properties.
  
- See also: `ORKRecorderConfiguration` and `ORKRecorder`.
+ See also: `ORKLegacyRecorderConfiguration` and `ORKLegacyRecorder`.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKRecorderConfiguration *> *recorderConfigurations;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacyRecorderConfiguration *> *recorderConfigurations;
 
 @end
 

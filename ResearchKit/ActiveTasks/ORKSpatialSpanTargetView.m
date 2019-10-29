@@ -38,9 +38,9 @@
 #import "ORKSkin.h"
 
 
-static const UIEdgeInsets ORKFlowerMargins = (UIEdgeInsets){12,12,12,12};
-static const CGSize ORKFlowerBezierPathSize = (CGSize){90,90};
-static UIBezierPath *ORKFlowerBezierPath() {
+static const UIEdgeInsets ORKLegacyFlowerMargins = (UIEdgeInsets){12,12,12,12};
+static const CGSize ORKLegacyFlowerBezierPathSize = (CGSize){90,90};
+static UIBezierPath *ORKLegacyFlowerBezierPath() {
     UIBezierPath *bezierPath = UIBezierPath.bezierPath;
     [bezierPath moveToPoint: CGPointMake(58.8, 45)];
     [bezierPath addCurveToPoint: CGPointMake(51.9, 33.2) controlPoint1: CGPointMake(107.8, 41.8) controlPoint2: CGPointMake(79.3, -7.2)];
@@ -61,8 +61,8 @@ static UIBezierPath *ORKFlowerBezierPath() {
     return bezierPath;
 }
 
-static const CGSize ORKCheckBezierPathSize = (CGSize){28,28};
-static UIBezierPath *ORKCheckBezierPath() {
+static const CGSize ORKLegacyCheckBezierPathSize = (CGSize){28,28};
+static UIBezierPath *ORKLegacyCheckBezierPath() {
     UIBezierPath *bezierPath = UIBezierPath.bezierPath;
     [bezierPath moveToPoint: CGPointMake(11.6, 19)];
     [bezierPath addCurveToPoint: CGPointMake(11.1, 18.8) controlPoint1: CGPointMake(11.4, 19) controlPoint2: CGPointMake(11.2, 18.9)];
@@ -81,8 +81,8 @@ static UIBezierPath *ORKCheckBezierPath() {
     return bezierPath;
 }
 
-static const CGSize ORKErrorBezierPathSize = (CGSize){28,28};
-static UIBezierPath *ORKErrorBezierPath() {
+static const CGSize ORKLegacyErrorBezierPathSize = (CGSize){28,28};
+static UIBezierPath *ORKLegacyErrorBezierPath() {
     UIBezierPath *bezier3Path = UIBezierPath.bezierPath;
     [bezier3Path moveToPoint: CGPointMake(15.1, 14)];
     [bezier3Path addLineToPoint: CGPointMake(18.8, 10.3)];
@@ -108,7 +108,7 @@ static UIBezierPath *ORKErrorBezierPath() {
     return bezier3Path;
 }
 
-@interface ORKPathView : UIView
+@interface ORKLegacyPathView : UIView
 
 - (instancetype)initWithBezierPath:(UIBezierPath *)path canvasSize:(CGSize)canvasSize canvasMargins:(UIEdgeInsets)margins color:(UIColor *)color;
 
@@ -120,7 +120,7 @@ static UIBezierPath *ORKErrorBezierPath() {
 @end
 
 
-@implementation ORKPathView
+@implementation ORKLegacyPathView
 
 - (instancetype)initWithBezierPath:(UIBezierPath *)path canvasSize:(CGSize)canvasSize canvasMargins:(UIEdgeInsets)margins color:(UIColor *)color {
     CGRect canvasRect = (CGRect){CGPointZero, canvasSize};
@@ -174,7 +174,7 @@ static UIBezierPath *ORKErrorBezierPath() {
 @end
 
 
-@implementation ORKSpatialSpanTargetView {
+@implementation ORKLegacySpatialSpanTargetView {
     UITapGestureRecognizer *_tapRecognizer;
     
     CGFloat _flowerScaleFactor;
@@ -185,9 +185,9 @@ static UIBezierPath *ORKErrorBezierPath() {
 
 - (UIView *)newFlowerViewWithImage:(UIImage *)image {
     if (image == nil) {
-        return [[ORKPathView alloc] initWithBezierPath:ORKFlowerBezierPath() canvasSize:ORKFlowerBezierPathSize canvasMargins:ORKFlowerMargins color:[UIColor blackColor]];
+        return [[ORKLegacyPathView alloc] initWithBezierPath:ORKLegacyFlowerBezierPath() canvasSize:ORKLegacyFlowerBezierPathSize canvasMargins:ORKLegacyFlowerMargins color:[UIColor blackColor]];
     } else {
-        ORKTintedImageView *imageView = [[ORKTintedImageView alloc] initWithImage:image];
+        ORKLegacyTintedImageView *imageView = [[ORKLegacyTintedImageView alloc] initWithImage:image];
         imageView.shouldApplyTint = YES;
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         return imageView;
@@ -204,13 +204,13 @@ static UIBezierPath *ORKErrorBezierPath() {
         _flowerView = [self newFlowerViewWithImage:nil];
         [self addSubview:_flowerView];
         
-        _checkView = [[ORKPathView alloc] initWithBezierPath:ORKCheckBezierPath() canvasSize:ORKCheckBezierPathSize canvasMargins:UIEdgeInsetsZero color:[self tintColor]];
+        _checkView = [[ORKLegacyPathView alloc] initWithBezierPath:ORKLegacyCheckBezierPath() canvasSize:ORKLegacyCheckBezierPathSize canvasMargins:UIEdgeInsetsZero color:[self tintColor]];
         _checkView.backgroundColor = [UIColor whiteColor];
         _checkView.layer.masksToBounds = YES;
         _checkView.hidden = YES;
         [self addSubview:_checkView];
         
-        _errorView = [[ORKPathView alloc] initWithBezierPath:ORKErrorBezierPath() canvasSize:ORKErrorBezierPathSize canvasMargins:UIEdgeInsetsZero color:[UIColor ork_redColor]];
+        _errorView = [[ORKLegacyPathView alloc] initWithBezierPath:ORKLegacyErrorBezierPath() canvasSize:ORKLegacyErrorBezierPathSize canvasMargins:UIEdgeInsetsZero color:[UIColor ork_redColor]];
         _errorView.backgroundColor = [UIColor whiteColor];
         _errorView.layer.masksToBounds = YES;
         _errorView.hidden = YES;
@@ -242,18 +242,18 @@ static UIBezierPath *ORKErrorBezierPath() {
     [_delegate targetView:self recognizer:recognizer];
 }
 
-- (void)setState:(ORKSpatialSpanTargetState)state {
+- (void)setState:(ORKLegacySpatialSpanTargetState)state {
     [self setState:state animated:NO];
 }
 
 - (void)tintColorDidChange {
-    if ([_checkView isKindOfClass:[ORKPathView class]]) {
-        [(ORKPathView *)_checkView setColor:[self tintColor]];
+    if ([_checkView isKindOfClass:[ORKLegacyPathView class]]) {
+        [(ORKLegacyPathView *)_checkView setColor:[self tintColor]];
     }
     [self setState:_state];
 }
 
-- (void)setState:(ORKSpatialSpanTargetState)state animated:(BOOL)animated {
+- (void)setState:(ORKLegacySpatialSpanTargetState)state animated:(BOOL)animated {
     _state = state;
     
     CGFloat newAlpha;
@@ -269,21 +269,21 @@ static UIBezierPath *ORKErrorBezierPath() {
     BOOL useSpring = NO;
     NSTimeInterval duration = 0.3;
     switch (state) {
-        case ORKSpatialSpanTargetStateQuiescent:
+        case ORKLegacySpatialSpanTargetStateQuiescent:
             _flowerView.tintColor = [self tintColor];
             newAlpha = 0.2;
             newCircleAlpha = 0.0;
             newCircleTransform = CGAffineTransformMakeScale(0.2, 0.2);
             break;
             
-        case ORKSpatialSpanTargetStateActive:
+        case ORKLegacySpatialSpanTargetStateActive:
             _flowerView.tintColor = [self tintColor];
             newAlpha = 1.0;
             newCircleTransform = CGAffineTransformMakeScale(0.2, 0.2);
             newCircleAlpha = 0.0;
             break;
             
-        case ORKSpatialSpanTargetStateIncorrect:
+        case ORKLegacySpatialSpanTargetStateIncorrect:
             _flowerView.tintColor = [UIColor ork_redColor];
             newTransform = CGAffineTransformMakeScale(0.9 * _flowerScaleFactor, 0.9 * _flowerScaleFactor);
             oldCircleAlpha = 0;
@@ -295,7 +295,7 @@ static UIBezierPath *ORKErrorBezierPath() {
             useSpring = NO;
             break;
             
-        case ORKSpatialSpanTargetStateCorrect:
+        case ORKLegacySpatialSpanTargetStateCorrect:
             _flowerView.tintColor = [self tintColor];
             newTransform = CGAffineTransformMakeScale(1.1 * _flowerScaleFactor, 1.1 * _flowerScaleFactor);
             oldCircleAlpha = 0;
@@ -335,14 +335,14 @@ static UIBezierPath *ORKErrorBezierPath() {
     _flowerView.bounds = bounds;
     _flowerView.transform = CGAffineTransformMakeScale(_flowerScaleFactor, _flowerScaleFactor);
     
-    CGFloat designWidth = ORKFlowerBezierPathSize.width + ORKFlowerMargins.left + ORKFlowerMargins.right;
+    CGFloat designWidth = ORKLegacyFlowerBezierPathSize.width + ORKLegacyFlowerMargins.left + ORKLegacyFlowerMargins.right;
     CGFloat scaleFactor = bounds.size.width / designWidth;
     CGAffineTransform transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor);
     
-    CGRect checkRect = CGRectApplyAffineTransform((CGRect){CGPointZero, ORKCheckBezierPathSize}, transform);
+    CGRect checkRect = CGRectApplyAffineTransform((CGRect){CGPointZero, ORKLegacyCheckBezierPathSize}, transform);
     [_checkView setBounds:checkRect];
     _checkView.layer.cornerRadius = checkRect.size.width / 2;
-    CGRect errorRect = CGRectApplyAffineTransform((CGRect){CGPointZero, ORKErrorBezierPathSize}, transform);
+    CGRect errorRect = CGRectApplyAffineTransform((CGRect){CGPointZero, ORKLegacyErrorBezierPathSize}, transform);
     [_errorView setBounds:errorRect];
     _errorView.layer.cornerRadius = errorRect.size.width / 2;
     _errorView.center = _flowerView.center;
@@ -358,20 +358,20 @@ static UIBezierPath *ORKErrorBezierPath() {
 - (NSString *)accessibilityLabel {
     NSString *state;
     switch (self.state) {
-        case ORKSpatialSpanTargetStateActive:
-            state = ORKLocalizedString(@"AX.MEMORY.TILE.ACTIVE", nil);
+        case ORKLegacySpatialSpanTargetStateActive:
+            state = ORKLegacyLocalizedString(@"AX.MEMORY.TILE.ACTIVE", nil);
             break;
-        case ORKSpatialSpanTargetStateCorrect:
-            state = ORKLocalizedString(@"AX.MEMORY.TILE.CORRECT", nil);
+        case ORKLegacySpatialSpanTargetStateCorrect:
+            state = ORKLegacyLocalizedString(@"AX.MEMORY.TILE.CORRECT", nil);
             break;
-        case ORKSpatialSpanTargetStateIncorrect:
-            state = ORKLocalizedString(@"AX.MEMORY.TILE.INCORRECT", nil);
+        case ORKLegacySpatialSpanTargetStateIncorrect:
+            state = ORKLegacyLocalizedString(@"AX.MEMORY.TILE.INCORRECT", nil);
             break;
-        case ORKSpatialSpanTargetStateQuiescent:
-            state = ORKLocalizedString(@"AX.MEMORY.TILE.QUIESCENT", nil);
+        case ORKLegacySpatialSpanTargetStateQuiescent:
+            state = ORKLegacyLocalizedString(@"AX.MEMORY.TILE.QUIESCENT", nil);
             break;
     }
-    return ORKAccessibilityStringForVariables(ORKLocalizedString(@"AX.MEMORY.TILE.LABEL", nil), state);
+    return ORKLegacyAccessibilityStringForVariables(ORKLegacyLocalizedString(@"AX.MEMORY.TILE.LABEL", nil), state);
 }
 
 @end

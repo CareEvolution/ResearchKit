@@ -35,22 +35,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKNavigableOrderedTask;
+@class ORKLegacyNavigableOrderedTask;
 
 /**
- The `ORKOrderedTask` class implements all the methods in the `ORKTask` protocol and represents a 
+ The `ORKLegacyOrderedTask` class implements all the methods in the `ORKLegacyTask` protocol and represents a 
  task that assumes a fixed order for its steps.
  
  In the ResearchKit framework, any simple sequential task, such as a survey or an active task, can
  be represented as an ordered task.
  
  If you want further custom conditional behaviors in a task, it can be easier to subclass
- `ORKOrderedTask` or `ORKNavigableOrderedTask` and override particular `ORKTask` methods than it is
- to implement the `ORKTask` protocol directly. Override the methods `stepAfterStep:withResult:` and
+ `ORKLegacyOrderedTask` or `ORKLegacyNavigableOrderedTask` and override particular `ORKLegacyTask` methods than it is
+ to implement the `ORKLegacyTask` protocol directly. Override the methods `stepAfterStep:withResult:` and
  `stepBeforeStep:withResult:`, and call super for all other methods.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKOrderedTask : NSObject <ORKTask, NSSecureCoding, NSCopying>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyOrderedTask : NSObject <ORKLegacyTask, NSSecureCoding, NSCopying>
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -61,12 +61,12 @@ ORK_CLASS_AVAILABLE
  Returns an initialized ordered task using the specified identifier and array of steps.
  
  @param identifier  The unique identifier for the task.
- @param steps       An array of `ORKStep` objects in the order in which they should be presented.
+ @param steps       An array of `ORKLegacyStep` objects in the order in which they should be presented.
  
  @return An initialized ordered task.
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                             steps:(nullable NSArray<ORKStep *> *)steps NS_DESIGNATED_INITIALIZER;
+                             steps:(nullable NSArray<ORKLegacyStep *> *)steps NS_DESIGNATED_INITIALIZER;
 
 /**
  Returns an ordered task initialized from data in the given unarchiver.
@@ -86,11 +86,11 @@ ORK_CLASS_AVAILABLE
 /**
  The array of steps in the task. (read-only)
  
- Each element in the array must be a subclass of `ORKStep`.
+ Each element in the array must be a subclass of `ORKLegacyStep`.
  The associated task view controller presents the steps in
  array order.
  */
-@property (nonatomic, copy, readonly) NSArray<ORKStep *> *steps;
+@property (nonatomic, copy, readonly) NSArray<ORKLegacyStep *> *steps;
 
 /**
  The theme for the task.
@@ -104,17 +104,17 @@ ORK_CLASS_AVAILABLE
  
  This method is intended to allow for mutating an ordered task (or subclass) while retaining
  the original class and properties that may not be publicly exposed, but with a mutated set
- of steps. An example of where this might be useful is if before performing an `ORKPredefinedActiveTask`, 
+ of steps. An example of where this might be useful is if before performing an `ORKLegacyPredefinedActiveTask`, 
  the app needed to query the participant about medications, diet or sleep. The app
- would need to mutate the steps in order to insert their own steps. While an ORKOrderedTask could
+ would need to mutate the steps in order to insert their own steps. While an ORKLegacyOrderedTask could
  then be created with the same identifier and the new steps, subclass information such rules on an
- `ORKNavigableOrderedTask` would be lost.
+ `ORKLegacyNavigableOrderedTask` would be lost.
  
- @param steps       An array of `ORKStep` objects in the order in which they should be presented.
+ @param steps       An array of `ORKLegacyStep` objects in the order in which they should be presented.
  
  @return            An initialized ordered task.
  */
-- (instancetype)copyWithSteps:(NSArray <ORKStep *> *)steps;
+- (instancetype)copyWithSteps:(NSArray <ORKLegacyStep *> *)steps;
 
 /**
  Find the index of a given step.
@@ -122,14 +122,14 @@ ORK_CLASS_AVAILABLE
  @param step        The step to look for
  @return            The index position of the step (or NSNotFound if not found)
  */
-- (NSUInteger)indexOfStep:(ORKStep *)step;
+- (NSUInteger)indexOfStep:(ORKLegacyStep *)step;
 
 @end
 
 
 /**
- The `ORKPredefinedTaskOption` flags let you exclude particular behaviors from the predefined active
- tasks in the predefined category of `ORKOrderedTask`.
+ The `ORKLegacyPredefinedTaskOption` flags let you exclude particular behaviors from the predefined active
+ tasks in the predefined category of `ORKLegacyOrderedTask`.
  
  By default, all predefined tasks include instructions and conclusion steps, and may also include
  one or more data collection recorder configurations. Although not all predefined tasks include all
@@ -137,108 +137,108 @@ ORK_CLASS_AVAILABLE
  that a task option not be included.
  */
 
-typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskOption) {
+typedef NS_OPTIONS(NSUInteger, ORKLegacyPredefinedTaskOption) {
     /// Default behavior.
-    ORKPredefinedTaskOptionNone = 0,
+    ORKLegacyPredefinedTaskOptionNone = 0,
     
     /// Exclude the initial instruction steps.
-    ORKPredefinedTaskOptionExcludeInstructions = (1 << 0),
+    ORKLegacyPredefinedTaskOptionExcludeInstructions = (1 << 0),
     
     /// Exclude the conclusion step.
-    ORKPredefinedTaskOptionExcludeConclusion = (1 << 1),
+    ORKLegacyPredefinedTaskOptionExcludeConclusion = (1 << 1),
     
     /// Exclude accelerometer data collection.
-    ORKPredefinedTaskOptionExcludeAccelerometer = (1 << 2),
+    ORKLegacyPredefinedTaskOptionExcludeAccelerometer = (1 << 2),
     
     /// Exclude device motion data collection.
-    ORKPredefinedTaskOptionExcludeDeviceMotion = (1 << 3),
+    ORKLegacyPredefinedTaskOptionExcludeDeviceMotion = (1 << 3),
     
     /// Exclude pedometer data collection.
-    ORKPredefinedTaskOptionExcludePedometer = (1 << 4),
+    ORKLegacyPredefinedTaskOptionExcludePedometer = (1 << 4),
     
     /// Exclude location data collection.
-    ORKPredefinedTaskOptionExcludeLocation = (1 << 5),
+    ORKLegacyPredefinedTaskOptionExcludeLocation = (1 << 5),
     
     /// Exclude heart rate data collection.
-    ORKPredefinedTaskOptionExcludeHeartRate = (1 << 6),
+    ORKLegacyPredefinedTaskOptionExcludeHeartRate = (1 << 6),
     
     /// Exclude audio data collection.
-    ORKPredefinedTaskOptionExcludeAudio = (1 << 7)
-} ORK_ENUM_AVAILABLE;
+    ORKLegacyPredefinedTaskOptionExcludeAudio = (1 << 7)
+} ORKLegacy_ENUM_AVAILABLE;
 
 /**
  Values that identify the hand(s) to be used in an active task.
  
  By default, the participant will be asked to use their most affected hand.
  */
-typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskHandOption) {
+typedef NS_OPTIONS(NSUInteger, ORKLegacyPredefinedTaskHandOption) {
     /// Which hand to use is undefined
-    ORKPredefinedTaskHandOptionUnspecified = 0,
+    ORKLegacyPredefinedTaskHandOptionUnspecified = 0,
     
     /// Task should test the left hand
-    ORKPredefinedTaskHandOptionLeft = 1 << 1,
+    ORKLegacyPredefinedTaskHandOptionLeft = 1 << 1,
     
     /// Task should test the right hand
-    ORKPredefinedTaskHandOptionRight = 1 << 2,
+    ORKLegacyPredefinedTaskHandOptionRight = 1 << 2,
     
     /// Task should test both hands (random order)
-    ORKPredefinedTaskHandOptionBoth = ORKPredefinedTaskHandOptionLeft | ORKPredefinedTaskHandOptionRight,
-} ORK_ENUM_AVAILABLE;
+    ORKLegacyPredefinedTaskHandOptionBoth = ORKLegacyPredefinedTaskHandOptionLeft | ORKLegacyPredefinedTaskHandOptionRight,
+} ORKLegacy_ENUM_AVAILABLE;
 
 /**
- The `ORKTremorActiveTaskOption` flags let you exclude particular steps from the predefined active
- tasks in the predefined Tremor `ORKOrderedTask`.
+ The `ORKLegacyTremorActiveTaskOption` flags let you exclude particular steps from the predefined active
+ tasks in the predefined Tremor `ORKLegacyOrderedTask`.
  
  By default, all predefined active tasks will be included. The tremor active task option flags can
  be used to explicitly specify that an active task is not to be included.
  */
-typedef NS_OPTIONS(NSUInteger, ORKTremorActiveTaskOption) {
+typedef NS_OPTIONS(NSUInteger, ORKLegacyTremorActiveTaskOption) {
     /// Default behavior.
-    ORKTremorActiveTaskOptionNone = 0,
+    ORKLegacyTremorActiveTaskOptionNone = 0,
     
     /// Exclude the hand-in-lap steps.
-    ORKTremorActiveTaskOptionExcludeHandInLap = (1 << 0),
+    ORKLegacyTremorActiveTaskOptionExcludeHandInLap = (1 << 0),
     
     /// Exclude the hand-extended-at-shoulder-height steps.
-    ORKTremorActiveTaskOptionExcludeHandAtShoulderHeight = (1 << 1),
+    ORKLegacyTremorActiveTaskOptionExcludeHandAtShoulderHeight = (1 << 1),
     
     /// Exclude the elbow-bent-at-shoulder-height steps.
-    ORKTremorActiveTaskOptionExcludeHandAtShoulderHeightElbowBent = (1 << 2),
+    ORKLegacyTremorActiveTaskOptionExcludeHandAtShoulderHeightElbowBent = (1 << 2),
     
     /// Exclude the elbow-bent-touch-nose steps.
-    ORKTremorActiveTaskOptionExcludeHandToNose = (1 << 3),
+    ORKLegacyTremorActiveTaskOptionExcludeHandToNose = (1 << 3),
     
     /// Exclude the queen-wave steps.
-    ORKTremorActiveTaskOptionExcludeQueenWave = (1 << 4)
-} ORK_ENUM_AVAILABLE;
+    ORKLegacyTremorActiveTaskOptionExcludeQueenWave = (1 << 4)
+} ORKLegacy_ENUM_AVAILABLE;
 
 /**
  Values that identify the left or right limb to be used in an active task.
 */
-typedef NS_OPTIONS(NSUInteger, ORKPredefinedTaskLimbOption) {
+typedef NS_OPTIONS(NSUInteger, ORKLegacyPredefinedTaskLimbOption) {
     /// Which limb to use is undefined
-    ORKPredefinedTaskLimbOptionUnspecified = 0,
+    ORKLegacyPredefinedTaskLimbOptionUnspecified = 0,
     
     /// Task should test the left limb
-    ORKPredefinedTaskLimbOptionLeft = 1 << 1,
+    ORKLegacyPredefinedTaskLimbOptionLeft = 1 << 1,
     
     /// Task should test the right limb
-    ORKPredefinedTaskLimbOptionRight = 1 << 2,
+    ORKLegacyPredefinedTaskLimbOptionRight = 1 << 2,
     
     /// Task should test the both limbs (random order)
-    ORKPredefinedTaskLimbOptionBoth = ORKPredefinedTaskLimbOptionLeft | ORKPredefinedTaskLimbOptionRight,
-} ORK_ENUM_AVAILABLE;
+    ORKLegacyPredefinedTaskLimbOptionBoth = ORKLegacyPredefinedTaskLimbOptionLeft | ORKLegacyPredefinedTaskLimbOptionRight,
+} ORKLegacy_ENUM_AVAILABLE;
 
-typedef NSString * ORKTrailMakingTypeIdentifier NS_STRING_ENUM;
+typedef NSString * ORKLegacyTrailMakingTypeIdentifier NS_STRING_ENUM;
 
 /// Trail making for Type-A trail where the pattern is 1-2-3-4-5-6-7
-ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierA;
+ORKLegacy_EXTERN ORKLegacyTrailMakingTypeIdentifier const ORKLegacyTrailMakingTypeIdentifierA;
 
 /// Trail making for Type-B trail where the pattern is 1-A-2-B-3-C-4-D-5-E-6-F-7
-ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
+ORKLegacy_EXTERN ORKLegacyTrailMakingTypeIdentifier const ORKLegacyTrailMakingTypeIdentifierB;
 
 
-@interface ORKOrderedTask (ORKPredefinedActiveTask)
+@interface ORKLegacyOrderedTask (ORKLegacyPredefinedActiveTask)
 
 /**
  Returns a predefined task that consists of a fitness check.
@@ -252,7 +252,7 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  down and rest for a period. Data collection continues during this period.
  
  By default, the task includes an instruction step that explains what the user needs to do during
- the task, but this can be excluded with `ORKPredefinedTaskOptionExcludeInstructions`.
+ the task, but this can be excluded with `ORKLegacyPredefinedTaskOptionExcludeInstructions`.
  
  Data collected from this task can be used to compute measures of general fitness.
  
@@ -264,13 +264,13 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  @param restDuration            The duration of the post walk rest period.
  @param options                 Options that affect the features of the predefined task.
  
- @return An active fitness check task that can be presented with an `ORKTaskViewController` object.
+ @return An active fitness check task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKOrderedTask *)fitnessCheckTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)fitnessCheckTaskWithIdentifier:(NSString *)identifier
                             intendedUseDescription:(nullable NSString *)intendedUseDescription
                                       walkDuration:(NSTimeInterval)walkDuration
                                       restDuration:(NSTimeInterval)restDuration
-                                           options:(ORKPredefinedTaskOption)options;
+                                           options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  Returns a predefined task that consists of a short walk.
@@ -298,13 +298,13 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
                                     data is collected.
  @param options                 Options that affect the features of the predefined task.
  
- @return An active short walk task that can be presented with an `ORKTaskViewController` object.
+ @return An active short walk task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKOrderedTask *)shortWalkTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)shortWalkTaskWithIdentifier:(NSString *)identifier
                          intendedUseDescription:(nullable NSString *)intendedUseDescription
                             numberOfStepsPerLeg:(NSInteger)numberOfStepsPerLeg
                                    restDuration:(NSTimeInterval)restDuration
-                                        options:(ORKPredefinedTaskOption)options;
+                                        options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  Returns a predefined task that consists of a short walk back and forth.
@@ -336,24 +336,24 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  data is collected.
  @param options                 Options that affect the features of the predefined task.
  
- @return An active short walk task that can be presented with an `ORKTaskViewController` object.
+ @return An active short walk task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKOrderedTask *)walkBackAndForthTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)walkBackAndForthTaskWithIdentifier:(NSString *)identifier
                                 intendedUseDescription:(nullable NSString *)intendedUseDescription
                                           walkDuration:(NSTimeInterval)walkDuration
                                           restDuration:(NSTimeInterval)restDuration
-                                               options:(ORKPredefinedTaskOption)options;
+                                               options:(ORKLegacyPredefinedTaskOption)options;
 
-+ (ORKOrderedTask *)kneeRangeOfMotionTaskWithIdentifier:(NSString *)identifier
-                                             limbOption:(ORKPredefinedTaskLimbOption)limbOption
++ (ORKLegacyOrderedTask *)kneeRangeOfMotionTaskWithIdentifier:(NSString *)identifier
+                                             limbOption:(ORKLegacyPredefinedTaskLimbOption)limbOption
                                  intendedUseDescription:(nullable NSString *)intendedUseDescription
-                                                options:(ORKPredefinedTaskOption)options;
+                                                options:(ORKLegacyPredefinedTaskOption)options;
 
 
-+ (ORKOrderedTask *)shoulderRangeOfMotionTaskWithIdentifier:(NSString *)identifier
-                                                 limbOption:(ORKPredefinedTaskLimbOption)limbOption
++ (ORKLegacyOrderedTask *)shoulderRangeOfMotionTaskWithIdentifier:(NSString *)identifier
+                                                 limbOption:(ORKLegacyPredefinedTaskLimbOption)limbOption
                                      intendedUseDescription:(nullable NSString *)intendedUseDescription
-                                                    options:(ORKPredefinedTaskOption)options;
+                                                    options:(ORKLegacyPredefinedTaskOption)options;
 /**
  Returns a predefined task that enables an audio recording WITH a check of the audio level.
  
@@ -384,27 +384,27 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  @param checkAudioLevel         If `YES` then add navigational rules to check the background noise level.
  @param options                 Options that affect the features of the predefined task.
  
- @return An active audio task that can be presented with an `ORKTaskViewController` object.
+ @return An active audio task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKNavigableOrderedTask *)audioTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyNavigableOrderedTask *)audioTaskWithIdentifier:(NSString *)identifier
                               intendedUseDescription:(nullable NSString *)intendedUseDescription
                                    speechInstruction:(nullable NSString *)speechInstruction
                               shortSpeechInstruction:(nullable NSString *)shortSpeechInstruction
                                             duration:(NSTimeInterval)duration
                                    recordingSettings:(nullable NSDictionary *)recordingSettings
                                      checkAudioLevel:(BOOL)checkAudioLevel
-                                             options:(ORKPredefinedTaskOption)options;
+                                             options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  @Deprecated
  */
-+ (ORKOrderedTask *)audioTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)audioTaskWithIdentifier:(NSString *)identifier
                      intendedUseDescription:(nullable NSString *)intendedUseDescription
                           speechInstruction:(nullable NSString *)speechInstruction
                      shortSpeechInstruction:(nullable NSString *)shortSpeechInstruction
                                    duration:(NSTimeInterval)duration
                           recordingSettings:(nullable NSDictionary *)recordingSettings
-                                    options:(ORKPredefinedTaskOption)options __deprecated;
+                                    options:(ORKLegacyPredefinedTaskOption)options __deprecated;
 
 /**
  Returns a predefined task that consists of two finger tapping (Optionally with a hand specified)
@@ -426,20 +426,20 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  @param handOptions             Options for determining which hand(s) to test.
  @param options                 Options that affect the features of the predefined task.
  
- @return An active two finger tapping task that can be presented with an `ORKTaskViewController` object.
+ @return An active two finger tapping task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKOrderedTask *)twoFingerTappingIntervalTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)twoFingerTappingIntervalTaskWithIdentifier:(NSString *)identifier
                                         intendedUseDescription:(nullable NSString *)intendedUseDescription
                                                       duration:(NSTimeInterval)duration
-                                                   handOptions:(ORKPredefinedTaskHandOption)handOptions
-                                                       options:(ORKPredefinedTaskOption)options;
+                                                   handOptions:(ORKLegacyPredefinedTaskHandOption)handOptions
+                                                       options:(ORKLegacyPredefinedTaskOption)options;
 /**
  @Deprecated
  */
-+ (ORKOrderedTask *)twoFingerTappingIntervalTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)twoFingerTappingIntervalTaskWithIdentifier:(NSString *)identifier
                                         intendedUseDescription:(nullable NSString *)intendedUseDescription
                                                       duration:(NSTimeInterval)duration
-                                                       options:(ORKPredefinedTaskOption)options __deprecated;
+                                                       options:(ORKLegacyPredefinedTaskOption)options __deprecated;
 
 /**
  Returns a predefined task that tests spatial span memory.
@@ -463,7 +463,7 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  A spatial span memory task finishes when the user has either completed the maximum number of tests
  or made the maximum number of errors.
  
- Data collected by the task is in the form of an `ORKSpatialSpanMemoryResult` object.
+ Data collected by the task is in the form of an `ORKLegacySpatialSpanMemoryResult` object.
  
  @param identifier              The task identifier to use for this task, appropriate to the study.
  @param intendedUseDescription  A localized string describing the intended use of the data
@@ -486,9 +486,9 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
                                     the sequence in reverse order.
  @param options                 Options that affect the features of the predefined task.
  
- @return An active spatial span memory task that can be presented with an `ORKTaskViewController` object.
+ @return An active spatial span memory task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKOrderedTask *)spatialSpanMemoryTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)spatialSpanMemoryTaskWithIdentifier:(NSString *)identifier
                                  intendedUseDescription:(nullable NSString *)intendedUseDescription
                                             initialSpan:(NSInteger)initialSpan
                                             minimumSpan:(NSInteger)minimumSpan
@@ -499,7 +499,7 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
                                       customTargetImage:(nullable UIImage *)customTargetImage
                                  customTargetPluralName:(nullable NSString *)customTargetPluralName
                                         requireReversal:(BOOL)requireReversal
-                                                options:(ORKPredefinedTaskOption)options;
+                                                options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  Returns a predefined Stroop task that tests participants selective attention and cognitive flexibility.
@@ -508,7 +508,7 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  
  A stroop task finishes when the user has completed all the attempts, irrespective of correct or incorrect answers.
  
- Data collected by the task is in the form of an `ORKStroopResult` object.
+ Data collected by the task is in the form of an `ORKLegacyStroopResult` object.
  
  @param identifier              The task identifier to use for this task, appropriate to the study.
  @param intendedUseDescription  A localized string describing the intended use of the data
@@ -517,10 +517,10 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  @param numberOfAttempts        Total number of stroop questions to include in the task.
  @param options                 Options that affect the features of the predefined task.
  */
-+ (ORKOrderedTask *)stroopTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)stroopTaskWithIdentifier:(NSString *)identifier
                       intendedUseDescription:(nullable NSString *)intendedUseDescription
                             numberOfAttempts:(NSInteger)numberOfAttempts
-                                     options:(ORKPredefinedTaskOption)options;
+                                     options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  Returns a predefined task that tests tone audiometry.
@@ -549,14 +549,14 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
                                     button).
  @param options                 Options that affect the features of the predefined task.
 
- @return An active tone audiometry task that can be presented with an `ORKTaskViewController` object.
+ @return An active tone audiometry task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKOrderedTask *)toneAudiometryTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)toneAudiometryTaskWithIdentifier:(NSString *)identifier
                               intendedUseDescription:(nullable NSString *)intendedUseDescription
                                    speechInstruction:(nullable NSString *)speechInstruction
                               shortSpeechInstruction:(nullable NSString *)shortSpeechInstruction
                                         toneDuration:(NSTimeInterval)toneDuration
-                                             options:(ORKPredefinedTaskOption)options;
+                                             options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  Returns a predefined task that tests the participant's reaction time.
@@ -573,8 +573,8 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  before `timeout` has elapsed. If unsuccessful, the result is not reported and the participant must
  try again to proceed with the task.
  
- Data collected by the task is in the form of ORKReactionTimeResult objects. These
- objects contain a timestamp representing the delivery of the stimulus and an ORKFileResult, which
+ Data collected by the task is in the form of ORKLegacyReactionTimeResult objects. These
+ objects contain a timestamp representing the delivery of the stimulus and an ORKLegacyFileResult, which
  references the motion data collected during an attempt. The researcher can use these to evaluate
  the response to the stimulus and calculate the reaction time.
  
@@ -596,10 +596,10 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  @param failureSoundID              The sound to play after an unsuccessful attempt.
  @param options                 Options that affect the features of the predefined task.
  
- @return An active device motion reaction time task that can be presented with an `ORKTaskViewController` object.
+ @return An active device motion reaction time task that can be presented with an `ORKLegacyTaskViewController` object.
  */
 
-+ (ORKOrderedTask *)reactionTimeTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)reactionTimeTaskWithIdentifier:(NSString *)identifier
                             intendedUseDescription:(nullable NSString *)intendedUseDescription
                            maximumStimulusInterval:(NSTimeInterval)maximumStimulusInterval
                            minimumStimulusInterval:(NSTimeInterval)minimumStimulusInterval
@@ -609,7 +609,7 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
                                       successSound:(UInt32)successSoundID
                                       timeoutSound:(UInt32)timeoutSoundID
                                       failureSound:(UInt32)failureSoundID
-                                           options:(ORKPredefinedTaskOption)options;
+                                           options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  Returns a predefined task that consists of a Tower of Hanoi puzzle.
@@ -619,7 +619,7 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  
  A Tower of Hanoi task finishes when the participant has completed the puzzle correctly or concedes that he or she cannot solve it.
  
- Data collected by the task is in the form of an `ORKTowerOfHanoiResult` object. Data collected in this task consists of how many moves were taken and whether the puzzle was successfully completed or not.
+ Data collected by the task is in the form of an `ORKLegacyTowerOfHanoiResult` object. Data collected in this task consists of how many moves were taken and whether the puzzle was successfully completed or not.
  
  @param identifier                  The task identifier to use for this task, appropriate to the study.
  @param intendedUseDescription      A localized string describing the intended use of the data
@@ -628,12 +628,12 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  @param numberOfDisks               The number of disks in the puzzle; the default value for this property is 3.
  @param options                     Options that affect the features of the predefined task.
  
- @return An active device motion reaction time task that can be presented with an `ORKTaskViewController` object.
+ @return An active device motion reaction time task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKOrderedTask *)towerOfHanoiTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)towerOfHanoiTaskWithIdentifier:(NSString *)identifier
                             intendedUseDescription:(nullable NSString *)intendedUseDescription
                                      numberOfDisks:(NSUInteger)numberOfDisks
-                                           options:(ORKPredefinedTaskOption)options;
+                                           options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  Returns a predefined task that consists of a timed walk.
@@ -650,7 +650,7 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  The data collected by this task can include accelerometer, device motion, pedometer data,
  and location where available.
  
- Data collected by the task is in the form of an `ORKTimedWalkResult` object.
+ Data collected by the task is in the form of an `ORKLegacyTimedWalkResult` object.
  
  @param identifier                  The task identifier to use for this task, appropriate to the study.
  @param intendedUseDescription      A localized string describing the intended use of the data
@@ -662,14 +662,14 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
                                       about the usage of an assistive device.
  @param options                     Options that affect the features of the predefined task.
  
- @return An active timed walk task that can be presented with an `ORKTaskViewController` object.
+ @return An active timed walk task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKOrderedTask *)timedWalkTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)timedWalkTaskWithIdentifier:(NSString *)identifier
                          intendedUseDescription:(nullable NSString *)intendedUseDescription
                                distanceInMeters:(double)distanceInMeters
                                       timeLimit:(NSTimeInterval)timeLimit
                      includeAssistiveDeviceForm:(BOOL)includeAssistiveDeviceForm
-                                        options:(ORKPredefinedTaskOption)options;
+                                        options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  Returns a predefined task that consists of a timed walk, with a distinct turn around step.
@@ -686,7 +686,7 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  The data collected by this task can include accelerometer, device motion, pedometer data,
  and location where available.
 
- Data collected by the task is in the form of an `ORKTimedWalkResult` object.
+ Data collected by the task is in the form of an `ORKLegacyTimedWalkResult` object.
 
  @param identifier                  The task identifier to use for this task, appropriate to the study.
  @param intendedUseDescription      A localized string describing the intended use of the data
@@ -699,15 +699,15 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  about the usage of an assistive device.
  @param options                     Options that affect the features of the predefined task.
 
- @return An active timed walk task that can be presented with an `ORKTaskViewController` object.
+ @return An active timed walk task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKOrderedTask *)timedWalkTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)timedWalkTaskWithIdentifier:(NSString *)identifier
                          intendedUseDescription:(nullable NSString *)intendedUseDescription
                                distanceInMeters:(double)distanceInMeters
                                       timeLimit:(NSTimeInterval)timeLimit
                             turnAroundTimeLimit:(NSTimeInterval)turnAroundTimeLimit
                      includeAssistiveDeviceForm:(BOOL)includeAssistiveDeviceForm
-                                        options:(ORKPredefinedTaskOption)options;
+                                        options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  Returns a predefined task that consists of the paced serial addition test (PSAT).
@@ -718,7 +718,7 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  A PSAT task can be used to measure the cognitive function that assesses auditory and/or
  visual information processing speed and flexibility, as well as calculation ability.
  
- Data collected by the task is in the form of an `ORKPSATResult` object.
+ Data collected by the task is in the form of an `ORKLegacyPSATResult` object.
  
  @param identifier              The task identifier to use for this task, appropriate to the study.
  @param intendedUseDescription  A localized string describing the intended use of the data
@@ -731,16 +731,16 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  @param seriesLength            The number of digits that will be presented during the task.
  @param options                 Options that affect the features of the predefined task.
  
- @return An active PSAT task that can be presented with an `ORKTaskViewController` object.
+ @return An active PSAT task that can be presented with an `ORKLegacyTaskViewController` object.
  
  */
-+ (ORKOrderedTask *)PSATTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)PSATTaskWithIdentifier:(NSString *)identifier
                     intendedUseDescription:(nullable NSString *)intendedUseDescription
-                          presentationMode:(ORKPSATPresentationMode)presentationMode
+                          presentationMode:(ORKLegacyPSATPresentationMode)presentationMode
                      interStimulusInterval:(NSTimeInterval)interStimulusInterval
                           stimulusDuration:(NSTimeInterval)stimulusDuration
                               seriesLength:(NSInteger)seriesLength
-                                   options:(ORKPredefinedTaskOption)options;
+                                   options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  Returns a predefined task that measures hand tremor.
@@ -757,14 +757,14 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  @param handOptions             Options for determining which hand(s) to test.
  @param options                 Options that affect the features of the predefined task.
  
- @return An active tremor test task that can be presented with an `ORKTaskViewController` object.
+ @return An active tremor test task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKNavigableOrderedTask *)tremorTestTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyNavigableOrderedTask *)tremorTestTaskWithIdentifier:(NSString *)identifier
                                    intendedUseDescription:(nullable NSString *)intendedUseDescription
                                        activeStepDuration:(NSTimeInterval)activeStepDuration
-                                        activeTaskOptions:(ORKTremorActiveTaskOption)activeTaskOptions
-                                              handOptions:(ORKPredefinedTaskHandOption)handOptions
-                                                  options:(ORKPredefinedTaskOption)options;
+                                        activeTaskOptions:(ORKLegacyTremorActiveTaskOption)activeTaskOptions
+                                              handOptions:(ORKLegacyPredefinedTaskHandOption)handOptions
+                                                  options:(ORKLegacyPredefinedTaskOption)options;
 
 /**
  Returns a predefined task that measures visual attention and task switching.
@@ -772,8 +772,8 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
  In a trail making test, the participant is asked to connect a series of cicles labeled 1,2,3... or
  1,A,2,B,3,C... and time to complete the test is recorded.
  
- `ORKTrailMakingTypeIdentifierA` uses the pattern: 1-2-3-4-5-6-7.
- `ORKTrailMakingTypeIdentifierB` uses the pattern: 1-A-2-B-3-C-4-D-5-E-6-F-7
+ `ORKLegacyTrailMakingTypeIdentifierA` uses the pattern: 1-2-3-4-5-6-7.
+ `ORKLegacyTrailMakingTypeIdentifierB` uses the pattern: 1-A-2-B-3-C-4-D-5-E-6-F-7
  
  @param identifier              The task identifier to use for this task, appropriate to the study.
  @param intendedUseDescription  A localized string describing the intended use of the data
@@ -781,16 +781,16 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
                                   localized text is displayed.
  @param trailmakingInstruction  Instructional content describing what the user needs to do when
                                   the task begins. If the value of this parameter is `nil`,
- @param trailType               Type of trail to display. Either `ORKTrailMakingTypeIdentifierA` or `ORKTrailMakingTypeIdentifierB`
+ @param trailType               Type of trail to display. Either `ORKLegacyTrailMakingTypeIdentifierA` or `ORKLegacyTrailMakingTypeIdentifierB`
  @param options                 Options that affect the features of the predefined task.
  
- @return An active trail making test task that can be presented with an `ORKTaskViewController` object.
+ @return An active trail making test task that can be presented with an `ORKLegacyTaskViewController` object.
  */
-+ (ORKOrderedTask *)trailmakingTaskWithIdentifier:(NSString *)identifier
++ (ORKLegacyOrderedTask *)trailmakingTaskWithIdentifier:(NSString *)identifier
                            intendedUseDescription:(nullable NSString *)intendedUseDescription
                            trailmakingInstruction:(nullable NSString *)trailmakingInstruction
-                                        trailType:(ORKTrailMakingTypeIdentifier)trailType
-                                          options:(ORKPredefinedTaskOption)options;
+                                        trailType:(ORKLegacyTrailMakingTypeIdentifier)trailType
+                                          options:(ORKLegacyPredefinedTaskOption)options;
 
 @end
 

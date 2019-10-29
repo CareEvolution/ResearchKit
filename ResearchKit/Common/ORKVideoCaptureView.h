@@ -37,7 +37,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ORKVideoCaptureViewDelegate <NSObject>
+@protocol ORKLegacyVideoCaptureViewDelegate <NSObject>
 
 - (void)capturePressed:(void (^ _Nullable)(void))handler;
 - (void)stopCapturePressed:(void (^ _Nullable)(void))handler;
@@ -47,17 +47,17 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface ORKVideoCaptureView : UIView
+@interface ORKLegacyVideoCaptureView : UIView
 
-@property (nonatomic, strong, nullable) ORKVideoCaptureStep *videoCaptureStep;
-@property (nonatomic, weak, nullable) id<ORKVideoCaptureViewDelegate> delegate;
+@property (nonatomic, strong, nullable) ORKLegacyVideoCaptureStep *videoCaptureStep;
+@property (nonatomic, weak, nullable) id<ORKLegacyVideoCaptureViewDelegate> delegate;
 @property (nonatomic, weak, nullable) AVCaptureSession *session;
 @property (nonatomic, strong, nullable) UIBarButtonItem *continueButtonItem;
 @property (nonatomic, strong, nullable) UIBarButtonItem *skipButtonItem;
 @property (nonatomic, strong, nullable) NSURL *videoFileURL;
 @property (nonatomic, strong, nullable) NSError *error;
 @property (nonatomic) BOOL recording;
-@property (nonatomic, strong, nullable) ORKVideoCaptureCameraPreviewView *previewView;
+@property (nonatomic, strong, nullable) ORKLegacyVideoCaptureCameraPreviewView *previewView;
 @property (nonatomic, strong, readonly) AVPlayerViewController *playerViewController;
 
 @end

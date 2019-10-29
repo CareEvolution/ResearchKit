@@ -33,26 +33,26 @@
 #import "ORKAccessibilityFunctions.h"
 
 
-@interface ORKAccessibilityTests : XCTestCase
+@interface ORKLegacyAccessibilityTests : XCTestCase
 
 @end
 
 
-@implementation ORKAccessibilityTests
+@implementation ORKLegacyAccessibilityTests
 
 - (void)testAccessibilityString {
     {
-        NSString *result = ORKAccessibilityStringForVariables(@"a", @"b", nil);
+        NSString *result = ORKLegacyAccessibilityStringForVariables(@"a", @"b", nil);
         XCTAssert([result isEqualToString:@"a, b"]);
     }
 
     {
-        NSString *result = ORKAccessibilityStringForVariables(@"a", nil, @"b");
+        NSString *result = ORKLegacyAccessibilityStringForVariables(@"a", nil, @"b");
         XCTAssert([result isEqualToString:@"a, b"]);
     }
     
     {
-        NSString *result = ORKAccessibilityStringForVariables(@"a");
+        NSString *result = ORKLegacyAccessibilityStringForVariables(@"a");
         XCTAssert([result isEqualToString:@"a"]);
     }
 }

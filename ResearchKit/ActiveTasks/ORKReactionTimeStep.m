@@ -36,10 +36,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKReactionTimeStep
+@implementation ORKLegacyReactionTimeStep
 
 + (Class)stepViewControllerClass {
-    return [ORKReactionTimeViewController class];
+    return [ORKLegacyReactionTimeViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -49,7 +49,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKReactionTimeStep *step = [super copyWithZone:zone];
+    ORKLegacyReactionTimeStep *step = [super copyWithZone:zone];
     step.maximumStimulusInterval = self.maximumStimulusInterval;
     step.minimumStimulusInterval = self.minimumStimulusInterval;
     step.thresholdAcceleration = self.thresholdAcceleration;
@@ -94,28 +94,28 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, maximumStimulusInterval);
-        ORK_DECODE_DOUBLE(aDecoder, minimumStimulusInterval);
-        ORK_DECODE_DOUBLE(aDecoder, thresholdAcceleration);
-        ORK_DECODE_DOUBLE(aDecoder, timeout);
-        ORK_DECODE_UINT32(aDecoder, successSound);
-        ORK_DECODE_UINT32(aDecoder, timeoutSound);
-        ORK_DECODE_UINT32(aDecoder, failureSound);
-        ORK_DECODE_INTEGER(aDecoder, numberOfAttempts);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, maximumStimulusInterval);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, minimumStimulusInterval);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, thresholdAcceleration);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, timeout);
+        ORKLegacy_DECODE_UINT32(aDecoder, successSound);
+        ORKLegacy_DECODE_UINT32(aDecoder, timeoutSound);
+        ORKLegacy_DECODE_UINT32(aDecoder, failureSound);
+        ORKLegacy_DECODE_INTEGER(aDecoder, numberOfAttempts);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-        ORK_ENCODE_DOUBLE(aCoder, maximumStimulusInterval);
-        ORK_ENCODE_DOUBLE(aCoder, minimumStimulusInterval);
-        ORK_ENCODE_DOUBLE(aCoder, thresholdAcceleration);
-        ORK_ENCODE_DOUBLE(aCoder, timeout);
-        ORK_ENCODE_UINT32(aCoder, successSound);
-        ORK_ENCODE_UINT32(aCoder, timeoutSound);
-        ORK_ENCODE_UINT32(aCoder, failureSound);
-        ORK_ENCODE_INTEGER(aCoder, numberOfAttempts);
+        ORKLegacy_ENCODE_DOUBLE(aCoder, maximumStimulusInterval);
+        ORKLegacy_ENCODE_DOUBLE(aCoder, minimumStimulusInterval);
+        ORKLegacy_ENCODE_DOUBLE(aCoder, thresholdAcceleration);
+        ORKLegacy_ENCODE_DOUBLE(aCoder, timeout);
+        ORKLegacy_ENCODE_UINT32(aCoder, successSound);
+        ORKLegacy_ENCODE_UINT32(aCoder, timeoutSound);
+        ORKLegacy_ENCODE_UINT32(aCoder, failureSound);
+        ORKLegacy_ENCODE_INTEGER(aCoder, numberOfAttempts);
 }
 
 + (BOOL)supportsSecureCoding {

@@ -38,26 +38,26 @@
 #import "ORKSkin.h"
 
 
-@interface ORKTimedWalkContentView ()
+@interface ORKLegacyTimedWalkContentView ()
 
-@property (nonatomic, strong) ORKProgressView *progressView;
-@property (nonatomic, strong) ORKTintedImageView *imageView;
+@property (nonatomic, strong) ORKLegacyProgressView *progressView;
+@property (nonatomic, strong) ORKLegacyTintedImageView *imageView;
 @property (nonatomic, strong) NSLayoutConstraint *imageRatioConstraint;
 @property (nonatomic, copy) NSArray *constraints;
 
 @end
 
 
-@implementation ORKTimedWalkContentView
+@implementation ORKLegacyTimedWalkContentView
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _progressView = [ORKProgressView new];
+        _progressView = [ORKLegacyProgressView new];
         _progressView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_progressView];
         
-        _imageView = [ORKTintedImageView new];
+        _imageView = [ORKLegacyTintedImageView new];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.translatesAutoresizingMaskIntoConstraints = NO;
         _imageView.shouldApplyTint = YES;

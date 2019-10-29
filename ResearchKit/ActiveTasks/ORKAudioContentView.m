@@ -46,7 +46,7 @@ static const CGFloat GraphViewBlueZoneHeight = 170;
 static const CGFloat GraphViewRedZoneHeight = 25;
 
 
-@interface ORKAudioGraphView : UIView
+@interface ORKLegacyAudioGraphView : UIView
 
 @property (nonatomic, strong) UIColor *keyColor;
 @property (nonatomic, strong) UIColor *alertColor;
@@ -62,7 +62,7 @@ static const CGFloat ValueLineWidth = 4.5;
 static const CGFloat ValueLineMargin = 1.5;
 
 
-@implementation ORKAudioGraphView
+@implementation ORKLegacyAudioGraphView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -185,32 +185,32 @@ static const CGFloat ValueLineMargin = 1.5;
 @end
 
 
-@interface ORKAudioTimerLabel : ORKLabel
+@interface ORKLegacyAudioTimerLabel : ORKLegacyLabel
 
 @end
 
 
-@implementation ORKAudioTimerLabel
+@implementation ORKLegacyAudioTimerLabel
 
 + (UIFont *)defaultFont {
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline];
-    UIFontDescriptor *alternativeDescriptor = ORKFontDescriptorForLightStylisticAlternative(descriptor);
+    UIFontDescriptor *alternativeDescriptor = ORKLegacyFontDescriptorForLightStylisticAlternative(descriptor);
     return [UIFont fontWithDescriptor:alternativeDescriptor size:[alternativeDescriptor pointSize] + 4];
 }
 
 @end
 
 
-@interface ORKAudioContentView ()
+@interface ORKLegacyAudioContentView ()
 
-@property (nonatomic, strong) ORKHeadlineLabel *alertLabel;
+@property (nonatomic, strong) ORKLegacyHeadlineLabel *alertLabel;
 @property (nonatomic, strong) UILabel *timerLabel;
-@property (nonatomic, strong) ORKAudioGraphView *graphView;
+@property (nonatomic, strong) ORKLegacyAudioGraphView *graphView;
 
 @end
 
 
-@implementation ORKAudioContentView {
+@implementation ORKLegacyAudioContentView {
     NSMutableArray *_samples;
     UIColor *_keyColor;
 }
@@ -218,14 +218,14 @@ static const CGFloat ValueLineMargin = 1.5;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.layoutMargins = ORKStandardFullScreenLayoutMarginsForView(self);
+        self.layoutMargins = ORKLegacyStandardFullScreenLayoutMarginsForView(self);
         
-        self.alertLabel = [ORKHeadlineLabel new];
+        self.alertLabel = [ORKLegacyHeadlineLabel new];
         _alertLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        self.timerLabel = [ORKAudioTimerLabel new];
+        self.timerLabel = [ORKLegacyAudioTimerLabel new];
         _timerLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _timerLabel.textAlignment = NSTextAlignmentRight;
-        self.graphView = [ORKAudioGraphView new];
+        self.graphView = [ORKLegacyAudioGraphView new];
         _graphView.translatesAutoresizingMaskIntoConstraints = NO;
         self.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -236,7 +236,7 @@ static const CGFloat ValueLineMargin = 1.5;
         [self addSubview:_graphView];
         
         _timerLabel.text = @"06:00";
-        _alertLabel.text = ORKLocalizedString(@"AUDIO_TOO_LOUD_LABEL", nil);
+        _alertLabel.text = ORKLegacyLocalizedString(@"AUDIO_TOO_LOUD_LABEL", nil);
         
         self.alertThreshold = GraphViewBlueZoneHeight / ((GraphViewRedZoneHeight * 2) + GraphViewBlueZoneHeight);
         
@@ -253,7 +253,7 @@ static const CGFloat ValueLineMargin = 1.5;
 
 - (void)setFailed:(BOOL)failed {
     _failed = failed;
-    _alertLabel.text = failed ? ORKLocalizedString(@"AUDIO_GENERIC_ERROR_LABEL", nil) : ORKLocalizedString(@"AUDIO_TOO_LOUD_LABEL", nil);
+    _alertLabel.text = failed ? ORKLegacyLocalizedString(@"AUDIO_GENERIC_ERROR_LABEL", nil) : ORKLegacyLocalizedString(@"AUDIO_TOO_LOUD_LABEL", nil);
     [self updateAlertLabelHidden];
 }
 
@@ -299,7 +299,7 @@ static const CGFloat ValueLineMargin = 1.5;
                                                        multiplier:1.0
                                                          constant:0.0]];
     
-    const CGFloat sideMargin = self.layoutMargins.left + (2 * ORKStandardLeftMarginForTableViewCell(self));
+    const CGFloat sideMargin = self.layoutMargins.left + (2 * ORKLegacyStandardLeftMarginForTableViewCell(self));
     const CGFloat innerMargin = 2;
 
     [constraints addObjectsFromArray:
@@ -392,7 +392,7 @@ static const CGFloat ValueLineMargin = 1.5;
 - (NSString *)accessibilityLabel {
     NSString *timerAxString = _timerLabel.isHidden ? nil : _timerLabel.accessibilityLabel;
     NSString *alertAxString = _alertLabel.isHidden ? nil : _alertLabel.accessibilityLabel;
-    return ORKAccessibilityStringForVariables(ORKLocalizedString(@"AX_AUDIO_BAR_GRAPH", nil), timerAxString, alertAxString);
+    return ORKLegacyAccessibilityStringForVariables(ORKLegacyLocalizedString(@"AX_AUDIO_BAR_GRAPH", nil), timerAxString, alertAxString);
 }
 
 - (UIAccessibilityTraits)accessibilityTraits {

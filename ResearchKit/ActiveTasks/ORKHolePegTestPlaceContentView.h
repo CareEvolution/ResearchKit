@@ -36,30 +36,30 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ORKHolePegTestPlaceContentViewDelegate;
+@protocol ORKLegacyHolePegTestPlaceContentViewDelegate;
 
-ORK_CLASS_AVAILABLE
-@interface ORKHolePegTestPlaceContentView : ORKActiveStepCustomView
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyHolePegTestPlaceContentView : ORKLegacyActiveStepCustomView
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
-- (instancetype)initWithMovingDirection:(ORKBodySagittal)movingDirection rotated:(BOOL)rotated NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithMovingDirection:(ORKLegacyBodySagittal)movingDirection rotated:(BOOL)rotated NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, assign) ORKBodySagittal movingDirection;
+@property (nonatomic, assign) ORKLegacyBodySagittal movingDirection;
 @property (nonatomic, assign) double threshold;
 @property (nonatomic, assign, getter = isRotated) BOOL rotated;
-@property (nonatomic, weak) id<ORKHolePegTestPlaceContentViewDelegate> delegate;
+@property (nonatomic, weak) id<ORKLegacyHolePegTestPlaceContentViewDelegate> delegate;
 
 - (void)setProgress:(CGFloat)progress animated:(BOOL)animated;
 
 @end
 
 
-@protocol ORKHolePegTestPlaceContentViewDelegate <NSObject>
+@protocol ORKLegacyHolePegTestPlaceContentViewDelegate <NSObject>
 
-- (void)holePegTestPlaceDidProgress:(ORKHolePegTestPlaceContentView *)holePegTestPlaceContentView;
-- (void)holePegTestPlaceDidSucceed:(ORKHolePegTestPlaceContentView *)holePegTestPlaceContentView withDistance:(CGFloat)distance;
-- (void)holePegTestPlaceDidFail:(ORKHolePegTestPlaceContentView *)holePegTestPlaceContentView;
+- (void)holePegTestPlaceDidProgress:(ORKLegacyHolePegTestPlaceContentView *)holePegTestPlaceContentView;
+- (void)holePegTestPlaceDidSucceed:(ORKLegacyHolePegTestPlaceContentView *)holePegTestPlaceContentView withDistance:(CGFloat)distance;
+- (void)holePegTestPlaceDidFail:(ORKLegacyHolePegTestPlaceContentView *)holePegTestPlaceContentView;
 
 @end
 

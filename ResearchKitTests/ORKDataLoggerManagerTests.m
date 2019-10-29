@@ -33,9 +33,9 @@
 @import ResearchKit.Private;
 
 
-@interface ORKDataLoggerManagerTests : XCTestCase <ORKDataLoggerManagerDelegate> {
+@interface ORKLegacyDataLoggerManagerTests : XCTestCase <ORKLegacyDataLoggerManagerDelegate> {
     NSURL *_directory;
-    ORKDataLoggerManager *_manager;
+    ORKLegacyDataLoggerManager *_manager;
     
     NSInteger _pendingUploadBytesReachedCounter;
     unsigned long long _lastPendingUploadBytes;
@@ -46,14 +46,14 @@
 @end
 
 
-@implementation ORKDataLoggerManagerTests
+@implementation ORKLegacyDataLoggerManagerTests
 
-- (void)dataLoggerManager:(ORKDataLoggerManager *)dataLogger pendingUploadBytesReachedThreshold:(unsigned long long)pendingUploadBytes {
+- (void)dataLoggerManager:(ORKLegacyDataLoggerManager *)dataLogger pendingUploadBytesReachedThreshold:(unsigned long long)pendingUploadBytes {
     _pendingUploadBytesReachedCounter ++;
     _lastPendingUploadBytes = pendingUploadBytes;
 }
 
-- (void)dataLoggerManager:(ORKDataLoggerManager *)dataLogger totalBytesReachedThreshold:(unsigned long long)totalBytes {
+- (void)dataLoggerManager:(ORKLegacyDataLoggerManager *)dataLogger totalBytesReachedThreshold:(unsigned long long)totalBytes {
     _totalBytesReachedCounter ++;
     _lastTotalBytes = totalBytes;
 }
@@ -69,7 +69,7 @@
     _totalBytesReachedCounter = 0;
     _lastPendingUploadBytes = 0;
     _lastTotalBytes = 0;
-    _manager = [[ORKDataLoggerManager alloc] initWithDirectory:_directory delegate:self];
+    _manager = [[ORKLegacyDataLoggerManager alloc] initWithDirectory:_directory delegate:self];
     XCTAssertNotNil(_manager);
 }
 
@@ -100,7 +100,7 @@
     _manager.delegate = nil;
     _manager = nil;
     
-    _manager = [[ORKDataLoggerManager alloc] initWithDirectory:_directory delegate:self];
+    _manager = [[ORKLegacyDataLoggerManager alloc] initWithDirectory:_directory delegate:self];
     XCTAssertNotNil(_manager);
     
     XCTAssertEqual(_manager.totalBytesThreshold, 10);
@@ -118,9 +118,9 @@
 - (void)testEnumerationSortOrder {
     [self addLoggers123];
     
-    ORKDataLogger *dm3 = [_manager dataLoggerForLogName:@"test3"];
-    ORKDataLogger *dm2 = [_manager dataLoggerForLogName:@"test2"];
-    ORKDataLogger *dm1 = [_manager dataLoggerForLogName:@"test1"];
+    ORKLegacyDataLogger *dm3 = [_manager dataLoggerForLogName:@"test3"];
+    ORKLegacyDataLogger *dm2 = [_manager dataLoggerForLogName:@"test2"];
+    ORKLegacyDataLogger *dm1 = [_manager dataLoggerForLogName:@"test1"];
     
     NSDictionary *jsonObject = @{@"test": @"1234"};
     
@@ -151,7 +151,7 @@
     [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.1]];
     
     NSMutableArray *dataLoggers = [NSMutableArray array];
-    BOOL success = [_manager enumerateLogsNeedingUpload:^(ORKDataLogger *dataLogger, NSURL *logFileUrl, BOOL *stop) {
+    BOOL success = [_manager enumerateLogsNeedingUpload:^(ORKLegacyDataLogger *dataLogger, NSURL *logFileUrl, BOOL *stop) {
         [dataLoggers addObject:dataLogger];
     } error:&error];
     
@@ -171,9 +171,9 @@
     
     const NSTimeInterval filesystemSettleTime = 0.5;
     
-    ORKDataLogger *dm3 = [_manager dataLoggerForLogName:@"test3"];
-    ORKDataLogger *dm2 = [_manager dataLoggerForLogName:@"test2"];
-    ORKDataLogger *dm1 = [_manager dataLoggerForLogName:@"test1"];
+    ORKLegacyDataLogger *dm3 = [_manager dataLoggerForLogName:@"test3"];
+    ORKLegacyDataLogger *dm2 = [_manager dataLoggerForLogName:@"test2"];
+    ORKLegacyDataLogger *dm1 = [_manager dataLoggerForLogName:@"test1"];
     
     XCTAssertTrue([dm3 append:@{@"test":@"blah"} error:nil]);
     XCTAssertTrue([dm2 append:@{@"test":@"blah"} error:nil]);
@@ -212,9 +212,9 @@
     
     _manager.pendingUploadBytesThreshold = 10;
     
-    ORKDataLogger *dm3 = [_manager dataLoggerForLogName:@"test3"];
-    ORKDataLogger *dm2 = [_manager dataLoggerForLogName:@"test2"];
-    ORKDataLogger *dm1 = [_manager dataLoggerForLogName:@"test1"];
+    ORKLegacyDataLogger *dm3 = [_manager dataLoggerForLogName:@"test3"];
+    ORKLegacyDataLogger *dm2 = [_manager dataLoggerForLogName:@"test2"];
+    ORKLegacyDataLogger *dm1 = [_manager dataLoggerForLogName:@"test1"];
     
     XCTAssertTrue([dm3 append:@{@"test":@"blah"} error:nil]);
     XCTAssertTrue([dm2 append:@{@"test":@"blah"} error:nil]);
@@ -230,7 +230,7 @@
     XCTAssertEqual(_pendingUploadBytesReachedCounter, 1);
     
     // Mark all the files uploaded, then create some more files. Check we get another delegate call
-    BOOL success = [_manager enumerateLogsNeedingUpload:^(ORKDataLogger *dataLogger, NSURL *logFileUrl, BOOL *stop) {
+    BOOL success = [_manager enumerateLogsNeedingUpload:^(ORKLegacyDataLogger *dataLogger, NSURL *logFileUrl, BOOL *stop) {
         XCTAssertTrue([dataLogger markFileUploaded:YES atURL:logFileUrl error:nil]);
     } error:nil];
     XCTAssertTrue(success);

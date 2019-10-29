@@ -35,14 +35,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKConsentSceneView : ORKVerticalContainerView
+@interface ORKLegacyConsentSceneView : ORKLegacyVerticalContainerView
 
 @end
 
 
-@interface ORKConsentSceneViewController ()
+@interface ORKLegacyConsentSceneViewController ()
 
-@property (nonatomic, readonly) ORKConsentSceneView *sceneView;
+@property (nonatomic, readonly) ORKLegacyConsentSceneView *sceneView;
 
 @property (nonatomic, readonly) UIScrollView *scrollView;
 

@@ -35,11 +35,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKConsentDocument;
-@class ORKConsentSignature;
+@class ORKLegacyConsentDocument;
+@class ORKLegacyConsentSignature;
 
 /**
- The `ORKConsentReviewStep` class is used to represent the consent review process.
+ The `ORKLegacyConsentReviewStep` class is used to represent the consent review process.
  Typically, the consent review process consists of three main parts:
  
  1. Consent document review. In this part, you display the consent document for review. Users
@@ -53,14 +53,14 @@ NS_ASSUME_NONNULL_BEGIN
  To request signature entry in your app, set the step's `signature` property, and ensure that the signature's
  `requiresName` property is set to `YES`.
  
- The content for the consent document review comes from a consent document (`ORKConsentDocument`)
+ The content for the consent document review comes from a consent document (`ORKLegacyConsentDocument`)
  provided during initialization.
  
  To use a consent review step, configure it and include it in a task. Then
  present the task in a task view controller.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKConsentReviewStep : ORKStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyConsentReviewStep : ORKLegacyStep
 
 /// @name Initialization.
 
@@ -74,15 +74,15 @@ ORK_CLASS_AVAILABLE
  @return An initialized consent review step.
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                         signature:(nullable ORKConsentSignature *)signature
-                        inDocument:(ORKConsentDocument *)consentDocument;
+                         signature:(nullable ORKLegacyConsentSignature *)signature
+                        inDocument:(ORKLegacyConsentDocument *)consentDocument;
 
 /// @name Properties
 
 /**
  The consent document to be reviewed by the user during the consent review process. (read-only)
  */
-@property (nonatomic, strong, readonly) ORKConsentDocument *consentDocument;
+@property (nonatomic, strong, readonly) ORKLegacyConsentDocument *consentDocument;
 
 /**
  The signature object from the document that should be collected. (read-only)
@@ -94,7 +94,7 @@ ORK_CLASS_AVAILABLE
  The identifier of the signature is expected to match one of the signature objects in
  the consent document.
  */
-@property (nonatomic, strong, readonly, nullable) ORKConsentSignature *signature;
+@property (nonatomic, strong, readonly, nullable) ORKLegacyConsentSignature *signature;
 
 /**
  When set to YES, the consent document must be scrolled to the bottom to enable the `Agree` button.

@@ -35,16 +35,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKRoundTappingButton;
+@class ORKLegacyRoundTappingButton;
 
-@interface ORKToneAudiometryContentView : ORKActiveStepCustomView
+@interface ORKLegacyToneAudiometryContentView : ORKLegacyActiveStepCustomView
 
 - (void)setProgress:(CGFloat)progress
             caption:(NSString *)caption
            animated:(BOOL)animated;
 
-@property (nonatomic, strong, readonly) ORKRoundTappingButton *leftButton;
-@property (nonatomic, strong, readonly) ORKRoundTappingButton *rightButton;
+@property (nonatomic, strong, readonly) ORKLegacyRoundTappingButton *leftButton;
+@property (nonatomic, strong, readonly) ORKLegacyRoundTappingButton *rightButton;
 
 @end
 

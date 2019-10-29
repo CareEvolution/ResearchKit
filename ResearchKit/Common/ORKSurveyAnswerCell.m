@@ -35,7 +35,7 @@
 #import "ORKSkin.h"
 
 
-@interface ORKSurveyAnswerCell ()
+@interface ORKLegacySurveyAnswerCell ()
 
 // Handle keyboard
 @property (nonatomic) UIEdgeInsets cachedContentInsets;
@@ -44,13 +44,13 @@
 @end
 
 
-@implementation ORKSurveyAnswerCell
+@implementation ORKLegacySurveyAnswerCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
               reuseIdentifier:(NSString *)reuseIdentifier
-                         step:(ORKQuestionStep *)step
+                         step:(ORKLegacyQuestionStep *)step
                        answer:(id)answer
-                     delegate:(id<ORKSurveyAnswerCellDelegate>)delegate {
+                     delegate:(id<ORKLegacySurveyAnswerCellDelegate>)delegate {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         _delegate = delegate;
@@ -63,7 +63,7 @@
     return self;
 }
 
-- (void)setStep:(ORKQuestionStep *)step {
+- (void)setStep:(ORKLegacyQuestionStep *)step {
     _step = step;
     [self prepareView];
 }
@@ -138,8 +138,8 @@
         return;
     }
     
-    UITableViewCell *cell = ORKFirstObjectOfClass(UITableViewCell, inputView, superview);
-    UITableView *tableView = ORKFirstObjectOfClass(UITableView, cell, superview);
+    UITableViewCell *cell = ORKLegacyFirstObjectOfClass(UITableViewCell, inputView, superview);
+    UITableView *tableView = ORKLegacyFirstObjectOfClass(UITableView, cell, superview);
     
     _cachedContentInsets = tableView.contentInset;
     _cachedScrollIndicatorInsets = tableView.scrollIndicatorInsets;
@@ -177,7 +177,7 @@
         return;
     }
     
-    UITableView *tableView = ORKFirstObjectOfClass(UITableView, inputView, superview);
+    UITableView *tableView = ORKLegacyFirstObjectOfClass(UITableView, inputView, superview);
     
     [UIView animateWithDuration:2.0
                           delay:0.0
@@ -210,7 +210,7 @@
 }
 
 + (CGFloat)suggestedCellHeightForView:(UIView *)view {
-    return ORKGetMetricForWindow(ORKScreenMetricTableCellDefaultHeight, view.window);
+    return ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricTableCellDefaultHeight, view.window);
 }
 
 + (NSLayoutConstraint *)fullWidthLayoutConstraint:(UIView *)view {

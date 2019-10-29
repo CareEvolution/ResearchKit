@@ -50,8 +50,8 @@
 #import "UIBarButtonItem+ORKBarButtonItem.h"
 
 
-@interface ORKConsentReviewStepViewController () <UIPageViewControllerDelegate, ORKStepViewControllerDelegate, ORKConsentReviewControllerDelegate> {
-    ORKConsentSignature *_currentSignature;
+@interface ORKLegacyConsentReviewStepViewController () <UIPageViewControllerDelegate, ORKLegacyStepViewControllerDelegate, ORKLegacyConsentReviewControllerDelegate> {
+    ORKLegacyConsentSignature *_currentSignature;
     UIPageViewController *_pageViewController;
 
     NSMutableArray *_pageIndices;
@@ -67,9 +67,9 @@
 @end
 
 
-@implementation ORKConsentReviewStepViewController
+@implementation ORKLegacyConsentReviewStepViewController
 
-- (instancetype)initWithConsentReviewStep:(ORKConsentReviewStep *)step result:(ORKConsentSignatureResult *)result {
+- (instancetype)initWithConsentReviewStep:(ORKLegacyConsentReviewStep *)step result:(ORKLegacyConsentSignatureResult *)result {
     self = [super initWithStep:step];
     if (self) {
         _signatureFirst = [result.signature givenName];
@@ -90,16 +90,16 @@
     }
     
     _currentPageIndex = NSNotFound;
-    ORKConsentReviewStep *step = [self consentReviewStep];
+    ORKLegacyConsentReviewStep *step = [self consentReviewStep];
     NSMutableArray *indices = [NSMutableArray array];
     if (step.consentDocument && !step.autoAgree) {
-        [indices addObject:@(ORKConsentReviewPhaseReviewDocument)];
+        [indices addObject:@(ORKLegacyConsentReviewPhaseReviewDocument)];
     }
     if (step.signature.requiresName) {
-        [indices addObject:@(ORKConsentReviewPhaseName)];
+        [indices addObject:@(ORKLegacyConsentReviewPhaseName)];
     }
     if (step.signature.requiresSignatureImage) {
-        [indices addObject:@(ORKConsentReviewPhaseSignature)];
+        [indices addObject:@(ORKLegacyConsentReviewPhaseSignature)];
     }
     
     _pageIndices = indices;
@@ -131,7 +131,7 @@
 
 - (UIBarButtonItem *)goToPreviousPageButtonItem {
     UIBarButtonItem *button = [UIBarButtonItem ork_backBarButtonItemWithTarget:self action:@selector(goToPreviousPage)];
-    button.accessibilityLabel = ORKLocalizedString(@"AX_BUTTON_BACK", nil);
+    button.accessibilityLabel = ORKLegacyLocalizedString(@"AX_BUTTON_BACK", nil);
     return button;
 }
 
@@ -155,32 +155,32 @@ static NSString *const _NameFormIdentifier = @"nameForm";
 static NSString *const _GivenNameIdentifier = @"given";
 static NSString *const _FamilyNameIdentifier = @"family";
 
-- (ORKFormStepViewController *)makeNameFormViewController {
-    ORKFormStep *formStep = [[ORKFormStep alloc] initWithIdentifier:_NameFormIdentifier
-                                                            title:self.step.title ? : ORKLocalizedString(@"CONSENT_NAME_TITLE", nil)
+- (ORKLegacyFormStepViewController *)makeNameFormViewController {
+    ORKLegacyFormStep *formStep = [[ORKLegacyFormStep alloc] initWithIdentifier:_NameFormIdentifier
+                                                            title:self.step.title ? : ORKLegacyLocalizedString(@"CONSENT_NAME_TITLE", nil)
                                                              text:self.step.text];
     formStep.useSurveyMode = NO;
     
-    ORKTextAnswerFormat *nameAnswerFormat = [ORKTextAnswerFormat textAnswerFormat];
+    ORKLegacyTextAnswerFormat *nameAnswerFormat = [ORKLegacyTextAnswerFormat textAnswerFormat];
     nameAnswerFormat.multipleLines = NO;
     nameAnswerFormat.autocapitalizationType = UITextAutocapitalizationTypeWords;
     nameAnswerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
     nameAnswerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
-    ORKFormItem *givenNameFormItem = [[ORKFormItem alloc] initWithIdentifier:_GivenNameIdentifier
-                                                              text:ORKLocalizedString(@"CONSENT_NAME_GIVEN", nil)
+    ORKLegacyFormItem *givenNameFormItem = [[ORKLegacyFormItem alloc] initWithIdentifier:_GivenNameIdentifier
+                                                              text:ORKLegacyLocalizedString(@"CONSENT_NAME_GIVEN", nil)
                                                       answerFormat:nameAnswerFormat];
-    givenNameFormItem.placeholder = ORKLocalizedString(@"CONSENT_NAME_PLACEHOLDER", nil);
+    givenNameFormItem.placeholder = ORKLegacyLocalizedString(@"CONSENT_NAME_PLACEHOLDER", nil);
     
-    ORKFormItem *familyNameFormItem = [[ORKFormItem alloc] initWithIdentifier:_FamilyNameIdentifier
-                                                             text:ORKLocalizedString(@"CONSENT_NAME_FAMILY", nil)
+    ORKLegacyFormItem *familyNameFormItem = [[ORKLegacyFormItem alloc] initWithIdentifier:_FamilyNameIdentifier
+                                                             text:ORKLegacyLocalizedString(@"CONSENT_NAME_FAMILY", nil)
                                                      answerFormat:nameAnswerFormat];
-    familyNameFormItem.placeholder = ORKLocalizedString(@"CONSENT_NAME_PLACEHOLDER", nil);
+    familyNameFormItem.placeholder = ORKLegacyLocalizedString(@"CONSENT_NAME_PLACEHOLDER", nil);
     
     givenNameFormItem.optional = NO;
     familyNameFormItem.optional = NO;
     
     NSArray *formItems = @[givenNameFormItem, familyNameFormItem];
-    if (ORKCurrentLocalePresentsFamilyNameFirst()) {
+    if (ORKLegacyCurrentLocalePresentsFamilyNameFirst()) {
         formItems = @[familyNameFormItem, givenNameFormItem];
     }
     
@@ -188,29 +188,29 @@ static NSString *const _FamilyNameIdentifier = @"family";
     
     formStep.optional = NO;
     
-    ORKTextQuestionResult *givenNameDefault = [[ORKTextQuestionResult alloc] initWithIdentifier:_GivenNameIdentifier];
+    ORKLegacyTextQuestionResult *givenNameDefault = [[ORKLegacyTextQuestionResult alloc] initWithIdentifier:_GivenNameIdentifier];
     givenNameDefault.textAnswer = _signatureFirst;
-    ORKTextQuestionResult *familyNameDefault = [[ORKTextQuestionResult alloc] initWithIdentifier:_FamilyNameIdentifier];
+    ORKLegacyTextQuestionResult *familyNameDefault = [[ORKLegacyTextQuestionResult alloc] initWithIdentifier:_FamilyNameIdentifier];
     familyNameDefault.textAnswer = _signatureLast;
-    ORKStepResult *defaults = [[ORKStepResult alloc] initWithStepIdentifier:_NameFormIdentifier results:@[givenNameDefault, familyNameDefault]];
+    ORKLegacyStepResult *defaults = [[ORKLegacyStepResult alloc] initWithStepIdentifier:_NameFormIdentifier results:@[givenNameDefault, familyNameDefault]];
     
-    ORKFormStepViewController *viewController = [[ORKFormStepViewController alloc] initWithStep:formStep result:defaults];
+    ORKLegacyFormStepViewController *viewController = [[ORKLegacyFormStepViewController alloc] initWithStep:formStep result:defaults];
     viewController.delegate = self;
     
     return viewController;
 }
 
-- (ORKConsentReviewController *)makeDocumentReviewViewController {
-    ORKConsentSignature *originalSignature = [self.consentReviewStep signature];
-    ORKConsentDocument *origninalDocument = self.consentReviewStep.consentDocument;
+- (ORKLegacyConsentReviewController *)makeDocumentReviewViewController {
+    ORKLegacyConsentSignature *originalSignature = [self.consentReviewStep signature];
+    ORKLegacyConsentDocument *origninalDocument = self.consentReviewStep.consentDocument;
     
     NSUInteger index = [origninalDocument.signatures indexOfObject:originalSignature];
     
     // Deep copy
-    ORKConsentDocument *document = [origninalDocument copy];
+    ORKLegacyConsentDocument *document = [origninalDocument copy];
     
     if (index != NSNotFound) {
-        ORKConsentSignature *signature = document.signatures[index];
+        ORKLegacyConsentSignature *signature = document.signatures[index];
         
         if (signature.requiresName) {
             signature.givenName = _signatureFirst;
@@ -218,20 +218,20 @@ static NSString *const _FamilyNameIdentifier = @"family";
         }
     }
     
-    NSString *html = [document mobileHTMLWithTitle:ORKLocalizedString(@"CONSENT_REVIEW_TITLE", nil)
-                                             detail:ORKLocalizedString(@"CONSENT_REVIEW_INSTRUCTION", nil)];
+    NSString *html = [document mobileHTMLWithTitle:ORKLegacyLocalizedString(@"CONSENT_REVIEW_TITLE", nil)
+                                             detail:ORKLegacyLocalizedString(@"CONSENT_REVIEW_INSTRUCTION", nil)];
 
-    ORKConsentReviewController *reviewViewController = [[ORKConsentReviewController alloc] initWithHTML:html delegate:self requiresScrollToBottom:[[self consentReviewStep] requiresScrollToBottom]];
+    ORKLegacyConsentReviewController *reviewViewController = [[ORKLegacyConsentReviewController alloc] initWithHTML:html delegate:self requiresScrollToBottom:[[self consentReviewStep] requiresScrollToBottom]];
     reviewViewController.localizedReasonForConsent = [[self consentReviewStep] reasonForConsent];
     return reviewViewController;
 }
 
 static NSString *const _SignatureStepIdentifier = @"signatureStep";
 
-- (ORKSignatureStepViewController *)makeSignatureViewController {
-    ORKSignatureStep *step = [[ORKSignatureStep alloc] initWithIdentifier:_SignatureStepIdentifier];
+- (ORKLegacySignatureStepViewController *)makeSignatureViewController {
+    ORKLegacySignatureStep *step = [[ORKLegacySignatureStep alloc] initWithIdentifier:_SignatureStepIdentifier];
     step.optional = NO;
-    ORKSignatureStepViewController *signatureController = [[ORKSignatureStepViewController alloc] initWithStep:step];
+    ORKLegacySignatureStepViewController *signatureController = [[ORKLegacySignatureStepViewController alloc] initWithStep:step];
     signatureController.delegate = self;
     return signatureController;
 }
@@ -246,25 +246,25 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
         return nil;
     }
     
-    ORKConsentReviewPhase phase = ((NSNumber *)_pageIndices[index]).integerValue;
+    ORKLegacyConsentReviewPhase phase = ((NSNumber *)_pageIndices[index]).integerValue;
     
     UIViewController *viewController = nil;
     switch (phase) {
-        case ORKConsentReviewPhaseName: {
+        case ORKLegacyConsentReviewPhaseName: {
             // A form step VC with a form step with a first name and a last name
-            ORKFormStepViewController *formViewController = [self makeNameFormViewController];
+            ORKLegacyFormStepViewController *formViewController = [self makeNameFormViewController];
             viewController = formViewController;
             break;
         }
-        case ORKConsentReviewPhaseReviewDocument: {
+        case ORKLegacyConsentReviewPhaseReviewDocument: {
             // Document review VC
-            ORKConsentReviewController *reviewViewController = [self makeDocumentReviewViewController];
+            ORKLegacyConsentReviewController *reviewViewController = [self makeDocumentReviewViewController];
             viewController = reviewViewController;
             break;
         }
-        case ORKConsentReviewPhaseSignature: {
+        case ORKLegacyConsentReviewPhaseSignature: {
             // Signature VC
-            ORKSignatureStepViewController *signatureViewController = [self makeSignatureViewController];
+            ORKLegacySignatureStepViewController *signatureViewController = [self makeSignatureViewController];
             viewController = signatureViewController;
             break;
         }
@@ -272,8 +272,8 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
     return viewController;
 }
 
-- (ORKStepResult *)result {
-    ORKStepResult *parentResult = [super result];
+- (ORKLegacyStepResult *)result {
+    ORKLegacyStepResult *parentResult = [super result];
     if (!_currentSignature) {
         _currentSignature = [[self.consentReviewStep signature] copy];
         
@@ -290,11 +290,11 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
             [dateFormatter setDateFormat:_currentSignature.signatureDateFormatString];
             _currentSignature.signatureDate = [dateFormatter stringFromDate:[NSDate date]];
         } else {
-            _currentSignature.signatureDate = ORKSignatureStringFromDate([NSDate date]);
+            _currentSignature.signatureDate = ORKLegacySignatureStringFromDate([NSDate date]);
         }
     }
     
-    ORKConsentSignatureResult *result = [[ORKConsentSignatureResult alloc] init];
+    ORKLegacyConsentSignatureResult *result = [[ORKLegacyConsentSignatureResult alloc] init];
     result.signature = _currentSignature;
     result.identifier = _currentSignature.identifier;
     result.consented = _documentReviewed;
@@ -307,9 +307,9 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
     return parentResult;
 }
 
-- (ORKConsentReviewStep *)consentReviewStep {
-    assert(self.step == nil || [self.step isKindOfClass:[ORKConsentReviewStep class]]);
-    return (ORKConsentReviewStep *)self.step;
+- (ORKLegacyConsentReviewStep *)consentReviewStep {
+    assert(self.step == nil || [self.step isKindOfClass:[ORKLegacyConsentReviewStep class]]);
+    return (ORKLegacyConsentReviewStep *)self.step;
 }
 
 - (void)notifyDelegateOnResultChange {
@@ -317,14 +317,14 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
     [super notifyDelegateOnResultChange];
 }
 
-#pragma mark ORKStepViewControllerDelegate
+#pragma mark ORKLegacyStepViewControllerDelegate
 
-- (void)stepViewController:(ORKStepViewController *)stepViewController didFinishWithNavigationDirection:(ORKStepViewControllerNavigationDirection)direction {
+- (void)stepViewController:(ORKLegacyStepViewController *)stepViewController didFinishWithNavigationDirection:(ORKLegacyStepViewControllerNavigationDirection)direction {
     if (_currentPageIndex == NSNotFound) {
         return;
     }
     
-    NSInteger delta = (direction == ORKStepViewControllerNavigationDirectionForward) ? 1 : -1;
+    NSInteger delta = (direction == ORKLegacyStepViewControllerNavigationDirectionForward) ? 1 : -1;
     [self navigateDelta:delta];
 }
 
@@ -348,7 +348,7 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
     UIViewController *viewController = [self viewControllerForIndex:page];
     
     if (!viewController) {
-        ORK_Log_Debug(@"No view controller!");
+        ORKLegacy_Log_Debug(@"No view controller!");
         return;
     }
     
@@ -359,30 +359,30 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
     
     UIPageViewControllerNavigationDirection direction = (!animated || page > currentIndex) ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
     
-    ORKAdjustPageViewControllerNavigationDirectionForRTL(&direction);
+    ORKLegacyAdjustPageViewControllerNavigationDirectionForRTL(&direction);
     
     _currentPageIndex = page;
-    ORKWeakTypeOf(self) weakSelf = self;
+    ORKLegacyWeakTypeOf(self) weakSelf = self;
     
     //unregister ScrollView to clear hairline
     [self.taskViewController setRegisteredScrollView:nil];
     
     [_pageViewController setViewControllers:@[viewController] direction:direction animated:animated completion:^(BOOL finished) {
         if (finished) {
-            ORKStrongTypeOf(weakSelf) strongSelf = weakSelf;
+            ORKLegacyStrongTypeOf(weakSelf) strongSelf = weakSelf;
             [strongSelf updateBackButton];
             
             NSUInteger currentPageIndex = strongSelf->_currentPageIndex;
             NSArray *pageIndices = strongSelf->_pageIndices;
             if (currentPageIndex < pageIndices.count
                 && [[strongSelf consentReviewDelegate] respondsToSelector:@selector(consentReviewStepViewController:didShowPhase:pageIndex:)]) {
-                ORKConsentReviewPhase phase = ((NSNumber *)pageIndices[currentPageIndex]).integerValue;
+                ORKLegacyConsentReviewPhase phase = ((NSNumber *)pageIndices[currentPageIndex]).integerValue;
                 [[strongSelf consentReviewDelegate] consentReviewStepViewController:strongSelf didShowPhase:phase pageIndex:currentPageIndex];
             }
             
             //register ScrollView to update hairline
-            if ([viewController isKindOfClass:[ORKConsentReviewController class]]) {
-                ORKConsentReviewController *reviewViewController =  (ORKConsentReviewController *)viewController;
+            if ([viewController isKindOfClass:[ORKLegacyConsentReviewController class]]) {
+                ORKLegacyConsentReviewController *reviewViewController =  (ORKLegacyConsentReviewController *)viewController;
                 [strongSelf.taskViewController setRegisteredScrollView:reviewViewController.webView.scrollView];
             }
             
@@ -391,22 +391,22 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
     }];
 }
 
-- (void)stepViewControllerResultDidChange:(ORKStepViewController *)stepViewController {
+- (void)stepViewControllerResultDidChange:(ORKLegacyStepViewController *)stepViewController {
     if ([stepViewController.step.identifier isEqualToString:_NameFormIdentifier]) {
         // If this is the form step then update the values from the form
-        ORKStepResult *result = [stepViewController result];
-        ORKTextQuestionResult *fnr = (ORKTextQuestionResult *)[result resultForIdentifier:_GivenNameIdentifier];
+        ORKLegacyStepResult *result = [stepViewController result];
+        ORKLegacyTextQuestionResult *fnr = (ORKLegacyTextQuestionResult *)[result resultForIdentifier:_GivenNameIdentifier];
         _signatureFirst = (NSString *)fnr.textAnswer;
-        ORKTextQuestionResult *lnr = (ORKTextQuestionResult *)[result resultForIdentifier:_FamilyNameIdentifier];
+        ORKLegacyTextQuestionResult *lnr = (ORKLegacyTextQuestionResult *)[result resultForIdentifier:_FamilyNameIdentifier];
         _signatureLast = (NSString *)lnr.textAnswer;
         [self notifyDelegateOnResultChange];
         
     } else if ([stepViewController.step.identifier isEqualToString:_SignatureStepIdentifier]) {
         // If this is the signature step then update the image from the signature
-        ORKStepResult *result = [stepViewController result];
-        [result.results enumerateObjectsUsingBlock:^(ORKResult * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isKindOfClass:[ORKSignatureResult class]]) {
-                _signatureImage = ((ORKSignatureResult *)obj).signatureImage;
+        ORKLegacyStepResult *result = [stepViewController result];
+        [result.results enumerateObjectsUsingBlock:^(ORKLegacyResult * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[ORKLegacySignatureResult class]]) {
+                _signatureImage = ((ORKLegacySignatureResult *)obj).signatureImage;
                 *stop = YES;
     }
         }];
@@ -414,40 +414,40 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
     }
 }
 
-- (void)stepViewControllerDidFail:(ORKStepViewController *)stepViewController withError:(NSError *)error {
-    ORKStrongTypeOf(self.delegate) strongDelegate = self.delegate;
+- (void)stepViewControllerDidFail:(ORKLegacyStepViewController *)stepViewController withError:(NSError *)error {
+    ORKLegacyStrongTypeOf(self.delegate) strongDelegate = self.delegate;
     if ([strongDelegate respondsToSelector:@selector(stepViewControllerDidFail:withError:)]) {
         [strongDelegate stepViewControllerDidFail:self withError:error];
     }
 }
 
-- (BOOL)stepViewControllerHasNextStep:(ORKStepViewController *)stepViewController {
+- (BOOL)stepViewControllerHasNextStep:(ORKLegacyStepViewController *)stepViewController {
     if (_currentPageIndex < (_pageIndices.count - 1)) {
         return YES;
     }
     return [self hasNextStep];
 }
 
-- (BOOL)stepViewControllerHasPreviousStep:(ORKStepViewController *)stepViewController {
+- (BOOL)stepViewControllerHasPreviousStep:(ORKLegacyStepViewController *)stepViewController {
     return [self hasPreviousStep];
 }
 
-- (void)stepViewController:(ORKStepViewController *)stepViewController recorder:(ORKRecorder *)recorder didFailWithError:(NSError *)error {
-    ORKStrongTypeOf(self.delegate) strongDelegate = self.delegate;
+- (void)stepViewController:(ORKLegacyStepViewController *)stepViewController recorder:(ORKLegacyRecorder *)recorder didFailWithError:(NSError *)error {
+    ORKLegacyStrongTypeOf(self.delegate) strongDelegate = self.delegate;
     if ([strongDelegate respondsToSelector:@selector(stepViewController:recorder:didFailWithError:)]) {
         [strongDelegate stepViewController:self recorder:recorder didFailWithError:error];
     }
 }
 
-#pragma mark ORKConsentReviewControllerDelegate
+#pragma mark ORKLegacyConsentReviewControllerDelegate
 
-- (void)consentReviewControllerDidAcknowledge:(ORKConsentReviewController *)consentReviewController {
+- (void)consentReviewControllerDidAcknowledge:(ORKLegacyConsentReviewController *)consentReviewController {
     _documentReviewed = YES;
     [self notifyDelegateOnResultChange];
     [self navigateDelta:1];
 }
 
-- (void)consentReviewControllerDidCancel:(ORKConsentReviewController *)consentReviewController {
+- (void)consentReviewControllerDidCancel:(ORKLegacyConsentReviewController *)consentReviewController {
     _signatureFirst = nil;
     _signatureLast = nil;
     _signatureImage = nil;
@@ -457,35 +457,35 @@ static NSString *const _SignatureStepIdentifier = @"signatureStep";
     [self goForward];
 }
 
-static NSString *const _ORKCurrentSignatureRestoreKey = @"currentSignature";
-static NSString *const _ORKSignatureFirstRestoreKey = @"signatureFirst";
-static NSString *const _ORKSignatureLastRestoreKey = @"signatureLast";
-static NSString *const _ORKSignatureImageRestoreKey = @"signatureImage";
-static NSString *const _ORKDocumentReviewedRestoreKey = @"documentReviewed";
-static NSString *const _ORKCurrentPageIndexRestoreKey = @"currentPageIndex";
+static NSString *const _ORKLegacyCurrentSignatureRestoreKey = @"currentSignature";
+static NSString *const _ORKLegacySignatureFirstRestoreKey = @"signatureFirst";
+static NSString *const _ORKLegacySignatureLastRestoreKey = @"signatureLast";
+static NSString *const _ORKLegacySignatureImageRestoreKey = @"signatureImage";
+static NSString *const _ORKLegacyDocumentReviewedRestoreKey = @"documentReviewed";
+static NSString *const _ORKLegacyCurrentPageIndexRestoreKey = @"currentPageIndex";
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
     
-    [coder encodeObject:_currentSignature forKey:_ORKCurrentSignatureRestoreKey];
-    [coder encodeObject:_signatureFirst forKey:_ORKSignatureFirstRestoreKey];
-    [coder encodeObject:_signatureLast forKey:_ORKSignatureLastRestoreKey];
-    [coder encodeObject:_signatureImage forKey:_ORKSignatureImageRestoreKey];
-    [coder encodeBool:_documentReviewed forKey:_ORKDocumentReviewedRestoreKey];
-    [coder encodeInteger:_currentPageIndex forKey:_ORKCurrentPageIndexRestoreKey];
+    [coder encodeObject:_currentSignature forKey:_ORKLegacyCurrentSignatureRestoreKey];
+    [coder encodeObject:_signatureFirst forKey:_ORKLegacySignatureFirstRestoreKey];
+    [coder encodeObject:_signatureLast forKey:_ORKLegacySignatureLastRestoreKey];
+    [coder encodeObject:_signatureImage forKey:_ORKLegacySignatureImageRestoreKey];
+    [coder encodeBool:_documentReviewed forKey:_ORKLegacyDocumentReviewedRestoreKey];
+    [coder encodeInteger:_currentPageIndex forKey:_ORKLegacyCurrentPageIndexRestoreKey];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     
-    _currentSignature = [coder decodeObjectOfClass:[ORKConsentSignature class]
-                                            forKey:_ORKCurrentSignatureRestoreKey];
+    _currentSignature = [coder decodeObjectOfClass:[ORKLegacyConsentSignature class]
+                                            forKey:_ORKLegacyCurrentSignatureRestoreKey];
     
-    _signatureFirst = [coder decodeObjectOfClass:[NSString class] forKey:_ORKSignatureFirstRestoreKey];
-    _signatureLast = [coder decodeObjectOfClass:[NSString class] forKey:_ORKSignatureLastRestoreKey];
-    _signatureImage = [coder decodeObjectOfClass:[NSString class] forKey:_ORKSignatureImageRestoreKey];
-    _documentReviewed = [coder decodeBoolForKey:_ORKDocumentReviewedRestoreKey];
-    _currentPageIndex = [coder decodeIntegerForKey:_ORKCurrentPageIndexRestoreKey];
+    _signatureFirst = [coder decodeObjectOfClass:[NSString class] forKey:_ORKLegacySignatureFirstRestoreKey];
+    _signatureLast = [coder decodeObjectOfClass:[NSString class] forKey:_ORKLegacySignatureLastRestoreKey];
+    _signatureImage = [coder decodeObjectOfClass:[NSString class] forKey:_ORKLegacySignatureImageRestoreKey];
+    _documentReviewed = [coder decodeBoolForKey:_ORKLegacyDocumentReviewedRestoreKey];
+    _currentPageIndex = [coder decodeIntegerForKey:_ORKLegacyCurrentPageIndexRestoreKey];
     
     [self goToPage:_currentPageIndex animated:NO];
 }

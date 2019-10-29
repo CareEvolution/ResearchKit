@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKQuestionStep ()
+@interface ORKLegacyQuestionStep ()
 
 - (BOOL)isFormatImmediateNavigation;
 - (BOOL)isFormatChoiceWithImageOptions;
@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)formatRequiresTableView;
 
-- (nullable ORKAnswerFormat *)impliedAnswerFormat;
+- (nullable ORKLegacyAnswerFormat *)impliedAnswerFormat;
 
 @end
 

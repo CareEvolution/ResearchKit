@@ -34,9 +34,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-UIImage *ORKImageByTintingImage(UIImage *image, UIColor *tintColor, CGFloat scale);
+UIImage *ORKLegacyImageByTintingImage(UIImage *image, UIColor *tintColor, CGFloat scale);
 
-@interface ORKTintedImageView : UIImageView
+@interface ORKLegacyTintedImageView : UIImageView
 
 @property (nonatomic, assign) BOOL shouldApplyTint;
 

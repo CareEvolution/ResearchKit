@@ -36,16 +36,16 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKTouchRecorder` class defines the attributes and behavior of touch events recorder.
+ The `ORKLegacyTouchRecorder` class defines the attributes and behavior of touch events recorder.
  
  This class is considered private because its interface is not yet considered
  stable. It is not currently used by any of the pre-defined active tasks.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTouchRecorder : ORKRecorder
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTouchRecorder : ORKLegacyRecorder
 
 /**
- The `ORKTouchRecorder` attaches a gesture recognizer to `touchView` to receive touch events.
+ The `ORKLegacyTouchRecorder` attaches a gesture recognizer to `touchView` to receive touch events.
  
  Use `-viewController:willStartStepWithView:` to set the `touchView` property before
  the touch recorder starts.

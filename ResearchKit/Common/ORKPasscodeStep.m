@@ -36,16 +36,16 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKPasscodeStep
+@implementation ORKLegacyPasscodeStep
 
 + (Class)stepViewControllerClass {
-    return [ORKPasscodeStepViewController class];
+    return [ORKLegacyPasscodeStepViewController class];
 }
 
 + (instancetype)passcodeStepWithIdentifier:(NSString *)identifier
-                              passcodeFlow:(ORKPasscodeFlow)passcodeFlow {
+                              passcodeFlow:(ORKLegacyPasscodeFlow)passcodeFlow {
     
-    ORKPasscodeStep *step = [[ORKPasscodeStep alloc] initWithIdentifier:identifier];
+    ORKLegacyPasscodeStep *step = [[ORKLegacyPasscodeStep alloc] initWithIdentifier:identifier];
     step.passcodeFlow = passcodeFlow;
     return step;
 }
@@ -57,16 +57,16 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_INTEGER(aDecoder, passcodeType);
-        ORK_DECODE_ENUM(aDecoder, passcodeFlow);
+        ORKLegacy_DECODE_INTEGER(aDecoder, passcodeType);
+        ORKLegacy_DECODE_ENUM(aDecoder, passcodeFlow);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_INTEGER(aCoder, passcodeType);
-    ORK_ENCODE_ENUM(aCoder, passcodeFlow);
+    ORKLegacy_ENCODE_INTEGER(aCoder, passcodeType);
+    ORKLegacy_ENCODE_ENUM(aCoder, passcodeFlow);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -74,7 +74,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKPasscodeStep *step = [super copyWithZone:zone];
+    ORKLegacyPasscodeStep *step = [super copyWithZone:zone];
     step.passcodeType = self.passcodeType;
     step.passcodeFlow = self.passcodeFlow;
     return step;

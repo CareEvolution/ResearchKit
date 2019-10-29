@@ -35,15 +35,15 @@
 #import "ORKTextFieldView.h"
 
 
-@implementation ORKPasscodeStepView {
-    ORKPasscodeTextField *_textField;
+@implementation ORKLegacyPasscodeStepView {
+    ORKLegacyPasscodeTextField *_textField;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Additional configuration for the passcode text field.
-        _textField = [ORKPasscodeTextField new];
+        _textField = [ORKLegacyPasscodeTextField new];
         _textField.translatesAutoresizingMaskIntoConstraints = NO;
         self.stepView = _textField;
         
@@ -72,7 +72,7 @@
     return self;
 }
 
-- (ORKPasscodeTextField *)textField {
+- (ORKLegacyPasscodeTextField *)textField {
     return _textField;
 }
 

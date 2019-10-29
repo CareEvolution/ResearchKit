@@ -33,18 +33,18 @@
 #import "ORKDataCollectionManager_Internal.h"
 
 
-@class ORKOperation;
+@class ORKLegacyOperation;
 
-@interface ORKCollector () <NSSecureCoding>
+@interface ORKLegacyCollector () <NSSecureCoding>
 
 - (instancetype)initWithIdentifier:(NSString *)identifier;
 
-- (ORKOperation *)collectionOperationWithManager:(ORKDataCollectionManager *)mananger;
+- (ORKLegacyOperation *)collectionOperationWithManager:(ORKLegacyDataCollectionManager *)mananger;
 
 @end
 
 
-@protocol ORKHealthCollectable <NSObject>
+@protocol ORKLegacyHealthCollectable <NSObject>
 
 - (HKSampleType *)sampleType;
 - (NSArray<HKSampleType *> *)collectableSampleTypes;
@@ -55,7 +55,7 @@
 @end
 
 
-@interface ORKHealthCollector() <ORKHealthCollectable>
+@interface ORKLegacyHealthCollector() <ORKLegacyHealthCollectable>
 
 - (instancetype)initWithSampleType:(HKSampleType *)objectType unit:(HKUnit *)unit startDate:(NSDate *)startDate;
 
@@ -64,7 +64,7 @@
 @end
 
 
-@interface ORKHealthCorrelationCollector() <ORKHealthCollectable>
+@interface ORKLegacyHealthCorrelationCollector() <ORKLegacyHealthCollectable>
 
 - (instancetype)initWithCorrelationType:(HKCorrelationType *)objectType sampleTypes:(NSArray *)sampleTypes units:(NSArray *)units startDate:(NSDate *)startDate;
 
@@ -73,7 +73,7 @@
 @end
 
 
-@interface ORKMotionActivityCollector()
+@interface ORKLegacyMotionActivityCollector()
 
 - (instancetype)initWithStartDate:(NSDate *)startDate;
 

@@ -35,21 +35,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKWebViewPreloader: NSObject
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyWebViewPreloader: NSObject
 + (instancetype)shared;
 - (void)preload:(NSString *)htmlString forKey:(NSString *)key;
 - (WKWebView *)webViewForKey:(NSString *)key;
 @end
 
 /**
- The `ORKWebViewStepViewController` class is a step view controller subclass
- used to manage a web view step (`ORKWebViewStep`).
+ The `ORKLegacyWebViewStepViewController` class is a step view controller subclass
+ used to manage a web view step (`ORKLegacyWebViewStep`).
  
  You should not need to instantiate a web view step view controller directly. Instead, include
  a web view step in a task, and present a task view controller for that task.
  */
-@interface ORKWebViewStepViewController : ORKStepViewController<WKScriptMessageHandler, WKNavigationDelegate>
+@interface ORKLegacyWebViewStepViewController : ORKLegacyStepViewController<WKScriptMessageHandler, WKNavigationDelegate>
 
 @end
 

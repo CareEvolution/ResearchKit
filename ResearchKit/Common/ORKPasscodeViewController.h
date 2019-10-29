@@ -41,21 +41,21 @@ NS_ASSUME_NONNULL_BEGIN
  The passcode delegate protocol declares methods which forward the success or failure of passcode modification
  or authentication.
  */
-ORK_AVAILABLE_DECL
-@protocol ORKPasscodeDelegate <NSObject>
+ORKLegacy_AVAILABLE_DECL
+@protocol ORKLegacyPasscodeDelegate <NSObject>
 
 @required
 /**
  Notifies the delegate that the user has finished authenticating or editing the passcode.
  
- @param viewController      The `ORKPasscodeStepViewController` object in which the passcode input is entered.
+ @param viewController      The `ORKLegacyPasscodeStepViewController` object in which the passcode input is entered.
  */
 - (void)passcodeViewControllerDidFinishWithSuccess:(UIViewController *)viewController;
 
 /**
  Notifies the delegate that the user failed authentication.
  
- @param viewController      The `ORKPasscodeStepViewController` object in which the passcode input is entered.
+ @param viewController      The `ORKLegacyPasscodeStepViewController` object in which the passcode input is entered.
  */
 - (void)passcodeViewControllerDidFailAuthentication:(UIViewController *)viewController;
 
@@ -65,14 +65,14 @@ ORK_AVAILABLE_DECL
  Notifies the delegate that the user hit the cancel button item. The cancel button is only visible if this method
  is implemented.
  
- @param viewController      The `ORKPasscodeStepViewController` object in which the passcode input is entered.
+ @param viewController      The `ORKLegacyPasscodeStepViewController` object in which the passcode input is entered.
  */
 - (void)passcodeViewControllerDidCancel:(UIViewController *)viewController;
 
 /** 
  Defaults to Localized "Forgot Passcode?" text
  
- @param viewController      The `ORKPasscodeStepViewController` object in which the passcode input is entered.
+ @param viewController      The `ORKLegacyPasscodeStepViewController` object in which the passcode input is entered.
  @return                    Text to display for the forgot passcode button
  */
 - (NSString *)passcodeViewControllerTextForForgotPasscode:(UIViewController *)viewController;
@@ -80,7 +80,7 @@ ORK_AVAILABLE_DECL
 /**
  Notifies the delegate that forgot passcode button has been tapped.
  
- @param viewController      The `ORKPasscodeStepViewController` object in which the passcode input is entered.
+ @param viewController      The `ORKLegacyPasscodeStepViewController` object in which the passcode input is entered.
  */
 - (void)passcodeViewControllerForgotPasscodeTapped:(UIViewController *)viewController;
 
@@ -88,13 +88,13 @@ ORK_AVAILABLE_DECL
 
 
 /**
- An `ORKPasscodeStepViewController` object is the view controller for an `ORKPasscodeStep` object.
+ An `ORKLegacyPasscodeStepViewController` object is the view controller for an `ORKLegacyPasscodeStep` object.
  
  A passcode view controller can also be instantiated directly for authentication and editing by using one 
  of the factory methods below. Each factory method requires a delegate to be implemented.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKPasscodeViewController : UINavigationController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyPasscodeViewController : UINavigationController
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -104,7 +104,7 @@ ORK_CLASS_AVAILABLE
  the passcode stored in the keychain.
  
  A passcode must already have been created using a passcode step before presenting
- this view controller (see `ORKPasscodeStep`).
+ this view controller (see `ORKLegacyPasscodeStep`).
  
  You must check to see if the passcode is stored in the keychain before presenting
  this view controller. A helper method, `isPasscodeStoredInKeychain`, is provided as
@@ -116,14 +116,14 @@ ORK_CLASS_AVAILABLE
  @return A passcode authentication view controller.
  */
 + (instancetype)passcodeAuthenticationViewControllerWithText:(nullable NSString *)text
-                                                    delegate:(id<ORKPasscodeDelegate>)delegate;
+                                                    delegate:(id<ORKLegacyPasscodeDelegate>)delegate;
 
 /**
  An editing passcode view controller allows a user to be authenticated using
  the passcode stored in the keychain and create a new passcode.
  
  A passcode must already have been created using a passcode step before presenting
- this view controller (see `ORKPasscodeStep`).
+ this view controller (see `ORKLegacyPasscodeStep`).
  
  You must check to see if the passcode is stored in the keychain before presenting
  this view controller. A helper method, `isPasscodeStoredInKeychain`, is provided as
@@ -136,8 +136,8 @@ ORK_CLASS_AVAILABLE
  @return A passcode editing view controller.
  */
 + (instancetype)passcodeEditingViewControllerWithText:(nullable NSString *)text
-                                             delegate:(id<ORKPasscodeDelegate>)delegate
-                                         passcodeType:(ORKPasscodeType)passcodeType;
+                                             delegate:(id<ORKLegacyPasscodeDelegate>)delegate
+                                         passcodeType:(ORKLegacyPasscodeType)passcodeType;
 /**
  Returns 'YES' if a passcode is stored in the keychain, otherwise 'NO'.
  */

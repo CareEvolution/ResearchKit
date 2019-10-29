@@ -45,26 +45,26 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKWaitStep` class represents a step that displays a label and an activity
+ The `ORKLegacyWaitStep` class represents a step that displays a label and an activity
  indicator mask.
  
  This task can be used to indicate to a user that a process is occuring that does
     not need their input, and possibly indicate the progress that process has made.
     To update the progress on screen, use the methods provided on the
-    `ORKWaitStepViewController` this step represents. Once the processing is complete,
- `goForward` must be called on the `ORKWaitStepViewController` in order for the user to
+    `ORKLegacyWaitStepViewController` this step represents. Once the processing is complete,
+ `goForward` must be called on the `ORKLegacyWaitStepViewController` in order for the user to
  be able to continue.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKWaitStep : ORKStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyWaitStep : ORKLegacyStep
 
 /**
  This property specifies the type of progress bar that will be displayed.
  
- ORKProgressIndicatorTypeIndeterminate (default) is for indeterminate duration operations
- ORKProgressIndicatorTypeProgressBar is for determinate duration operations
+ ORKLegacyProgressIndicatorTypeIndeterminate (default) is for indeterminate duration operations
+ ORKLegacyProgressIndicatorTypeProgressBar is for determinate duration operations
  */
-@property (nonatomic) ORKProgressIndicatorType indicatorType;
+@property (nonatomic) ORKLegacyProgressIndicatorType indicatorType;
 
 @end
 

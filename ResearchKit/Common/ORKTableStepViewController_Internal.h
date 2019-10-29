@@ -33,15 +33,15 @@
 #import "ORKTableStepViewController.h"
 
 
-@class ORKTableContainerView;
-@class ORKNavigationContainerView;
-@class ORKStepHeaderView;
+@class ORKLegacyTableContainerView;
+@class ORKLegacyNavigationContainerView;
+@class ORKLegacyStepHeaderView;
 
-@interface ORKTableStepViewController ()
+@interface ORKLegacyTableStepViewController ()
 
-@property (nonatomic, strong, readonly) ORKTableContainerView *tableContainer;
-@property (nonatomic, strong, readonly) ORKNavigationContainerView *continueSkipView;
-@property (nonatomic, strong, readonly) ORKStepHeaderView *headerView;
+@property (nonatomic, strong, readonly) ORKLegacyTableContainerView *tableContainer;
+@property (nonatomic, strong, readonly) ORKLegacyNavigationContainerView *continueSkipView;
+@property (nonatomic, strong, readonly) ORKLegacyStepHeaderView *headerView;
     
 /**
  @return   The style to use for the tableView. default = `UITableViewStyleGrouped` if more than one section

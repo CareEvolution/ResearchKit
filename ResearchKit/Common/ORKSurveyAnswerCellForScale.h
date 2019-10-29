@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKSurveyAnswerCellForScale : ORKSurveyAnswerCell
+@interface ORKLegacySurveyAnswerCellForScale : ORKLegacySurveyAnswerCell
 
 @end
 

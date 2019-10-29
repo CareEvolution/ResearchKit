@@ -39,10 +39,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKConsentSharingStep
+@implementation ORKLegacyConsentSharingStep
 
 + (Class)stepViewControllerClass {
-    return [ORKConsentSharingStepViewController class];
+    return [ORKLegacyConsentSharingStepViewController class];
 }
 
 - (BOOL)showsProgress {
@@ -69,14 +69,14 @@
             @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"localizedLearnMoreHTMLContent should not be empty." userInfo:nil];
         }
         
-        self.answerFormat = [ORKAnswerFormat choiceAnswerFormatWithStyle:ORKChoiceAnswerStyleSingleChoice textChoices:
-                             @[[ORKTextChoice choiceWithText:[NSString localizedStringWithFormat:ORKLocalizedString(@"CONSENT_SHARE_WIDELY_%@",nil), investigatorShortDescription] value:@(YES)],
-                               [ORKTextChoice choiceWithText:[NSString localizedStringWithFormat:ORKLocalizedString(@"CONSENT_SHARE_ONLY_%@",nil), investigatorLongDescription] value:@(NO)],
+        self.answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice textChoices:
+                             @[[ORKLegacyTextChoice choiceWithText:[NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"CONSENT_SHARE_WIDELY_%@",nil), investigatorShortDescription] value:@(YES)],
+                               [ORKLegacyTextChoice choiceWithText:[NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"CONSENT_SHARE_ONLY_%@",nil), investigatorLongDescription] value:@(NO)],
                                ]];
         self.optional = NO;
         self.useSurveyMode = NO;
-        self.title = ORKLocalizedString(@"CONSENT_SHARING_TITLE", nil);
-        self.text = [NSString localizedStringWithFormat:ORKLocalizedString(@"CONSENT_SHARING_DESCRIPTION_%@", nil), investigatorLongDescription];
+        self.title = ORKLegacyLocalizedString(@"CONSENT_SHARING_TITLE", nil);
+        self.text = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"CONSENT_SHARING_DESCRIPTION_%@", nil), investigatorLongDescription];
         
         self.localizedLearnMoreHTMLContent = localizedLearnMoreHTMLContent;
     }
@@ -88,11 +88,11 @@
     
     __typeof(self) castObject = object;
     return isParentSame &&
-    ORKEqualObjects(self.localizedLearnMoreHTMLContent, castObject.localizedLearnMoreHTMLContent);
+    ORKLegacyEqualObjects(self.localizedLearnMoreHTMLContent, castObject.localizedLearnMoreHTMLContent);
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKConsentSharingStep *step = [super copyWithZone:zone];
+    ORKLegacyConsentSharingStep *step = [super copyWithZone:zone];
     step.localizedLearnMoreHTMLContent = self.localizedLearnMoreHTMLContent;
     return step;
 }
@@ -100,7 +100,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, localizedLearnMoreHTMLContent, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, localizedLearnMoreHTMLContent, NSString);
     }
     return self;
 }
@@ -108,7 +108,7 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     
-    ORK_ENCODE_OBJ(aCoder, localizedLearnMoreHTMLContent);
+    ORKLegacy_ENCODE_OBJ(aCoder, localizedLearnMoreHTMLContent);
 }
 
 + (BOOL)supportsSecureCoding {

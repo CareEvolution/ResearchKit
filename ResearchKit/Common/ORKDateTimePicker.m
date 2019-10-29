@@ -36,26 +36,26 @@
 #import "ORKHelpers_Internal.h"
 
 
-@interface ORKDateTimePicker ()
+@interface ORKLegacyDateTimePicker ()
 
-@property (nonatomic, strong) ORKAnswerFormat *answerFormat;
+@property (nonatomic, strong) ORKLegacyAnswerFormat *answerFormat;
 @property (nonatomic, strong) NSCalendar *calendar;
 
 @end
 
 
-@implementation ORKDateTimePicker {
+@implementation ORKLegacyDateTimePicker {
     NSDateFormatter *_labelFormatter;
     UIDatePicker *_pickerView;
     NSDate *_date;
-    __weak id<ORKPickerDelegate> _pickerDelegate;
+    __weak id<ORKLegacyPickerDelegate> _pickerDelegate;
     id _answer;
 }
 
 @synthesize pickerDelegate = _pickerDelegate;
 @synthesize answer = _answer;
 
-- (instancetype)initWithAnswerFormat:(ORKAnswerFormat *)answerFormat answer:(id)answer pickerDelegate:(id<ORKPickerDelegate>)delegate {
+- (instancetype)initWithAnswerFormat:(ORKLegacyAnswerFormat *)answerFormat answer:(id)answer pickerDelegate:(id<ORKLegacyPickerDelegate>)delegate {
     self = [super init];
     if (self) {
         
@@ -83,21 +83,21 @@
     _answer = answer;
     
     if ([self isTimeOfDay]) {
-        ORKTimeOfDayAnswerFormat *timeOfDayAnswerFormat = (ORKTimeOfDayAnswerFormat *)self.answerFormat;
+        ORKLegacyTimeOfDayAnswerFormat *timeOfDayAnswerFormat = (ORKLegacyTimeOfDayAnswerFormat *)self.answerFormat;
         
-        if (answer && answer != ORKNullAnswerValue()) {
+        if (answer && answer != ORKLegacyNullAnswerValue()) {
             NSDateComponents *timeOfDayComponents = (NSDateComponents *)answer;
             
-            NSDate *dateValue = ORKTimeOfDayDateFromComponents(timeOfDayComponents);
+            NSDate *dateValue = ORKLegacyTimeOfDayDateFromComponents(timeOfDayComponents);
             [self setDate:dateValue];
             
         } else {
             [self setDate:[timeOfDayAnswerFormat pickerDefaultDate]];
         }
     } else {
-        ORKDateAnswerFormat *dateAnswerFormat = (ORKDateAnswerFormat *)self.answerFormat;
+        ORKLegacyDateAnswerFormat *dateAnswerFormat = (ORKLegacyDateAnswerFormat *)self.answerFormat;
         
-        if (answer && answer != ORKNullAnswerValue()) {
+        if (answer && answer != ORKLegacyNullAnswerValue()) {
             NSDate *defaultDate = (NSDate *)answer;
             [self setDate:defaultDate];
         } else {
@@ -107,17 +107,17 @@
     }
 }
 
-- (void)setAnswerFormat:(ORKAnswerFormat *)answerFormat {
-    ORKQuestionType questionType = answerFormat.questionType;
+- (void)setAnswerFormat:(ORKLegacyAnswerFormat *)answerFormat {
+    ORKLegacyQuestionType questionType = answerFormat.questionType;
     int datePickerMode = -1;
     switch (questionType) {
-        case ORKQuestionTypeDate:
+        case ORKLegacyQuestionTypeDate:
             datePickerMode = UIDatePickerModeDate;
             break;
-        case ORKQuestionTypeDateAndTime:
+        case ORKLegacyQuestionTypeDateAndTime:
             datePickerMode = UIDatePickerModeDateAndTime;
             break;
-        case ORKQuestionTypeTimeOfDay:
+        case ORKLegacyQuestionTypeTimeOfDay:
             datePickerMode = UIDatePickerModeTime;
             break;
         default:
@@ -131,9 +131,9 @@
     _pickerView.datePickerMode = datePickerMode;
     
     if ([self isTimeOfDay]) {
-        [self setDate:[(ORKTimeOfDayAnswerFormat *)answerFormat pickerDefaultDate]];
+        [self setDate:[(ORKLegacyTimeOfDayAnswerFormat *)answerFormat pickerDefaultDate]];
     } else {
-        ORKDateAnswerFormat *dateAnswerFormat = (ORKDateAnswerFormat *)answerFormat;
+        ORKLegacyDateAnswerFormat *dateAnswerFormat = (ORKLegacyDateAnswerFormat *)answerFormat;
         [self setDate:[dateAnswerFormat pickerDefaultDate]];
         _pickerView.calendar = [dateAnswerFormat currentCalendar];
         _calendar = [dateAnswerFormat currentCalendar];
@@ -158,13 +158,13 @@
     
     NSString *dateFormat = nil;
     switch ([self questionType]) {
-        case ORKQuestionTypeDate:
+        case ORKLegacyQuestionTypeDate:
             dateFormat = [NSDateFormatter dateFormatFromTemplate:@"Mdy" options:0 locale:[NSLocale currentLocale]];
             break;
-        case ORKQuestionTypeDateAndTime:
+        case ORKLegacyQuestionTypeDateAndTime:
             dateFormat = [NSDateFormatter dateFormatFromTemplate:@"yEMdhma" options:0 locale:[NSLocale currentLocale]];
             break;
-        case ORKQuestionTypeTimeOfDay:
+        case ORKLegacyQuestionTypeTimeOfDay:
             dateFormat = [NSDateFormatter dateFormatFromTemplate:@"hma" options:0 locale:[NSLocale currentLocale]];
             break;
         default:
@@ -183,7 +183,7 @@
 }
 
 - (NSString *)selectedLabelText {
-    if (_answer == nil || _answer == ORKNullAnswerValue()) {
+    if (_answer == nil || _answer == ORKLegacyNullAnswerValue()) {
         return nil;
     }
     
@@ -191,7 +191,7 @@
 }
 
 - (void)pickerWillAppear {
-    // Report current value, since ORKTimeIntervalPicker always has a value
+    // Report current value, since ORKLegacyTimeIntervalPicker always has a value
     [self pickerView];
     [self valueDidChange:self];
 }
@@ -200,7 +200,7 @@
     _date = _pickerView.date;
     
     if ([self isTimeOfDay]) {
-        NSDateComponents *answer = ORKTimeOfDayComponentsFromDate([_pickerView date]);
+        NSDateComponents *answer = ORKLegacyTimeOfDayComponentsFromDate([_pickerView date]);
         _answer = answer;
     } else {
         NSDate *dateAnswer = _date;
@@ -212,12 +212,12 @@
     }
 }
 
-- (ORKQuestionType)questionType {
+- (ORKLegacyQuestionType)questionType {
     return self.answerFormat.questionType;
 }
 
 - (BOOL)isTimeOfDay {
-    return [self questionType] == ORKQuestionTypeTimeOfDay;
+    return [self questionType] == ORKLegacyQuestionTypeTimeOfDay;
 }
 
 - (void)currentLocaleDidChange:(NSNotification *)notification {

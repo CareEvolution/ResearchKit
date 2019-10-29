@@ -32,7 +32,7 @@
 #import "UIView+ORKAccessibility.h"
 
 
-@implementation UIView (ORKAccessibility)
+@implementation UIView (ORKLegacyAccessibility)
 
 - (UIView *)ork_superviewOfType:(Class)aClass {
     if (aClass == nil) {

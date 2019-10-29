@@ -38,9 +38,9 @@
 #import "ORKStepHeaderView_Internal.h"
 
 
-@implementation ORKVideoCaptureView {
-    ORKStepHeaderView *_headerView;
-    ORKNavigationContainerView *_continueSkipContainer;
+@implementation ORKLegacyVideoCaptureView {
+    ORKLegacyStepHeaderView *_headerView;
+    ORKLegacyNavigationContainerView *_continueSkipContainer;
     UIBarButtonItem *_captureButtonItem;
     UIBarButtonItem *_stopButtonItem;
     UIBarButtonItem *_recordingButtonItem;
@@ -59,7 +59,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _previewView = [ORKVideoCaptureCameraPreviewView new];
+        _previewView = [ORKLegacyVideoCaptureCameraPreviewView new];
         [self addSubview:_previewView];
         
         _playerViewController = [AVPlayerViewController new];
@@ -67,16 +67,16 @@
         _playerViewController.allowsPictureInPicturePlayback = NO;
         [self addSubview:_playerViewController.view];
         
-        _headerView = [ORKStepHeaderView new];
+        _headerView = [ORKLegacyStepHeaderView new];
         _headerView.instructionLabel.text = @" ";
         [self addSubview:_headerView];
         
-        _captureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORKLocalizedString(@"CAPTURE_BUTTON_CAPTURE_VIDEO", nil)
+        _captureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORKLegacyLocalizedString(@"CAPTURE_BUTTON_CAPTURE_VIDEO", nil)
                                                               style:UIBarButtonItemStylePlain
                                                              target:self
                                                              action:@selector(capturePressed)];
         
-        _stopButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORKLocalizedString(@"CAPTURE_BUTTON_STOP_CAPTURE_VIDEO", nil)
+        _stopButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORKLegacyLocalizedString(@"CAPTURE_BUTTON_STOP_CAPTURE_VIDEO", nil)
                                                            style:UIBarButtonItemStylePlain
                                                           target:self
                                                           action:@selector(stopCapturePressed)];
@@ -86,17 +86,17 @@
                                                                target:self
                                                                action:nil];
 
-        _recaptureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORKLocalizedString(@"CAPTURE_BUTTON_RECAPTURE_VIDEO", nil)
+        _recaptureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORKLegacyLocalizedString(@"CAPTURE_BUTTON_RECAPTURE_VIDEO", nil)
                                                                 style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(retakePressed)];
         
-        _continueSkipContainer = [ORKNavigationContainerView new];
+        _continueSkipContainer = [ORKLegacyNavigationContainerView new];
         _continueSkipContainer.continueEnabled = YES;
         _continueSkipContainer.topMargin = 5;
         _continueSkipContainer.bottomMargin = 15;
         _continueSkipContainer.optional = YES;
-        _continueSkipContainer.backgroundColor = ORKColor(ORKBackgroundColorKey);
+        _continueSkipContainer.backgroundColor = ORKLegacyColor(ORKLegacyBackgroundColorKey);
         [self addSubview:_continueSkipContainer];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationDidChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
@@ -146,7 +146,7 @@
     });
 }
 
-- (void)setVideoCaptureStep:(ORKVideoCaptureStep *)videoCaptureStep {
+- (void)setVideoCaptureStep:(ORKLegacyVideoCaptureStep *)videoCaptureStep {
     _videoCaptureStep = videoCaptureStep;
     
     _previewView.templateImage = _videoCaptureStep.templateImage;
@@ -257,7 +257,7 @@
     UIView *playerView = _playerViewController.view;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(self, _previewView, _continueSkipContainer, _headerView, playerView);
-    ORKEnableAutoLayoutForViews(views.allValues);
+    ORKLegacyEnableAutoLayoutForViews(views.allValues);
     
     [_variableConstraints addObjectsFromArray:
      [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_headerView]|"
@@ -414,7 +414,7 @@
 - (void)sessionWasInterrupted:(NSNotification *)notification {
     AVCaptureSessionInterruptionReason reason = [notification.userInfo[AVCaptureSessionInterruptionReasonKey] integerValue];
     if (reason == AVCaptureSessionInterruptionReasonVideoDeviceNotAvailableWithMultipleForegroundApps) {
-        [self setError:[[NSError alloc] initWithDomain:@"" code:0 userInfo:@{NSLocalizedDescriptionKey : ORKLocalizedString(@"CAMERA_UNAVAILABLE_MESSAGE", nil)}]];
+        [self setError:[[NSError alloc] initWithDomain:@"" code:0 userInfo:@{NSLocalizedDescriptionKey : ORKLegacyLocalizedString(@"CAMERA_UNAVAILABLE_MESSAGE", nil)}]];
     }
     [_previewView.session stopRunning];
 }

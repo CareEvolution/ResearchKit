@@ -55,12 +55,12 @@
 @import AudioToolbox;
 
 
-@interface ORKAudioGenerator () {
+@interface ORKLegacyAudioGenerator () {
   @public
     AudioComponentInstance _toneUnit;
     double _frequency;
     double _theta;
-    ORKAudioChannel _activeChannel;
+    ORKLegacyAudioChannel _activeChannel;
     BOOL _playsStereo;
     double _fadeInFactor;
     NSTimeInterval _fadeInDuration;
@@ -74,22 +74,22 @@
 @end
 
 
-const double ORKSineWaveToneGeneratorAmplitudeDefault = 0.03f;
-const double ORKSineWaveToneGeneratorSampleRateDefault = 44100.0f;
+const double ORKLegacySineWaveToneGeneratorAmplitudeDefault = 0.03f;
+const double ORKLegacySineWaveToneGeneratorSampleRateDefault = 44100.0f;
 
-OSStatus ORKAudioGeneratorRenderTone(void *inRefCon,
+OSStatus ORKLegacyAudioGeneratorRenderTone(void *inRefCon,
                                      AudioUnitRenderActionFlags *ioActionFlags,
                                      const AudioTimeStamp 		*inTimeStamp,
                                      UInt32 					inBusNumber,
                                      UInt32 					inNumberFrames,
                                      AudioBufferList 			*ioData) {
     // Fixed amplitude is good enough for our purposes
-    const double amplitude = ORKSineWaveToneGeneratorAmplitudeDefault;
+    const double amplitude = ORKLegacySineWaveToneGeneratorAmplitudeDefault;
 
     // Get the tone parameters out of the view controller
-    ORKAudioGenerator *audioGenerator = (__bridge ORKAudioGenerator *)inRefCon;
+    ORKLegacyAudioGenerator *audioGenerator = (__bridge ORKLegacyAudioGenerator *)inRefCon;
     double theta = audioGenerator->_theta;
-    double theta_increment = 2.0 * M_PI * audioGenerator->_frequency / ORKSineWaveToneGeneratorSampleRateDefault;
+    double theta_increment = 2.0 * M_PI * audioGenerator->_frequency / ORKLegacySineWaveToneGeneratorSampleRateDefault;
 
     double fadeInFactor = audioGenerator->_fadeInFactor;
 
@@ -112,7 +112,7 @@ OSStatus ORKAudioGeneratorRenderTone(void *inRefCon,
             theta -= 2.0 * M_PI;
         }
 
-        fadeInFactor += 1.0 / (ORKSineWaveToneGeneratorSampleRateDefault * audioGenerator->_fadeInDuration);
+        fadeInFactor += 1.0 / (ORKLegacySineWaveToneGeneratorSampleRateDefault * audioGenerator->_fadeInDuration);
         if (fadeInFactor >= 1) {
             fadeInFactor = 1;
         }
@@ -126,7 +126,7 @@ OSStatus ORKAudioGeneratorRenderTone(void *inRefCon,
 }
 
 
-@implementation ORKAudioGenerator
+@implementation ORKLegacyAudioGenerator
 
 - (instancetype)init {
     self = [super init];
@@ -165,7 +165,7 @@ OSStatus ORKAudioGeneratorRenderTone(void *inRefCon,
 }
 
 - (double)volumeAmplitude {
-    return ORKSineWaveToneGeneratorAmplitudeDefault * pow(10, 2 * _fadeInFactor - 2);
+    return ORKLegacySineWaveToneGeneratorAmplitudeDefault * pow(10, 2 * _fadeInFactor - 2);
 }
 
 - (void)playSoundAtFrequency:(double)playFrequency {
@@ -178,7 +178,7 @@ OSStatus ORKAudioGeneratorRenderTone(void *inRefCon,
 }
 
 - (void)playSoundAtFrequency:(double)playFrequency
-                   onChannel:(ORKAudioChannel)playChannel
+                   onChannel:(ORKLegacyAudioChannel)playChannel
               fadeInDuration:(NSTimeInterval)duration {
     _frequency = playFrequency;
     _activeChannel = playChannel;
@@ -245,7 +245,7 @@ OSStatus ORKAudioGeneratorRenderTone(void *inRefCon,
 
     // Set our tone rendering function on the unit
     AURenderCallbackStruct input;
-    input.inputProc = ORKAudioGeneratorRenderTone;
+    input.inputProc = ORKLegacyAudioGeneratorRenderTone;
     input.inputProcRefCon = (__bridge void *)(self);
     error = AudioUnitSetProperty(_toneUnit,
                                kAudioUnitProperty_SetRenderCallback,
@@ -259,7 +259,7 @@ OSStatus ORKAudioGeneratorRenderTone(void *inRefCon,
     const int four_bytes_per_float = 4;
     const int eight_bits_per_byte = 8;
     AudioStreamBasicDescription streamFormat;
-    streamFormat.mSampleRate = ORKSineWaveToneGeneratorSampleRateDefault;
+    streamFormat.mSampleRate = ORKLegacySineWaveToneGeneratorSampleRateDefault;
     streamFormat.mFormatID = kAudioFormatLinearPCM;
     streamFormat.mFormatFlags = kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved;
     streamFormat.mBytesPerPacket = four_bytes_per_float;

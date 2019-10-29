@@ -51,7 +51,7 @@
 
 const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 
-@interface ORKResult ()
+@interface ORKLegacyResult ()
 
 - (NSString *)descriptionPrefixWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces;
 
@@ -62,7 +62,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKResult
+@implementation ORKLegacyResult
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     self = [super init];
@@ -83,19 +83,19 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_OBJ(aCoder, identifier);
-    ORK_ENCODE_OBJ(aCoder, startDate);
-    ORK_ENCODE_OBJ(aCoder, endDate);
-    ORK_ENCODE_OBJ(aCoder, userInfo);
+    ORKLegacy_ENCODE_OBJ(aCoder, identifier);
+    ORKLegacy_ENCODE_OBJ(aCoder, startDate);
+    ORKLegacy_ENCODE_OBJ(aCoder, endDate);
+    ORKLegacy_ENCODE_OBJ(aCoder, userInfo);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
-        ORK_DECODE_OBJ_CLASS(aDecoder, startDate, NSDate);
-        ORK_DECODE_OBJ_CLASS(aDecoder, endDate, NSDate);
-        ORK_DECODE_OBJ_CLASS(aDecoder, userInfo, NSDictionary);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, startDate, NSDate);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, endDate, NSDate);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, userInfo, NSDictionary);
     }
     return self;
 }
@@ -106,10 +106,10 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     }
     
     __typeof(self) castObject = object;
-    return (ORKEqualObjects(self.identifier, castObject.identifier)
-            && ORKEqualObjects(self.startDate, castObject.startDate)
-            && ORKEqualObjects(self.endDate, castObject.endDate)
-            && ORKEqualObjects(self.userInfo, castObject.userInfo));
+    return (ORKLegacyEqualObjects(self.identifier, castObject.identifier)
+            && ORKLegacyEqualObjects(self.startDate, castObject.startDate)
+            && ORKLegacyEqualObjects(self.endDate, castObject.endDate)
+            && ORKLegacyEqualObjects(self.userInfo, castObject.userInfo));
 }
 
 - (NSUInteger)hash {
@@ -117,7 +117,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKResult *result = [[[self class] allocWithZone:zone] init];
+    ORKLegacyResult *result = [[[self class] allocWithZone:zone] init];
     result.startDate = [self.startDate copy];
     result.endDate = [self.endDate copy];
     result.userInfo = [self.userInfo copy];
@@ -135,7 +135,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (NSString *)descriptionPrefixWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"%@<%@: %p; identifier: \"%@\"", ORKPaddingWithNumberOfSpaces(numberOfPaddingSpaces), self.class.description, self, self.identifier];
+    return [NSString stringWithFormat:@"%@<%@: %p; identifier: \"%@\"", ORKLegacyPaddingWithNumberOfSpaces(numberOfPaddingSpaces), self.class.description, self, self.identifier];
 }
 
 - (NSString *)descriptionSuffix {
@@ -153,27 +153,27 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKTappingSample
+@implementation ORKLegacyTappingSample
 
 + (BOOL)supportsSecureCoding {
     return YES;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_DOUBLE(aCoder, timestamp);
-    ORK_ENCODE_DOUBLE(aCoder, duration);
-    ORK_ENCODE_CGPOINT(aCoder, location);
-    ORK_ENCODE_ENUM(aCoder, buttonIdentifier);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, timestamp);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, duration);
+    ORKLegacy_ENCODE_CGPOINT(aCoder, location);
+    ORKLegacy_ENCODE_ENUM(aCoder, buttonIdentifier);
 
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, duration);
-        ORK_DECODE_DOUBLE(aDecoder, timestamp);
-        ORK_DECODE_CGPOINT(aDecoder, location);
-        ORK_DECODE_ENUM(aDecoder, buttonIdentifier);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, duration);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, timestamp);
+        ORKLegacy_DECODE_CGPOINT(aDecoder, location);
+        ORKLegacy_DECODE_ENUM(aDecoder, buttonIdentifier);
     }
     return self;
 }
@@ -192,7 +192,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTappingSample *sample = [[[self class] allocWithZone:zone] init];
+    ORKLegacyTappingSample *sample = [[[self class] allocWithZone:zone] init];
     sample.timestamp = self.timestamp;
     sample.duration = self.duration;
     sample.location = self.location;
@@ -207,7 +207,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKPasscodeResult
+@implementation ORKLegacyPasscodeResult
 
 + (BOOL)supportsSecureCoding {
     return YES;
@@ -215,15 +215,15 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_BOOL(aCoder, passcodeSaved);
-    ORK_ENCODE_BOOL(aCoder, touchIdEnabled);
+    ORKLegacy_ENCODE_BOOL(aCoder, passcodeSaved);
+    ORKLegacy_ENCODE_BOOL(aCoder, touchIdEnabled);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_BOOL(aDecoder, passcodeSaved);
-        ORK_DECODE_BOOL(aDecoder, touchIdEnabled);
+        ORKLegacy_DECODE_BOOL(aDecoder, passcodeSaved);
+        ORKLegacy_DECODE_BOOL(aDecoder, touchIdEnabled);
     }
     return self;
 }
@@ -238,7 +238,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKPasscodeResult *result = [super copyWithZone:zone];
+    ORKLegacyPasscodeResult *result = [super copyWithZone:zone];
     result.passcodeSaved = self.isPasscodeSaved;
     result.touchIdEnabled = self.isTouchIdEnabled;
     return result;
@@ -251,19 +251,19 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKRangeOfMotionResult
+@implementation ORKLegacyRangeOfMotionResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_DOUBLE(aCoder, flexed);
-    ORK_ENCODE_DOUBLE(aCoder, extended);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, flexed);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, extended);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, flexed);
-        ORK_DECODE_DOUBLE(aDecoder, extended);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, flexed);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, extended);
     }
     return self;
 }
@@ -285,7 +285,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKRangeOfMotionResult *result = [super copyWithZone:zone];
+    ORKLegacyRangeOfMotionResult *result = [super copyWithZone:zone];
     result.flexed = self.flexed;
     result.extended = self.extended;
     return result;
@@ -298,19 +298,19 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKTowerOfHanoiResult
+@implementation ORKLegacyTowerOfHanoiResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, moves);
-    ORK_ENCODE_BOOL(aCoder, puzzleWasSolved);
+    ORKLegacy_ENCODE_OBJ(aCoder, moves);
+    ORKLegacy_ENCODE_BOOL(aCoder, puzzleWasSolved);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_ARRAY(aDecoder, moves, ORKTowerOfHanoiMove);
-        ORK_DECODE_BOOL(aDecoder, puzzleWasSolved);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, moves, ORKLegacyTowerOfHanoiMove);
+        ORKLegacy_DECODE_BOOL(aDecoder, puzzleWasSolved);
     }
     return self;
 }
@@ -324,7 +324,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     __typeof(self) castObject = object;
     return isParentSame &&
     self.puzzleWasSolved == castObject.puzzleWasSolved &&
-    ORKEqualObjects(self.moves, castObject.moves);
+    ORKLegacyEqualObjects(self.moves, castObject.moves);
 }
 
 - (NSUInteger)hash {
@@ -332,7 +332,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTowerOfHanoiResult *result = [super copyWithZone:zone];
+    ORKLegacyTowerOfHanoiResult *result = [super copyWithZone:zone];
     result.puzzleWasSolved = self.puzzleWasSolved;
     result.moves = [self.moves copy];
     return result;
@@ -345,21 +345,21 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKTowerOfHanoiMove
+@implementation ORKLegacyTowerOfHanoiMove
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_DOUBLE(aCoder, timestamp);
-    ORK_ENCODE_INTEGER(aCoder, donorTowerIndex);
-    ORK_ENCODE_INTEGER(aCoder, recipientTowerIndex);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, timestamp);
+    ORKLegacy_ENCODE_INTEGER(aCoder, donorTowerIndex);
+    ORKLegacy_ENCODE_INTEGER(aCoder, recipientTowerIndex);
     
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, timestamp);
-        ORK_DECODE_INTEGER(aDecoder, donorTowerIndex);
-        ORK_DECODE_INTEGER(aDecoder, recipientTowerIndex);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, timestamp);
+        ORKLegacy_DECODE_INTEGER(aDecoder, donorTowerIndex);
+        ORKLegacy_DECODE_INTEGER(aDecoder, recipientTowerIndex);
     }
     return self;
 }
@@ -381,7 +381,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTowerOfHanoiMove *move = [[[self class] allocWithZone:zone] init];
+    ORKLegacyTowerOfHanoiMove *move = [[[self class] allocWithZone:zone] init];
     move.timestamp = self.timestamp;
     move.donorTowerIndex = self.donorTowerIndex;
     move.recipientTowerIndex = self.recipientTowerIndex;
@@ -395,19 +395,19 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKToneAudiometryResult
+@implementation ORKLegacyToneAudiometryResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, outputVolume);
-    ORK_ENCODE_OBJ(aCoder, samples);
+    ORKLegacy_ENCODE_OBJ(aCoder, outputVolume);
+    ORKLegacy_ENCODE_OBJ(aCoder, samples);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ(aDecoder, outputVolume);
-        ORK_DECODE_OBJ_ARRAY(aDecoder, samples, ORKToneAudiometrySample);
+        ORKLegacy_DECODE_OBJ(aDecoder, outputVolume);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, samples, ORKLegacyToneAudiometrySample);
     }
     return self;
 }
@@ -421,8 +421,8 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.outputVolume, castObject.outputVolume) &&
-            ORKEqualObjects(self.samples, castObject.samples)) ;
+            ORKLegacyEqualObjects(self.outputVolume, castObject.outputVolume) &&
+            ORKLegacyEqualObjects(self.samples, castObject.samples)) ;
 }
 
 - (NSUInteger)hash {
@@ -430,7 +430,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKToneAudiometryResult *result = [super copyWithZone:zone];
+    ORKLegacyToneAudiometryResult *result = [super copyWithZone:zone];
     result.outputVolume = [self.outputVolume copy];
     result.samples = [self.samples copy];
     return result;
@@ -443,26 +443,26 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKToneAudiometrySample
+@implementation ORKLegacyToneAudiometrySample
 
 + (BOOL)supportsSecureCoding {
     return YES;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_DOUBLE(aCoder, frequency);
-    ORK_ENCODE_ENUM(aCoder, channel);
-    ORK_ENCODE_ENUM(aCoder, channelSelected);
-    ORK_ENCODE_DOUBLE(aCoder, amplitude);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, frequency);
+    ORKLegacy_ENCODE_ENUM(aCoder, channel);
+    ORKLegacy_ENCODE_ENUM(aCoder, channelSelected);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, amplitude);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, frequency);
-        ORK_DECODE_ENUM(aDecoder, channel);
-        ORK_DECODE_ENUM(aDecoder, channelSelected);
-        ORK_DECODE_DOUBLE(aDecoder, amplitude);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, frequency);
+        ORKLegacy_DECODE_ENUM(aDecoder, channel);
+        ORKLegacy_DECODE_ENUM(aDecoder, channelSelected);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, amplitude);
     }
     return self;
 }
@@ -481,7 +481,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKToneAudiometrySample *sample = [[[self class] allocWithZone:zone] init];
+    ORKLegacyToneAudiometrySample *sample = [[[self class] allocWithZone:zone] init];
     sample.frequency = self.frequency;
     sample.channel = self.channel;
     sample.channelSelected = self.channelSelected;
@@ -496,26 +496,26 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKSpatialSpanMemoryGameTouchSample
+@implementation ORKLegacySpatialSpanMemoryGameTouchSample
 
 + (BOOL)supportsSecureCoding {
     return YES;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_DOUBLE(aCoder, timestamp);
-    ORK_ENCODE_INTEGER(aCoder, targetIndex);
-    ORK_ENCODE_CGPOINT(aCoder, location);
-    ORK_ENCODE_BOOL(aCoder, correct);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, timestamp);
+    ORKLegacy_ENCODE_INTEGER(aCoder, targetIndex);
+    ORKLegacy_ENCODE_CGPOINT(aCoder, location);
+    ORKLegacy_ENCODE_BOOL(aCoder, correct);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, timestamp);
-        ORK_DECODE_INTEGER(aDecoder, targetIndex);
-        ORK_DECODE_CGPOINT(aDecoder, location);
-        ORK_DECODE_BOOL(aDecoder, correct);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, timestamp);
+        ORKLegacy_DECODE_INTEGER(aDecoder, targetIndex);
+        ORKLegacy_DECODE_CGPOINT(aDecoder, location);
+        ORKLegacy_DECODE_BOOL(aDecoder, correct);
     }
     return self;
 }
@@ -537,7 +537,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKSpatialSpanMemoryGameTouchSample *sample = [[[self class] allocWithZone:zone] init];
+    ORKLegacySpatialSpanMemoryGameTouchSample *sample = [[[self class] allocWithZone:zone] init];
     sample.timestamp = self.timestamp;
     sample.targetIndex = self.targetIndex;
     sample.location = self.location;
@@ -553,32 +553,32 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKSpatialSpanMemoryGameRecord
+@implementation ORKLegacySpatialSpanMemoryGameRecord
 
 + (BOOL)supportsSecureCoding {
     return YES;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_UINT32(aCoder, seed);
-    ORK_ENCODE_OBJ(aCoder, sequence);
-    ORK_ENCODE_INTEGER(aCoder, gameSize);
-    ORK_ENCODE_OBJ(aCoder, touchSamples);
-    ORK_ENCODE_INTEGER(aCoder, gameStatus);
-    ORK_ENCODE_INTEGER(aCoder, score);
-    ORK_ENCODE_OBJ(aCoder, targetRects);
+    ORKLegacy_ENCODE_UINT32(aCoder, seed);
+    ORKLegacy_ENCODE_OBJ(aCoder, sequence);
+    ORKLegacy_ENCODE_INTEGER(aCoder, gameSize);
+    ORKLegacy_ENCODE_OBJ(aCoder, touchSamples);
+    ORKLegacy_ENCODE_INTEGER(aCoder, gameStatus);
+    ORKLegacy_ENCODE_INTEGER(aCoder, score);
+    ORKLegacy_ENCODE_OBJ(aCoder, targetRects);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_UINT32(aDecoder, seed);
-        ORK_DECODE_OBJ_ARRAY(aDecoder, sequence, NSNumber);
-        ORK_DECODE_INTEGER(aDecoder, gameSize);
-        ORK_DECODE_OBJ_ARRAY(aDecoder, touchSamples, ORKSpatialSpanMemoryGameTouchSample);
-        ORK_DECODE_INTEGER(aDecoder, gameStatus);
-        ORK_DECODE_INTEGER(aDecoder, score);
-        ORK_DECODE_OBJ_ARRAY(aDecoder, targetRects, NSValue);
+        ORKLegacy_DECODE_UINT32(aDecoder, seed);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, sequence, NSNumber);
+        ORKLegacy_DECODE_INTEGER(aDecoder, gameSize);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, touchSamples, ORKLegacySpatialSpanMemoryGameTouchSample);
+        ORKLegacy_DECODE_INTEGER(aDecoder, gameStatus);
+        ORKLegacy_DECODE_INTEGER(aDecoder, score);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, targetRects, NSValue);
     }
     return self;
 }
@@ -590,12 +590,12 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return ((self.seed == castObject.seed) &&
-            (ORKEqualObjects(self.sequence, castObject.sequence)) &&
-            (ORKEqualObjects(self.touchSamples, castObject.touchSamples)) &&
+            (ORKLegacyEqualObjects(self.sequence, castObject.sequence)) &&
+            (ORKLegacyEqualObjects(self.touchSamples, castObject.touchSamples)) &&
             (self.gameSize == castObject.gameSize) &&
             (self.gameStatus == castObject.gameStatus) &&
             (self.score == castObject.score) &&
-            (ORKEqualObjects(self.targetRects, castObject.targetRects)));
+            (ORKLegacyEqualObjects(self.targetRects, castObject.targetRects)));
 }
 
 - (NSUInteger)hash {
@@ -603,7 +603,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKSpatialSpanMemoryGameRecord *record = [[[self class] allocWithZone:zone] init];
+    ORKLegacySpatialSpanMemoryGameRecord *record = [[[self class] allocWithZone:zone] init];
     record.seed = self.seed;
     record.sequence = [self.sequence copyWithZone:zone];
     record.touchSamples = [self.touchSamples copyWithZone:zone];
@@ -621,24 +621,24 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKSpatialSpanMemoryResult
+@implementation ORKLegacySpatialSpanMemoryResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_INTEGER(aCoder, score);
-    ORK_ENCODE_INTEGER(aCoder, numberOfGames);
-    ORK_ENCODE_INTEGER(aCoder, numberOfFailures);
-    ORK_ENCODE_OBJ(aCoder, gameRecords);
+    ORKLegacy_ENCODE_INTEGER(aCoder, score);
+    ORKLegacy_ENCODE_INTEGER(aCoder, numberOfGames);
+    ORKLegacy_ENCODE_INTEGER(aCoder, numberOfFailures);
+    ORKLegacy_ENCODE_OBJ(aCoder, gameRecords);
     
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_INTEGER(aDecoder, score);
-        ORK_DECODE_INTEGER(aDecoder, numberOfGames);
-        ORK_DECODE_INTEGER(aDecoder, numberOfFailures);
-        ORK_DECODE_OBJ_ARRAY(aDecoder, gameRecords, ORKSpatialSpanMemoryGameRecord);
+        ORKLegacy_DECODE_INTEGER(aDecoder, score);
+        ORKLegacy_DECODE_INTEGER(aDecoder, numberOfGames);
+        ORKLegacy_DECODE_INTEGER(aDecoder, numberOfFailures);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, gameRecords, ORKLegacySpatialSpanMemoryGameRecord);
         
     }
     return self;
@@ -656,7 +656,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
             (self.score == castObject.score) &&
             (self.numberOfGames == castObject.numberOfGames) &&
             (self.numberOfFailures == castObject.numberOfFailures) &&
-            (ORKEqualObjects(self.gameRecords, castObject.gameRecords)));
+            (ORKLegacyEqualObjects(self.gameRecords, castObject.gameRecords)));
 }
 
 - (NSUInteger)hash {
@@ -664,7 +664,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKSpatialSpanMemoryResult *result = [super copyWithZone:zone];
+    ORKLegacySpatialSpanMemoryResult *result = [super copyWithZone:zone];
     result.score = self.score;
     result.numberOfGames = self.numberOfGames;
     result.numberOfFailures = self.numberOfFailures;
@@ -679,23 +679,23 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKTappingIntervalResult
+@implementation ORKLegacyTappingIntervalResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, samples);
-    ORK_ENCODE_CGRECT(aCoder, buttonRect1);
-    ORK_ENCODE_CGRECT(aCoder, buttonRect2);
-    ORK_ENCODE_CGSIZE(aCoder, stepViewSize);
+    ORKLegacy_ENCODE_OBJ(aCoder, samples);
+    ORKLegacy_ENCODE_CGRECT(aCoder, buttonRect1);
+    ORKLegacy_ENCODE_CGRECT(aCoder, buttonRect2);
+    ORKLegacy_ENCODE_CGSIZE(aCoder, stepViewSize);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_ARRAY(aDecoder, samples, ORKTappingSample);
-        ORK_DECODE_CGRECT(aDecoder, buttonRect1);
-        ORK_DECODE_CGRECT(aDecoder, buttonRect2);
-        ORK_DECODE_CGSIZE(aDecoder, stepViewSize);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, samples, ORKLegacyTappingSample);
+        ORKLegacy_DECODE_CGRECT(aDecoder, buttonRect1);
+        ORKLegacy_DECODE_CGRECT(aDecoder, buttonRect2);
+        ORKLegacy_DECODE_CGSIZE(aDecoder, stepViewSize);
     }
     return self;
 }
@@ -709,7 +709,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.samples, castObject.samples) &&
+            ORKLegacyEqualObjects(self.samples, castObject.samples) &&
             CGRectEqualToRect(self.buttonRect1, castObject.buttonRect1) &&
             CGRectEqualToRect(self.buttonRect2, castObject.buttonRect2) &&
             CGSizeEqualToSize(self.stepViewSize, castObject.stepViewSize));
@@ -720,7 +720,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTappingIntervalResult *result = [super copyWithZone:zone];
+    ORKLegacyTappingIntervalResult *result = [super copyWithZone:zone];
     result.samples = [self.samples copy];
     result.buttonRect1 = self.buttonRect1;
     result.buttonRect2 = self.buttonRect2;
@@ -735,7 +735,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKFileResult
+@implementation ORKLegacyFileResult
 
 - (BOOL)isSaveable {
     return (_fileURL != nil);
@@ -743,15 +743,15 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_URL(aCoder, fileURL);
-    ORK_ENCODE_OBJ(aCoder, contentType);
+    ORKLegacy_ENCODE_URL(aCoder, fileURL);
+    ORKLegacy_ENCODE_OBJ(aCoder, contentType);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_URL(aDecoder, fileURL);
-        ORK_DECODE_OBJ_CLASS(aDecoder, contentType, NSString);
+        ORKLegacy_DECODE_URL(aDecoder, fileURL);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, contentType, NSString);
     }
     return self;
 }
@@ -765,8 +765,8 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualFileURLs(self.fileURL, castObject.fileURL) &&
-            ORKEqualObjects(self.contentType, castObject.contentType));
+            ORKLegacyEqualFileURLs(self.fileURL, castObject.fileURL) &&
+            ORKLegacyEqualObjects(self.contentType, castObject.contentType));
 }
 
 - (NSUInteger)hash {
@@ -774,7 +774,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKFileResult *result = [super copyWithZone:zone];
+    ORKLegacyFileResult *result = [super copyWithZone:zone];
     result.fileURL = [self.fileURL copy];
     result.contentType = [self.contentType copy];
     return result;
@@ -787,19 +787,19 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKReactionTimeResult
+@implementation ORKLegacyReactionTimeResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_DOUBLE(aCoder, timestamp);
-    ORK_ENCODE_OBJ(aCoder, fileResult);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, timestamp);
+    ORKLegacy_ENCODE_OBJ(aCoder, fileResult);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, timestamp);
-        ORK_DECODE_OBJ_CLASS(aDecoder, fileResult, ORKFileResult);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, timestamp);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, fileResult, ORKLegacyFileResult);
     }
     return self;
 }
@@ -814,7 +814,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     __typeof(self) castObject = object;
     return (isParentSame &&
             (self.timestamp == castObject.timestamp) &&
-            ORKEqualObjects(self.fileResult, castObject.fileResult)) ;
+            ORKLegacyEqualObjects(self.fileResult, castObject.fileResult)) ;
 }
 
 - (NSUInteger)hash {
@@ -822,7 +822,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKReactionTimeResult *result = [super copyWithZone:zone];
+    ORKLegacyReactionTimeResult *result = [super copyWithZone:zone];
     result.fileResult = [self.fileResult copy];
     result.timestamp = self.timestamp;
     return result;
@@ -835,21 +835,21 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKTimedWalkResult
+@implementation ORKLegacyTimedWalkResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_DOUBLE(aCoder, distanceInMeters);
-    ORK_ENCODE_DOUBLE(aCoder, timeLimit);
-    ORK_ENCODE_DOUBLE(aCoder, duration);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, distanceInMeters);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, timeLimit);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, duration);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, distanceInMeters);
-        ORK_DECODE_DOUBLE(aDecoder, timeLimit);
-        ORK_DECODE_DOUBLE(aDecoder, duration);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, distanceInMeters);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, timeLimit);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, duration);
     }
     return self;
     
@@ -874,7 +874,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTimedWalkResult *result = [super copyWithZone:zone];
+    ORKLegacyTimedWalkResult *result = [super copyWithZone:zone];
     result.distanceInMeters = self.distanceInMeters;
     result.timeLimit = self.timeLimit;
     result.duration = self.duration;
@@ -888,26 +888,26 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKPSATSample
+@implementation ORKLegacyPSATSample
 
 + (BOOL)supportsSecureCoding {
     return YES;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_BOOL(aCoder, correct);
-    ORK_ENCODE_INTEGER(aCoder, digit);
-    ORK_ENCODE_INTEGER(aCoder, answer);
-    ORK_ENCODE_DOUBLE(aCoder, time);
+    ORKLegacy_ENCODE_BOOL(aCoder, correct);
+    ORKLegacy_ENCODE_INTEGER(aCoder, digit);
+    ORKLegacy_ENCODE_INTEGER(aCoder, answer);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, time);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_BOOL(aDecoder, correct);
-        ORK_DECODE_INTEGER(aDecoder, digit);
-        ORK_DECODE_INTEGER(aDecoder, answer);
-        ORK_DECODE_DOUBLE(aDecoder, time);
+        ORKLegacy_DECODE_BOOL(aDecoder, correct);
+        ORKLegacy_DECODE_INTEGER(aDecoder, digit);
+        ORKLegacy_DECODE_INTEGER(aDecoder, answer);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, time);
     }
     return self;
 }
@@ -926,7 +926,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKPSATSample *sample = [[[self class] allocWithZone:zone] init];
+    ORKLegacyPSATSample *sample = [[[self class] allocWithZone:zone] init];
     sample.correct = self.isCorrect;
     sample.digit = self.digit;
     sample.answer = self.answer;
@@ -941,33 +941,33 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKPSATResult
+@implementation ORKLegacyPSATResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_ENUM(aCoder, presentationMode);
-    ORK_ENCODE_DOUBLE(aCoder, interStimulusInterval);
-    ORK_ENCODE_DOUBLE(aCoder, stimulusDuration);
-    ORK_ENCODE_INTEGER(aCoder, length);
-    ORK_ENCODE_INTEGER(aCoder, totalCorrect);
-    ORK_ENCODE_INTEGER(aCoder, totalDyad);
-    ORK_ENCODE_DOUBLE(aCoder, totalTime);
-    ORK_ENCODE_INTEGER(aCoder, initialDigit);
-    ORK_ENCODE_OBJ(aCoder, samples);
+    ORKLegacy_ENCODE_ENUM(aCoder, presentationMode);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, interStimulusInterval);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, stimulusDuration);
+    ORKLegacy_ENCODE_INTEGER(aCoder, length);
+    ORKLegacy_ENCODE_INTEGER(aCoder, totalCorrect);
+    ORKLegacy_ENCODE_INTEGER(aCoder, totalDyad);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, totalTime);
+    ORKLegacy_ENCODE_INTEGER(aCoder, initialDigit);
+    ORKLegacy_ENCODE_OBJ(aCoder, samples);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_ENUM(aDecoder, presentationMode);
-        ORK_DECODE_DOUBLE(aDecoder, interStimulusInterval);
-        ORK_DECODE_DOUBLE(aDecoder, stimulusDuration);
-        ORK_DECODE_INTEGER(aDecoder, length);
-        ORK_DECODE_INTEGER(aDecoder, totalCorrect);
-        ORK_DECODE_INTEGER(aDecoder, totalDyad);
-        ORK_DECODE_DOUBLE(aDecoder, totalTime);
-        ORK_DECODE_INTEGER(aDecoder, initialDigit);
-        ORK_DECODE_OBJ_ARRAY(aDecoder, samples, ORKPSATSample);
+        ORKLegacy_DECODE_ENUM(aDecoder, presentationMode);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, interStimulusInterval);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, stimulusDuration);
+        ORKLegacy_DECODE_INTEGER(aDecoder, length);
+        ORKLegacy_DECODE_INTEGER(aDecoder, totalCorrect);
+        ORKLegacy_DECODE_INTEGER(aDecoder, totalDyad);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, totalTime);
+        ORKLegacy_DECODE_INTEGER(aDecoder, initialDigit);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, samples, ORKLegacyPSATSample);
     }
     return self;
     
@@ -990,7 +990,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
             (self.totalDyad == castObject.totalDyad) &&
             (self.totalTime == castObject.totalTime) &&
             (self.initialDigit == castObject.initialDigit) &&
-            ORKEqualObjects(self.samples, castObject.samples)) ;
+            ORKLegacyEqualObjects(self.samples, castObject.samples)) ;
 }
 
 - (NSUInteger)hash {
@@ -998,7 +998,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKPSATResult *result = [super copyWithZone:zone];
+    ORKLegacyPSATResult *result = [super copyWithZone:zone];
     result.presentationMode = self.presentationMode;
     result.interStimulusInterval = self.interStimulusInterval;
     result.stimulusDuration = self.stimulusDuration;
@@ -1018,25 +1018,25 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKStroopResult
+@implementation ORKLegacyStroopResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_DOUBLE(aCoder, startTime);
-    ORK_ENCODE_DOUBLE(aCoder, endTime);
-    ORK_ENCODE_OBJ(aCoder, color);
-    ORK_ENCODE_OBJ(aCoder, text);
-    ORK_ENCODE_OBJ(aCoder, colorSelected);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, startTime);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, endTime);
+    ORKLegacy_ENCODE_OBJ(aCoder, color);
+    ORKLegacy_ENCODE_OBJ(aCoder, text);
+    ORKLegacy_ENCODE_OBJ(aCoder, colorSelected);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, startTime);
-        ORK_DECODE_DOUBLE(aDecoder, endTime);
-        ORK_DECODE_OBJ_CLASS(aDecoder, color, NSString);
-        ORK_DECODE_OBJ_CLASS(aDecoder, text, NSString);
-        ORK_DECODE_OBJ_CLASS(aDecoder, colorSelected, NSString);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, startTime);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, endTime);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, color, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, text, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, colorSelected, NSString);
     }
     return self;
 }
@@ -1052,13 +1052,13 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     return (isParentSame &&
             (self.startTime == castObject.startTime) &&
             (self.endTime == castObject.endTime) &&
-            ORKEqualObjects(self.color, castObject.color) &&
-            ORKEqualObjects(self.text, castObject.text) &&
-            ORKEqualObjects(self.colorSelected, castObject.colorSelected));
+            ORKLegacyEqualObjects(self.color, castObject.color) &&
+            ORKLegacyEqualObjects(self.text, castObject.text) &&
+            ORKLegacyEqualObjects(self.colorSelected, castObject.colorSelected));
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKStroopResult *result = [super copyWithZone:zone];
+    ORKLegacyStroopResult *result = [super copyWithZone:zone];
     result.startTime = self.startTime;
     result.endTime = self.endTime;
     result -> _color = [self.color copy];
@@ -1074,35 +1074,35 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKHolePegTestResult
+@implementation ORKLegacyHolePegTestResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_ENUM(aCoder, movingDirection);
-    ORK_ENCODE_BOOL(aCoder, dominantHandTested);
-    ORK_ENCODE_INTEGER(aCoder, numberOfPegs);
-    ORK_ENCODE_INTEGER(aCoder, threshold);
-    ORK_ENCODE_BOOL(aCoder, rotated);
-    ORK_ENCODE_INTEGER(aCoder, totalSuccesses);
-    ORK_ENCODE_INTEGER(aCoder, totalFailures);
-    ORK_ENCODE_DOUBLE(aCoder, totalTime);
-    ORK_ENCODE_DOUBLE(aCoder, totalDistance);
-    ORK_ENCODE_OBJ(aCoder, samples);
+    ORKLegacy_ENCODE_ENUM(aCoder, movingDirection);
+    ORKLegacy_ENCODE_BOOL(aCoder, dominantHandTested);
+    ORKLegacy_ENCODE_INTEGER(aCoder, numberOfPegs);
+    ORKLegacy_ENCODE_INTEGER(aCoder, threshold);
+    ORKLegacy_ENCODE_BOOL(aCoder, rotated);
+    ORKLegacy_ENCODE_INTEGER(aCoder, totalSuccesses);
+    ORKLegacy_ENCODE_INTEGER(aCoder, totalFailures);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, totalTime);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, totalDistance);
+    ORKLegacy_ENCODE_OBJ(aCoder, samples);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_ENUM(aDecoder, movingDirection);
-        ORK_DECODE_BOOL(aDecoder, dominantHandTested);
-        ORK_DECODE_INTEGER(aDecoder, numberOfPegs);
-        ORK_DECODE_INTEGER(aDecoder, threshold);
-        ORK_DECODE_BOOL(aDecoder, rotated);
-        ORK_DECODE_INTEGER(aDecoder, totalSuccesses);
-        ORK_DECODE_INTEGER(aDecoder, totalFailures);
-        ORK_DECODE_DOUBLE(aDecoder, totalTime);
-        ORK_DECODE_DOUBLE(aDecoder, totalDistance);
-        ORK_DECODE_OBJ_ARRAY(aDecoder, samples, ORKToneAudiometrySample);
+        ORKLegacy_DECODE_ENUM(aDecoder, movingDirection);
+        ORKLegacy_DECODE_BOOL(aDecoder, dominantHandTested);
+        ORKLegacy_DECODE_INTEGER(aDecoder, numberOfPegs);
+        ORKLegacy_DECODE_INTEGER(aDecoder, threshold);
+        ORKLegacy_DECODE_BOOL(aDecoder, rotated);
+        ORKLegacy_DECODE_INTEGER(aDecoder, totalSuccesses);
+        ORKLegacy_DECODE_INTEGER(aDecoder, totalFailures);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, totalTime);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, totalDistance);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, samples, ORKLegacyToneAudiometrySample);
     }
     return self;
 }
@@ -1125,7 +1125,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
             (self.totalFailures == castObject.totalFailures) &&
             (self.totalTime == castObject.totalTime) &&
             (self.totalDistance == castObject.totalDistance) &&
-            ORKEqualObjects(self.samples, castObject.samples)) ;
+            ORKLegacyEqualObjects(self.samples, castObject.samples)) ;
 }
 
 - (NSUInteger)hash {
@@ -1133,7 +1133,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKHolePegTestResult *result = [super copyWithZone:zone];
+    ORKLegacyHolePegTestResult *result = [super copyWithZone:zone];
     result.movingDirection = self.movingDirection;
     result.dominantHandTested = self.isDominantHandTested;
     result.numberOfPegs = self.numberOfPegs;
@@ -1154,22 +1154,22 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKHolePegTestSample
+@implementation ORKLegacyHolePegTestSample
 
 + (BOOL)supportsSecureCoding {
     return YES;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_DOUBLE(aCoder, time);
-    ORK_ENCODE_DOUBLE(aCoder, distance);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, time);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, distance);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, time);
-        ORK_DECODE_DOUBLE(aDecoder, distance);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, time);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, distance);
     }
     return self;
 }
@@ -1186,7 +1186,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKHolePegTestSample *sample = [[[self class] allocWithZone:zone] init];
+    ORKLegacyHolePegTestSample *sample = [[[self class] allocWithZone:zone] init];
     sample.time = self.time;
     sample.distance = self.distance;
     return sample;
@@ -1199,7 +1199,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKDataResult
+@implementation ORKLegacyDataResult
 
 - (BOOL)isSaveable {
     return (_data != nil);
@@ -1207,17 +1207,17 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, data);
-    ORK_ENCODE_OBJ(aCoder, filename);
-    ORK_ENCODE_OBJ(aCoder, contentType);
+    ORKLegacy_ENCODE_OBJ(aCoder, data);
+    ORKLegacy_ENCODE_OBJ(aCoder, filename);
+    ORKLegacy_ENCODE_OBJ(aCoder, contentType);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, data, NSData);
-        ORK_DECODE_OBJ_CLASS(aDecoder, filename, NSString);
-        ORK_DECODE_OBJ_CLASS(aDecoder, contentType, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, data, NSData);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, filename, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, contentType, NSString);
     }
     return self;
 }
@@ -1231,9 +1231,9 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.data, castObject.data) &&
-            ORKEqualObjects(self.filename, castObject.filename) &&
-            ORKEqualObjects(self.contentType, castObject.contentType));
+            ORKLegacyEqualObjects(self.data, castObject.data) &&
+            ORKLegacyEqualObjects(self.filename, castObject.filename) &&
+            ORKLegacyEqualObjects(self.contentType, castObject.contentType));
 }
 
 - (NSUInteger)hash {
@@ -1241,7 +1241,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKDataResult *result = [super copyWithZone:zone];
+    ORKLegacyDataResult *result = [super copyWithZone:zone];
     result.data = self.data;
     result.filename = self.filename;
     result.contentType = self.contentType;
@@ -1256,19 +1256,19 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKConsentSignatureResult
+@implementation ORKLegacyConsentSignatureResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, signature);
-    ORK_ENCODE_BOOL(aCoder, consented);
+    ORKLegacy_ENCODE_OBJ(aCoder, signature);
+    ORKLegacy_ENCODE_BOOL(aCoder, consented);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, signature, ORKConsentSignature);
-        ORK_DECODE_BOOL(aDecoder, consented);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, signature, ORKLegacyConsentSignature);
+        ORKLegacy_DECODE_BOOL(aDecoder, consented);
     }
     return self;
 }
@@ -1278,7 +1278,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKConsentSignatureResult *result = [super copyWithZone:zone];
+    ORKLegacyConsentSignatureResult *result = [super copyWithZone:zone];
     result.signature = _signature;
     result.consented = _consented;
     return result;
@@ -1289,7 +1289,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.signature, castObject.signature) &&
+            ORKLegacyEqualObjects(self.signature, castObject.signature) &&
             (self.consented == castObject.consented));
 }
 
@@ -1297,10 +1297,10 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     return super.hash ^ self.signature.hash;
 }
 
-- (void)applyToDocument:(ORKConsentDocument *)document {
+- (void)applyToDocument:(ORKLegacyConsentDocument *)document {
     __block NSUInteger indexToBeReplaced = NSNotFound;
     [[document signatures] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        ORKConsentSignature *signature = obj;
+        ORKLegacyConsentSignature *signature = obj;
         if ([signature.identifier isEqualToString:self.signature.identifier]) {
             indexToBeReplaced = idx;
             *stop = YES;
@@ -1321,7 +1321,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKQuestionResult
+@implementation ORKLegacyQuestionResult
 
 - (BOOL)isSaveable {
     return YES;
@@ -1329,13 +1329,13 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_ENUM(aCoder, questionType);
+    ORKLegacy_ENCODE_ENUM(aCoder, questionType);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_ENUM(aDecoder, questionType);
+        ORKLegacy_DECODE_ENUM(aDecoder, questionType);
     }
     return self;
 }
@@ -1357,13 +1357,13 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKQuestionResult *result = [super copyWithZone:zone];
+    ORKLegacyQuestionResult *result = [super copyWithZone:zone];
     result.questionType = self.questionType;
     return result;
 }
 
 - (NSObject *)validateAnswer:(id)answer {
-    if (answer == ORKNullAnswerValue()) {
+    if (answer == ORKLegacyNullAnswerValue()) {
         answer = nil;
     }
     NSParameterAssert(!answer || [answer isKindOfClass:[[self class] answerClass]]);
@@ -1393,7 +1393,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
         NSArray *answerLines = [answerDescription componentsSeparatedByString:@"\n"];
         const NSUInteger numberOfAnswerLines = answerLines.count;
         [answerLines enumerateObjectsUsingBlock:^(NSString *answerLineString, NSUInteger idx, BOOL *stop) {
-            [indentatedAnswerDescription appendFormat:@"%@%@", ORKPaddingWithNumberOfSpaces(numberOfPaddingSpaces + NumberOfPaddingSpacesForIndentationLevel), answerLineString];
+            [indentatedAnswerDescription appendFormat:@"%@%@", ORKLegacyPaddingWithNumberOfSpaces(numberOfPaddingSpaces + NumberOfPaddingSpacesForIndentationLevel), answerLineString];
             if (idx != numberOfAnswerLines - 1) {
                 [indentatedAnswerDescription appendString:@"\n"];
             }
@@ -1410,17 +1410,17 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKScaleQuestionResult
+@implementation ORKLegacyScaleQuestionResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, scaleAnswer);
+    ORKLegacy_ENCODE_OBJ(aCoder, scaleAnswer);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, scaleAnswer, NSNumber);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, scaleAnswer, NSNumber);
     }
     return self;
 }
@@ -1433,7 +1433,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     BOOL isParentSame = [super isEqual:object];
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.scaleAnswer, castObject.scaleAnswer));
+            ORKLegacyEqualObjects(self.scaleAnswer, castObject.scaleAnswer));
 }
 
 - (NSUInteger)hash {
@@ -1441,7 +1441,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKScaleQuestionResult *result = [super copyWithZone:zone];
+    ORKLegacyScaleQuestionResult *result = [super copyWithZone:zone];
     result->_scaleAnswer = [self.scaleAnswer copyWithZone:zone];
     return result;
 }
@@ -1462,17 +1462,17 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKChoiceQuestionResult
+@implementation ORKLegacyChoiceQuestionResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, choiceAnswers);
+    ORKLegacy_ENCODE_OBJ(aCoder, choiceAnswers);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_ARRAY(aDecoder, choiceAnswers, NSObject);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, choiceAnswers, NSObject);
     }
     return self;
 }
@@ -1486,7 +1486,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.choiceAnswers, castObject.choiceAnswers));
+            ORKLegacyEqualObjects(self.choiceAnswers, castObject.choiceAnswers));
 }
 
 - (NSUInteger)hash {
@@ -1494,7 +1494,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKChoiceQuestionResult *result = [super copyWithZone:zone];
+    ORKLegacyChoiceQuestionResult *result = [super copyWithZone:zone];
     result->_choiceAnswers = [self.choiceAnswers copyWithZone:zone];
     return result;
 }
@@ -1515,19 +1515,19 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKMultipleComponentQuestionResult
+@implementation ORKLegacyMultipleComponentQuestionResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, componentsAnswer);
-    ORK_ENCODE_OBJ(aCoder, separator);
+    ORKLegacy_ENCODE_OBJ(aCoder, componentsAnswer);
+    ORKLegacy_ENCODE_OBJ(aCoder, separator);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_ARRAY(aDecoder, componentsAnswer, NSObject);
-        ORK_DECODE_OBJ_CLASS(aDecoder, separator, NSString);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, componentsAnswer, NSObject);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, separator, NSString);
     }
     return self;
 }
@@ -1541,8 +1541,8 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.componentsAnswer, castObject.componentsAnswer) &&
-            ORKEqualObjects(self.separator, castObject.separator));
+            ORKLegacyEqualObjects(self.componentsAnswer, castObject.componentsAnswer) &&
+            ORKLegacyEqualObjects(self.separator, castObject.separator));
 }
 
 - (NSUInteger)hash {
@@ -1572,17 +1572,17 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKBooleanQuestionResult
+@implementation ORKLegacyBooleanQuestionResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, booleanAnswer);
+    ORKLegacy_ENCODE_OBJ(aCoder, booleanAnswer);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, booleanAnswer, NSNumber);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, booleanAnswer, NSNumber);
     }
     return self;
 }
@@ -1596,7 +1596,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.booleanAnswer, castObject.booleanAnswer));
+            ORKLegacyEqualObjects(self.booleanAnswer, castObject.booleanAnswer));
 }
 
 - (NSUInteger)hash {
@@ -1604,7 +1604,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKBooleanQuestionResult *result = [super copyWithZone:zone];
+    ORKLegacyBooleanQuestionResult *result = [super copyWithZone:zone];
     result->_booleanAnswer = [self.booleanAnswer copyWithZone:zone];
     return result;
 }
@@ -1615,7 +1615,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 
 - (void)setAnswer:(id)answer {
     if ([answer isKindOfClass:[NSArray class]]) {
-        // Because ORKBooleanAnswerFormat has ORKChoiceAnswerFormat as its implied format.
+        // Because ORKLegacyBooleanAnswerFormat has ORKLegacyChoiceAnswerFormat as its implied format.
         NSArray *answerArray = answer;
         NSAssert(answerArray.count <= 1, @"Should be no more than one answer");
         answer = answerArray.firstObject;
@@ -1631,17 +1631,17 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKTextQuestionResult
+@implementation ORKLegacyTextQuestionResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, textAnswer);
+    ORKLegacy_ENCODE_OBJ(aCoder, textAnswer);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, textAnswer, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, textAnswer, NSString);
     }
     return self;
 }
@@ -1655,7 +1655,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.textAnswer, castObject.textAnswer));
+            ORKLegacyEqualObjects(self.textAnswer, castObject.textAnswer));
 }
 
 - (NSUInteger)hash {
@@ -1663,7 +1663,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTextQuestionResult *result = [super copyWithZone:zone];
+    ORKLegacyTextQuestionResult *result = [super copyWithZone:zone];
     result->_textAnswer = [self.textAnswer copyWithZone:zone];
     return result;
 }
@@ -1684,19 +1684,19 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKNumericQuestionResult
+@implementation ORKLegacyNumericQuestionResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, numericAnswer);
-    ORK_ENCODE_OBJ(aCoder, unit);
+    ORKLegacy_ENCODE_OBJ(aCoder, numericAnswer);
+    ORKLegacy_ENCODE_OBJ(aCoder, unit);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, numericAnswer, NSNumber);
-        ORK_DECODE_OBJ_CLASS(aDecoder, unit, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, numericAnswer, NSNumber);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, unit, NSString);
     }
     return self;
 }
@@ -1710,8 +1710,8 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.numericAnswer, castObject.numericAnswer) &&
-            ORKEqualObjects(self.unit, castObject.unit));
+            ORKLegacyEqualObjects(self.numericAnswer, castObject.numericAnswer) &&
+            ORKLegacyEqualObjects(self.unit, castObject.unit));
 }
 
 - (NSUInteger)hash {
@@ -1719,7 +1719,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKNumericQuestionResult *result = [super copyWithZone:zone];
+    ORKLegacyNumericQuestionResult *result = [super copyWithZone:zone];
     result->_unit = [self.unit copyWithZone:zone];
     result->_numericAnswer = [self.numericAnswer copyWithZone:zone];
     return result;
@@ -1730,7 +1730,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (void)setAnswer:(id)answer {
-    if (answer == ORKNullAnswerValue()) {
+    if (answer == ORKLegacyNullAnswerValue()) {
         answer = nil;
     }
     NSAssert(!answer || [answer isKindOfClass:[[self class] answerClass]], @"Answer should be of class %@", NSStringFromClass([[self class] answerClass]));
@@ -1748,17 +1748,17 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKTimeOfDayQuestionResult
+@implementation ORKLegacyTimeOfDayQuestionResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, dateComponentsAnswer);
+    ORKLegacy_ENCODE_OBJ(aCoder, dateComponentsAnswer);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, dateComponentsAnswer, NSDateComponents);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, dateComponentsAnswer, NSDateComponents);
     }
     return self;
 }
@@ -1772,7 +1772,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.dateComponentsAnswer, castObject.dateComponentsAnswer));
+            ORKLegacyEqualObjects(self.dateComponentsAnswer, castObject.dateComponentsAnswer));
 }
 
 - (NSUInteger)hash {
@@ -1780,7 +1780,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTimeOfDayQuestionResult *result = [super copyWithZone:zone];
+    ORKLegacyTimeOfDayQuestionResult *result = [super copyWithZone:zone];
     result->_dateComponentsAnswer = [self.dateComponentsAnswer copyWithZone:zone];
     return result;
 }
@@ -1805,17 +1805,17 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKTimeIntervalQuestionResult
+@implementation ORKLegacyTimeIntervalQuestionResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, intervalAnswer);
+    ORKLegacy_ENCODE_OBJ(aCoder, intervalAnswer);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, intervalAnswer, NSNumber);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, intervalAnswer, NSNumber);
     }
     return self;
 }
@@ -1829,7 +1829,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.intervalAnswer, castObject.intervalAnswer));
+            ORKLegacyEqualObjects(self.intervalAnswer, castObject.intervalAnswer));
 }
 
 - (NSUInteger)hash {
@@ -1837,7 +1837,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTimeIntervalQuestionResult *result = [super copyWithZone:zone];
+    ORKLegacyTimeIntervalQuestionResult *result = [super copyWithZone:zone];
     result->_intervalAnswer = [self.intervalAnswer copyWithZone:zone];
     return result;
 }
@@ -1858,21 +1858,21 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@implementation ORKDateQuestionResult
+@implementation ORKLegacyDateQuestionResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, calendar);
-    ORK_ENCODE_OBJ(aCoder, timeZone);
-    ORK_ENCODE_OBJ(aCoder, dateAnswer);
+    ORKLegacy_ENCODE_OBJ(aCoder, calendar);
+    ORKLegacy_ENCODE_OBJ(aCoder, timeZone);
+    ORKLegacy_ENCODE_OBJ(aCoder, dateAnswer);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, calendar, NSCalendar);
-        ORK_DECODE_OBJ_CLASS(aDecoder, timeZone, NSTimeZone);
-        ORK_DECODE_OBJ_CLASS(aDecoder, dateAnswer, NSDate);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, calendar, NSCalendar);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, timeZone, NSTimeZone);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, dateAnswer, NSDate);
     }
     return self;
 }
@@ -1887,9 +1887,9 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.timeZone, castObject.timeZone) &&
-            ORKEqualObjects(self.calendar, castObject.calendar) &&
-            ORKEqualObjects(self.dateAnswer, castObject.dateAnswer));
+            ORKLegacyEqualObjects(self.timeZone, castObject.timeZone) &&
+            ORKLegacyEqualObjects(self.calendar, castObject.calendar) &&
+            ORKLegacyEqualObjects(self.dateAnswer, castObject.dateAnswer));
 }
 
 - (NSUInteger)hash {
@@ -1897,7 +1897,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKDateQuestionResult *result = [super copyWithZone:zone];
+    ORKLegacyDateQuestionResult *result = [super copyWithZone:zone];
     result->_calendar = [self.calendar copyWithZone:zone];
     result->_timeZone = [self.timeZone copyWithZone:zone];
     result->_dateAnswer = [self.dateAnswer copyWithZone:zone];
@@ -1920,19 +1920,19 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 @end
 
 
-@interface ORKCollectionResult ()
+@interface ORKLegacyCollectionResult ()
 
 - (void)setResultsCopyObjects:(NSArray *)results;
 
 @end
 
 
-@implementation ORKCollectionResult
+@implementation ORKLegacyCollectionResult
 
 - (BOOL)isSaveable {
     BOOL saveable = NO;
     
-    for (ORKResult *result in _results) {
+    for (ORKLegacyResult *result in _results) {
         if ([result isSaveable]) {
             saveable = YES;
             break;
@@ -1943,13 +1943,13 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, results);
+    ORKLegacy_ENCODE_OBJ(aCoder, results);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_ARRAY(aDecoder, results, ORKResult);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, results, ORKLegacyResult);
     }
     return self;
 }
@@ -1963,7 +1963,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.results, castObject.results));
+            ORKLegacyEqualObjects(self.results, castObject.results));
 }
 
 - (NSUInteger)hash {
@@ -1971,11 +1971,11 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 }
 
 - (void)setResultsCopyObjects:(NSArray *)results {
-    _results = ORKArrayCopyObjects(results);
+    _results = ORKLegacyArrayCopyObjects(results);
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKCollectionResult *result = [super copyWithZone:zone];
+    ORKLegacyCollectionResult *result = [super copyWithZone:zone];
     [result setResultsCopyObjects: self.results];
     return result;
 }
@@ -1987,13 +1987,13 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     return _results;
 }
 
-- (ORKResult *)resultForIdentifier:(NSString *)identifier {
+- (ORKLegacyResult *)resultForIdentifier:(NSString *)identifier {
     
     if (identifier == nil) {
         return nil;
     }
     
-    __block ORKQuestionResult *result = nil;
+    __block ORKLegacyQuestionResult *result = nil;
     
     // Look through the result set in reverse-order to account for the possibility of
     // multiple results with the same identifier (due to a navigation loop)
@@ -2001,11 +2001,11 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     id obj = enumerator.nextObject;
     while ((result== nil) && (obj != nil)) {
         
-        if (NO == [obj isKindOfClass:[ORKResult class]]) {
-            @throw [NSException exceptionWithName:NSGenericException reason:[NSString stringWithFormat: @"Expected result object to be ORKResult type: %@", obj] userInfo:nil];
+        if (NO == [obj isKindOfClass:[ORKLegacyResult class]]) {
+            @throw [NSException exceptionWithName:NSGenericException reason:[NSString stringWithFormat: @"Expected result object to be ORKLegacyResult type: %@", obj] userInfo:nil];
         }
         
-        NSString *anIdentifier = [(ORKResult *)obj identifier];
+        NSString *anIdentifier = [(ORKLegacyResult *)obj identifier];
         if ([anIdentifier isEqual:identifier]) {
             result = obj;
         }
@@ -2015,7 +2015,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     return result;
 }
 
-- (ORKResult *)firstResult {
+- (ORKLegacyResult *)firstResult {
     
     return self.results.firstObject;
 }
@@ -2024,7 +2024,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     NSMutableString *description = [NSMutableString stringWithFormat:@"%@; results: (", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces]];
     
     NSUInteger numberOfResults = self.results.count;
-    [self.results enumerateObjectsUsingBlock:^(ORKResult *result, NSUInteger idx, BOOL *stop) {
+    [self.results enumerateObjectsUsingBlock:^(ORKLegacyResult *result, NSUInteger idx, BOOL *stop) {
         if (idx == 0) {
             [description appendString:@"\n"];
         }
@@ -2036,14 +2036,14 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
         }
     }];
     
-    [description appendFormat:@"%@)%@", ORKPaddingWithNumberOfSpaces((numberOfResults == 0) ? 0 : numberOfPaddingSpaces), self.descriptionSuffix];
+    [description appendFormat:@"%@)%@", ORKLegacyPaddingWithNumberOfSpaces((numberOfResults == 0) ? 0 : numberOfPaddingSpaces), self.descriptionSuffix];
     return [description copy];
 }
 
 @end
 
 
-@implementation ORKTaskResult
+@implementation ORKLegacyTaskResult
 
 - (instancetype)initWithTaskIdentifier:(NSString *)identifier
                        taskRunUUID:(NSUUID *)taskRunUUID
@@ -2058,15 +2058,15 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, taskRunUUID);
-    ORK_ENCODE_URL(aCoder, outputDirectory);
+    ORKLegacy_ENCODE_OBJ(aCoder, taskRunUUID);
+    ORKLegacy_ENCODE_URL(aCoder, outputDirectory);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, taskRunUUID, NSUUID);
-        ORK_DECODE_URL(aDecoder, outputDirectory);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, taskRunUUID, NSUUID);
+        ORKLegacy_DECODE_URL(aDecoder, outputDirectory);
     }
     return self;
 }
@@ -2080,8 +2080,8 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.taskRunUUID, castObject.taskRunUUID) &&
-            ORKEqualFileURLs(self.outputDirectory, castObject.outputDirectory));
+            ORKLegacyEqualObjects(self.taskRunUUID, castObject.taskRunUUID) &&
+            ORKLegacyEqualFileURLs(self.outputDirectory, castObject.outputDirectory));
 }
 
 - (NSUInteger)hash {
@@ -2090,27 +2090,27 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTaskResult *result = [super copyWithZone:zone];
+    ORKLegacyTaskResult *result = [super copyWithZone:zone];
     result->_taskRunUUID = [self.taskRunUUID copy];
     result->_outputDirectory =  [self.outputDirectory copy];
     return result;
 }
 
-- (ORKStepResult *)stepResultForStepIdentifier:(NSString *)stepIdentifier {
-    return (ORKStepResult *)[self resultForIdentifier:stepIdentifier];
+- (ORKLegacyStepResult *)stepResultForStepIdentifier:(NSString *)stepIdentifier {
+    return (ORKLegacyStepResult *)[self resultForIdentifier:stepIdentifier];
 }
 
 @end
 
 
-@implementation ORKLocation
+@implementation ORKLegacyLocation
 
 + (instancetype)new {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate
@@ -2153,9 +2153,9 @@ static NSString *const RegionRadiusKey = @"region.radius";
 static NSString *const RegionIdentifierKey = @"region.identifier";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_OBJ(aCoder, userInput);
-    ORK_ENCODE_COORDINATE(aCoder, coordinate);
-    ORK_ENCODE_OBJ(aCoder, addressDictionary);
+    ORKLegacy_ENCODE_OBJ(aCoder, userInput);
+    ORKLegacy_ENCODE_COORDINATE(aCoder, coordinate);
+    ORKLegacy_ENCODE_OBJ(aCoder, addressDictionary);
 
     [aCoder encodeObject:@(_region.center.latitude) forKey:RegionCenterLatitudeKey];
     [aCoder encodeObject:@(_region.center.longitude) forKey:RegionCenterLongitudeKey];
@@ -2166,10 +2166,10 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, userInput, NSString);
-        ORK_DECODE_COORDINATE(aDecoder, coordinate);
-        ORK_DECODE_OBJ_CLASS(aDecoder, addressDictionary, NSDictionary);
-        ORK_DECODE_OBJ_CLASS(aDecoder, region, CLCircularRegion);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, userInput, NSString);
+        ORKLegacy_DECODE_COORDINATE(aDecoder, coordinate);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, addressDictionary, NSDictionary);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, region, CLCircularRegion);
         
         NSNumber *latitude = [aDecoder decodeObjectOfClass:[NSNumber class] forKey:RegionCenterLatitudeKey];
         NSNumber *longitude = [aDecoder decodeObjectOfClass:[NSNumber class] forKey:RegionCenterLongitudeKey];
@@ -2188,26 +2188,26 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     }
     
     __typeof(self) castObject = object;
-    return (ORKEqualObjects(self.userInput, castObject.userInput) &&
-            ORKEqualObjects(self.addressDictionary, castObject.addressDictionary) &&
-            ORKEqualObjects(self.region, castObject.region) &&
-            ORKEqualObjects([NSValue valueWithMKCoordinate:self.coordinate], [NSValue valueWithMKCoordinate:castObject.coordinate]));
+    return (ORKLegacyEqualObjects(self.userInput, castObject.userInput) &&
+            ORKLegacyEqualObjects(self.addressDictionary, castObject.addressDictionary) &&
+            ORKLegacyEqualObjects(self.region, castObject.region) &&
+            ORKLegacyEqualObjects([NSValue valueWithMKCoordinate:self.coordinate], [NSValue valueWithMKCoordinate:castObject.coordinate]));
 }
 
 @end
 
 
-@implementation ORKLocationQuestionResult
+@implementation ORKLegacyLocationQuestionResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, locationAnswer);
+    ORKLegacy_ENCODE_OBJ(aCoder, locationAnswer);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, locationAnswer, ORKLocation);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, locationAnswer, ORKLegacyLocation);
     }
     return self;
 }
@@ -2220,17 +2220,17 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     BOOL isParentSame = [super isEqual:object];
     
     __typeof(self) castObject = object;
-    return (isParentSame && ORKEqualObjects(self.locationAnswer, castObject.locationAnswer));
+    return (isParentSame && ORKLegacyEqualObjects(self.locationAnswer, castObject.locationAnswer));
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLocationQuestionResult *result = [super copyWithZone:zone];
+    ORKLegacyLocationQuestionResult *result = [super copyWithZone:zone];
     result->_locationAnswer = [self.locationAnswer copy];
     return result;
 }
 
 + (Class)answerClass {
-    return [ORKLocation class];
+    return [ORKLegacyLocation class];
 }
 
 - (void)setAnswer:(id)answer {
@@ -2245,7 +2245,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 @end
 
 
-@implementation ORKStepResult
+@implementation ORKLegacyStepResult
 
 - (instancetype)initWithStepIdentifier:(NSString *)stepIdentifier results:(NSArray *)results {
     self = [super initWithIdentifier:stepIdentifier];
@@ -2266,13 +2266,13 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, enabledAssistiveTechnology);
+    ORKLegacy_ENCODE_OBJ(aCoder, enabledAssistiveTechnology);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, enabledAssistiveTechnology, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, enabledAssistiveTechnology, NSString);
     }
     return self;
 }
@@ -2286,7 +2286,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.enabledAssistiveTechnology, castObject.enabledAssistiveTechnology));
+            ORKLegacyEqualObjects(self.enabledAssistiveTechnology, castObject.enabledAssistiveTechnology));
 }
 
 - (NSUInteger)hash {
@@ -2294,7 +2294,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKStepResult *result = [super copyWithZone:zone];
+    ORKLegacyStepResult *result = [super copyWithZone:zone];
     result->_enabledAssistiveTechnology = [_enabledAssistiveTechnology copy];
     return result;
 }
@@ -2306,29 +2306,29 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 @end
 
 
-@implementation ORKSignatureResult
+@implementation ORKLegacySignatureResult
 
 - (instancetype)initWithSignatureImage:(UIImage *)signatureImage
                          signaturePath:(NSArray <UIBezierPath *> *)signaturePath {
     self = [super init];
     if (self) {
         _signatureImage = [signatureImage copy];
-        _signaturePath = ORKArrayCopyObjects(signaturePath);
+        _signaturePath = ORKLegacyArrayCopyObjects(signaturePath);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_IMAGE(aCoder, signatureImage);
-    ORK_ENCODE_OBJ(aCoder, signaturePath);
+    ORKLegacy_ENCODE_IMAGE(aCoder, signatureImage);
+    ORKLegacy_ENCODE_OBJ(aCoder, signaturePath);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_IMAGE(aDecoder, signatureImage);
-        ORK_DECODE_OBJ_ARRAY(aDecoder, signaturePath, UIBezierPath);
+        ORKLegacy_DECODE_IMAGE(aDecoder, signatureImage);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, signaturePath, UIBezierPath);
     }
     return self;
 }
@@ -2346,33 +2346,33 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKEqualObjects(self.signatureImage, castObject.signatureImage) &&
-            ORKEqualObjects(self.signaturePath, castObject.signaturePath));
+            ORKLegacyEqualObjects(self.signatureImage, castObject.signatureImage) &&
+            ORKLegacyEqualObjects(self.signaturePath, castObject.signaturePath));
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKSignatureResult *result = [super copyWithZone:zone];
+    ORKLegacySignatureResult *result = [super copyWithZone:zone];
     result->_signatureImage = [_signatureImage copy];
-    result->_signaturePath = ORKArrayCopyObjects(_signaturePath);
+    result->_signaturePath = ORKLegacyArrayCopyObjects(_signaturePath);
     return result;
 }
 
 @end
 
 
-@implementation ORKVideoInstructionStepResult
+@implementation ORKLegacyVideoInstructionStepResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     [aCoder encodeFloat:self.playbackStoppedTime forKey:@"playbackStoppedTime"];
-    ORK_ENCODE_BOOL(aCoder, playbackCompleted);
+    ORKLegacy_ENCODE_BOOL(aCoder, playbackCompleted);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.playbackStoppedTime = [aDecoder decodeFloatForKey:@"playbackStoppedTime"];
-        ORK_DECODE_BOOL(aDecoder, playbackCompleted);
+        ORKLegacy_DECODE_BOOL(aDecoder, playbackCompleted);
     }
     return self;
 }
@@ -2396,7 +2396,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKVideoInstructionStepResult *result = [super copyWithZone:zone];
+    ORKLegacyVideoInstructionStepResult *result = [super copyWithZone:zone];
     result->_playbackStoppedTime = self.playbackStoppedTime;
     result->_playbackCompleted = self.playbackCompleted;
     return result;
@@ -2405,9 +2405,9 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 @end
 
 
-@implementation ORKPageResult
+@implementation ORKLegacyPageResult
 
-- (instancetype)initWithPageStep:(ORKPageStep *)step stepResult:(ORKStepResult*)result {
+- (instancetype)initWithPageStep:(ORKLegacyPageStep *)step stepResult:(ORKLegacyStepResult*)result {
     self = [super initWithTaskIdentifier:step.identifier taskRunUUID:[NSUUID UUID] outputDirectory:nil];
     if (self) {
         NSArray <NSString *> *stepIdentifiers = [step.steps valueForKey:@"identifier"];
@@ -2418,12 +2418,12 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
             NSArray *filteredResults = [result.results filteredArrayUsingPredicate:predicate];
             if (filteredResults.count > 0) {
                 NSMutableArray *subresults = [NSMutableArray new];
-                for (ORKResult *subresult in filteredResults) {
-                    ORKResult *copy = [subresult copy];
+                for (ORKLegacyResult *subresult in filteredResults) {
+                    ORKLegacyResult *copy = [subresult copy];
                     copy.identifier = [subresult.identifier substringFromIndex:prefix.length];
                     [subresults addObject:copy];
                 }
-                [results addObject:[[ORKStepResult alloc] initWithStepIdentifier:identifier results:subresults]];
+                [results addObject:[[ORKLegacyStepResult alloc] initWithStepIdentifier:identifier results:subresults]];
             }
         }
         self.results = results;
@@ -2431,14 +2431,14 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     return self;
 }
 
-- (void)addStepResult:(ORKStepResult *)stepResult {
+- (void)addStepResult:(ORKLegacyStepResult *)stepResult {
     if (stepResult == nil) {
         return;
     }
     
     // Remove previous step result and add the new one
     NSMutableArray *results = [self.results mutableCopy] ?: [NSMutableArray new];
-    ORKResult *previousResult = [self resultForIdentifier:stepResult.identifier];
+    ORKLegacyResult *previousResult = [self resultForIdentifier:stepResult.identifier];
     if (previousResult) {
         [results removeObject:previousResult];
     }
@@ -2447,7 +2447,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 }
 
 - (void)removeStepResultWithIdentifier:(NSString *)identifier {
-    ORKResult *result = [self resultForIdentifier:identifier];
+    ORKLegacyResult *result = [self resultForIdentifier:identifier];
     if (result != nil) {
         NSMutableArray *results = [self.results mutableCopy];
         [results removeObject:result];
@@ -2456,7 +2456,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 }
 
 - (void)removeStepResultsAfterStepWithIdentifier:(NSString *)identifier {
-    ORKResult *result = [self resultForIdentifier:identifier];
+    ORKLegacyResult *result = [self resultForIdentifier:identifier];
     if (result != nil) {
         NSUInteger idx = [self.results indexOfObject:result];
         if (idx != NSNotFound) {
@@ -2465,22 +2465,22 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     }
 }
 
-- (NSArray <ORKResult *> *)flattenResults {
+- (NSArray <ORKLegacyResult *> *)flattenResults {
     NSMutableArray *results = [NSMutableArray new];
-    for (ORKResult *result in self.results) {
-        if ([result isKindOfClass:[ORKStepResult class]]) {
-            ORKStepResult *stepResult = (ORKStepResult *)result;
+    for (ORKLegacyResult *result in self.results) {
+        if ([result isKindOfClass:[ORKLegacyStepResult class]]) {
+            ORKLegacyStepResult *stepResult = (ORKLegacyStepResult *)result;
             if (stepResult.results.count > 0) {
                 // For each subresult in this step, append the step identifier onto the result
-                for (ORKResult *result in stepResult.results) {
-                    ORKResult *copy = [result copy];
+                for (ORKLegacyResult *result in stepResult.results) {
+                    ORKLegacyResult *copy = [result copy];
                     NSString *subIdentifier = result.identifier ?: [NSString stringWithFormat:@"%@", @(result.hash)];
                     copy.identifier = [NSString stringWithFormat:@"%@.%@", stepResult.identifier, subIdentifier];
                     [results addObject:copy];
                 }
             } else {
                 // If this is an empty step result then add a base class instance with this identifier
-                [results addObject:[[ORKResult alloc] initWithIdentifier:stepResult.identifier]];
+                [results addObject:[[ORKLegacyResult alloc] initWithIdentifier:stepResult.identifier]];
             }
         } else {
             // If this is *not* a step result then just add it as-is
@@ -2499,7 +2499,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 @end
 
 
-@implementation ORKTrailmakingResult
+@implementation ORKLegacyTrailmakingResult
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     self = [super initWithIdentifier:identifier];
@@ -2511,15 +2511,15 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_INTEGER(aCoder, numberOfErrors);
-    ORK_ENCODE_OBJ(aCoder, taps);
+    ORKLegacy_ENCODE_INTEGER(aCoder, numberOfErrors);
+    ORKLegacy_ENCODE_OBJ(aCoder, taps);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_INTEGER(aDecoder, numberOfErrors);
-        ORK_DECODE_OBJ_ARRAY(aDecoder, taps, ORKTrailmakingTap);
+        ORKLegacy_DECODE_INTEGER(aDecoder, numberOfErrors);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, taps, ORKLegacyTrailmakingTap);
     }
     return self;
 }
@@ -2538,34 +2538,34 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     __typeof(self) castObject = object;
     return (isParentSame &&
             self.numberOfErrors == castObject.numberOfErrors &&
-            ORKEqualObjects(self.taps, castObject.taps));
+            ORKLegacyEqualObjects(self.taps, castObject.taps));
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTrailmakingResult *result = [super copyWithZone:zone];
+    ORKLegacyTrailmakingResult *result = [super copyWithZone:zone];
     result.numberOfErrors = self.numberOfErrors;
-    result.taps = ORKArrayCopyObjects(self.taps);
+    result.taps = ORKLegacyArrayCopyObjects(self.taps);
     return result;
 }
 
 @end
 
 
-@implementation ORKTrailmakingTap
+@implementation ORKLegacyTrailmakingTap
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORK_ENCODE_DOUBLE(aCoder, timestamp);
-    ORK_ENCODE_INTEGER(aCoder, index);
-    ORK_ENCODE_BOOL(aCoder, incorrect);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, timestamp);
+    ORKLegacy_ENCODE_INTEGER(aCoder, index);
+    ORKLegacy_ENCODE_BOOL(aCoder, incorrect);
     
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORK_DECODE_DOUBLE(aDecoder, timestamp);
-        ORK_DECODE_INTEGER(aDecoder, index);
-        ORK_DECODE_BOOL(aDecoder, incorrect);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, timestamp);
+        ORKLegacy_DECODE_INTEGER(aDecoder, index);
+        ORKLegacy_DECODE_BOOL(aDecoder, incorrect);
     }
     return self;
 }
@@ -2591,7 +2591,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTrailmakingTap *tap = [[[self class] allocWithZone:zone] init];
+    ORKLegacyTrailmakingTap *tap = [[[self class] allocWithZone:zone] init];
     tap.timestamp = self.timestamp;
     tap.index = self.index;
     tap.incorrect = self.incorrect;
@@ -2604,17 +2604,17 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 
 @end
 
-@implementation ORKWebViewStepResult
+@implementation ORKLegacyWebViewStepResult
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, result);
+    ORKLegacy_ENCODE_OBJ(aCoder, result);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, result, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, result, NSString);
     }
     return self;
 }
@@ -2636,7 +2636,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKWebViewStepResult *result = [super copyWithZone:zone];
+    ORKLegacyWebViewStepResult *result = [super copyWithZone:zone];
     result->_result = self.result;
     return result;
 }

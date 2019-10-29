@@ -33,14 +33,14 @@
 
 
 /**
- An `ORKVideoInstructionStepViewController` object is the view controller for an `ORKVideoInstructionStep` object.
+ An `ORKLegacyVideoInstructionStepViewController` object is the view controller for an `ORKLegacyVideoInstructionStep` object.
  
  In general, you don't need to instantiate an video instruction step view controller directly.
  Instead, add an video instruction step to a task and present the task using a
  task view controller. When appropriate, the task view controller instantiates the step
  view controller for the step.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKVideoInstructionStepViewController : ORKInstructionStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyVideoInstructionStepViewController : ORKLegacyInstructionStepViewController
 
 @end

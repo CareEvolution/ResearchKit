@@ -36,8 +36,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKAudioStepViewController : ORKActiveStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyAudioStepViewController : ORKLegacyActiveStepViewController
 
 @property (nonatomic, assign) CGFloat alertThreshold;
 

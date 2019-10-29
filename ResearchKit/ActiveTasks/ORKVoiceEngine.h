@@ -35,9 +35,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKVoiceEngine : NSObject <AVSpeechSynthesizerDelegate>
+@interface ORKLegacyVoiceEngine : NSObject <AVSpeechSynthesizerDelegate>
 
-+ (ORKVoiceEngine *)sharedVoiceEngine;
++ (ORKLegacyVoiceEngine *)sharedVoiceEngine;
 
 - (void)speakText:(NSString *)text;
 

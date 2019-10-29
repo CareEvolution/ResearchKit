@@ -34,7 +34,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKWebViewStep` class represents a step that displays an embedded webview.
+ The `ORKLegacyWebViewStep` class represents a step that displays an embedded webview.
  
  This may be useful in cases where extreme custom styling is necessary, or an instrument
  with specific requirements does not yet have a native implementation.
@@ -47,8 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
  Where "answer" is the string answer that will be captured in the WebViewStepResult.
  A string answer is required or the user will be unable to proceed.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKWebViewStep : ORKStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyWebViewStep : ORKLegacyStep
 
 /**
  Returns a new web view step that includes the specified identifier and will display the specified html.

@@ -34,15 +34,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKAnswerFormat;
+@class ORKLegacyAnswerFormat;
 
-@interface ORKFormItem ()
+@interface ORKLegacyFormItem ()
 
-@property (nonatomic, weak, nullable) ORKFormStep *step;
+@property (nonatomic, weak, nullable) ORKLegacyFormStep *step;
 
-- (nullable ORKAnswerFormat *)impliedAnswerFormat;
+- (nullable ORKLegacyAnswerFormat *)impliedAnswerFormat;
 
-- (ORKQuestionType)questionType;
+- (ORKLegacyQuestionType)questionType;
 
 @end
 

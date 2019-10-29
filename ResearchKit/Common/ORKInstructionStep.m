@@ -38,7 +38,7 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKInstructionStep
+@implementation ORKLegacyInstructionStep
 
 - (void)setAuxiliaryImage:(UIImage *)auxiliaryImage {
     _auxiliaryImage = auxiliaryImage;
@@ -48,28 +48,28 @@
 }
 
 + (Class)stepViewControllerClass {
-    return [ORKInstructionStepViewController class];
+    return [ORKLegacyInstructionStepViewController class];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, detailText, NSString);
-        ORK_DECODE_OBJ_CLASS(aDecoder, footnote, NSString);
-        ORK_DECODE_IMAGE(aDecoder, image);
-        ORK_DECODE_IMAGE(aDecoder, auxiliaryImage);
-        ORK_DECODE_IMAGE(aDecoder, iconImage);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, detailText, NSString);
+        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, footnote, NSString);
+        ORKLegacy_DECODE_IMAGE(aDecoder, image);
+        ORKLegacy_DECODE_IMAGE(aDecoder, auxiliaryImage);
+        ORKLegacy_DECODE_IMAGE(aDecoder, iconImage);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, detailText);
-    ORK_ENCODE_OBJ(aCoder, footnote);
-    ORK_ENCODE_IMAGE(aCoder, image);
-    ORK_ENCODE_IMAGE(aCoder, auxiliaryImage);
-    ORK_ENCODE_IMAGE(aCoder, iconImage);
+    ORKLegacy_ENCODE_OBJ(aCoder, detailText);
+    ORKLegacy_ENCODE_OBJ(aCoder, footnote);
+    ORKLegacy_ENCODE_IMAGE(aCoder, image);
+    ORKLegacy_ENCODE_IMAGE(aCoder, auxiliaryImage);
+    ORKLegacy_ENCODE_IMAGE(aCoder, iconImage);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -77,7 +77,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKInstructionStep *step = [super copyWithZone:zone];
+    ORKLegacyInstructionStep *step = [super copyWithZone:zone];
     step.detailText = self.detailText;
     step.footnote = self.footnote;
     step.image = self.image;
@@ -91,11 +91,11 @@
     
     __typeof(self) castObject = object;
     return isParentSame &&
-        ORKEqualObjects(self.detailText, castObject.detailText) &&
-        ORKEqualObjects(self.footnote, castObject.footnote) &&
-        ORKEqualObjects(self.image, castObject.image) &&
-        ORKEqualObjects(self.auxiliaryImage, castObject.auxiliaryImage) &&
-        ORKEqualObjects(self.iconImage, castObject.iconImage);
+        ORKLegacyEqualObjects(self.detailText, castObject.detailText) &&
+        ORKLegacyEqualObjects(self.footnote, castObject.footnote) &&
+        ORKLegacyEqualObjects(self.image, castObject.image) &&
+        ORKLegacyEqualObjects(self.auxiliaryImage, castObject.auxiliaryImage) &&
+        ORKLegacyEqualObjects(self.iconImage, castObject.iconImage);
 }
 
 - (NSUInteger)hash {

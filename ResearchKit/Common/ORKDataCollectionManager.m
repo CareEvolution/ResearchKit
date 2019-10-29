@@ -36,13 +36,13 @@
 #import <HealthKit/HealthKit.h>
 
 
-static  NSString *const ORKDataCollectionPersistenceFileName = @".dataCollection.ork.data";
+static  NSString *const ORKLegacyDataCollectionPersistenceFileName = @".dataCollection.ork.data";
 
-@implementation ORKDataCollectionManager {
+@implementation ORKLegacyDataCollectionManager {
     dispatch_queue_t _queue;
     NSOperationQueue *_operationQueue;
     NSString * _Nonnull _managedDirectory;
-    NSArray<ORKCollector *> *_collectors;
+    NSArray<ORKLegacyCollector *> *_collectors;
     HKHealthStore *_healthStore;
     CMMotionActivityManager *_activityManager;
     NSMutableArray<HKObserverQueryCompletionHandler> *_completionHandlers;
@@ -101,7 +101,7 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
     }
 }
 
-- (void)onWorkQueueSync:(BOOL (^)(ORKDataCollectionManager *manager))block {
+- (void)onWorkQueueSync:(BOOL (^)(ORKLegacyDataCollectionManager *manager))block {
     dispatch_sync_if_not_on_queue(_queue, ^{
         if (block(self)) {
             [self persistCollectors];
@@ -109,7 +109,7 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
     });
 }
 
-- (void)onWorkQueueAsync:(BOOL (^)(ORKDataCollectionManager *manager))block {
+- (void)onWorkQueueAsync:(BOOL (^)(ORKLegacyDataCollectionManager *manager))block {
     dispatch_async(_queue, ^{
         if (block(self)) {
             [self persistCollectors];
@@ -131,7 +131,7 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
     return _activityManager;
 }
 
-- (NSArray<ORKCollector *> *)collectors {
+- (NSArray<ORKLegacyCollector *> *)collectors {
     if (_collectors == nil) {
         _collectors = [NSKeyedUnarchiver unarchiveObjectWithFile:[self persistFilePath]];
         if (_collectors == nil) {
@@ -142,7 +142,7 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
 }
 
 - (NSString * _Nonnull)persistFilePath {
-    return [_managedDirectory stringByAppendingPathComponent:ORKDataCollectionPersistenceFileName];
+    return [_managedDirectory stringByAppendingPathComponent:ORKLegacyDataCollectionPersistenceFileName];
 }
 
 - (void)persistCollectors {
@@ -157,26 +157,26 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
     }
 }
 
-- (void)addCollector:(ORKCollector *)collector {
+- (void)addCollector:(ORKLegacyCollector *)collector {
     NSMutableArray *collectors = [self.collectors mutableCopy];
     [collectors addObject:collector];
     _collectors = [collectors copy];
 }
 
-- (ORKHealthCollector *)addHealthCollectorWithSampleType:(HKSampleType*)sampleType unit:(HKUnit *)unit startDate:(NSDate *)startDate error:(NSError**)error {
+- (ORKLegacyHealthCollector *)addHealthCollectorWithSampleType:(HKSampleType*)sampleType unit:(HKUnit *)unit startDate:(NSDate *)startDate error:(NSError**)error {
     
     if (!sampleType) {
-        @throw [NSException exceptionWithName:ORKInvalidArgumentException reason:@"sampleType cannot be nil" userInfo:nil];
+        @throw [NSException exceptionWithName:ORKLegacyInvalidArgumentException reason:@"sampleType cannot be nil" userInfo:nil];
     }
     if (!unit) {
-        @throw [NSException exceptionWithName:ORKInvalidArgumentException reason:@"unit cannot be nil" userInfo:nil];
+        @throw [NSException exceptionWithName:ORKLegacyInvalidArgumentException reason:@"unit cannot be nil" userInfo:nil];
     }
     
-    __block ORKHealthCollector *healthCollector = nil;
+    __block ORKLegacyHealthCollector *healthCollector = nil;
 
-    [self onWorkQueueSync:^BOOL(ORKDataCollectionManager *manager){
+    [self onWorkQueueSync:^BOOL(ORKLegacyDataCollectionManager *manager){
         
-        ORKHealthCollector *collector = [[ORKHealthCollector alloc] initWithSampleType:sampleType unit:unit startDate:startDate];
+        ORKLegacyHealthCollector *collector = [[ORKLegacyHealthCollector alloc] initWithSampleType:sampleType unit:unit startDate:startDate];
         [self addCollector:collector];
         healthCollector = collector;
     
@@ -186,25 +186,25 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
     return healthCollector;
 }
 
-- (ORKHealthCorrelationCollector *)addHealthCorrelationCollectorWithCorrelationType:(HKCorrelationType *)correlationType
+- (ORKLegacyHealthCorrelationCollector *)addHealthCorrelationCollectorWithCorrelationType:(HKCorrelationType *)correlationType
                                                                         sampleTypes:(NSArray<HKSampleType *> *)sampleTypes
                                                                               units:(NSArray<HKUnit *> *)units
                                                                           startDate:(NSDate *)startDate
                                                                               error:(NSError * __autoreleasing *)error {
     if (!correlationType) {
-        @throw [NSException exceptionWithName:ORKInvalidArgumentException reason:@"correlationType cannot be nil" userInfo:nil];
+        @throw [NSException exceptionWithName:ORKLegacyInvalidArgumentException reason:@"correlationType cannot be nil" userInfo:nil];
     }
     if (![sampleTypes count]) {
-        @throw [NSException exceptionWithName:ORKInvalidArgumentException reason:@"sampleTypes cannot be empty" userInfo:nil];
+        @throw [NSException exceptionWithName:ORKLegacyInvalidArgumentException reason:@"sampleTypes cannot be empty" userInfo:nil];
     }
     if ([units count] != [sampleTypes count]) {
-        @throw [NSException exceptionWithName:ORKInvalidArgumentException reason:@"units should be same length as sampleTypes" userInfo:nil];
+        @throw [NSException exceptionWithName:ORKLegacyInvalidArgumentException reason:@"units should be same length as sampleTypes" userInfo:nil];
     }
     
-    __block ORKHealthCorrelationCollector *healthCorrelationCollector = nil;
-    [self onWorkQueueSync:^BOOL(ORKDataCollectionManager *manager) {
+    __block ORKLegacyHealthCorrelationCollector *healthCorrelationCollector = nil;
+    [self onWorkQueueSync:^BOOL(ORKLegacyDataCollectionManager *manager) {
         
-        ORKHealthCorrelationCollector *collector = [[ORKHealthCorrelationCollector alloc] initWithCorrelationType:correlationType
+        ORKLegacyHealthCorrelationCollector *collector = [[ORKLegacyHealthCorrelationCollector alloc] initWithCorrelationType:correlationType
                                                                                                       sampleTypes:sampleTypes
                                                                                                             units:units
                                                                                                         startDate:startDate];
@@ -216,14 +216,14 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
     return healthCorrelationCollector;
 }
 
-- (ORKMotionActivityCollector *)addMotionActivityCollectorWithStartDate:(NSDate *)startDate
+- (ORKLegacyMotionActivityCollector *)addMotionActivityCollectorWithStartDate:(NSDate *)startDate
                                                                   error:(NSError* __autoreleasing *)error {
    
-    __block ORKMotionActivityCollector *motionActivityCollector = nil;
+    __block ORKLegacyMotionActivityCollector *motionActivityCollector = nil;
 
-    [self onWorkQueueSync:^BOOL(ORKDataCollectionManager *manager) {
+    [self onWorkQueueSync:^BOOL(ORKLegacyDataCollectionManager *manager) {
         
-        ORKMotionActivityCollector *collector = [[ORKMotionActivityCollector alloc] initWithStartDate:startDate];
+        ORKLegacyMotionActivityCollector *collector = [[ORKLegacyMotionActivityCollector alloc] initWithStartDate:startDate];
         [self addCollector:collector];
         motionActivityCollector = collector;
 
@@ -233,25 +233,25 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
     return motionActivityCollector;
 }
 
-- (BOOL)removeCollector:(ORKCollector *)collector error:(NSError* __autoreleasing *)error {
+- (BOOL)removeCollector:(ORKLegacyCollector *)collector error:(NSError* __autoreleasing *)error {
     if (!collector) {
-        @throw [NSException exceptionWithName:ORKInvalidArgumentException reason:@"collector cannot be nil" userInfo:nil];
+        @throw [NSException exceptionWithName:ORKLegacyInvalidArgumentException reason:@"collector cannot be nil" userInfo:nil];
     }
     
     __block BOOL success = NO;
     __block NSError *errorOut = nil;
-    [self onWorkQueueSync:^BOOL(ORKDataCollectionManager *manager) {
+    [self onWorkQueueSync:^BOOL(ORKLegacyDataCollectionManager *manager) {
         
         if (_operationQueue.operationCount > 0) {
-            ORK_Log_Debug(@"[startWithObserving] returned due to operation queue is not empty (queue size = %@)", @(_operationQueue.operationCount));
-            errorOut = [NSError errorWithDomain:ORKErrorDomain code:ORKErrorException userInfo:@{NSLocalizedFailureReasonErrorKey: @"Cannot remove collector during collection."}];
+            ORKLegacy_Log_Debug(@"[startWithObserving] returned due to operation queue is not empty (queue size = %@)", @(_operationQueue.operationCount));
+            errorOut = [NSError errorWithDomain:ORKLegacyErrorDomain code:ORKLegacyErrorException userInfo:@{NSLocalizedFailureReasonErrorKey: @"Cannot remove collector during collection."}];
             return NO;
         }
         
         NSMutableArray *collectors = [self.collectors mutableCopy];
       
         if (![collectors containsObject:collector]) {
-            errorOut = [NSError errorWithDomain:ORKErrorDomain code:ORKErrorObjectNotFound userInfo:@{NSLocalizedFailureReasonErrorKey: @"Cannot find collector."}];
+            errorOut = [NSError errorWithDomain:ORKLegacyErrorDomain code:ORKLegacyErrorObjectNotFound userInfo:@{NSLocalizedFailureReasonErrorKey: @"Cannot find collector."}];
             return NO;
         }
         
@@ -273,30 +273,30 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
 - (void)startCollection {
     
     __weak typeof(self) weakSelf = self;
-    NSMutableArray<ORKOperation *> *operations = [NSMutableArray array];
-    [self onWorkQueueAsync:^BOOL(ORKDataCollectionManager *manager) {
+    NSMutableArray<ORKLegacyOperation *> *operations = [NSMutableArray array];
+    [self onWorkQueueAsync:^BOOL(ORKLegacyDataCollectionManager *manager) {
         
         if (_operationQueue.operationCount > 0) {
-            ORK_Log_Debug(@"[startWithObserving] returned due to operation queue is not empty (queue size = %@)", @(_operationQueue.operationCount));
+            ORKLegacy_Log_Debug(@"[startWithObserving] returned due to operation queue is not empty (queue size = %@)", @(_operationQueue.operationCount));
             return NO;
         }
         
         self.lastCollectionDate = [NSDate date];
         
         // Create an operation for each collector
-        for (ORKCollector *collector in self.collectors) {
+        for (ORKLegacyCollector *collector in self.collectors) {
             
-            __block ORKOperation *operation = [collector collectionOperationWithManager:self];
+            __block ORKLegacyOperation *operation = [collector collectionOperationWithManager:self];
             
             // operation could be nil if this type of data collection is not possible
             // on this device.
             if (operation) {
-                __block ORKOperation *blockOp = operation;
+                __block ORKLegacyOperation *blockOp = operation;
                 
                 [operation setCompletionBlock:^{
                     typeof(self) strongSelf = weakSelf;
                     if (blockOp.error) {
-                        id<ORKDataCollectionManagerDelegate> delegate = strongSelf.delegate;
+                        id<ORKLegacyDataCollectionManagerDelegate> delegate = strongSelf.delegate;
                         if (delegate && [delegate respondsToSelector:@selector(collector:didDetectError:)]) {
                             [delegate collector:collector didDetectError:blockOp.error];
                         }
@@ -311,7 +311,7 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
         [completionOperation addExecutionBlock:^{
             
             typeof(self) strongSelf = weakSelf;
-            [strongSelf onWorkQueueSync:^BOOL(ORKDataCollectionManager *manager) {
+            [strongSelf onWorkQueueSync:^BOOL(ORKLegacyDataCollectionManager *manager) {
                 if (_delegate && [_delegate respondsToSelector:@selector(dataCollectionManagerDidCompleteCollection:)]) {
                     [_delegate dataCollectionManagerDidCompleteCollection:self];
                 }
@@ -329,7 +329,7 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
             [completionOperation addDependency:operation];
         }
         
-        ORK_Log_Debug(@"Data Collection queue - new operations:\n%@", operations);
+        ORKLegacy_Log_Debug(@"Data Collection queue - new operations:\n%@", operations);
         [_operationQueue addOperations:operations waitUntilFinished:NO];
         [_operationQueue addOperation:completionOperation];
         

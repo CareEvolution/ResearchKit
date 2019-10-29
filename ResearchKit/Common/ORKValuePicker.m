@@ -38,27 +38,27 @@
 #import "ORKAccessibilityFunctions.h"
 
 
-@interface ORKValuePicker () <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface ORKLegacyValuePicker () <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property (nonatomic, strong) ORKChoiceAnswerFormatHelper *helper;
+@property (nonatomic, strong) ORKLegacyChoiceAnswerFormatHelper *helper;
 
 @end
 
 
-@implementation ORKValuePicker {
+@implementation ORKLegacyValuePicker {
     UIPickerView *_pickerView;
     id _answer;
-    __weak id<ORKPickerDelegate> _pickerDelegate;
+    __weak id<ORKLegacyPickerDelegate> _pickerDelegate;
 }
 
 @synthesize pickerDelegate = _pickerDelegate;
 
-- (instancetype)initWithAnswerFormat:(ORKValuePickerAnswerFormat *)answerFormat answer:(id)answer pickerDelegate:(id<ORKPickerDelegate>)delegate {
+- (instancetype)initWithAnswerFormat:(ORKLegacyValuePickerAnswerFormat *)answerFormat answer:(id)answer pickerDelegate:(id<ORKLegacyPickerDelegate>)delegate {
     self = [super init];
     if (self) {
-        NSAssert([answerFormat isKindOfClass:[ORKValuePickerAnswerFormat class]], @"answerFormat should be ORKValuePickerAnswerFormat");
+        NSAssert([answerFormat isKindOfClass:[ORKLegacyValuePickerAnswerFormat class]], @"answerFormat should be ORKLegacyValuePickerAnswerFormat");
         
-        self.helper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        self.helper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         self.answer = answer;
         _pickerDelegate = delegate;
     
@@ -92,7 +92,7 @@
 }
 
 - (NSString *)selectedLabelText {
-    if ( _answer == ORKNullAnswerValue() || _answer == nil ) {
+    if ( _answer == ORKLegacyNullAnswerValue() || _answer == nil ) {
         return nil;
     }
    
@@ -124,7 +124,7 @@
 
 - (void)accessibilityFocusOnPickerElement {
     if (UIAccessibilityIsVoiceOverRunning()) {
-        ORKAccessibilityPerformBlockAfterDelay(0.75, ^{
+        ORKLegacyAccessibilityPerformBlockAfterDelay(0.75, ^{
             NSArray *axElements = [self.pickerView accessibilityElements];
             if ([axElements count] > 0) {
                 UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, [axElements objectAtIndex:0]);

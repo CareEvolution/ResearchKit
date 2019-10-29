@@ -35,8 +35,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKProgressView : UIView
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyProgressView : UIView
 
 @property (nonatomic, assign) NSInteger count;
 

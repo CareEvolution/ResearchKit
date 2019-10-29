@@ -38,13 +38,13 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Base class, not being used directly.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTableViewCell : UITableViewCell
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTableViewCell : UITableViewCell
 
 @end
 
 
-@interface ORKTableViewCell ()
+@interface ORKLegacyTableViewCell ()
 
 @property (nonatomic, copy, nullable) UIColor *orkSeparatorColor;
 

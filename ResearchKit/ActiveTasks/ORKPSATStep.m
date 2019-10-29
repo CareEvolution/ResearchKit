@@ -36,10 +36,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKPSATStep
+@implementation ORKLegacyPSATStep
 
 + (Class)stepViewControllerClass {
-    return [ORKPSATStepViewController class];
+    return [ORKLegacyPSATStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -55,37 +55,37 @@
 - (void)validateParameters {
     [super validateParameters];
 
-    NSTimeInterval const ORKPSATInterStimulusMinimumInterval = 1.0;
-    NSTimeInterval const ORKPSATInterStimulusMaximumInterval = 5.0;
+    NSTimeInterval const ORKLegacyPSATInterStimulusMinimumInterval = 1.0;
+    NSTimeInterval const ORKLegacyPSATInterStimulusMaximumInterval = 5.0;
     
-    NSTimeInterval const ORKPSATStimulusMinimumDuration = 0.2;
+    NSTimeInterval const ORKLegacyPSATStimulusMinimumDuration = 0.2;
     
-    NSInteger const ORKPSATSerieMinimumLength = 10;
-    NSInteger const ORKPSATSerieMaximumLength = 120;
+    NSInteger const ORKLegacyPSATSerieMinimumLength = 10;
+    NSInteger const ORKLegacyPSATSerieMaximumLength = 120;
 
     NSTimeInterval totalDuration = (self.seriesLength + 1) * self.interStimulusInterval;
     if (self.stepDuration != totalDuration) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"step duration must be equal to %@ seconds.", @(totalDuration)] userInfo:nil];
     }
     
-    if (!(self.presentationMode & ORKPSATPresentationModeAuditory) &&
-        !(self.presentationMode & ORKPSATPresentationModeVisual)) {
+    if (!(self.presentationMode & ORKLegacyPSATPresentationModeAuditory) &&
+        !(self.presentationMode & ORKLegacyPSATPresentationModeVisual)) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"step presentation mode must be auditory and/or visual." userInfo:nil];
     }
     
-    if (self.interStimulusInterval < ORKPSATInterStimulusMinimumInterval ||
-        self.interStimulusInterval > ORKPSATInterStimulusMaximumInterval) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"inter stimulus interval must be greater than or equal to %@ seconds and less than or equal to %@ seconds.", @(ORKPSATInterStimulusMinimumInterval), @(ORKPSATInterStimulusMaximumInterval)] userInfo:nil];
+    if (self.interStimulusInterval < ORKLegacyPSATInterStimulusMinimumInterval ||
+        self.interStimulusInterval > ORKLegacyPSATInterStimulusMaximumInterval) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"inter stimulus interval must be greater than or equal to %@ seconds and less than or equal to %@ seconds.", @(ORKLegacyPSATInterStimulusMinimumInterval), @(ORKLegacyPSATInterStimulusMaximumInterval)] userInfo:nil];
     }
     
-    if ((self.presentationMode & ORKPSATPresentationModeVisual) &&
-        (self.stimulusDuration < ORKPSATStimulusMinimumDuration || self.stimulusDuration > self.interStimulusInterval)) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"stimulus duration must be greater than or equal to %@ seconds and less than or equal to %@ seconds.", @(ORKPSATStimulusMinimumDuration), @(self.interStimulusInterval)] userInfo:nil];
+    if ((self.presentationMode & ORKLegacyPSATPresentationModeVisual) &&
+        (self.stimulusDuration < ORKLegacyPSATStimulusMinimumDuration || self.stimulusDuration > self.interStimulusInterval)) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"stimulus duration must be greater than or equal to %@ seconds and less than or equal to %@ seconds.", @(ORKLegacyPSATStimulusMinimumDuration), @(self.interStimulusInterval)] userInfo:nil];
     }
     
-    if (self.seriesLength < ORKPSATSerieMinimumLength ||
-        self.seriesLength > ORKPSATSerieMaximumLength) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"serie length must be greater than or equal to %@ additions and less than or equal to %@ additions.", @(ORKPSATSerieMinimumLength), @(ORKPSATSerieMaximumLength)] userInfo:nil];
+    if (self.seriesLength < ORKLegacyPSATSerieMinimumLength ||
+        self.seriesLength > ORKLegacyPSATSerieMaximumLength) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"serie length must be greater than or equal to %@ additions and less than or equal to %@ additions.", @(ORKLegacyPSATSerieMinimumLength), @(ORKLegacyPSATSerieMaximumLength)] userInfo:nil];
     }
 }
 
@@ -100,24 +100,24 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_ENUM(aDecoder, presentationMode);
-        ORK_DECODE_DOUBLE(aDecoder, interStimulusInterval);
-        ORK_DECODE_DOUBLE(aDecoder, stimulusDuration);
-        ORK_DECODE_INTEGER(aDecoder, seriesLength);
+        ORKLegacy_DECODE_ENUM(aDecoder, presentationMode);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, interStimulusInterval);
+        ORKLegacy_DECODE_DOUBLE(aDecoder, stimulusDuration);
+        ORKLegacy_DECODE_INTEGER(aDecoder, seriesLength);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_ENUM(aCoder, presentationMode);
-    ORK_ENCODE_DOUBLE(aCoder, interStimulusInterval);
-    ORK_ENCODE_DOUBLE(aCoder, stimulusDuration);
-    ORK_ENCODE_INTEGER(aCoder, seriesLength);
+    ORKLegacy_ENCODE_ENUM(aCoder, presentationMode);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, interStimulusInterval);
+    ORKLegacy_ENCODE_DOUBLE(aCoder, stimulusDuration);
+    ORKLegacy_ENCODE_INTEGER(aCoder, seriesLength);
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKPSATStep *step = [super copyWithZone:zone];
+    ORKLegacyPSATStep *step = [super copyWithZone:zone];
     step.presentationMode = self.presentationMode;
     step.interStimulusInterval = self.interStimulusInterval;
     step.stimulusDuration = self.stimulusDuration;

@@ -35,10 +35,10 @@
 #import <AVFoundation/AVFoundation.h>
 
 
-@implementation ORKVideoInstructionStep
+@implementation ORKLegacyVideoInstructionStep
 
 + (Class)stepViewControllerClass {
-    return [ORKVideoInstructionStepViewController class];
+    return [ORKLegacyVideoInstructionStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -52,16 +52,16 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_URL(aDecoder, videoURL);
-        ORK_DECODE_INTEGER(aDecoder, thumbnailTime);
+        ORKLegacy_DECODE_URL(aDecoder, videoURL);
+        ORKLegacy_DECODE_INTEGER(aDecoder, thumbnailTime);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_URL(aCoder, videoURL);
-    ORK_ENCODE_INTEGER(aCoder, thumbnailTime);
+    ORKLegacy_ENCODE_URL(aCoder, videoURL);
+    ORKLegacy_ENCODE_INTEGER(aCoder, thumbnailTime);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -69,7 +69,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKVideoInstructionStep *step = [super copyWithZone:zone];
+    ORKLegacyVideoInstructionStep *step = [super copyWithZone:zone];
     step.videoURL = self.videoURL;
     step.thumbnailTime = self.thumbnailTime;
     return step;
@@ -78,7 +78,7 @@
 - (BOOL)isEqual:(id)object {
     BOOL isParentSame = [super isEqual:object];
     __typeof(self) castObject = object;
-    return isParentSame && ORKEqualObjects(castObject.videoURL, self.videoURL) &&
+    return isParentSame && ORKLegacyEqualObjects(castObject.videoURL, self.videoURL) &&
         castObject.thumbnailTime == self.thumbnailTime;
 }
 

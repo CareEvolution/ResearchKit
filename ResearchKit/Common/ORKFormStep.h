@@ -35,41 +35,41 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKAnswerFormat;
-@class ORKFormItem;
+@class ORKLegacyAnswerFormat;
+@class ORKLegacyFormItem;
 
 /**
- The `ORKFormStep` class is a concrete subclass of `ORKStep`, used for presenting multiple questions
+ The `ORKLegacyFormStep` class is a concrete subclass of `ORKLegacyStep`, used for presenting multiple questions
  on a single scrollable page.
  
- To use `ORKFormStep`, instantiate the object, fill in its properties, and include it
+ To use `ORKLegacyFormStep`, instantiate the object, fill in its properties, and include it
  in a task. Next, create a task view controller for the task and present it.
  When the task completes, the user's answers are encoded in the result hierarchy
  in the task view controller.
  
- Each question in the form is represented by an `ORKFormItem` object. The form items have an
+ Each question in the form is represented by an `ORKLegacyFormItem` object. The form items have an
  `optional` property that defaults to `YES`. All required questions need to be answered for the
  Continue button to be enabled. If all the form items are optional, at least one question needs to
  be answered for the Continue button to be enabled. You can allow the user to completely skip a
  form step using the Skip button, even if it has required form items, by setting the form step
  `optional` property to yes.
  
- The form can be broken into sections by using an `ORKFormItem` object that includes only a section
+ The form can be broken into sections by using an `ORKLegacyFormItem` object that includes only a section
  title.
  
- The result of a form step is an `ORKStepResult` object that includes a child `ORKQuestionResult`
+ The result of a form step is an `ORKLegacyStepResult` object that includes a child `ORKLegacyQuestionResult`
  object for each form item.
  */
 
-ORK_CLASS_AVAILABLE
-@interface ORKFormStep : ORKStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyFormStep : ORKLegacyStep
 
 /**
  Returns an initialized form step using the specified identifier, title, and text.
  
- @param identifier    The string that identifies the step (see `ORKStep`).
- @param title         The title of the form (see `ORKStep`).
- @param text          The text shown immediately below the title (see `ORKStep`).
+ @param identifier    The string that identifies the step (see `ORKLegacyStep`).
+ @param title         The title of the form (see `ORKLegacyStep`).
+ @param text          The text shown immediately below the title (see `ORKLegacyStep`).
  
  @return As initialized form step object.
  */
@@ -92,27 +92,27 @@ ORK_CLASS_AVAILABLE
  A form step that contains no items is considered invalid and an exception will be thrown
  when it is presented.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKFormItem *> *formItems;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacyFormItem *> *formItems;
 
 @end
 
 
 /**
- The `ORKFormItem` class represents a single item in a form step (`ORKFormStep`), and typically
+ The `ORKLegacyFormItem` class represents a single item in a form step (`ORKLegacyFormStep`), and typically
  represents a question.
  
- To use `ORKFormItem`, instantiate the object, fill in its properties, and incorporate
- it in an `ORKFormStep` object.
+ To use `ORKLegacyFormItem`, instantiate the object, fill in its properties, and incorporate
+ it in an `ORKLegacyFormStep` object.
  
  Usually, a form item corresponds to either a row or a section header in a form, but
  if the answer format is a choice answer format, it may correspond to an entire
  section.
  
- Each form item generates one question result (`ORKQuestionResult`), which becomes a child of its step's
- result (`ORKStepResult`).
+ Each form item generates one question result (`ORKLegacyQuestionResult`), which becomes a child of its step's
+ result (`ORKLegacyStepResult`).
  */
-ORK_CLASS_AVAILABLE
-@interface ORKFormItem : NSObject <NSSecureCoding, NSCopying>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyFormItem : NSObject <NSSecureCoding, NSCopying>
 
 /**
  Returns an initialized form item using the specified identifier, title, and answer format.
@@ -125,7 +125,7 @@ ORK_CLASS_AVAILABLE
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
                               text:(nullable NSString *)text
-                      answerFormat:(nullable ORKAnswerFormat *)answerFormat;
+                      answerFormat:(nullable ORKLegacyAnswerFormat *)answerFormat;
 
 /**
  Returns an initialized form item using the specified identifier, title, optionality and answer format.
@@ -139,7 +139,7 @@ ORK_CLASS_AVAILABLE
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
                               text:(nullable NSString *)text
-                      answerFormat:(nullable ORKAnswerFormat *)answerFormat
+                      answerFormat:(nullable ORKLegacyAnswerFormat *)answerFormat
                           optional:(BOOL) optional;
 
 /**
@@ -155,7 +155,7 @@ ORK_CLASS_AVAILABLE
  A string that identifies the form item.
  
  The identifier should be unique within the form step that contains the form
- item. The identifier is reproduced in the question result object (`ORKQuestionResult`)
+ item. The identifier is reproduced in the question result object (`ORKLegacyQuestionResult`)
  generated for the item.
  */
 @property (nonatomic, copy, readonly) NSString *identifier;
@@ -193,7 +193,7 @@ ORK_CLASS_AVAILABLE
  By default, the answer format is `nil`. The answer format for a form item that represents a section
  header is always `nil`, because no answer is expected.
  */
-@property (nonatomic, copy, readonly, nullable) ORKAnswerFormat *answerFormat;
+@property (nonatomic, copy, readonly, nullable) ORKLegacyAnswerFormat *answerFormat;
 
 /**
  A predicate that when true, hides the item from display.
@@ -203,24 +203,24 @@ ORK_CLASS_AVAILABLE
 /**
  Returns an form item that can be used for confirming a text entry.
  
- This form item is intended to be used with an `ORKFormStep` in order to confirm a previous
+ This form item is intended to be used with an `ORKLegacyFormStep` in order to confirm a previous
  formItem input. Example usage includes a password or participant identifier that is used to
  anonymously identify a study participant.
  
- Currently, only `ORKTextAnswerFormat` is supported. Unsupported `ORKAnswerFormat` types will
+ Currently, only `ORKLegacyTextAnswerFormat` is supported. Unsupported `ORKLegacyAnswerFormat` types will
  throw an exception.
  
- The answer format for this item produces an `ORKBooleanQuestionResult` object.
+ The answer format for this item produces an `ORKLegacyBooleanQuestionResult` object.
  
- @param identifier      The identifier for the `ORKFormItem` that is returned.
- @param text            The text for the `ORKFormItem` that is returned.
+ @param identifier      The identifier for the `ORKLegacyFormItem` that is returned.
+ @param text            The text for the `ORKLegacyFormItem` that is returned.
  @param errorMessage    The error message to display if the fields do not match
  
- @return                An `ORKFormItem` with the indicated identifier and text and an ORKAnswerFormat 
+ @return                An `ORKLegacyFormItem` with the indicated identifier and text and an ORKLegacyAnswerFormat 
                         that is appropriate for confirming the input form item.
  
  */
-- (ORKFormItem *)confirmationAnswerFormItemWithIdentifier:(NSString *)identifier
+- (ORKLegacyFormItem *)confirmationAnswerFormItemWithIdentifier:(NSString *)identifier
                                                      text:(nullable NSString *)text
                                              errorMessage:(NSString *)errorMessage;
 

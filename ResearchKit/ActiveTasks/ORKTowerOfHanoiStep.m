@@ -38,10 +38,10 @@
 
 static const NSUInteger MaximumNumberOfDisks = 8;
 
-@implementation ORKTowerOfHanoiStep
+@implementation ORKLegacyTowerOfHanoiStep
 
 + (Class)stepViewControllerClass {
-    return [ORKTowerOfHanoiViewController class];
+    return [ORKLegacyTowerOfHanoiViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -72,18 +72,18 @@ static const NSUInteger MaximumNumberOfDisks = 8;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_INTEGER(aDecoder, numberOfDisks);
+        ORKLegacy_DECODE_INTEGER(aDecoder, numberOfDisks);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_INTEGER(aCoder, numberOfDisks);
+    ORKLegacy_ENCODE_INTEGER(aCoder, numberOfDisks);
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTowerOfHanoiStep *step = [super copyWithZone:zone];
+    ORKLegacyTowerOfHanoiStep *step = [super copyWithZone:zone];
     step.numberOfDisks = self.numberOfDisks;
     return step;
 }
@@ -99,7 +99,7 @@ static const NSUInteger MaximumNumberOfDisks = 8;
 - (void)validateParameters {
     [super validateParameters];
     if (self.numberOfDisks > MaximumNumberOfDisks) {
-        ORK_Log_Warning(@"Having a large number of disks provides a poor user experience, consider reducing the number below %@.", @(MaximumNumberOfDisks));
+        ORKLegacy_Log_Warning(@"Having a large number of disks provides a poor user experience, consider reducing the number below %@.", @(MaximumNumberOfDisks));
     }
 }
 

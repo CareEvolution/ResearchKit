@@ -37,15 +37,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKWalkingTaskStep` class implements a step that's used in the predefined
+ The `ORKLegacyWalkingTaskStep` class implements a step that's used in the predefined
  walking task.
  
  You don't usually need to instantiate a walking step directly;
  instead, it is instantiated as part of a predefined task. See the
- predefined active tasks defined in `ORKOrderedTask`.
+ predefined active tasks defined in `ORKLegacyOrderedTask`.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKWalkingTaskStep : ORKActiveStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyWalkingTaskStep : ORKLegacyActiveStep
 
 /**
  The number of steps the user should be asked to take in each leg of the

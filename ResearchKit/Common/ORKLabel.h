@@ -39,14 +39,14 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  This is a base class, not being used directly.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKLabel : UILabel <ORKDefaultFont>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyLabel : UILabel <ORKLegacyDefaultFont>
 
 @end
 
-@interface ORKLabel ()
+@interface ORKLegacyLabel ()
 
-- (void)init_ORKLabel;
+- (void)init_ORKLegacyLabel;
 
 - (void)updateAppearance;
 

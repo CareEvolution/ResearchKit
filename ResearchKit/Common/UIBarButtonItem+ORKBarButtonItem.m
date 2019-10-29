@@ -34,7 +34,7 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation UIBarButtonItem (ORKBarButtonItem)
+@implementation UIBarButtonItem (ORKLegacyBarButtonItem)
 
 + (UIBarButtonItem *)ork_backBarButtonItemWithTarget:(id)target action:(SEL)selector {
     NSString *regularImageName = @"arrowLeft";
@@ -45,14 +45,14 @@
         landscapeImageName = @"arrowRightLandscape";
     }
     
-    UIImage *image = [UIImage imageNamed:regularImageName inBundle:ORKBundle() compatibleWithTraitCollection:nil];
-    UIImage *landscapeImage = [UIImage imageNamed:landscapeImageName inBundle:ORKBundle() compatibleWithTraitCollection:nil];
+    UIImage *image = [UIImage imageNamed:regularImageName inBundle:ORKLegacyBundle() compatibleWithTraitCollection:nil];
+    UIImage *landscapeImage = [UIImage imageNamed:landscapeImageName inBundle:ORKLegacyBundle() compatibleWithTraitCollection:nil];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image
                                                landscapeImagePhone:landscapeImage
                                                              style:UIBarButtonItemStyleDone
                                                             target:target
                                                             action:selector];
-    item.accessibilityLabel = ORKLocalizedString(@"AX_BUTTON_BACK", nil);
+    item.accessibilityLabel = ORKLegacyLocalizedString(@"AX_BUTTON_BACK", nil);
     return item;
 }
 

@@ -42,10 +42,10 @@
 #import "ORKToneAudiometryPracticeStep.h"
 
 
-@interface ORKToneAudiometryPracticeStepViewController ()
+@interface ORKLegacyToneAudiometryPracticeStepViewController ()
 
-@property (nonatomic, strong) ORKToneAudiometryContentView *toneAudiometryContentView;
-@property (nonatomic, strong) ORKAudioGenerator *audioGenerator;
+@property (nonatomic, strong) ORKLegacyToneAudiometryContentView *toneAudiometryContentView;
+@property (nonatomic, strong) ORKLegacyAudioGenerator *audioGenerator;
 @property (nonatomic, assign) BOOL expired;
 
 - (IBAction)buttonPressed:(id)button forEvent:(UIEvent *)event;
@@ -53,14 +53,14 @@
 @end
 
 
-@implementation ORKToneAudiometryPracticeStepViewController
+@implementation ORKLegacyToneAudiometryPracticeStepViewController
 
-- (instancetype)initWithStep:(ORKStep *)step {
+- (instancetype)initWithStep:(ORKLegacyStep *)step {
     self = [super initWithStep:step];
     
     if (self) {
         self.suspendIfInactive = YES;
-        _audioGenerator = [ORKAudioGenerator new];
+        _audioGenerator = [ORKLegacyAudioGenerator new];
     }
     
     return self;
@@ -79,7 +79,7 @@
     
     self.expired = NO;
     
-    self.toneAudiometryContentView = [[ORKToneAudiometryContentView alloc] init];
+    self.toneAudiometryContentView = [[ORKLegacyToneAudiometryContentView alloc] init];
     self.activeStepView.activeCustomView = self.toneAudiometryContentView;
     
     [self.toneAudiometryContentView.leftButton addTarget:self

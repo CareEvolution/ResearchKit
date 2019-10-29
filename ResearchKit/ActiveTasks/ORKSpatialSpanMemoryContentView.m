@@ -42,11 +42,11 @@
 
 // #define LAYOUT_DEBUG 1
 
-@implementation ORKSpatialSpanMemoryGameView
+@implementation ORKLegacySpatialSpanMemoryGameView
 
 #pragma mark Primary interface
 
-- (void)setGridSize:(ORKGridSize)gridSize {
+- (void)setGridSize:(ORKLegacyGridSize)gridSize {
     _gridSize = gridSize;
 #if LAYOUT_DEBUG
     self.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
@@ -58,8 +58,8 @@
     return _gridSize.width * _gridSize.height;
 }
 
-- (ORKSpatialSpanTargetView *)makeTargetView {
-    ORKSpatialSpanTargetView *targetView = [[ORKSpatialSpanTargetView alloc] init];
+- (ORKLegacySpatialSpanTargetView *)makeTargetView {
+    ORKLegacySpatialSpanTargetView *targetView = [[ORKLegacySpatialSpanTargetView alloc] init];
     targetView.customTargetImage = _customTargetImage;
     return targetView;
 }
@@ -82,21 +82,21 @@
     }
     
     void(^resetBlock)(void) = ^(void) {
-        for (ORKSpatialSpanTargetView *view in viewsToRemove) {
+        for (ORKLegacySpatialSpanTargetView *view in viewsToRemove) {
             view.delegate = nil;
             [view removeFromSuperview];
         }
         if (numberOfTilesNew > numberOfTilesOld) {
             NSArray *addedViews = [newViews subarrayWithRange:(NSRange){numberOfTilesOld,numberOfTilesNew-numberOfTilesOld}];
-            for (ORKSpatialSpanTargetView *view in addedViews) {
+            for (ORKLegacySpatialSpanTargetView *view in addedViews) {
                 view.delegate = self;
                 [self addSubview:view];
             }
         }
         
         _tileViews = newViews;
-        for (ORKSpatialSpanTargetView *view in _tileViews) {
-            [view setState:ORKSpatialSpanTargetStateQuiescent];
+        for (ORKLegacySpatialSpanTargetView *view in _tileViews) {
+            [view setState:ORKLegacySpatialSpanTargetStateQuiescent];
         }
         
         [self layoutSubviews];
@@ -112,12 +112,12 @@
 
 - (void)setCustomTargetImage:(UIImage *)customTargetImage {
     _customTargetImage = customTargetImage;
-    for (ORKSpatialSpanTargetView *view in _tileViews) {
+    for (ORKLegacySpatialSpanTargetView *view in _tileViews) {
         view.customTargetImage = _customTargetImage;
     }
 }
 
-- (void)targetView:(ORKSpatialSpanTargetView *)targetView recognizer:(UITapGestureRecognizer *)recognizer {
+- (void)targetView:(ORKLegacySpatialSpanTargetView *)targetView recognizer:(UITapGestureRecognizer *)recognizer {
     [_delegate gameView:self
     didTapTileWithIndex:[_tileViews indexOfObject:targetView]
          recognizer:recognizer];
@@ -127,7 +127,7 @@
     [super layoutSubviews];
     
     CGRect bounds = self.bounds;
-    CGFloat gridItemEdgeLength =  ORKFloorToViewScale(MIN(bounds.size.width / _gridSize.width, bounds.size.height / _gridSize.height), self);
+    CGFloat gridItemEdgeLength =  ORKLegacyFloorToViewScale(MIN(bounds.size.width / _gridSize.width, bounds.size.height / _gridSize.height), self);
     
     gridItemEdgeLength = MIN(gridItemEdgeLength, 114);
     CGSize gridItemSize = (CGSize){gridItemEdgeLength, gridItemEdgeLength};
@@ -139,10 +139,10 @@
     NSInteger tileIndex = 0;
     for (NSInteger x = 0; x < _gridSize.width; x++) {
         for (NSInteger y = 0; y < _gridSize.height; y++) {
-            ORKSpatialSpanTargetView *targetView = _tileViews[tileIndex];
+            ORKLegacySpatialSpanTargetView *targetView = _tileViews[tileIndex];
             
-            CGPoint origin = (CGPoint){.x = ORKFloorToViewScale(centeringOffset.x + x * gridItemSize.width, self),
-                .y = ORKFloorToViewScale(centeringOffset.y + y * gridItemSize.height, self)};
+            CGPoint origin = (CGPoint){.x = ORKLegacyFloorToViewScale(centeringOffset.x + x * gridItemSize.width, self),
+                .y = ORKLegacyFloorToViewScale(centeringOffset.y + y * gridItemSize.height, self)};
             targetView.frame = (CGRect){.origin=origin, .size=gridItemSize};
             
             tileIndex ++;
@@ -150,13 +150,13 @@
     }
 }
 
-- (void)setState:(ORKSpatialSpanTargetState)state forTileIndex:(NSInteger)tileIndex animated:(BOOL)animated {
-    ORKSpatialSpanTargetView *view = _tileViews[tileIndex];
+- (void)setState:(ORKLegacySpatialSpanTargetState)state forTileIndex:(NSInteger)tileIndex animated:(BOOL)animated {
+    ORKLegacySpatialSpanTargetView *view = _tileViews[tileIndex];
     [view setState:state animated:animated];
 }
 
-- (ORKSpatialSpanTargetState)stateForTileIndex:(NSInteger)tileIndex {
-    return [(ORKSpatialSpanTargetView *)_tileViews[tileIndex] state];
+- (ORKLegacySpatialSpanTargetState)stateForTileIndex:(NSInteger)tileIndex {
+    return [(ORKLegacySpatialSpanTargetView *)_tileViews[tileIndex] state];
 }
 
 #pragma mark Accessibility
@@ -168,43 +168,43 @@
 @end
 
 
-@implementation ORKSpatialSpanMemoryContentView {
-    ORKQuantityPairView *_quantityPairView;
-    ORKNavigationContainerView *_continueView;
+@implementation ORKLegacySpatialSpanMemoryContentView {
+    ORKLegacyQuantityPairView *_quantityPairView;
+    ORKLegacyNavigationContainerView *_continueView;
 }
 
-- (ORKActiveStepQuantityView *)countView {
+- (ORKLegacyActiveStepQuantityView *)countView {
     return [_quantityPairView leftView];
 }
 
-- (ORKActiveStepQuantityView *)scoreView {
+- (ORKLegacyActiveStepQuantityView *)scoreView {
     return [_quantityPairView rightView];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _gameView = [ORKSpatialSpanMemoryGameView new];
+        _gameView = [ORKLegacySpatialSpanMemoryGameView new];
         _gameView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_gameView];
         
-        _quantityPairView = [ORKQuantityPairView new];
+        _quantityPairView = [ORKLegacyQuantityPairView new];
         _quantityPairView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_quantityPairView];
         
-        _continueView = [ORKNavigationContainerView new];
+        _continueView = [ORKLegacyNavigationContainerView new];
         _continueView.translatesAutoresizingMaskIntoConstraints = NO;
         _continueView.continueEnabled = YES;
         _continueView.bottomMargin = 20;
         [self addSubview:_continueView];
         
-        ORKActiveStepQuantityView *countView = [self countView];
-        ORKActiveStepQuantityView *scoreView = [self scoreView];
+        ORKLegacyActiveStepQuantityView *countView = [self countView];
+        ORKLegacyActiveStepQuantityView *scoreView = [self scoreView];
         
-        _capitalizedPluralItemDescription = [ORKLocalizedString(@"SPATIAL_SPAN_MEMORY_TARGET_STANDALONE", nil) capitalizedStringWithLocale:[NSLocale currentLocale]];
+        _capitalizedPluralItemDescription = [ORKLegacyLocalizedString(@"SPATIAL_SPAN_MEMORY_TARGET_STANDALONE", nil) capitalizedStringWithLocale:[NSLocale currentLocale]];
         
-        countView.title = [NSString localizedStringWithFormat:ORKLocalizedString(@"MEMORY_GAME_ITEM_COUNT_TITLE_%@", nil), _capitalizedPluralItemDescription];
-        scoreView.title = ORKLocalizedString(@"MEMORY_GAME_SCORE_TITLE", nil);
+        countView.title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"MEMORY_GAME_ITEM_COUNT_TITLE_%@", nil), _capitalizedPluralItemDescription];
+        scoreView.title = ORKLegacyLocalizedString(@"MEMORY_GAME_SCORE_TITLE", nil);
         countView.enabled = YES;
         scoreView.enabled = YES;
         
@@ -229,16 +229,16 @@
 
 - (void)setCapitalizedPluralItemDescription:(NSString *)capitalizedPluralItemDescription {
     _capitalizedPluralItemDescription = capitalizedPluralItemDescription;
-    [self countView].title = [NSString localizedStringWithFormat:ORKLocalizedString(@"MEMORY_GAME_ITEM_COUNT_TITLE_%@", nil), _capitalizedPluralItemDescription];
+    [self countView].title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"MEMORY_GAME_ITEM_COUNT_TITLE_%@", nil), _capitalizedPluralItemDescription];
 }
 
 - (void)setNumberOfItems:(NSInteger)numberOfItems {
-    ORKActiveStepQuantityView *countView = [self countView];
+    ORKLegacyActiveStepQuantityView *countView = [self countView];
     countView.value = [self stringWithNumberFormatter:numberOfItems];
 }
 
 - (void)setScore:(NSInteger)score {
-    ORKActiveStepQuantityView *scoreView = [self scoreView];
+    ORKLegacyActiveStepQuantityView *scoreView = [self scoreView];
     scoreView.value = [self stringWithNumberFormatter:score];
 }
 
@@ -267,7 +267,7 @@
 }
 
 - (void)updateMargins {
-    CGFloat margin = ORKStandardHorizontalMarginForView(self);
+    CGFloat margin = ORKLegacyStandardHorizontalMarginForView(self);
     self.layoutMargins = (UIEdgeInsets){.left = margin, .right = margin};
     _quantityPairView.layoutMargins = self.layoutMargins;
 }
@@ -298,7 +298,7 @@
                                                                          toItem:nil
                                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                                      multiplier:1.0
-                                                                       constant:ORKScreenMetricMaxDimension];
+                                                                       constant:ORKLegacyScreenMetricMaxDimension];
     gameViewHeightConstraint.priority = UILayoutPriorityDefaultLow - 1;
     [constraints addObject:gameViewHeightConstraint];
     
@@ -336,7 +336,7 @@
                                                                              toItem:nil
                                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                                          multiplier:1.0
-                                                                           constant:ORKScreenMetricMaxDimension];
+                                                                           constant:ORKLegacyScreenMetricMaxDimension];
     maxWidthConstraint.priority = UILayoutPriorityRequired - 1;
     [constraints addObject:maxWidthConstraint];
     

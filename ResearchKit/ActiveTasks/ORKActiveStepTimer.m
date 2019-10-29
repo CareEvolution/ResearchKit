@@ -48,7 +48,7 @@ static NSTimeInterval timeIntervalFromMachTime(uint64_t delta) {
 }
 
 
-@implementation ORKActiveStepTimer {
+@implementation ORKLegacyActiveStepTimer {
     uint64_t _startTime;
     NSTimeInterval _preExistingRuntime;
     dispatch_queue_t _queue;
@@ -57,7 +57,7 @@ static NSTimeInterval timeIntervalFromMachTime(uint64_t delta) {
     uint32_t _isRunning;
 }
 
-- (instancetype)initWithDuration:(NSTimeInterval)duration interval:(NSTimeInterval)interval runtime:(NSTimeInterval)runtime handler:(ORKActiveStepTimerHandler)handler {
+- (instancetype)initWithDuration:(NSTimeInterval)duration interval:(NSTimeInterval)interval runtime:(NSTimeInterval)runtime handler:(ORKLegacyActiveStepTimerHandler)handler {
     self = [super init];
     if (self) {
         if (!handler) {
@@ -201,9 +201,9 @@ static NSTimeInterval timeIntervalFromMachTime(uint64_t delta) {
         assert(0);
         return;
     }
-    ORKWeakTypeOf(self) weakSelf = self;
+    ORKLegacyWeakTypeOf(self) weakSelf = self;
     dispatch_source_set_event_handler(_timer, ^{
-        ORKStrongTypeOf(self) strongSelf = weakSelf;
+        ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
         [strongSelf hiqueue_event];
     });
     

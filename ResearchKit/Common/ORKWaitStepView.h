@@ -45,9 +45,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKWaitStepView : ORKVerticalContainerView
+@interface ORKLegacyWaitStepView : ORKLegacyVerticalContainerView
 
-- (instancetype)initWithIndicatorType:(ORKProgressIndicatorType)type;
+- (instancetype)initWithIndicatorType:(ORKLegacyProgressIndicatorType)type;
 
 @property (nonatomic, readonly) UIProgressView *progressView;
 

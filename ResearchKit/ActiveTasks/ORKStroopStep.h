@@ -34,8 +34,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKStroopStep : ORKActiveStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyStroopStep : ORKLegacyActiveStep
 
 @property (nonatomic, assign) NSInteger numberOfAttempts;
 

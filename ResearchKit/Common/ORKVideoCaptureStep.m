@@ -35,10 +35,10 @@
 #import "ORKVideoCaptureStepViewController.h"
 
 
-@implementation ORKVideoCaptureStep
+@implementation ORKLegacyVideoCaptureStep
 
 + (Class)stepViewControllerClass {
-    return [ORKVideoCaptureStepViewController class];
+    return [ORKLegacyVideoCaptureStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -60,28 +60,28 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_IMAGE(aDecoder, templateImage);
-        ORK_DECODE_UIEDGEINSETS(aDecoder, templateImageInsets);
-        ORK_DECODE_OBJ(aDecoder, duration);
-        ORK_DECODE_BOOL(aDecoder, audioMute);
-        ORK_DECODE_ENUM(aDecoder, flashMode);
-        ORK_DECODE_ENUM(aDecoder, devicePosition);
-        ORK_DECODE_OBJ(aDecoder, accessibilityHint);
-        ORK_DECODE_OBJ(aDecoder, accessibilityInstructions);
+        ORKLegacy_DECODE_IMAGE(aDecoder, templateImage);
+        ORKLegacy_DECODE_UIEDGEINSETS(aDecoder, templateImageInsets);
+        ORKLegacy_DECODE_OBJ(aDecoder, duration);
+        ORKLegacy_DECODE_BOOL(aDecoder, audioMute);
+        ORKLegacy_DECODE_ENUM(aDecoder, flashMode);
+        ORKLegacy_DECODE_ENUM(aDecoder, devicePosition);
+        ORKLegacy_DECODE_OBJ(aDecoder, accessibilityHint);
+        ORKLegacy_DECODE_OBJ(aDecoder, accessibilityInstructions);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_IMAGE(aCoder, templateImage);
-    ORK_ENCODE_UIEDGEINSETS(aCoder, templateImageInsets);
-    ORK_ENCODE_OBJ(aCoder, duration);
-    ORK_ENCODE_BOOL(aCoder, audioMute);
-    ORK_ENCODE_ENUM(aCoder, flashMode);
-    ORK_ENCODE_ENUM(aCoder, devicePosition);
-    ORK_ENCODE_OBJ(aCoder, accessibilityHint);
-    ORK_ENCODE_OBJ(aCoder, accessibilityInstructions);
+    ORKLegacy_ENCODE_IMAGE(aCoder, templateImage);
+    ORKLegacy_ENCODE_UIEDGEINSETS(aCoder, templateImageInsets);
+    ORKLegacy_ENCODE_OBJ(aCoder, duration);
+    ORKLegacy_ENCODE_BOOL(aCoder, audioMute);
+    ORKLegacy_ENCODE_ENUM(aCoder, flashMode);
+    ORKLegacy_ENCODE_ENUM(aCoder, devicePosition);
+    ORKLegacy_ENCODE_OBJ(aCoder, accessibilityHint);
+    ORKLegacy_ENCODE_OBJ(aCoder, accessibilityInstructions);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -89,7 +89,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKVideoCaptureStep *step = [super copyWithZone:zone];
+    ORKLegacyVideoCaptureStep *step = [super copyWithZone:zone];
     step.templateImage = self.templateImage;
     step.templateImageInsets = self.templateImageInsets;
     step.duration = self.duration;
@@ -110,14 +110,14 @@
     
     __typeof(self) castObject = object;
     return isParentSame &&
-    ORKEqualObjects(self.templateImage, castObject.templateImage) &&
+    ORKLegacyEqualObjects(self.templateImage, castObject.templateImage) &&
     UIEdgeInsetsEqualToEdgeInsets(self.templateImageInsets, castObject.templateImageInsets) &&
-    ORKEqualObjects(self.duration, castObject.duration) &&
+    ORKLegacyEqualObjects(self.duration, castObject.duration) &&
     (self.audioMute == castObject.audioMute) &&
     (self.flashMode == castObject.flashMode) &&
     (self.devicePosition == castObject.devicePosition) &&
-    ORKEqualObjects(self.accessibilityHint, castObject.accessibilityHint) &&
-    ORKEqualObjects(self.accessibilityInstructions, castObject.accessibilityInstructions);
+    ORKLegacyEqualObjects(self.accessibilityHint, castObject.accessibilityHint) &&
+    ORKLegacyEqualObjects(self.accessibilityInstructions, castObject.accessibilityInstructions);
 }
 
 @end

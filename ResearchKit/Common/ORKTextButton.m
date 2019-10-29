@@ -32,7 +32,7 @@
 #import "ORKTextButton.h"
 
 
-@implementation ORKTextButton
+@implementation ORKLegacyTextButton
 
 + (instancetype)buttonWithType:(UIButtonType)buttonType {
     assert(buttonType == UIButtonTypeCustom);
@@ -42,7 +42,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [self init_ORKTextButton];
+        [self init_ORKLegacyTextButton];
     }
     return self;
 }
@@ -50,12 +50,12 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self init_ORKTextButton];
+        [self init_ORKLegacyTextButton];
     }
     return self;
 }
 
-- (void)init_ORKTextButton {
+- (void)init_ORKLegacyTextButton {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateAppearance)
                                                  name:UIContentSizeCategoryDidChangeNotification

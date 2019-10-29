@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKActiveStep ()
+@interface ORKLegacyActiveStep ()
 
  // Convenience methods.
 - (BOOL)startsFinished;

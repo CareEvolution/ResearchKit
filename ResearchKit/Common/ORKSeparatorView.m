@@ -32,11 +32,11 @@
 #import "ORKSeparatorView.h"
 
 
-static const CGFloat ORKLineWidth = 2.0f;
-static const CGFloat ORKLengths[2] = {4.0f, 4.0f};
+static const CGFloat ORKLegacyLineWidth = 2.0f;
+static const CGFloat ORKLegacyLengths[2] = {4.0f, 4.0f};
 
 
-@implementation ORKSeparatorView
+@implementation ORKLegacySeparatorView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -56,10 +56,10 @@ static const CGFloat ORKLengths[2] = {4.0f, 4.0f};
     CGContextSaveGState(context);
     
     UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake(ORKLineWidth / 2, 0.0f)];
-    [path addLineToPoint:CGPointMake(ORKLineWidth / 2, CGRectGetHeight(self.bounds))];
-    path.lineWidth = ORKLineWidth;
-    [path setLineDash:ORKLengths count:2 phase:0.0f];
+    [path moveToPoint:CGPointMake(ORKLegacyLineWidth / 2, 0.0f)];
+    [path addLineToPoint:CGPointMake(ORKLegacyLineWidth / 2, CGRectGetHeight(self.bounds))];
+    path.lineWidth = ORKLegacyLineWidth;
+    [path setLineDash:ORKLegacyLengths count:2 phase:0.0f];
     [self.tintColor setStroke];
     [path stroke];
     

@@ -35,13 +35,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKDataLogger;
+@class ORKLegacyDataLogger;
 @class HKUnit;
 
 /**
- The `ORKDataLoggerDelegate` protocol defines methods that the delegate of an `ORKDataLogger` object uses to handle data being logged to disk.
+ The `ORKLegacyDataLoggerDelegate` protocol defines methods that the delegate of an `ORKLegacyDataLogger` object uses to handle data being logged to disk.
  */
-@protocol ORKDataLoggerDelegate <NSObject>
+@protocol ORKLegacyDataLoggerDelegate <NSObject>
 
 /**
  Tells the delegate when a log file rollover occurs.
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param dataLogger  The data logger providing the notification.
  @param fileUrl The URL of the newly renamed log file.
  */
-- (void)dataLogger:(ORKDataLogger *)dataLogger finishedLogFile:(NSURL *)fileUrl;
+- (void)dataLogger:(ORKLegacyDataLogger *)dataLogger finishedLogFile:(NSURL *)fileUrl;
 
 @optional
 /**
@@ -60,28 +60,28 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param dataLogger  The data logger providing the notification.
  */
-- (void)dataLoggerByteCountsDidChange:(ORKDataLogger *)dataLogger;
+- (void)dataLoggerByteCountsDidChange:(ORKLegacyDataLogger *)dataLogger;
 
 @end
 
 
-@protocol ORKDataLoggerExtendedDelegate <ORKDataLoggerDelegate>
+@protocol ORKLegacyDataLoggerExtendedDelegate <ORKLegacyDataLoggerDelegate>
 
 @optional
 /**
  Tells the delegate that the maximum current log file lifetime changed.
  @param dataLogger  Source of this event.
  */
-- (void)dataLoggerThresholdsDidChange:(ORKDataLogger *)dataLogger;
+- (void)dataLoggerThresholdsDidChange:(ORKLegacyDataLogger *)dataLogger;
 
 @end
 
 
-@class ORKLogFormatter;
+@class ORKLegacyLogFormatter;
 
 /**
- The `ORKDataLogger` class is an internal component used by some `ORKRecorder`
- subclasses for writing data to disk during tasks. An `ORKDataLogger` object manages one log as a set of files in a directory.
+ The `ORKLegacyDataLogger` class is an internal component used by some `ORKLegacyRecorder`
+ subclasses for writing data to disk during tasks. An `ORKLegacyDataLogger` object manages one log as a set of files in a directory.
  
  The current log file is at `directory/logName`.
  Historic log files are at `directory/logName-(timestamp)-(count)`
@@ -89,29 +89,29 @@ NS_ASSUME_NONNULL_BEGIN
  the log finished (that is, was rolled over). If more than one rollover occurs within
  one second, additional log files may be created with increasing `count`.
  
- The user is responsible for managing the historic log files, but the `ORKDataLogger` class
+ The user is responsible for managing the historic log files, but the `ORKLegacyDataLogger` class
  provides tools for enumerating them (in sorted order).
  
  The data logger contains a concept of whether a file has been uploaded, which
  is tracked using file attributes. This feature can facilitate a workflow in which
  log files are archived and queued for upload before actually sending them to
  a server. When archived and ready for upload, the files could be marked uploaded
- by the `ORKDataLogger`. When the upload is complete and the data has been handed
+ by the `ORKLegacyDataLogger`. When the upload is complete and the data has been handed
  off downstream, the files can then be deleted. If the upload fails, the uploaded
  files can have that flag cleared, to indicate that they should be included
  in the next archiving attempt.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKDataLogger : NSObject
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyDataLogger : NSObject
 
 /**
- Returns a data logger with an `ORKJSONLogFormatter`.
+ Returns a data logger with an `ORKLegacyJSONLogFormatter`.
  
  @param url         The URL of the directory in which to place log files.
  @param logName     The prefix on the log file name in an ASCII string. Note that the string must not contain the hyphen character ("-"), because a hyphen is used as a separator in the log naming scheme.
  @param delegate    The initial delegate. May be `nil`.
  */
-+ (ORKDataLogger *)JSONDataLoggerWithDirectory:(NSURL *)url logName:(NSString *)logName delegate:(nullable id<ORKDataLoggerDelegate>)delegate;
++ (ORKLegacyDataLogger *)JSONDataLoggerWithDirectory:(NSURL *)url logName:(NSString *)logName delegate:(nullable id<ORKLegacyDataLoggerDelegate>)delegate;
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -122,18 +122,18 @@ ORK_CLASS_AVAILABLE
  @param url         The URL of the directory in which to place log files
  @param logName     The prefix on the log file name in an ASCII string. Note that
  the string must not contain the hyphen character ("-"), because a hyphen is used as a separator in the log naming scheme.
- @param formatter   The type of formatter to use for the log, such as `ORKJSONLogFormatter`.
+ @param formatter   The type of formatter to use for the log, such as `ORKLegacyJSONLogFormatter`.
  @param delegate    The initial delegate. May be `nil`.
  
  @return An initialized data logger.
  */
-- (instancetype)initWithDirectory:(NSURL *)url logName:(NSString *)logName formatter:(ORKLogFormatter *)formatter delegate:(nullable id<ORKDataLoggerDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDirectory:(NSURL *)url logName:(NSString *)logName formatter:(ORKLegacyLogFormatter *)formatter delegate:(nullable id<ORKLegacyDataLoggerDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 /// The delegate to be notified when file sizes change or the log rolls over.
-@property (weak, nullable) id<ORKDataLoggerDelegate> delegate;
+@property (weak, nullable) id<ORKLegacyDataLoggerDelegate> delegate;
 
 /// The log formatter being used.
-@property (strong, readonly) ORKLogFormatter *logFormatter;
+@property (strong, readonly) ORKLegacyLogFormatter *logFormatter;
 
 /**
  The maximum current log file size.
@@ -156,7 +156,7 @@ ORK_CLASS_AVAILABLE
 @property unsigned long long uploadedBytes;
 
 /// The file protection mode to use for newly created files.
-@property (assign) ORKFileProtectionMode fileProtectionMode;
+@property (assign) ORKLegacyFileProtectionMode fileProtectionMode;
 
 /// The prefix on the log file names.
 @property (copy, readonly) NSString *logName;
@@ -293,17 +293,17 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKLogFormatter` class represents the base (default) log formatter, which appends data
+ The `ORKLegacyLogFormatter` class represents the base (default) log formatter, which appends data
  blindly to a log file.
  
  A log formatter is used by a data logger to format objects
  for output to the log, and to begin a new log file and end an existing log file.
- `ORKLogFormatter` accepts NSData and has neither a header nor a footer.
+ `ORKLegacyLogFormatter` accepts NSData and has neither a header nor a footer.
  
  A log formatter should ensure that the log is always in a valid state, so that
  even if the app is killed, the log is still readable.
  */
-@interface ORKLogFormatter : NSObject
+@interface ORKLegacyLogFormatter : NSObject
 
 /**
  Returns a Boolean value that indicates whether the log formatter can serialize the specified type of object.
@@ -361,7 +361,7 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKJSONLogFormatter` class represents a log formatter for producing JSON output.
+ The `ORKLegacyJSONLogFormatter` class represents a log formatter for producing JSON output.
  
  The JSON log formatter accepts `NSDictionary` objects for serialization.
  The JSON output is a dictionary that contains one key, `items`,
@@ -369,21 +369,21 @@ ORK_CLASS_AVAILABLE
  any timestamp information, so the items should include such fields,
  if desired.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKJSONLogFormatter : ORKLogFormatter
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyJSONLogFormatter : ORKLegacyLogFormatter
 
 @end
 
 
-@class ORKJSONDataLogger;
-@class ORKDataLoggerManager;
+@class ORKLegacyJSONDataLogger;
+@class ORKLegacyDataLoggerManager;
 
 /**
- The `ORKDataLoggerManagerDelegate` protocol defines methods a delegate can implement to receive notifications
- when the data loggers managed by a `ORKDataLoggerManager` reach a certain file size threshold.
+ The `ORKLegacyDataLoggerManagerDelegate` protocol defines methods a delegate can implement to receive notifications
+ when the data loggers managed by a `ORKLegacyDataLoggerManager` reach a certain file size threshold.
  */
-ORK_CLASS_AVAILABLE
-@protocol ORKDataLoggerManagerDelegate <NSObject>
+ORKLegacy_CLASS_AVAILABLE
+@protocol ORKLegacyDataLoggerManagerDelegate <NSObject>
 
 /**
  Called by the data logger manager when the total size of files
@@ -393,7 +393,7 @@ ORK_CLASS_AVAILABLE
  @param pendingUploadBytes      The number of bytes managed by all the loggers, which
             have not yet been marked uploaded.
  */
-- (void)dataLoggerManager:(ORKDataLoggerManager *)dataLoggerManager pendingUploadBytesReachedThreshold:(unsigned long long)pendingUploadBytes;
+- (void)dataLoggerManager:(ORKLegacyDataLoggerManager *)dataLoggerManager pendingUploadBytesReachedThreshold:(unsigned long long)pendingUploadBytes;
 
 /**
  Called by the data logger manager when the total size of files
@@ -402,20 +402,20 @@ ORK_CLASS_AVAILABLE
  @param dataLoggerManager       The manager that produced the notification.
  @param totalBytes              The total number of bytes of all files managed.
  */
-- (void)dataLoggerManager:(ORKDataLoggerManager *)dataLoggerManager totalBytesReachedThreshold:(unsigned long long)totalBytes;
+- (void)dataLoggerManager:(ORKLegacyDataLoggerManager *)dataLoggerManager totalBytesReachedThreshold:(unsigned long long)totalBytes;
 
 @end
 
 
 /**
- The `ORKDataLoggerManager` class represents a manager for multiple `ORKDataLogger` instances,
+ The `ORKLegacyDataLoggerManager` class represents a manager for multiple `ORKLegacyDataLogger` instances,
  which tracks the total size of log files produced and can notify its delegate
  when file sizes reach configurable thresholds.
  
- The `ORKDataLoggerManager` class is an internal component used by some `ORKRecorder`
+ The `ORKLegacyDataLoggerManager` class is an internal component used by some `ORKLegacyRecorder`
  subclasses for writing data to disk during tasks.
  
- This manager can be used to organize the `ORKDataLogger` logs in a directory,
+ This manager can be used to organize the `ORKLegacyDataLogger` logs in a directory,
  and keep track of the total number of bytes stored on disk by each logger. The
  delegate can be informed if either the number of bytes pending upload, or the total
  number of bytes, exceeds configurable thresholds.
@@ -435,8 +435,8 @@ ORK_CLASS_AVAILABLE
  files that have been marked uploaded, and then remove old log files until the
  threshold is no longer exceeded. You can do this by calling `removeOldAndUploadedLogsToThreshold:error:`
  */
-ORK_CLASS_AVAILABLE
-@interface ORKDataLoggerManager : NSObject <ORKDataLoggerDelegate>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyDataLoggerManager : NSObject <ORKLegacyDataLoggerDelegate>
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -451,10 +451,10 @@ ORK_CLASS_AVAILABLE
  
  @return An initialized data logger manager.
  */
-- (instancetype)initWithDirectory:(NSURL *)directory delegate:(nullable id<ORKDataLoggerManagerDelegate>)delegate NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithDirectory:(NSURL *)directory delegate:(nullable id<ORKLegacyDataLoggerManagerDelegate>)delegate NS_DESIGNATED_INITIALIZER;
 
 /// The delegate of the data logger manager.
-@property (weak, nullable) id<ORKDataLoggerManagerDelegate> delegate;
+@property (weak, nullable) id<ORKLegacyDataLoggerManagerDelegate> delegate;
 
 /// The threshold for delegate callback for total bytes not marked uploaded.
 @property unsigned long long pendingUploadBytesThreshold;
@@ -475,9 +475,9 @@ ORK_CLASS_AVAILABLE
  
  @param logName     The log name prefix for the data logger.
  
- @return The `ORKDataLogger` object that was added.
+ @return The `ORKLegacyDataLogger` object that was added.
  */
-- (ORKDataLogger *)addJSONDataLoggerForLogName:(NSString *)logName;
+- (ORKLegacyDataLogger *)addJSONDataLoggerForLogName:(NSString *)logName;
 
 /**
  Adds a data logger with a particular formatter to the directory.
@@ -485,26 +485,26 @@ ORK_CLASS_AVAILABLE
  @param logName     The log name prefix for the data logger.
  @param formatter   The log formatter instance to use for this logger.
  
- @return The `ORKDataLogger` object that was added, or the existing one if one already existed for
+ @return The `ORKLegacyDataLogger` object that was added, or the existing one if one already existed for
  that log name.
  */
-- (ORKDataLogger *)addDataLoggerForLogName:(NSString *)logName formatter:(ORKLogFormatter *)formatter;
+- (ORKLegacyDataLogger *)addDataLoggerForLogName:(NSString *)logName formatter:(ORKLegacyLogFormatter *)formatter;
 
 /**
  Retrieves the already existing data logger for a log name.
  
  @param logName     The log name prefix for the data logger.
  
- @return The `ORKDataLogger` object that was retrieved, or `nil` if one already existed for that log name.
+ @return The `ORKLegacyDataLogger` object that was retrieved, or `nil` if one already existed for that log name.
  */
-- (nullable ORKDataLogger *)dataLoggerForLogName:(NSString *)logName;
+- (nullable ORKLegacyDataLogger *)dataLoggerForLogName:(NSString *)logName;
 
 /**
  Removes a data logger.
  
  @param logger      The logger to remove.
  */
-- (void)removeDataLogger:(ORKDataLogger *)logger;
+- (void)removeDataLogger:(ORKLegacyDataLogger *)logger;
 
 /// Returns the set of log names of the data loggers managed by this object.
 - (NSArray<NSString *> *)logNames;
@@ -519,7 +519,7 @@ ORK_CLASS_AVAILABLE
  
  @return `YES` if the enumeration succeeds; otherwise, `NO`.
  */
-- (BOOL)enumerateLogsNeedingUpload:(void (^)(ORKDataLogger *dataLogger, NSURL *logFileUrl, BOOL *stop))block error:(NSError * _Nullable *)error;
+- (BOOL)enumerateLogsNeedingUpload:(void (^)(ORKLegacyDataLogger *dataLogger, NSURL *logFileUrl, BOOL *stop))block error:(NSError * _Nullable *)error;
 
 /**
  Unmarks the set of uploaded files.
@@ -537,7 +537,7 @@ ORK_CLASS_AVAILABLE
 /**
  Removes a set of uploaded files.
  
- This method is analogous to a similar method in `ORKDataLogger`, but it accepts an array of files
+ This method is analogous to a similar method in `ORKLegacyDataLogger`, but it accepts an array of files
  that may relate to any of the data loggers. It is an error to pass a URL which would not
  belong to one of the loggers managed by this manager.
  
@@ -564,7 +564,7 @@ ORK_CLASS_AVAILABLE
 @end
 
 
-@interface ORKDataLogger (Tests)
+@interface ORKLegacyDataLogger (Tests)
 
 /// The file handle to which to write
 - (nullable NSFileHandle *)fileHandle;
@@ -572,7 +572,7 @@ ORK_CLASS_AVAILABLE
 @end
 
 
-@interface NSURL (ORKDataLogger)
+@interface NSURL (ORKLegacyDataLogger)
 
 - (BOOL)ork_isUploaded;
 - (BOOL)ork_setUploaded:(BOOL)uploaded error:(NSError * _Nullable *)error;

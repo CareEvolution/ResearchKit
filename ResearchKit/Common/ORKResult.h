@@ -36,53 +36,53 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKRecorder;
-@class ORKStep;
-@class ORKQuestionStep;
-@class ORKFormItem;
-@class ORKFormStep;
-@class ORKConsentReviewStep;
-@class ORKQuestionResult;
-@class ORKConsentSignature;
-@class ORKConsentDocument;
-@class ORKConsentSignatureResult;
-@class ORKStepResult;
-@class ORKToneAudiometrySample;
+@class ORKLegacyRecorder;
+@class ORKLegacyStep;
+@class ORKLegacyQuestionStep;
+@class ORKLegacyFormItem;
+@class ORKLegacyFormStep;
+@class ORKLegacyConsentReviewStep;
+@class ORKLegacyQuestionResult;
+@class ORKLegacyConsentSignature;
+@class ORKLegacyConsentDocument;
+@class ORKLegacyConsentSignatureResult;
+@class ORKLegacyStepResult;
+@class ORKLegacyToneAudiometrySample;
 
 
 /**
- The `ORKResult` class defines the attributes of a result from one step or a group
+ The `ORKLegacyResult` class defines the attributes of a result from one step or a group
  of steps. When you use the ResearchKit framework APIs, you typically get a result from the `result` property
- of either `ORKTaskViewController` or `ORKStepViewController`.
- Certain types of results can contain other results, which together express a hierarchy; examples of these types of results are `ORKCollectionResult` subclasses, such as `ORKStepResult` and `ORKTaskResult`.
+ of either `ORKLegacyTaskViewController` or `ORKLegacyStepViewController`.
+ Certain types of results can contain other results, which together express a hierarchy; examples of these types of results are `ORKLegacyCollectionResult` subclasses, such as `ORKLegacyStepResult` and `ORKLegacyTaskResult`.
  
  When you receive a result, you can store it temporarily by archiving it with
- `NSKeyedArchiver`, because all `ORKResult` objects implement `NSSecureCoding`. If you want to serialize the result object to other formats, you're responsible for implementing this.
+ `NSKeyedArchiver`, because all `ORKLegacyResult` objects implement `NSSecureCoding`. If you want to serialize the result object to other formats, you're responsible for implementing this.
  
  The result object hierarchy does not necessarily include all the data collected
- during a task. Some result objects, such as `ORKFileResult`, may refer to files
+ during a task. Some result objects, such as `ORKLegacyFileResult`, may refer to files
  in the filesystem that were generated during the task. These files are easy to find, because they are all
  located in the output directory of the task view controller.
  
- It's recommended that you use `NSFileProtectionComplete` (at a minimum) to protect these files, and that you similarly protect all serialization of `ORKResult` objects that you write to disk. It is also generally helpful to keep the results together with the referenced files as you submit them to a back-end server. For example, it can be convenient to zip all data corresponding to a particular task result into a single compressed archive.
+ It's recommended that you use `NSFileProtectionComplete` (at a minimum) to protect these files, and that you similarly protect all serialization of `ORKLegacyResult` objects that you write to disk. It is also generally helpful to keep the results together with the referenced files as you submit them to a back-end server. For example, it can be convenient to zip all data corresponding to a particular task result into a single compressed archive.
  
  Every object in the result hierarchy has an identifier that should correspond
  to the identifier of an object in the original step hierarchy. Similarly, every
  object has a start date and an end date that correspond to the range of
- times during which the result was collected. In an `ORKStepResult` object, for example,
+ times during which the result was collected. In an `ORKLegacyStepResult` object, for example,
  the start and end dates cover the range of time during which the step view controller was visible on
  screen.
  
  When you implement a new type of step, it is usually helpful to create a new
- `ORKResult` subclass to hold the type of result data the step can generate, unless it makes sense to use an existing subclass. Return your custom result subclass as one of the results attached to the step's `ORKStepResult` object.
+ `ORKLegacyResult` subclass to hold the type of result data the step can generate, unless it makes sense to use an existing subclass. Return your custom result subclass as one of the results attached to the step's `ORKLegacyStepResult` object.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKResult : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyResult : NSObject <NSCopying, NSSecureCoding>
 
 /**
  Returns an initialized result using the specified identifier.
  
- Typically, objects such as `ORKStepViewController` and `ORKTaskViewController` instantiate result (and `ORKResult` subclass) objects; you seldom need to instantiate a result object in your code.
+ Typically, objects such as `ORKLegacyStepViewController` and `ORKLegacyTaskViewController` instantiate result (and `ORKLegacyResult` subclass) objects; you seldom need to instantiate a result object in your code.
  
  @param identifier     The unique identifier of the result.
  */
@@ -128,7 +128,7 @@ ORK_CLASS_AVAILABLE
  Metadata that describes the conditions under which the result was acquired.
  
  The `userInfo` dictionary can be set by the view controller or recorder
- that produces the result. However, it's often a better choice to use a new `ORKResult` subclass for passing additional information back to code that uses
+ that produces the result. However, it's often a better choice to use a new `ORKLegacyResult` subclass for passing additional information back to code that uses
  the framework, because using
  typed accessors is safer than using a dictionary.
  
@@ -143,24 +143,24 @@ ORK_CLASS_AVAILABLE
 /**
  Values that identify the button that was tapped in a tapping sample.
  */
-typedef NS_ENUM(NSInteger, ORKTappingButtonIdentifier) {
+typedef NS_ENUM(NSInteger, ORKLegacyTappingButtonIdentifier) {
 
     /// The touch landed outside of the two buttons.
-    ORKTappingButtonIdentifierNone,
+    ORKLegacyTappingButtonIdentifierNone,
     
     /// The touch landed in the left button.
-    ORKTappingButtonIdentifierLeft,
+    ORKLegacyTappingButtonIdentifierLeft,
     
     /// The touch landed in the right button.
-    ORKTappingButtonIdentifierRight
-} ORK_ENUM_AVAILABLE;
+    ORKLegacyTappingButtonIdentifierRight
+} ORKLegacy_ENUM_AVAILABLE;
 
 /**
- The `ORKTappingSample` class represents a single tap on a button.
+ The `ORKLegacyTappingSample` class represents a single tap on a button.
  
  The tapping sample object records the location of the tap, the
  button that was tapped, and the time at which the event occurred. A tapping sample is
- included in an `ORKTappingIntervalResult` object, and is recorded by the
+ included in an `ORKLegacyTappingIntervalResult` object, and is recorded by the
  step view controller for the corresponding task when a tap is
  recognized.
  
@@ -168,13 +168,13 @@ typedef NS_ENUM(NSInteger, ORKTappingButtonIdentifier) {
  completes, it may be appropriate to serialize the sample for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTappingSample : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTappingSample : NSObject <NSCopying, NSSecureCoding>
 
 /**
  A relative timestamp indicating the time of the tap event.
  
- The timestamp is relative to the value of `startDate` in the `ORKResult` object that includes this
+ The timestamp is relative to the value of `startDate` in the `ORKLegacyResult` object that includes this
  sample.
  */
 @property (nonatomic, assign) NSTimeInterval timestamp;
@@ -189,16 +189,16 @@ ORK_CLASS_AVAILABLE
 /** 
  An enumerated value that indicates which button was tapped, if any.
  
- If the value of this property is `ORKTappingButtonIdentifierNone`, it indicates that the tap
+ If the value of this property is `ORKLegacyTappingButtonIdentifierNone`, it indicates that the tap
  was near, but not inside, one of the target buttons.
  */
-@property (nonatomic, assign) ORKTappingButtonIdentifier buttonIdentifier;
+@property (nonatomic, assign) ORKLegacyTappingButtonIdentifier buttonIdentifier;
 
 /**
  The location of the tap within the step's view.
  
  The location coordinates are relative to a rectangle whose size corresponds to
- the `stepViewSize` in the enclosing `ORKTappingIntervalResult` object.
+ the `stepViewSize` in the enclosing `ORKLegacyTappingIntervalResult` object.
  */
 @property (nonatomic, assign) CGPoint location;
 
@@ -206,7 +206,7 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKTappingIntervalResult` class records the results of a tapping interval test.
+ The `ORKLegacyTappingIntervalResult` class records the results of a tapping interval test.
  
  The tapping interval result object records an array of touch samples (one for each tap) and also the geometry of the
  task at the time it was displayed. You can use the information in the object for reference in interpreting the touch
@@ -216,14 +216,14 @@ ORK_CLASS_AVAILABLE
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTappingIntervalResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTappingIntervalResult : ORKLegacyResult
 
 /**
- An array of collected samples, in which each item is an `ORKTappingSample` object that represents a
+ An array of collected samples, in which each item is an `ORKLegacyTappingSample` object that represents a
  tapping event.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKTappingSample *> *samples;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacyTappingSample *> *samples;
 
 /**
  The size of the bounds of the step view containing the tap targets.
@@ -244,12 +244,12 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKPasscodeResult` class records the results of a passcode step.
+ The `ORKLegacyPasscodeResult` class records the results of a passcode step.
  
  The passcode result object contains a boolean indicating whether the passcode was saved or not.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKPasscodeResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyPasscodeResult : ORKLegacyResult
 
 /**
  A boolean indicating if a passcode was saved or not.
@@ -264,13 +264,13 @@ ORK_CLASS_AVAILABLE
 @end
 
 /**
- The `ORKRangeOfMotionResult` class records the results of a range of motion active task.
+ The `ORKLegacyRangeOfMotionResult` class records the results of a range of motion active task.
  
- An `ORKRangeOfMotionResult` object records the flexion and extension values in degrees.
+ An `ORKLegacyRangeOfMotionResult` object records the flexion and extension values in degrees.
  */
 
-ORK_CLASS_AVAILABLE
-@interface ORKRangeOfMotionResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyRangeOfMotionResult : ORKLegacyResult
 
 /**
  The degrees when bent.
@@ -286,19 +286,19 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKTowerOfHanoiResult` class records the results of a Tower of Hanoi active task.
+ The `ORKLegacyTowerOfHanoiResult` class records the results of a Tower of Hanoi active task.
  
- An `ORKTowerOfHanoiResult` object records an array of `ORKTowerOfHanoiMove` objects (one for each move)
+ An `ORKLegacyTowerOfHanoiResult` object records an array of `ORKLegacyTowerOfHanoiMove` objects (one for each move)
  and a Boolean value representing whether the puzzle was solved or not.
  
- An `ORKTowerOfHanoiResult` object is typically generated by the framework as the task proceeds. When the task
+ An `ORKLegacyTowerOfHanoiResult` object is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server
  or to immediately perform analysis on it.
  */
-@class ORKTowerOfHanoiMove;
+@class ORKLegacyTowerOfHanoiMove;
 
-ORK_CLASS_AVAILABLE
-@interface ORKTowerOfHanoiResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTowerOfHanoiResult : ORKLegacyResult
 
 /**
  A Boolean value indicating whether the puzzle was solved.
@@ -308,32 +308,32 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) BOOL puzzleWasSolved;
 
 /**
- An array of moves, in which each item is an `ORKTowerOfHanoiMove` object that represents a move.
+ An array of moves, in which each item is an `ORKLegacyTowerOfHanoiMove` object that represents a move.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKTowerOfHanoiMove *> *moves;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacyTowerOfHanoiMove *> *moves;
 
 @end
 
 
 /**
- The `ORKTowerOfHanoiMove` class represents a single move in a Tower of Hanoi puzzle.
+ The `ORKLegacyTowerOfHanoiMove` class represents a single move in a Tower of Hanoi puzzle.
  
  The Tower of Hanoi move object records the indexes of the donor and recipient towers
  and the time at which the event occurred. A `towerOfHanoiMove` instance is included in
- an `ORKTowerOfHanoiResult` object and is recorded by the step view controller for the
+ an `ORKLegacyTowerOfHanoiResult` object and is recorded by the step view controller for the
  corresponding task when a move is made.
  
  A Tower of Hanoi move is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize the move for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTowerOfHanoiMove : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTowerOfHanoiMove : NSObject <NSCopying, NSSecureCoding>
 
 /**
  A relative timestamp indicating the time of the tap event. 
  
- The timestamp is relative to the value of `startDate` in the `ORKResult` object that includes this move.
+ The timestamp is relative to the value of `startDate` in the `ORKLegacyResult` object that includes this move.
  The start date of that object represents the time at which the first move was made.
  */
 @property (nonatomic, assign) NSTimeInterval timestamp;
@@ -362,14 +362,14 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKToneAudiometryResult` class records the results of a tone audiometry test.
+ The `ORKLegacyToneAudiometryResult` class records the results of a tone audiometry test.
 
  The audiometry samples are generated by the framework when the task completes.
  It may be appropriate to serialize them for transmission to a server,
  or to immediately perform analysis on them.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKToneAudiometryResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyToneAudiometryResult : ORKLegacyResult
 
 /**
  The system wide output volume set by the user during the audiometry test.
@@ -380,20 +380,20 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, copy, nullable) NSNumber *outputVolume;
 
 /**
- An array of collected samples, in which each item is an `ORKToneAudiometrySample`
+ An array of collected samples, in which each item is an `ORKLegacyToneAudiometrySample`
  object that represents an audiometry sample.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKToneAudiometrySample *> *samples;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacyToneAudiometrySample *> *samples;
 
 @end
 
 
 /**
- The `ORKToneAudiometrySample` class represents an audio amplitude associated
+ The `ORKLegacyToneAudiometrySample` class represents an audio amplitude associated
  with a frequency and a channel.
 
  The sample object records the amplitude, the frequency, and the channel for the audio
- tone being played. A tone audiometry sample is included in an `ORKToneAudiometryResult`
+ tone being played. A tone audiometry sample is included in an `ORKLegacyToneAudiometryResult`
  object, and is recorded by the step view controller for the corresponding task
  when a tap is recognized for a given tone.
 
@@ -401,8 +401,8 @@ ORK_CLASS_AVAILABLE
  When the task completes, it may be appropriate to serialize the sample for
  transmission to a server or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKToneAudiometrySample : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyToneAudiometrySample : NSObject <NSCopying, NSSecureCoding>
 
 /**
  The frequency value in hertz for the tone associated with the sample.
@@ -413,13 +413,13 @@ ORK_CLASS_AVAILABLE
  
  The channel, either left or right, for the tone associated with the sample.
  */
-@property (nonatomic, assign) ORKAudioChannel channel;
+@property (nonatomic, assign) ORKLegacyAudioChannel channel;
 
 /**
  The channel selected by the user.
  */
 
-@property (nonatomic, assign) ORKAudioChannel channelSelected;
+@property (nonatomic, assign) ORKLegacyAudioChannel channelSelected;
 
 /**
  The audio signal amplitude.
@@ -432,15 +432,15 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKSpatialSpanMemoryGameTouchSample` class represents a tap during the
+ The `ORKLegacySpatialSpanMemoryGameTouchSample` class represents a tap during the
  spatial span memory game.
  
  A spatial span memory game touch sample is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKSpatialSpanMemoryGameTouchSample : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacySpatialSpanMemoryGameTouchSample : NSObject <NSCopying, NSSecureCoding>
 
 /**
  A timestamp (in seconds) from the beginning of the game.
@@ -474,33 +474,33 @@ ORK_CLASS_AVAILABLE
 
 
 /// An enumeration of values that describe the status of a round of the spatial span memory game.
-typedef NS_ENUM(NSInteger, ORKSpatialSpanMemoryGameStatus) {
+typedef NS_ENUM(NSInteger, ORKLegacySpatialSpanMemoryGameStatus) {
     
     /// Unknown status. The game is still in progress or has not started.
-    ORKSpatialSpanMemoryGameStatusUnknown,
+    ORKLegacySpatialSpanMemoryGameStatusUnknown,
     
     /// Success. The user has completed the sequence.
-    ORKSpatialSpanMemoryGameStatusSuccess,
+    ORKLegacySpatialSpanMemoryGameStatusSuccess,
     
     /// Failure. The user has completed the sequence incorrectly.
-    ORKSpatialSpanMemoryGameStatusFailure,
+    ORKLegacySpatialSpanMemoryGameStatusFailure,
     
     /// Timeout. The game timed out during play.
-    ORKSpatialSpanMemoryGameStatusTimeout
-} ORK_ENUM_AVAILABLE;
+    ORKLegacySpatialSpanMemoryGameStatusTimeout
+} ORKLegacy_ENUM_AVAILABLE;
 
 /**
- The `ORKSpatialSpanMemoryGameRecord` class records the results of a
+ The `ORKLegacySpatialSpanMemoryGameRecord` class records the results of a
  single playable instance of the spatial span memory game.
  
  A spatial span memory game record is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  
- These records are found in the `records` property of an `ORKSpatialSpanMemoryResult` object.
+ These records are found in the `records` property of an `ORKLegacySpatialSpanMemoryResult` object.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKSpatialSpanMemoryGameRecord : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacySpatialSpanMemoryGameRecord : NSObject <NSCopying, NSSecureCoding>
 
 /**
  An integer used as the seed for the sequence.
@@ -530,15 +530,15 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, copy, nullable) NSArray<NSValue *> *targetRects;
 
 /**
- An array of `ORKSpatialSpanMemoryGameTouchSample` objects that record the onscreen locations
+ An array of `ORKLegacySpatialSpanMemoryGameTouchSample` objects that record the onscreen locations
 the user tapped during the game.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKSpatialSpanMemoryGameTouchSample *> *touchSamples;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacySpatialSpanMemoryGameTouchSample *> *touchSamples;
 
 /**
  A value indicating whether the user completed the sequence and, if the game was not completed, why not.
  */
-@property (nonatomic, assign) ORKSpatialSpanMemoryGameStatus gameStatus;
+@property (nonatomic, assign) ORKLegacySpatialSpanMemoryGameStatus gameStatus;
 
 /**
  An integer that records the number of points obtained during this game toward
@@ -550,7 +550,7 @@ the user tapped during the game.
 
 
 /**
- The `ORKSpatialSpanMemoryResult` class represents the result of a spatial span memory step (`ORKSpatialSpanMemoryStep`).
+ The `ORKLegacySpatialSpanMemoryResult` class represents the result of a spatial span memory step (`ORKLegacySpatialSpanMemoryStep`).
  
  A spatial span memory result records the score displayed to the user, the number of games, the
  objects recording the actual game, and the user's taps in response
@@ -560,8 +560,8 @@ the user tapped during the game.
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKSpatialSpanMemoryResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacySpatialSpanMemoryResult : ORKLegacyResult
 
 /**
  The score in the game.
@@ -589,15 +589,15 @@ ORK_CLASS_AVAILABLE
 /**
  An array that contains the results of the games played.
  
- Each item in the array is an `ORKSpatialSpanMemoryGameRecord` object.
+ Each item in the array is an `ORKLegacySpatialSpanMemoryGameRecord` object.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKSpatialSpanMemoryGameRecord *> *gameRecords;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacySpatialSpanMemoryGameRecord *> *gameRecords;
 
 @end
 
 
 /**
- The `ORKFileResult` class is a result that references the location of a file produced
+ The `ORKLegacyFileResult` class is a result that references the location of a file produced
  during a task.
  
  A file result is typically generated by the framework as the task proceeds. When the task
@@ -605,18 +605,18 @@ ORK_CLASS_AVAILABLE
  to the server.
  
  Active steps typically produce file results when CoreMotion or HealthKit are
- serialized to disk using a data logger (`ORKDataLogger`). Audio recording also produces a file
+ serialized to disk using a data logger (`ORKLegacyDataLogger`). Audio recording also produces a file
  result.
  
  When you write a custom step, use files to report results only when the data
  is likely to be too big to hold in memory for the duration of the task. For
  example, fitness tasks that use sensors can be quite long and can generate
  a large number of samples. To compensate for the length of the task, you can stream the samples to disk during
- the task, and return an `ORKFileResult` object in the result hierarchy, usually as a
- child of an `ORKStepResult` object.
+ the task, and return an `ORKLegacyFileResult` object in the result hierarchy, usually as a
+ child of an `ORKLegacyStepResult` object.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKFileResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyFileResult : ORKLegacyResult
 
 /**
  The MIME content type of the result.
@@ -641,7 +641,7 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKReactionTimeResult` class represents the result of a single successful attempt within an ORKReactionTimeStep.
+ The `ORKLegacyReactionTimeResult` class represents the result of a single successful attempt within an ORKLegacyReactionTimeStep.
  
  The `timestamp` property is equal to the value of systemUptime (in NSProcessInfo) when the stimulus occurred.
 Each entry of motion data in this file contains a time interval which may be directly compared to timestamp in order to determine the elapsed time since the stimulus.
@@ -653,23 +653,23 @@ Using the time taken to reach the threshold acceleration as the reaction time of
  completes, it may be appropriate to serialize the sample for transmission to a server
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKReactionTimeResult: ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyReactionTimeResult: ORKLegacyResult
 
 @property (nonatomic, assign) NSTimeInterval timestamp;
 
-@property (nonatomic, strong) ORKFileResult *fileResult;
+@property (nonatomic, strong) ORKLegacyFileResult *fileResult;
 
 @end
 
 
 /**
- The `ORKStroopResult` class represents the result of a single successful attempt within an ORKStroopStep.
+ The `ORKLegacyStroopResult` class represents the result of a single successful attempt within an ORKLegacyStroopStep.
  
  A stroop result is typically generated by the framework as the task proceeds. When the task completes, it may be appropriate to serialize the sample for transmission to a server or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKStroopResult: ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyStroopResult: ORKLegacyResult
 
 /**
  The `startTime` property is equal to the start time of the each step.
@@ -699,7 +699,7 @@ ORK_CLASS_AVAILABLE
 @end
 
 /**
- The `ORKPSATResult` class records the results of a PSAT test.
+ The `ORKLegacyPSATResult` class records the results of a PSAT test.
  
  The PSAT result object records the initial digit, an array of addition samples, the total of correct answers
  and also various attributes of the PSAT test.
@@ -708,15 +708,15 @@ ORK_CLASS_AVAILABLE
  When the task completes, it may be appropriate to serialize them for transmission to a server,
  or to immediately perform analysis on them.
  */
-@class ORKPSATSample;
+@class ORKLegacyPSATSample;
 
-ORK_CLASS_AVAILABLE
-@interface ORKPSATResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyPSATResult : ORKLegacyResult
 
 /**
  The PSAT presentation mode.
  */
-@property (nonatomic, assign) ORKPSATPresentationMode presentationMode;
+@property (nonatomic, assign) ORKLegacyPSATPresentationMode presentationMode;
 
 /**
  The time interval between two digits presented.
@@ -756,26 +756,26 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) NSInteger initialDigit;
 
 /**
- An array of collected samples, in which each item is an `ORKPSATSample`
+ An array of collected samples, in which each item is an `ORKLegacyPSATSample`
  object that represents an addition sample.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKPSATSample *> *samples;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacyPSATSample *> *samples;
 
 @end
 
 
 /**
- The `ORKPSATSample` class represents a numeric answer to an addition question.
+ The `ORKLegacyPSATSample` class represents a numeric answer to an addition question.
  If the answer is correct, the sample object records the presented digit and the numeric answer.
- A PSAT sample is included in an `ORKPSATResult` object and is recorded
+ A PSAT sample is included in an `ORKLegacyPSATResult` object and is recorded
  by the step view controller for the corresponding task.
  
  A PSAT sample is typically generated by the framework as the task proceeds.
  When the task completes, it may be appropriate to serialize the sample for
  transmission to a server, or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKPSATSample : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyPSATSample : NSObject <NSCopying, NSSecureCoding>
 
 /**
  A Boolean value indicating whether the addition answer was the correct one.
@@ -805,7 +805,7 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKHolePegTestResult` class records the results of a hole peg test.
+ The `ORKLegacyHolePegTestResult` class records the results of a hole peg test.
  
  The hole peg test result object records the number of pegs, an array of move samples, the total duration
  and also various attributes of the hole peg test.
@@ -814,13 +814,13 @@ ORK_CLASS_AVAILABLE
  When the task completes, it may be appropriate to serialize them for transmission to a server,
  or to immediately perform analysis on them.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKHolePegTestResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyHolePegTestResult : ORKLegacyResult
 
 /**
  The hole peg test moving direction.
  */
-@property (nonatomic, assign) ORKBodySagittal movingDirection;
+@property (nonatomic, assign) ORKLegacyBodySagittal movingDirection;
 
 /**
  The step is for the dominant hand.
@@ -863,7 +863,7 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, assign) double totalDistance;
 
 /**
- An array of collected samples, in which each item is an `ORKHolePegTestSample`
+ An array of collected samples, in which each item is an `ORKLegacyHolePegTestSample`
  object that represents a peg move.
  */
 @property (nonatomic, copy, nullable) NSArray *samples;
@@ -872,18 +872,18 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKHolePegTestSample` class represents a peg move.
+ The `ORKLegacyHolePegTestSample` class represents a peg move.
  
  The sample object records the duration, and the move distance.
- An hole peg test is included in an `ORKHolePegTestResult` object, and is recorded
+ An hole peg test is included in an `ORKLegacyHolePegTestResult` object, and is recorded
  by the step view controller for the corresponding task.
  
  An hole peg test sample is typically generated by the framework as the task proceeds.
  When the task completes, it may be appropriate to serialize the sample for
  transmission to a server, or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKHolePegTestSample : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyHolePegTestSample : NSObject <NSCopying, NSSecureCoding>
 
 /**
  The time interval for the peg move.
@@ -899,16 +899,16 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKQuestionResult` class is the base class for leaf results from an item that uses an answer format (`ORKAnswerFormat`).
+ The `ORKLegacyQuestionResult` class is the base class for leaf results from an item that uses an answer format (`ORKLegacyAnswerFormat`).
  
  A question result is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  
- See also: `ORKQuestionStep` and `ORKFormItem`.
+ See also: `ORKLegacyQuestionStep` and `ORKLegacyFormItem`.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKQuestionResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyQuestionResult : ORKLegacyResult
 
 /**
  A value that indicates the type of question the result came from.
@@ -916,21 +916,21 @@ ORK_CLASS_AVAILABLE
  The value of `questionType` generally correlates closely with the class, but it can be
  easier to use this value in a switch statement in Objective-C.
  */
-@property (nonatomic) ORKQuestionType questionType;
+@property (nonatomic) ORKLegacyQuestionType questionType;
 
 @end
 
 
 /**
- The `ORKScaleQuestionResult` class represents the answer to a continuous or
+ The `ORKLegacyScaleQuestionResult` class represents the answer to a continuous or
  discrete-value scale answer format.
  
  A scale question result is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKScaleQuestionResult : ORKQuestionResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyScaleQuestionResult : ORKLegacyQuestionResult
 
 /**
  The answer obtained from the scale question.
@@ -944,21 +944,21 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKChoiceQuestionResult` class represents the single or multiple choice
+ The `ORKLegacyChoiceQuestionResult` class represents the single or multiple choice
  answers from a choice-based answer format.
  
- For example, an `ORKTextChoiceAnswerFormat` or an `ORKImageChoiceAnswerFormat`
- format produces an `ORKChoiceQuestionResult` object.
+ For example, an `ORKLegacyTextChoiceAnswerFormat` or an `ORKLegacyImageChoiceAnswerFormat`
+ format produces an `ORKLegacyChoiceQuestionResult` object.
  
  A choice question result is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKChoiceQuestionResult : ORKQuestionResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyChoiceQuestionResult : ORKLegacyQuestionResult
 
 /**
- An array of selected values, from the `value` property of an `ORKTextChoice` or `ORKImageChoice` object.
+ An array of selected values, from the `value` property of an `ORKLegacyTextChoice` or `ORKLegacyImageChoice` object.
  In the case of a single choice, the array has exactly one entry.
  
  If the user skipped the question, the value of the corresponding array member is `nil`.
@@ -968,20 +968,20 @@ ORK_CLASS_AVAILABLE
 @end
 
 /**
- The `ORKMultipleComponentQuestionResult` class represents the choice
+ The `ORKLegacyMultipleComponentQuestionResult` class represents the choice
  answers from a multiple-component picker-style choice-based answer format.
  
- For example, an `ORKMultipleValuePickerAnswerFormat` produces an `ORKMultipleComponentQuestionResult` object.
+ For example, an `ORKLegacyMultipleValuePickerAnswerFormat` produces an `ORKLegacyMultipleComponentQuestionResult` object.
  
  A multiple component question result is typically generated by the framework as the task proceeds. 
  When the task completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKMultipleComponentQuestionResult : ORKQuestionResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyMultipleComponentQuestionResult : ORKLegacyQuestionResult
 
 /**
- An array of selected components, from the `value` property of an `ORKTextChoice` object.
+ An array of selected components, from the `value` property of an `ORKLegacyTextChoice` object.
  The array will have the same count as the number of components.
  
  If the user skipped the question, the value of the corresponding array member is `nil`.
@@ -998,17 +998,17 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKBooleanQuestionResult` class represents the answer to a Yes/No question.
+ The `ORKLegacyBooleanQuestionResult` class represents the answer to a Yes/No question.
  
  A Boolean question result is produced by the task view controller when it presents a question or form
- item with a Boolean answer format (that is, `ORKBooleanAnswerFormat`).
+ item with a Boolean answer format (that is, `ORKLegacyBooleanAnswerFormat`).
  
  A Boolean question result is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKBooleanQuestionResult : ORKQuestionResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyBooleanQuestionResult : ORKLegacyQuestionResult
 
 /** The answer, or `nil` if the user skipped the question. */
 @property (nonatomic, copy, nullable) NSNumber *booleanAnswer;
@@ -1017,13 +1017,13 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKTimedWalkResult` class records the results of a Timed Walk test.
+ The `ORKLegacyTimedWalkResult` class records the results of a Timed Walk test.
  
  The timed walk result object records the duration to complete the trial with a specific distance
  and time limit.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTimedWalkResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTimedWalkResult : ORKLegacyResult
 /**
  The timed walk distance in meters.
  */
@@ -1043,15 +1043,15 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKTextQuestionResult` class represents the answer to a question or
- form item that uses an `ORKTextAnswerFormat` format.
+ The `ORKLegacyTextQuestionResult` class represents the answer to a question or
+ form item that uses an `ORKLegacyTextAnswerFormat` format.
  
  A text question result is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTextQuestionResult : ORKQuestionResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTextQuestionResult : ORKLegacyQuestionResult
 
 /** 
  The answer that the user entered.
@@ -1064,16 +1064,16 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKNumericQuestionResult` class represents a question or form item that uses an answer format that produces a numeric answer.
+ The `ORKLegacyNumericQuestionResult` class represents a question or form item that uses an answer format that produces a numeric answer.
  
- Examples of this type of answer format include `ORKScaleAnswerFormat` and `ORKNumericAnswerFormat`.
+ Examples of this type of answer format include `ORKLegacyScaleAnswerFormat` and `ORKLegacyNumericAnswerFormat`.
  
  A numeric question result is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKNumericQuestionResult : ORKQuestionResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyNumericQuestionResult : ORKLegacyQuestionResult
 
 /// The number collected, or `nil` if the user skipped the question.
 @property (nonatomic, copy, nullable) NSNumber *numericAnswer;
@@ -1087,11 +1087,11 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKTimeOfDayQuestionResult` class represents the result of a question that uses the `ORKTimeOfDayAnswerFormat` format.
+ The `ORKLegacyTimeOfDayQuestionResult` class represents the result of a question that uses the `ORKLegacyTimeOfDayAnswerFormat` format.
  */
 
-ORK_CLASS_AVAILABLE
-@interface ORKTimeOfDayQuestionResult : ORKQuestionResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTimeOfDayQuestionResult : ORKLegacyQuestionResult
 
 /**
  The date components picked by the user.
@@ -1104,15 +1104,15 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKTimeIntervalQuestionResult` class represents the result of a question
- that uses the `ORKTimeIntervalAnswerFormat` format.
+ The `ORKLegacyTimeIntervalQuestionResult` class represents the result of a question
+ that uses the `ORKLegacyTimeIntervalAnswerFormat` format.
  
  A time interval question result is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTimeIntervalQuestionResult : ORKQuestionResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTimeIntervalQuestionResult : ORKLegacyQuestionResult
 
 /**
  The selected interval, in seconds.
@@ -1125,15 +1125,15 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKDateQuestionResult` class represents the result of a question or form item that asks for a date (`ORKDateAnswerFormat`).
+ The `ORKLegacyDateQuestionResult` class represents the result of a question or form item that asks for a date (`ORKLegacyDateAnswerFormat`).
  
  The calendar and time zone are recorded in addition to the answer itself,
  to give the answer context. Usually, this data corresponds to the current calendar
  and time zone at the time of the activity, but it can be overridden by setting
- these properties explicitly in the `ORKDateAnswerFormat` object.
+ these properties explicitly in the `ORKLegacyDateAnswerFormat` object.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKDateQuestionResult : ORKQuestionResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyDateQuestionResult : ORKLegacyQuestionResult
 
 /**
  The date that the user entered, or `nil` if the user skipped the question.
@@ -1143,7 +1143,7 @@ ORK_CLASS_AVAILABLE
 /**
  The calendar used when selecting date and time.
  
- If the calendar in the `ORKDateAnswerFormat` object is `nil`, this calendar is the system
+ If the calendar in the `ORKLegacyDateAnswerFormat` object is `nil`, this calendar is the system
  calendar at the time of data entry.
  */
 @property (nonatomic, copy, nullable) NSCalendar *calendar;
@@ -1157,9 +1157,9 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKConsentSignatureResult` class represents a signature obtained during
- a consent review step (`ORKConsentReviewStep`). The consent signature result is usually found as a child result of the
- `ORKStepResult` object for the consent review step.
+ The `ORKLegacyConsentSignatureResult` class represents a signature obtained during
+ a consent review step (`ORKLegacyConsentReviewStep`). The consent signature result is usually found as a child result of the
+ `ORKLegacyStepResult` object for the consent review step.
  
  You can apply the result to a document to facilitate the generation of a
  PDF including the signature, or for presentation in a follow-on
@@ -1169,17 +1169,17 @@ ORK_CLASS_AVAILABLE
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKConsentSignatureResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyConsentSignatureResult : ORKLegacyResult
 
 /**
  A copy of the signature obtained.
  
  The signature is a copy of the `signature` property in the originating
- `ORKConsentReviewStep` object, but also includes any name or signature image collected during
+ `ORKLegacyConsentReviewStep` object, but also includes any name or signature image collected during
  the consent review step.
  */
-@property (nonatomic, copy, nullable) ORKConsentSignature *signature;
+@property (nonatomic, copy, nullable) ORKLegacyConsentSignature *signature;
 
 /**
  A boolean value indicating whether the participant consented.
@@ -1200,30 +1200,30 @@ ORK_CLASS_AVAILABLE
  
  @param document     The document to which to apply the signature.
  */
-- (void)applyToDocument:(ORKConsentDocument *)document;
+- (void)applyToDocument:(ORKLegacyConsentDocument *)document;
 
 @end
 
 
 /**
- The `ORKCollectionResult` class represents a result that contains an array of
+ The `ORKLegacyCollectionResult` class represents a result that contains an array of
  child results.
  
- `ORKCollectionResult` is the superclass of `ORKTaskResult` and `ORKStepResult`.
+ `ORKLegacyCollectionResult` is the superclass of `ORKLegacyTaskResult` and `ORKLegacyStepResult`.
  
  Note that object of this class are not instantiated directly by the ResearchKit framework.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKCollectionResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyCollectionResult : ORKLegacyResult
 
 /**
- An array of `ORKResult` objects that are the children of the result.
+ An array of `ORKLegacyResult` objects that are the children of the result.
  
- For `ORKTaskResult`, the array contains `ORKStepResult` objects.
- For `ORKStepResult` the array contains concrete result objects such as `ORKFileResult`
- and `ORKQuestionResult`.
+ For `ORKLegacyTaskResult`, the array contains `ORKLegacyStepResult` objects.
+ For `ORKLegacyStepResult` the array contains concrete result objects such as `ORKLegacyFileResult`
+ and `ORKLegacyQuestionResult`.
  */
-@property (nonatomic, copy, nullable) NSArray<ORKResult *> *results;
+@property (nonatomic, copy, nullable) NSArray<ORKLegacyResult *> *results;
 
 /**
  Looks up the child result containing an identifier that matches the specified identifier.
@@ -1232,22 +1232,22 @@ ORK_CLASS_AVAILABLE
  
  @return The matching result, or `nil` if none was found.
  */
-- (nullable ORKResult *)resultForIdentifier:(NSString *)identifier;
+- (nullable ORKLegacyResult *)resultForIdentifier:(NSString *)identifier;
 
 /**
  The first result.
  
  This is the first result, or `nil` if there are no results.
  */
-@property (nonatomic, strong, readonly, nullable) ORKResult *firstResult;
+@property (nonatomic, strong, readonly, nullable) ORKLegacyResult *firstResult;
 
 @end
 
 
 /**
- `ORKTaskResultSource` is the protocol for `[ORKTaskViewController defaultResultSource]`.
+ `ORKLegacyTaskResultSource` is the protocol for `[ORKLegacyTaskViewController defaultResultSource]`.
  */
-@protocol ORKTaskResultSource <NSObject>
+@protocol ORKLegacyTaskResultSource <NSObject>
 
 /**
  Returns a step result for the specified step identifier, if one exists.
@@ -1255,19 +1255,19 @@ ORK_CLASS_AVAILABLE
  When it's about to present a step, the task view controller needs to look up a
  suitable default answer. The answer can be used to prepopulate a survey with
  the results obtained on a previous run of the same task, by passing an
- `ORKTaskResult` object (which itself implements this protocol).
+ `ORKLegacyTaskResult` object (which itself implements this protocol).
  
  @param stepIdentifier The identifier for which to search.
  
  @return The result for the specified step, or `nil` for none.
  */
-- (nullable ORKStepResult *)stepResultForStepIdentifier:(NSString *)stepIdentifier;
+- (nullable ORKLegacyStepResult *)stepResultForStepIdentifier:(NSString *)stepIdentifier;
 
 /**
  Should the default result store be used even if there is a previous result? (due to 
  reverse navigation or looping)
  
- By default, the `[ORKTaskViewController defaultResultSource]` is only queried for a 
+ By default, the `[ORKLegacyTaskViewController defaultResultSource]` is only queried for a 
  result if the previous result is nil. This allows the result source to override that
  default behavior.
  
@@ -1280,18 +1280,18 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- An `ORKTaskResult` object is a collection result that contains all the step results
- generated from one run of a task or ordered task (that is, `ORKTask` or `ORKOrderedTask`) in a task view controller.
+ An `ORKLegacyTaskResult` object is a collection result that contains all the step results
+ generated from one run of a task or ordered task (that is, `ORKLegacyTask` or `ORKLegacyOrderedTask`) in a task view controller.
  
  A task result is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  
- The `results` property of the `ORKCollectionResult` object contains the step results
+ The `results` property of the `ORKLegacyCollectionResult` object contains the step results
  for the task.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTaskResult : ORKCollectionResult <ORKTaskResultSource>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTaskResult : ORKLegacyCollectionResult <ORKLegacyTaskResultSource>
 
 /**
  Returns an intialized task result using the specified identifiers and directory.
@@ -1323,7 +1323,7 @@ ORK_CLASS_AVAILABLE
  all the files found in the output directory.
  
  The file URL also prefixes the file URLs referenced in any child
- `ORKFileResult` objects.
+ `ORKLegacyFileResult` objects.
  */
 @property (nonatomic, copy, readonly, nullable) NSURL *outputDirectory;
 
@@ -1331,23 +1331,23 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKStepResult` class represents a collection result produced by a step view controller to
+ The `ORKLegacyStepResult` class represents a collection result produced by a step view controller to
  hold all child results produced by the step.
  
  A step result is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  
- For example, an `ORKQuestionStep` object produces an `ORKQuestionResult` object that becomes
- a child of the `ORKStepResult` object. Similarly, an `ORKActiveStep` object may produce individual
+ For example, an `ORKLegacyQuestionStep` object produces an `ORKLegacyQuestionResult` object that becomes
+ a child of the `ORKLegacyStepResult` object. Similarly, an `ORKLegacyActiveStep` object may produce individual
  child result objects for each of the recorder configurations that was active
  during that step.
  
- The `results` property of the `ORKCollectionResult` object contains the step results
+ The `results` property of the `ORKLegacyCollectionResult` object contains the step results
  for the task.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKStepResult : ORKCollectionResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyStepResult : ORKLegacyCollectionResult
 
 
 /**
@@ -1359,7 +1359,7 @@ ORK_CLASS_AVAILABLE
  
  @return An initialized step result.
  */
-- (instancetype)initWithStepIdentifier:(NSString *)stepIdentifier results:(nullable NSArray<ORKResult *> *)results;
+- (instancetype)initWithStepIdentifier:(NSString *)stepIdentifier results:(nullable NSArray<ORKLegacyResult *> *)results;
 
 /**
  This property indicates whether the Voice Over or Switch Control assistive technologies were active
@@ -1382,10 +1382,10 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKLocation` class represents the location addess obtained from a locaton question.
+ The `ORKLegacyLocation` class represents the location addess obtained from a locaton question.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKLocation : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyLocation : NSObject <NSCopying, NSSecureCoding>
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -1414,33 +1414,33 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKLocationQuestionResult` class represents the result of a question or form item that asks for a location (`ORKLocationAnswerFormat`).
+ The `ORKLegacyLocationQuestionResult` class represents the result of a question or form item that asks for a location (`ORKLegacyLocationAnswerFormat`).
  
  A Location question result is produced by the task view controller when it presents a question or form
- item with a Location answer format (that is, `ORKLocationAnswerFormat`).
+ item with a Location answer format (that is, `ORKLegacyLocationAnswerFormat`).
  
  A Location question result is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize it for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKLocationQuestionResult : ORKQuestionResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyLocationQuestionResult : ORKLegacyQuestionResult
 
 /**
  The answer representing the coordinate and the address of a specific location.
  */
-@property (nonatomic, copy, nullable) ORKLocation *locationAnswer;
+@property (nonatomic, copy, nullable) ORKLegacyLocation *locationAnswer;
 
 @end
 
 /**
- The `ORKSignatureResult` class represents the result of a signature step (`ORKSignatureStep`).
+ The `ORKLegacySignatureResult` class represents the result of a signature step (`ORKLegacySignatureStep`).
  
  A signature result is produced by the task view controller when it presents a signature step.
 
  */
-ORK_CLASS_AVAILABLE
-@interface ORKSignatureResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacySignatureResult : ORKLegacyResult
 
 /**
  The signature image generated by this step.
@@ -1456,24 +1456,24 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKTrailmakingTap` class represents a single tap in a trail making test.
+ The `ORKLegacyTrailmakingTap` class represents a single tap in a trail making test.
  
  The Trailmaking tap move object records the indexes of tap, if it was in error or not
  and the time at which the event occurred. A `trailmakingTap` instance is included in
- an `ORKTrailmakingResult` object and is recorded by the step view controller for the
+ an `ORKLegacyTrailmakingResult` object and is recorded by the step view controller for the
  corresponding task when a tap is made.
  
  A trail making tap is typically generated by the framework as the task proceeds. When the task
  completes, it may be appropriate to serialize the move for transmission to a server,
  or to immediately perform analysis on it.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTrailmakingTap : NSObject <NSCopying, NSSecureCoding>
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTrailmakingTap : NSObject <NSCopying, NSSecureCoding>
 
 /**
  A relative timestamp indicating the time of the tap event.
  
- The timestamp is relative to the value of `startDate` in the `ORKResult` object that includes this move.
+ The timestamp is relative to the value of `startDate` in the `ORKLegacyResult` object that includes this move.
  The start date of that object represents the time at which the first move was made.
  */
 @property (nonatomic, assign) NSTimeInterval timestamp;
@@ -1492,19 +1492,19 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKTrailmakingResult` class represents the result of a signature step (`ORKTrailmakingStep`).
+ The `ORKLegacyTrailmakingResult` class represents the result of a signature step (`ORKLegacyTrailmakingStep`).
  
  
  A trail making result is produced by the task view controller when it presents a trail making step.
  
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTrailmakingResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTrailmakingResult : ORKLegacyResult
 
 /** 
  An array of all taps completed during the test
  */
-@property (nonatomic, copy) NSArray <ORKTrailmakingTap *> *taps;
+@property (nonatomic, copy) NSArray <ORKLegacyTrailmakingTap *> *taps;
 
 /** 
  The number of errors generated during the test
@@ -1515,13 +1515,13 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKVideoInstructionStepResult` class represents the result of a video insruction step (`ORKVideoInstructionStep`).
+ The `ORKLegacyVideoInstructionStepResult` class represents the result of a video insruction step (`ORKLegacyVideoInstructionStep`).
  
  A video instruction result is produced by the task view controller when it presents a video instruction step.
  
  */
-ORK_CLASS_AVAILABLE
-@interface ORKVideoInstructionStepResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyVideoInstructionStepResult : ORKLegacyResult
 
 /**
  The time (in seconds) after video playback stopped, or NaN if the video was never played.
@@ -1537,13 +1537,13 @@ ORK_CLASS_AVAILABLE
 
 
 /**
- The `ORKWebViewStepResult` class represents the result of a web view step (`ORKWebViewStep`).
+ The `ORKLegacyWebViewStepResult` class represents the result of a web view step (`ORKLegacyWebViewStep`).
  
  A web view result is produced by the task view controller when it presents a web view step.
  
  */
-ORK_CLASS_AVAILABLE
-@interface ORKWebViewStepResult : ORKResult
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyWebViewStepResult : ORKLegacyResult
 
 /**
  The answer produced by the webview.

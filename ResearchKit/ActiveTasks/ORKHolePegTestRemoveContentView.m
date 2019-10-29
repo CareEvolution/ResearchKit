@@ -43,12 +43,12 @@ static const CGFloat PegViewDiameter = 88.0f;
 static const CGFloat PegViewSeparatorWidth = 2.0f;
 
 
-@interface ORKHolePegTestRemoveContentView () <UIGestureRecognizerDelegate>
+@interface ORKLegacyHolePegTestRemoveContentView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) ORKHolePegTestRemovePegView *pegView;
-@property (nonatomic, strong) ORKSeparatorView *separatorView;
-@property (nonatomic, strong) ORKDirectionView *directionView;
+@property (nonatomic, strong) ORKLegacyHolePegTestRemovePegView *pegView;
+@property (nonatomic, strong) ORKLegacySeparatorView *separatorView;
+@property (nonatomic, strong) ORKLegacyDirectionView *directionView;
 @property (nonatomic, strong) UIView *container;
 @property (nonatomic, copy) NSArray *constraints;
 
@@ -63,17 +63,17 @@ static const CGFloat PegViewSeparatorWidth = 2.0f;
 @end
 
 
-@implementation ORKHolePegTestRemoveContentView
+@implementation ORKLegacyHolePegTestRemoveContentView
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    ORKThrowMethodUnavailableException();
+    ORKLegacyThrowMethodUnavailableException();
 }
 
-- (instancetype)initWithMovingDirection:(ORKBodySagittal)movingDirection {
+- (instancetype)initWithMovingDirection:(ORKLegacyBodySagittal)movingDirection {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         self.movingDirection = movingDirection;
@@ -88,15 +88,15 @@ static const CGFloat PegViewSeparatorWidth = 2.0f;
         [self.progressView setAlpha:0];
         [self addSubview:self.progressView];
         
-        self.pegView = [[ORKHolePegTestRemovePegView alloc] initWithFrame:CGRectMake(0, 0, PegViewDiameter, PegViewDiameter)];
+        self.pegView = [[ORKLegacyHolePegTestRemovePegView alloc] initWithFrame:CGRectMake(0, 0, PegViewDiameter, PegViewDiameter)];
         [self.pegView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self.container addSubview:self.pegView];
         
-        self.separatorView = [[ORKSeparatorView alloc] init];
+        self.separatorView = [[ORKLegacySeparatorView alloc] init];
         [self.separatorView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self.container addSubview:self.separatorView];
         
-        self.directionView = [[ORKDirectionView alloc] initWithOrientation:(self.movingDirection == ORKBodySagittalLeft) ? ORKBodySagittalRight : ORKBodySagittalLeft];
+        self.directionView = [[ORKLegacyDirectionView alloc] initWithOrientation:(self.movingDirection == ORKLegacyBodySagittalLeft) ? ORKLegacyBodySagittalRight : ORKLegacyBodySagittalLeft];
         [self.directionView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self addSubview:self.directionView];
         
@@ -135,7 +135,7 @@ static const CGFloat PegViewSeparatorWidth = 2.0f;
 }
 
 - (void)updateLayoutMargins {
-    CGFloat margin = ORKStandardHorizontalMarginForView(self);
+    CGFloat margin = ORKLegacyStandardHorizontalMarginForView(self);
     self.layoutMargins = (UIEdgeInsets){.left = margin * 2, .right = margin * 2};
 }
 
@@ -166,7 +166,7 @@ static const CGFloat PegViewSeparatorWidth = 2.0f;
                                              metrics:nil views:views]];
     
     [constraintsArray addObjectsFromArray:
-     [NSLayoutConstraint constraintsWithVisualFormat:(self.movingDirection == ORKBodySagittalLeft) ? @"H:|-[_pegView(diameter)]->=0-[_separatorView(separator)]-(margin)-|" : @"H:|-(margin)-[_separatorView(separator)]->=0-[_pegView(diameter)]-|"
+     [NSLayoutConstraint constraintsWithVisualFormat:(self.movingDirection == ORKLegacyBodySagittalLeft) ? @"H:|-[_pegView(diameter)]->=0-[_separatorView(separator)]-(margin)-|" : @"H:|-(margin)-[_separatorView(separator)]->=0-[_pegView(diameter)]-|"
                                              options:NSLayoutFormatAlignAllCenterY
                                              metrics:metrics views:views]];
     
@@ -340,7 +340,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 - (BOOL)pegViewBehindLine {
-    if (self.movingDirection == ORKBodySagittalLeft) {
+    if (self.movingDirection == ORKLegacyBodySagittalLeft) {
         if (CGRectGetMinX(self.pegView.frame) > CGRectGetMaxX(self.separatorView.frame)) {
             return YES;
         } else {

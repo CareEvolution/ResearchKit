@@ -35,22 +35,22 @@
 #import "ORKChoiceAnswerFormatHelper.h"
 
 
-@interface ORKChoiceAnswerFormatHelperTests : XCTestCase
+@interface ORKLegacyChoiceAnswerFormatHelperTests : XCTestCase
 
 @end
 
 
-@implementation ORKChoiceAnswerFormatHelperTests
+@implementation ORKLegacyChoiceAnswerFormatHelperTests
 
 - (NSArray *)textChoices {
     
     static NSArray *choices = nil;
     
     if (choices == nil) {
-        choices = @[[ORKTextChoice choiceWithText:@"choice 01" value:@"c1"],
-                        [ORKTextChoice choiceWithText:@"choice 02" value:@"c2"],
-                        [ORKTextChoice choiceWithText:@"choice 03" value:@"c3"],
-                        [ORKTextChoice choiceWithText:@"choice 04" value:@"c4"]];
+        choices = @[[ORKLegacyTextChoice choiceWithText:@"choice 01" value:@"c1"],
+                        [ORKLegacyTextChoice choiceWithText:@"choice 02" value:@"c2"],
+                        [ORKLegacyTextChoice choiceWithText:@"choice 03" value:@"c3"],
+                        [ORKLegacyTextChoice choiceWithText:@"choice 04" value:@"c4"]];
     }
     
     return choices;
@@ -61,9 +61,9 @@
     static NSArray *choices = nil;
     
     if (choices == nil) {
-        choices = @[[ORKImageChoice choiceWithNormalImage:nil selectedImage:nil text:@"choice 01" value:@"c1"],
-                    [ORKImageChoice choiceWithNormalImage:nil selectedImage:nil text:@"choice 02" value:@"c2"],
-                    [ORKImageChoice choiceWithNormalImage:nil selectedImage:nil text:@"choice 03" value:@"c3"]];
+        choices = @[[ORKLegacyImageChoice choiceWithNormalImage:nil selectedImage:nil text:@"choice 01" value:@"c1"],
+                    [ORKLegacyImageChoice choiceWithNormalImage:nil selectedImage:nil text:@"choice 02" value:@"c2"],
+                    [ORKLegacyImageChoice choiceWithNormalImage:nil selectedImage:nil text:@"choice 03" value:@"c3"]];
     }
     
     return choices;
@@ -72,23 +72,23 @@
 - (void)testCount {
    
     {
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat choiceAnswerFormatWithStyle:ORKChoiceAnswerStyleSingleChoice
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice
                                          textChoices:[self textChoices]];
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         XCTAssertEqual(formatHelper.choiceCount, [self textChoices].count, @"");
     }
     
     {
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat choiceAnswerFormatWithImageChoices:[self imageChoices]];
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:[self imageChoices]];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         XCTAssertEqual(formatHelper.choiceCount, [self imageChoices].count, @"");
     }
     
     {
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat valuePickerAnswerFormatWithTextChoices:[self textChoices]];
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:[self textChoices]];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         XCTAssertEqual(formatHelper.choiceCount, [self textChoices].count+1, @"");
     }
@@ -98,15 +98,15 @@
     {
         NSArray *textChoices = [self textChoices];
         
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat choiceAnswerFormatWithStyle:ORKChoiceAnswerStyleSingleChoice
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice
                                                                textChoices:textChoices];
         
         
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         [textChoices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            ORKTextChoice *tc = obj;
-            ORKTextChoice *tc2 = [formatHelper textChoiceAtIndex:idx];
+            ORKLegacyTextChoice *tc = obj;
+            ORKLegacyTextChoice *tc2 = [formatHelper textChoiceAtIndex:idx];
             XCTAssertEqual(tc, tc2, @"");
             XCTAssertNil([formatHelper imageChoiceAtIndex:idx],@"");
         }];
@@ -115,14 +115,14 @@
     {
         NSArray *textChoices = [self textChoices];
         
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
         
         
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         [textChoices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            ORKTextChoice *tc = obj;
-            ORKTextChoice *tc2 = [formatHelper textChoiceAtIndex:idx+1];
+            ORKLegacyTextChoice *tc = obj;
+            ORKLegacyTextChoice *tc2 = [formatHelper textChoiceAtIndex:idx+1];
             XCTAssertEqual(tc, tc2, @"");
             XCTAssertNil([formatHelper imageChoiceAtIndex:idx],@"");
         }];
@@ -133,21 +133,21 @@
     {
         NSArray *imageChoices = [self imageChoices];
         
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat choiceAnswerFormatWithImageChoices:imageChoices];
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:imageChoices];
         
         
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         [imageChoices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            ORKImageChoice *tc = obj;
-            ORKImageChoice *tc2 = [formatHelper imageChoiceAtIndex:idx];
+            ORKLegacyImageChoice *tc = obj;
+            ORKLegacyImageChoice *tc2 = [formatHelper imageChoiceAtIndex:idx];
             XCTAssertEqual(tc, tc2, @"");
             XCTAssertNil([formatHelper textChoiceAtIndex:idx],@"");
         }];
     }
 }
 
-- (void)verifyAnswerForSelectedIndexes:(ORKChoiceAnswerFormatHelper *)formatHelper choices:(NSArray *)choices {
+- (void)verifyAnswerForSelectedIndexes:(ORKLegacyChoiceAnswerFormatHelper *)formatHelper choices:(NSArray *)choices {
     NSMutableArray *indexArray = [NSMutableArray new];
     
     [choices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -157,7 +157,7 @@
         XCTAssert([answer isKindOfClass:[NSArray class]]);
         NSArray *answerArray = answer;
         
-        id value = ((ORKTextChoice *)choices[idx]).value;
+        id value = ((ORKLegacyTextChoice *)choices[idx]).value;
         
         if (value == nil) {
             value = @(idx);
@@ -186,23 +186,23 @@
     {
         NSArray *textChoices = [self textChoices];
         
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
         
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         id answer = [formatHelper answerForSelectedIndexes:@[@(0)]];
         
-        XCTAssert(answer == ORKNullAnswerValue(), @"%@", answer);
+        XCTAssert(answer == ORKLegacyNullAnswerValue(), @"%@", answer);
         
         answer = [formatHelper answerForSelectedIndex:0];
         
-        XCTAssert(answer == ORKNullAnswerValue(), @"%@", answer);
+        XCTAssert(answer == ORKLegacyNullAnswerValue(), @"%@", answer);
         
         [textChoices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             
             id answer = [formatHelper answerForSelectedIndex:idx+1];
             
-            id value = ((ORKTextChoice *)textChoices[idx]).value;
+            id value = ((ORKLegacyTextChoice *)textChoices[idx]).value;
             
             if (value == nil) {
                 value = @(idx);
@@ -224,10 +224,10 @@
     {
         NSArray *textChoices = [self textChoices];
         
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat choiceAnswerFormatWithStyle:ORKChoiceAnswerStyleSingleChoice
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice
                                                                textChoices:textChoices];
         
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
        
         [self verifyAnswerForSelectedIndexes:formatHelper choices:textChoices];
@@ -236,21 +236,21 @@
     {
         NSArray *imageChoices = [self imageChoices];
         
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat choiceAnswerFormatWithImageChoices:imageChoices];
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:imageChoices];
         
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         [self verifyAnswerForSelectedIndexes:formatHelper choices:imageChoices];
     }
 }
 
-- (void)verifySelectedIndexesForAnswer:(ORKChoiceAnswerFormatHelper *)formatHelper choices:(NSArray *)choices {
+- (void)verifySelectedIndexesForAnswer:(ORKLegacyChoiceAnswerFormatHelper *)formatHelper choices:(NSArray *)choices {
     
     NSArray *indexes = [formatHelper selectedIndexesForAnswer:nil];
     
     XCTAssertEqual(indexes.count, 0, @"%@", indexes);
     
-    indexes = [formatHelper selectedIndexesForAnswer:ORKNullAnswerValue()];
+    indexes = [formatHelper selectedIndexesForAnswer:ORKLegacyNullAnswerValue()];
     
     XCTAssertEqual(indexes.count, 0, @"%@", indexes);
     
@@ -258,13 +258,13 @@
     
     XCTAssertNil(indexNumber, @"%@", indexNumber);
     
-    indexNumber = [formatHelper selectedIndexForAnswer:ORKNullAnswerValue()];
+    indexNumber = [formatHelper selectedIndexForAnswer:ORKLegacyNullAnswerValue()];
     
     XCTAssertNil(indexNumber, @"%@", indexNumber);
     
     [choices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
-        id value = ((ORKTextChoice *)obj).value;
+        id value = ((ORKLegacyTextChoice *)obj).value;
         
         if (value == nil) {
             value = @(idx);
@@ -285,15 +285,15 @@
     {
         NSArray *textChoices = [self textChoices];
         
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
         
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         NSArray *indexes = [formatHelper selectedIndexesForAnswer:nil];
         
         XCTAssertEqualObjects(indexes.firstObject, @(0), @"%@", indexes);
         
-        indexes = [formatHelper selectedIndexesForAnswer:ORKNullAnswerValue()];
+        indexes = [formatHelper selectedIndexesForAnswer:ORKLegacyNullAnswerValue()];
         
         XCTAssertEqualObjects(indexes.firstObject, @(0), @"%@", indexes);
         
@@ -301,13 +301,13 @@
         
         XCTAssert([indexNumber isKindOfClass:[NSNumber class]] && indexNumber.unsignedIntegerValue == 0, @"%@", indexNumber);
         
-        indexNumber = [formatHelper selectedIndexForAnswer:ORKNullAnswerValue()];
+        indexNumber = [formatHelper selectedIndexForAnswer:ORKLegacyNullAnswerValue()];
         
         XCTAssert([indexNumber isKindOfClass:[NSNumber class]] && indexNumber.unsignedIntegerValue == 0, @"%@", indexNumber);
         
         [textChoices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             
-            id value = ((ORKTextChoice *)obj).value;
+            id value = ((ORKLegacyTextChoice *)obj).value;
             
             if (value == nil) {
                 value = @(idx);
@@ -328,10 +328,10 @@
     {
         NSArray *textChoices = [self textChoices];
         
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat choiceAnswerFormatWithStyle:ORKChoiceAnswerStyleSingleChoice
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice
                                                                textChoices:textChoices];
         
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
        [self verifySelectedIndexesForAnswer:formatHelper choices:textChoices];
         
@@ -340,9 +340,9 @@
     {
         NSArray *imageChoices = [self imageChoices];
         
-        ORKAnswerFormat *answerFormat = [ORKAnswerFormat choiceAnswerFormatWithImageChoices:imageChoices];
+        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:imageChoices];
         
-        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        ORKLegacyChoiceAnswerFormatHelper *formatHelper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         [self verifySelectedIndexesForAnswer:formatHelper choices:imageChoices];
         

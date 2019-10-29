@@ -32,7 +32,7 @@
 #import "CMDeviceMotion+ORKJSONDictionary.h"
 
 
-@implementation CMDeviceMotion (ORKJSONDictionary)
+@implementation CMDeviceMotion (ORKLegacyJSONDictionary)
 
 - (NSDictionary *)ork_JSONDictionary {
     CMQuaternion attitude = self.attitude.quaternion;

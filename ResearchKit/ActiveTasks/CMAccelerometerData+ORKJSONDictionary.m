@@ -32,7 +32,7 @@
 #import "CMAccelerometerData+ORKJSONDictionary.h"
 
 
-@implementation CMAccelerometerData (ORKJSONDictionary)
+@implementation CMAccelerometerData (ORKLegacyJSONDictionary)
 
 - (NSDictionary *)ork_JSONDictionary {
     NSDictionary *dictionary = @{ @"timestamp": [NSDecimalNumber numberWithDouble:self.timestamp],

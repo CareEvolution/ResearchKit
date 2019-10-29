@@ -41,8 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  This step is used to present the interactive Tower of Hanoi activity.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKTowerOfHanoiStep : ORKActiveStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyTowerOfHanoiStep : ORKLegacyActiveStep
 
 /**
  The number of disks in the puzzle.

@@ -34,19 +34,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKChoiceViewCell;
-@class ORKTextChoiceAnswerFormat;
+@class ORKLegacyChoiceViewCell;
+@class ORKLegacyTextChoiceAnswerFormat;
 
-@interface ORKTextChoiceCellGroup : NSObject
+@interface ORKLegacyTextChoiceCellGroup : NSObject
 
-- (instancetype)initWithTextChoiceAnswerFormat:(ORKTextChoiceAnswerFormat *)answerFormat
+- (instancetype)initWithTextChoiceAnswerFormat:(ORKLegacyTextChoiceAnswerFormat *)answerFormat
                                         answer:(nullable id)answer
                             beginningIndexPath:(NSIndexPath *)indexPath
                            immediateNavigation:(BOOL)immediateNavigation;
 
 @property (nonatomic, strong, nullable) id answer;
 
-- (nullable ORKChoiceViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(nullable NSString *)identifier;
+- (nullable ORKLegacyChoiceViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(nullable NSString *)identifier;
 
 - (BOOL)containsIndexPath:(NSIndexPath *)indexPath;
 

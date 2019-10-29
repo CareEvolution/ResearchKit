@@ -34,13 +34,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKConsentSection;
+@class ORKLegacyConsentSection;
 
-@interface ORKConsentSceneViewController : UIViewController
+@interface ORKLegacyConsentSceneViewController : UIViewController
 
-- (instancetype)initWithSection:(ORKConsentSection *)section;
+- (instancetype)initWithSection:(ORKLegacyConsentSection *)section;
 
-@property (nonatomic, readonly, nullable) ORKConsentSection *section;
+@property (nonatomic, readonly, nullable) ORKLegacyConsentSection *section;
 
 @property (nonatomic, strong, nullable) UIBarButtonItem *continueButtonItem;
 

@@ -36,13 +36,13 @@
 #import "ORKHelpers_Internal.h"
 
 
-ORKDefineStringKey(ORKBasicCellReuseIdentifier);
+ORKLegacyDefineStringKey(ORKLegacyBasicCellReuseIdentifier);
 
 
-@implementation ORKTableStep
+@implementation ORKLegacyTableStep
 
 + (Class)stepViewControllerClass {
-    return [ORKTableStepViewController class];
+    return [ORKLegacyTableStepViewController class];
 }
 
 - (NSInteger)numberOfSections {
@@ -58,11 +58,11 @@ ORKDefineStringKey(ORKBasicCellReuseIdentifier);
 }
 
 - (NSString *)reuseIdentifierForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return ORKBasicCellReuseIdentifier;
+    return ORKLegacyBasicCellReuseIdentifier;
 }
 
 - (void)registerCellsForTableView:(UITableView *)tableView {
-    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ORKBasicCellReuseIdentifier];
+    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ORKLegacyBasicCellReuseIdentifier];
 }
 
 - (void)configureCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableView {
@@ -72,8 +72,8 @@ ORKDefineStringKey(ORKBasicCellReuseIdentifier);
 #pragma mark - NSCopying
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKTableStep *step = [super copyWithZone:zone];
-    step->_items = ORKArrayCopyObjects(_items);
+    ORKLegacyTableStep *step = [super copyWithZone:zone];
+    step->_items = ORKLegacyArrayCopyObjects(_items);
     return step;
 }
 
@@ -86,14 +86,14 @@ ORKDefineStringKey(ORKBasicCellReuseIdentifier);
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_ARRAY(aDecoder, items, NSObject);
+        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, items, NSObject);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, items);
+    ORKLegacy_ENCODE_OBJ(aCoder, items);
 }
 
 #pragma mark - Equality
@@ -102,7 +102,7 @@ ORKDefineStringKey(ORKBasicCellReuseIdentifier);
     BOOL isParentSame = [super isEqual:object];
     
     __typeof(self) castObject = object;
-    return isParentSame && ORKEqualObjects(self.items, castObject.items);
+    return isParentSame && ORKLegacyEqualObjects(self.items, castObject.items);
 }
 
 - (NSUInteger)hash {

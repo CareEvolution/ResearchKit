@@ -56,15 +56,15 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface ORKVisualConsentStepViewController () <UIPageViewControllerDelegate, ORKScrollViewObserverDelegate> {
+@interface ORKLegacyVisualConsentStepViewController () <UIPageViewControllerDelegate, ORKLegacyScrollViewObserverDelegate> {
     BOOL _hasAppeared;
-    ORKStepViewControllerNavigationDirection _navigationDirection;
+    ORKLegacyStepViewControllerNavigationDirection _navigationDirection;
     
-    ORKVisualConsentTransitionAnimator *_animator;
+    ORKLegacyVisualConsentTransitionAnimator *_animator;
     
     NSArray *_visualSections;
     
-    ORKScrollViewObserver *_scrollViewObserver;
+    ORKLegacyScrollViewObserver *_scrollViewObserver;
 }
 
 @property (nonatomic, strong) UIPageViewController *pageViewController;
@@ -75,30 +75,30 @@
 
 @property (nonatomic) NSUInteger currentPage;
 
-@property (nonatomic, strong) ORKContinueButton *continueActionButton;
+@property (nonatomic, strong) ORKLegacyContinueButton *continueActionButton;
 
-- (ORKConsentSceneViewController *)viewControllerForIndex:(NSUInteger)index;
+- (ORKLegacyConsentSceneViewController *)viewControllerForIndex:(NSUInteger)index;
 - (NSUInteger)currentIndex;
 - (NSUInteger)indexOfViewController:(UIViewController *)viewController;
 
 @end
 
 
-@interface ORKAnimationPlaceholderView : UIView
+@interface ORKLegacyAnimationPlaceholderView : UIView
 
-@property (nonatomic, strong) ORKEAGLMoviePlayerView *playerView;
+@property (nonatomic, strong) ORKLegacyEAGLMoviePlayerView *playerView;
 
 - (void)scrollToTopAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion;
 
 @end
 
 
-@implementation ORKAnimationPlaceholderView
+@implementation ORKLegacyAnimationPlaceholderView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _playerView = [ORKEAGLMoviePlayerView new];
+        _playerView = [ORKLegacyEAGLMoviePlayerView new];
         _playerView.hidden = YES;
         [self addSubview:_playerView];
     }
@@ -109,7 +109,7 @@
     [super willMoveToWindow:newWindow];
     
     CGRect frame = self.frame;
-    frame.size.height = ORKGetMetricForWindow(ORKScreenMetricIllustrationHeight, newWindow);
+    frame.size.height = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricIllustrationHeight, newWindow);
     self.frame = frame;
 }
 
@@ -120,14 +120,14 @@
 }
 
 - (CGPoint)defaultFrameOrigin {
-    return (CGPoint){0, ORKGetMetricForWindow(ORKScreenMetricTopToIllustration, self.superview.window)};
+    return (CGPoint){0, ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricTopToIllustration, self.superview.window)};
 }
 
 - (void)scrollToTopAnimated:(BOOL)animated completion:(void (^)(BOOL finished))completion {
     CGRect targetFrame = self.frame;
     targetFrame.origin = [self defaultFrameOrigin];
     if (animated) {
-        [UIView animateWithDuration:ORKScrollToTopAnimationDuration
+        [UIView animateWithDuration:ORKLegacyScrollToTopAnimationDuration
                          animations:^{
             self.frame = targetFrame;
         }  completion:completion];
@@ -142,10 +142,10 @@
 @end
 
 
-@implementation ORKVisualConsentStepViewController
+@implementation ORKLegacyVisualConsentStepViewController
 
 - (void)dealloc {
-    [[ORKTintedImageCache sharedCache] removeAllObjects];
+    [[ORKLegacyTintedImageCache sharedCache] removeAllObjects];
 }
 
 - (void)stepDidChange {
@@ -154,8 +154,8 @@
         NSMutableArray *visualSections = [NSMutableArray new];
         
         NSArray *sections = self.visualConsentStep.consentDocument.sections;
-        for (ORKConsentSection *scene in sections) {
-            if (scene.type != ORKConsentSectionTypeOnlyInDocument) {
+        for (ORKLegacyConsentSection *scene in sections) {
+            if (scene.type != ORKLegacyConsentSectionTypeOnlyInDocument) {
                 [visualSections addObject:scene];
             }
         }
@@ -171,8 +171,8 @@
     [self showViewController:[self viewControllerForIndex:0] forward:YES animated:NO];
 }
 
-- (ORKEAGLMoviePlayerView *)animationPlayerView {
-    return [(ORKAnimationPlaceholderView *)_animationView playerView];
+- (ORKLegacyEAGLMoviePlayerView *)animationPlayerView {
+    return [(ORKLegacyAnimationPlaceholderView *)_animationView playerView];
 }
 
 - (void)viewDidLoad {
@@ -180,7 +180,7 @@
     
     CGRect viewBounds = self.view.bounds;
     
-    self.view.backgroundColor = ORKColor(ORKBackgroundColorKey);
+    self.view.backgroundColor = ORKLegacyColor(ORKLegacyBackgroundColorKey);
    
     // Prepare pageViewController
     _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
@@ -201,8 +201,8 @@
     [self addChildViewController:_pageViewController];
     [_pageViewController didMoveToParentViewController:self];
     
-    self.animationView = [[ORKAnimationPlaceholderView alloc] initWithFrame:
-                          (CGRect){{0, 0}, {viewBounds.size.width, ORKGetMetricForWindow(ORKScreenMetricIllustrationHeight, self.view.window)}}];
+    self.animationView = [[ORKLegacyAnimationPlaceholderView alloc] initWithFrame:
+                          (CGRect){{0, 0}, {viewBounds.size.width, ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricIllustrationHeight, self.view.window)}}];
     _animationView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleBottomMargin;
     _animationView.backgroundColor = [UIColor clearColor];
     _animationView.userInteractionEnabled = NO;
@@ -211,9 +211,9 @@
     [self updatePageIndex];
 }
 
-- (ORKVisualConsentStep *)visualConsentStep {
-    assert(!self.step || [self.step isKindOfClass:[ORKVisualConsentStep class]]);
-    return (ORKVisualConsentStep *)self.step;
+- (ORKLegacyVisualConsentStep *)visualConsentStep {
+    assert(!self.step || [self.step isKindOfClass:[ORKLegacyVisualConsentStep class]]);
+    return (ORKLegacyVisualConsentStep *)self.step;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -224,7 +224,7 @@
         
         // Add first viewController
         NSUInteger idx = 0;
-        if (_navigationDirection == ORKStepViewControllerNavigationDirectionReverse) {
+        if (_navigationDirection == ORKLegacyStepViewControllerNavigationDirectionReverse) {
             idx = [self pageCount]-1;
         }
         
@@ -233,13 +233,13 @@
     [self updatePageIndex];
 }
 
-- (void)willNavigateDirection:(ORKStepViewControllerNavigationDirection)direction {
+- (void)willNavigateDirection:(ORKLegacyStepViewControllerNavigationDirection)direction {
     _navigationDirection = direction;
 }
 
 - (UIBarButtonItem *)goToPreviousPageButton {
     UIBarButtonItem *button = [UIBarButtonItem ork_backBarButtonItemWithTarget:self action:@selector(goToPreviousPage)];
-    button.accessibilityLabel = ORKLocalizedString(@"AX_BUTTON_BACK", nil);
+    button.accessibilityLabel = ORKLegacyLocalizedString(@"AX_BUTTON_BACK", nil);
     return button;
 }
 
@@ -271,8 +271,8 @@
 }
 
 - (IBAction)next {
-    ORKConsentSceneViewController *currentConsentSceneViewController = [self viewControllerForIndex:[self currentIndex]];
-    [(ORKAnimationPlaceholderView *)_animationView scrollToTopAnimated:YES completion:nil];
+    ORKLegacyConsentSceneViewController *currentConsentSceneViewController = [self viewControllerForIndex:[self currentIndex]];
+    [(ORKLegacyAnimationPlaceholderView *)_animationView scrollToTopAnimated:YES completion:nil];
     [currentConsentSceneViewController scrollToTopAnimated:YES completion:^(BOOL finished) {
         if (finished) {
             [self showNextViewController];
@@ -282,14 +282,14 @@
 
 - (void)showNextViewController {
     CGRect animationViewFrame = _animationView.frame;
-    animationViewFrame.origin = [ORKDynamicCast(_animationView, ORKAnimationPlaceholderView) defaultFrameOrigin];
+    animationViewFrame.origin = [ORKLegacyDynamicCast(_animationView, ORKLegacyAnimationPlaceholderView) defaultFrameOrigin];
     _animationView.frame = animationViewFrame;
-    ORKConsentSceneViewController *nextConsentSceneViewController = [self viewControllerForIndex:[self currentIndex] + 1];
-    [(ORKAnimationPlaceholderView *)_animationView scrollToTopAnimated:NO completion:nil];
+    ORKLegacyConsentSceneViewController *nextConsentSceneViewController = [self viewControllerForIndex:[self currentIndex] + 1];
+    [(ORKLegacyAnimationPlaceholderView *)_animationView scrollToTopAnimated:NO completion:nil];
     [nextConsentSceneViewController scrollToTopAnimated:NO completion:^(BOOL finished) {
         // 'finished' is always YES when not animated
         [self showViewController:nextConsentSceneViewController forward:YES animated:YES];
-        ORKAccessibilityPostNotificationAfterDelay(UIAccessibilityScreenChangedNotification, nil, 0.5);
+        ORKLegacyAccessibilityPostNotificationAfterDelay(UIAccessibilityScreenChangedNotification, nil, 0.5);
     }];
 }
 
@@ -317,12 +317,12 @@
     
     [self updateBackButton];
 
-    ORKConsentSection *currentSection = (ORKConsentSection *)_visualSections[currentIndex];
-    if (currentSection.type == ORKConsentSectionTypeOverview) {
+    ORKLegacyConsentSection *currentSection = (ORKLegacyConsentSection *)_visualSections[currentIndex];
+    if (currentSection.type == ORKLegacyConsentSectionTypeOverview) {
         _animationView.isAccessibilityElement = NO;
     } else {
         _animationView.isAccessibilityElement = YES;
-        _animationView.accessibilityLabel = [NSString stringWithFormat:ORKLocalizedString(@"AX_IMAGE_ILLUSTRATION", nil), currentSection.title];
+        _animationView.accessibilityLabel = [NSString stringWithFormat:ORKLegacyLocalizedString(@"AX_IMAGE_ILLUSTRATION", nil), currentSection.title];
         _animationView.accessibilityTraits |= UIAccessibilityTraitImage;
     }
     
@@ -356,7 +356,7 @@
     return nil;
 }
 
-- (void)doShowViewController:(ORKConsentSceneViewController *)viewController
+- (void)doShowViewController:(ORKLegacyConsentSceneViewController *)viewController
                    direction:(UIPageViewControllerNavigationDirection)direction
                     animated:(BOOL)animated
                   completion:(void (^)(BOOL finished))completion {
@@ -370,9 +370,9 @@
         return;
     }
     
-    ORKWeakTypeOf(self) weakSelf = self;
+    ORKLegacyWeakTypeOf(self) weakSelf = self;
     [self.pageViewController setViewControllers:@[viewController] direction:direction animated:animated completion:^(BOOL finished) {
-        ORKStrongTypeOf(self) strongSelf = weakSelf;
+        ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
         pageViewControllerView.userInteractionEnabled = YES;
         [strongSelf updatePageIndex];
 
@@ -382,8 +382,8 @@
     }];
 }
 
-- (void)doAnimateFromViewController:(ORKConsentSceneViewController *)fromViewController
-                       toController:(ORKConsentSceneViewController *)toViewController
+- (void)doAnimateFromViewController:(ORKLegacyConsentSceneViewController *)fromViewController
+                       toController:(ORKLegacyConsentSceneViewController *)toViewController
                           direction:(UIPageViewControllerNavigationDirection)direction
                                 url:(NSURL *)url
             animateBeforeTransition:(BOOL)animateBeforeTransition
@@ -393,9 +393,9 @@
     NSAssert(url, @"url cannot be nil");
     NSAssert(!(animateBeforeTransition && transitionBeforeAnimate), @"Both flags cannot be set");
 
-    ORKWeakTypeOf(self) weakSelf = self;
-    void (^finishAndNilAnimator)(ORKVisualConsentTransitionAnimator *animator) = ^(ORKVisualConsentTransitionAnimator *animator) {
-        ORKStrongTypeOf(self) strongSelf = weakSelf;
+    ORKLegacyWeakTypeOf(self) weakSelf = self;
+    void (^finishAndNilAnimator)(ORKLegacyVisualConsentTransitionAnimator *animator) = ^(ORKLegacyVisualConsentTransitionAnimator *animator) {
+        ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
         [animator finish];
         if (strongSelf && strongSelf->_animator == animator) {
             // Do not show images and hide animationPlayerView if it's not the current animator
@@ -406,7 +406,7 @@
         }
     };
 
-    ORKVisualConsentTransitionAnimator *animator = [[ORKVisualConsentTransitionAnimator alloc] initWithVisualConsentStepViewController:self movieURL:url];
+    ORKLegacyVisualConsentTransitionAnimator *animator = [[ORKLegacyVisualConsentTransitionAnimator alloc] initWithVisualConsentStepViewController:self movieURL:url];
     _animator = animator;
 
     __block BOOL transitionFinished = NO;
@@ -422,7 +422,7 @@
         BOOL semaphoreBTimedOut = dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 5));
         
         if (semaphoreATimedOut || semaphoreBTimedOut) {
-            ORK_Log_Debug(@"[Semaphore timed out] semaphoreATimedOut: %d, semaphoreBTimedOut: %d, transitionFinished: %d, animatorFinished: %d", semaphoreATimedOut, semaphoreBTimedOut, transitionFinished, animatorFinished);
+            ORKLegacy_Log_Debug(@"[Semaphore timed out] semaphoreATimedOut: %d, semaphoreBTimedOut: %d, transitionFinished: %d, animatorFinished: %d", semaphoreATimedOut, semaphoreBTimedOut, transitionFinished, animatorFinished);
         }
             
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -440,12 +440,12 @@
 
     if (!animateBeforeTransition && !transitionBeforeAnimate) {
         [_animator animateTransitionWithDirection:direction
-                                      loadHandler:^(ORKVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction) {
+                                      loadHandler:^(ORKLegacyVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction) {
                                           
                                           fromViewController.imageHidden = YES;
                                           toViewController.imageHidden = YES;
                                           
-                                          ORKStrongTypeOf(self) strongSelf = weakSelf;
+                                          ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
                                           [strongSelf doShowViewController:toViewController
                                                                  direction:direction
                                                                   animated:YES
@@ -455,7 +455,7 @@
                                                                     dispatch_semaphore_signal(semaphore);
                                                                 }];
                                       }
-                                completionHandler:^(ORKVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction) {
+                                completionHandler:^(ORKLegacyVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction) {
         
                                     animatorFinished = YES;
                                     finishAndNilAnimator(animator);
@@ -464,16 +464,16 @@
         
     } else if (animateBeforeTransition && !transitionBeforeAnimate) {
         [_animator animateTransitionWithDirection:direction
-                                      loadHandler:^(ORKVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction) {
+                                      loadHandler:^(ORKLegacyVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction) {
                                           
                                           fromViewController.imageHidden = YES;
                                       }
-                                completionHandler:^(ORKVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction) {
+                                completionHandler:^(ORKLegacyVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction) {
                                     
                                     animatorFinished = YES;
                                     finishAndNilAnimator(animator);
                                     
-                                    ORKStrongTypeOf(self) strongSelf = weakSelf;
+                                    ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
                                     [strongSelf doShowViewController:toViewController
                                                            direction:direction
                                                             animated:YES
@@ -497,7 +497,7 @@
                             
                             [_animator animateTransitionWithDirection:direction
                                                           loadHandler:nil
-                                                    completionHandler:^(ORKVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction) {
+                                                    completionHandler:^(ORKLegacyVisualConsentTransitionAnimator *animator, UIPageViewControllerNavigationDirection direction) {
                                                         
                                                         animatorFinished = YES;
                                                         finishAndNilAnimator(animator);
@@ -513,14 +513,14 @@
     if (scrollView == _scrollViewObserver.target) {
         CGRect animationViewFrame = _animationView.frame;
         CGPoint scrollViewBoundsOrigin = scrollView.bounds.origin;
-        CGPoint defaultFrameOrigin = [ORKDynamicCast(_animationView, ORKAnimationPlaceholderView) defaultFrameOrigin];
+        CGPoint defaultFrameOrigin = [ORKLegacyDynamicCast(_animationView, ORKLegacyAnimationPlaceholderView) defaultFrameOrigin];
         animationViewFrame.origin = (CGPoint){defaultFrameOrigin.x - scrollViewBoundsOrigin.x, defaultFrameOrigin.y - scrollViewBoundsOrigin.y};
         _animationView.frame = animationViewFrame;
     }
 }
 
-- (ORKConsentSection *)consentSectionForIndex:(NSUInteger)index {
-    ORKConsentSection *consentSection = nil;
+- (ORKLegacyConsentSection *)consentSectionForIndex:(NSUInteger)index {
+    ORKLegacyConsentSection *consentSection = nil;
     NSArray *visualSections = [self visualSections];
     if (index < visualSections.count) {
         consentSection = visualSections[index];
@@ -528,26 +528,26 @@
     return consentSection;
 }
 
-- (void)showViewController:(ORKConsentSceneViewController *)viewController forward:(BOOL)forward animated:(BOOL)animated {
+- (void)showViewController:(ORKLegacyConsentSceneViewController *)viewController forward:(BOOL)forward animated:(BOOL)animated {
     [self showViewController:viewController forward:forward animated:animated preloadNextConsentSectionImage:YES];
 }
 
-- (void)showViewController:(ORKConsentSceneViewController *)viewController forward:(BOOL)forward animated:(BOOL)animated preloadNextConsentSectionImage:(BOOL)preloadNextViewController {
+- (void)showViewController:(ORKLegacyConsentSceneViewController *)viewController forward:(BOOL)forward animated:(BOOL)animated preloadNextConsentSectionImage:(BOOL)preloadNextViewController {
     [self showViewController:viewController
                      forward:forward
                     animated:animated
                   completion:^(BOOL finished) {
                       if (preloadNextViewController) {
-                          ORKConsentSection *nextConsentSection = [self consentSectionForIndex:[self currentIndex] + 1];
-                          ORKTintedImageView *currentSceneImageView = viewController.sceneView.imageView;
-                          [[ORKTintedImageCache sharedCache] cacheImage:nextConsentSection.image
+                          ORKLegacyConsentSection *nextConsentSection = [self consentSectionForIndex:[self currentIndex] + 1];
+                          ORKLegacyTintedImageView *currentSceneImageView = viewController.sceneView.imageView;
+                          [[ORKLegacyTintedImageCache sharedCache] cacheImage:nextConsentSection.image
                                                               tintColor:currentSceneImageView.tintColor
                                                                   scale:currentSceneImageView.window.screen.scale];
                       }
                   }];
 }
 
-- (void)showViewController:(ORKConsentSceneViewController *)viewController
+- (void)showViewController:(ORKLegacyConsentSceneViewController *)viewController
                    forward:(BOOL)forward
                   animated:(BOOL)animated
                 completion:(void (^)(BOOL finished))completion {
@@ -558,10 +558,10 @@
         return;
     }
     // Stop old hairline scroll view observer and start new one
-    _scrollViewObserver = [[ORKScrollViewObserver alloc] initWithTargetView:viewController.scrollView delegate:self];
+    _scrollViewObserver = [[ORKLegacyScrollViewObserver alloc] initWithTargetView:viewController.scrollView delegate:self];
     [self.taskViewController setRegisteredScrollView:viewController.scrollView];
 
-    ORKConsentSceneViewController *fromViewController = nil;
+    ORKLegacyConsentSceneViewController *fromViewController = nil;
     NSUInteger currentIndex = [self currentIndex];
     if (currentIndex == NSNotFound) {
         animated = NO;
@@ -580,7 +580,7 @@
     
     UIPageViewControllerNavigationDirection direction = forward ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
 
-    ORKAdjustPageViewControllerNavigationDirectionForRTL(&direction);
+    ORKLegacyAdjustPageViewControllerNavigationDirectionForRTL(&direction);
     
     if (!animated) {
         // No animation at all
@@ -593,26 +593,26 @@
         BOOL animateBeforeTransition = NO;
         BOOL transitionBeforeAnimate = NO;
         
-        ORKConsentSectionType currentSection = [(ORKConsentSection *)_visualSections[currentIndex] type];
-        ORKConsentSectionType destinationSection = (toIndex != NSNotFound) ? [(ORKConsentSection *)_visualSections[toIndex] type] : ORKConsentSectionTypeCustom;
+        ORKLegacyConsentSectionType currentSection = [(ORKLegacyConsentSection *)_visualSections[currentIndex] type];
+        ORKLegacyConsentSectionType destinationSection = (toIndex != NSNotFound) ? [(ORKLegacyConsentSection *)_visualSections[toIndex] type] : ORKLegacyConsentSectionTypeCustom;
         
         // Only use video animation when going forward
         if (toIndex > currentIndex) {
             
             // Use the custom animation URL, if there is one for the destination index.
             if (toIndex != NSNotFound && toIndex < _visualSections.count) {
-                url = [ORKDynamicCast(_visualSections[toIndex], ORKConsentSection) customAnimationURL];
+                url = [ORKLegacyDynamicCast(_visualSections[toIndex], ORKLegacyConsentSection) customAnimationURL];
             }
             BOOL isCustomURL = (url != nil);
             
             // If there's no custom URL, use an animation only if transitioning in the expected order.
             // Exception for datagathering, which does an arrival animation AFTER.
             if (!isCustomURL) {
-                if (destinationSection == ORKConsentSectionTypeDataGathering) {
+                if (destinationSection == ORKLegacyConsentSectionTypeDataGathering) {
                     transitionBeforeAnimate = YES;
-                    url = ORKMovieURLForConsentSectionType(ORKConsentSectionTypeOverview);
+                    url = ORKLegacyMovieURLForConsentSectionType(ORKLegacyConsentSectionTypeOverview);
                 } else if ((destinationSection - currentSection) == 1) {
-                    url = ORKMovieURLForConsentSectionType(currentSection);
+                    url = ORKLegacyMovieURLForConsentSectionType(currentSection);
                 }
             }
         }
@@ -632,27 +632,27 @@
     }
 }
 
-- (ORKConsentSceneViewController *)viewControllerForIndex:(NSUInteger)index {
+- (ORKLegacyConsentSceneViewController *)viewControllerForIndex:(NSUInteger)index {
     if (_viewControllers == nil) {
         _viewControllers = [NSMutableDictionary new];
     }
     
-    ORKConsentSceneViewController *consentViewController = nil;
+    ORKLegacyConsentSceneViewController *consentViewController = nil;
     
     if (_viewControllers[@(index)]) {
         consentViewController = _viewControllers[@(index)];
     } else if (index >= [self pageCount]) {
         consentViewController = nil;
     } else {
-        ORKConsentSceneViewController *sceneViewController = [[ORKConsentSceneViewController alloc] initWithSection:[self visualSections][index]];
+        ORKLegacyConsentSceneViewController *sceneViewController = [[ORKLegacyConsentSceneViewController alloc] initWithSection:[self visualSections][index]];
         consentViewController = sceneViewController;
         
         if (index == [self pageCount]-1) {
             sceneViewController.continueButtonItem = self.continueButtonItem;
         } else {
-            NSString *buttonTitle = ORKLocalizedString(@"BUTTON_NEXT", nil);
-            if (sceneViewController.section.type == ORKConsentSectionTypeOverview) {
-                buttonTitle = ORKLocalizedString(@"BUTTON_GET_STARTED", nil);
+            NSString *buttonTitle = ORKLegacyLocalizedString(@"BUTTON_NEXT", nil);
+            if (sceneViewController.section.type == ORKLegacyConsentSectionTypeOverview) {
+                buttonTitle = ORKLegacyLocalizedString(@"BUTTON_GET_STARTED", nil);
             }
             
             sceneViewController.continueButtonItem = [[UIBarButtonItem alloc] initWithTitle:buttonTitle style:UIBarButtonItemStylePlain target:self action:@selector(next)];
@@ -714,22 +714,22 @@
     }
 }
 
-static NSString *const _ORKCurrentPageRestoreKey = @"currentPage";
-static NSString *const _ORKHasAppearedRestoreKey = @"hasAppeared";
-static NSString *const _ORKInitialBackButtonRestoreKey = @"initialBackButton";
+static NSString *const _ORKLegacyCurrentPageRestoreKey = @"currentPage";
+static NSString *const _ORKLegacyHasAppearedRestoreKey = @"hasAppeared";
+static NSString *const _ORKLegacyInitialBackButtonRestoreKey = @"initialBackButton";
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
     
-    [coder encodeInteger:_currentPage forKey:_ORKCurrentPageRestoreKey];
-    [coder encodeBool:_hasAppeared forKey:_ORKHasAppearedRestoreKey];
+    [coder encodeInteger:_currentPage forKey:_ORKLegacyCurrentPageRestoreKey];
+    [coder encodeBool:_hasAppeared forKey:_ORKLegacyHasAppearedRestoreKey];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     
-    self.currentPage = [coder decodeIntegerForKey:_ORKCurrentPageRestoreKey];
-    _hasAppeared = [coder decodeBoolForKey:_ORKHasAppearedRestoreKey];
+    self.currentPage = [coder decodeIntegerForKey:_ORKLegacyCurrentPageRestoreKey];
+    _hasAppeared = [coder decodeBoolForKey:_ORKLegacyHasAppearedRestoreKey];
     
     _viewControllers = nil;
     [self showViewController:[self viewControllerForIndex:_currentPage] forward:YES animated:NO];

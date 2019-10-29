@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CLLocation (ORKJSONDictionary)
+@interface CLLocation (ORKLegacyJSONDictionary)
 
 - (NSDictionary *)ork_JSONDictionary;
 

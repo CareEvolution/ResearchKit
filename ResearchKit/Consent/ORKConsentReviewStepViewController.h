@@ -36,27 +36,27 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKConsentReviewStep;
-@class ORKConsentSignatureResult;
-@class ORKConsentReviewStepViewController;
+@class ORKLegacyConsentReviewStep;
+@class ORKLegacyConsentSignatureResult;
+@class ORKLegacyConsentReviewStepViewController;
 
 /**
- Values that identify different phases of the consent review step. Which phases are shown to the user depend on the configuration of the associated ORKConsentSignature.
+ Values that identify different phases of the consent review step. Which phases are shown to the user depend on the configuration of the associated ORKLegacyConsentSignature.
  */
-typedef NS_ENUM(NSInteger, ORKConsentReviewPhase) {
+typedef NS_ENUM(NSInteger, ORKLegacyConsentReviewPhase) {
     /// The (optional) phase in which the user enters their name.
-    ORKConsentReviewPhaseName,
+    ORKLegacyConsentReviewPhaseName,
     /// The phase in which the consent document is displayed for final review before agreeing.
-    ORKConsentReviewPhaseReviewDocument,
+    ORKLegacyConsentReviewPhaseReviewDocument,
     /// The (optional) phase in which the user enters a signature.
-    ORKConsentReviewPhaseSignature
-} ORK_ENUM_AVAILABLE;
+    ORKLegacyConsentReviewPhaseSignature
+} ORKLegacy_ENUM_AVAILABLE;
 
 /**
  Implement this delegate in order to observe the user's interaction with a consent review step.
  */
-ORK_CLASS_AVAILABLE
-@protocol ORKConsentReviewStepViewControllerDelegate<NSObject>
+ORKLegacy_CLASS_AVAILABLE
+@protocol ORKLegacyConsentReviewStepViewControllerDelegate<NSObject>
 
 @optional
 
@@ -67,21 +67,21 @@ ORK_CLASS_AVAILABLE
  @param phase              The phase of consent review shown to the user.
  @param pageIndex          Indicates the ordering of the phase shown to the user.
  */
-- (void)consentReviewStepViewController:(ORKConsentReviewStepViewController *)stepViewController didShowPhase:(ORKConsentReviewPhase)phase pageIndex:(NSInteger)pageIndex;
+- (void)consentReviewStepViewController:(ORKLegacyConsentReviewStepViewController *)stepViewController didShowPhase:(ORKLegacyConsentReviewPhase)phase pageIndex:(NSInteger)pageIndex;
 
 @end
 
 
 /**
- The `ORKConsentReviewStepViewController` class is a step view controller subclass
- used to manage a consent review step (`ORKConsentReviewStep`).
+ The `ORKLegacyConsentReviewStepViewController` class is a step view controller subclass
+ used to manage a consent review step (`ORKLegacyConsentReviewStep`).
  
  You should not need to instantiate a consent review step view controller directly. Instead, include
  a consent review step in a task, and present a task view controller for that
  task.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKConsentReviewStepViewController : ORKStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyConsentReviewStepViewController : ORKLegacyStepViewController
 
 /**
  Returns an initialized consent review step view controller using the specified review step and result.
@@ -89,13 +89,13 @@ ORK_CLASS_AVAILABLE
  @param consentReviewStep       The configured review step.
  @param result                  The initial or previous results for the review step, as appropriate.
  */
-- (instancetype)initWithConsentReviewStep:(ORKConsentReviewStep *)consentReviewStep
-                                   result:(nullable ORKConsentSignatureResult *)result;
+- (instancetype)initWithConsentReviewStep:(ORKLegacyConsentReviewStep *)consentReviewStep
+                                   result:(nullable ORKLegacyConsentSignatureResult *)result;
 
 /**
  The delegate for consent review interactions. This delegate is optional.
  */
-@property (nonatomic, weak, nullable) id<ORKConsentReviewStepViewControllerDelegate> consentReviewDelegate;
+@property (nonatomic, weak, nullable) id<ORKLegacyConsentReviewStepViewControllerDelegate> consentReviewDelegate;
 
 @end
 

@@ -40,8 +40,8 @@
 #import "ORKChoiceAnswerFormatHelper.h"
 
 
-@implementation ORKTextChoiceCellGroup {
-    ORKChoiceAnswerFormatHelper *_helper;
+@implementation ORKLegacyTextChoiceCellGroup {
+    ORKLegacyChoiceAnswerFormatHelper *_helper;
     BOOL _singleChoice;
     BOOL _immediateNavigation;
     NSIndexPath *_beginningIndexPath;
@@ -49,15 +49,15 @@
     NSMutableDictionary *_cells;
 }
 
-- (instancetype)initWithTextChoiceAnswerFormat:(ORKTextChoiceAnswerFormat *)answerFormat
+- (instancetype)initWithTextChoiceAnswerFormat:(ORKLegacyTextChoiceAnswerFormat *)answerFormat
                                         answer:(id)answer
                             beginningIndexPath:(NSIndexPath *)indexPath
                            immediateNavigation:(BOOL)immediateNavigation {
     self = [super init];
     if (self) {
         _beginningIndexPath = indexPath;
-        _helper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
-        _singleChoice = answerFormat.style == ORKChoiceAnswerStyleSingleChoice;
+        _helper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        _singleChoice = answerFormat.style == ORKLegacyChoiceAnswerStyleSingleChoice;
         _immediateNavigation = immediateNavigation;
         _cells = [NSMutableDictionary new];
         [self setAnswer:answer];
@@ -75,7 +75,7 @@
     [self setSelectedIndexes:[_helper selectedIndexesForAnswer:answer]];
 }
 
-- (ORKChoiceViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(NSString *)identifier {
+- (ORKLegacyChoiceViewCell *)cellAtIndexPath:(NSIndexPath *)indexPath withReuseIdentifier:(NSString *)identifier {
     if ([self containsIndexPath:indexPath] == NO) {
         return nil;
     }
@@ -83,13 +83,13 @@
     return [self cellAtIndex:indexPath.row-_beginningIndexPath.row withReuseIdentifier:identifier];
 }
 
-- (ORKChoiceViewCell *)cellAtIndex:(NSUInteger)index withReuseIdentifier:(NSString *)identifier {
-    ORKChoiceViewCell *cell = _cells[@(index)];
+- (ORKLegacyChoiceViewCell *)cellAtIndex:(NSUInteger)index withReuseIdentifier:(NSString *)identifier {
+    ORKLegacyChoiceViewCell *cell = _cells[@(index)];
     
     if (cell == nil) {
-        cell = [[ORKChoiceViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[ORKLegacyChoiceViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.immediateNavigation = _immediateNavigation;
-        ORKTextChoice *textChoice = [_helper textChoiceAtIndex:index];
+        ORKLegacyTextChoice *textChoice = [_helper textChoiceAtIndex:index];
         cell.shortLabel.text = textChoice.text;
         cell.longLabel.text = textChoice.detailText;
         
@@ -102,11 +102,11 @@
 }
 
 - (void)didSelectCellAtIndex:(NSUInteger)index {
-    ORKChoiceViewCell *touchedCell = [self cellAtIndex:index withReuseIdentifier:nil];
+    ORKLegacyChoiceViewCell *touchedCell = [self cellAtIndex:index withReuseIdentifier:nil];
         
     if (_singleChoice) {
         touchedCell.selectedItem = YES;
-        for (ORKChoiceViewCell *cell in _cells.allValues) {
+        for (ORKLegacyChoiceViewCell *cell in _cells.allValues) {
             if (cell != touchedCell) {
                 cell.selectedItem = NO;
             }
@@ -114,10 +114,10 @@
     } else {
         touchedCell.selectedItem = !touchedCell.selectedItem;
         if (touchedCell.selectedItem) {
-            ORKTextChoice *touchedChoice = [_helper textChoiceAtIndex:index];
+            ORKLegacyTextChoice *touchedChoice = [_helper textChoiceAtIndex:index];
             for (NSNumber *num in _cells.allKeys) {
-                ORKChoiceViewCell *cell = _cells[num];
-                ORKTextChoice *choice = [_helper textChoiceAtIndex:num.unsignedIntegerValue];
+                ORKLegacyChoiceViewCell *cell = _cells[num];
+                ORKLegacyTextChoice *choice = [_helper textChoiceAtIndex:num.unsignedIntegerValue];
                 if (cell != touchedCell && (touchedChoice.exclusive || (cell.selectedItem && choice.exclusive))) {
                     cell.selectedItem = NO;
                 }
@@ -149,11 +149,11 @@
         
         if (selected) {
             // In case the cell has not been created, need to create cell
-            ORKChoiceViewCell *cell = [self cellAtIndex:index withReuseIdentifier:nil];
+            ORKLegacyChoiceViewCell *cell = [self cellAtIndex:index withReuseIdentifier:nil];
             cell.selectedItem = YES;
         } else {
             // It is ok to not create the cell at here
-            ORKChoiceViewCell *cell = _cells[@(index)];
+            ORKLegacyChoiceViewCell *cell = _cells[@(index)];
             cell.selectedItem = NO;
         }
     }
@@ -163,7 +163,7 @@
     NSMutableArray *indexes = [NSMutableArray new];
     
     for (NSUInteger index = 0; index < self.size; index++ ) {
-        ORKChoiceViewCell *cell = _cells[@(index)];
+        ORKLegacyChoiceViewCell *cell = _cells[@(index)];
         if (cell.selectedItem) {
             [indexes addObject:@(index)];
         }

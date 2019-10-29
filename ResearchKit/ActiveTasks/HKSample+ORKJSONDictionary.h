@@ -34,18 +34,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_OPTIONS(NSInteger, ORKSampleJSONOptions) {
-    ORKSampleIncludeMetadata = 0x1,
-    ORKSampleIncludeSource = 0x2,
-    ORKSampleIncludeUUID = 0x4
+typedef NS_OPTIONS(NSInteger, ORKLegacySampleJSONOptions) {
+    ORKLegacySampleIncludeMetadata = 0x1,
+    ORKLegacySampleIncludeSource = 0x2,
+    ORKLegacySampleIncludeUUID = 0x4
 };
 
 /**
  JSON serialization aid for HKSample.
  */
-@interface HKSample (ORKJSONDictionary)
+@interface HKSample (ORKLegacyJSONDictionary)
 
-- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)options unit:(nullable HKUnit *)unit;
+- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)options unit:(nullable HKUnit *)unit;
 
 @end
 
@@ -53,9 +53,9 @@ typedef NS_OPTIONS(NSInteger, ORKSampleJSONOptions) {
 /**
  JSON serialization aid for HKCorrelation.
  */
-@interface HKCorrelation (ORKJSONDictionary)
+@interface HKCorrelation (ORKLegacyJSONDictionary)
 
-- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKSampleJSONOptions)options sampleTypes:(NSArray *)sampleTypes units:(NSArray *)units;
+- (NSDictionary *)ork_JSONDictionaryWithOptions:(ORKLegacySampleJSONOptions)options sampleTypes:(NSArray *)sampleTypes units:(NSArray *)units;
 
 @end
 

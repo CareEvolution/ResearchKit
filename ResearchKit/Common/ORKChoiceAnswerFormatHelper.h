@@ -34,20 +34,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKAnswerFormat;
-@class ORKImageChoice;
-@class ORKTextChoice;
-@protocol ORKAnswerOption;
+@class ORKLegacyAnswerFormat;
+@class ORKLegacyImageChoice;
+@class ORKLegacyTextChoice;
+@protocol ORKLegacyAnswerOption;
 
-@interface ORKChoiceAnswerFormatHelper : NSObject
+@interface ORKLegacyChoiceAnswerFormatHelper : NSObject
 
-- (instancetype)initWithAnswerFormat:(ORKAnswerFormat *)answerFormat;
+- (instancetype)initWithAnswerFormat:(ORKLegacyAnswerFormat *)answerFormat;
 
 - (NSUInteger)choiceCount;
 
-- (nullable id<ORKAnswerOption>)answerOptionAtIndex:(NSUInteger)index;
-- (nullable ORKImageChoice *)imageChoiceAtIndex:(NSUInteger)index;
-- (nullable ORKTextChoice *)textChoiceAtIndex:(NSUInteger)index;
+- (nullable id<ORKLegacyAnswerOption>)answerOptionAtIndex:(NSUInteger)index;
+- (nullable ORKLegacyImageChoice *)imageChoiceAtIndex:(NSUInteger)index;
+- (nullable ORKLegacyTextChoice *)textChoiceAtIndex:(NSUInteger)index;
 
 - (nullable id)answerForSelectedIndex:(NSUInteger)index;
 - (nullable id)answerForSelectedIndexes:(NSArray *)indexes;

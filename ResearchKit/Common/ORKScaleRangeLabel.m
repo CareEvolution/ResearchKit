@@ -32,7 +32,7 @@
 #import "ORKScaleRangeLabel.h"
 
 
-@implementation ORKScaleRangeLabel
+@implementation ORKLegacyScaleRangeLabel
 
 + (UIFont *)defaultFont {
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];

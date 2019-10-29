@@ -36,14 +36,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLoginStepViewController` class is the concrete `ORKStepViewController`
- implementation for `ORKLoginStep`.
+ The `ORKLegacyLoginStepViewController` class is the concrete `ORKLegacyStepViewController`
+ implementation for `ORKLegacyLoginStep`.
  
  You should subclass a login step view controller and override the button action
  methods to provide your navigation logic. All override methods are required.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKLoginStepViewController : ORKFormStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyLoginStepViewController : ORKLegacyFormStepViewController
 
 /**
  Action method for the forgot password button.

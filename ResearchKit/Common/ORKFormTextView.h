@@ -37,8 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Text view for use in forms
  */
-ORK_CLASS_AVAILABLE
-@interface ORKFormTextView : ORKAnswerTextView
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyFormTextView : ORKLegacyAnswerTextView
 
 @end
 

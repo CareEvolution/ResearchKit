@@ -35,16 +35,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKBorderedButton;
+@class ORKLegacyBorderedButton;
 
-@interface ORKStroopContentView : ORKActiveStepCustomView
+@interface ORKLegacyStroopContentView : ORKLegacyActiveStepCustomView
 
 @property (nonatomic) NSString * colorLabelText;
 @property (nonatomic) UIColor * colorLabelColor;
-@property (nonatomic) ORKBorderedButton * RButton;
-@property (nonatomic) ORKBorderedButton * GButton;
-@property (nonatomic) ORKBorderedButton * BButton;
-@property (nonatomic) ORKBorderedButton * YButton;
+@property (nonatomic) ORKLegacyBorderedButton * RButton;
+@property (nonatomic) ORKLegacyBorderedButton * GButton;
+@property (nonatomic) ORKLegacyBorderedButton * BButton;
+@property (nonatomic) ORKLegacyBorderedButton * YButton;
 
 @end
 NS_ASSUME_NONNULL_END

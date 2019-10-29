@@ -37,27 +37,27 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKChoiceAnswerFormatHelper {
+@implementation ORKLegacyChoiceAnswerFormatHelper {
     NSArray *_choices;
     BOOL _isValuePicker;
 }
 
-- (instancetype)initWithAnswerFormat:(ORKAnswerFormat *)answerFormat {
+- (instancetype)initWithAnswerFormat:(ORKLegacyAnswerFormat *)answerFormat {
     self = [super init];
     if (self) {
-        if ([answerFormat isKindOfClass:[ORKValuePickerAnswerFormat class]]) {
-            ORKValuePickerAnswerFormat *valuePickerAnswerFormat = (ORKValuePickerAnswerFormat *)answerFormat;
-            ORKTextChoice *nullChoice = valuePickerAnswerFormat.nullTextChoice;
+        if ([answerFormat isKindOfClass:[ORKLegacyValuePickerAnswerFormat class]]) {
+            ORKLegacyValuePickerAnswerFormat *valuePickerAnswerFormat = (ORKLegacyValuePickerAnswerFormat *)answerFormat;
+            ORKLegacyTextChoice *nullChoice = valuePickerAnswerFormat.nullTextChoice;
             _choices = [@[nullChoice] arrayByAddingObjectsFromArray:valuePickerAnswerFormat.textChoices];
             _isValuePicker = YES;
-        } else if ([answerFormat isKindOfClass:[ORKTextChoiceAnswerFormat class]]) {
-            ORKTextChoiceAnswerFormat *textChoiceAnswerFormat = (ORKTextChoiceAnswerFormat *)answerFormat;
+        } else if ([answerFormat isKindOfClass:[ORKLegacyTextChoiceAnswerFormat class]]) {
+            ORKLegacyTextChoiceAnswerFormat *textChoiceAnswerFormat = (ORKLegacyTextChoiceAnswerFormat *)answerFormat;
             _choices = textChoiceAnswerFormat.textChoices;
-        } else if ([answerFormat isKindOfClass:[ORKImageChoiceAnswerFormat class]]) {
-            ORKImageChoiceAnswerFormat *imageChoiceAnswerFormat = (ORKImageChoiceAnswerFormat *)answerFormat;
+        } else if ([answerFormat isKindOfClass:[ORKLegacyImageChoiceAnswerFormat class]]) {
+            ORKLegacyImageChoiceAnswerFormat *imageChoiceAnswerFormat = (ORKLegacyImageChoiceAnswerFormat *)answerFormat;
             _choices = imageChoiceAnswerFormat.imageChoices;
-        } else if ([answerFormat isKindOfClass:[ORKTextScaleAnswerFormat class]]) {
-            ORKTextScaleAnswerFormat *textScaleAnswerFormat = (ORKTextScaleAnswerFormat *)answerFormat;
+        } else if ([answerFormat isKindOfClass:[ORKLegacyTextScaleAnswerFormat class]]) {
+            ORKLegacyTextScaleAnswerFormat *textScaleAnswerFormat = (ORKLegacyTextScaleAnswerFormat *)answerFormat;
             _choices = textScaleAnswerFormat.textChoices;
         } else {
             NSString *exceptionReason = [NSString stringWithFormat:@"%@ is not a currently supported answer format for the choice answer format helper.", NSStringFromClass([answerFormat class])];
@@ -71,7 +71,7 @@
     return _choices.count;
 }
 
-- (id<ORKAnswerOption>)answerOptionAtIndex:(NSUInteger)index {
+- (id<ORKLegacyAnswerOption>)answerOptionAtIndex:(NSUInteger)index {
     if (index >= _choices.count) {
         return nil;
     }
@@ -79,14 +79,14 @@
     return _choices[index];
 }
 
-- (ORKImageChoice *)imageChoiceAtIndex:(NSUInteger)index {
-    id<ORKAnswerOption> option = [self answerOptionAtIndex:index];
-    return option && [option isKindOfClass:[ORKImageChoice class]] ? (ORKImageChoice *) option : nil;
+- (ORKLegacyImageChoice *)imageChoiceAtIndex:(NSUInteger)index {
+    id<ORKLegacyAnswerOption> option = [self answerOptionAtIndex:index];
+    return option && [option isKindOfClass:[ORKLegacyImageChoice class]] ? (ORKLegacyImageChoice *) option : nil;
 }
 
-- (ORKTextChoice *)textChoiceAtIndex:(NSUInteger)index {
-    id<ORKAnswerOption> option = [self answerOptionAtIndex:index];
-    return option && [option isKindOfClass:[ORKTextChoice class]] ? (ORKTextChoice *) option : nil;
+- (ORKLegacyTextChoice *)textChoiceAtIndex:(NSUInteger)index {
+    id<ORKLegacyAnswerOption> option = [self answerOptionAtIndex:index];
+    return option && [option isKindOfClass:[ORKLegacyTextChoice class]] ? (ORKLegacyTextChoice *) option : nil;
 }
 
 - (id)answerForSelectedIndex:(NSUInteger)index {
@@ -104,7 +104,7 @@
             continue;
         }
         
-        id<ORKAnswerOption> choice = _choices[index];
+        id<ORKLegacyAnswerOption> choice = _choices[index];
         id value = choice.value;
         
         if (value == nil) {
@@ -117,7 +117,7 @@
             [array addObject:value];
         }
     }
-    return array.count > 0 ? [array copy] : ORKNullAnswerValue();
+    return array.count > 0 ? [array copy] : ORKLegacyNullAnswerValue();
 }
 
 - (NSNumber *)selectedIndexForAnswer:(nullable id)answer {
@@ -133,13 +133,13 @@
     
     NSMutableArray *indexArray = [NSMutableArray new];
     
-    if (answer != nil && answer != ORKNullAnswerValue() ) {
+    if (answer != nil && answer != ORKLegacyNullAnswerValue() ) {
         
-        NSAssert([answer isKindOfClass:[ORKChoiceQuestionResult answerClass] ], @"Wrong answer type");
+        NSAssert([answer isKindOfClass:[ORKLegacyChoiceQuestionResult answerClass] ], @"Wrong answer type");
         
         for (id answerValue in (NSArray *)answer) {
-            id<ORKAnswerOption> matchedChoice = nil;
-            for ( id<ORKAnswerOption> choice in _choices) {
+            id<ORKLegacyAnswerOption> matchedChoice = nil;
+            for ( id<ORKLegacyAnswerOption> choice in _choices) {
                 if ([choice.value isEqual:answerValue]) {
                     matchedChoice = choice;
                     break;

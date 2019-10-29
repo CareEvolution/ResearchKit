@@ -41,14 +41,14 @@
 #import "ORKRoundTappingButton.h"
 
 
-@interface ORKTrailmakingTestView : UIView {
+@interface ORKLegacyTrailmakingTestView : UIView {
     int linesToDraw;
 }
 
 @end
 
 
-@implementation ORKTrailmakingTestView
+@implementation ORKLegacyTrailmakingTestView
 
 - (instancetype)init {
     self = [super init];
@@ -99,40 +99,40 @@
 @end
 
 
-@interface ORKTrailmakingContentView ()
+@interface ORKLegacyTrailmakingContentView ()
 
-@property (nonatomic, strong) ORKTrailmakingTestView* testView;
+@property (nonatomic, strong) ORKLegacyTrailmakingTestView* testView;
 
 @end
 
 
-@implementation ORKTrailmakingContentView
+@implementation ORKLegacyTrailmakingContentView
 
 - (instancetype)initWithType:(NSString*)trailType {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        self.layoutMargins = ORKStandardFullScreenLayoutMarginsForView(self);
+        self.layoutMargins = ORKLegacyStandardFullScreenLayoutMarginsForView(self);
         self.translatesAutoresizingMaskIntoConstraints = NO;
 
-        self.testView = [[ORKTrailmakingTestView alloc] init];
+        self.testView = [[ORKLegacyTrailmakingTestView alloc] init];
         _testView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_testView];
         
         NSMutableArray* buttons = [NSMutableArray array];
         for (int i = 0; i < 13; i++)
         {
-            ORKRoundTappingButton* b = [[ORKRoundTappingButton alloc] init];
+            ORKLegacyRoundTappingButton* b = [[ORKLegacyRoundTappingButton alloc] init];
             
             NSString* title;
             if ([trailType isEqual:@"A"]) {
                 title = [self stringWithNumberFormatter:i + 1];
             } else {
-                NSArray *letters = [[NSArray alloc] initWithObjects:ORKLocalizedString(@"TRAILMAKING_LETTER_A", nil),
-                                    ORKLocalizedString(@"TRAILMAKING_LETTER_B", nil),
-                                    ORKLocalizedString(@"TRAILMAKING_LETTER_C", nil),
-                                    ORKLocalizedString(@"TRAILMAKING_LETTER_D", nil),
-                                    ORKLocalizedString(@"TRAILMAKING_LETTER_E", nil),
-                                    ORKLocalizedString(@"TRAILMAKING_LETTER_F", nil), nil];
+                NSArray *letters = [[NSArray alloc] initWithObjects:ORKLegacyLocalizedString(@"TRAILMAKING_LETTER_A", nil),
+                                    ORKLegacyLocalizedString(@"TRAILMAKING_LETTER_B", nil),
+                                    ORKLegacyLocalizedString(@"TRAILMAKING_LETTER_C", nil),
+                                    ORKLegacyLocalizedString(@"TRAILMAKING_LETTER_D", nil),
+                                    ORKLegacyLocalizedString(@"TRAILMAKING_LETTER_E", nil),
+                                    ORKLegacyLocalizedString(@"TRAILMAKING_LETTER_F", nil), nil];
                 
                 if (i % 2 == 0)
                     title = [self stringWithNumberFormatter:i / 2 + 1];
@@ -187,12 +187,12 @@
 }
 
 - (void)setError:(int)buttonIdex {
-    ORKRoundTappingButton* button = [_tapButtons objectAtIndex:buttonIdex];
+    ORKLegacyRoundTappingButton* button = [_tapButtons objectAtIndex:buttonIdex];
     [button setTintColor:[UIColor redColor]];
 }
 
 - (void)clearErrors {
-    for (ORKRoundTappingButton* button in _tapButtons) {
+    for (ORKLegacyRoundTappingButton* button in _tapButtons) {
         [button setTintColor:self.tintColor];
     }
 }

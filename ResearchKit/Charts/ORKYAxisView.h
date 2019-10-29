@@ -35,9 +35,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKGraphChartView;
+@class ORKLegacyGraphChartView;
 
-@interface ORKYAxisView : UIView
+@interface ORKLegacyYAxisView : UIView
 
 @property (nonatomic) UIFont *titleFont;
 
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 
-- (instancetype)initWithParentGraphChartView:(ORKGraphChartView *)parentGraphChartView NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithParentGraphChartView:(ORKLegacyGraphChartView *)parentGraphChartView NS_DESIGNATED_INITIALIZER;
 
 - (void)updateTicksAndLabels;
 

@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Start/End image of the range in scale slider.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKScaleRangeImageView : UIImageView
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyScaleRangeImageView : UIImageView
 
 @end
 

@@ -34,41 +34,41 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKScaleRangeLabel;
-@class ORKScaleValueLabel;
-@class ORKScaleRangeDescriptionLabel;
-@class ORKScaleRangeImageView;
-@class ORKScaleSliderView;
-@protocol ORKScaleAnswerFormatProvider;
+@class ORKLegacyScaleRangeLabel;
+@class ORKLegacyScaleValueLabel;
+@class ORKLegacyScaleRangeDescriptionLabel;
+@class ORKLegacyScaleRangeImageView;
+@class ORKLegacyScaleSliderView;
+@protocol ORKLegacyScaleAnswerFormatProvider;
 
-@protocol ORKScaleSliderViewDelegate <NSObject>
+@protocol ORKLegacyScaleSliderViewDelegate <NSObject>
 
-- (void)scaleSliderViewCurrentValueDidChange:(ORKScaleSliderView *)sliderView;
+- (void)scaleSliderViewCurrentValueDidChange:(ORKLegacyScaleSliderView *)sliderView;
 
 @end
 
 
-@interface ORKScaleSliderView : UIView
+@interface ORKLegacyScaleSliderView : UIView
 
-- (instancetype)initWithFormatProvider:(id<ORKScaleAnswerFormatProvider>)formatProvider delegate:(id<ORKScaleSliderViewDelegate>)delegate;
+- (instancetype)initWithFormatProvider:(id<ORKLegacyScaleAnswerFormatProvider>)formatProvider delegate:(id<ORKLegacyScaleSliderViewDelegate>)delegate;
 
-@property (nonatomic, weak, readonly) id<ORKScaleSliderViewDelegate> delegate;
+@property (nonatomic, weak, readonly) id<ORKLegacyScaleSliderViewDelegate> delegate;
 
-@property (nonatomic, strong, readonly) id<ORKScaleAnswerFormatProvider> formatProvider;
+@property (nonatomic, strong, readonly) id<ORKLegacyScaleAnswerFormatProvider> formatProvider;
 
-@property (nonatomic, strong, readonly) ORKScaleRangeLabel *leftRangeLabel;
+@property (nonatomic, strong, readonly) ORKLegacyScaleRangeLabel *leftRangeLabel;
 
-@property (nonatomic, strong, readonly) ORKScaleRangeLabel *rightRangeLabel;
+@property (nonatomic, strong, readonly) ORKLegacyScaleRangeLabel *rightRangeLabel;
 
-@property (nonatomic, strong, readonly) ORKScaleRangeImageView *leftRangeImageView;
+@property (nonatomic, strong, readonly) ORKLegacyScaleRangeImageView *leftRangeImageView;
 
-@property (nonatomic, strong, readonly) ORKScaleRangeImageView *rightRangeImageView;
+@property (nonatomic, strong, readonly) ORKLegacyScaleRangeImageView *rightRangeImageView;
 
-@property (nonatomic, strong, readonly) ORKScaleRangeDescriptionLabel *leftRangeDescriptionLabel;
+@property (nonatomic, strong, readonly) ORKLegacyScaleRangeDescriptionLabel *leftRangeDescriptionLabel;
 
-@property (nonatomic, strong, readonly) ORKScaleRangeDescriptionLabel *rightRangeDescriptionLabel;
+@property (nonatomic, strong, readonly) ORKLegacyScaleRangeDescriptionLabel *rightRangeDescriptionLabel;
 
-@property (nonatomic, strong, readonly) ORKScaleValueLabel *valueLabel;
+@property (nonatomic, strong, readonly) ORKLegacyScaleValueLabel *valueLabel;
 
 // Accepts NSNumber for continous scale or discrete scale.
 // Accepts NSArray<id<NSCopying, NSCoding, NSObject>> for text scale.

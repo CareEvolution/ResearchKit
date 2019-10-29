@@ -35,28 +35,28 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKAnswerFormat;
+@class ORKLegacyAnswerFormat;
 
 /**
- The `ORKQuestionStep` class is a concrete subclass of `ORKStep` that represents
+ The `ORKLegacyQuestionStep` class is a concrete subclass of `ORKLegacyStep` that represents
  a step in which a single question is presented to the user.
  
- To use a question step, instantiate an `ORKQuestionStep` object, fill in its properties, and include it
+ To use a question step, instantiate an `ORKLegacyQuestionStep` object, fill in its properties, and include it
  in a task. Next, create a task view controller for the task and present it.
  When the task completes, the user's answer is encoded in the result hierarchy
  in the task view controller.
  
- When a task view controller presents an `ORKQuestionStep` object, it instantiates an `ORKQuestionStepViewController` object to present the step. The actual
+ When a task view controller presents an `ORKLegacyQuestionStep` object, it instantiates an `ORKLegacyQuestionStepViewController` object to present the step. The actual
  visual presentation depends on the answer format.
  
  When you need to present more than one question at the same time, it can be appropriate
- to use `ORKFormStep` instead of `ORKQuestionStep`.
+ to use `ORKLegacyFormStep` instead of `ORKLegacyQuestionStep`.
  
- The result of a question step is an `ORKStepResult` object that includes a single child
- (`ORKQuestionResult`).
+ The result of a question step is an `ORKLegacyStepResult` object that includes a single child
+ (`ORKLegacyQuestionResult`).
  */
-ORK_CLASS_AVAILABLE
-@interface ORKQuestionStep : ORKStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyQuestionStep : ORKLegacyStep
 
 /**
  Returns a new question step that includes the specified identifier, title, and answer format.
@@ -67,7 +67,7 @@ ORK_CLASS_AVAILABLE
  */
 + (instancetype)questionStepWithIdentifier:(NSString *)identifier
                                      title:(nullable NSString *)title
-                                    answer:(nullable ORKAnswerFormat *)answerFormat;
+                                    answer:(nullable ORKLegacyAnswerFormat *)answerFormat;
 
 /**
  Returns a new question step that includes the specified identifier, title, text, and answer format.
@@ -80,7 +80,7 @@ ORK_CLASS_AVAILABLE
 + (instancetype)questionStepWithIdentifier:(NSString *)identifier
                                      title:(nullable NSString *)title
                                       text:(nullable NSString *)text
-                                    answer:(nullable ORKAnswerFormat *)answerFormat;
+                                    answer:(nullable ORKLegacyAnswerFormat *)answerFormat;
 
 /**
  The format of the answer.
@@ -89,14 +89,14 @@ ORK_CLASS_AVAILABLE
  to place on the answer, or a list of available choices (in the case of single
  or multiple select questions).
  */
-@property (nonatomic, strong, nullable) ORKAnswerFormat *answerFormat;
+@property (nonatomic, strong, nullable) ORKLegacyAnswerFormat *answerFormat;
 
 /**
  The question type. (read-only)
  
  The value of this property is derived from the answer format.
  */
-@property (nonatomic, readonly) ORKQuestionType questionType;
+@property (nonatomic, readonly) ORKLegacyQuestionType questionType;
 
 /**
  A localized string that represents the placeholder text displayed before an answer has been entered.

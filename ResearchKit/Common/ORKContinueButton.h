@@ -35,8 +35,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKContinueButton : ORKBorderedButton
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyContinueButton : ORKLegacyBorderedButton
 
 - (instancetype)initWithTitle:(NSString *)title isDoneButton:(BOOL)isDoneButton;
 + (UIFont *)defaultFont;

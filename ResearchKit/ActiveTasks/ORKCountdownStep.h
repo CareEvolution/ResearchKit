@@ -37,7 +37,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKCountdownStep` class represents a step that displays a label and a
+ The `ORKLegacyCountdownStep` class represents a step that displays a label and a
  countdown for a time equal to its duration.
  
  To use the countdown step, set the `duration` property, incorporate it into a
@@ -45,8 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  The countdown step is used in most of ResearchKit's predefined active tasks.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKCountdownStep : ORKActiveStep
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyCountdownStep : ORKLegacyActiveStep
 
 @end
 

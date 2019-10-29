@@ -35,13 +35,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORK_CLASS_AVAILABLE
-@interface ORKAudioLevelNavigationRule : ORKStepNavigationRule
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyAudioLevelNavigationRule : ORKLegacyStepNavigationRule
 
 /*
  The `init` and `new` methods are unavailable.
  
- `ORKStepNavigationRule` classes should be initialized with custom designated initializers on each
+ `ORKLegacyStepNavigationRule` classes should be initialized with custom designated initializers on each
  subclass.
  */
 + (instancetype)new NS_UNAVAILABLE;

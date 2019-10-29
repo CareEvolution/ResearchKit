@@ -34,9 +34,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NSURL *ORKMovieURLForConsentSectionType(ORKConsentSectionType type);
+NSURL *ORKLegacyMovieURLForConsentSectionType(ORKLegacyConsentSectionType type);
 
-@interface ORKConsentSection ()
+@interface ORKLegacyConsentSection ()
 
 @property (nonatomic, readonly, nullable) NSString *escapedContent;
 

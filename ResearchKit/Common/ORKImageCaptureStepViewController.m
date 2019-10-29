@@ -44,13 +44,13 @@
 @import AVFoundation;
 
 
-@interface ORKImageCaptureStepViewController () <ORKImageCaptureViewDelegate>
+@interface ORKLegacyImageCaptureStepViewController () <ORKLegacyImageCaptureViewDelegate>
 
 @end
 
 
-@implementation ORKImageCaptureStepViewController {
-    ORKImageCaptureView *_imageCaptureView;
+@implementation ORKLegacyImageCaptureStepViewController {
+    ORKLegacyImageCaptureView *_imageCaptureView;
     dispatch_queue_t _sessionQueue;
     AVCaptureSession *_captureSession;
     AVCaptureStillImageOutput *_stillImageOutput;
@@ -58,13 +58,13 @@
     NSURL *_fileURL;
 }
 
-- (instancetype)initWithStep:(ORKStep *)step result:(ORKResult *)result {
+- (instancetype)initWithStep:(ORKLegacyStep *)step result:(ORKLegacyResult *)result {
     self = [self initWithStep:step];
     if (self) {
-        ORKStepResult *stepResult = (ORKStepResult *)result;
+        ORKLegacyStepResult *stepResult = (ORKLegacyStepResult *)result;
         if (stepResult && [stepResult results].count > 0) {
             
-            ORKFileResult *fileResult = ORKDynamicCast([stepResult results].firstObject, ORKFileResult);
+            ORKLegacyFileResult *fileResult = ORKLegacyDynamicCast([stepResult results].firstObject, ORKLegacyFileResult);
 
             if (fileResult.fileURL) {
                 // Setting these properties in this order allows us to reuse the existing file on disk
@@ -76,12 +76,12 @@
     return self;
 }
 
-- (instancetype)initWithStep:(ORKStep *)step {
+- (instancetype)initWithStep:(ORKLegacyStep *)step {
     self = [super initWithStep:step];
     if (self) {
-        NSParameterAssert([step isKindOfClass:[ORKImageCaptureStep class]]);
-        _imageCaptureView = [[ORKImageCaptureView alloc] initWithFrame:CGRectZero];
-        _imageCaptureView.imageCaptureStep = (ORKImageCaptureStep *)step;
+        NSParameterAssert([step isKindOfClass:[ORKLegacyImageCaptureStep class]]);
+        _imageCaptureView = [[ORKLegacyImageCaptureView alloc] initWithFrame:CGRectZero];
+        _imageCaptureView.imageCaptureStep = (ORKLegacyImageCaptureStep *)step;
         _imageCaptureView.delegate = self;
         [self.view addSubview:_imageCaptureView];
         
@@ -214,13 +214,13 @@
             _stillImageOutput = stillImageOutput;
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORKLocalizedString(@"CAPTURE_ERROR_NO_PERMISSIONS", nil)}]];
+                [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORKLegacyLocalizedString(@"CAPTURE_ERROR_NO_PERMISSIONS", nil)}]];
             });
             _captureSession = nil;
         }
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORKLocalizedString(@"CAPTURE_ERROR_CAMERA_NOT_FOUND", nil)}]];
+            [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORKLegacyLocalizedString(@"CAPTURE_ERROR_CAMERA_NOT_FOUND", nil)}]];
         });
         _captureSession = nil;
     }
@@ -234,7 +234,7 @@
 - (void)handleError:(NSError *)error {
     // Shut down the session, if running
     if (_captureSession.isRunning) {
-        ORKStrongTypeOf(_captureSession) strongCaptureSession = _captureSession;
+        ORKLegacyStrongTypeOf(_captureSession) strongCaptureSession = _captureSession;
         dispatch_async(_sessionQueue, ^{
             [strongCaptureSession stopRunning];
         });
@@ -271,7 +271,7 @@
     // Confirm the outputDirectory was set properly
     if (!URL) {
         if (error) {
-            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteInvalidFileNameError userInfo:@{NSLocalizedDescriptionKey:ORKLocalizedString(@"CAPTURE_ERROR_NO_OUTPUT_DIRECTORY", nil)}];
+            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteInvalidFileNameError userInfo:@{NSLocalizedDescriptionKey:ORKLegacyLocalizedString(@"CAPTURE_ERROR_NO_OUTPUT_DIRECTORY", nil)}];
         }
         return nil;
     }
@@ -280,10 +280,10 @@
     NSError *writeError = nil;
     if (![_capturedImageData writeToURL:URL options:NSDataWritingAtomic|NSDataWritingFileProtectionCompleteUnlessOpen error:&writeError]) {
         if (writeError) {
-            ORK_Log_Warning(@"%@", writeError);
+            ORKLegacy_Log_Warning(@"%@", writeError);
         }
         if (error) {
-            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteInvalidFileNameError userInfo:@{NSLocalizedDescriptionKey:ORKLocalizedString(@"CAPTURE_ERROR_CANNOT_WRITE_FILE", nil)}];
+            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteInvalidFileNameError userInfo:@{NSLocalizedDescriptionKey:ORKLegacyLocalizedString(@"CAPTURE_ERROR_CANNOT_WRITE_FILE", nil)}];
         }
         return nil;
     }
@@ -291,8 +291,8 @@
     return URL;
 }
 
-- (ORKStepResult *)result {
-    ORKStepResult *stepResult = [super result];
+- (ORKLegacyStepResult *)result {
+    ORKLegacyStepResult *stepResult = [super result];
     NSDate *now = stepResult.endDate;
     
     // If we have captured data, but have not yet written that data to a file, do it now
@@ -305,7 +305,7 @@
     }
     
     NSMutableArray *results = [NSMutableArray arrayWithArray:stepResult.results];
-    ORKFileResult *fileResult = [[ORKFileResult alloc] initWithIdentifier:self.step.identifier];
+    ORKLegacyFileResult *fileResult = [[ORKLegacyFileResult alloc] initWithIdentifier:self.step.identifier];
     fileResult.startDate = stepResult.startDate;
     fileResult.endDate = now;
     fileResult.contentType = @"image/jpeg";

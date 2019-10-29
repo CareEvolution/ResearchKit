@@ -33,10 +33,10 @@
 @import ResearchKit.Private;
 
 
-@interface ORKDataLoggerTests : XCTestCase <ORKDataLoggerDelegate> {
+@interface ORKLegacyDataLoggerTests : XCTestCase <ORKLegacyDataLoggerDelegate> {
     NSURL *_directory;
     NSString *_logName;
-    ORKDataLogger *_dataLogger;
+    ORKLegacyDataLogger *_dataLogger;
     
     NSMutableArray *_finishedLogFiles;
 }
@@ -44,7 +44,7 @@
 @end
 
 
-@implementation ORKDataLoggerTests
+@implementation ORKLegacyDataLoggerTests
 
 - (void)setUp {
     [super setUp];
@@ -57,7 +57,7 @@
     _logName = @"test";
     
     _finishedLogFiles = [NSMutableArray array];
-    _dataLogger = [ORKDataLogger JSONDataLoggerWithDirectory:_directory logName:_logName delegate:self];
+    _dataLogger = [ORKLegacyDataLogger JSONDataLoggerWithDirectory:_directory logName:_logName delegate:self];
 }
 
 - (void)tearDown {
@@ -73,7 +73,7 @@
     _logName = nil;
 }
 
-- (void)dataLogger:(ORKDataLogger *)dataLogger finishedLogFile:(NSURL *)fileUrl {
+- (void)dataLogger:(ORKLegacyDataLogger *)dataLogger finishedLogFile:(NSURL *)fileUrl {
     XCTAssertEqual(_dataLogger, dataLogger, @"Should be the same");
     [_finishedLogFiles addObject:fileUrl];
 }
@@ -128,7 +128,7 @@
     
     _dataLogger.delegate = nil;
     
-    _dataLogger = [ORKDataLogger JSONDataLoggerWithDirectory:_directory logName:_logName delegate:self];
+    _dataLogger = [ORKLegacyDataLogger JSONDataLoggerWithDirectory:_directory logName:_logName delegate:self];
     
     XCTAssertTrue([_dataLogger append:@{@"val":@(2)} error:nil]);
     
@@ -255,7 +255,7 @@
 }
 
 - (void)testDataProtection {
-    _dataLogger.fileProtectionMode = ORKFileProtectionComplete;
+    _dataLogger.fileProtectionMode = ORKLegacyFileProtectionComplete;
     
     NSDictionary *jsonObject = @{@"test": @(1) };
     [self logJsonObjectAndRolloverAndWaitOnce:jsonObject];
@@ -275,12 +275,12 @@
 //    {
 //        NSDictionary *attribs = [[NSFileManager defaultManager] attributesOfItemAtPath:[[_dataLogger currentLogFileURL] path] error:&error];
 //        XCTAssertNil(error);
-//        XCTAssertEqualObjects(attribs[NSFileProtectionKey], ORKFileProtectionFromMode(_dataLogger.fileProtectionMode));
+//        XCTAssertEqualObjects(attribs[NSFileProtectionKey], ORKLegacyFileProtectionFromMode(_dataLogger.fileProtectionMode));
 //    }
 //    {
 //        NSDictionary *attribs = [[NSFileManager defaultManager] attributesOfItemAtPath:[(NSURL *)logs[0] path] error:&error];
 //        XCTAssertNil(error);
-//        XCTAssertEqualObjects(attribs[NSFileProtectionKey], ORKFileProtectionFromMode(_dataLogger.fileProtectionMode));
+//        XCTAssertEqualObjects(attribs[NSFileProtectionKey], ORKLegacyFileProtectionFromMode(_dataLogger.fileProtectionMode));
 //    }
 #endif
 }

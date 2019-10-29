@@ -38,19 +38,19 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKQuantityLabel
+@implementation ORKLegacyQuantityLabel
 
 + (UIFont *)defaultFont {
-    return ORKTimeFontForSize(35);
+    return ORKLegacyTimeFontForSize(35);
 }
 
 @end
 
 
-@implementation ORKActiveStepQuantityView {
-    ORKSubheadlineLabel *_titleLabel;
-    ORKQuantityLabel *_valueLabel;
-    ORKTintedImageView *_imageView;
+@implementation ORKLegacyActiveStepQuantityView {
+    ORKLegacySubheadlineLabel *_titleLabel;
+    ORKLegacyQuantityLabel *_valueLabel;
+    ORKLegacyTintedImageView *_imageView;
     UIView *_valueHolder;
     
     NSLayoutConstraint *_zeroWidthConstraint;
@@ -59,11 +59,11 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _titleLabel = [ORKSubheadlineLabel new];
+        _titleLabel = [ORKLegacySubheadlineLabel new];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _valueLabel = [ORKQuantityLabel new];
+        _valueLabel = [ORKLegacyQuantityLabel new];
         _valueLabel.textAlignment = NSTextAlignmentCenter;
-        _imageView = [ORKTintedImageView new];
+        _imageView = [ORKLegacyTintedImageView new];
         _imageView.shouldApplyTint = YES;
         _valueHolder = [UIView new];
         _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -223,15 +223,15 @@
 @end
 
 
-@implementation ORKQuantityPairView {
+@implementation ORKLegacyQuantityPairView {
     UIView *_metricKeyline;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _leftView = [ORKActiveStepQuantityView new];
-        _rightView = [ORKActiveStepQuantityView new];
+        _leftView = [ORKLegacyActiveStepQuantityView new];
+        _rightView = [ORKLegacyActiveStepQuantityView new];
         
         _leftView.translatesAutoresizingMaskIntoConstraints = NO;
         _rightView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -306,7 +306,7 @@
                                                                              toItem:nil
                                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                                          multiplier:1.0
-                                                                           constant:ORKScreenMetricMaxDimension];
+                                                                           constant:ORKLegacyScreenMetricMaxDimension];
     maxWidthConstraint.priority = UILayoutPriorityRequired - 2;
     [constraints addObject:maxWidthConstraint];
     

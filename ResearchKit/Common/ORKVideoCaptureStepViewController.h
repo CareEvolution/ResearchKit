@@ -33,14 +33,14 @@
 
 
 /**
- The `ORKVideoCaptureStepViewController` class represents the step view controller that
- corresponds to an `ORKVideoCaptureStep` class.
+ The `ORKLegacyVideoCaptureStepViewController` class represents the step view controller that
+ corresponds to an `ORKLegacyVideoCaptureStep` class.
  
  It is not usually necessary to instantiate this view controller directly.
  Instead, add a video capture step to a task, and present the task in a task
  view controller.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKVideoCaptureStepViewController : ORKStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyVideoCaptureStepViewController : ORKLegacyStepViewController
 
 @end

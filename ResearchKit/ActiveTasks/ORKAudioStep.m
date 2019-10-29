@@ -38,10 +38,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKAudioStep
+@implementation ORKLegacyAudioStep
 
 + (Class)stepViewControllerClass {
-    return [ORKAudioStepViewController class];
+    return [ORKLegacyAudioStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -56,10 +56,10 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    NSTimeInterval const ORKAudioTaskMinimumDuration = 5.0;
+    NSTimeInterval const ORKLegacyAudioTaskMinimumDuration = 5.0;
     
-    if ( self.stepDuration < ORKAudioTaskMinimumDuration) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"duration cannot be shorter than %@ seconds.", @(ORKAudioTaskMinimumDuration)]  userInfo:nil];
+    if ( self.stepDuration < ORKLegacyAudioTaskMinimumDuration) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"duration cannot be shorter than %@ seconds.", @(ORKLegacyAudioTaskMinimumDuration)]  userInfo:nil];
     }
 }
 

@@ -37,14 +37,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKCountdownStepViewController` class represents the step view controller that corresponds to an `ORKCountdownStep`.
+ The `ORKLegacyCountdownStepViewController` class represents the step view controller that corresponds to an `ORKLegacyCountdownStep`.
  
  It is not usually necessary to instantiate this view controller directly.
  Instead, add a countdown step to a task, and present the task in a task
  view controller.
  */
-ORK_CLASS_AVAILABLE
-@interface ORKCountdownStepViewController : ORKActiveStepViewController
+ORKLegacy_CLASS_AVAILABLE
+@interface ORKLegacyCountdownStepViewController : ORKLegacyActiveStepViewController
 
 @end
 

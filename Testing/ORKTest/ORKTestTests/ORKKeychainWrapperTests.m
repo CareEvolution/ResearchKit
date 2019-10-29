@@ -33,7 +33,7 @@
 @import ResearchKit.Private;
 
 
-@interface ORKKeychainWrapperTests : XCTestCase
+@interface ORKLegacyKeychainWrapperTests : XCTestCase
 
 @end
 
@@ -42,20 +42,20 @@ static NSString *const inObject = @"RK object";
 static NSString *const key = @"RK key";
 static NSString *const invalidKey = @"RK invalid key";
 
-@implementation ORKKeychainWrapperTests
+@implementation ORKLegacyKeychainWrapperTests
 
 - (void)testSetObjectInKeychain {
     NSError *error;
 
     // Test that the object is set without error.
-    BOOL success = [ORKKeychainWrapper setObject:inObject
+    BOOL success = [ORKLegacyKeychainWrapper setObject:inObject
                                           forKey:key
                                            error:&error];
     XCTAssertNil(error);
     XCTAssertTrue(success);
     
     // Test that the object set is equal to the object retrieved.
-    NSString *outObject = (NSString *) [ORKKeychainWrapper objectForKey:key
+    NSString *outObject = (NSString *) [ORKLegacyKeychainWrapper objectForKey:key
                                                                   error:&error];
     XCTAssertNil(error);
     XCTAssertEqualObjects(inObject, outObject);
@@ -66,20 +66,20 @@ static NSString *const invalidKey = @"RK invalid key";
     NSError *error;
     
     // Set an object in the keychain.
-    BOOL success = [ORKKeychainWrapper setObject:inObject
+    BOOL success = [ORKLegacyKeychainWrapper setObject:inObject
                            forKey:key
                             error:&error];
     XCTAssertNil(error);
     XCTAssertTrue(success);
     
     // Test that the object set is equal to the object retrieved.
-    NSString *outObject = (NSString *) [ORKKeychainWrapper objectForKey:key
+    NSString *outObject = (NSString *) [ORKLegacyKeychainWrapper objectForKey:key
                                                                   error:&error];
     XCTAssertNil(error);
     XCTAssertEqualObjects(inObject, outObject);
     
     // Test that there is an error for invalid key.
-    id object = [ORKKeychainWrapper objectForKey:invalidKey
+    id object = [ORKLegacyKeychainWrapper objectForKey:invalidKey
                                error:&error];
     XCTAssertNotNil(error);
     XCTAssertNil(object);
@@ -89,20 +89,20 @@ static NSString *const invalidKey = @"RK invalid key";
     NSError *error;
     
     // Set an object in the keychain.
-    BOOL success = [ORKKeychainWrapper setObject:inObject
+    BOOL success = [ORKLegacyKeychainWrapper setObject:inObject
                            forKey:key
                             error:&error];
     XCTAssertNil(error);
     XCTAssertTrue(success);
     
     // Remove the object from the keychain.
-    success = [ORKKeychainWrapper removeObjectForKey:key
+    success = [ORKLegacyKeychainWrapper removeObjectForKey:key
                                                error:&error];
     XCTAssertNil(error);
     XCTAssertTrue(success);
     
     // Test that there is no object for the key.
-    id object = [ORKKeychainWrapper objectForKey:key
+    id object = [ORKLegacyKeychainWrapper objectForKey:key
                                            error:&error];
     XCTAssertNotNil(error);
     XCTAssertNil(object);
@@ -112,19 +112,19 @@ static NSString *const invalidKey = @"RK invalid key";
     NSError *error;
     
     // Set an object in the keychain.
-    BOOL success = [ORKKeychainWrapper setObject:inObject
+    BOOL success = [ORKLegacyKeychainWrapper setObject:inObject
                                           forKey:key
                                            error:&error];
     XCTAssertNil(error);
     XCTAssertTrue(success);
     
     // Reset the keychain.
-    success = [ORKKeychainWrapper resetKeychainWithError:&error];
+    success = [ORKLegacyKeychainWrapper resetKeychainWithError:&error];
     XCTAssertNil(error);
     XCTAssertTrue(success);
     
     // Test that there is no object for the key.
-    id object = [ORKKeychainWrapper objectForKey:key
+    id object = [ORKLegacyKeychainWrapper objectForKey:key
                                            error:&error];
     XCTAssertNotNil(error);
     XCTAssertNil(object);

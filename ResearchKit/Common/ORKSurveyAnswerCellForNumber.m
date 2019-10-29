@@ -40,36 +40,36 @@
 #import "ORKSkin.h"
 
 
-@interface ORKSurveyAnswerCellForNumber ()
+@interface ORKLegacySurveyAnswerCellForNumber ()
 
 @property (nonatomic, strong) UIView *containerView;
-@property (nonatomic, strong) ORKTextFieldView *textFieldView;
+@property (nonatomic, strong) ORKLegacyTextFieldView *textFieldView;
 
 @end
 
 
-@implementation ORKSurveyAnswerCellForNumber {
+@implementation ORKLegacySurveyAnswerCellForNumber {
     NSNumberFormatter *_numberFormatter;
 }
 
-- (ORKUnitTextField *)textField {
+- (ORKLegacyUnitTextField *)textField {
     return _textFieldView.textField;
 }
 
 - (void)numberCell_initialize {
-    ORKQuestionType questionType = self.step.questionType;
-    _numberFormatter = ORKDecimalNumberFormatter();
+    ORKLegacyQuestionType questionType = self.step.questionType;
+    _numberFormatter = ORKLegacyDecimalNumberFormatter();
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localeDidChange:) name:NSCurrentLocaleDidChangeNotification object:nil];
     
-    _textFieldView = [[ORKTextFieldView alloc] init];
-    ORKUnitTextField *textField =  _textFieldView.textField;
+    _textFieldView = [[ORKLegacyTextFieldView alloc] init];
+    ORKLegacyUnitTextField *textField =  _textFieldView.textField;
     
     textField.delegate = self;
     textField.allowsSelection = YES;
     
-    if (questionType == ORKQuestionTypeDecimal) {
+    if (questionType == ORKLegacyQuestionTypeDecimal) {
         textField.keyboardType = UIKeyboardTypeDecimalPad;
-    } else if (questionType == ORKQuestionTypeInteger) {
+    } else if (questionType == ORKLegacyQuestionTypeInteger) {
         textField.keyboardType = UIKeyboardTypeNumberPad;
     }
     
@@ -81,8 +81,8 @@
 
     [self addSubview:_containerView];
     
-    self.layoutMargins = ORKStandardLayoutMarginsForTableViewCell(self);
-    ORKEnableAutoLayoutForViews(@[_containerView, _textFieldView]);
+    self.layoutMargins = ORKLegacyStandardLayoutMarginsForTableViewCell(self);
+    ORKLegacyEnableAutoLayoutForViews(@[_containerView, _textFieldView]);
     [self setUpConstraints];
 }
 
@@ -97,7 +97,7 @@
 }
 
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
-    self.layoutMargins = ORKStandardLayoutMarginsForTableViewCell(self);
+    self.layoutMargins = ORKLegacyStandardLayoutMarginsForTableViewCell(self);
 }
 
 - (void)setUpConstraints {
@@ -144,12 +144,12 @@
 - (BOOL)isAnswerValid {
     id answer = self.answer;
     
-    if (answer == ORKNullAnswerValue()) {
+    if (answer == ORKLegacyNullAnswerValue()) {
         return YES;
     }
     
-    ORKAnswerFormat *answerFormat = [self.step impliedAnswerFormat];
-    ORKNumericAnswerFormat *numericFormat = (ORKNumericAnswerFormat *)answerFormat;
+    ORKLegacyAnswerFormat *answerFormat = [self.step impliedAnswerFormat];
+    ORKLegacyNumericAnswerFormat *numericFormat = (ORKLegacyNumericAnswerFormat *)answerFormat;
     return [numericFormat isAnswerValidWithString:self.textField.text];
 }
 
@@ -165,14 +165,14 @@
 
 - (void)answerDidChange {
     id answer = self.answer;
-    ORKAnswerFormat *answerFormat = [self.step impliedAnswerFormat];
-    ORKNumericAnswerFormat *numericFormat = (ORKNumericAnswerFormat *)answerFormat;
-    NSString *displayValue = (answer && answer != ORKNullAnswerValue()) ? answer : nil;
+    ORKLegacyAnswerFormat *answerFormat = [self.step impliedAnswerFormat];
+    ORKLegacyNumericAnswerFormat *numericFormat = (ORKLegacyNumericAnswerFormat *)answerFormat;
+    NSString *displayValue = (answer && answer != ORKLegacyNullAnswerValue()) ? answer : nil;
     if ([answer isKindOfClass:[NSNumber class]]) {
         displayValue = [_numberFormatter stringFromNumber:answer];
     }
    
-    NSString *placeholder = self.step.placeholder ? : ORKLocalizedString(@"PLACEHOLDER_TEXT_OR_NUMBER", nil);
+    NSString *placeholder = self.step.placeholder ? : ORKLegacyLocalizedString(@"PLACEHOLDER_TEXT_OR_NUMBER", nil);
 
     self.textField.manageUnitAndPlaceholder = YES;
     self.textField.unit = numericFormat.unit;
@@ -183,24 +183,24 @@
 #pragma mark - UITextFieldDelegate
 
 - (void)valueFieldDidChange:(UITextField *)textField {
-    ORKNumericAnswerFormat *answerFormat = (ORKNumericAnswerFormat *)[self.step impliedAnswerFormat];
+    ORKLegacyNumericAnswerFormat *answerFormat = (ORKLegacyNumericAnswerFormat *)[self.step impliedAnswerFormat];
     NSString *sanitizedText = [answerFormat sanitizedTextFieldText:[textField text] decimalSeparator:[_numberFormatter decimalSeparator]];
     textField.text = sanitizedText;
     [self setAnswerWithText:textField.text];
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
-    [self ork_setAnswer:ORKNullAnswerValue()];
+    [self ork_setAnswer:ORKLegacyNullAnswerValue()];
     return YES;
 }
 
 - (void)setAnswerWithText:(NSString *)text {
     BOOL updateInput = NO;
-    id answer = ORKNullAnswerValue();
+    id answer = ORKLegacyNullAnswerValue();
     if (text.length) {
         answer = [[NSDecimalNumber alloc] initWithString:text locale:[NSLocale currentLocale]];
         if (!answer) {
-            answer = ORKNullAnswerValue();
+            answer = ORKLegacyNullAnswerValue();
             updateInput = YES;
         }
     }

@@ -33,15 +33,15 @@
 #import <CoreMotion/CoreMotion.h>
 
 
-@interface ORKDataCollectionManager ()
+@interface ORKLegacyDataCollectionManager ()
 
 @property (nonatomic, strong, readonly) HKHealthStore *healthStore;
 
 @property (nonatomic, strong, readonly) CMMotionActivityManager *activityManager;
 
-- (void)onWorkQueueSync:(BOOL (^)(ORKDataCollectionManager *manager))block;
+- (void)onWorkQueueSync:(BOOL (^)(ORKLegacyDataCollectionManager *manager))block;
 
-- (void)onWorkQueueAsync:(BOOL (^)(ORKDataCollectionManager *manager))block;
+- (void)onWorkQueueAsync:(BOOL (^)(ORKLegacyDataCollectionManager *manager))block;
 
 /**
  Last collection date.
