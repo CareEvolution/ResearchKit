@@ -165,7 +165,7 @@
     _learnMoreButton.titleLabel.preferredMaxLayoutWidth = insetBounds.size.width - sideMargin * 2;
 }
 
-const CGFloat IconHeight = 60;
+const CGFloat RK1IconHeight = 60;
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
     static const CGFloat AssumedNavBarHeight = 44;
@@ -177,7 +177,7 @@ const CGFloat IconHeight = 60;
     BOOL hasIconView = _iconImageView.image != nil;
     
     const CGFloat IllustrationToCaptionBaseline = RK1GetMetricForWindow(RK1ScreenMetricIllustrationToCaptionBaseline, window);
-    const CGFloat TopToCaptionBaseline = hasIconView ? (IconBottomToCaptionBaseline + IconHeight + TopToIconTop) : (RK1GetMetricForWindow(RK1ScreenMetricTopToCaptionBaseline, window) - AssumedStatusBarHeight - AssumedNavBarHeight);
+    const CGFloat TopToCaptionBaseline = hasIconView ? (IconBottomToCaptionBaseline + RK1IconHeight + TopToIconTop) : (RK1GetMetricForWindow(RK1ScreenMetricTopToCaptionBaseline, window) - AssumedStatusBarHeight - AssumedNavBarHeight);
     
     const CGFloat CaptionBaselineToInstructionBaseline_WithInstruction = RK1GetMetricForWindow(RK1ScreenMetricCaptionBaselineToInstructionBaseline, window);
     const CGFloat CaptionBaselineToInstructionBaseline_NoInstruction = MIN(26, CaptionBaselineToInstructionBaseline_WithInstruction); // Not part of spec
@@ -294,7 +294,7 @@ const CGFloat IconHeight = 60;
                                                                toItem:nil
                                                             attribute:NSLayoutAttributeNotAnAttribute
                                                            multiplier:1.0
-                                                             constant:IconHeight]];
+                                                             constant:RK1IconHeight]];
     }
     
     {

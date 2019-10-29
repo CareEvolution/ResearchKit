@@ -41,10 +41,10 @@
 #import <AVFoundation/AVFoundation.h>
 
 
-Float32 const VolumeThreshold = 0.45;
-UInt16  const LinearPCMBitDepth = 16;
-Float32 const MaxAmplitude = 32767.0;
-Float32 const VolumeClamp = 60.0;
+Float32 const RK1VolumeThreshold = 0.45;
+UInt16  const RK1LinearPCMBitDepth = 16;
+Float32 const RK1MaxAmplitude = 32767.0;
+Float32 const RK1VolumeClamp = 60.0;
 
 
 @interface RK1AudioLevelNavigationRule ()
@@ -155,7 +155,7 @@ Float32 const VolumeClamp = 60.0;
     AVAssetReader *reader = [[AVAssetReader alloc] initWithAsset:urlAsset error:&error];
     AVAssetTrack *track = [urlAsset.tracks objectAtIndex:0];
     NSDictionary *outputSettings = @{AVFormatIDKey: @(kAudioFormatLinearPCM),
-                                     AVLinearPCMBitDepthKey: @(LinearPCMBitDepth),
+                                     AVLinearPCMBitDepthKey: @(RK1LinearPCMBitDepth),
                                      AVLinearPCMIsBigEndianKey: @(NO),
                                      AVLinearPCMIsFloatKey: @(NO),
                                      AVLinearPCMIsNonInterleaved: @(NO)};
@@ -172,8 +172,8 @@ Float32 const VolumeClamp = 60.0;
     __block UInt64 totalCount = 0;
     void (^processVolume)(Float32) = ^(Float32 amplitude) {
         if (amplitude != 0) {
-            Float32 dB = 20 * log10(ABS(amplitude) / MaxAmplitude);
-            float clampedValue = MAX(dB / VolumeClamp, -1) + 1;
+            Float32 dB = 20 * log10(ABS(amplitude) / RK1MaxAmplitude);
+            float clampedValue = MAX(dB / RK1VolumeClamp, -1) + 1;
             totalCount++;
             rollingAvg = (rollingAvg * (totalCount - 1) + clampedValue) / totalCount;
         }
@@ -210,7 +210,7 @@ Float32 const VolumeClamp = 60.0;
         }
     }
     
-    return rollingAvg > VolumeThreshold;
+    return rollingAvg > RK1VolumeThreshold;
 }
 
 

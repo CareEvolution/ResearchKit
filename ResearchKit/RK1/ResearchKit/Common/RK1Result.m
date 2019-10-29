@@ -49,7 +49,7 @@
 @import CoreLocation;
 
 
-const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
+const NSUInteger RK1NumberOfPaddingSpacesForIndentationLevel = 4;
 
 @interface RK1Result ()
 
@@ -1393,7 +1393,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
         NSArray *answerLines = [answerDescription componentsSeparatedByString:@"\n"];
         const NSUInteger numberOfAnswerLines = answerLines.count;
         [answerLines enumerateObjectsUsingBlock:^(NSString *answerLineString, NSUInteger idx, BOOL *stop) {
-            [indentatedAnswerDescription appendFormat:@"%@%@", RK1PaddingWithNumberOfSpaces(numberOfPaddingSpaces + NumberOfPaddingSpacesForIndentationLevel), answerLineString];
+            [indentatedAnswerDescription appendFormat:@"%@%@", RK1PaddingWithNumberOfSpaces(numberOfPaddingSpaces + RK1NumberOfPaddingSpacesForIndentationLevel), answerLineString];
             if (idx != numberOfAnswerLines - 1) {
                 [indentatedAnswerDescription appendString:@"\n"];
             }
@@ -2028,7 +2028,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
         if (idx == 0) {
             [description appendString:@"\n"];
         }
-        [description appendFormat:@"%@", [result descriptionWithNumberOfPaddingSpaces:numberOfPaddingSpaces + NumberOfPaddingSpacesForIndentationLevel]];
+        [description appendFormat:@"%@", [result descriptionWithNumberOfPaddingSpaces:numberOfPaddingSpaces + RK1NumberOfPaddingSpacesForIndentationLevel]];
         if (idx != numberOfResults - 1) {
             [description appendString:@",\n"];
         } else {

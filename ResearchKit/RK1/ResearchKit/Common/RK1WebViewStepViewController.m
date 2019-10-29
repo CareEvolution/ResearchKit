@@ -163,7 +163,7 @@
             }
         
         if ([[UIApplication sharedApplication] canOpenURL:navigationAction.request.URL]) {
-            [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+            //[[UIApplication sharedApplication] openURL:navigationAction.request.URL];
             decisionHandler(WKNavigationActionPolicyCancel);
             return;
         }

@@ -30,7 +30,7 @@
 
 
 #import "RK1BorderedButton.h"
-#import "RK1TextButton_Internal.h"
+//#import "RK1TextButton_Internal.h"
 
 
 @implementation RK1BorderedButton {

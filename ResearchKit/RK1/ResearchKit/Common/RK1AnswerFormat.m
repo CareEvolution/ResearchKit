@@ -47,7 +47,7 @@
 @import MapKit;
 
 
-NSString *const EmailValidationRegularExpressionPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
+NSString *const RK1EmailValidationRegularExpressionPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
 
 id RK1NullAnswerValue() {
     return [NSNull null];
@@ -2473,7 +2473,7 @@ static NSString *const kSecureTextEntryEscapeString = @"*";
 - (RK1AnswerFormat *)impliedAnswerFormat {
     if (!_impliedAnswerFormat) {
         NSRegularExpression *validationRegularExpression =
-        [NSRegularExpression regularExpressionWithPattern:EmailValidationRegularExpressionPattern
+        [NSRegularExpression regularExpressionWithPattern:RK1EmailValidationRegularExpressionPattern
                                                   options:(NSRegularExpressionOptions)0
                                                     error:nil];
         NSString *invalidMessage = RK1LocalizedString(@"INVALID_EMAIL_ALERT_MESSAGE", nil);

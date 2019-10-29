@@ -97,7 +97,7 @@
 #endif
 
 
-const CGFloat FillColorAlpha = 0.4;
+const CGFloat RK1FillColorAlpha = 0.4;
 
 @implementation RK1LineGraphChartView {
     NSMutableDictionary *_fillLayers;
@@ -121,7 +121,7 @@ const CGFloat FillColorAlpha = 0.4;
     if ([self.dataSource respondsToSelector:@selector(graphChartView:fillColorForPlotIndex:)]) {
         color = [self.dataSource graphChartView:self fillColorForPlotIndex:plotIndex];
     } else {
-        color = [[self colorForPlotIndex:plotIndex] colorWithAlphaComponent:FillColorAlpha];
+        color = [[self colorForPlotIndex:plotIndex] colorWithAlphaComponent:RK1FillColorAlpha];
     }
     return color;
 }

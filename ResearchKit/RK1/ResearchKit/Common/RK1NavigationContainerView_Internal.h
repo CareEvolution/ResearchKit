@@ -31,7 +31,7 @@
 
 #import "RK1NavigationContainerView.h"
 #import "RK1ContinueButton.h"
-#import "RK1TextButton_Internal.h"
+//#import "RK1TextButton_Internal.h"
 #import "RK1FootnoteLabel.h"
 
 

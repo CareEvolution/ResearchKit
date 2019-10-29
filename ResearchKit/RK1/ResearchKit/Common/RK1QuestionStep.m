@@ -77,6 +77,7 @@
     return self;
 }
 
+/*
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -85,6 +86,7 @@
     }
     return self;
 }
+ */
 
 - (void)validateParameters {
     [super validateParameters];

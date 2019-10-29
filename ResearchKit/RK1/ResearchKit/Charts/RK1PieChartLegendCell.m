@@ -35,8 +35,8 @@
 #import "RK1Skin.h"
 
 
-const CGFloat DotViewSize = 10.0;
-const CGFloat DotToLabelPadding = 6.0;
+const CGFloat RK1DotViewSize = 10.0;
+const CGFloat RK1DotToLabelPadding = 6.0;
 
 @implementation RK1PieChartLegendCell
 
@@ -64,7 +64,7 @@ const CGFloat DotToLabelPadding = 6.0;
     _titleLabel.isAccessibilityElement = NO;
     _dotView = [UIView new];
     _dotView.translatesAutoresizingMaskIntoConstraints = NO;
-    _dotView.layer.cornerRadius = DotViewSize * 0.5;
+    _dotView.layer.cornerRadius = RK1DotViewSize * 0.5;
     _dotView.layer.masksToBounds = YES;
     [self.contentView addSubview:_titleLabel];
     [self.contentView addSubview:_dotView];
@@ -86,9 +86,9 @@ const CGFloat DotToLabelPadding = 6.0;
                                                                              options:(NSLayoutFormatOptions)0
                                                                              metrics:nil
                                                                                views:views]];
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_dotView]-DotToLabelPadding-[_titleLabel]|"
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_dotView]-RK1DotToLabelPadding-[_titleLabel]|"
                                                                              options:(NSLayoutFormatOptions)0
-                                                                             metrics:@{@"DotToLabelPadding": @(DotToLabelPadding)}
+                                                                             metrics:@{@"RK1DotToLabelPadding": @(RK1DotToLabelPadding)}
                                                                                views:views]];
     
     [constraints addObject:[NSLayoutConstraint constraintWithItem:_dotView
@@ -97,7 +97,7 @@ const CGFloat DotToLabelPadding = 6.0;
                                                            toItem:nil
                                                         attribute:0
                                                        multiplier:1.0
-                                                         constant:DotViewSize]];
+                                                         constant:RK1DotViewSize]];
     [constraints addObject:[NSLayoutConstraint constraintWithItem:_dotView
                                                         attribute:NSLayoutAttributeWidth
                                                         relatedBy:NSLayoutRelationEqual

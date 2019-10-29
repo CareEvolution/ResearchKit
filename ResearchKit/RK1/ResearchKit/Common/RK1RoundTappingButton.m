@@ -28,7 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "RK1TextButton_Internal.h"
+//#import "RK1TextButton_Internal.h"
 #import "RK1RoundTappingButton.h"
 
 
