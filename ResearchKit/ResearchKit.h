@@ -132,3 +132,83 @@
 #import <ResearchKit/ORKTouchAbilityRotationTrial.h>
 
 #import <ResearchKit/ORKDeprecated.h>
+
+
+// RK1 Additions
+#import <ResearchKit/RK1Types.h>
+
+#import <ResearchKit/RK1Step.h>
+#import <ResearchKit/RK1ActiveStep.h>
+#import <ResearchKit/RK1ConsentReviewStep.h>
+#import <ResearchKit/RK1ConsentSharingStep.h>
+#import <ResearchKit/RK1FormStep.h>
+#import <ResearchKit/RK1ImageCaptureStep.h>
+#import <ResearchKit/RK1InstructionStep.h>
+#import <ResearchKit/RK1LoginStep.h>
+#import <ResearchKit/RK1NavigablePageStep.h>
+#import <ResearchKit/RK1PageStep.h>
+#import <ResearchKit/RK1PasscodeStep.h>
+#import <ResearchKit/RK1QuestionStep.h>
+#import <ResearchKit/RK1RegistrationStep.h>
+#import <ResearchKit/RK1ReviewStep.h>
+#import <ResearchKit/RK1SignatureStep.h>
+#import <ResearchKit/RK1TableStep.h>
+#import <ResearchKit/RK1TouchAnywhereStep.h>
+#import <ResearchKit/RK1VerificationStep.h>
+#import <ResearchKit/RK1VideoCaptureStep.h>
+#import <ResearchKit/RK1VisualConsentStep.h>
+#import <ResearchKit/RK1WaitStep.h>
+#import <ResearchKit/RK1VideoInstructionStep.h>
+#import <ResearchKit/RK1WebViewStep.h>
+
+#import <ResearchKit/RK1Task.h>
+#import <ResearchKit/RK1OrderedTask.h>
+#import <ResearchKit/RK1NavigableOrderedTask.h>
+#import <ResearchKit/RK1StepNavigationRule.h>
+
+#import <ResearchKit/RK1AnswerFormat.h>
+#import <ResearchKit/RK1HealthAnswerFormat.h>
+
+#import <ResearchKit/RK1Result.h>
+#import <ResearchKit/RK1ResultPredicate.h>
+
+#import <ResearchKit/RK1TextButton.h>
+#import <ResearchKit/RK1BorderedButton.h>
+#import <ResearchKit/RK1ContinueButton.h>
+
+#import <ResearchKit/RK1StepViewController.h>
+#import <ResearchKit/RK1ActiveStepViewController.h>
+#import <ResearchKit/RK1CompletionStepViewController.h>
+#import <ResearchKit/RK1FormStepViewController.h>
+#import <ResearchKit/RK1InstructionStepViewController.h>
+#import <ResearchKit/RK1LoginStepViewController.h>
+#import <ResearchKit/RK1PageStepViewController.h>
+#import <ResearchKit/RK1PasscodeViewController.h>
+#import <ResearchKit/RK1QuestionStepViewController.h>
+#import <ResearchKit/RK1TableStepViewController.h>
+#import <ResearchKit/RK1TaskViewController.h>
+#import <ResearchKit/RK1TouchAnywhereStepViewController.h>
+#import <ResearchKit/RK1VerificationStepViewController.h>
+#import <ResearchKit/RK1WaitStepViewController.h>
+#import <ResearchKit/RK1WebViewStepViewController.h>
+
+#import <ResearchKit/RK1Recorder.h>
+
+#import <ResearchKit/RK1ConsentDocument.h>
+#import <ResearchKit/RK1ConsentSection.h>
+#import <ResearchKit/RK1ConsentSignature.h>
+
+#import <ResearchKit/RK1KeychainWrapper.h>
+
+#import <ResearchKit/RK1ChartTypes.h>
+#import <ResearchKit/RK1BarGraphChartView.h>
+#import <ResearchKit/RK1DiscreteGraphChartView.h>
+#import <ResearchKit/RK1LineGraphChartView.h>
+#import <ResearchKit/RK1PieChartView.h>
+
+#import <ResearchKit/RK1DataCollectionManager.h>
+#import <ResearchKit/RK1Collector.h>
+
+#import <ResearchKit/RK1Deprecated.h>
+
+#import <ResearchKit/CEVRKTheme.h>
