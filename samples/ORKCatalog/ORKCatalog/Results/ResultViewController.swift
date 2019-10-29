@@ -33,7 +33,7 @@ import ResearchKitLegacy
 
 /**
     The purpose of this view controller is to show you the kinds of data
-    you can fetch from a specific `ORKResult`. The intention is for this view
+    you can fetch from a specific `ORKLegacyResult`. The intention is for this view
     controller to be purely for demonstration and testing purposes--specifically,
     it should not ever be shown to a user. Because of this, the UI for this view
     controller is not localized.
@@ -47,11 +47,11 @@ class ResultViewController: UITableViewController {
     
     // MARK: Properties
 
-    var result: ORKResult? = ORKTaskResult()
+    var result: ORKLegacyResult? = ORKLegacyTaskResult()
 
-    var currentResult: ORKResult? = ORKTaskResult()
+    var currentResult: ORKLegacyResult? = ORKLegacyTaskResult()
 
-    var resultTableViewProvider: UITableViewDataSource & UITableViewDelegate = resultTableViewProviderForResult(ORKTaskResult())
+    var resultTableViewProvider: UITableViewDataSource & UITableViewDelegate = resultTableViewProviderForResult(ORKLegacyTaskResult())
     
     // MARK: View Life Cycle
     
@@ -97,7 +97,7 @@ class ResultViewController: UITableViewController {
             
             let destinationViewController = segue.destination as! ResultViewController
             
-            let collectionResult = result as! ORKCollectionResult
+            let collectionResult = result as! ORKLegacyCollectionResult
             
             destinationViewController.result = collectionResult.results![(indexPath as NSIndexPath).row]
         }

@@ -97,13 +97,13 @@ class ActivityViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let activity = Activity(rawValue: (indexPath as NSIndexPath).row) else { return }
         
-        let taskViewController: ORKTaskViewController
+        let taskViewController: ORKLegacyTaskViewController
         switch activity {
             case .survey:
-                taskViewController = ORKTaskViewController(task: StudyTasks.surveyTask, taskRun: NSUUID() as UUID)
+                taskViewController = ORKLegacyTaskViewController(task: StudyTasks.surveyTask, taskRun: NSUUID() as UUID)
             
             case .microphone:
-                taskViewController = ORKTaskViewController(task: StudyTasks.microphoneTask, taskRun: NSUUID() as UUID)
+                taskViewController = ORKLegacyTaskViewController(task: StudyTasks.microphoneTask, taskRun: NSUUID() as UUID)
                 
                 do {
                     let defaultFileManager = FileManager.default
@@ -122,10 +122,10 @@ class ActivityViewController: UITableViewController {
                 }
                 
             case .tapping:
-                taskViewController = ORKTaskViewController(task: StudyTasks.tappingTask, taskRun: NSUUID() as UUID)
+                taskViewController = ORKLegacyTaskViewController(task: StudyTasks.tappingTask, taskRun: NSUUID() as UUID)
             
             case .trailmaking:
-                taskViewController = ORKTaskViewController(task: StudyTasks.trailmakingTask, taskRun: NSUUID() as UUID)
+                taskViewController = ORKLegacyTaskViewController(task: StudyTasks.trailmakingTask, taskRun: NSUUID() as UUID)
         }
 
         taskViewController.delegate = self
@@ -133,9 +133,9 @@ class ActivityViewController: UITableViewController {
     }
 }
 
-extension ActivityViewController : ORKTaskViewControllerDelegate {
+extension ActivityViewController : ORKLegacyTaskViewControllerDelegate {
     
-    func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
+    func taskViewController(_ taskViewController: ORKLegacyTaskViewController, didFinishWith reason: ORKLegacyTaskViewControllerFinishReason, error: Error?) {
         // Handle results using taskViewController.result
         taskViewController.dismiss(animated: true, completion: nil)
     }

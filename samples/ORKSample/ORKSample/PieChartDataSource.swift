@@ -30,7 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import ResearchKitLegacy
 
-class PieChartDataSource: NSObject, ORKPieChartViewDataSource {
+class PieChartDataSource: NSObject, ORKLegacyPieChartViewDataSource {
     // MARK: Types
     
     struct Segment {
@@ -47,21 +47,21 @@ class PieChartDataSource: NSObject, ORKPieChartViewDataSource {
         Segment(title: "Title 3", value: 45.0, color: UIColor(red: 244/225, green: 190/255, blue: 74/225, alpha: 1))
     ]
     
-    // MARK: ORKPieChartViewDataSource
+    // MARK: ORKLegacyPieChartViewDataSource
     
-    func numberOfSegments(in pieChartView: ORKPieChartView ) -> Int {
+    func numberOfSegments(in pieChartView: ORKLegacyPieChartView ) -> Int {
         return segments.count
     }
     
-    func pieChartView(_ pieChartView: ORKPieChartView, valueForSegmentAt index: Int) -> CGFloat {
+    func pieChartView(_ pieChartView: ORKLegacyPieChartView, valueForSegmentAt index: Int) -> CGFloat {
         return CGFloat(segments[index].value)
     }
     
-    func pieChartView(_ pieChartView: ORKPieChartView, colorForSegmentAt index: Int) -> UIColor {
+    func pieChartView(_ pieChartView: ORKLegacyPieChartView, colorForSegmentAt index: Int) -> UIColor {
         return segments[index].color
     }
     
-    func pieChartView(_ pieChartView: ORKPieChartView, titleForSegmentAt index: Int) -> String {
+    func pieChartView(_ pieChartView: ORKLegacyPieChartView, titleForSegmentAt index: Int) -> String {
         return segments[index].title
     }
 }

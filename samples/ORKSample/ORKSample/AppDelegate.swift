@@ -44,9 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         let standardDefaults = UserDefaults.standard
-        if standardDefaults.object(forKey: "ORKSampleFirstRun") == nil {
-            ORKPasscodeViewController.removePasscodeFromKeychain()
-            standardDefaults.setValue("ORKSampleFirstRun", forKey: "ORKSampleFirstRun")
+        if standardDefaults.object(forKey: "ORKLegacySampleFirstRun") == nil {
+            ORKLegacyPasscodeViewController.removePasscodeFromKeychain()
+            standardDefaults.setValue("ORKLegacySampleFirstRun", forKey: "ORKLegacySampleFirstRun")
         }
         
         // Appearance customization
@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        if ORKPasscodeViewController.isPasscodeStoredInKeychain() {
+        if ORKLegacyPasscodeViewController.isPasscodeStoredInKeychain() {
             // Hide content so it doesn't appear in the app switcher.
             containerViewController?.contentHidden = true
         }
@@ -80,16 +80,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Only lock the app if there is a stored passcode and a passcode
             controller isn't already being shown.
         */
-        guard ORKPasscodeViewController.isPasscodeStoredInKeychain() && !(containerViewController?.presentedViewController is ORKPasscodeViewController) else { return }
+        guard ORKLegacyPasscodeViewController.isPasscodeStoredInKeychain() && !(containerViewController?.presentedViewController is ORKLegacyPasscodeViewController) else { return }
         
         window?.makeKeyAndVisible()
         
-        let passcodeViewController = ORKPasscodeViewController.passcodeAuthenticationViewController(withText: "Welcome back to ResearchKit Sample App", delegate: self) 
+        let passcodeViewController = ORKLegacyPasscodeViewController.passcodeAuthenticationViewController(withText: "Welcome back to ResearchKit Sample App", delegate: self) 
         containerViewController?.present(passcodeViewController, animated: false, completion: nil)
     }
 }
 
-extension AppDelegate: ORKPasscodeDelegate {
+extension AppDelegate: ORKLegacyPasscodeDelegate {
     func passcodeViewControllerDidFinish(withSuccess viewController: UIViewController) {
         containerViewController?.contentHidden = false
         viewController.dismiss(animated: true, completion: nil)

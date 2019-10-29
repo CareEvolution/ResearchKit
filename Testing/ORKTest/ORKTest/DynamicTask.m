@@ -170,4 +170,6 @@
     return _step4;
 }
 
+@synthesize cev_theme;
+
 @end

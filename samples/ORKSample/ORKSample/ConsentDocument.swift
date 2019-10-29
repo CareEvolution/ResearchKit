@@ -30,7 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import ResearchKitLegacy
 
-class ConsentDocument: ORKConsentDocument {
+class ConsentDocument: ORKLegacyConsentDocument {
     // MARK: Properties
     
     let ipsum = [
@@ -51,7 +51,7 @@ class ConsentDocument: ORKConsentDocument {
         
         title = NSLocalizedString("Research Health Study Consent Form", comment: "")
         
-        let sectionTypes: [ORKConsentSectionType] = [
+        let sectionTypes: [ORKLegacyConsentSectionType] = [
             .overview,
             .dataGathering,
             .privacy,
@@ -64,7 +64,7 @@ class ConsentDocument: ORKConsentDocument {
         sections = []
         
         for sectionType in sectionTypes {
-            let section = ORKConsentSection(type: sectionType)
+            let section = ORKLegacyConsentSection(type: sectionType)
             
             let localizedIpsum = NSLocalizedString(ipsum[sectionTypes.index(of: sectionType)!], comment: "")
             let localizedSummary = localizedIpsum.components(separatedBy: ".")[0] + "."
@@ -78,7 +78,7 @@ class ConsentDocument: ORKConsentDocument {
             }
         }
         
-        let signature = ORKConsentSignature(forPersonWithTitle: nil, dateFormatString: nil, identifier: "ConsentDocumentParticipantSignature")
+        let signature = ORKLegacyConsentSignature(forPersonWithTitle: nil, dateFormatString: nil, identifier: "ConsentDocumentParticipantSignature")
         addSignature(signature)
     }
 
@@ -87,7 +87,7 @@ class ConsentDocument: ORKConsentDocument {
     }
 }
 
-extension ORKConsentSectionType: CustomStringConvertible {
+extension ORKLegacyConsentSectionType: CustomStringConvertible {
 
     public var description: String {
         switch self {

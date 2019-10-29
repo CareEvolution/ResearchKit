@@ -32,11 +32,11 @@ import UIKit
 import ResearchKitLegacy
 
 class PieChartTableViewCell: UITableViewCell {
-    @IBOutlet weak var pieChartView: ORKPieChartView!
+    @IBOutlet weak var pieChartView: ORKLegacyPieChartView!
 }
 
 class GraphChartTableViewCell: UITableViewCell {
-    @IBOutlet weak var graphView: ORKGraphChartView!
+    @IBOutlet weak var graphView: ORKLegacyGraphChartView!
 }
 
 class LineGraphChartTableViewCell: GraphChartTableViewCell { }

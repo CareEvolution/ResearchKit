@@ -31,14 +31,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import ResearchKitLegacy
 import HealthKit
 
-class HealthDataStepViewController: ORKInstructionStepViewController {
+class HealthDataStepViewController: ORKLegacyInstructionStepViewController {
     // MARK: Properties
     
     var healthDataStep: HealthDataStep? {
         return step as? HealthDataStep
     }
     
-    // MARK: ORKInstructionStepViewController
+    // MARK: ORKLegacyInstructionStepViewController
     
     override func goForward() {
         healthDataStep?.getHealthAuthorization() { succeeded, _ in

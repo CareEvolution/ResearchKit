@@ -34,12 +34,12 @@ import MapKit
 
 /**
     Create a `protocol<UITableViewDataSource, UITableViewDelegate>` that knows
-    how to present the metadata for an `ORKResult` instance. Extra metadata is
-    displayed for specific `ORKResult` types. For example, a table view provider
-    for an `ORKFileResult` instance will display the `fileURL` in addition to the
-    standard `ORKResult` properties.
+    how to present the metadata for an `ORKLegacyResult` instance. Extra metadata is
+    displayed for specific `ORKLegacyResult` types. For example, a table view provider
+    for an `ORKLegacyFileResult` instance will display the `fileURL` in addition to the
+    standard `ORKLegacyResult` properties.
 
-    To learn about how to read metadata from the different kinds of `ORKResult`
+    To learn about how to read metadata from the different kinds of `ORKLegacyResult`
     instances, see the `ResultTableViewProvider` subclasses below. Specifically,
     look at their `resultRowsForSection(_:)` implementations which are meant to
     enhance the metadata that is displayed for the result table view provider.
@@ -48,7 +48,7 @@ import MapKit
     and are not user visible (see description in `ResultViewController`), none
     of the properties / content are localized.
 */
-func resultTableViewProviderForResult(_ result: ORKResult?) -> UITableViewDataSource & UITableViewDelegate {
+func resultTableViewProviderForResult(_ result: ORKLegacyResult?) -> UITableViewDataSource & UITableViewDelegate {
     guard let result = result else {
         /*
             Use a table view provider that shows that there hasn't been a recently
@@ -65,94 +65,94 @@ func resultTableViewProviderForResult(_ result: ORKResult?) -> UITableViewDataSo
         To reduce the possible effects of someone modifying this code--i.e.
         cases getting reordered and accidentally getting matches for subtypes
         of the intended result type, we guard against any subtype matches
-        (e.g. the `ORKCollectionResult` guard against `result` being an 
-        `ORKTaskResult` instance).
+        (e.g. the `ORKLegacyCollectionResult` guard against `result` being an 
+        `ORKLegacyTaskResult` instance).
     */
     switch result {
     // Survey Questions
-    case is ORKBooleanQuestionResult:
+    case is ORKLegacyBooleanQuestionResult:
         providerType = BooleanQuestionResultTableViewProvider.self
         
-    case is ORKChoiceQuestionResult:
+    case is ORKLegacyChoiceQuestionResult:
         providerType = ChoiceQuestionResultTableViewProvider.self
         
-    case is ORKDateQuestionResult:
+    case is ORKLegacyDateQuestionResult:
         providerType = DateQuestionResultTableViewProvider.self
         
-    case is ORKLocationQuestionResult:
+    case is ORKLegacyLocationQuestionResult:
         providerType = LocationQuestionResultTableViewProvider.self
         
-    case is ORKNumericQuestionResult:
+    case is ORKLegacyNumericQuestionResult:
         providerType = NumericQuestionResultTableViewProvider.self
         
-    case is ORKScaleQuestionResult:
+    case is ORKLegacyScaleQuestionResult:
         providerType = ScaleQuestionResultTableViewProvider.self
         
-    case is ORKTextQuestionResult:
+    case is ORKLegacyTextQuestionResult:
         providerType = TextQuestionResultTableViewProvider.self
         
-    case is ORKTimeIntervalQuestionResult:
+    case is ORKLegacyTimeIntervalQuestionResult:
         providerType = TimeIntervalQuestionResultTableViewProvider.self
         
-    case is ORKTimeOfDayQuestionResult:
+    case is ORKLegacyTimeOfDayQuestionResult:
         providerType = TimeOfDayQuestionResultTableViewProvider.self
 
     // Consent
-    case is ORKConsentSignatureResult:
+    case is ORKLegacyConsentSignatureResult:
         providerType = ConsentSignatureResultTableViewProvider.self
         
     // Active Tasks
-    case is ORKPasscodeResult:
+    case is ORKLegacyPasscodeResult:
         providerType = PasscodeResultTableViewProvider.self
         
-    case is ORKFileResult:
+    case is ORKLegacyFileResult:
         providerType = FileResultTableViewProvider.self
         
-    case is ORKSpatialSpanMemoryResult:
+    case is ORKLegacySpatialSpanMemoryResult:
         providerType = SpatialSpanMemoryResultTableViewProvider.self
         
-    case is ORKStroopResult:
+    case is ORKLegacyStroopResult:
         providerType = StroopResultTableViewProvider.self
         
-    case is ORKTappingIntervalResult:
+    case is ORKLegacyTappingIntervalResult:
         providerType = TappingIntervalResultTableViewProvider.self
     
-    case is ORKToneAudiometryResult:
+    case is ORKLegacyToneAudiometryResult:
         providerType = ToneAudiometryResultTableViewProvider.self
         
-    case is ORKReactionTimeResult:
+    case is ORKLegacyReactionTimeResult:
         providerType = ReactionTimeViewProvider.self
         
-    case is ORKRangeOfMotionResult:
+    case is ORKLegacyRangeOfMotionResult:
         providerType = RangeOfMotionResultTableViewProvider.self
 
-    case is ORKTowerOfHanoiResult:
+    case is ORKLegacyTowerOfHanoiResult:
         providerType = TowerOfHanoiResultTableViewProvider.self
         
-    case is ORKPSATResult:
+    case is ORKLegacyPSATResult:
         providerType = PSATResultTableViewProvider.self
         
-    case is ORKTimedWalkResult:
+    case is ORKLegacyTimedWalkResult:
         providerType = TimedWalkResultTableViewProvider.self
         
-    case is ORKHolePegTestResult:
+    case is ORKLegacyHolePegTestResult:
         providerType = HolePegTestResultTableViewProvider.self
     
-    case is ORKTrailmakingResult:
+    case is ORKLegacyTrailmakingResult:
         providerType = TrailmakingResultTableViewProvider.self
         
     // All
-    case is ORKTaskResult:
+    case is ORKLegacyTaskResult:
         providerType = TaskResultTableViewProvider.self
 
     /*
         Refer to the comment near the switch statement for why the
         additional guard is here.
     */
-    case is ORKCollectionResult where !(result is ORKTaskResult):
+    case is ORKLegacyCollectionResult where !(result is ORKLegacyTaskResult):
         providerType = CollectionResultTableViewProvider.self
       
-    case is ORKVideoInstructionStepResult:
+    case is ORKLegacyVideoInstructionStepResult:
         providerType = VideoInstructionStepResultTableViewProvider.self
         
     default:
@@ -222,18 +222,18 @@ class NoRecentResultTableViewProvider: NSObject, UITableViewDataSource, UITableV
 // MARK: ResultTableViewProvider and Subclasses
 
 /**
-    Base class for displaying metadata for an `ORKResult` instance. The metadata
-    that's displayed are common properties for all `ORKResult` instances (e.g.
+    Base class for displaying metadata for an `ORKLegacyResult` instance. The metadata
+    that's displayed are common properties for all `ORKLegacyResult` instances (e.g.
     `startDate` and `endDate`).
 */
 class ResultTableViewProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
     // MARK: Properties
     
-    let result: ORKResult
+    let result: ORKLegacyResult
     
     // MARK: Initializers
     
-    required init(result: ORKResult) {
+    required init(result: ORKLegacyResult) {
         self.result = result
     }
     
@@ -329,12 +329,12 @@ class ResultTableViewProvider: NSObject, UITableViewDataSource, UITableViewDeleg
     }
 }
 
-/// Table view provider specific to an `ORKBooleanQuestionResult` instance.
+/// Table view provider specific to an `ORKLegacyBooleanQuestionResult` instance.
 class BooleanQuestionResultTableViewProvider: ResultTableViewProvider   {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let boolResult = result as! ORKBooleanQuestionResult
+        let boolResult = result as! ORKLegacyBooleanQuestionResult
         
         var boolResultDetailText: String?
         if let booleanAnswer = boolResult.booleanAnswer {
@@ -347,12 +347,12 @@ class BooleanQuestionResultTableViewProvider: ResultTableViewProvider   {
     }
 }
 
-/// Table view provider specific to an `ORKChoiceQuestionResult` instance.
+/// Table view provider specific to an `ORKLegacyChoiceQuestionResult` instance.
 class ChoiceQuestionResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let choiceResult = result as! ORKChoiceQuestionResult
+        let choiceResult = result as! ORKLegacyChoiceQuestionResult
         
         return super.resultRowsForSection(section) + [
             ResultRow(text: "choices", detail: choiceResult.choiceAnswers)
@@ -361,12 +361,12 @@ class ChoiceQuestionResultTableViewProvider: ResultTableViewProvider {
 }
 
 
-/// Table view provider specific to an `ORKDateQuestionResult` instance.
+/// Table view provider specific to an `ORKLegacyDateQuestionResult` instance.
 class DateQuestionResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let questionResult = result as! ORKDateQuestionResult
+        let questionResult = result as! ORKLegacyDateQuestionResult
         
         return super.resultRowsForSection(section) + [
             // The date the user entered.
@@ -381,12 +381,12 @@ class DateQuestionResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKLocationQuestionResult` instance.
+/// Table view provider specific to an `ORKLegacyLocationQuestionResult` instance.
 class LocationQuestionResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let questionResult = result as! ORKLocationQuestionResult
+        let questionResult = result as! ORKLegacyLocationQuestionResult
         let location = questionResult.locationAnswer
         let address = (location?.addressDictionary?["FormattedAddressLines"] as AnyObject).componentsJoined(by: " ")
         let rows = super.resultRowsForSection(section) + [
@@ -400,12 +400,12 @@ class LocationQuestionResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKNumericQuestionResult` instance.
+/// Table view provider specific to an `ORKLegacyNumericQuestionResult` instance.
 class NumericQuestionResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let questionResult = result as! ORKNumericQuestionResult
+        let questionResult = result as! ORKLegacyNumericQuestionResult
         
         return super.resultRowsForSection(section) + [
             // The numeric value the user entered.
@@ -417,12 +417,12 @@ class NumericQuestionResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKScaleQuestionResult` instance.
+/// Table view provider specific to an `ORKLegacyScaleQuestionResult` instance.
 class ScaleQuestionResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let scaleQuestionResult = result as! ORKScaleQuestionResult
+        let scaleQuestionResult = result as! ORKLegacyScaleQuestionResult
         
         return super.resultRowsForSection(section) + [
             // The numeric value returned from the discrete or continuous slider.
@@ -431,12 +431,12 @@ class ScaleQuestionResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKTextQuestionResult` instance.
+/// Table view provider specific to an `ORKLegacyTextQuestionResult` instance.
 class TextQuestionResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let questionResult = result as! ORKTextQuestionResult
+        let questionResult = result as! ORKLegacyTextQuestionResult
         
         return super.resultRowsForSection(section) + [
             // The text the user typed into the text view.
@@ -445,12 +445,12 @@ class TextQuestionResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKTimeIntervalQuestionResult` instance.
+/// Table view provider specific to an `ORKLegacyTimeIntervalQuestionResult` instance.
 class TimeIntervalQuestionResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let questionResult = result as! ORKTimeIntervalQuestionResult
+        let questionResult = result as! ORKLegacyTimeIntervalQuestionResult
         
         return super.resultRowsForSection(section) + [
             // The time interval the user answered.
@@ -459,12 +459,12 @@ class TimeIntervalQuestionResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKTimeOfDayQuestionResult` instance.
+/// Table view provider specific to an `ORKLegacyTimeOfDayQuestionResult` instance.
 class TimeOfDayQuestionResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let questionResult = result as! ORKTimeOfDayQuestionResult
+        let questionResult = result as! ORKLegacyTimeOfDayQuestionResult
         
         // Format the date components received in the result.
         let dateComponentsFormatter = DateComponentsFormatter()
@@ -477,12 +477,12 @@ class TimeOfDayQuestionResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKConsentSignatureResult` instance.
+/// Table view provider specific to an `ORKLegacyConsentSignatureResult` instance.
 class ConsentSignatureResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let signatureResult = result as! ORKConsentSignatureResult
+        let signatureResult = result as! ORKLegacyConsentSignatureResult
         let signature = signatureResult.signature!
         
         return super.resultRowsForSection(section) + [
@@ -523,12 +523,12 @@ class ConsentSignatureResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKPasscodeResult` instance.
+/// Table view provider specific to an `ORKLegacyPasscodeResult` instance.
 class PasscodeResultTableViewProvider: ResultTableViewProvider   {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let passcodeResult = result as! ORKPasscodeResult
+        let passcodeResult = result as! ORKLegacyPasscodeResult
         
         var passcodeResultDetailText: String?
         passcodeResultDetailText = passcodeResult.isPasscodeSaved ? "true" : "false"
@@ -539,12 +539,12 @@ class PasscodeResultTableViewProvider: ResultTableViewProvider   {
     }
 }
 
-/// Table view provider specific to an `ORKFileResult` instance.
+/// Table view provider specific to an `ORKLegacyFileResult` instance.
 class FileResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let questionResult = result as! ORKFileResult
+        let questionResult = result as! ORKLegacyFileResult
         
         let rows = super.resultRowsForSection(section) + [
             // The MIME content type for the file produced.
@@ -587,7 +587,7 @@ class FileResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKSpatialSpanMemoryResult` instance.
+/// Table view provider specific to an `ORKLegacySpatialSpanMemoryResult` instance.
 class SpatialSpanMemoryResultTableViewProvider: ResultTableViewProvider {
     // MARK: UITableViewDataSource
     
@@ -606,7 +606,7 @@ class SpatialSpanMemoryResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let questionResult = result as! ORKSpatialSpanMemoryResult
+        let questionResult = result as! ORKLegacySpatialSpanMemoryResult
         
         let rows = super.resultRowsForSection(section)
         
@@ -624,13 +624,13 @@ class SpatialSpanMemoryResultTableViewProvider: ResultTableViewProvider {
         }
         
         return rows + questionResult.gameRecords!.map { gameRecord in
-            // Note `gameRecord` is of type `ORKSpatialSpanMemoryGameRecord`.
+            // Note `gameRecord` is of type `ORKLegacySpatialSpanMemoryGameRecord`.
             return ResultRow(text: "game", detail: gameRecord.score)
         }
     }
 }
 
-/// Table view provider specific to an `ORKStroopResult` instance.
+/// Table view provider specific to an `ORKLegacyStroopResult` instance.
 class StroopResultTableViewProvider: ResultTableViewProvider {
     //MARK: UITableViewDataSource
     
@@ -649,7 +649,7 @@ class StroopResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let stroopResult = result as! ORKStroopResult
+        let stroopResult = result as! ORKLegacyStroopResult
         
         let rows = super.resultRowsForSection(section)
         
@@ -664,7 +664,7 @@ class StroopResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKTappingIntervalResult` instance.
+/// Table view provider specific to an `ORKLegacyTappingIntervalResult` instance.
 class TappingIntervalResultTableViewProvider: ResultTableViewProvider {
     // MARK: UITableViewDataSource
 
@@ -683,7 +683,7 @@ class TappingIntervalResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let questionResult = result as! ORKTappingIntervalResult
+        let questionResult = result as! ORKLegacyTappingIntervalResult
         
         let rows = super.resultRowsForSection(section)
         
@@ -714,7 +714,7 @@ class TappingIntervalResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKToneAudiometryResult` instance.
+/// Table view provider specific to an `ORKLegacyToneAudiometryResult` instance.
 class ToneAudiometryResultTableViewProvider: ResultTableViewProvider {
     // MARK: UITableViewDataSource
     
@@ -733,7 +733,7 @@ class ToneAudiometryResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let toneAudiometryResult = result as! ORKToneAudiometryResult
+        let toneAudiometryResult = result as! ORKLegacyToneAudiometryResult
         let rows = super.resultRowsForSection(section)
         
         if section == 0 {
@@ -759,7 +759,7 @@ class ToneAudiometryResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKReactionTimeResult` instance.
+/// Table view provider specific to an `ORKLegacyReactionTimeResult` instance.
 class ReactionTimeViewProvider: ResultTableViewProvider {
     // MARK: UITableViewDataSource
     
@@ -778,7 +778,7 @@ class ReactionTimeViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let reactionTimeResult = result as! ORKReactionTimeResult
+        let reactionTimeResult = result as! ORKLegacyReactionTimeResult
         
         let rows = super.resultRowsForSection(section)
         
@@ -796,7 +796,7 @@ class ReactionTimeViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKRangeOfMotionResult` instance.
+/// Table view provider specific to an `ORKLegacyRangeOfMotionResult` instance.
 class RangeOfMotionResultTableViewProvider: ResultTableViewProvider {
     // MARK: UITableViewDataSource
     
@@ -807,7 +807,7 @@ class RangeOfMotionResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let rangeOfMotionResult = result as! ORKRangeOfMotionResult
+        let rangeOfMotionResult = result as! ORKLegacyRangeOfMotionResult
         let rows = super.resultRowsForSection(section)
         return rows + [
             ResultRow(text: "flexed", detail: rangeOfMotionResult.flexed),
@@ -816,12 +816,12 @@ class RangeOfMotionResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKTowerOfHanoiResult` instance.
+/// Table view provider specific to an `ORKLegacyTowerOfHanoiResult` instance.
 class TowerOfHanoiResultTableViewProvider: ResultTableViewProvider {
     // MARK: UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        let towerOfHanoiResult = result as! ORKTowerOfHanoiResult
+        let towerOfHanoiResult = result as! ORKLegacyTowerOfHanoiResult
         return towerOfHanoiResult.moves != nil ? (towerOfHanoiResult.moves!.count + 1) : 1
     }
     
@@ -835,7 +835,7 @@ class TowerOfHanoiResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let towerOfHanoiResult = result as! ORKTowerOfHanoiResult
+        let towerOfHanoiResult = result as! ORKLegacyTowerOfHanoiResult
         let rows = super.resultRowsForSection(section)
         if section == 0 {
             return rows + [
@@ -851,7 +851,7 @@ class TowerOfHanoiResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKTrailmaking` instance.
+/// Table view provider specific to an `ORKLegacyTrailmaking` instance.
 class TrailmakingResultTableViewProvider: ResultTableViewProvider {
 //    MARK: UITableViewDataSource
     
@@ -869,7 +869,7 @@ class TrailmakingResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKPSATResult` instance.
+/// Table view provider specific to an `ORKLegacyPSATResult` instance.
 class PSATResultTableViewProvider: ResultTableViewProvider {
     // MARK: UITableViewDataSource
     
@@ -894,7 +894,7 @@ class PSATResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let PSATResult = result as! ORKPSATResult
+        let PSATResult = result as! ORKLegacyPSATResult
         
         var rows = super.resultRowsForSection(section)
         
@@ -950,7 +950,7 @@ class PSATResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKTimedWalkResult` instance.
+/// Table view provider specific to an `ORKLegacyTimedWalkResult` instance.
 class TimedWalkResultTableViewProvider: ResultTableViewProvider {
     // MARK: UITableViewDataSource
     
@@ -971,7 +971,7 @@ class TimedWalkResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let TimedWalkResult = result as! ORKTimedWalkResult
+        let TimedWalkResult = result as! ORKLegacyTimedWalkResult
         
         let rows = super.resultRowsForSection(section)
         
@@ -988,7 +988,7 @@ class TimedWalkResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKHolePegTestResult` instance.
+/// Table view provider specific to an `ORKLegacyHolePegTestResult` instance.
 class HolePegTestResultTableViewProvider: ResultTableViewProvider {
     // MARK: UITableViewDataSource
     
@@ -1013,7 +1013,7 @@ class HolePegTestResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let holePegTestResult = result as! ORKHolePegTestResult
+        let holePegTestResult = result as! ORKLegacyHolePegTestResult
         
         var rows = super.resultRowsForSection(section)
         
@@ -1060,7 +1060,7 @@ class HolePegTestResultTableViewProvider: ResultTableViewProvider {
         
         // Add a `ResultRow` for each sample.
         return rows + holePegTestResult.samples!.map { sample in
-            let holePegTestSample = sample as! ORKHolePegTestSample
+            let holePegTestSample = sample as! ORKLegacyHolePegTestSample
             
             let text = "time (s): \(holePegTestSample.time))"
             let detail = "distance (pt): \(holePegTestSample.distance)"
@@ -1070,12 +1070,12 @@ class HolePegTestResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKTaskResult` instance.
+/// Table view provider specific to an `ORKLegacyTaskResult` instance.
 class TaskResultTableViewProvider: CollectionResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let taskResult = result as! ORKTaskResult
+        let taskResult = result as! ORKLegacyTaskResult
         
         let rows = super.resultRowsForSection(section)
         
@@ -1090,7 +1090,7 @@ class TaskResultTableViewProvider: CollectionResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKCollectionResult` instance.
+/// Table view provider specific to an `ORKLegacyCollectionResult` instance.
 class CollectionResultTableViewProvider: ResultTableViewProvider {
     // MARK: UITableViewDataSource
 
@@ -1115,7 +1115,7 @@ class CollectionResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let collectionResult = result as! ORKCollectionResult
+        let collectionResult = result as! ORKLegacyCollectionResult
         
         let rows = super.resultRowsForSection(section)
         
@@ -1132,12 +1132,12 @@ class CollectionResultTableViewProvider: ResultTableViewProvider {
     }
 }
 
-/// Table view provider specific to an `ORKVideoInstructionStepResult` instance.
+/// Table view provider specific to an `ORKLegacyVideoInstructionStepResult` instance.
 class VideoInstructionStepResultTableViewProvider: ResultTableViewProvider {
     // MARK: ResultTableViewProvider
     
     override func resultRowsForSection(_ section: Int) -> [ResultRow] {
-        let videoInstructionStepResult = result as! ORKVideoInstructionStepResult
+        let videoInstructionStepResult = result as! ORKLegacyVideoInstructionStepResult
         
         let rows = super.resultRowsForSection(section)
         

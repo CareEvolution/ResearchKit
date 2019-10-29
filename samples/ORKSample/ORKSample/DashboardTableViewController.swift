@@ -34,9 +34,9 @@ import ResearchKitLegacy
 class DashboardTableViewController: UITableViewController {
     // MARK: Properties
     
-    @IBOutlet var pieChart: ORKPieChartView!
-    @IBOutlet var discreteGraph: ORKDiscreteGraphChartView!
-    @IBOutlet var lineGraph: ORKLineGraphChartView!
+    @IBOutlet var pieChart: ORKLegacyPieChartView!
+    @IBOutlet var discreteGraph: ORKLegacyDiscreteGraphChartView!
+    @IBOutlet var lineGraph: ORKLegacyLineGraphChartView!
     
     var allCharts: [UIView] {
         return [pieChart, discreteGraph, lineGraph]

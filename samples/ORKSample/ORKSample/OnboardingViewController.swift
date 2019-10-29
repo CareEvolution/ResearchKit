@@ -36,35 +36,35 @@ class OnboardingViewController: UIViewController {
     
     @IBAction func joinButtonTapped(_ sender: UIButton) {
         let consentDocument = ConsentDocument()
-        let consentStep = ORKVisualConsentStep(identifier: "VisualConsentStep", document: consentDocument)
+        let consentStep = ORKLegacyVisualConsentStep(identifier: "VisualConsentStep", document: consentDocument)
         
         let healthDataStep = HealthDataStep(identifier: "Health")
         
         let signature = consentDocument.signatures!.first!
         
-        let reviewConsentStep = ORKConsentReviewStep(identifier: "ConsentReviewStep", signature: signature, in: consentDocument)
+        let reviewConsentStep = ORKLegacyConsentReviewStep(identifier: "ConsentReviewStep", signature: signature, in: consentDocument)
         
         reviewConsentStep.text = "Review the consent form."
         reviewConsentStep.reasonForConsent = "Consent to join the Developer Health Research Study."
         
-        let passcodeStep = ORKPasscodeStep(identifier: "Passcode")
+        let passcodeStep = ORKLegacyPasscodeStep(identifier: "Passcode")
         passcodeStep.text = "Now you will create a passcode to identify yourself to the app and protect access to information you've entered."
         
-        let completionStep = ORKCompletionStep(identifier: "CompletionStep")
+        let completionStep = ORKLegacyCompletionStep(identifier: "CompletionStep")
         completionStep.title = "Welcome aboard."
         completionStep.text = "Thank you for joining this study."
         
-        let orderedTask = ORKOrderedTask(identifier: "Join", steps: [consentStep, reviewConsentStep, healthDataStep, passcodeStep, completionStep])
-        let taskViewController = ORKTaskViewController(task: orderedTask, taskRun: nil)
+        let orderedTask = ORKLegacyOrderedTask(identifier: "Join", steps: [consentStep, reviewConsentStep, healthDataStep, passcodeStep, completionStep])
+        let taskViewController = ORKLegacyTaskViewController(task: orderedTask, taskRun: nil)
         taskViewController.delegate = self
         
         present(taskViewController, animated: true, completion: nil)
     }
 }
 
-extension OnboardingViewController : ORKTaskViewControllerDelegate {
+extension OnboardingViewController : ORKLegacyTaskViewControllerDelegate {
     
-    public func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
+    public func taskViewController(_ taskViewController: ORKLegacyTaskViewController, didFinishWith reason: ORKLegacyTaskViewControllerFinishReason, error: Error?) {
         switch reason {
             case .completed:
                 performSegue(withIdentifier: "unwindToStudy", sender: nil)
@@ -74,7 +74,7 @@ extension OnboardingViewController : ORKTaskViewControllerDelegate {
         }
     }
     
-    func taskViewController(_ taskViewController: ORKTaskViewController, viewControllerFor step: ORKStep) -> ORKStepViewController? {
+    func taskViewController(_ taskViewController: ORKLegacyTaskViewController, viewControllerFor step: ORKLegacyStep) -> ORKLegacyStepViewController? {
         if step is HealthDataStep {
             let healthStepViewController = HealthDataStepViewController(step: step)
             return healthStepViewController

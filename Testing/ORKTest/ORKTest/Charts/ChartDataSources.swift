@@ -46,17 +46,17 @@ func randomColorArray(_ number: Int) -> [UIColor] {
 
 let NumberOfPieChartSegments = 13
 
-class ColorlessPieChartDataSource: NSObject, ORKPieChartViewDataSource {
+class ColorlessPieChartDataSource: NSObject, ORKLegacyPieChartViewDataSource {
     
-    func numberOfSegments(in pieChartView: ORKPieChartView ) -> Int {
+    func numberOfSegments(in pieChartView: ORKLegacyPieChartView ) -> Int {
         return NumberOfPieChartSegments
     }
     
-    func pieChartView(_ pieChartView: ORKPieChartView, valueForSegmentAt index: Int) -> CGFloat {
+    func pieChartView(_ pieChartView: ORKLegacyPieChartView, valueForSegmentAt index: Int) -> CGFloat {
         return CGFloat(index + 1)
     }
     
-    func pieChartView(_ pieChartView: ORKPieChartView, titleForSegmentAt index: Int) -> String {
+    func pieChartView(_ pieChartView: ORKLegacyPieChartView, titleForSegmentAt index: Int) -> String {
         return "Title \(index + 1)"
     }
 }
@@ -67,40 +67,40 @@ class RandomColorPieChartDataSource: ColorlessPieChartDataSource {
         return randomColorArray(NumberOfPieChartSegments)
         }()
 
-    func pieChartView(_ pieChartView: ORKPieChartView, colorForSegmentAtIndex index: Int) -> UIColor {
+    func pieChartView(_ pieChartView: ORKLegacyPieChartView, colorForSegmentAtIndex index: Int) -> UIColor {
         return backingStore[index]
     }
 }
 
-class BaseFloatRangeGraphChartDataSource:  NSObject, ORKValueRangeGraphChartViewDataSource {
-    var plotPoints: [[ORKValueRange]] = [[]]
+class BaseFloatRangeGraphChartDataSource:  NSObject, ORKLegacyValueRangeGraphChartViewDataSource {
+    var plotPoints: [[ORKLegacyValueRange]] = [[]]
     
-    internal func numberOfPlots(in graphChartView: ORKGraphChartView) -> Int {
+    internal func numberOfPlots(in graphChartView: ORKLegacyGraphChartView) -> Int {
         return plotPoints.count
     }
     
-    func graphChartView(_ graphChartView: ORKGraphChartView, dataPointForPointIndex pointIndex: Int, plotIndex: Int) -> ORKValueRange {
+    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, dataPointForPointIndex pointIndex: Int, plotIndex: Int) -> ORKLegacyValueRange {
         return plotPoints[plotIndex][pointIndex]
     }
     
-    func graphChartView(_ graphChartView: ORKGraphChartView, numberOfDataPointsForPlotIndex plotIndex: Int) -> Int {
+    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, numberOfDataPointsForPlotIndex plotIndex: Int) -> Int {
         return plotPoints[plotIndex].count
     }
 }
 
-class BaseFloatStackGraphChartDataSource:  NSObject, ORKValueStackGraphChartViewDataSource {
+class BaseFloatStackGraphChartDataSource:  NSObject, ORKLegacyValueStackGraphChartViewDataSource {
     
-    var plotPoints: [[ORKValueStack]] = [[]]
+    var plotPoints: [[ORKLegacyValueStack]] = [[]]
     
-    public func numberOfPlots(in graphChartView: ORKGraphChartView) -> Int {
+    public func numberOfPlots(in graphChartView: ORKLegacyGraphChartView) -> Int {
         return plotPoints.count
     }
     
-    func graphChartView(_ graphChartView: ORKGraphChartView, dataPointForPointIndex pointIndex: Int, plotIndex: Int) -> ORKValueStack {
+    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, dataPointForPointIndex pointIndex: Int, plotIndex: Int) -> ORKLegacyValueStack {
         return plotPoints[plotIndex][pointIndex]
     }
     
-    func graphChartView(_ graphChartView: ORKGraphChartView, numberOfDataPointsForPlotIndex plotIndex: Int) -> Int {
+    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, numberOfDataPointsForPlotIndex plotIndex: Int) -> Int {
         return plotPoints[plotIndex].count
     }
 }
@@ -112,64 +112,64 @@ class LineGraphChartDataSource: BaseFloatRangeGraphChartDataSource {
         plotPoints =
             [
                 [
-                    ORKValueRange(),
-                    ORKValueRange(value: 20),
-                    ORKValueRange(value: 25),
-                    ORKValueRange(),
-                    ORKValueRange(value: 30),
-                    ORKValueRange(value: 40),
-                    ORKValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 20),
+                    ORKLegacyValueRange(value: 25),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 30),
+                    ORKLegacyValueRange(value: 40),
+                    ORKLegacyValueRange(),
                 ],
                 [
-                    ORKValueRange(value: 2),
-                    ORKValueRange(value: 4),
-                    ORKValueRange(value: 8),
-                    ORKValueRange(value: 16),
-                    ORKValueRange(value: 32),
-                    ORKValueRange(value: 50),
-                    ORKValueRange(value: 64),
+                    ORKLegacyValueRange(value: 2),
+                    ORKLegacyValueRange(value: 4),
+                    ORKLegacyValueRange(value: 8),
+                    ORKLegacyValueRange(value: 16),
+                    ORKLegacyValueRange(value: 32),
+                    ORKLegacyValueRange(value: 50),
+                    ORKLegacyValueRange(value: 64),
                 ],
                 [
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(value: 20),
-                    ORKValueRange(value: 25),
-                    ORKValueRange(),
-                    ORKValueRange(value: 30),
-                    ORKValueRange(value: 40),
-                    ORKValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 20),
+                    ORKLegacyValueRange(value: 25),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 30),
+                    ORKLegacyValueRange(value: 40),
+                    ORKLegacyValueRange(),
                 ],
         ]
     }
     
-    func maximumValueForGraphChartView(_ graphChartView: ORKGraphChartView) -> Double {
+    func maximumValueForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Double {
         return 70
     }
     
-    func minimumValueForGraphChartView(_ graphChartView: ORKGraphChartView) -> Double {
+    func minimumValueForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Double {
         return 0
     }
     
-    func numberOfDivisionsInXAxisForGraphChartView(_ graphChartView: ORKGraphChartView) -> Int {
+    func numberOfDivisionsInXAxisForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Int {
         return 10
     }
 
-    func graphChartView(_ graphChartView: ORKGraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String? {
+    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String? {
         return (pointIndex % 2 == 0) ? nil : "\(pointIndex + 1)"
     }
 
-    func graphChartView(_ graphChartView: ORKGraphChartView, drawsVerticalReferenceLineAtPointIndex pointIndex: Int) -> Bool {
+    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, drawsVerticalReferenceLineAtPointIndex pointIndex: Int) -> Bool {
         return (pointIndex % 2 == 1) ? false : true
     }
 
-    func scrubbingPlotIndexForGraphChartView(_ graphChartView: ORKGraphChartView) -> Int {
+    func scrubbingPlotIndexForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Int {
         return 2
     }
 }
 
 class ColoredLineGraphChartDataSource: LineGraphChartDataSource {
-    func graphChartView(_ graphChartView: ORKGraphChartView, colorForPlotIndex plotIndex: Int) -> UIColor {
+    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, colorForPlotIndex plotIndex: Int) -> UIColor {
         let color: UIColor
         switch plotIndex {
         case 0:
@@ -184,7 +184,7 @@ class ColoredLineGraphChartDataSource: LineGraphChartDataSource {
         return color
     }
     
-    func graphChartView(graphChartView: ORKGraphChartView, fillColorForPlotIndex plotIndex: Int) -> UIColor {
+    func graphChartView(graphChartView: ORKLegacyGraphChartView, fillColorForPlotIndex plotIndex: Int) -> UIColor {
         let color: UIColor
         switch plotIndex {
         case 0:
@@ -207,47 +207,47 @@ class DiscreteGraphChartDataSource: BaseFloatRangeGraphChartDataSource {
         plotPoints =
             [
                 [
-                    ORKValueRange(),
-                    ORKValueRange(minimumValue: 0, maximumValue: 2),
-                    ORKValueRange(minimumValue: 1, maximumValue: 3),
-                    ORKValueRange(minimumValue: 2, maximumValue: 6),
-                    ORKValueRange(minimumValue: 3, maximumValue: 9),
-                    ORKValueRange(minimumValue: 4, maximumValue: 13),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(minimumValue: 0, maximumValue: 2),
+                    ORKLegacyValueRange(minimumValue: 1, maximumValue: 3),
+                    ORKLegacyValueRange(minimumValue: 2, maximumValue: 6),
+                    ORKLegacyValueRange(minimumValue: 3, maximumValue: 9),
+                    ORKLegacyValueRange(minimumValue: 4, maximumValue: 13),
                 ],
                 [
-                    ORKValueRange(value: 1),
-                    ORKValueRange(minimumValue: 2, maximumValue: 4),
-                    ORKValueRange(minimumValue: 3, maximumValue: 8),
-                    ORKValueRange(minimumValue: 5, maximumValue: 11),
-                    ORKValueRange(minimumValue: 7, maximumValue: 13),
-                    ORKValueRange(minimumValue: 10, maximumValue: 13),
-                    ORKValueRange(minimumValue: 12, maximumValue: 15),
+                    ORKLegacyValueRange(value: 1),
+                    ORKLegacyValueRange(minimumValue: 2, maximumValue: 4),
+                    ORKLegacyValueRange(minimumValue: 3, maximumValue: 8),
+                    ORKLegacyValueRange(minimumValue: 5, maximumValue: 11),
+                    ORKLegacyValueRange(minimumValue: 7, maximumValue: 13),
+                    ORKLegacyValueRange(minimumValue: 10, maximumValue: 13),
+                    ORKLegacyValueRange(minimumValue: 12, maximumValue: 15),
                 ],
                 [
-                    ORKValueRange(),
-                    ORKValueRange(minimumValue: 5, maximumValue: 6),
-                    ORKValueRange(),
-                    ORKValueRange(minimumValue: 2, maximumValue: 15),
-                    ORKValueRange(minimumValue: 4, maximumValue: 11),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(minimumValue: 5, maximumValue: 6),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(minimumValue: 2, maximumValue: 15),
+                    ORKLegacyValueRange(minimumValue: 4, maximumValue: 11),
                 ],
         ]
     }
     
-    func numberOfDivisionsInXAxisForGraphChartView(_ graphChartView: ORKGraphChartView) -> Int {
+    func numberOfDivisionsInXAxisForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Int {
         return 8
     }
     
-    func graphChartView(_ graphChartView: ORKGraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String {
+    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String {
         return "\(pointIndex + 1)"
     }
 
-    func scrubbingPlotIndexForGraphChartView(_ graphChartView: ORKGraphChartView) -> Int {
+    func scrubbingPlotIndexForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Int {
         return 2
     }
 }
 
 class ColoredDiscreteGraphChartDataSource: DiscreteGraphChartDataSource {
-    func graphChartView(graphChartView: ORKGraphChartView, colorForPlotIndex plotIndex: Int) -> UIColor {
+    func graphChartView(graphChartView: ORKLegacyGraphChartView, colorForPlotIndex plotIndex: Int) -> UIColor {
         let color: UIColor
         switch plotIndex {
         case 0:
@@ -270,49 +270,49 @@ class BarGraphChartDataSource: BaseFloatStackGraphChartDataSource {
         plotPoints =
             [
                 [
-                    ORKValueStack(),
-                    ORKValueStack(stackedValues: [0, 2, 5]),
-                    ORKValueStack(stackedValues: [1, 3, 2]),
-                    ORKValueStack(stackedValues: [2, 6, 1]),
-                    ORKValueStack(stackedValues: [3, 9, 4]),
-                    ORKValueStack(stackedValues: [4, 13, 2]),
+                    ORKLegacyValueStack(),
+                    ORKLegacyValueStack(stackedValues: [0, 2, 5]),
+                    ORKLegacyValueStack(stackedValues: [1, 3, 2]),
+                    ORKLegacyValueStack(stackedValues: [2, 6, 1]),
+                    ORKLegacyValueStack(stackedValues: [3, 9, 4]),
+                    ORKLegacyValueStack(stackedValues: [4, 13, 2]),
                 ],
                 [
-                    ORKValueStack(stackedValues: [1]),
-                    ORKValueStack(stackedValues: [2, 4]),
-                    ORKValueStack(stackedValues: [3, 8]),
-                    ORKValueStack(stackedValues: [5, 11]),
-                    ORKValueStack(stackedValues: [7, 13]),
-                    ORKValueStack(stackedValues: [10, 13]),
-                    ORKValueStack(stackedValues: [12, 15]),
+                    ORKLegacyValueStack(stackedValues: [1]),
+                    ORKLegacyValueStack(stackedValues: [2, 4]),
+                    ORKLegacyValueStack(stackedValues: [3, 8]),
+                    ORKLegacyValueStack(stackedValues: [5, 11]),
+                    ORKLegacyValueStack(stackedValues: [7, 13]),
+                    ORKLegacyValueStack(stackedValues: [10, 13]),
+                    ORKLegacyValueStack(stackedValues: [12, 15]),
                 ],
                 [
-                    ORKValueStack(),
-                    ORKValueStack(stackedValues: [5, 6]),
-                    ORKValueStack(stackedValues: [2, 15]),
-                    ORKValueStack(stackedValues: [4, 11]),
-                    ORKValueStack(),
-                    ORKValueStack(stackedValues: [6, 16]),
+                    ORKLegacyValueStack(),
+                    ORKLegacyValueStack(stackedValues: [5, 6]),
+                    ORKLegacyValueStack(stackedValues: [2, 15]),
+                    ORKLegacyValueStack(stackedValues: [4, 11]),
+                    ORKLegacyValueStack(),
+                    ORKLegacyValueStack(stackedValues: [6, 16]),
                 ],
         ]
     }
     
-    func numberOfDivisionsInXAxisForGraphChartView(graphChartView: ORKGraphChartView) -> Int {
+    func numberOfDivisionsInXAxisForGraphChartView(graphChartView: ORKLegacyGraphChartView) -> Int {
         return 8
     }
     
-    func graphChartView(graphChartView: ORKGraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String {
+    func graphChartView(graphChartView: ORKLegacyGraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String {
         return "\(pointIndex + 1)"
     }
     
-    func scrubbingPlotIndexForGraphChartView(_ graphChartView: ORKGraphChartView) -> Int {
+    func scrubbingPlotIndexForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Int {
         return 2
     }
 }
 
 class ColoredBarGraphChartDataSource: BarGraphChartDataSource {
     
-    func graphChartView(graphChartView: ORKGraphChartView, colorForPlotIndex plotIndex: Int) -> UIColor {
+    func graphChartView(graphChartView: ORKLegacyGraphChartView, colorForPlotIndex plotIndex: Int) -> UIColor {
         let color: UIColor
         switch plotIndex {
         case 0:
@@ -327,7 +327,7 @@ class ColoredBarGraphChartDataSource: BarGraphChartDataSource {
         return color
     }
     
-    override func scrubbingPlotIndexForGraphChartView(_ graphChartView: ORKGraphChartView) -> Int {
+    override func scrubbingPlotIndexForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Int {
         return 1
     }
 }
@@ -339,127 +339,127 @@ class PerformanceLineGraphChartDataSource: BaseFloatRangeGraphChartDataSource {
         plotPoints =
             [
                 [
-                    ORKValueRange(),
-                    ORKValueRange(value: 20),
-                    ORKValueRange(value: 25),
-                    ORKValueRange(),
-                    ORKValueRange(value: 30),
-                    ORKValueRange(value: 40),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(value: 20),
-                    ORKValueRange(value: 25),
-                    ORKValueRange(),
-                    ORKValueRange(value: 30),
-                    ORKValueRange(value: 40),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(value: 20),
-                    ORKValueRange(value: 25),
-                    ORKValueRange(),
-                    ORKValueRange(value: 30),
-                    ORKValueRange(value: 40),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(value: 20),
-                    ORKValueRange(value: 25),
-                    ORKValueRange(),
-                    ORKValueRange(value: 30),
-                    ORKValueRange(value: 40),
-                    ORKValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 20),
+                    ORKLegacyValueRange(value: 25),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 30),
+                    ORKLegacyValueRange(value: 40),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 20),
+                    ORKLegacyValueRange(value: 25),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 30),
+                    ORKLegacyValueRange(value: 40),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 20),
+                    ORKLegacyValueRange(value: 25),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 30),
+                    ORKLegacyValueRange(value: 40),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 20),
+                    ORKLegacyValueRange(value: 25),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 30),
+                    ORKLegacyValueRange(value: 40),
+                    ORKLegacyValueRange(),
                 ],
                 [
-                    ORKValueRange(value: 2),
-                    ORKValueRange(value: 4),
-                    ORKValueRange(value: 8),
-                    ORKValueRange(value: 16),
-                    ORKValueRange(value: 32),
-                    ORKValueRange(value: 50),
-                    ORKValueRange(value: 64),
-                    ORKValueRange(value: 2),
-                    ORKValueRange(value: 4),
-                    ORKValueRange(value: 8),
-                    ORKValueRange(value: 16),
-                    ORKValueRange(value: 32),
-                    ORKValueRange(value: 50),
-                    ORKValueRange(value: 64),
-                    ORKValueRange(value: 2),
-                    ORKValueRange(value: 4),
-                    ORKValueRange(value: 8),
-                    ORKValueRange(value: 16),
-                    ORKValueRange(value: 32),
-                    ORKValueRange(value: 50),
-                    ORKValueRange(value: 64),
-                    ORKValueRange(value: 2),
-                    ORKValueRange(value: 4),
-                    ORKValueRange(value: 8),
-                    ORKValueRange(value: 16),
-                    ORKValueRange(value: 32),
-                    ORKValueRange(value: 50),
-                    ORKValueRange(value: 64),
+                    ORKLegacyValueRange(value: 2),
+                    ORKLegacyValueRange(value: 4),
+                    ORKLegacyValueRange(value: 8),
+                    ORKLegacyValueRange(value: 16),
+                    ORKLegacyValueRange(value: 32),
+                    ORKLegacyValueRange(value: 50),
+                    ORKLegacyValueRange(value: 64),
+                    ORKLegacyValueRange(value: 2),
+                    ORKLegacyValueRange(value: 4),
+                    ORKLegacyValueRange(value: 8),
+                    ORKLegacyValueRange(value: 16),
+                    ORKLegacyValueRange(value: 32),
+                    ORKLegacyValueRange(value: 50),
+                    ORKLegacyValueRange(value: 64),
+                    ORKLegacyValueRange(value: 2),
+                    ORKLegacyValueRange(value: 4),
+                    ORKLegacyValueRange(value: 8),
+                    ORKLegacyValueRange(value: 16),
+                    ORKLegacyValueRange(value: 32),
+                    ORKLegacyValueRange(value: 50),
+                    ORKLegacyValueRange(value: 64),
+                    ORKLegacyValueRange(value: 2),
+                    ORKLegacyValueRange(value: 4),
+                    ORKLegacyValueRange(value: 8),
+                    ORKLegacyValueRange(value: 16),
+                    ORKLegacyValueRange(value: 32),
+                    ORKLegacyValueRange(value: 50),
+                    ORKLegacyValueRange(value: 64),
                 ],
                 [
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(value: 20),
-                    ORKValueRange(value: 25),
-                    ORKValueRange(),
-                    ORKValueRange(value: 30),
-                    ORKValueRange(value: 40),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(value: 20),
-                    ORKValueRange(value: 25),
-                    ORKValueRange(),
-                    ORKValueRange(value: 30),
-                    ORKValueRange(value: 40),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(value: 20),
-                    ORKValueRange(value: 25),
-                    ORKValueRange(),
-                    ORKValueRange(value: 30),
-                    ORKValueRange(value: 40),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(),
-                    ORKValueRange(value: 20),
-                    ORKValueRange(value: 25),
-                    ORKValueRange(),
-                    ORKValueRange(value: 30),
-                    ORKValueRange(value: 40),
-                    ORKValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 20),
+                    ORKLegacyValueRange(value: 25),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 30),
+                    ORKLegacyValueRange(value: 40),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 20),
+                    ORKLegacyValueRange(value: 25),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 30),
+                    ORKLegacyValueRange(value: 40),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 20),
+                    ORKLegacyValueRange(value: 25),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 30),
+                    ORKLegacyValueRange(value: 40),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 20),
+                    ORKLegacyValueRange(value: 25),
+                    ORKLegacyValueRange(),
+                    ORKLegacyValueRange(value: 30),
+                    ORKLegacyValueRange(value: 40),
+                    ORKLegacyValueRange(),
                 ],
         ]
     }
     
-    func maximumValueForGraphChartView(_ graphChartView: ORKGraphChartView) -> Double {
+    func maximumValueForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Double {
         return 70
     }
     
-    func minimumValueForGraphChartView(_ graphChartView: ORKGraphChartView) -> Double {
+    func minimumValueForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Double {
         return 0
     }
     
-    func numberOfDivisionsInXAxisForGraphChartView(_ graphChartView: ORKGraphChartView) -> Int {
+    func numberOfDivisionsInXAxisForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Int {
         return 10
     }
     
-    func graphChartView(_ graphChartView: ORKGraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String? {
+    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String? {
         return (pointIndex % 2 == 0) ? nil : "\(pointIndex + 1)"
     }
     
-    func graphChartView(_ graphChartView: ORKGraphChartView, drawsVerticalReferenceLineAtPointIndex pointIndex: Int) -> Bool {
+    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, drawsVerticalReferenceLineAtPointIndex pointIndex: Int) -> Bool {
         return (pointIndex % 2 == 1) ? false : true
     }
     
-    func scrubbingPlotIndexForGraphChartView(_ graphChartView: ORKGraphChartView) -> Int {
+    func scrubbingPlotIndexForGraphChartView(_ graphChartView: ORKLegacyGraphChartView) -> Int {
         return 2
     }
 }
