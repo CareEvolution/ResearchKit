@@ -34,7 +34,7 @@
 #import "RK1Helpers_Internal.h"
 
 
-NSString *const RK1ResultPredicateTaskIdentifierVariableName = @"RK1_TASK_IDENTIFIER";
+NSString *const RK1ResultPredicateTaskIdentifierVariableName = @"ORK_TASK_IDENTIFIER";
 
 
 @interface RK1ResultSelector ()
