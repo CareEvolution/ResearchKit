@@ -36,10 +36,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyPSATStep
+@implementation ORK1PSATStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyPSATStepViewController class];
+    return [ORK1PSATStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -55,37 +55,37 @@
 - (void)validateParameters {
     [super validateParameters];
 
-    NSTimeInterval const ORKLegacyPSATInterStimulusMinimumInterval = 1.0;
-    NSTimeInterval const ORKLegacyPSATInterStimulusMaximumInterval = 5.0;
+    NSTimeInterval const ORK1PSATInterStimulusMinimumInterval = 1.0;
+    NSTimeInterval const ORK1PSATInterStimulusMaximumInterval = 5.0;
     
-    NSTimeInterval const ORKLegacyPSATStimulusMinimumDuration = 0.2;
+    NSTimeInterval const ORK1PSATStimulusMinimumDuration = 0.2;
     
-    NSInteger const ORKLegacyPSATSerieMinimumLength = 10;
-    NSInteger const ORKLegacyPSATSerieMaximumLength = 120;
+    NSInteger const ORK1PSATSerieMinimumLength = 10;
+    NSInteger const ORK1PSATSerieMaximumLength = 120;
 
     NSTimeInterval totalDuration = (self.seriesLength + 1) * self.interStimulusInterval;
     if (self.stepDuration != totalDuration) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"step duration must be equal to %@ seconds.", @(totalDuration)] userInfo:nil];
     }
     
-    if (!(self.presentationMode & ORKLegacyPSATPresentationModeAuditory) &&
-        !(self.presentationMode & ORKLegacyPSATPresentationModeVisual)) {
+    if (!(self.presentationMode & ORK1PSATPresentationModeAuditory) &&
+        !(self.presentationMode & ORK1PSATPresentationModeVisual)) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"step presentation mode must be auditory and/or visual." userInfo:nil];
     }
     
-    if (self.interStimulusInterval < ORKLegacyPSATInterStimulusMinimumInterval ||
-        self.interStimulusInterval > ORKLegacyPSATInterStimulusMaximumInterval) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"inter stimulus interval must be greater than or equal to %@ seconds and less than or equal to %@ seconds.", @(ORKLegacyPSATInterStimulusMinimumInterval), @(ORKLegacyPSATInterStimulusMaximumInterval)] userInfo:nil];
+    if (self.interStimulusInterval < ORK1PSATInterStimulusMinimumInterval ||
+        self.interStimulusInterval > ORK1PSATInterStimulusMaximumInterval) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"inter stimulus interval must be greater than or equal to %@ seconds and less than or equal to %@ seconds.", @(ORK1PSATInterStimulusMinimumInterval), @(ORK1PSATInterStimulusMaximumInterval)] userInfo:nil];
     }
     
-    if ((self.presentationMode & ORKLegacyPSATPresentationModeVisual) &&
-        (self.stimulusDuration < ORKLegacyPSATStimulusMinimumDuration || self.stimulusDuration > self.interStimulusInterval)) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"stimulus duration must be greater than or equal to %@ seconds and less than or equal to %@ seconds.", @(ORKLegacyPSATStimulusMinimumDuration), @(self.interStimulusInterval)] userInfo:nil];
+    if ((self.presentationMode & ORK1PSATPresentationModeVisual) &&
+        (self.stimulusDuration < ORK1PSATStimulusMinimumDuration || self.stimulusDuration > self.interStimulusInterval)) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"stimulus duration must be greater than or equal to %@ seconds and less than or equal to %@ seconds.", @(ORK1PSATStimulusMinimumDuration), @(self.interStimulusInterval)] userInfo:nil];
     }
     
-    if (self.seriesLength < ORKLegacyPSATSerieMinimumLength ||
-        self.seriesLength > ORKLegacyPSATSerieMaximumLength) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"serie length must be greater than or equal to %@ additions and less than or equal to %@ additions.", @(ORKLegacyPSATSerieMinimumLength), @(ORKLegacyPSATSerieMaximumLength)] userInfo:nil];
+    if (self.seriesLength < ORK1PSATSerieMinimumLength ||
+        self.seriesLength > ORK1PSATSerieMaximumLength) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"serie length must be greater than or equal to %@ additions and less than or equal to %@ additions.", @(ORK1PSATSerieMinimumLength), @(ORK1PSATSerieMaximumLength)] userInfo:nil];
     }
 }
 
@@ -100,24 +100,24 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_ENUM(aDecoder, presentationMode);
-        ORKLegacy_DECODE_DOUBLE(aDecoder, interStimulusInterval);
-        ORKLegacy_DECODE_DOUBLE(aDecoder, stimulusDuration);
-        ORKLegacy_DECODE_INTEGER(aDecoder, seriesLength);
+        ORK1_DECODE_ENUM(aDecoder, presentationMode);
+        ORK1_DECODE_DOUBLE(aDecoder, interStimulusInterval);
+        ORK1_DECODE_DOUBLE(aDecoder, stimulusDuration);
+        ORK1_DECODE_INTEGER(aDecoder, seriesLength);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_ENUM(aCoder, presentationMode);
-    ORKLegacy_ENCODE_DOUBLE(aCoder, interStimulusInterval);
-    ORKLegacy_ENCODE_DOUBLE(aCoder, stimulusDuration);
-    ORKLegacy_ENCODE_INTEGER(aCoder, seriesLength);
+    ORK1_ENCODE_ENUM(aCoder, presentationMode);
+    ORK1_ENCODE_DOUBLE(aCoder, interStimulusInterval);
+    ORK1_ENCODE_DOUBLE(aCoder, stimulusDuration);
+    ORK1_ENCODE_INTEGER(aCoder, seriesLength);
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyPSATStep *step = [super copyWithZone:zone];
+    ORK1PSATStep *step = [super copyWithZone:zone];
     step.presentationMode = self.presentationMode;
     step.interStimulusInterval = self.interStimulusInterval;
     step.stimulusDuration = self.stimulusDuration;

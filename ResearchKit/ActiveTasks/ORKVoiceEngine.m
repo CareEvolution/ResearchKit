@@ -35,13 +35,13 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyVoiceEngine
+@implementation ORK1VoiceEngine
 
-+ (ORKLegacyVoiceEngine *)sharedVoiceEngine {
-    static ORKLegacyVoiceEngine *sharedVoiceEngine;
++ (ORK1VoiceEngine *)sharedVoiceEngine {
+    static ORK1VoiceEngine *sharedVoiceEngine;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedVoiceEngine = [ORKLegacyVoiceEngine new];
+        sharedVoiceEngine = [ORK1VoiceEngine new];
     });
     return sharedVoiceEngine;
 }

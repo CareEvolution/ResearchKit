@@ -36,13 +36,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTrailmakingStep : ORKLegacyActiveStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1TrailmakingStep : ORK1ActiveStep
 
 /**
- The type of trail to show. Default = `ORKLegacyTrailMakingTypeIdentifierA`
+ The type of trail to show. Default = `ORK1TrailMakingTypeIdentifierA`
  */
-@property (nonatomic, copy) ORKLegacyTrailMakingTypeIdentifier trailType;
+@property (nonatomic, copy) ORK1TrailMakingTypeIdentifier trailType;
 
 @end
 

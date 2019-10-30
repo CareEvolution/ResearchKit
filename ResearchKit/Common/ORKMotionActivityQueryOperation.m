@@ -37,18 +37,18 @@
 #import "ORKDataCollectionManager_Internal.h"
 
 
-@implementation ORKLegacyMotionActivityQueryOperation {
+@implementation ORK1MotionActivityQueryOperation {
     
     // All of these are strong references created at init time
-    ORKLegacyMotionActivityCollector *_collector;
+    ORK1MotionActivityCollector *_collector;
     NSOperationQueue *_queue;
     NSDate *_currentDate;
-    __weak ORKLegacyDataCollectionManager *_manager;
+    __weak ORK1DataCollectionManager *_manager;
 }
 
-- (instancetype)initWithCollector:(ORKLegacyMotionActivityCollector*)collector
+- (instancetype)initWithCollector:(ORK1MotionActivityCollector*)collector
                       queryQueue:(NSOperationQueue*)queue
-                         manager:(ORKLegacyDataCollectionManager *)manager {
+                         manager:(ORK1DataCollectionManager *)manager {
     self = [super init];
     if (self) {
         _collector = collector;
@@ -56,8 +56,8 @@
         _queue = queue ? : [NSOperationQueue mainQueue];
         _currentDate = nil;
         
-        self.startBlock = ^void(ORKLegacyOperation* a) {
-            [(ORKLegacyMotionActivityQueryOperation*)a doQuery];
+        self.startBlock = ^void(ORK1Operation* a) {
+            [(ORK1MotionActivityQueryOperation*)a doQuery];
         };
         
     }
@@ -68,8 +68,8 @@
     return [NSString stringWithFormat:@"<%@(%p):%@>",NSStringFromClass([self class]), self, _collector];
 }
 
-- (void)finishWithErrorCode:(ORKLegacyErrorCode)error {
-    self.error = [NSError errorWithDomain:ORKLegacyErrorDomain code:error userInfo:nil];
+- (void)finishWithErrorCode:(ORK1ErrorCode)error {
+    self.error = [NSError errorWithDomain:ORK1ErrorDomain code:error userInfo:nil];
     [self safeFinish];
 }
 
@@ -81,7 +81,7 @@
     __block NSDate *lastDate = nil;
     __block NSString *itemIdentifier = nil;
     
-    [_manager onWorkQueueSync:^BOOL(ORKLegacyDataCollectionManager *manager) {
+    [_manager onWorkQueueSync:^BOOL(ORK1DataCollectionManager *manager) {
         BOOL changed = NO;
         
         // _currentAnchor will be NSNotFound on the first pass of the operation
@@ -103,7 +103,7 @@
         _currentDate = lastDate;
     }
 
-    __weak ORKLegacyMotionActivityQueryOperation * weakSelf = self;
+    __weak ORK1MotionActivityQueryOperation * weakSelf = self;
     
     NSDate *queryBeginDate = _currentDate?:startDate;
     NSDate *queryEndDate = [NSDate date];
@@ -111,12 +111,12 @@
         queryBeginDate = [NSDate distantPast];
     }
     
-    ORKLegacy_Log_Debug(@"\nMotion Query: %@\n", @{@"from": queryBeginDate, @"to":queryEndDate});
+    ORK1_Log_Debug(@"\nMotion Query: %@\n", @{@"from": queryBeginDate, @"to":queryEndDate});
     
     // Run a single query up to current date
     [_manager.activityManager queryActivityStartingFromDate:queryBeginDate toDate:queryEndDate toQueue:_queue withHandler:^(NSArray<CMMotionActivity *> *activities, NSError *error) {
-        ORKLegacyMotionActivityQueryOperation *op = weakSelf;
-        ORKLegacy_Log_Debug(@"\nMotion Query: %@\n", @{@"from": queryBeginDate, @"to":queryEndDate, @"returned count": @(activities.count)});
+        ORK1MotionActivityQueryOperation *op = weakSelf;
+        ORK1_Log_Debug(@"\nMotion Query: %@\n", @{@"from": queryBeginDate, @"to":queryEndDate, @"returned count": @(activities.count)});
         [op handleResults:activities queryBegin:queryBeginDate queryEnd:queryEndDate error:error itemIdentifier:itemIdentifier];
     }];
     
@@ -164,8 +164,8 @@
         dispatch_semaphore_t sem = dispatch_semaphore_create(0);
         
         // Dispatch the results back to the data handler, if any
-        [_manager onWorkQueueAsync:^BOOL(ORKLegacyDataCollectionManager *manager) {
-            id<ORKLegacyDataCollectionManagerDelegate> delegate = _manager.delegate;
+        [_manager onWorkQueueAsync:^BOOL(ORK1DataCollectionManager *manager) {
+            id<ORK1DataCollectionManagerDelegate> delegate = _manager.delegate;
             
             if (delegate && [delegate respondsToSelector:@selector(motionActivityCollector:didCollectMotionActivities:)]) {
                 handoutSuccess = [delegate motionActivityCollector:_collector didCollectMotionActivities:results];
@@ -177,7 +177,7 @@
         dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
         
         if (!handoutSuccess) {
-            self.error = [NSError errorWithDomain:ORKLegacyErrorDomain code:ORKLegacyErrorException userInfo:@{NSLocalizedFailureReasonErrorKey: @"Results were not properly delivered to the data collection manager delegate."}];
+            self.error = [NSError errorWithDomain:ORK1ErrorDomain code:ORK1ErrorException userInfo:@{NSLocalizedFailureReasonErrorKey: @"Results were not properly delivered to the data collection manager delegate."}];
         }
         
         // If successfully reported to delegate, and we observed at
@@ -191,7 +191,7 @@
             self->_currentDate = nextStartDate;
             
             // Store it on the collector
-            [_manager onWorkQueueAsync:^BOOL(ORKLegacyDataCollectionManager *manager) {
+            [_manager onWorkQueueAsync:^BOOL(ORK1DataCollectionManager *manager) {
                 _collector.lastDate = nextStartDate;
                 return YES;
             }];

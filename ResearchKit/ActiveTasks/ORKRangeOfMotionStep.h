@@ -38,14 +38,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyRangeOfMotionStep` class represents a step that takes a range of motion measurement.
+ The `ORK1RangeOfMotionStep` class represents a step that takes a range of motion measurement.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyRangeOfMotionStep : ORKLegacyActiveStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1RangeOfMotionStep : ORK1ActiveStep
 
-@property (nonatomic, assign) ORKLegacyPredefinedTaskLimbOption limbOption; //The left and/or right limb to be tested during the task
+@property (nonatomic, assign) ORK1PredefinedTaskLimbOption limbOption; //The left and/or right limb to be tested during the task
 
-- (instancetype)initWithIdentifier:(NSString *)identifier limbOption:(ORKLegacyPredefinedTaskLimbOption)limbOption;
+- (instancetype)initWithIdentifier:(NSString *)identifier limbOption:(ORK1PredefinedTaskLimbOption)limbOption;
 
 @end
 

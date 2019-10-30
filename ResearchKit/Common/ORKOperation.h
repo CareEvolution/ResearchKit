@@ -32,32 +32,32 @@
 #import <Foundation/Foundation.h>
 
 
-typedef NS_ENUM(NSInteger, ORKLegacyOperationState) {
-    ORKLegacyOperationReady,
-    ORKLegacyOperationExecuting,
-    ORKLegacyOperationFinished
+typedef NS_ENUM(NSInteger, ORK1OperationState) {
+    ORK1OperationReady,
+    ORK1OperationExecuting,
+    ORK1OperationFinished
 };
 
 
-@class ORKLegacyOperation;
+@class ORK1Operation;
 
-typedef void (^ORKLegacyOperationBlock)(ORKLegacyOperation *operation);
+typedef void (^ORK1OperationBlock)(ORK1Operation *operation);
 
 
 /**
  A concurrent operation for collecting data for upload.
  */
-@interface ORKLegacyOperation : NSOperation
+@interface ORK1Operation : NSOperation
 
 @property (nonatomic, strong) NSRecursiveLock *lock;
-@property (readwrite, nonatomic, assign) ORKLegacyOperationState state;
+@property (readwrite, nonatomic, assign) ORK1OperationState state;
 @property (nonatomic, strong) NSError *error;
 
 /**
  Block that will be called inside the lock during -start,
  just after transitioning to RKOperationExecuting.
  */
-@property (nonatomic, strong) ORKLegacyOperationBlock startBlock;
+@property (nonatomic, strong) ORK1OperationBlock startBlock;
 
 /**
  Finishes the operation cleanly.

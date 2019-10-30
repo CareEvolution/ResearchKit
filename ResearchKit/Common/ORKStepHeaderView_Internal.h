@@ -37,12 +37,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyStepHeaderView ()
+@interface ORK1StepHeaderView ()
 
 @property (nonatomic, strong, readonly) UIImageView *iconImageView;
-@property (nonatomic, strong, readonly) ORKLegacyHeadlineLabel *captionLabel;
-@property (nonatomic, strong, readonly) ORKLegacyTextButton *learnMoreButton;
-@property (nonatomic, strong, readonly) ORKLegacySubheadlineLabel *instructionLabel;
+@property (nonatomic, strong, readonly) ORK1HeadlineLabel *captionLabel;
+@property (nonatomic, strong, readonly) ORK1TextButton *learnMoreButton;
+@property (nonatomic, strong, readonly) ORK1SubheadlineLabel *instructionLabel;
 
 @property (nonatomic) BOOL hasContentAbove;
 

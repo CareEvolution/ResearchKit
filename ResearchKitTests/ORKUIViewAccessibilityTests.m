@@ -35,12 +35,12 @@
 #import "UIView+ORKAccessibility.h"
 
 
-@interface ORKLegacyUIViewAccessibilityTests : XCTestCase
+@interface ORK1UIViewAccessibilityTests : XCTestCase
 
 @end
 
 
-@implementation ORKLegacyUIViewAccessibilityTests
+@implementation ORK1UIViewAccessibilityTests
 
 - (void)testSuperViewOfTypeReturnsNilWhenClassIsNil {
     UIView *view = [[UIView alloc] init];

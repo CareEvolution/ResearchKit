@@ -35,11 +35,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyConsentSignature;
+@class ORK1ConsentSignature;
 
-@interface ORKLegacyConsentSignatureFormatter : NSObject
+@interface ORK1ConsentSignatureFormatter : NSObject
 
-- (NSString *)HTMLForSignature:(ORKLegacyConsentSignature *)signature;
+- (NSString *)HTMLForSignature:(ORK1ConsentSignature *)signature;
 
 @end
 

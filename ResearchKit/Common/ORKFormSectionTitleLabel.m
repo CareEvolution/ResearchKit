@@ -32,7 +32,7 @@
 #import "ORKFormSectionTitleLabel.h"
 
 
-@implementation ORKLegacyFormSectionTitleLabel
+@implementation ORK1FormSectionTitleLabel
 
 + (UIFont *)defaultFont {
     // regular, 14

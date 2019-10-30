@@ -34,26 +34,26 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NSString * ORKLegacyBiologicalSexIdentifier NS_STRING_ENUM;
+typedef NSString * ORK1BiologicalSexIdentifier NS_STRING_ENUM;
 
-ORKLegacy_EXTERN ORKLegacyBiologicalSexIdentifier const ORKLegacyBiologicalSexIdentifierFemale;
-ORKLegacy_EXTERN ORKLegacyBiologicalSexIdentifier const ORKLegacyBiologicalSexIdentifierMale;
-ORKLegacy_EXTERN ORKLegacyBiologicalSexIdentifier const ORKLegacyBiologicalSexIdentifierOther;
+ORK1_EXTERN ORK1BiologicalSexIdentifier const ORK1BiologicalSexIdentifierFemale;
+ORK1_EXTERN ORK1BiologicalSexIdentifier const ORK1BiologicalSexIdentifierMale;
+ORK1_EXTERN ORK1BiologicalSexIdentifier const ORK1BiologicalSexIdentifierOther;
 
-typedef NSString * ORKLegacyBloodTypeIdentifier NS_STRING_ENUM;
+typedef NSString * ORK1BloodTypeIdentifier NS_STRING_ENUM;
 
-ORKLegacy_EXTERN ORKLegacyBloodTypeIdentifier const ORKLegacyBloodTypeIdentifierAPositive;
-ORKLegacy_EXTERN ORKLegacyBloodTypeIdentifier const ORKLegacyBloodTypeIdentifierANegative;
-ORKLegacy_EXTERN ORKLegacyBloodTypeIdentifier const ORKLegacyBloodTypeIdentifierBPositive;
-ORKLegacy_EXTERN ORKLegacyBloodTypeIdentifier const ORKLegacyBloodTypeIdentifierBNegative;
-ORKLegacy_EXTERN ORKLegacyBloodTypeIdentifier const ORKLegacyBloodTypeIdentifierABPositive;
-ORKLegacy_EXTERN ORKLegacyBloodTypeIdentifier const ORKLegacyBloodTypeIdentifierABNegative;
-ORKLegacy_EXTERN ORKLegacyBloodTypeIdentifier const ORKLegacyBloodTypeIdentifierOPositive;
-ORKLegacy_EXTERN ORKLegacyBloodTypeIdentifier const ORKLegacyBloodTypeIdentifierONegative;
+ORK1_EXTERN ORK1BloodTypeIdentifier const ORK1BloodTypeIdentifierAPositive;
+ORK1_EXTERN ORK1BloodTypeIdentifier const ORK1BloodTypeIdentifierANegative;
+ORK1_EXTERN ORK1BloodTypeIdentifier const ORK1BloodTypeIdentifierBPositive;
+ORK1_EXTERN ORK1BloodTypeIdentifier const ORK1BloodTypeIdentifierBNegative;
+ORK1_EXTERN ORK1BloodTypeIdentifier const ORK1BloodTypeIdentifierABPositive;
+ORK1_EXTERN ORK1BloodTypeIdentifier const ORK1BloodTypeIdentifierABNegative;
+ORK1_EXTERN ORK1BloodTypeIdentifier const ORK1BloodTypeIdentifierOPositive;
+ORK1_EXTERN ORK1BloodTypeIdentifier const ORK1BloodTypeIdentifierONegative;
 
 
 /**
- The `ORKLegacyHealthKitCharacteristicTypeAnswerFormat` class represents an answer format that lets participants enter values that correspond to a HealthKit characteristic type.
+ The `ORK1HealthKitCharacteristicTypeAnswerFormat` class represents an answer format that lets participants enter values that correspond to a HealthKit characteristic type.
  
  The actual UI used for collecting data with this answer format depends on the HealthKit type being collected.
  The default value displayed in the UI is the most recent value received from HealthKit, if such a value exists.
@@ -62,8 +62,8 @@ ORKLegacy_EXTERN ORKLegacyBloodTypeIdentifier const ORKLegacyBloodTypeIdentifier
  
  You can use the HealthKit characteristic answer format to let users autofill information, such as their blood type or date of birth.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyHealthKitCharacteristicTypeAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1HealthKitCharacteristicTypeAnswerFormat : ORK1AnswerFormat
 
 /**
  Returns a new answer format for the specified HealthKit characteristic type.
@@ -138,7 +138,7 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The `ORKLegacyHealthKitQuantityTypeAnswerFormat` class represents an answer format that lets participants enter values that correspond to a HealthKit quantity type, such as systolic blood pressure.
+ The `ORK1HealthKitQuantityTypeAnswerFormat` class represents an answer format that lets participants enter values that correspond to a HealthKit quantity type, such as systolic blood pressure.
  
  The actual UI used for collecting data with this answer format depends on the HealthKit type being collected.
  The default value in the UI is the most recent value received from HealthKit, if such a value exists.
@@ -148,8 +148,8 @@ ORKLegacy_CLASS_AVAILABLE
  You can use the HealthKit quantity type answer format to let users autofill values such as their weight with the most
  recent data from HealthKit.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyHealthKitQuantityTypeAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1HealthKitQuantityTypeAnswerFormat : ORK1AnswerFormat
 
 
 /**
@@ -161,7 +161,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return A HealthKit quantity answer format instance.
  */
-+ (instancetype)answerFormatWithQuantityType:(HKQuantityType *)quantityType unit:(nullable HKUnit *)unit style:(ORKLegacyNumericAnswerStyle)style;
++ (instancetype)answerFormatWithQuantityType:(HKQuantityType *)quantityType unit:(nullable HKUnit *)unit style:(ORK1NumericAnswerStyle)style;
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -177,7 +177,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return An initialized HealthKit quantity answer format.
  */
-- (instancetype)initWithQuantityType:(HKQuantityType *)quantityType unit:(nullable HKUnit *)unit style:(ORKLegacyNumericAnswerStyle)style NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithQuantityType:(HKQuantityType *)quantityType unit:(nullable HKUnit *)unit style:(ORK1NumericAnswerStyle)style NS_DESIGNATED_INITIALIZER;
 
 /**
  Should authorization be requested for the associated HealthKit data type. Default = `YES`.
@@ -201,11 +201,11 @@ included in the question result generated by form items or question steps
 /**
  The numeric answer style. (read-only)
  */
-@property (nonatomic, readonly) ORKLegacyNumericAnswerStyle numericAnswerStyle;
+@property (nonatomic, readonly) ORK1NumericAnswerStyle numericAnswerStyle;
 
 @end
 
-@interface HKUnit (ORKLegacyLocalized)
+@interface HKUnit (ORK1Localized)
 
 /**
  Returns the localized string for the unit (if available)

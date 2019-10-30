@@ -214,7 +214,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  
  The implementation below demonstrates how to subclass and override button actions.
  */
-@interface LoginViewController : ORKLegacyLoginStepViewController
+@interface LoginViewController : ORK1LoginStepViewController
 
 @end
 
@@ -236,7 +236,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  
  The implementation below demonstrates how to subclass and override button actions.
  */
-@interface VerificationViewController : ORKLegacyVerificationStepViewController
+@interface VerificationViewController : ORK1VerificationStepViewController
 
 @end
 
@@ -253,9 +253,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 @end
 
 
-@interface MainViewController () <ORKLegacyTaskViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ORKLegacyPasscodeDelegate> {
-    id<ORKLegacyTaskResultSource> _lastRouteResult;
-    ORKLegacyConsentDocument *_currentDocument;
+@interface MainViewController () <ORK1TaskViewControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ORK1PasscodeDelegate> {
+    id<ORK1TaskResultSource> _lastRouteResult;
+    ORK1ConsentDocument *_currentDocument;
     
     NSMutableDictionary<NSString *, NSData *> *_savedViewControllers;     // Maps task identifiers to task view controller restoration data
     
@@ -263,10 +263,10 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     NSArray<NSString *> *_buttonSectionNames;
     NSArray<NSArray<NSString *> *> *_buttonTitles;
     
-    ORKLegacyTaskResult *_embeddedReviewTaskResult;
+    ORK1TaskResult *_embeddedReviewTaskResult;
 }
 
-@property (nonatomic, strong) ORKLegacyTaskViewController *taskViewController;
+@property (nonatomic, strong) ORK1TaskViewController *taskViewController;
 
 @end
 
@@ -476,7 +476,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 
 #pragma mark - Mapping identifiers to tasks
 
-- (id<ORKLegacyTask>)makeTaskWithIdentifier:(NSString *)identifier {
+- (id<ORK1Task>)makeTaskWithIdentifier:(NSString *)identifier {
     if ([identifier isEqualToString:DatePickingTaskIdentifier]) {
         return [self makeDatePickingTask];
     } else if ([identifier isEqualToString:SelectionSurveyTaskIdentifier]) {
@@ -498,22 +498,22 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     } else if ([identifier isEqualToString:VerificationTaskIdentifier]) {
         return [self makeVerificationTask];
     } else if ([identifier isEqualToString:AudioTaskIdentifier]) {
-        id<ORKLegacyTask> task = [ORKLegacyOrderedTask audioTaskWithIdentifier:AudioTaskIdentifier
+        id<ORK1Task> task = [ORK1OrderedTask audioTaskWithIdentifier:AudioTaskIdentifier
                                             intendedUseDescription:nil
                                                  speechInstruction:nil
                                             shortSpeechInstruction:nil
                                                           duration:10
                                                  recordingSettings:nil
                                                    checkAudioLevel:YES
-                                                           options:(ORKLegacyPredefinedTaskOption)0];
+                                                           options:(ORK1PredefinedTaskOption)0];
         return task;
     } else if ([identifier isEqualToString:ToneAudiometryTaskIdentifier]) {
-        id<ORKLegacyTask> task = [ORKLegacyOrderedTask toneAudiometryTaskWithIdentifier:ToneAudiometryTaskIdentifier
+        id<ORK1Task> task = [ORK1OrderedTask toneAudiometryTaskWithIdentifier:ToneAudiometryTaskIdentifier
                                                      intendedUseDescription:nil
                                                           speechInstruction:nil
                                                      shortSpeechInstruction:nil
                                                                toneDuration:20
-                                                                    options:(ORKLegacyPredefinedTaskOption)0];
+                                                                    options:(ORK1PredefinedTaskOption)0];
         return task;
     } else if ([identifier isEqualToString:MiniFormTaskIdentifier]) {
         return [self makeMiniFormTask];
@@ -522,19 +522,19 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     } else if ([identifier isEqualToString:PredicateTestsTaskIdentifier]) {
         return [self makePredicateTestsTask];
     } else if ([identifier isEqualToString:FitnessTaskIdentifier]) {
-        return [ORKLegacyOrderedTask fitnessCheckTaskWithIdentifier:FitnessTaskIdentifier
+        return [ORK1OrderedTask fitnessCheckTaskWithIdentifier:FitnessTaskIdentifier
                                        intendedUseDescription:nil
                                                  walkDuration:360
                                                  restDuration:180
-                                                      options:ORKLegacyPredefinedTaskOptionNone];
+                                                      options:ORK1PredefinedTaskOptionNone];
     } else if ([identifier isEqualToString:GaitTaskIdentifier]) {
-        return [ORKLegacyOrderedTask shortWalkTaskWithIdentifier:GaitTaskIdentifier
+        return [ORK1OrderedTask shortWalkTaskWithIdentifier:GaitTaskIdentifier
                                     intendedUseDescription:nil
                                        numberOfStepsPerLeg:20
                                               restDuration:30
-                                                   options:ORKLegacyPredefinedTaskOptionNone];
+                                                   options:ORK1PredefinedTaskOptionNone];
     } else if ([identifier isEqualToString:MemoryTaskIdentifier]) {
-        return [ORKLegacyOrderedTask spatialSpanMemoryTaskWithIdentifier:MemoryTaskIdentifier
+        return [ORK1OrderedTask spatialSpanMemoryTaskWithIdentifier:MemoryTaskIdentifier
                                             intendedUseDescription:nil
                                                        initialSpan:3
                                                        minimumSpan:2
@@ -545,7 +545,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                  customTargetImage:nil
                                             customTargetPluralName:nil
                                                    requireReversal:NO
-                                                           options:ORKLegacyPredefinedTaskOptionNone];
+                                                           options:ORK1PredefinedTaskOptionNone];
     } else if ([identifier isEqualToString:DynamicTaskIdentifier]) {
         return [DynamicTask new];
     } else if ([identifier isEqualToString:InterruptibleTaskIdentifier]) {
@@ -561,13 +561,13 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     } else if ([identifier isEqualToString:VideoCaptureTaskIdentifier]) {
         return [self makeVideoCaptureTask];
     } else if ([identifier isEqualToString:TwoFingerTapTaskIdentifier]) {
-        return [ORKLegacyOrderedTask twoFingerTappingIntervalTaskWithIdentifier:TwoFingerTapTaskIdentifier
+        return [ORK1OrderedTask twoFingerTappingIntervalTaskWithIdentifier:TwoFingerTapTaskIdentifier
                                                    intendedUseDescription:nil
                                                                  duration:20.0
-                                                              handOptions:ORKLegacyPredefinedTaskHandOptionBoth
-                                                                  options:(ORKLegacyPredefinedTaskOption)0];
+                                                              handOptions:ORK1PredefinedTaskHandOptionBoth
+                                                                  options:(ORK1PredefinedTaskOption)0];
     } else if ([identifier isEqualToString:ReactionTimeTaskIdentifier]) {
-        return [ORKLegacyOrderedTask reactionTimeTaskWithIdentifier:ReactionTimeTaskIdentifier
+        return [ORK1OrderedTask reactionTimeTaskWithIdentifier:ReactionTimeTaskIdentifier
                                        intendedUseDescription:nil
                                       maximumStimulusInterval:8
                                       minimumStimulusInterval:4
@@ -579,40 +579,40 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                  failureSound:0
                                                       options:0];
     } else if ([identifier isEqualToString:StroopTaskIdentifier]) {
-        return [ORKLegacyOrderedTask stroopTaskWithIdentifier:StroopTaskIdentifier
+        return [ORK1OrderedTask stroopTaskWithIdentifier:StroopTaskIdentifier
                                  intendedUseDescription:nil
                                        numberOfAttempts:15
                                                 options:0];
     } else if ([identifier isEqualToString:TowerOfHanoiTaskIdentifier]) {
-        return [ORKLegacyOrderedTask towerOfHanoiTaskWithIdentifier:TowerOfHanoiTaskIdentifier
+        return [ORK1OrderedTask towerOfHanoiTaskWithIdentifier:TowerOfHanoiTaskIdentifier
                                        intendedUseDescription:nil
                                                 numberOfDisks:5
                                                       options:0];
     } else if ([identifier isEqualToString:PSATTaskIdentifier]) {
-        return [ORKLegacyOrderedTask PSATTaskWithIdentifier:PSATTaskIdentifier
+        return [ORK1OrderedTask PSATTaskWithIdentifier:PSATTaskIdentifier
                                intendedUseDescription:nil
-                                     presentationMode:(ORKLegacyPSATPresentationModeAuditory | ORKLegacyPSATPresentationModeVisual)
+                                     presentationMode:(ORK1PSATPresentationModeAuditory | ORK1PSATPresentationModeVisual)
                                 interStimulusInterval:3.0
                                      stimulusDuration:1.0
                                          seriesLength:60
-                                              options:ORKLegacyPredefinedTaskOptionNone];
+                                              options:ORK1PredefinedTaskOptionNone];
     } else if ([identifier isEqualToString:TimedWalkTaskIdentifier]) {
-        return [ORKLegacyOrderedTask timedWalkTaskWithIdentifier:TimedWalkTaskIdentifier
+        return [ORK1OrderedTask timedWalkTaskWithIdentifier:TimedWalkTaskIdentifier
                                     intendedUseDescription:nil
                                           distanceInMeters:100
                                                  timeLimit:180
                                        turnAroundTimeLimit:60
                                 includeAssistiveDeviceForm:YES
-                                                   options:ORKLegacyPredefinedTaskOptionNone];
+                                                   options:ORK1PredefinedTaskOptionNone];
     } else if ([identifier isEqualToString:HolePegTestTaskIdentifier]) {
-        return [ORKLegacyNavigableOrderedTask holePegTestTaskWithIdentifier:HolePegTestTaskIdentifier
+        return [ORK1NavigableOrderedTask holePegTestTaskWithIdentifier:HolePegTestTaskIdentifier
                                                intendedUseDescription:nil
-                                                         dominantHand:ORKLegacyBodySagittalRight
+                                                         dominantHand:ORK1BodySagittalRight
                                                          numberOfPegs:9
                                                             threshold:0.2
                                                               rotated:NO
                                                             timeLimit:300.0
-                                                              options:ORKLegacyPredefinedTaskOptionNone];
+                                                              options:ORK1PredefinedTaskOptionNone];
     } else if ([identifier isEqualToString:NavigableOrderedTaskIdentifier]) {
         return [TaskFactory makeNavigableOrderedTask:NavigableOrderedTaskIdentifier];
     } else if ([identifier isEqualToString:NavigableLoopTaskIdentifier]) {
@@ -636,42 +636,42 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     } else if ([identifier isEqualToString:InstantiateCustomVCTaskIdentifier]) {
         return [self makeInstantiateCustomVCTask];
     } else if ([identifier isEqualToString:WalkBackAndForthTaskIdentifier]) {
-        return [ORKLegacyOrderedTask walkBackAndForthTaskWithIdentifier:WalkBackAndForthTaskIdentifier
+        return [ORK1OrderedTask walkBackAndForthTaskWithIdentifier:WalkBackAndForthTaskIdentifier
                                            intendedUseDescription:nil
                                                      walkDuration:30
                                                      restDuration:30
-                                                          options:ORKLegacyPredefinedTaskOptionNone];
+                                                          options:ORK1PredefinedTaskOptionNone];
     } else if ([identifier isEqualToString:TableStepTaskIdentifier]) {
         return [self makeTableStepTask];
     } else if ([identifier isEqualToString:SignatureStepTaskIdentifier]) {
         return [self makeSignatureStepTask];
     } else if ([identifier isEqualToString:TremorTaskIdentifier]) {
-        return [ORKLegacyOrderedTask tremorTestTaskWithIdentifier:TremorTaskIdentifier
+        return [ORK1OrderedTask tremorTestTaskWithIdentifier:TremorTaskIdentifier
                                      intendedUseDescription:nil
                                          activeStepDuration:10
                                           activeTaskOptions:
-                ORKLegacyTremorActiveTaskOptionExcludeHandAtShoulderHeight |
-                ORKLegacyTremorActiveTaskOptionExcludeHandAtShoulderHeightElbowBent |
-                ORKLegacyTremorActiveTaskOptionExcludeHandToNose
-                                                handOptions:ORKLegacyPredefinedTaskHandOptionBoth
-                                                    options:ORKLegacyPredefinedTaskOptionNone];
+                ORK1TremorActiveTaskOptionExcludeHandAtShoulderHeight |
+                ORK1TremorActiveTaskOptionExcludeHandAtShoulderHeightElbowBent |
+                ORK1TremorActiveTaskOptionExcludeHandToNose
+                                                handOptions:ORK1PredefinedTaskHandOptionBoth
+                                                    options:ORK1PredefinedTaskOptionNone];
     } else if ([identifier isEqualToString:TremorRightHandTaskIdentifier]) {
-        return [ORKLegacyOrderedTask tremorTestTaskWithIdentifier:TremorRightHandTaskIdentifier
+        return [ORK1OrderedTask tremorTestTaskWithIdentifier:TremorRightHandTaskIdentifier
                                      intendedUseDescription:nil
                                          activeStepDuration:10
                                           activeTaskOptions:0
-                                                handOptions:ORKLegacyPredefinedTaskHandOptionRight
-                                                    options:ORKLegacyPredefinedTaskOptionNone];
+                                                handOptions:ORK1PredefinedTaskHandOptionRight
+                                                    options:ORK1PredefinedTaskOptionNone];
     } else if ([identifier isEqualToString:AuxillaryImageTaskIdentifier]) {
         return [self makeAuxillaryImageTask];
     } else if ([identifier isEqualToString:IconImageTaskIdentifier]) {
         return [self makeIconImageTask];
     } else if ([identifier isEqualToString:TrailMakingTaskIdentifier]) {
-        return [ORKLegacyOrderedTask trailmakingTaskWithIdentifier:TrailMakingTaskIdentifier
+        return [ORK1OrderedTask trailmakingTaskWithIdentifier:TrailMakingTaskIdentifier
                                       intendedUseDescription:nil
                                       trailmakingInstruction:nil
-                                                   trailType:ORKLegacyTrailMakingTypeIdentifierA
-                                                     options:ORKLegacyPredefinedTaskOptionNone];
+                                                   trailType:ORK1TrailMakingTypeIdentifierA
+                                                     options:ORK1PredefinedTaskOptionNone];
     } else if ([identifier isEqualToString:PageStepTaskIdentifier]) {
         return [self makePageStepTask];
     } else if ([identifier isEqualToString:FootnoteTaskIdentifier]) {
@@ -697,21 +697,21 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
      need to attempt to catch that exception here.
      */
 
-    id<ORKLegacyTask> task = [self makeTaskWithIdentifier:identifier];
+    id<ORK1Task> task = [self makeTaskWithIdentifier:identifier];
     NSParameterAssert(task);
     
     if (_savedViewControllers[identifier]) {
         NSData *data = _savedViewControllers[identifier];
-        self.taskViewController = [[ORKLegacyTaskViewController alloc] initWithTask:task restorationData:data delegate:self];
+        self.taskViewController = [[ORK1TaskViewController alloc] initWithTask:task restorationData:data delegate:self];
     } else {
         // No saved data, just create the task and the corresponding task view controller.
-        self.taskViewController = [[ORKLegacyTaskViewController alloc] initWithTask:task taskRunUUID:[NSUUID UUID]];
+        self.taskViewController = [[ORK1TaskViewController alloc] initWithTask:task taskRunUUID:[NSUUID UUID]];
     }
     
     // If we have stored data then data will contain the stored data.
     // If we don't, data will be nil (and the task will be opened up as a 'new' task.
     NSData *data = _savedViewControllers[identifier];
-    self.taskViewController = [[ORKLegacyTaskViewController alloc] initWithTask:task restorationData:data delegate:self];
+    self.taskViewController = [[ORK1TaskViewController alloc] initWithTask:task restorationData:data delegate:self];
     
     [self beginTask];
 }
@@ -720,7 +720,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  Actually presents the task view controller.
  */
 - (void)beginTask {
-    id<ORKLegacyTask> task = self.taskViewController.task;
+    id<ORK1Task> task = self.taskViewController.task;
     self.taskViewController.delegate = self;
     
     if (_taskViewController.outputDirectory == nil) {
@@ -759,10 +759,10 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  This task presents several questions which exercise functionality based on
  `UIDatePicker`.
  */
-- (ORKLegacyOrderedTask *)makeDatePickingTask {
+- (ORK1OrderedTask *)makeDatePickingTask {
     NSMutableArray *steps = [NSMutableArray new];
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"iid_001"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"iid_001"];
         step.title = @"Date Survey";
         step.detailText = @"date pickers";
         [steps addObject:step];
@@ -772,9 +772,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
      A time interval question with no default set.
      */
     {
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_timeInterval_001"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_timeInterval_001"
                                                                       title:@"How long did it take to fall asleep last night?"
-                                                                     answer:[ORKLegacyAnswerFormat timeIntervalAnswerFormat]];
+                                                                     answer:[ORK1AnswerFormat timeIntervalAnswerFormat]];
         [steps addObject:step];
     }
     
@@ -783,9 +783,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
      A time interval question specifying a default and a step size.
      */
     {
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_timeInterval_default_002"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_timeInterval_default_002"
                                                                       title:@"How long did it take to fall asleep last night?"
-                                                                     answer:[ORKLegacyAnswerFormat timeIntervalAnswerFormatWithDefaultInterval:300 step:5]];
+                                                                     answer:[ORK1AnswerFormat timeIntervalAnswerFormatWithDefaultInterval:300 step:5]];
         [steps addObject:step];
     }
     
@@ -794,8 +794,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
      If no calendar were specified, the user's preferred calendar would be used.
      */
     {
-        ORKLegacyDateAnswerFormat *dateAnswer = [ORKLegacyDateAnswerFormat dateAnswerFormatWithDefaultDate:nil minimumDate:nil maximumDate:nil calendar: [NSCalendar calendarWithIdentifier:NSCalendarIdentifierHebrew]];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_date_001"
+        ORK1DateAnswerFormat *dateAnswer = [ORK1DateAnswerFormat dateAnswerFormatWithDefaultDate:nil minimumDate:nil maximumDate:nil calendar: [NSCalendar calendarWithIdentifier:NSCalendarIdentifierHebrew]];
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_date_001"
                                                                       title:@"When is your birthday?"
                                                                      answer:dateAnswer];
         [steps addObject:step];
@@ -809,11 +809,11 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         NSDate *defaultDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:10 toDate:[NSDate date] options:(NSCalendarOptions)0];
         NSDate *minDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:8 toDate:[NSDate date] options:(NSCalendarOptions)0];
         NSDate *maxDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:12 toDate:[NSDate date] options:(NSCalendarOptions)0];
-        ORKLegacyDateAnswerFormat *dateAnswer = [ORKLegacyDateAnswerFormat dateAnswerFormatWithDefaultDate:defaultDate
+        ORK1DateAnswerFormat *dateAnswer = [ORK1DateAnswerFormat dateAnswerFormatWithDefaultDate:defaultDate
                                                                                    minimumDate:minDate
                                                                                    maximumDate:maxDate
                                                                                       calendar: [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian]];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_date_default_002"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_date_default_002"
                                                                       title:@"What day are you available?"
                                                                      answer:dateAnswer];
         [steps addObject:step];
@@ -823,9 +823,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
      A time of day question with no default.
      */
     {
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_timeOfDay_001"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_timeOfDay_001"
                                                                  title:@"What time do you get up?"
-                                                                   answer:[ORKLegacyTimeOfDayAnswerFormat timeOfDayAnswerFormat]];
+                                                                   answer:[ORK1TimeOfDayAnswerFormat timeOfDayAnswerFormat]];
         [steps addObject:step];
     }
     
@@ -837,9 +837,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
         dateComponents.hour = 8;
         dateComponents.minute = 15;
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_timeOfDay_default_001"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_timeOfDay_default_001"
                                                                       title:@"What time do you get up?"
-                                                                     answer:[ORKLegacyTimeOfDayAnswerFormat timeOfDayAnswerFormatWithDefaultComponents:dateComponents]];
+                                                                     answer:[ORK1TimeOfDayAnswerFormat timeOfDayAnswerFormatWithDefaultComponents:dateComponents]];
         [steps addObject:step];
     }
     
@@ -847,9 +847,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
      A date-time question with default parameters (no min, no max, default to now).
      */
     {
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_dateTime_001"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_dateTime_001"
                                                                       title:@"When is your next meeting?"
-                                                                     answer:[ORKLegacyDateAnswerFormat dateTimeAnswerFormat]];
+                                                                     answer:[ORK1DateAnswerFormat dateTimeAnswerFormat]];
         [steps addObject:step];
     }
     
@@ -860,13 +860,13 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         NSDate *defaultDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:10 toDate:[NSDate date] options:(NSCalendarOptions)0];
         NSDate *minDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:8 toDate:[NSDate date] options:(NSCalendarOptions)0];
         NSDate *maxDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:12 toDate:[NSDate date] options:(NSCalendarOptions)0];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_dateTime_default_002"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_dateTime_default_002"
                                                                       title:@"When is your next meeting?"
-                                                                     answer:[ORKLegacyDateAnswerFormat dateTimeAnswerFormatWithDefaultDate:defaultDate minimumDate:minDate  maximumDate:maxDate calendar:[NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian]]];
+                                                                     answer:[ORK1DateAnswerFormat dateTimeAnswerFormatWithDefaultDate:defaultDate minimumDate:minDate  maximumDate:maxDate calendar:[NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian]]];
         [steps addObject:step];
         
     }
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:DatePickingTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:DatePickingTaskIdentifier steps:steps];
     return task;
 }
 
@@ -879,11 +879,11 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 /*
  The selection survey task is just a collection of various styles of survey questions.
  */
-- (ORKLegacyOrderedTask *)makeSelectionSurveyTask {
+- (ORK1OrderedTask *)makeSelectionSurveyTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"iid_001"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"iid_001"];
         step.title = @"Selection Survey";
         [steps addObject:step];
     }
@@ -892,10 +892,10 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A numeric question requiring integer answers in a fixed range, with no default.
          */
-        ORKLegacyNumericAnswerFormat *format = [ORKLegacyNumericAnswerFormat integerAnswerFormatWithUnit:@"years"];
+        ORK1NumericAnswerFormat *format = [ORK1NumericAnswerFormat integerAnswerFormatWithUnit:@"years"];
         format.minimum = @(0);
         format.maximum = @(199);
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_001"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_001"
                                                                       title:@"How old are you?"
                                                                      answer:format];
         [steps addObject:step];
@@ -905,8 +905,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A boolean question.
          */
-        ORKLegacyBooleanAnswerFormat *format = [ORKLegacyBooleanAnswerFormat new];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_001b"
+        ORK1BooleanAnswerFormat *format = [ORK1BooleanAnswerFormat new];
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_001b"
                                                                       title:@"Do you consent to a background check?"
                                                                      answer:format];
         [steps addObject:step];
@@ -916,8 +916,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A custom boolean question.
          */
-        ORKLegacyBooleanAnswerFormat *format = [ORKLegacyAnswerFormat booleanAnswerFormatWithYesString:@"Agree" noString:@"Disagree"];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_001c"
+        ORK1BooleanAnswerFormat *format = [ORK1AnswerFormat booleanAnswerFormatWithYesString:@"Agree" noString:@"Disagree"];
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_001c"
                                                                       title:@"Do you agree to proceed to the background check questions?"
                                                                      answer:format];
         [steps addObject:step];
@@ -927,16 +927,16 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A single-choice question presented in the tableview format.
          */
-        ORKLegacyTextChoiceAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice textChoices:
+        ORK1TextChoiceAnswerFormat *answerFormat = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice textChoices:
                                                    @[
-                                                     [ORKLegacyTextChoice choiceWithText:@"Less than seven"
+                                                     [ORK1TextChoice choiceWithText:@"Less than seven"
                                                                              value:@(7)],
-                                                     [ORKLegacyTextChoice choiceWithText:@"Between seven and eight"
+                                                     [ORK1TextChoice choiceWithText:@"Between seven and eight"
                                                                              value:@(8)],
-                                                     [ORKLegacyTextChoice choiceWithText:@"More than eight"
+                                                     [ORK1TextChoice choiceWithText:@"More than eight"
                                                                              value:@(9)]
                                                      ]];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_003"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_003"
                                                                       title:@"How many hours did you sleep last night?"
                                                                      answer:answerFormat];
         
@@ -948,20 +948,20 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A multiple-choice question presented in the tableview format.
          */
-        ORKLegacyTextChoiceAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleMultipleChoice textChoices:
+        ORK1TextChoiceAnswerFormat *answerFormat = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleMultipleChoice textChoices:
                                                    @[
-                                                     [ORKLegacyTextChoice choiceWithText:@"Cough"
+                                                     [ORK1TextChoice choiceWithText:@"Cough"
                                                                              value:@"cough"],
-                                                     [ORKLegacyTextChoice choiceWithText:@"Fever"
+                                                     [ORK1TextChoice choiceWithText:@"Fever"
                                                                              value:@"fever"],
-                                                     [ORKLegacyTextChoice choiceWithText:@"Headaches"
+                                                     [ORK1TextChoice choiceWithText:@"Headaches"
                                                                              value:@"headache"],
-                                                     [ORKLegacyTextChoice choiceWithText:@"None of the above"
+                                                     [ORK1TextChoice choiceWithText:@"None of the above"
                                                                         detailText:nil
                                                                              value:@"none"
                                                                           exclusive:YES]
                                                      ]];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_004a"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_004a"
                                                                       title:@"Which symptoms do you have?"
                                                                      answer:answerFormat];
         [steps addObject:step];
@@ -971,23 +971,23 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A multiple-choice question with text choices that have detail text.
          */
-        ORKLegacyTextChoiceAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleMultipleChoice textChoices:
+        ORK1TextChoiceAnswerFormat *answerFormat = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleMultipleChoice textChoices:
             @[
-              [ORKLegacyTextChoice choiceWithText:@"Cough"
+              [ORK1TextChoice choiceWithText:@"Cough"
                                  detailText:@"A cough and/or sore throat"
                                       value:@"cough"
                                   exclusive:NO],
-              [ORKLegacyTextChoice choiceWithText:@"Fever"
+              [ORK1TextChoice choiceWithText:@"Fever"
                                  detailText:@"A 100F or higher fever or feeling feverish"
                                       value:@"fever"
                                   exclusive:NO],
-              [ORKLegacyTextChoice choiceWithText:@"Headaches"
+              [ORK1TextChoice choiceWithText:@"Headaches"
                                  detailText:@"Headaches and/or body aches"
                                       value:@"headache"
                                   exclusive:NO]
               ]];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_004"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_004"
                                                                       title:@"Which symptoms do you have?"
                                                                      answer:answerFormat];
         
@@ -998,9 +998,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A text question with the default multiple-line text entry.
          */
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_005"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_005"
                                                                       title:@"How did you feel last night?"
-                                                                     answer:[ORKLegacyAnswerFormat textAnswerFormat]];
+                                                                     answer:[ORK1AnswerFormat textAnswerFormat]];
         [steps addObject:step];
     }
     
@@ -1009,12 +1009,12 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          A text question with single-line text entry, with autocapitalization on
          for words, and autocorrection, and spellchecking turned off.
          */
-        ORKLegacyTextAnswerFormat *format = [ORKLegacyAnswerFormat textAnswerFormat];
+        ORK1TextAnswerFormat *format = [ORK1AnswerFormat textAnswerFormat];
         format.multipleLines = NO;
         format.autocapitalizationType = UITextAutocapitalizationTypeWords;
         format.autocorrectionType = UITextAutocorrectionTypeNo;
         format.spellCheckingType = UITextSpellCheckingTypeNo;
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_005a"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_005a"
                                                                       title:@"What is your name?"
                                                                      answer:format];
         [steps addObject:step];
@@ -1024,9 +1024,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A text question with a length limit.
          */
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_005b"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_005b"
                                                                       title:@"How did you feel last night?"
-                                                                     answer:[ORKLegacyTextAnswerFormat textAnswerFormatWithMaximumLength:20]];
+                                                                     answer:[ORK1TextAnswerFormat textAnswerFormatWithMaximumLength:20]];
         [steps addObject:step];
     }
 
@@ -1034,8 +1034,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          An email question with single-line text entry.
          */
-        ORKLegacyEmailAnswerFormat *format = [ORKLegacyAnswerFormat emailAnswerFormat];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_005c"
+        ORK1EmailAnswerFormat *format = [ORK1AnswerFormat emailAnswerFormat];
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_005c"
                                                                       title:@"What is your email?"
                                                                      answer:format];
         [steps addObject:step];
@@ -1045,10 +1045,10 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A text question demos secureTextEntry feature
          */
-        ORKLegacyTextAnswerFormat *format = [ORKLegacyAnswerFormat textAnswerFormatWithMaximumLength:10];
+        ORK1TextAnswerFormat *format = [ORK1AnswerFormat textAnswerFormatWithMaximumLength:10];
         format.secureTextEntry = YES;
         format.multipleLines = NO;
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_005d"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_005d"
                                                                       title:@"What is your passcode?"
                                                                      answer:format];
         step.placeholder = @"Tap your passcode here";
@@ -1059,9 +1059,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A text question with single-line text entry and a length limit.
          */
-        ORKLegacyTextAnswerFormat *format = [ORKLegacyAnswerFormat textAnswerFormatWithMaximumLength:20];
+        ORK1TextAnswerFormat *format = [ORK1AnswerFormat textAnswerFormatWithMaximumLength:20];
         format.multipleLines = NO;
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_005e"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_005e"
                                                                       title:@"What is your name?"
                                                                      answer:format];
         [steps addObject:step];
@@ -1073,16 +1073,16 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          the user sees them in a picker wheel. This is suitable where the list
          of items can be long, and the text describing the options can be kept short.
          */
-        ORKLegacyValuePickerAnswerFormat *answerFormat = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:
+        ORK1ValuePickerAnswerFormat *answerFormat = [ORK1AnswerFormat valuePickerAnswerFormatWithTextChoices:
                                                     @[
-                                                      [ORKLegacyTextChoice choiceWithText:@"Cough"
+                                                      [ORK1TextChoice choiceWithText:@"Cough"
                                                                               value:@"cough"],
-                                                      [ORKLegacyTextChoice choiceWithText:@"Fever"
+                                                      [ORK1TextChoice choiceWithText:@"Fever"
                                                                               value:@"fever"],
-                                                      [ORKLegacyTextChoice choiceWithText:@"Headaches"
+                                                      [ORK1TextChoice choiceWithText:@"Headaches"
                                                                               value:@"headache"]
                                                       ]];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_081"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_081"
                                                                       title:@"Select a symptom"
                                                                      answer:answerFormat];
         
@@ -1093,29 +1093,29 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A multiple component value-picker question. 
          */
-        ORKLegacyValuePickerAnswerFormat *colorFormat = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:
+        ORK1ValuePickerAnswerFormat *colorFormat = [ORK1AnswerFormat valuePickerAnswerFormatWithTextChoices:
                                                     @[
-                                                      [ORKLegacyTextChoice choiceWithText:@"Red"
+                                                      [ORK1TextChoice choiceWithText:@"Red"
                                                                               value:@"red"],
-                                                      [ORKLegacyTextChoice choiceWithText:@"Blue"
+                                                      [ORK1TextChoice choiceWithText:@"Blue"
                                                                               value:@"blue"],
-                                                      [ORKLegacyTextChoice choiceWithText:@"Green"
+                                                      [ORK1TextChoice choiceWithText:@"Green"
                                                                               value:@"green"]
                                                       ]];
         
-        ORKLegacyValuePickerAnswerFormat *animalFormat = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:
+        ORK1ValuePickerAnswerFormat *animalFormat = [ORK1AnswerFormat valuePickerAnswerFormatWithTextChoices:
                                                    @[
-                                                     [ORKLegacyTextChoice choiceWithText:@"Cat"
+                                                     [ORK1TextChoice choiceWithText:@"Cat"
                                                                              value:@"cat"],
-                                                     [ORKLegacyTextChoice choiceWithText:@"Dog"
+                                                     [ORK1TextChoice choiceWithText:@"Dog"
                                                                              value:@"dog"],
-                                                     [ORKLegacyTextChoice choiceWithText:@"Turtle"
+                                                     [ORK1TextChoice choiceWithText:@"Turtle"
                                                                              value:@"turtle"]
                                                      ]];
         
-        ORKLegacyMultipleValuePickerAnswerFormat *answerFormat = [ORKLegacyAnswerFormat multipleValuePickerAnswerFormatWithValuePickers:
+        ORK1MultipleValuePickerAnswerFormat *answerFormat = [ORK1AnswerFormat multipleValuePickerAnswerFormatWithValuePickers:
                                                             @[colorFormat, animalFormat]];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_multipick"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_multipick"
                                                                       title:@"Select a pet:"
                                                                      answer:answerFormat];
         
@@ -1127,28 +1127,28 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A multiple component value-picker question.
          */
-        ORKLegacyValuePickerAnswerFormat *f1 = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:
+        ORK1ValuePickerAnswerFormat *f1 = [ORK1AnswerFormat valuePickerAnswerFormatWithTextChoices:
                                                    @[
-                                                     [ORKLegacyTextChoice choiceWithText:@"A"
+                                                     [ORK1TextChoice choiceWithText:@"A"
                                                                              value:@"A"],
-                                                     [ORKLegacyTextChoice choiceWithText:@"B"
+                                                     [ORK1TextChoice choiceWithText:@"B"
                                                                              value:@"B"],
-                                                     [ORKLegacyTextChoice choiceWithText:@"C"
+                                                     [ORK1TextChoice choiceWithText:@"C"
                                                                              value:@"C"]
                                                      ]];
         
-        ORKLegacyValuePickerAnswerFormat *f2 = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:
+        ORK1ValuePickerAnswerFormat *f2 = [ORK1AnswerFormat valuePickerAnswerFormatWithTextChoices:
                                                     @[
-                                                      [ORKLegacyTextChoice choiceWithText:@"0"
+                                                      [ORK1TextChoice choiceWithText:@"0"
                                                                               value:@0],
-                                                      [ORKLegacyTextChoice choiceWithText:@"1"
+                                                      [ORK1TextChoice choiceWithText:@"1"
                                                                               value:@1],
-                                                      [ORKLegacyTextChoice choiceWithText:@"2"
+                                                      [ORK1TextChoice choiceWithText:@"2"
                                                                               value:@2]
                                                       ]];
         
-        ORKLegacyMultipleValuePickerAnswerFormat *answerFormat = [[ORKLegacyMultipleValuePickerAnswerFormat alloc] initWithValuePickers:@[f1, f2] separator:@"-"];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_multipick_dash"
+        ORK1MultipleValuePickerAnswerFormat *answerFormat = [[ORK1MultipleValuePickerAnswerFormat alloc] initWithValuePickers:@[f1, f2] separator:@"-"];
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_multipick_dash"
                                                                       title:@"Select a letter and number code:"
                                                                      answer:answerFormat];
         
@@ -1159,9 +1159,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          A continuous slider question.
          */
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_010"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_010"
                                                                       title:@"On a scale of 1 to 10, how much pain do you feel?"
-                                                                     answer:[[ORKLegacyContinuousScaleAnswerFormat alloc] initWithMaximumValue:10 minimumValue:1 defaultValue:NSIntegerMax maximumFractionDigits:1]];
+                                                                     answer:[[ORK1ContinuousScaleAnswerFormat alloc] initWithMaximumValue:10 minimumValue:1 defaultValue:NSIntegerMax maximumFractionDigits:1]];
         [steps addObject:step];
     }
     
@@ -1169,9 +1169,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          The same as the previous question, but now using a discrete slider.
          */
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_010a"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_010a"
                                                                       title:@"On a scale of 1 to 10, how much pain do you feel?"
-                                                                     answer:[ORKLegacyAnswerFormat scaleAnswerFormatWithMaximumValue:10
+                                                                     answer:[ORK1AnswerFormat scaleAnswerFormatWithMaximumValue:10
                                                                                                                   minimumValue:1
                                                                                                                   defaultValue:NSIntegerMax
                                                                                                                           step:1
@@ -1187,9 +1187,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          The default value is read from HealthKit when the step is being presented,
          but the user's answer is not written back to HealthKit.
          */
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"fqid_health_biologicalSex"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"fqid_health_biologicalSex"
                                                                       title:@"What is your gender"
-                                                                     answer:[ORKLegacyHealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex]]];
+                                                                     answer:[ORK1HealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex]]];
         [steps addObject:step];
     }
     
@@ -1199,9 +1199,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          The default value is read from HealthKit when the step is being presented,
          but the user's answer is not written back to HealthKit.
          */
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"fqid_health_bloodType"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"fqid_health_bloodType"
                                                                       title:@"What is your blood type?"
-                                                                     answer:[ORKLegacyHealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType]]];
+                                                                     answer:[ORK1HealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType]]];
         [steps addObject:step];
     }
     
@@ -1211,9 +1211,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          The default value is read from HealthKit when the step is being presented,
          but the user's answer is not written back to HealthKit.
          */
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"fqid_health_dob"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"fqid_health_dob"
                                                                       title:@"What is your date of birth?"
-                                                                     answer:[ORKLegacyHealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth]]];
+                                                                     answer:[ORK1HealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth]]];
         [steps addObject:step];
     }
     
@@ -1223,11 +1223,11 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          The default value is read from HealthKit when the step is being presented,
          but the user's answer is not written back to HealthKit.
          */
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"fqid_health_weight"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"fqid_health_weight"
                                                                       title:@"How much do you weigh?"
-                                                                     answer:[ORKLegacyHealthKitQuantityTypeAnswerFormat answerFormatWithQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
+                                                                     answer:[ORK1HealthKitQuantityTypeAnswerFormat answerFormatWithQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
                                                                                                                                           unit:nil
-                                                                                                                                         style:ORKLegacyNumericAnswerStyleDecimal]];
+                                                                                                                                         style:ORK1NumericAnswerStyleDecimal]];
         [steps addObject:step];
     }
     
@@ -1237,35 +1237,35 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          This question is used for verifying correct layout of the table view
          cells when the content is mixed or very long.
          */
-        ORKLegacyTextChoiceAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleMultipleChoice textChoices:
+        ORK1TextChoiceAnswerFormat *answerFormat = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleMultipleChoice textChoices:
                                                    @[
-                                                     [ORKLegacyTextChoice choiceWithText:@"Cough, A cough and/or sore throat, A cough and/or sore throat"
+                                                     [ORK1TextChoice choiceWithText:@"Cough, A cough and/or sore throat, A cough and/or sore throat"
                                                                         detailText:@"A cough and/or sore throat, A cough and/or sore throat, A cough and/or sore throat"
                                                                              value:@"cough"
                                                                          exclusive:NO],
-                                                     [ORKLegacyTextChoice choiceWithText:@"Fever, A 100F or higher fever or feeling feverish"
+                                                     [ORK1TextChoice choiceWithText:@"Fever, A 100F or higher fever or feeling feverish"
                                                                         detailText:nil
                                                                              value:@"fever"
                                                                          exclusive:NO],
-                                                     [ORKLegacyTextChoice choiceWithText:@""
+                                                     [ORK1TextChoice choiceWithText:@""
                                                                         detailText:@"Headaches, Headaches and/or body aches"
                                                                              value:@"headache"
                                                                          exclusive:NO]
                                                      ]];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"qid_000a"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"qid_000a"
                                                                       title:@"(Misused) Which symptoms do you have?"
                                                                      answer:answerFormat];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyCompletionStep *step = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"completion"];
+        ORK1CompletionStep *step = [[ORK1CompletionStep alloc] initWithIdentifier:@"completion"];
         step.title = @"Survey Complete";
         [steps addObject:step];
     }
 
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:SelectionSurveyTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:SelectionSurveyTaskIdentifier steps:steps];
     return task;
 }
 
@@ -1277,13 +1277,13 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 
 /*
  This task demonstrates direct use of active steps, which is not particularly
- well-supported by the framework. The intended use of `ORKLegacyActiveStep` is as a
+ well-supported by the framework. The intended use of `ORK1ActiveStep` is as a
  base class for creating new types of active step, with matching view
  controllers appropriate to the particular task that uses them.
  
  Nonetheless, this functions as a test-bed for basic active task functonality.
  */
-- (ORKLegacyOrderedTask *)makeActiveStepTask {
+- (ORK1OrderedTask *)makeActiveStepTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     {
@@ -1292,7 +1292,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          The text of this step is not appropriate to the rest of the task, but
          is helpful for verifying layout.
          */
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"iid_001"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"iid_001"];
         step.title = @"Demo Study";
         step.text = @"This 12-step walkthrough will explain the study and the impact it will have on your life.";
         step.detailText = @"You must complete the walkthough to participate in the study.";
@@ -1301,15 +1301,15 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     
     {
         /*
-         Audio-recording active step, configured directly using `ORKLegacyActiveStep`.
+         Audio-recording active step, configured directly using `ORK1ActiveStep`.
          
          Not a recommended way of doing audio recording with the ResearchKit framework.
          */
-        ORKLegacyActiveStep *step = [[ORKLegacyActiveStep alloc] initWithIdentifier:@"aid_001d"];
+        ORK1ActiveStep *step = [[ORK1ActiveStep alloc] initWithIdentifier:@"aid_001d"];
         step.title = @"Audio";
         step.stepDuration = 10.0;
         step.text = @"An active test recording audio";
-        step.recorderConfigurations = @[[[ORKLegacyAudioRecorderConfiguration alloc] initWithIdentifier:@"aid_001d.audio" recorderSettings:@{}]];
+        step.recorderConfigurations = @[[[ORK1AudioRecorderConfiguration alloc] initWithIdentifier:@"aid_001d.audio" recorderSettings:@{}]];
         step.shouldUseNextAsSkipButton = YES;
         [steps addObject:step];
     }
@@ -1317,16 +1317,16 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     {
         /*
          Audio-recording active step with lossless audio, configured directly
-         using `ORKLegacyActiveStep`.
+         using `ORK1ActiveStep`.
          
          Not a recommended way of doing audio recording with the ResearchKit framework.
          */
-        ORKLegacyActiveStep *step = [[ORKLegacyActiveStep alloc] initWithIdentifier:@"aid_001e"];
+        ORK1ActiveStep *step = [[ORK1ActiveStep alloc] initWithIdentifier:@"aid_001e"];
         step.title = @"Audio";
         step.stepDuration = 10.0;
         step.text = @"An active test recording lossless audio";
         step.shouldUseNextAsSkipButton = YES;
-        step.recorderConfigurations = @[[[ORKLegacyAudioRecorderConfiguration alloc]
+        step.recorderConfigurations = @[[[ORK1AudioRecorderConfiguration alloc]
                                          initWithIdentifier:@"aid_001e.audio" recorderSettings:@{AVFormatIDKey : @(kAudioFormatAppleLossless),
                                                                                                  AVNumberOfChannelsKey : @(2),
                                                                                                  AVSampleRateKey: @(44100.0)
@@ -1341,14 +1341,14 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          
          Not a recommended way of collecting touch data with the ResearchKit framework.
          */
-        ORKLegacyActiveStep *step = [[ORKLegacyActiveStep alloc] initWithIdentifier:@"aid_001a"];
+        ORK1ActiveStep *step = [[ORK1ActiveStep alloc] initWithIdentifier:@"aid_001a"];
         step.title = @"Touch";
         step.text = @"An active test, touch collection";
         step.shouldStartTimerAutomatically = NO;
         step.stepDuration = 30.0;
         step.spokenInstruction = @"An active test, touch collection";
         step.shouldUseNextAsSkipButton = YES;
-        step.recorderConfigurations = @[[[ORKLegacyTouchRecorderConfiguration alloc] initWithIdentifier:@"aid_001a.touch"]];
+        step.recorderConfigurations = @[[[ORK1TouchRecorderConfiguration alloc] initWithIdentifier:@"aid_001a.touch"]];
         [steps addObject:step];
     }
         
@@ -1358,15 +1358,15 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          
          Not a recommended way of customizing active steps with the ResearchKit framework.
          */
-        ORKLegacyActiveStep *step = [[ORKLegacyActiveStep alloc] initWithIdentifier:@"aid_001c"];
+        ORK1ActiveStep *step = [[ORK1ActiveStep alloc] initWithIdentifier:@"aid_001c"];
         step.title = @"Motion";
         step.text = @"An active test collecting device motion data";
         step.shouldUseNextAsSkipButton = YES;
-        step.recorderConfigurations = @[[[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"aid_001c.deviceMotion" frequency:100.0]];
+        step.recorderConfigurations = @[[[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"aid_001c.deviceMotion" frequency:100.0]];
         [steps addObject:step];
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:ActiveStepTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:ActiveStepTaskIdentifier steps:steps];
     return task;
 }
 
@@ -1383,15 +1383,15 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  In a real consent process, you would substitute the text of your consent document
  for the various placeholders.
  */
-- (ORKLegacyOrderedTask *)makeConsentReviewTask {
+- (ORK1OrderedTask *)makeConsentReviewTask {
     /*
      Tests layout of the consent sharing step.
      
      This step is used when you want to obtain permission to share the data
      collected with other researchers for uses beyond the present study.
      */
-    ORKLegacyConsentSharingStep *sharingStep =
-    [[ORKLegacyConsentSharingStep alloc] initWithIdentifier:@"consent_sharing"
+    ORK1ConsentSharingStep *sharingStep =
+    [[ORK1ConsentSharingStep alloc] initWithIdentifier:@"consent_sharing"
                          investigatorShortDescription:@"MyInstitution"
                           investigatorLongDescription:@"MyInstitution and its partners"
                         localizedLearnMoreHTMLContent:@"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."];
@@ -1402,14 +1402,14 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
      In the consent review step, the user reviews the consent document and
      optionally enters their name and/or scribbles a signature.
      */
-    ORKLegacyConsentDocument *doc = [self buildConsentDocument];
-    ORKLegacyConsentSignature *participantSig = doc.signatures[0];
+    ORK1ConsentDocument *doc = [self buildConsentDocument];
+    ORK1ConsentSignature *participantSig = doc.signatures[0];
     [participantSig setSignatureDateFormatString:@"yyyy-MM-dd 'at' HH:mm"];
     _currentDocument = [doc copy];
-    ORKLegacyConsentReviewStep *reviewStep = [[ORKLegacyConsentReviewStep alloc] initWithIdentifier:@"consent_review" signature:participantSig inDocument:doc];
+    ORK1ConsentReviewStep *reviewStep = [[ORK1ConsentReviewStep alloc] initWithIdentifier:@"consent_review" signature:participantSig inDocument:doc];
     reviewStep.text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
     reviewStep.reasonForConsent = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:ConsentReviewTaskIdentifier steps:@[sharingStep,reviewStep]];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:ConsentReviewTaskIdentifier steps:@[sharingStep,reviewStep]];
     return task;
 }
 
@@ -1424,21 +1424,21 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  In a real consent process, you would substitute the text of your consent document
  for the various placeholders.
  */
-- (ORKLegacyOrderedTask *)makeConsentTask {
+- (ORK1OrderedTask *)makeConsentTask {
     /*
      Most of the configuration of what pages will appear in the visual consent step,
      and what content will be displayed in the consent review step, it in the
      consent document itself.
      */
-    ORKLegacyConsentDocument *consentDocument = [self buildConsentDocument];
+    ORK1ConsentDocument *consentDocument = [self buildConsentDocument];
     _currentDocument = [consentDocument copy];
     
-    ORKLegacyVisualConsentStep *step = [[ORKLegacyVisualConsentStep alloc] initWithIdentifier:@"visual_consent" document:consentDocument];
-    ORKLegacyConsentReviewStep *reviewStep = [[ORKLegacyConsentReviewStep alloc] initWithIdentifier:@"consent_review" signature:consentDocument.signatures[0] inDocument:consentDocument];
+    ORK1VisualConsentStep *step = [[ORK1VisualConsentStep alloc] initWithIdentifier:@"visual_consent" document:consentDocument];
+    ORK1ConsentReviewStep *reviewStep = [[ORK1ConsentReviewStep alloc] initWithIdentifier:@"consent_review" signature:consentDocument.signatures[0] inDocument:consentDocument];
     reviewStep.text = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
     reviewStep.reasonForConsent = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:ConsentTaskIdentifier steps:@[step, reviewStep]];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:ConsentTaskIdentifier steps:@[step, reviewStep]];
     
     return task;
 }
@@ -1449,19 +1449,19 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 
 #pragma mark - Eligibility form task
 /*
- The eligibility form task is used to demonstrate an eligibility form (`ORKLegacyFormStep`, `ORKLegacyFormItem`).
+ The eligibility form task is used to demonstrate an eligibility form (`ORK1FormStep`, `ORK1FormItem`).
  */
-- (id<ORKLegacyTask>)makeEligibilityFormTask {
+- (id<ORK1Task>)makeEligibilityFormTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"intro_step"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"intro_step"];
         step.title = @"Eligibility Form";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:@"form_step"];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:@"form_step"];
         step.optional = NO;
         step.title = @"Eligibility Form";
         step.text = @"Please answer the questions below.";
@@ -1471,37 +1471,37 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         
         {
             
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"form_item_1"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"form_item_1"
                                                                    text:@"Are you over 18 years of age?"
-                                                           answerFormat:[ORKLegacyAnswerFormat booleanAnswerFormat]];
+                                                           answerFormat:[ORK1AnswerFormat booleanAnswerFormat]];
             item.optional = NO;
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"form_item_2"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"form_item_2"
                                                                    text:@"Have you been diagnosed with pre-diabetes or type 2 diabetes?"
-                                                           answerFormat:[ORKLegacyAnswerFormat booleanAnswerFormat]];
+                                                           answerFormat:[ORK1AnswerFormat booleanAnswerFormat]];
             item.optional = NO;
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"form_item_3"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"form_item_3"
                                                                    text:@"Can you not read and understand English in order to provide informed consent and follow the instructions?"
-                                                           answerFormat:[ORKLegacyAnswerFormat booleanAnswerFormat]];
+                                                           answerFormat:[ORK1AnswerFormat booleanAnswerFormat]];
             item.optional = NO;
             [items addObject:item];
         }
         
         {
-            NSArray *textChoices = @[[ORKLegacyTextChoice choiceWithText:@"Yes" value:@1],
-                                     [ORKLegacyTextChoice choiceWithText:@"No" value:@0],
-                                     [ORKLegacyTextChoice choiceWithText:@"N/A" value:@2]];
-            ORKLegacyTextChoiceAnswerFormat *answerFormat = (ORKLegacyTextChoiceAnswerFormat *)[ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice
+            NSArray *textChoices = @[[ORK1TextChoice choiceWithText:@"Yes" value:@1],
+                                     [ORK1TextChoice choiceWithText:@"No" value:@0],
+                                     [ORK1TextChoice choiceWithText:@"N/A" value:@2]];
+            ORK1TextChoiceAnswerFormat *answerFormat = (ORK1TextChoiceAnswerFormat *)[ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice
                                                                                                                     textChoices:textChoices];
             
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"form_item_4"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"form_item_4"
                                                                    text:@"Are you pregnant?"
                                                            answerFormat:answerFormat];
             item.optional = NO;
@@ -1512,46 +1512,46 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"ineligible_step"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"ineligible_step"];
         step.title = @"You are ineligible to join the study.";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyCompletionStep *step = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"eligible_step"];
+        ORK1CompletionStep *step = [[ORK1CompletionStep alloc] initWithIdentifier:@"eligible_step"];
         step.title = @"You are eligible to join the study.";
         [steps addObject:step];
     }
     
-    ORKLegacyNavigableOrderedTask *task = [[ORKLegacyNavigableOrderedTask alloc] initWithIdentifier:EligibilityFormTaskIdentifier steps:steps];
+    ORK1NavigableOrderedTask *task = [[ORK1NavigableOrderedTask alloc] initWithIdentifier:EligibilityFormTaskIdentifier steps:steps];
     
     // Build navigation rules.
-    ORKLegacyPredicateStepNavigationRule *predicateRule = nil;
-    ORKLegacyResultSelector *resultSelector = nil;
+    ORK1PredicateStepNavigationRule *predicateRule = nil;
+    ORK1ResultSelector *resultSelector = nil;
     
-    resultSelector = [ORKLegacyResultSelector selectorWithStepIdentifier:@"form_step" resultIdentifier:@"form_item_1"];
-    NSPredicate *predicateFormItem1 = [ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector expectedAnswer:YES];
+    resultSelector = [ORK1ResultSelector selectorWithStepIdentifier:@"form_step" resultIdentifier:@"form_item_1"];
+    NSPredicate *predicateFormItem1 = [ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector expectedAnswer:YES];
 
-    resultSelector = [ORKLegacyResultSelector selectorWithStepIdentifier:@"form_step" resultIdentifier:@"form_item_2"];
-    NSPredicate *predicateFormItem2 = [ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector expectedAnswer:YES];
+    resultSelector = [ORK1ResultSelector selectorWithStepIdentifier:@"form_step" resultIdentifier:@"form_item_2"];
+    NSPredicate *predicateFormItem2 = [ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector expectedAnswer:YES];
     
-    resultSelector = [ORKLegacyResultSelector selectorWithStepIdentifier:@"form_step" resultIdentifier:@"form_item_3"];
-    NSPredicate *predicateFormItem3 = [ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector expectedAnswer:NO];
+    resultSelector = [ORK1ResultSelector selectorWithStepIdentifier:@"form_step" resultIdentifier:@"form_item_3"];
+    NSPredicate *predicateFormItem3 = [ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector expectedAnswer:NO];
     
-    resultSelector = [ORKLegacyResultSelector selectorWithStepIdentifier:@"form_step" resultIdentifier:@"form_item_4"];
-    NSPredicate *predicateFormItem4a = [ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValue:@0];
-    NSPredicate *predicateFormItem4b = [ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValue:@2];
+    resultSelector = [ORK1ResultSelector selectorWithStepIdentifier:@"form_step" resultIdentifier:@"form_item_4"];
+    NSPredicate *predicateFormItem4a = [ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValue:@0];
+    NSPredicate *predicateFormItem4b = [ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValue:@2];
     
     NSPredicate *predicateEligible1 = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicateFormItem1,predicateFormItem2, predicateFormItem3, predicateFormItem4a]];
     NSPredicate *predicateEligible2 = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicateFormItem1,predicateFormItem2, predicateFormItem3, predicateFormItem4b]];
     
-    predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateEligible1, predicateEligible2]
+    predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateEligible1, predicateEligible2]
                                                           destinationStepIdentifiers:@[@"eligible_step", @"eligible_step"]];
     [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"form_step"];
     
     // Add end direct rules to skip unneeded steps
-    ORKLegacyDirectStepNavigationRule *directRule = nil;
-    directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORKLegacyNullStepIdentifier];
+    ORK1DirectStepNavigationRule *directRule = nil;
+    directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORK1NullStepIdentifier];
     [task setNavigationRule:directRule forTriggerStepIdentifier:@"ineligible_step"];
 
     return task;
@@ -1565,48 +1565,48 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 /*
  The eligibility survey task is used to demonstrate an eligibility survey.
  */
-- (id<ORKLegacyTask>)makeEligibilitySurveyTask {
+- (id<ORK1Task>)makeEligibilitySurveyTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"intro_step"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"intro_step"];
         step.title = @"Eligibility Survey";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"question_01"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"question_01"
                                                                       title:@"Are you over 18 years of age?"
-                                                                     answer:[ORKLegacyAnswerFormat booleanAnswerFormat]];
+                                                                     answer:[ORK1AnswerFormat booleanAnswerFormat]];
         step.optional = NO;
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"ineligible_step"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"ineligible_step"];
         step.title = @"You are ineligible to join the study.";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyCompletionStep *step = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"eligible_step"];
+        ORK1CompletionStep *step = [[ORK1CompletionStep alloc] initWithIdentifier:@"eligible_step"];
         step.title = @"You are eligible to join the study.";
         [steps addObject:step];
     }
     
-    ORKLegacyNavigableOrderedTask *task = [[ORKLegacyNavigableOrderedTask alloc] initWithIdentifier:EligibilitySurveyTaskIdentifier steps:steps];
+    ORK1NavigableOrderedTask *task = [[ORK1NavigableOrderedTask alloc] initWithIdentifier:EligibilitySurveyTaskIdentifier steps:steps];
 
     // Build navigation rules.
-    ORKLegacyResultSelector *resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"question_01"];
-    NSPredicate *predicateQuestion = [ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector expectedAnswer:YES];
+    ORK1ResultSelector *resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"question_01"];
+    NSPredicate *predicateQuestion = [ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector expectedAnswer:YES];
 
-    ORKLegacyPredicateStepNavigationRule *predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
+    ORK1PredicateStepNavigationRule *predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
                                                                                           destinationStepIdentifiers:@[@"eligible_step"]];
     [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"question_01"];
     
     // Add end direct rules to skip unneeded steps
-    ORKLegacyDirectStepNavigationRule *directRule = nil;
-    directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORKLegacyNullStepIdentifier];
+    ORK1DirectStepNavigationRule *directRule = nil;
+    directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORK1NullStepIdentifier];
     [task setNavigationRule:directRule forTriggerStepIdentifier:@"ineligible_step"];
     
     return task;
@@ -1621,18 +1621,18 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  The login task is used to demonstrate a login step.
  */
 
-- (id<ORKLegacyTask>)makeLoginTask {
+- (id<ORK1Task>)makeLoginTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     {
-        ORKLegacyLoginStep *step = [[ORKLegacyLoginStep alloc] initWithIdentifier:@"login_step"
+        ORK1LoginStep *step = [[ORK1LoginStep alloc] initWithIdentifier:@"login_step"
                                                                 title:@"Login"
                                                                  text:@"Enter your credentials"
                                              loginViewControllerClass:[LoginViewController class]];
         [steps addObject:step];
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:LoginTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:LoginTaskIdentifier steps:steps];
     return task;
 }
 
@@ -1644,22 +1644,22 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 /*
  The registration task is used to demonstrate a registration step.
  */
-- (id<ORKLegacyTask>)makeRegistrationTask {
+- (id<ORK1Task>)makeRegistrationTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     {
-        ORKLegacyRegistrationStepOption options = (ORKLegacyRegistrationStepIncludeFamilyName |
-                                             ORKLegacyRegistrationStepIncludeGivenName |
-                                             ORKLegacyRegistrationStepIncludeDOB |
-                                             ORKLegacyRegistrationStepIncludeGender);
-        ORKLegacyRegistrationStep *step = [[ORKLegacyRegistrationStep alloc] initWithIdentifier:@"registration_step"
+        ORK1RegistrationStepOption options = (ORK1RegistrationStepIncludeFamilyName |
+                                             ORK1RegistrationStepIncludeGivenName |
+                                             ORK1RegistrationStepIncludeDOB |
+                                             ORK1RegistrationStepIncludeGender);
+        ORK1RegistrationStep *step = [[ORK1RegistrationStep alloc] initWithIdentifier:@"registration_step"
                                                                               title:@"Registration"
                                                                                text:@"Fill out the form below"
                                                                             options:options];
         [steps addObject:step];
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:RegistrationTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:RegistrationTaskIdentifier steps:steps];
     return task;
 }
 
@@ -1672,16 +1672,16 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 /*
  The verification task is used to demonstrate a verification step.
  */
-- (id<ORKLegacyTask>)makeVerificationTask {
+- (id<ORK1Task>)makeVerificationTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     {
-        ORKLegacyVerificationStep *step = [[ORKLegacyVerificationStep alloc] initWithIdentifier:@"verification_step" text:@"Check your email and click on the link to verify your email address and start using the app."
+        ORK1VerificationStep *step = [[ORK1VerificationStep alloc] initWithIdentifier:@"verification_step" text:@"Check your email and click on the link to verify your email address and start using the app."
                                                     verificationViewControllerClass:[VerificationViewController class]];
         [steps addObject:step];
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:VerificationTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:VerificationTaskIdentifier steps:steps];
     return task;
 }
 
@@ -1692,13 +1692,13 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 #pragma mark - Mini form task
 
 /*
- The mini form task is used to test survey forms functionality (`ORKLegacyFormStep`).
+ The mini form task is used to test survey forms functionality (`ORK1FormStep`).
  */
-- (id<ORKLegacyTask>)makeMiniFormTask {
+- (id<ORK1Task>)makeMiniFormTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"mini_form_001"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"mini_form_001"];
         step.title = @"Mini Form";
         [steps addObject:step];
     }
@@ -1708,47 +1708,47 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          A short form for testing behavior when loading multiple HealthKit
          default values on the same form.
          */
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:@"fid_000" title:@"Mini Form" text:@"Mini form groups multi-entry in one page"];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:@"fid_000" title:@"Mini Form" text:@"Mini form groups multi-entry in one page"];
         NSMutableArray *items = [NSMutableArray new];
         [steps addObject:step];
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_health_weight1"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_health_weight1"
                                                                  text:@"Weight"
                                                          answerFormat:
-                                [ORKLegacyHealthKitQuantityTypeAnswerFormat answerFormatWithQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
+                                [ORK1HealthKitQuantityTypeAnswerFormat answerFormatWithQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
                                                                                              unit:[HKUnit unitFromMassFormatterUnit:NSMassFormatterUnitPound]
-                                                                                            style:ORKLegacyNumericAnswerStyleDecimal]];
+                                                                                            style:ORK1NumericAnswerStyleDecimal]];
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_health_weight2"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_health_weight2"
                                                                  text:@"Weight"
                                                          answerFormat:
-                                [ORKLegacyHealthKitQuantityTypeAnswerFormat answerFormatWithQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
+                                [ORK1HealthKitQuantityTypeAnswerFormat answerFormatWithQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
                                                                                              unit:[HKUnit unitFromMassFormatterUnit:NSMassFormatterUnitPound]
-                                                                                            style:ORKLegacyNumericAnswerStyleDecimal]];
+                                                                                            style:ORK1NumericAnswerStyleDecimal]];
             item.placeholder = @"Add weight";
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_health_weight3"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_health_weight3"
                                                                    text:@"Weight"
                                                            answerFormat:
-                                 [ORKLegacyHealthKitQuantityTypeAnswerFormat answerFormatWithQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
+                                 [ORK1HealthKitQuantityTypeAnswerFormat answerFormatWithQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
                                                                                                unit:[HKUnit unitFromMassFormatterUnit:NSMassFormatterUnitPound]
-                                                                                              style:ORKLegacyNumericAnswerStyleDecimal]];
+                                                                                              style:ORK1NumericAnswerStyleDecimal]];
             item.placeholder = @"Input your body weight here. Really long text.";
             [items addObject:item];
         }
         
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_health_weight4"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_health_weight4"
                                                                    text:@"Weight"
-                                                           answerFormat:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
+                                                           answerFormat:[ORK1NumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
             item.placeholder = @"Input your body weight here";
             [items addObject:item];
         }
@@ -1761,87 +1761,87 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          A long "kitchen-sink" form with all the different types of supported
          answer formats.
          */
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:@"fid_001" title:@"Mini Form" text:@"Mini form groups multi-entry in one page"];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:@"fid_001" title:@"Mini Form" text:@"Mini form groups multi-entry in one page"];
         NSMutableArray *items = [NSMutableArray new];
         
         {
             
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_health_biologicalSex" text:@"Gender" answerFormat:[ORKLegacyHealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex]]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_health_biologicalSex" text:@"Gender" answerFormat:[ORK1HealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex]]];
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithSectionTitle:@"Pre1"];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithSectionTitle:@"Pre1"];
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithSectionTitle:@"Basic Information"];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithSectionTitle:@"Basic Information"];
             [items addObject:item];
         }
         
         {
             
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_health_bloodType" text:@"Blood Type" answerFormat:[ORKLegacyHealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType]]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_health_bloodType" text:@"Blood Type" answerFormat:[ORK1HealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType]]];
             item.placeholder = @"Choose a type";
             [items addObject:item];
         }
         
         {
             
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_health_dob" text:@"Date of Birth" answerFormat:[ORKLegacyHealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth]]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_health_dob" text:@"Date of Birth" answerFormat:[ORK1HealthKitCharacteristicTypeAnswerFormat answerFormatWithCharacteristicType:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierDateOfBirth]]];
             item.placeholder = @"DOB";
             [items addObject:item];
         }
         
         {
             
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_health_weight"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_health_weight"
                                                                  text:@"Weight"
                                                          answerFormat:
-                                [ORKLegacyHealthKitQuantityTypeAnswerFormat answerFormatWithQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
+                                [ORK1HealthKitQuantityTypeAnswerFormat answerFormatWithQuantityType:[HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]
                                                                                     unit:nil
-                                                                                   style:ORKLegacyNumericAnswerStyleDecimal]];
+                                                                                   style:ORK1NumericAnswerStyleDecimal]];
             item.placeholder = @"Add weight";
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_001" text:@"Have headache?" answerFormat:[ORKLegacyBooleanAnswerFormat new]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_001" text:@"Have headache?" answerFormat:[ORK1BooleanAnswerFormat new]];
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_002" text:@"Which fruit do you like most? Please pick one from below."
-                                                         answerFormat:[ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice textChoices:@[@"Apple", @"Orange", @"Banana"]
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_002" text:@"Which fruit do you like most? Please pick one from below."
+                                                         answerFormat:[ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice textChoices:@[@"Apple", @"Orange", @"Banana"]
                                                                                                               ]];
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_003" text:@"Message"
-                                                         answerFormat:[ORKLegacyAnswerFormat textAnswerFormat]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_003" text:@"Message"
+                                                         answerFormat:[ORK1AnswerFormat textAnswerFormat]];
             item.placeholder = @"Your message";
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_004a" text:@"BP Diastolic"
-                                                         answerFormat:[ORKLegacyAnswerFormat integerAnswerFormatWithUnit:@"mm Hg"]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_004a" text:@"BP Diastolic"
+                                                         answerFormat:[ORK1AnswerFormat integerAnswerFormatWithUnit:@"mm Hg"]];
             item.placeholder = @"Enter value";
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_004b" text:@"BP Systolic"
-                                                         answerFormat:[ORKLegacyAnswerFormat integerAnswerFormatWithUnit:@"mm Hg"]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_004b" text:@"BP Systolic"
+                                                         answerFormat:[ORK1AnswerFormat integerAnswerFormatWithUnit:@"mm Hg"]];
             item.placeholder = @"Enter value";
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_005" text:@"Email"
-                                                           answerFormat:[ORKLegacyAnswerFormat emailAnswerFormat]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_005" text:@"Email"
+                                                           answerFormat:[ORK1AnswerFormat emailAnswerFormat]];
             item.placeholder = @"Enter Email";
             [items addObject:item];
         }
@@ -1851,7 +1851,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
             [NSRegularExpression regularExpressionWithPattern:@"^(https?:\\/\\/)?([\\da-z\\.-]+)\\.([a-z\\.]{2,6})([\\/\\w \\.-]*)*\\/?$"
                                                       options:(NSRegularExpressionOptions)0
                                                         error:nil];
-            ORKLegacyTextAnswerFormat *format = [ORKLegacyAnswerFormat textAnswerFormatWithValidationRegularExpression:validationRegularExpression
+            ORK1TextAnswerFormat *format = [ORK1AnswerFormat textAnswerFormatWithValidationRegularExpression:validationRegularExpression
                                                                                             invalidMessage:@"Invalid URL: %@"];
             format.multipleLines = NO;
             format.keyboardType = UIKeyboardTypeURL;
@@ -1859,76 +1859,76 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
             format.autocorrectionType = UITextAutocorrectionTypeNo;
             format.spellCheckingType = UITextSpellCheckingTypeNo;
             
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_006" text:@"URL"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_006" text:@"URL"
                                                            answerFormat:format];
             item.placeholder = @"Enter URL";
             [items addObject:item];
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_007" text:@"Message"
-                                                           answerFormat:[ORKLegacyAnswerFormat textAnswerFormatWithMaximumLength:20]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_007" text:@"Message"
+                                                           answerFormat:[ORK1AnswerFormat textAnswerFormatWithMaximumLength:20]];
             item.placeholder = @"Your message (limit 20 characters).";
             [items addObject:item];
         }
         
         {
-            ORKLegacyTextAnswerFormat *format = [ORKLegacyAnswerFormat textAnswerFormatWithMaximumLength:12];
+            ORK1TextAnswerFormat *format = [ORK1AnswerFormat textAnswerFormatWithMaximumLength:12];
             format.secureTextEntry = YES;
             format.multipleLines = NO;
             
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_008" text:@"Passcode"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_008" text:@"Passcode"
                                                            answerFormat:format];
             item.placeholder = @"Enter Passcode";
             [items addObject:item];
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_height_001" text:@"Height"
-                                                           answerFormat:[ORKLegacyAnswerFormat heightAnswerFormat]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_height_001" text:@"Height"
+                                                           answerFormat:[ORK1AnswerFormat heightAnswerFormat]];
             item.placeholder = @"Pick a height (local system)";
             [items addObject:item];
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_height_002" text:@"Height"
-                                                           answerFormat:[ORKLegacyAnswerFormat heightAnswerFormatWithMeasurementSystem:ORKLegacyMeasurementSystemMetric]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_height_002" text:@"Height"
+                                                           answerFormat:[ORK1AnswerFormat heightAnswerFormatWithMeasurementSystem:ORK1MeasurementSystemMetric]];
             item.placeholder = @"Pick a height (metric system)";
             [items addObject:item];
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_height_003" text:@"Height"
-                                                           answerFormat:[ORKLegacyAnswerFormat heightAnswerFormatWithMeasurementSystem:ORKLegacyMeasurementSystemUSC]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_height_003" text:@"Height"
+                                                           answerFormat:[ORK1AnswerFormat heightAnswerFormatWithMeasurementSystem:ORK1MeasurementSystemUSC]];
             item.placeholder = @"Pick a height (imperial system)";
             [items addObject:item];
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_weight_001" text:@"Weight"
-                                                           answerFormat:[ORKLegacyAnswerFormat weightAnswerFormat]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_weight_001" text:@"Weight"
+                                                           answerFormat:[ORK1AnswerFormat weightAnswerFormat]];
             item.placeholder = @"Pick a weight (local system)";
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_weight_002" text:@"Weight"
-                                                           answerFormat:[ORKLegacyAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKLegacyMeasurementSystemMetric]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_weight_002" text:@"Weight"
+                                                           answerFormat:[ORK1AnswerFormat weightAnswerFormatWithMeasurementSystem:ORK1MeasurementSystemMetric]];
             item.placeholder = @"Pick a weight (metric system)";
             [items addObject:item];
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_weight_003" text:@"Weight"
-                                                           answerFormat:[ORKLegacyAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKLegacyMeasurementSystemUSC]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_weight_003" text:@"Weight"
+                                                           answerFormat:[ORK1AnswerFormat weightAnswerFormatWithMeasurementSystem:ORK1MeasurementSystemUSC]];
             item.placeholder = @"Pick a weight (USC system)";
             [items addObject:item];
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_weight_004" text:@"Weight"
-                                                           answerFormat:[ORKLegacyAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKLegacyMeasurementSystemMetric
-                                                                                                                numericPrecision:ORKLegacyNumericPrecisionLow
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_weight_004" text:@"Weight"
+                                                           answerFormat:[ORK1AnswerFormat weightAnswerFormatWithMeasurementSystem:ORK1MeasurementSystemMetric
+                                                                                                                numericPrecision:ORK1NumericPrecisionLow
                                                                                                                     minimumValue:10
                                                                                                                     maximumValue:20
                                                                                                                     defaultValue:11.5]];
@@ -1937,9 +1937,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_weight_005" text:@"Weight"
-                                                           answerFormat:[ORKLegacyAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKLegacyMeasurementSystemUSC
-                                                                                                                numericPrecision:ORKLegacyNumericPrecisionLow
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_weight_005" text:@"Weight"
+                                                           answerFormat:[ORK1AnswerFormat weightAnswerFormatWithMeasurementSystem:ORK1MeasurementSystemUSC
+                                                                                                                numericPrecision:ORK1NumericPrecisionLow
                                                                                                                     minimumValue:10
                                                                                                                     maximumValue:20
                                                                                                                     defaultValue:11.5]];
@@ -1948,9 +1948,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_weight_006" text:@"Weight"
-                                                           answerFormat:[ORKLegacyAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKLegacyMeasurementSystemMetric
-                                                                                                                numericPrecision:ORKLegacyNumericPrecisionHigh
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_weight_006" text:@"Weight"
+                                                           answerFormat:[ORK1AnswerFormat weightAnswerFormatWithMeasurementSystem:ORK1MeasurementSystemMetric
+                                                                                                                numericPrecision:ORK1NumericPrecisionHigh
                                                                                                                     minimumValue:10
                                                                                                                     maximumValue:20
                                                                                                                     defaultValue:11.5]];
@@ -1959,9 +1959,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_weight_007" text:@"Weight"
-                                                           answerFormat:[ORKLegacyAnswerFormat weightAnswerFormatWithMeasurementSystem:ORKLegacyMeasurementSystemUSC
-                                                                                                                numericPrecision:ORKLegacyNumericPrecisionHigh
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_weight_007" text:@"Weight"
+                                                           answerFormat:[ORK1AnswerFormat weightAnswerFormatWithMeasurementSystem:ORK1MeasurementSystemUSC
+                                                                                                                numericPrecision:ORK1NumericPrecisionHigh
                                                                                                                     minimumValue:10
                                                                                                                     maximumValue:20
                                                                                                                     defaultValue:11.5]];
@@ -1970,8 +1970,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_date_001" text:@"Birthdate"
-                                                         answerFormat:[ORKLegacyAnswerFormat dateAnswerFormat]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_date_001" text:@"Birthdate"
+                                                         answerFormat:[ORK1AnswerFormat dateAnswerFormat]];
             item.placeholder = @"Pick a date";
             [items addObject:item];
         }
@@ -1980,8 +1980,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
             NSDate *defaultDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:-30 toDate:[NSDate date] options:(NSCalendarOptions)0];
             NSDate *minDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitYear value:-150 toDate:[NSDate date] options:(NSCalendarOptions)0];
 
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_date_002" text:@"Birthdate"
-                                                         answerFormat:[ORKLegacyAnswerFormat dateAnswerFormatWithDefaultDate:defaultDate
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_date_002" text:@"Birthdate"
+                                                         answerFormat:[ORK1AnswerFormat dateAnswerFormatWithDefaultDate:defaultDate
                                                                                                         minimumDate:minDate
                                                                                                         maximumDate:[NSDate date]
                                                                                                            calendar:nil]];
@@ -1990,8 +1990,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_timeOfDay_001" text:@"Today sunset time?"
-                                                         answerFormat:[ORKLegacyAnswerFormat timeOfDayAnswerFormat]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_timeOfDay_001" text:@"Today sunset time?"
+                                                         answerFormat:[ORK1AnswerFormat timeOfDayAnswerFormat]];
             item.placeholder = @"No default time";
             [items addObject:item];
         }
@@ -2000,15 +2000,15 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
             NSDateComponents *defaultDC = [[NSDateComponents alloc] init];
             defaultDC.hour = 14;
             defaultDC.minute = 23;
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_timeOfDay_002" text:@"Today sunset time?"
-                                                         answerFormat:[ORKLegacyAnswerFormat timeOfDayAnswerFormatWithDefaultComponents:defaultDC]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_timeOfDay_002" text:@"Today sunset time?"
+                                                         answerFormat:[ORK1AnswerFormat timeOfDayAnswerFormatWithDefaultComponents:defaultDC]];
             item.placeholder = @"Default time 14:23";
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_dateTime_001" text:@"Next eclipse visible in Cupertino?"
-                                                         answerFormat:[ORKLegacyAnswerFormat dateTimeAnswerFormat]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_dateTime_001" text:@"Next eclipse visible in Cupertino?"
+                                                         answerFormat:[ORK1AnswerFormat dateTimeAnswerFormat]];
             
             item.placeholder = @"No default date and range";
             [items addObject:item];
@@ -2019,8 +2019,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
             NSDate *defaultDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:3 toDate:[NSDate date] options:(NSCalendarOptions)0];
             NSDate *minDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:0 toDate:[NSDate date] options:(NSCalendarOptions)0];
             NSDate *maxDate = [[NSCalendar currentCalendar] dateByAddingUnit:NSCalendarUnitDay value:10 toDate:[NSDate date] options:(NSCalendarOptions)0];
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_dateTime_002" text:@"Next eclipse visible in Cupertino?"
-                                                         answerFormat:[ORKLegacyAnswerFormat dateTimeAnswerFormatWithDefaultDate:defaultDate
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_dateTime_002" text:@"Next eclipse visible in Cupertino?"
+                                                         answerFormat:[ORK1AnswerFormat dateTimeAnswerFormatWithDefaultDate:defaultDate
                                                                                                             minimumDate:minDate
                                                                                                             maximumDate:maxDate
                                                                                                                calendar:nil]];
@@ -2030,15 +2030,15 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_timeInterval_001" text:@"Wake up interval"
-                                                           answerFormat:[ORKLegacyAnswerFormat timeIntervalAnswerFormat]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_timeInterval_001" text:@"Wake up interval"
+                                                           answerFormat:[ORK1AnswerFormat timeIntervalAnswerFormat]];
             item.placeholder = @"No default Interval and step size";
             [items addObject:item];
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_timeInterval_002" text:@"Wake up interval"
-                                                           answerFormat:[ORKLegacyAnswerFormat timeIntervalAnswerFormatWithDefaultInterval:300 step:3]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_timeInterval_002" text:@"Wake up interval"
+                                                           answerFormat:[ORK1AnswerFormat timeIntervalAnswerFormatWithDefaultInterval:300 step:3]];
             
             item.placeholder = @"Default Interval 300 and step size 3";
             [items addObject:item];
@@ -2051,90 +2051,90 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
              In a real application, you would use real images rather than square
              colored boxes.
              */
-            ORKLegacyImageChoice *option1 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor redColor] size:CGSizeMake(360, 360) border:NO]
+            ORK1ImageChoice *option1 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor redColor] size:CGSizeMake(360, 360) border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor redColor] size:CGSizeMake(360, 360) border:YES]
                                                                        text:@"Red" value:@"red"];
-            ORKLegacyImageChoice *option2 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor orangeColor] size:CGSizeMake(360, 360) border:NO]
+            ORK1ImageChoice *option2 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor orangeColor] size:CGSizeMake(360, 360) border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor orangeColor] size:CGSizeMake(360, 360) border:YES]
                                                                        text:nil value:@"orange"];
-            ORKLegacyImageChoice *option3 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor yellowColor] size:CGSizeMake(360, 360) border:NO]
+            ORK1ImageChoice *option3 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor yellowColor] size:CGSizeMake(360, 360) border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor yellowColor] size:CGSizeMake(360, 360) border:YES]
                                                                        text:@"Yellow" value:@"yellow"];
             
-            ORKLegacyFormItem *item3 = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_009_3" text:@"What is your favorite color?"
-                                                          answerFormat:[ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2, option3]]];
+            ORK1FormItem *item3 = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_009_3" text:@"What is your favorite color?"
+                                                          answerFormat:[ORK1AnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2, option3]]];
             [items addObject:item3];
         }
         
         {
             // Discrete scale
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_scale_001" text:@"Pick an integer" answerFormat:[[ORKLegacyScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:NSIntegerMax step:10]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_scale_001" text:@"Pick an integer" answerFormat:[[ORK1ScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:NSIntegerMax step:10]];
             [items addObject:item];
         }
         
         {
             // Discrete scale, with default value
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_scale_002" text:@"Pick an integer" answerFormat:[[ORKLegacyScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:20 step:10]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_scale_002" text:@"Pick an integer" answerFormat:[[ORK1ScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:20 step:10]];
             [items addObject:item];
         }
         
         {
             // Continuous scale
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_scale_003" text:@"Pick a decimal" answerFormat:[[ORKLegacyContinuousScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:NSIntegerMax maximumFractionDigits:2]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_scale_003" text:@"Pick a decimal" answerFormat:[[ORK1ContinuousScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:NSIntegerMax maximumFractionDigits:2]];
             [items addObject:item];
         }
         
         {
             // Continuous scale, with default value
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_scale_004" text:@"Pick a decimal" answerFormat:[[ORKLegacyContinuousScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:87.34 maximumFractionDigits:2]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_scale_004" text:@"Pick a decimal" answerFormat:[[ORK1ContinuousScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:87.34 maximumFractionDigits:2]];
             [items addObject:item];
         }
         
         {
             // Vertical Discrete scale, with default value
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_scale_005" text:@"Pick an integer" answerFormat:[[ORKLegacyScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:90 step:10 vertical:YES]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_scale_005" text:@"Pick an integer" answerFormat:[[ORK1ScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:90 step:10 vertical:YES]];
             [items addObject:item];
         }
         
         {
             // Vertical Continuous scale, with default value
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_scale_006" text:@"Pick a decimal" answerFormat:[[ORKLegacyContinuousScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:12.75 maximumFractionDigits:2 vertical:YES]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_scale_006" text:@"Pick a decimal" answerFormat:[[ORK1ContinuousScaleAnswerFormat alloc] initWithMaximumValue: 100 minimumValue: 0 defaultValue:12.75 maximumFractionDigits:2 vertical:YES]];
             [items addObject:item];
         }
         
         {
-            ORKLegacyTextChoice *textChoice1 = [ORKLegacyTextChoice choiceWithText:@"Poor" value:@(1)];
-            ORKLegacyTextChoice *textChoice2 = [ORKLegacyTextChoice choiceWithText:@"Fair" value:@(2)];
-            ORKLegacyTextChoice *textChoice3 = [ORKLegacyTextChoice choiceWithText:@"Good" value:@(3)];
-            ORKLegacyTextChoice *textChoice4 = [ORKLegacyTextChoice choiceWithText:@"Above Average" value:@(4)];
-            ORKLegacyTextChoice *textChoice5 = [ORKLegacyTextChoice choiceWithText:@"Excellent" value:@(5)];
+            ORK1TextChoice *textChoice1 = [ORK1TextChoice choiceWithText:@"Poor" value:@(1)];
+            ORK1TextChoice *textChoice2 = [ORK1TextChoice choiceWithText:@"Fair" value:@(2)];
+            ORK1TextChoice *textChoice3 = [ORK1TextChoice choiceWithText:@"Good" value:@(3)];
+            ORK1TextChoice *textChoice4 = [ORK1TextChoice choiceWithText:@"Above Average" value:@(4)];
+            ORK1TextChoice *textChoice5 = [ORK1TextChoice choiceWithText:@"Excellent" value:@(5)];
             
             NSArray *textChoices = @[textChoice1, textChoice2, textChoice3, textChoice4, textChoice5];
             
-            ORKLegacyTextScaleAnswerFormat *scaleAnswerFormat = [ORKLegacyAnswerFormat textScaleAnswerFormatWithTextChoices:textChoices
+            ORK1TextScaleAnswerFormat *scaleAnswerFormat = [ORK1AnswerFormat textScaleAnswerFormatWithTextChoices:textChoices
                                                                                                    defaultIndex:NSIntegerMax
                                                                                                        vertical:NO];
             
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_scale_007"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_scale_007"
                                                                    text:@"How are you feeling today?"
                                                            answerFormat:scaleAnswerFormat];
             [items addObject:item];
         }
         
         {
-            ORKLegacyTextChoice *textChoice1 = [ORKLegacyTextChoice choiceWithText:@"Poor" value:@(1)];
-            ORKLegacyTextChoice *textChoice2 = [ORKLegacyTextChoice choiceWithText:@"Fair" value:@(2)];
-            ORKLegacyTextChoice *textChoice3 = [ORKLegacyTextChoice choiceWithText:@"Good" value:@(3)];
-            ORKLegacyTextChoice *textChoice4 = [ORKLegacyTextChoice choiceWithText:@"Above Average" value:@(4)];
-            ORKLegacyTextChoice *textChoice5 = [ORKLegacyTextChoice choiceWithText:@"Excellent" value:@(5)];
+            ORK1TextChoice *textChoice1 = [ORK1TextChoice choiceWithText:@"Poor" value:@(1)];
+            ORK1TextChoice *textChoice2 = [ORK1TextChoice choiceWithText:@"Fair" value:@(2)];
+            ORK1TextChoice *textChoice3 = [ORK1TextChoice choiceWithText:@"Good" value:@(3)];
+            ORK1TextChoice *textChoice4 = [ORK1TextChoice choiceWithText:@"Above Average" value:@(4)];
+            ORK1TextChoice *textChoice5 = [ORK1TextChoice choiceWithText:@"Excellent" value:@(5)];
             
             NSArray *textChoices = @[textChoice1, textChoice2, textChoice3, textChoice4, textChoice5];
             
-            ORKLegacyTextScaleAnswerFormat *scaleAnswerFormat = [ORKLegacyAnswerFormat textScaleAnswerFormatWithTextChoices:textChoices
+            ORK1TextScaleAnswerFormat *scaleAnswerFormat = [ORK1AnswerFormat textScaleAnswerFormatWithTextChoices:textChoices
                                                                                                    defaultIndex:NSIntegerMax
                                                                                                        vertical:YES];
             
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_scale_008"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_scale_008"
                                                                    text:@"How are you feeling today?"
                                                            answerFormat:scaleAnswerFormat];
             [items addObject:item];
@@ -2142,7 +2142,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         
         {
             //Location
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fiqd_location" text:@"Pick a location" answerFormat:[ORKLegacyAnswerFormat locationAnswerFormat]];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fiqd_location" text:@"Pick a location" answerFormat:[ORK1AnswerFormat locationAnswerFormat]];
             [items addObject:item];
         }
         
@@ -2152,10 +2152,10 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 
     {
         
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:@"fid_002" title:@"Required form step" text:nil];
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_001"
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:@"fid_002" title:@"Required form step" text:nil];
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_001"
                                                                text:@"Value"
-                                                       answerFormat:[ORKLegacyNumericAnswerFormat valuePickerAnswerFormatWithTextChoices:@[@"1", @"2", @"3"]]];
+                                                       answerFormat:[ORK1NumericAnswerFormat valuePickerAnswerFormatWithTextChoices:@[@"1", @"2", @"3"]]];
         item.placeholder = @"Pick a value";
         [step setFormItems:@[item]];
         step.optional = NO;
@@ -2163,12 +2163,12 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"aid_001"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"aid_001"];
         step.title = @"Thanks";
         [steps addObject:step];
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:MiniFormTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:MiniFormTaskIdentifier steps:steps];
     
     return task;
 }
@@ -2180,20 +2180,20 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 #pragma mark - Mini form task
 
 /*
- The optional form task is used to test form items' optional functionality (`ORKLegacyFormStep`, `ORKLegacyFormItem`).
+ The optional form task is used to test form items' optional functionality (`ORK1FormStep`, `ORK1FormItem`).
  */
-- (id<ORKLegacyTask>)makeOptionalFormTask {
+- (id<ORK1Task>)makeOptionalFormTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     {
         {
-            ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:@"scale_form_00" title:@"Optional Form Items" text:@"Optional form with a required scale item with a default value"];
+            ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:@"scale_form_00" title:@"Optional Form Items" text:@"Optional form with a required scale item with a default value"];
             NSMutableArray *items = [NSMutableArray new];
             [steps addObject:step];
             
             {
-                ORKLegacyScaleAnswerFormat *format = [ORKLegacyScaleAnswerFormat scaleAnswerFormatWithMaximumValue:10 minimumValue:1 defaultValue:4 step:1 vertical:YES maximumValueDescription:nil minimumValueDescription:nil];
-                ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"scale_form"
+                ORK1ScaleAnswerFormat *format = [ORK1ScaleAnswerFormat scaleAnswerFormatWithMaximumValue:10 minimumValue:1 defaultValue:4 step:1 vertical:YES maximumValueDescription:nil minimumValueDescription:nil];
+                ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"scale_form"
                                                                        text:@"Optional scale"
                                                                answerFormat:format];
                 item.optional = NO;
@@ -2204,19 +2204,19 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
 
         
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:@"fid_000" title:@"Optional Form Items" text:@"Optional form with no required items"];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:@"fid_000" title:@"Optional Form Items" text:@"Optional form with no required items"];
         NSMutableArray *items = [NSMutableArray new];
         [steps addObject:step];
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithSectionTitle:@"Optional"];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithSectionTitle:@"Optional"];
             [items addObject:item];
         }
 
         {
-            ORKLegacyTextAnswerFormat *format = [ORKLegacyAnswerFormat textAnswerFormatWithMaximumLength:12];
+            ORK1TextAnswerFormat *format = [ORK1AnswerFormat textAnswerFormatWithMaximumLength:12];
             format.multipleLines = NO;
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text3"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text3"
                                                                    text:@"Text"
                                                            answerFormat:format];
             item.placeholder = @"Input any text here.";
@@ -2224,9 +2224,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text4"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text4"
                                                                    text:@"Number"
-                                                           answerFormat:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
+                                                           answerFormat:[ORK1NumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
             item.placeholder = @"Input any number here.";
             [items addObject:item];
         }
@@ -2235,19 +2235,19 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:@"fid_001" title:@"Optional Form Items" text:@"Optional form with some required items"];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:@"fid_001" title:@"Optional Form Items" text:@"Optional form with some required items"];
         NSMutableArray *items = [NSMutableArray new];
         [steps addObject:step];
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithSectionTitle:@"Optional"];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithSectionTitle:@"Optional"];
             [items addObject:item];
         }
 
-        ORKLegacyTextAnswerFormat *format = [ORKLegacyAnswerFormat textAnswerFormatWithMaximumLength:12];
+        ORK1TextAnswerFormat *format = [ORK1AnswerFormat textAnswerFormatWithMaximumLength:12];
         format.multipleLines = NO;
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text1"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text1"
                                                                    text:@"Text A"
                                                            answerFormat:format];
             item.placeholder = @"Input any text here.";
@@ -2255,7 +2255,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text2"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text2"
                                                                    text:@"Text B"
                                                            answerFormat:format];
             item.placeholder = @"Input any text here.";
@@ -2263,12 +2263,12 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithSectionTitle:@"Required"];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithSectionTitle:@"Required"];
             [items addObject:item];
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text3"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text3"
                                                                    text:@"Text C"
                                                            answerFormat:format
                                                                optional:NO];
@@ -2277,9 +2277,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text4"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text4"
                                                                    text:@"Number"
-                                                           answerFormat:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:nil]
+                                                           answerFormat:[ORK1NumericAnswerFormat decimalAnswerFormatWithUnit:nil]
                                                                optional:NO];
             item.placeholder = @"Input any number here.";
             [items addObject:item];
@@ -2289,19 +2289,19 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
 
     {
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:@"fid_002" title:@"Optional Form Items" text:@"Optional form with all items required"];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:@"fid_002" title:@"Optional Form Items" text:@"Optional form with all items required"];
         NSMutableArray *items = [NSMutableArray new];
         [steps addObject:step];
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithSectionTitle:@"Required"];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithSectionTitle:@"Required"];
             [items addObject:item];
         }
 
-        ORKLegacyTextAnswerFormat *format = [ORKLegacyAnswerFormat textAnswerFormatWithMaximumLength:12];
+        ORK1TextAnswerFormat *format = [ORK1AnswerFormat textAnswerFormatWithMaximumLength:12];
         format.multipleLines = NO;
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text1"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text1"
                                                                    text:@"Text A"
                                                            answerFormat:format
                                                                optional:NO];
@@ -2310,7 +2310,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text2"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text2"
                                                                    text:@"Text B"
                                                            answerFormat:format
                                                                optional:NO];
@@ -2319,7 +2319,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text3"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text3"
                                                                    text:@"Text C"
                                                            answerFormat:format
                                                                optional:NO];
@@ -2328,9 +2328,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text4"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text4"
                                                                    text:@"Number"
-                                                           answerFormat:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:nil]
+                                                           answerFormat:[ORK1NumericAnswerFormat decimalAnswerFormatWithUnit:nil]
                                                                optional:NO];
             item.placeholder = @"Input any number here.";
             [items addObject:item];
@@ -2340,19 +2340,19 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
 
     {
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:@"fid_003" title:@"Optional Form Items" text:@"Required form with no required items"];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:@"fid_003" title:@"Optional Form Items" text:@"Required form with no required items"];
         NSMutableArray *items = [NSMutableArray new];
         [steps addObject:step];
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithSectionTitle:@"Optional"];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithSectionTitle:@"Optional"];
             [items addObject:item];
         }
 
         {
-            ORKLegacyTextAnswerFormat *format = [ORKLegacyAnswerFormat textAnswerFormatWithMaximumLength:6];
+            ORK1TextAnswerFormat *format = [ORK1AnswerFormat textAnswerFormatWithMaximumLength:6];
             format.multipleLines = NO;
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text3"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text3"
                                                                    text:@"Text"
                                                            answerFormat:format];
             item.placeholder = @"Input any text here.";
@@ -2360,9 +2360,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text4"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text4"
                                                                    text:@"Number"
-                                                           answerFormat:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
+                                                           answerFormat:[ORK1NumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
             item.placeholder = @"Input any number here.";
             [items addObject:item];
         }
@@ -2372,19 +2372,19 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:@"fid_004" title:@"Optional Form Items" text:@"Required form with some required items"];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:@"fid_004" title:@"Optional Form Items" text:@"Required form with some required items"];
         NSMutableArray *items = [NSMutableArray new];
         [steps addObject:step];
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithSectionTitle:@"Optional"];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithSectionTitle:@"Optional"];
             [items addObject:item];
         }
 
-        ORKLegacyTextAnswerFormat *format = [ORKLegacyAnswerFormat textAnswerFormatWithMaximumLength:12];
+        ORK1TextAnswerFormat *format = [ORK1AnswerFormat textAnswerFormatWithMaximumLength:12];
         format.multipleLines = NO;
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text1"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text1"
                                                                    text:@"Text A"
                                                            answerFormat:format];
             item.placeholder = @"Input your text here.";
@@ -2392,7 +2392,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text2"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text2"
                                                                    text:@"Text B"
                                                            answerFormat:format];
             item.placeholder = @"Input your text here.";
@@ -2400,12 +2400,12 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithSectionTitle:@"Required"];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithSectionTitle:@"Required"];
             [items addObject:item];
         }
 
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text3"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text3"
                                                                    text:@"Text C"
                                                            answerFormat:format];
             item.optional = NO;
@@ -2414,9 +2414,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text4"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text4"
                                                                    text:@"Number"
-                                                           answerFormat:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
+                                                           answerFormat:[ORK1NumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
             item.optional = NO;
             item.placeholder = @"Input any number here.";
             [items addObject:item];
@@ -2427,19 +2427,19 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
 
     {
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:@"fid_005" title:@"Optional Form Items" text:@"Required form with all items required"];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:@"fid_005" title:@"Optional Form Items" text:@"Required form with all items required"];
         NSMutableArray *items = [NSMutableArray new];
         [steps addObject:step];
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithSectionTitle:@"Required"];
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithSectionTitle:@"Required"];
             [items addObject:item];
         }
 
-        ORKLegacyTextAnswerFormat *format = [ORKLegacyAnswerFormat textAnswerFormatWithMaximumLength:12];
+        ORK1TextAnswerFormat *format = [ORK1AnswerFormat textAnswerFormatWithMaximumLength:12];
         format.multipleLines = NO;
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text1"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text1"
                                                                    text:@"Text A"
                                                            answerFormat:format];
             item.optional = NO;
@@ -2448,7 +2448,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text2"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text2"
                                                                    text:@"Text B"
                                                            answerFormat:format];
             item.optional = NO;
@@ -2457,7 +2457,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text3"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text3"
                                                                    text:@"Text C"
                                                            answerFormat:format];
             item.optional = NO;
@@ -2466,9 +2466,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         }
         
         {
-            ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"fqid_text4"
+            ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"fqid_text4"
                                                                    text:@"Number"
-                                                           answerFormat:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
+                                                           answerFormat:[ORK1NumericAnswerFormat decimalAnswerFormatWithUnit:nil]];
             item.optional = NO;
             item.placeholder = @"Input any number here.";
             [items addObject:item];
@@ -2478,7 +2478,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         step.optional = NO;
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:MiniFormTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:MiniFormTaskIdentifier steps:steps];
     
     return task;
 }
@@ -2491,157 +2491,157 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 /*
  This is intended to test the predicate functions and APIs
  */
-- (id<ORKLegacyTask>)makePredicateTestsTask {
+- (id<ORK1Task>)makePredicateTestsTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"intro_step"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"intro_step"];
         step.title = @"Predicate Tests";
         [steps addObject:step];
     }
     
     // Test Expected Boolean value
     {
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"question_01"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"question_01"
                                                                       title:@"Pass the Boolean question?"
-                                                                     answer:[ORKLegacyAnswerFormat booleanAnswerFormat]];
+                                                                     answer:[ORK1AnswerFormat booleanAnswerFormat]];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_01_fail"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_01_fail"];
         step.title = @"You failed the Boolean question.";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_01_pass"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_01_pass"];
         step.title = @"You passed the Boolean question.";
         [steps addObject:step];
     }
     
     // Test expected Single Choice
     {
-        ORKLegacyAnswerFormat *answer = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice textChoices:[NSArray arrayWithObjects:@"Choose Yes", @"Choose No", nil]];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"question_02"
+        ORK1AnswerFormat *answer = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice textChoices:[NSArray arrayWithObjects:@"Choose Yes", @"Choose No", nil]];
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"question_02"
                                                                       title:@"Pass the single choice question?"
                                                                      answer:answer];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_02_fail"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_02_fail"];
         step.title = @"You failed the single choice question.";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_02_pass"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_02_pass"];
         step.title = @"You passed the single choice question.";
         [steps addObject:step];
     }
     
     //  Test expected multiple choices
     {
-        ORKLegacyAnswerFormat *answer = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleMultipleChoice textChoices:[NSArray arrayWithObjects:@"Cat", @"Dog", @"Rock", nil]];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"question_03"
+        ORK1AnswerFormat *answer = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleMultipleChoice textChoices:[NSArray arrayWithObjects:@"Cat", @"Dog", @"Rock", nil]];
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"question_03"
                                                                       title:@"Select all the animals"
                                                                      answer:answer];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_03_fail"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_03_fail"];
         step.title = @"You failed the multiple choice animals question.";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_03_pass"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_03_pass"];
         step.title = @"You passed the multiple choice animals question.";
         [steps addObject:step];
     }
 
     //  Test expected multiple choices
     {
-        ORKLegacyAnswerFormat *answer = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice textChoices:[NSArray arrayWithObjects:@"Cat", @"Catheter", @"Cathedral", @"Dog", nil]];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"question_04"
+        ORK1AnswerFormat *answer = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice textChoices:[NSArray arrayWithObjects:@"Cat", @"Catheter", @"Cathedral", @"Dog", nil]];
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"question_04"
                                                                       title:@"Choose any word containing the word 'Cat'"
                                                                      answer:answer];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_04_fail"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_04_fail"];
         step.title = @"You failed the 'Cat' pattern match question.";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_04_pass"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_04_pass"];
         step.title = @"You passed the 'Cat' pattern match question.";
         [steps addObject:step];
     }
 
     //  Test expected text
     {
-        ORKLegacyAnswerFormat *answer = [ORKLegacyAnswerFormat textAnswerFormat];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"question_05"
+        ORK1AnswerFormat *answer = [ORK1AnswerFormat textAnswerFormat];
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"question_05"
                                                                       title:@"Write the word 'Dog'"
                                                                      answer:answer];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_05_fail"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_05_fail"];
         step.title = @"You didn't write 'Dog'.";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_05_pass"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_05_pass"];
         step.title = @"You wrote 'Dog'.";
         [steps addObject:step];
     }
     
     //  Test matching text
     {
-        ORKLegacyAnswerFormat *answer = [ORKLegacyAnswerFormat textAnswerFormat];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"question_06"
+        ORK1AnswerFormat *answer = [ORK1AnswerFormat textAnswerFormat];
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"question_06"
                                                                       title:@"Write a word matching '*og'"
                                                                      answer:answer];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_06_fail"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_06_fail"];
         step.title = @"You didn't write a word matching '*og'.";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_06_pass"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_06_pass"];
         step.title = @"You wrote a word matching '*og'.";
         [steps addObject:step];
     }
     
     //  Numeric test - any number over 10
     {
-        ORKLegacyAnswerFormat *answer = [ORKLegacyAnswerFormat integerAnswerFormatWithUnit:nil];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"question_07"
+        ORK1AnswerFormat *answer = [ORK1AnswerFormat integerAnswerFormatWithUnit:nil];
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"question_07"
                                                                       title:@"Enter a number over 10"
                                                                      answer:answer];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_07_fail"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_07_fail"];
         step.title = @"Your number was less then 10.";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_07_pass"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_07_pass"];
         step.title = @"Your number was over 10.";
         [steps addObject:step];
     }
@@ -2650,7 +2650,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Vertical continuous scale with three decimal places and a default.
          */
-        ORKLegacyContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
+        ORK1ContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
                                                                                                              minimumValue:1
                                                                                                              defaultValue:8.725
                                                                                                     maximumFractionDigits:3
@@ -2658,168 +2658,168 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                                                   maximumValueDescription:nil
                                                                                                   minimumValueDescription:nil];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"question_08"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"question_08"
                                                                       title:@"Choose a value under 5"
                                                                      answer:scaleAnswerFormat];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_08_fail"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_08_fail"];
         step.title = @"Your number was more than 5.";
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"question_08_pass"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"question_08_pass"];
         step.title = @"Your number was less than 5.";
         [steps addObject:step];
     }
 
 
     {
-        ORKLegacyCompletionStep *step = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"all_passed"];
+        ORK1CompletionStep *step = [[ORK1CompletionStep alloc] initWithIdentifier:@"all_passed"];
         step.title = @"All validation tests now completed.";
         [steps addObject:step];
     }
     
-    ORKLegacyNavigableOrderedTask *task = [[ORKLegacyNavigableOrderedTask alloc] initWithIdentifier:EligibilitySurveyTaskIdentifier steps:steps];
+    ORK1NavigableOrderedTask *task = [[ORK1NavigableOrderedTask alloc] initWithIdentifier:EligibilitySurveyTaskIdentifier steps:steps];
     
     // Build navigation rules.
     {
         // If we answer 'Yes' to Question 1, then proceed to the pass screen
-        ORKLegacyResultSelector *resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"question_01"];
-        NSPredicate *predicateQuestion = [ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector expectedAnswer:YES];
+        ORK1ResultSelector *resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"question_01"];
+        NSPredicate *predicateQuestion = [ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector expectedAnswer:YES];
     
-        ORKLegacyPredicateStepNavigationRule *predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
+        ORK1PredicateStepNavigationRule *predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
                                                                                           destinationStepIdentifiers:@[@"question_01_pass"]];
         [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"question_01"];
     }
     
     {
         // If we arrived at question_01_fail then fall through to question 2
-        ORKLegacyDirectStepNavigationRule *directRule = nil;
-        directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_02"];
+        ORK1DirectStepNavigationRule *directRule = nil;
+        directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_02"];
         [task setNavigationRule:directRule forTriggerStepIdentifier:@"question_01_fail"];
     }
     
     {
         // If we answer 'Yes' to Question 2, then proceed to the pass screen
-        ORKLegacyResultSelector *resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"question_02"];
-        NSPredicate *predicateQuestion = [ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValue:@"Choose Yes"];
+        ORK1ResultSelector *resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"question_02"];
+        NSPredicate *predicateQuestion = [ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValue:@"Choose Yes"];
     
-        ORKLegacyPredicateStepNavigationRule *predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
+        ORK1PredicateStepNavigationRule *predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
                                                                                           destinationStepIdentifiers:@[@"question_02_pass"]];
         [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"question_02"];
     }
     
     {
         // If we arrived at question_02_fail then fall through to question 3
-        ORKLegacyDirectStepNavigationRule *directRule = nil;
-        directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_03"];
+        ORK1DirectStepNavigationRule *directRule = nil;
+        directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_03"];
         [task setNavigationRule:directRule forTriggerStepIdentifier:@"question_02_fail"];
     }
     
     {
         // If we answer 'Yes' to Question 3, then proceed to the pass screen
-        ORKLegacyResultSelector *resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"question_03"];
-        NSPredicate *predicateQuestion = [ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValues:[NSArray arrayWithObjects: @"Cat",@"Dog", nil]];
+        ORK1ResultSelector *resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"question_03"];
+        NSPredicate *predicateQuestion = [ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValues:[NSArray arrayWithObjects: @"Cat",@"Dog", nil]];
         
-        ORKLegacyPredicateStepNavigationRule *predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
+        ORK1PredicateStepNavigationRule *predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
                                                                                               destinationStepIdentifiers:@[@"question_03_pass"]];
         [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"question_03"];
     }
     
     {
         // If we arrived at question_03_fail then fall through to question 4
-        ORKLegacyDirectStepNavigationRule *directRule = nil;
-        directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_04"];
+        ORK1DirectStepNavigationRule *directRule = nil;
+        directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_04"];
         [task setNavigationRule:directRule forTriggerStepIdentifier:@"question_03_fail"];
     }
     
     {
         // If we answer 'Yes' to Question 4, then proceed to the pass screen
-        ORKLegacyResultSelector *resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"question_04"];
-        NSPredicate *predicateQuestion = [ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector matchingPattern:@"Cat.*"];
+        ORK1ResultSelector *resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"question_04"];
+        NSPredicate *predicateQuestion = [ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector matchingPattern:@"Cat.*"];
         
-        ORKLegacyPredicateStepNavigationRule *predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
+        ORK1PredicateStepNavigationRule *predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
                                                                                               destinationStepIdentifiers:@[@"question_04_pass"]];
         [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"question_04"];
     }
     
     {
         // If we arrived at question_04_fail then fall through to question 5
-        ORKLegacyDirectStepNavigationRule *directRule = nil;
-        directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_05"];
+        ORK1DirectStepNavigationRule *directRule = nil;
+        directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_05"];
         [task setNavigationRule:directRule forTriggerStepIdentifier:@"question_04_fail"];
     }
     
     {
         // If we answer 'Dog' to Question 5, then proceed to the pass screen
-        ORKLegacyResultSelector *resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"question_05"];
-        NSPredicate *predicateQuestion = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector expectedString:@"Dog"];
+        ORK1ResultSelector *resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"question_05"];
+        NSPredicate *predicateQuestion = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector expectedString:@"Dog"];
         
-        ORKLegacyPredicateStepNavigationRule *predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
+        ORK1PredicateStepNavigationRule *predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
                                                                                               destinationStepIdentifiers:@[@"question_05_pass"]];
         [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"question_05"];
     }
     
     {
         // If we arrived at question_05_fail then fall through to question 6
-        ORKLegacyDirectStepNavigationRule *directRule = nil;
-        directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_06"];
+        ORK1DirectStepNavigationRule *directRule = nil;
+        directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_06"];
         [task setNavigationRule:directRule forTriggerStepIdentifier:@"question_05_fail"];
     }
     
     
     {
         // If we answer '*og' to Question 6, then proceed to the pass screen
-        ORKLegacyResultSelector *resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"question_06"];
-        NSPredicate *predicateQuestion = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector matchingPattern:@".*og"];
+        ORK1ResultSelector *resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"question_06"];
+        NSPredicate *predicateQuestion = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector matchingPattern:@".*og"];
         
-        ORKLegacyPredicateStepNavigationRule *predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
+        ORK1PredicateStepNavigationRule *predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
                                                                                               destinationStepIdentifiers:@[@"question_06_pass"]];
         [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"question_06"];
     }
     
     {
         // If we arrived at question_06_fail then fall through to question 7
-        ORKLegacyDirectStepNavigationRule *directRule = nil;
-        directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_07"];
+        ORK1DirectStepNavigationRule *directRule = nil;
+        directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_07"];
         [task setNavigationRule:directRule forTriggerStepIdentifier:@"question_06_fail"];
     }
     
     {
         // If we answer '*og' to Question 7, then proceed to the pass screen
-        ORKLegacyResultSelector *resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"question_07"];
-        NSPredicate *predicateQuestion = [ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector minimumExpectedAnswerValue:10];
+        ORK1ResultSelector *resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"question_07"];
+        NSPredicate *predicateQuestion = [ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector minimumExpectedAnswerValue:10];
         
-        ORKLegacyPredicateStepNavigationRule *predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
+        ORK1PredicateStepNavigationRule *predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
                                                                                               destinationStepIdentifiers:@[@"question_07_pass"]];
         [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"question_07"];
     }
     
     {
         // If we arrived at question_05_fail then fall through to question 6
-        ORKLegacyDirectStepNavigationRule *directRule = nil;
-        directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_08"];
+        ORK1DirectStepNavigationRule *directRule = nil;
+        directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"question_08"];
         [task setNavigationRule:directRule forTriggerStepIdentifier:@"question_07_fail"];
     }
     
     {
         // If we answer '*og' to Question 7, then proceed to the pass screen
-        ORKLegacyResultSelector *resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"question_08"];
-        NSPredicate *predicateQuestion = [ORKLegacyResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector maximumExpectedAnswerValue:5];
+        ORK1ResultSelector *resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"question_08"];
+        NSPredicate *predicateQuestion = [ORK1ResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector maximumExpectedAnswerValue:5];
         
-        ORKLegacyPredicateStepNavigationRule *predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
+        ORK1PredicateStepNavigationRule *predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[predicateQuestion]
                                                                                               destinationStepIdentifiers:@[@"question_08_pass"]];
         [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"question_08"];
     }
     
     {
         // If we arrived at question_05_fail then fall through to question 6
-        ORKLegacyDirectStepNavigationRule *directRule = nil;
-        directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"all_passed"];
+        ORK1DirectStepNavigationRule *directRule = nil;
+        directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"all_passed"];
         [task setNavigationRule:directRule forTriggerStepIdentifier:@"question_08_fail"];
     }
 
@@ -2915,33 +2915,33 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  See the implementation of the task view controller delegate methods for specific
  handling of this task.
  */
-- (id<ORKLegacyTask>)makeInterruptibleTask {
+- (id<ORK1Task>)makeInterruptibleTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     {
-        ORKLegacyNumericAnswerFormat *format = [ORKLegacyNumericAnswerFormat integerAnswerFormatWithUnit:@"years"];
+        ORK1NumericAnswerFormat *format = [ORK1NumericAnswerFormat integerAnswerFormatWithUnit:@"years"];
         format.minimum = @(5);
         format.maximum = @(90);
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"itid_001"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"itid_001"
                                                                       title:@"How old are you?"
                                                                      answer:format];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"itid_002"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"itid_002"
                                                                       title:@"How much did you pay for your car?"
-                                                                     answer:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:@"USD"]];
+                                                                     answer:[ORK1NumericAnswerFormat decimalAnswerFormatWithUnit:@"USD"]];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"itid_003"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"itid_003"];
         step.title = @"Thank you for completing this task.";
         [steps addObject:step];
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:InterruptibleTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:InterruptibleTaskIdentifier steps:steps];
     return task;
 }
 
@@ -2954,7 +2954,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 /*
  This task is used to test various uses of discrete and continuous, horizontal and vertical valued sliders.
  */
-- (id<ORKLegacyTask>)makeScalesTask {
+- (id<ORK1Task>)makeScalesTask {
 
     NSMutableArray *steps = [NSMutableArray array];
     
@@ -2962,7 +2962,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Continuous scale with two decimal places.
          */
-        ORKLegacyContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
+        ORK1ContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
                                                                                                              minimumValue:1
                                                                                                              defaultValue:NSIntegerMax
                                                                                                     maximumFractionDigits:2
@@ -2970,7 +2970,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                                                   maximumValueDescription:nil
                                                                                                   minimumValueDescription:nil];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_01"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_01"
                                                                     title:@"On a scale of 1 to 10, how much pain do you feel?"
                                                                    answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -2980,7 +2980,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Discrete scale, no default.
          */
-        ORKLegacyScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat scaleAnswerFormatWithMaximumValue:300
+        ORK1ScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat scaleAnswerFormatWithMaximumValue:300
                                                                                          minimumValue:100
                                                                                          defaultValue:NSIntegerMax
                                                                                                  step:50
@@ -2988,7 +2988,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                               maximumValueDescription:nil
                                                                               minimumValueDescription:nil];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_02"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_02"
                                                                     title:@"How much money do you need?"
                                                                    answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -2998,7 +2998,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Discrete scale, with a default.
          */
-        ORKLegacyScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat scaleAnswerFormatWithMaximumValue:10
+        ORK1ScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat scaleAnswerFormatWithMaximumValue:10
                                                                                          minimumValue:1
                                                                                          defaultValue:5
                                                                                                  step:1
@@ -3006,7 +3006,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                               maximumValueDescription:nil
                                                                               minimumValueDescription:nil];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_03"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_03"
                                                                     title:@"On a scale of 1 to 10, how much pain do you feel?"
                                                                    answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -3016,7 +3016,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Discrete scale, with a default that is not on a step boundary.
          */
-        ORKLegacyScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat scaleAnswerFormatWithMaximumValue:300
+        ORK1ScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat scaleAnswerFormatWithMaximumValue:300
                                                                                          minimumValue:100
                                                                                          defaultValue:174
                                                                                                  step:50
@@ -3024,7 +3024,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                               maximumValueDescription:nil
                                                                               minimumValueDescription:nil];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_04"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_04"
                                                                     title:@"How much money do you need?"
                                                                    answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -3034,7 +3034,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Vertical continuous scale with three decimal places and a default.
          */
-        ORKLegacyContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
+        ORK1ContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
                                                                                                              minimumValue:1
                                                                                                              defaultValue:8.725
                                                                                                     maximumFractionDigits:3
@@ -3042,7 +3042,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                                                   maximumValueDescription:nil
                                                                                                   minimumValueDescription:nil];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_05"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_05"
                                                                       title:@"On a scale of 1 to 10, what is your mood?"
                                                                      answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -3052,7 +3052,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Vertical discrete scale, with a default on a step boundary.
          */
-        ORKLegacyScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat scaleAnswerFormatWithMaximumValue:10
+        ORK1ScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat scaleAnswerFormatWithMaximumValue:10
                                                                                          minimumValue:1
                                                                                          defaultValue:5
                                                                                                  step:1
@@ -3060,7 +3060,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                               maximumValueDescription:nil
                                                                               minimumValueDescription:nil];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_06"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_06"
                                                                       title:@"How was your mood yesterday?"
                                                                      answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -3070,7 +3070,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Vertical discrete scale, with min and max labels.
          */
-        ORKLegacyScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat scaleAnswerFormatWithMaximumValue:10
+        ORK1ScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat scaleAnswerFormatWithMaximumValue:10
                                                                                          minimumValue:1
                                                                                          defaultValue:NSIntegerMax
                                                                                                  step:1
@@ -3078,7 +3078,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                               maximumValueDescription:@"A lot"
                                                                               minimumValueDescription:@"Not at all"];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_07"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_07"
                                                                       title:@"On a scale of 1 to 10, what is your mood?"
                                                                      answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -3088,7 +3088,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Vertical continuous scale, with min and max labels.
          */
-        ORKLegacyContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
+        ORK1ContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
                                                                                                              minimumValue:1
                                                                                                              defaultValue:99
                                                                                                     maximumFractionDigits:2
@@ -3096,7 +3096,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                                                   maximumValueDescription:@"High value"
                                                                                                   minimumValueDescription:@"Low value"];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_08"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_08"
                                                                       title:@"How would you measure your mood improvement?"
                                                                      answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -3106,7 +3106,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Vertical discrete scale, with min and max labels.
          */
-        ORKLegacyScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat scaleAnswerFormatWithMaximumValue:10
+        ORK1ScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat scaleAnswerFormatWithMaximumValue:10
                                                                                          minimumValue:1
                                                                                          defaultValue:NSIntegerMax
                                                                                                  step:1
@@ -3114,7 +3114,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                               maximumValueDescription:@"A lot"
                                                                               minimumValueDescription:@"Not at all"];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_09"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_09"
                                                                       title:@"On a scale of 1 to 10, what is your mood?"
                                                                      answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -3124,7 +3124,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Vertical continuous scale, with min and max labels.
          */
-        ORKLegacyContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
+        ORK1ContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
                                                                                                              minimumValue:1
                                                                                                              defaultValue:99
                                                                                                     maximumFractionDigits:2
@@ -3132,7 +3132,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                                                   maximumValueDescription:@"High value"
                                                                                                   minimumValueDescription:@"Low value"];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_10"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_10"
                                                                       title:@"How would you measure your mood improvement?"
                                                                      answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -3142,7 +3142,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Vertical continuous scale with three decimal places, a default, and a format style.
          */
-        ORKLegacyContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat continuousScaleAnswerFormatWithMaximumValue:1.0
+        ORK1ContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat continuousScaleAnswerFormatWithMaximumValue:1.0
                                                                                                              minimumValue:0.0
                                                                                                              defaultValue:0.8725
                                                                                                     maximumFractionDigits:0
@@ -3150,9 +3150,9 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                                                   maximumValueDescription:nil
                                                                                                   minimumValueDescription:nil];
 
-        scaleAnswerFormat.numberStyle = ORKLegacyNumberFormattingStylePercent;
+        scaleAnswerFormat.numberStyle = ORK1NumberFormattingStylePercent;
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_11"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_11"
                                                                       title:@"How much has your mood improved?"
                                                                      answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -3162,7 +3162,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Continuous scale with images.
          */
-        ORKLegacyContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
+        ORK1ContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
                                                                                                              minimumValue:1
                                                                                                              defaultValue:NSIntegerMax
                                                                                                     maximumFractionDigits:2
@@ -3175,7 +3175,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         scaleAnswerFormat.minimumImage.accessibilityHint = @"A yellow colored square to represent warmness.";
         scaleAnswerFormat.maximumImage.accessibilityHint = @"A red colored square to represent hot.";
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_12"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_12"
                                                                       title:@"On a scale of 1 to 10, how warm do you feel?"
                                                                      answer:scaleAnswerFormat];
         [steps addObject:step];
@@ -3185,7 +3185,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         /*
          Discrete scale with images.
          */
-        ORKLegacyScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat scaleAnswerFormatWithMaximumValue:10
+        ORK1ScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat scaleAnswerFormatWithMaximumValue:10
                                                                                          minimumValue:1
                                                                                          defaultValue:NSIntegerMax
                                                                                                  step:1
@@ -3196,26 +3196,26 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
         scaleAnswerFormat.minimumImage = [self imageWithColor:[UIColor yellowColor] size:CGSizeMake(30, 30) border:NO];
         scaleAnswerFormat.maximumImage = [self imageWithColor:[UIColor redColor] size:CGSizeMake(30, 30) border:NO];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_13"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_13"
                                                                       title:@"On a scale of 1 to 10, how warm do you feel?"
                                                                      answer:scaleAnswerFormat];
         [steps addObject:step];
     }
     
     {
-        ORKLegacyTextChoice *textChoice1 = [ORKLegacyTextChoice choiceWithText:@"Poor" value:@(1)];
-        ORKLegacyTextChoice *textChoice2 = [ORKLegacyTextChoice choiceWithText:@"Fair" value:@(2)];
-        ORKLegacyTextChoice *textChoice3 = [ORKLegacyTextChoice choiceWithText:@"Good" value:@(3)];
-        ORKLegacyTextChoice *textChoice4 = [ORKLegacyTextChoice choiceWithText:@"Above Average" value:@(4)];
-        ORKLegacyTextChoice *textChoice5 = [ORKLegacyTextChoice choiceWithText:@"Excellent" value:@(5)];
+        ORK1TextChoice *textChoice1 = [ORK1TextChoice choiceWithText:@"Poor" value:@(1)];
+        ORK1TextChoice *textChoice2 = [ORK1TextChoice choiceWithText:@"Fair" value:@(2)];
+        ORK1TextChoice *textChoice3 = [ORK1TextChoice choiceWithText:@"Good" value:@(3)];
+        ORK1TextChoice *textChoice4 = [ORK1TextChoice choiceWithText:@"Above Average" value:@(4)];
+        ORK1TextChoice *textChoice5 = [ORK1TextChoice choiceWithText:@"Excellent" value:@(5)];
         
         NSArray *textChoices = @[textChoice1, textChoice2, textChoice3, textChoice4, textChoice5];
         
-        ORKLegacyTextScaleAnswerFormat *scaleAnswerFormat = [ORKLegacyAnswerFormat textScaleAnswerFormatWithTextChoices:textChoices
+        ORK1TextScaleAnswerFormat *scaleAnswerFormat = [ORK1AnswerFormat textScaleAnswerFormatWithTextChoices:textChoices
                                                                                                defaultIndex:3
                                                                                                    vertical:NO];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_14"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_14"
                                                                       title:@"How are you feeling today?"
                                                                      answer:scaleAnswerFormat];
         
@@ -3223,19 +3223,19 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyTextChoice *textChoice1 = [ORKLegacyTextChoice choiceWithText:@"Poor" value:@(1)];
-        ORKLegacyTextChoice *textChoice2 = [ORKLegacyTextChoice choiceWithText:@"Fair" value:@(2)];
-        ORKLegacyTextChoice *textChoice3 = [ORKLegacyTextChoice choiceWithText:@"Good" value:@(3)];
-        ORKLegacyTextChoice *textChoice4 = [ORKLegacyTextChoice choiceWithText:@"Above Average" value:@(4)];
-        ORKLegacyTextChoice *textChoice5 = [ORKLegacyTextChoice choiceWithText:@"Excellent" value:@(5)];
+        ORK1TextChoice *textChoice1 = [ORK1TextChoice choiceWithText:@"Poor" value:@(1)];
+        ORK1TextChoice *textChoice2 = [ORK1TextChoice choiceWithText:@"Fair" value:@(2)];
+        ORK1TextChoice *textChoice3 = [ORK1TextChoice choiceWithText:@"Good" value:@(3)];
+        ORK1TextChoice *textChoice4 = [ORK1TextChoice choiceWithText:@"Above Average" value:@(4)];
+        ORK1TextChoice *textChoice5 = [ORK1TextChoice choiceWithText:@"Excellent" value:@(5)];
         
         NSArray *textChoices = @[textChoice1, textChoice2, textChoice3, textChoice4, textChoice5];
         
-        ORKLegacyTextScaleAnswerFormat *scaleAnswerFormat = [ORKLegacyAnswerFormat textScaleAnswerFormatWithTextChoices:textChoices
+        ORK1TextScaleAnswerFormat *scaleAnswerFormat = [ORK1AnswerFormat textScaleAnswerFormatWithTextChoices:textChoices
                                                                                                defaultIndex:NSIntegerMax
                                                                                                    vertical:YES];
         
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scale_15"
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:@"scale_15"
                                                                       title:@"How are you feeling today?"
                                                                      answer:scaleAnswerFormat];
         
@@ -3243,7 +3243,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
 
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:ScalesTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:ScalesTaskIdentifier steps:steps];
     return task;
     
 }
@@ -3252,12 +3252,12 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     [self beginTaskWithIdentifier:ScalesTaskIdentifier];
 }
 
-- (id<ORKLegacyTask>)makeColorScalesTask {
-    ORKLegacyOrderedTask *task = (ORKLegacyOrderedTask *)[self makeScalesTask];
+- (id<ORK1Task>)makeColorScalesTask {
+    ORK1OrderedTask *task = (ORK1OrderedTask *)[self makeScalesTask];
     
-    for (ORKLegacyQuestionStep *step in task.steps) {
-        if ([step isKindOfClass:[ORKLegacyQuestionStep class]]) {
-            ORKLegacyAnswerFormat *answerFormat  = step.answerFormat;
+    for (ORK1QuestionStep *step in task.steps) {
+        if ([step isKindOfClass:[ORK1QuestionStep class]]) {
+            ORK1AnswerFormat *answerFormat  = step.answerFormat;
             if ([answerFormat respondsToSelector:@selector(setGradientColors:)]) {
                 [answerFormat performSelector:@selector(setGradientColors:) withObject:@[[UIColor redColor],
                                                                                          [UIColor greenColor],
@@ -3286,12 +3286,12 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  
  Tests image choices both in form items, and in question steps.
  */
-- (id<ORKLegacyTask>)makeImageChoicesTask {
+- (id<ORK1Task>)makeImageChoicesTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     for (NSValue *ratio in @[[NSValue valueWithCGPoint:CGPointMake(1.0, 1.0)], [NSValue valueWithCGPoint:CGPointMake(2.0, 1.0)], [NSValue valueWithCGPoint:CGPointMake(1.0, 2.0)]])
     {
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:[NSString stringWithFormat:@"form_step_%@",NSStringFromCGPoint(ratio.CGPointValue)] title:@"Image Choices Form" text:@"Testing image choices in a form layout."];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:[NSString stringWithFormat:@"form_step_%@",NSStringFromCGPoint(ratio.CGPointValue)] title:@"Image Choices Form" text:@"Testing image choices in a form layout."];
         
         NSMutableArray *items = [NSMutableArray new];
         
@@ -3300,40 +3300,40 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
             CGSize size1 = CGSizeMake(dimension.floatValue * ratio.CGPointValue.x, dimension.floatValue * ratio.CGPointValue.y);
             CGSize size2 = CGSizeMake(dimension.floatValue * ratio.CGPointValue.y, dimension.floatValue * ratio.CGPointValue.x);
             
-            ORKLegacyImageChoice *option1 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor redColor] size:size1 border:NO]
+            ORK1ImageChoice *option1 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor redColor] size:size1 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor redColor] size:size1 border:YES]
                                                                        text:@"Red" value:@"red"];
-            ORKLegacyImageChoice *option2 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor orangeColor] size:size1 border:NO]
+            ORK1ImageChoice *option2 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor orangeColor] size:size1 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor orangeColor] size:size1 border:YES]
                                                                        text:nil value:@"orange"];
-            ORKLegacyImageChoice *option3 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor yellowColor] size:size1 border:NO]
+            ORK1ImageChoice *option3 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor yellowColor] size:size1 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor yellowColor] size:size1 border:YES]
                                                                        text:@"Yellow Yellow Yellow Yellow Yellow Yellow Yellow Yellow Yellow Yellow Yellow Yellow" value:@"yellow"];
-            ORKLegacyImageChoice *option4 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor greenColor] size:size2 border:NO]
+            ORK1ImageChoice *option4 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor greenColor] size:size2 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor greenColor] size:size2 border:YES]
                                                                        text:@"Green" value:@"green"];
-            ORKLegacyImageChoice *option5 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor blueColor] size:size1 border:NO]
+            ORK1ImageChoice *option5 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor blueColor] size:size1 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor blueColor] size:size1 border:YES]
                                                                        text:nil value:@"blue"];
-            ORKLegacyImageChoice *option6 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor cyanColor] size:size2 border:NO]
+            ORK1ImageChoice *option6 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor cyanColor] size:size2 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor cyanColor] size:size2 border:YES]
                                                                        text:@"Cyan" value:@"cyanColor"];
             
             
-            ORKLegacyFormItem *item1 = [[ORKLegacyFormItem alloc] initWithIdentifier:[@"fqid_009_1" stringByAppendingFormat:@"%@",dimension] text:@"Pick a color."
-                                                            answerFormat:[ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:@[option1] ]];
+            ORK1FormItem *item1 = [[ORK1FormItem alloc] initWithIdentifier:[@"fqid_009_1" stringByAppendingFormat:@"%@",dimension] text:@"Pick a color."
+                                                            answerFormat:[ORK1AnswerFormat choiceAnswerFormatWithImageChoices:@[option1] ]];
             [items addObject:item1];
             
-            ORKLegacyFormItem *item2 = [[ORKLegacyFormItem alloc] initWithIdentifier:[@"fqid_009_2" stringByAppendingFormat:@"%@",dimension] text:@"Pick a color."
-                                                            answerFormat:[ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2] ]];
+            ORK1FormItem *item2 = [[ORK1FormItem alloc] initWithIdentifier:[@"fqid_009_2" stringByAppendingFormat:@"%@",dimension] text:@"Pick a color."
+                                                            answerFormat:[ORK1AnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2] ]];
             [items addObject:item2];
             
-            ORKLegacyFormItem *item3 = [[ORKLegacyFormItem alloc] initWithIdentifier:[@"fqid_009_3" stringByAppendingFormat:@"%@",dimension] text:@"Pick a color."
-                                                            answerFormat:[ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2, option3] ]];
+            ORK1FormItem *item3 = [[ORK1FormItem alloc] initWithIdentifier:[@"fqid_009_3" stringByAppendingFormat:@"%@",dimension] text:@"Pick a color."
+                                                            answerFormat:[ORK1AnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2, option3] ]];
             [items addObject:item3];
             
-            ORKLegacyFormItem *item6 = [[ORKLegacyFormItem alloc] initWithIdentifier:[@"fqid_009_6" stringByAppendingFormat:@"%@",dimension] text:@"Pick a color."
-                                                            answerFormat:[ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2, option3, option4, option5, option6] ]];
+            ORK1FormItem *item6 = [[ORK1FormItem alloc] initWithIdentifier:[@"fqid_009_6" stringByAppendingFormat:@"%@",dimension] text:@"Pick a color."
+                                                            answerFormat:[ORK1AnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2, option3, option4, option5, option6] ]];
             [items addObject:item6];
         }
         
@@ -3344,54 +3344,54 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
             CGSize size1 = CGSizeMake(dimension.floatValue * ratio.CGPointValue.x, dimension.floatValue * ratio.CGPointValue.y);
             CGSize size2 = CGSizeMake(dimension.floatValue * ratio.CGPointValue.y, dimension.floatValue * ratio.CGPointValue.x);
 
-            ORKLegacyImageChoice *option1 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor redColor] size:size1 border:NO]
+            ORK1ImageChoice *option1 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor redColor] size:size1 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor redColor] size:size1 border:YES]
                                                                        text:@"Red\nRed\nRed\nRed" value:@"red"];
-            ORKLegacyImageChoice *option2 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor orangeColor] size:size1 border:NO]
+            ORK1ImageChoice *option2 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor orangeColor] size:size1 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor orangeColor] size:size1 border:YES]
                                                                        text:@"Orange" value:@"orange"];
-            ORKLegacyImageChoice *option3 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor yellowColor] size:size1 border:NO]
+            ORK1ImageChoice *option3 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor yellowColor] size:size1 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor yellowColor] size:size1 border:YES]
                                                                        text:@"Yellow Yellow Yellow Yellow Yellow Yellow Yellow Yellow Yellow Yellow" value:@"yellow"];
-            ORKLegacyImageChoice *option4 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor greenColor] size:size2 border:NO]
+            ORK1ImageChoice *option4 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor greenColor] size:size2 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor greenColor] size:size2 border:YES]
                                                                        text:@"Green" value:@"green"];
-            ORKLegacyImageChoice *option5 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor blueColor] size:size1 border:NO]
+            ORK1ImageChoice *option5 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor blueColor] size:size1 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor blueColor] size:size1 border:YES]
                                                                        text:@"Blue" value:@"blue"];
-            ORKLegacyImageChoice *option6 = [ORKLegacyImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor cyanColor] size:size2 border:NO]
+            ORK1ImageChoice *option6 = [ORK1ImageChoice choiceWithNormalImage:[self imageWithColor:[UIColor cyanColor] size:size2 border:NO]
                                                               selectedImage:[self imageWithColor:[UIColor cyanColor] size:size2 border:YES]
                                                                        text:@"Cyan" value:@"cyanColor"];
             
-            ORKLegacyQuestionStep *step1 = [ORKLegacyQuestionStep questionStepWithIdentifier:[NSString stringWithFormat:@"qid_color1_%@_%@", NSStringFromCGPoint(ratio.CGPointValue), dimension]
+            ORK1QuestionStep *step1 = [ORK1QuestionStep questionStepWithIdentifier:[NSString stringWithFormat:@"qid_color1_%@_%@", NSStringFromCGPoint(ratio.CGPointValue), dimension]
                                                                            title:@"Pick a color."
-                                                                          answer:[ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:@[option1] ]];
+                                                                          answer:[ORK1AnswerFormat choiceAnswerFormatWithImageChoices:@[option1] ]];
             [steps addObject:step1];
             
-            ORKLegacyQuestionStep *step2 = [ORKLegacyQuestionStep questionStepWithIdentifier:[NSString stringWithFormat:@"qid_color2_%@_%@", NSStringFromCGPoint(ratio.CGPointValue), dimension]
+            ORK1QuestionStep *step2 = [ORK1QuestionStep questionStepWithIdentifier:[NSString stringWithFormat:@"qid_color2_%@_%@", NSStringFromCGPoint(ratio.CGPointValue), dimension]
                                                                            title:@"Pick a color."
-                                                                          answer:[ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2] ]];
+                                                                          answer:[ORK1AnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2] ]];
             [steps addObject:step2];
             
-            ORKLegacyQuestionStep *step3 = [ORKLegacyQuestionStep questionStepWithIdentifier:[NSString stringWithFormat:@"qid_color3_%@_%@", NSStringFromCGPoint(ratio.CGPointValue), dimension]
+            ORK1QuestionStep *step3 = [ORK1QuestionStep questionStepWithIdentifier:[NSString stringWithFormat:@"qid_color3_%@_%@", NSStringFromCGPoint(ratio.CGPointValue), dimension]
                                                                            title:@"Pick a color."
-                                                                          answer:[ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2, option3] ]];
+                                                                          answer:[ORK1AnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2, option3] ]];
             [steps addObject:step3];
             
-            ORKLegacyQuestionStep *step6 = [ORKLegacyQuestionStep questionStepWithIdentifier:[NSString stringWithFormat:@"qid_color6_%@_%@", NSStringFromCGPoint(ratio.CGPointValue), dimension]
+            ORK1QuestionStep *step6 = [ORK1QuestionStep questionStepWithIdentifier:[NSString stringWithFormat:@"qid_color6_%@_%@", NSStringFromCGPoint(ratio.CGPointValue), dimension]
                                                                            title:@"Pick a color."
-                                                                          answer:[ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2, option3, option4, option5, option6]]];
+                                                                          answer:[ORK1AnswerFormat choiceAnswerFormatWithImageChoices:@[option1, option2, option3, option4, option5, option6]]];
             [steps addObject:step6];
         }
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"end"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"end"];
         step.title = @"Image Choices End";
         [steps addObject:step];
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:ImageChoicesTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:ImageChoicesTaskIdentifier steps:steps];
     return task;
     
 }
@@ -3401,7 +3401,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 }
 
 # pragma mark - Image Capture
-- (id<ORKLegacyTask>)makeImageCaptureTask {
+- (id<ORK1Task>)makeImageCaptureTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     /*
@@ -3410,7 +3410,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
      is high contrast and very visible against a variety of backgrounds.
      */
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"begin"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"begin"];
         step.title = @"Hands";
         step.image = [[UIImage imageNamed:@"hands_solid"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         step.detailText = @"In this step we will capture images of both of your hands";
@@ -3418,7 +3418,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"right1"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"right1"];
         step.title = @"Right Hand";
         step.image = [[UIImage imageNamed:@"right_hand_solid"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         step.detailText = @"Let's start by capturing an image of your right hand";
@@ -3426,7 +3426,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"right2"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"right2"];
         step.title = @"Right Hand";
         step.image = [[UIImage imageNamed:@"right_hand_outline"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         step.detailText = @"Align your right hand with the on-screen outline and capture the image.  Be sure to place your hand over a contrasting background.  You can re-capture the image as many times as you need.";
@@ -3434,7 +3434,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyImageCaptureStep *step = [[ORKLegacyImageCaptureStep alloc] initWithIdentifier:@"right3"];
+        ORK1ImageCaptureStep *step = [[ORK1ImageCaptureStep alloc] initWithIdentifier:@"right3"];
         step.templateImage = [UIImage imageNamed:@"right_hand_outline_big"];
         step.templateImageInsets = UIEdgeInsetsMake(0.05, 0.05, 0.05, 0.05);
         step.accessibilityInstructions = @"Extend your right hand, palm side down, one foot in front of your device. Tap the Capture Image button, or two-finger double tap the preview to capture the image";
@@ -3443,7 +3443,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"left1"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"left1"];
         step.title = @"Left Hand";
         step.image = [[UIImage imageNamed:@"left_hand_solid"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         step.detailText = @"Now let's capture an image of your left hand";
@@ -3451,7 +3451,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"left2"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"left2"];
         step.title = @"Left Hand";
         step.image = [[UIImage imageNamed:@"left_hand_outline"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         step.detailText = @"Align your left hand with the on-screen outline and capture the image.  Be sure to place your hand over a contrasting background.  You can re-capture the image as many times as you need.";
@@ -3459,7 +3459,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyImageCaptureStep *step = [[ORKLegacyImageCaptureStep alloc] initWithIdentifier:@"left3"];
+        ORK1ImageCaptureStep *step = [[ORK1ImageCaptureStep alloc] initWithIdentifier:@"left3"];
         step.templateImage = [UIImage imageNamed:@"left_hand_outline_big"];
         step.templateImageInsets = UIEdgeInsetsMake(0.05, 0.05, 0.05, 0.05);
         step.accessibilityInstructions = @"Extend your left hand, palm side down, one foot in front of your device. Tap the Capture Image button, or two-finger double tap the preview to capture the image";
@@ -3468,13 +3468,13 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"end"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"end"];
         step.title = @"Complete";
         step.detailText = @"Hand image capture complete";
         [steps addObject:step];
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:ImageCaptureTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:ImageCaptureTaskIdentifier steps:steps];
     return task;
 }
 
@@ -3483,7 +3483,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 }
 
 #pragma mark - Video Capture
-- (id<ORKLegacyTask>)makeVideoCaptureTask {
+- (id<ORK1Task>)makeVideoCaptureTask {
     NSMutableArray *steps = [NSMutableArray new];
     
     /*
@@ -3492,7 +3492,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
      is high contrast and very visible against a variety of backgrounds.
      */
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"begin"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"begin"];
         step.title = @"Hands";
         step.image = [[UIImage imageNamed:@"hands_solid"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         step.detailText = @"In this step we will capture 5 second videos of both of your hands";
@@ -3500,7 +3500,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"right1"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"right1"];
         step.title = @"Right Hand";
         step.image = [[UIImage imageNamed:@"right_hand_solid"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         step.detailText = @"Let's start by capturing a video of your right hand";
@@ -3508,7 +3508,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"right2"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"right2"];
         step.title = @"Right Hand";
         step.image = [[UIImage imageNamed:@"right_hand_outline"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         step.detailText = @"Align your right hand with the on-screen outline and record the video.  Be sure to place your hand over a contrasting background.  You can re-capture the video as many times as you need.";
@@ -3516,7 +3516,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyVideoCaptureStep *step = [[ORKLegacyVideoCaptureStep alloc] initWithIdentifier:@"right3"];
+        ORK1VideoCaptureStep *step = [[ORK1VideoCaptureStep alloc] initWithIdentifier:@"right3"];
         step.templateImage = [UIImage imageNamed:@"right_hand_outline_big"];
         step.templateImageInsets = UIEdgeInsetsMake(0.05, 0.05, 0.05, 0.05);
         step.duration = @5.0;
@@ -3526,7 +3526,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"left1"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"left1"];
         step.title = @"Left Hand";
         step.image = [[UIImage imageNamed:@"left_hand_solid"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         step.detailText = @"Now let's capture a video of your left hand";
@@ -3534,7 +3534,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"left2"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"left2"];
         step.title = @"Left Hand";
         step.image = [[UIImage imageNamed:@"left_hand_outline"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         step.detailText = @"Align your left hand with the on-screen outline and record the video.  Be sure to place your hand over a contrasting background.  You can re-capture the video as many times as you need.";
@@ -3542,7 +3542,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyVideoCaptureStep *step = [[ORKLegacyVideoCaptureStep alloc] initWithIdentifier:@"left3"];
+        ORK1VideoCaptureStep *step = [[ORK1VideoCaptureStep alloc] initWithIdentifier:@"left3"];
         step.templateImage = [UIImage imageNamed:@"left_hand_outline_big"];
         step.templateImageInsets = UIEdgeInsetsMake(0.05, 0.05, 0.05, 0.05);
         step.duration = @5.0;
@@ -3552,13 +3552,13 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }
     
     {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"end"];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:@"end"];
         step.title = @"Complete";
         step.detailText = @"Hand video capture complete";
         [steps addObject:step];
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:VideoCaptureTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:VideoCaptureTaskIdentifier steps:steps];
     return task;
 }
 
@@ -3593,51 +3593,51 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 
 #pragma mark - Navigable Loop Task
 
-- (id<ORKLegacyTask>)makeNavigableLoopTask {
+- (id<ORK1Task>)makeNavigableLoopTask {
     NSMutableArray *steps = [NSMutableArray new];
     
-    ORKLegacyAnswerFormat *answerFormat = nil;
-    ORKLegacyStep *step = nil;
+    ORK1AnswerFormat *answerFormat = nil;
+    ORK1Step *step = nil;
     NSArray *textChoices = nil;
-    ORKLegacyQuestionStep *questionStep = nil;
+    ORK1QuestionStep *questionStep = nil;
     
     // Intro step
-    step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"introStep"];
+    step = [[ORK1InstructionStep alloc] initWithIdentifier:@"introStep"];
     step.title = @"This task demonstrates an skippable step and an optional loop within a navigable ordered task";
     [steps addObject:step];
 
     // Skippable step
-    answerFormat = [ORKLegacyAnswerFormat booleanAnswerFormat];
-    questionStep = [ORKLegacyQuestionStep questionStepWithIdentifier:@"skipNextStep" title:@"Do you want to skip the next step?" answer:answerFormat];
+    answerFormat = [ORK1AnswerFormat booleanAnswerFormat];
+    questionStep = [ORK1QuestionStep questionStepWithIdentifier:@"skipNextStep" title:@"Do you want to skip the next step?" answer:answerFormat];
     questionStep.optional = NO;
     [steps addObject:questionStep];
 
-    step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"skippableStep"];
+    step = [[ORK1InstructionStep alloc] initWithIdentifier:@"skippableStep"];
     step.title = @"You'll optionally skip this step";
     step.text = @"You should only see this step if you answered the previous question with 'No'";
     [steps addObject:step];
     
     // Loop target step
-    step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"loopAStep"];
+    step = [[ORK1InstructionStep alloc] initWithIdentifier:@"loopAStep"];
     step.title = @"You'll optionally return to this step";
     [steps addObject:step];
 
     // Branching paths
     textChoices =
     @[
-      [ORKLegacyTextChoice choiceWithText:@"Scale" value:@"scale"],
-      [ORKLegacyTextChoice choiceWithText:@"Text Choice" value:@"textchoice"]
+      [ORK1TextChoice choiceWithText:@"Scale" value:@"scale"],
+      [ORK1TextChoice choiceWithText:@"Text Choice" value:@"textchoice"]
       ];
     
-    answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice
+    answerFormat = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice
                                                     textChoices:textChoices];
     
-    questionStep = [ORKLegacyQuestionStep questionStepWithIdentifier:@"branchingStep" title:@"Which kind of question do you prefer?" answer:answerFormat];
+    questionStep = [ORK1QuestionStep questionStepWithIdentifier:@"branchingStep" title:@"Which kind of question do you prefer?" answer:answerFormat];
     questionStep.optional = NO;
     [steps addObject:questionStep];
 
     // Scale question step
-    ORKLegacyContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORKLegacyAnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
+    ORK1ContinuousScaleAnswerFormat *scaleAnswerFormat =  [ORK1AnswerFormat continuousScaleAnswerFormatWithMaximumValue:10
                                                                                                          minimumValue:1
                                                                                                          defaultValue:8.725
                                                                                                 maximumFractionDigits:3
@@ -3645,7 +3645,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
                                                                                               maximumValueDescription:nil
                                                                                               minimumValueDescription:nil];
     
-    step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"scaleStep"
+    step = [ORK1QuestionStep questionStepWithIdentifier:@"scaleStep"
                                                  title:@"On a scale of 1 to 10, what is your mood?"
                                                 answer:scaleAnswerFormat];
     [steps addObject:step];
@@ -3653,62 +3653,62 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     // Text choice question step
     textChoices =
     @[
-      [ORKLegacyTextChoice choiceWithText:@"Good" value:@"good"],
-      [ORKLegacyTextChoice choiceWithText:@"Bad" value:@"bad"]
+      [ORK1TextChoice choiceWithText:@"Good" value:@"good"],
+      [ORK1TextChoice choiceWithText:@"Bad" value:@"bad"]
       ];
     
-    answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice
+    answerFormat = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice
                                                     textChoices:textChoices];
     
-    questionStep = [ORKLegacyQuestionStep questionStepWithIdentifier:@"textChoiceStep" title:@"How is your mood?" answer:answerFormat];
+    questionStep = [ORK1QuestionStep questionStepWithIdentifier:@"textChoiceStep" title:@"How is your mood?" answer:answerFormat];
     questionStep.optional = NO;
     [steps addObject:questionStep];
 
     // Loop conditional step
-    answerFormat = [ORKLegacyAnswerFormat booleanAnswerFormat];
-    step = [ORKLegacyQuestionStep questionStepWithIdentifier:@"loopBStep" title:@"Do you want to repeat the survey?" answer:answerFormat];
+    answerFormat = [ORK1AnswerFormat booleanAnswerFormat];
+    step = [ORK1QuestionStep questionStepWithIdentifier:@"loopBStep" title:@"Do you want to repeat the survey?" answer:answerFormat];
     step.optional = NO;
     [steps addObject:step];
     
-    step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"endStep"];
+    step = [[ORK1InstructionStep alloc] initWithIdentifier:@"endStep"];
     step.title = @"You have finished the task";
     [steps addObject:step];
     
-    ORKLegacyNavigableOrderedTask *task = [[ORKLegacyNavigableOrderedTask alloc] initWithIdentifier:NavigableLoopTaskIdentifier
+    ORK1NavigableOrderedTask *task = [[ORK1NavigableOrderedTask alloc] initWithIdentifier:NavigableLoopTaskIdentifier
                                                                                   steps:steps];
     
     // Build navigation rules
-    ORKLegacyResultSelector *resultSelector = nil;
-    ORKLegacyPredicateStepNavigationRule *predicateRule = nil;
-    ORKLegacyDirectStepNavigationRule *directRule = nil;
-    ORKLegacyPredicateSkipStepNavigationRule *predicateSkipRule = nil;
+    ORK1ResultSelector *resultSelector = nil;
+    ORK1PredicateStepNavigationRule *predicateRule = nil;
+    ORK1DirectStepNavigationRule *directRule = nil;
+    ORK1PredicateSkipStepNavigationRule *predicateSkipRule = nil;
     
     // skippable step
-    resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"skipNextStep"];
-    NSPredicate *predicateSkipStep = [ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
+    resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"skipNextStep"];
+    NSPredicate *predicateSkipStep = [ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
                                                                                               expectedAnswer:YES];
-    predicateSkipRule = [[ORKLegacyPredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicateSkipStep];
+    predicateSkipRule = [[ORK1PredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicateSkipStep];
     [task setSkipNavigationRule:predicateSkipRule forStepIdentifier:@"skippableStep"];
 
     // From the branching step, go to either scaleStep or textChoiceStep
-    resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"branchingStep"];
-    NSPredicate *predicateAnswerTypeScale = [ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"branchingStep"];
+    NSPredicate *predicateAnswerTypeScale = [ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                                                expectedAnswerValue:@"scale"];
-    predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicateAnswerTypeScale ]
+    predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicateAnswerTypeScale ]
                                                           destinationStepIdentifiers:@[ @"scaleStep" ]
                                                                defaultStepIdentifier:@"textChoiceStep"];
     [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"branchingStep"];
     
     // From the loopB step, return to loopA if user chooses so
-    resultSelector = [ORKLegacyResultSelector selectorWithResultIdentifier:@"loopBStep"];
-    NSPredicate *predicateLoopYes = [ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
+    resultSelector = [ORK1ResultSelector selectorWithResultIdentifier:@"loopBStep"];
+    NSPredicate *predicateLoopYes = [ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
                                                                                              expectedAnswer:YES];
-    predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicateLoopYes ]
+    predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicateLoopYes ]
                                                           destinationStepIdentifiers:@[ @"loopAStep" ] ];
     [task setNavigationRule:predicateRule forTriggerStepIdentifier:@"loopBStep"];
     
     // scaleStep to loopB direct navigation rule
-    directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"loopBStep"];
+    directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:@"loopBStep"];
     [task setNavigationRule:directRule forTriggerStepIdentifier:@"scaleStep"];
     
     return task;
@@ -3716,15 +3716,15 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 
 #pragma mark - Custom navigation item task
 
-- (id<ORKLegacyTask>)makeCustomNavigationItemTask {
+- (id<ORK1Task>)makeCustomNavigationItemTask {
     NSMutableArray *steps = [[NSMutableArray alloc] init];
-    ORKLegacyInstructionStep *step1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"customNavigationItemTask.step1"];
+    ORK1InstructionStep *step1 = [[ORK1InstructionStep alloc] initWithIdentifier:@"customNavigationItemTask.step1"];
     step1.title = @"Custom Navigation Item Title";
-    ORKLegacyInstructionStep *step2 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"customNavigationItemTask.step2"];
+    ORK1InstructionStep *step2 = [[ORK1InstructionStep alloc] initWithIdentifier:@"customNavigationItemTask.step2"];
     step2.title = @"Custom Navigation Item Title View";
     [steps addObject: step1];
     [steps addObject: step2];
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier: CustomNavigationItemTaskIdentifier steps:steps];
+    return [[ORK1OrderedTask alloc] initWithIdentifier: CustomNavigationItemTaskIdentifier steps:steps];
 }
 
 - (void)customNavigationItemButtonTapped:(id)sender {
@@ -3741,12 +3741,12 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  the consent process.
  */
 
-- (id<ORKLegacyTask>)makeCreatePasscodeTask {
+- (id<ORK1Task>)makeCreatePasscodeTask {
     NSMutableArray *steps = [[NSMutableArray alloc] init];
-    ORKLegacyPasscodeStep *passcodeStep = [[ORKLegacyPasscodeStep alloc] initWithIdentifier:@"consent_passcode"];
+    ORK1PasscodeStep *passcodeStep = [[ORK1PasscodeStep alloc] initWithIdentifier:@"consent_passcode"];
     passcodeStep.text = @"This passcode protects your privacy and ensures that the user giving consent is the one completing the tasks.";
     [steps addObject: passcodeStep];
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier: CreatePasscodeTaskIdentifier steps:steps];
+    return [[ORK1OrderedTask alloc] initWithIdentifier: CreatePasscodeTaskIdentifier steps:steps];
 }
 
 - (void)createPasscodeButtonTapped:(id)sender {
@@ -3754,8 +3754,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 }
 
 - (void)removePasscodeButtonTapped:(id)sender {
-    if ([ORKLegacyPasscodeViewController isPasscodeStoredInKeychain]) {
-        if ([ORKLegacyPasscodeViewController removePasscodeFromKeychain]) {
+    if ([ORK1PasscodeViewController isPasscodeStoredInKeychain]) {
+        if ([ORK1PasscodeViewController removePasscodeFromKeychain]) {
             [self showAlertWithTitle:@"Success" message:@"Passcode removed."];
         } else {
             [self showAlertWithTitle:@"Error" message:@"Passcode could not be removed."];
@@ -3766,8 +3766,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 }
 
 - (void)authenticatePasscodeButtonTapped:(id)sender {
-    if ([ORKLegacyPasscodeViewController isPasscodeStoredInKeychain]) {
-        ORKLegacyPasscodeViewController *viewController = [ORKLegacyPasscodeViewController
+    if ([ORK1PasscodeViewController isPasscodeStoredInKeychain]) {
+        ORK1PasscodeViewController *viewController = [ORK1PasscodeViewController
                                                      passcodeAuthenticationViewControllerWithText:@"Authenticate your passcode in order to proceed."
                                                      delegate:self];
         [self presentViewController:viewController animated:YES completion:nil];
@@ -3777,10 +3777,10 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 }
 
 - (void)editPasscodeButtonTapped:(id)sender {
-    if ([ORKLegacyPasscodeViewController isPasscodeStoredInKeychain]) {
-        ORKLegacyPasscodeViewController *viewController = [ORKLegacyPasscodeViewController passcodeEditingViewControllerWithText:nil
+    if ([ORK1PasscodeViewController isPasscodeStoredInKeychain]) {
+        ORK1PasscodeViewController *viewController = [ORK1PasscodeViewController passcodeEditingViewControllerWithText:nil
                                                                                                             delegate:self
-                                                                                                        passcodeType:ORKLegacyPasscodeType6Digit];
+                                                                                                        passcodeType:ORK1PasscodeType6Digit];
         [self presentViewController:viewController animated:YES completion:nil];
     } else {
         [self showAlertWithTitle:@"Error" message:@"A passcode must be created before you can edit it."];
@@ -3815,70 +3815,70 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 
 #pragma mark - Review step
 
-- (NSArray<ORKLegacyStep *> *)stepsForReviewTasks {
-    // ORKLegacyInstructionStep
-    ORKLegacyInstructionStep *instructionStep = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"instructionStep"];
+- (NSArray<ORK1Step *> *)stepsForReviewTasks {
+    // ORK1InstructionStep
+    ORK1InstructionStep *instructionStep = [[ORK1InstructionStep alloc] initWithIdentifier:@"instructionStep"];
     instructionStep.title = @"Review Task";
-    instructionStep.text = @"The task demonstrates the usage of ORKLegacyReviewStep within a task";
-    NSMutableArray<ORKLegacyTextChoice *> *textChoices = [[NSMutableArray alloc] init];
-    [textChoices addObject:[[ORKLegacyTextChoice alloc] initWithText:@"Good" detailText:@"" value:[NSNumber numberWithInt:0] exclusive:NO]];
-    [textChoices addObject:[[ORKLegacyTextChoice alloc] initWithText:@"Average" detailText:@"" value:[NSNumber numberWithInt:1] exclusive:NO]];
-    [textChoices addObject:[[ORKLegacyTextChoice alloc] initWithText:@"Poor" detailText:@"" value:[NSNumber numberWithInt:2] exclusive:NO]];
-    ORKLegacyQuestionStep *step1 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step1" title:@"How do you feel today?" answer:[ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices]];
-    // ORKLegacyImageChoiceAnswerFormat
-    NSMutableArray<ORKLegacyImageChoice *> *imageChoices = [[NSMutableArray alloc] init];
-    [imageChoices addObject:[[ORKLegacyImageChoice alloc] initWithNormalImage:[UIImage imageNamed:@"left_hand_outline"] selectedImage:[UIImage imageNamed:@"left_hand_solid"] text:@"Left hand" value:[NSNumber numberWithInt:1]]];
-    [imageChoices addObject:[[ORKLegacyImageChoice alloc] initWithNormalImage:[UIImage imageNamed:@"right_hand_outline"] selectedImage:[UIImage imageNamed:@"right_hand_solid"] text:@"Right hand" value:[NSNumber numberWithInt:0]]];
-    ORKLegacyQuestionStep *step2 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step2" title:@"Which hand was injured?" answer:[ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:imageChoices]];
-    // ORKLegacyTextChoiceAnswerFormat
-    ORKLegacyQuestionStep *step3 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step3" title:@"How do you feel today?" answer:[ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice textChoices:textChoices]];
-    // ORKLegacyBooleanAnswerFormat
-    ORKLegacyQuestionStep *step4 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step4" title:@"Are you at least 18 years old?" answer:[ORKLegacyAnswerFormat booleanAnswerFormat]];
-    // ORKLegacyTimeOfDayAnswerFormat
-    ORKLegacyQuestionStep *step5 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step5" title:@"When did you wake up today?" answer:[ORKLegacyAnswerFormat timeOfDayAnswerFormat]];
-    // ORKLegacyDateAnswerFormat
-    ORKLegacyQuestionStep *step6 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step6" title:@"When is your birthday?" answer:[ORKLegacyAnswerFormat dateAnswerFormat]];
-    // ORKLegacyFormStep
-    ORKLegacyFormStep *formStep = [[ORKLegacyFormStep alloc] initWithIdentifier:@"formStep" title:@"Survey" text:@"Please answer the following set of questions"];
-    ORKLegacyFormItem *formItem1 = [[ORKLegacyFormItem alloc] initWithIdentifier:@"formItem1" text:@"How do you feel today?" answerFormat:[ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice textChoices:textChoices]];
-    ORKLegacyFormItem *formItem2 = [[ORKLegacyFormItem alloc] initWithIdentifier:@"formItem2" text:@"Are you pregnant?" answerFormat:[ORKLegacyAnswerFormat booleanAnswerFormat]];
+    instructionStep.text = @"The task demonstrates the usage of ORK1ReviewStep within a task";
+    NSMutableArray<ORK1TextChoice *> *textChoices = [[NSMutableArray alloc] init];
+    [textChoices addObject:[[ORK1TextChoice alloc] initWithText:@"Good" detailText:@"" value:[NSNumber numberWithInt:0] exclusive:NO]];
+    [textChoices addObject:[[ORK1TextChoice alloc] initWithText:@"Average" detailText:@"" value:[NSNumber numberWithInt:1] exclusive:NO]];
+    [textChoices addObject:[[ORK1TextChoice alloc] initWithText:@"Poor" detailText:@"" value:[NSNumber numberWithInt:2] exclusive:NO]];
+    ORK1QuestionStep *step1 = [ORK1QuestionStep questionStepWithIdentifier:@"step1" title:@"How do you feel today?" answer:[ORK1AnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices]];
+    // ORK1ImageChoiceAnswerFormat
+    NSMutableArray<ORK1ImageChoice *> *imageChoices = [[NSMutableArray alloc] init];
+    [imageChoices addObject:[[ORK1ImageChoice alloc] initWithNormalImage:[UIImage imageNamed:@"left_hand_outline"] selectedImage:[UIImage imageNamed:@"left_hand_solid"] text:@"Left hand" value:[NSNumber numberWithInt:1]]];
+    [imageChoices addObject:[[ORK1ImageChoice alloc] initWithNormalImage:[UIImage imageNamed:@"right_hand_outline"] selectedImage:[UIImage imageNamed:@"right_hand_solid"] text:@"Right hand" value:[NSNumber numberWithInt:0]]];
+    ORK1QuestionStep *step2 = [ORK1QuestionStep questionStepWithIdentifier:@"step2" title:@"Which hand was injured?" answer:[ORK1AnswerFormat choiceAnswerFormatWithImageChoices:imageChoices]];
+    // ORK1TextChoiceAnswerFormat
+    ORK1QuestionStep *step3 = [ORK1QuestionStep questionStepWithIdentifier:@"step3" title:@"How do you feel today?" answer:[ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice textChoices:textChoices]];
+    // ORK1BooleanAnswerFormat
+    ORK1QuestionStep *step4 = [ORK1QuestionStep questionStepWithIdentifier:@"step4" title:@"Are you at least 18 years old?" answer:[ORK1AnswerFormat booleanAnswerFormat]];
+    // ORK1TimeOfDayAnswerFormat
+    ORK1QuestionStep *step5 = [ORK1QuestionStep questionStepWithIdentifier:@"step5" title:@"When did you wake up today?" answer:[ORK1AnswerFormat timeOfDayAnswerFormat]];
+    // ORK1DateAnswerFormat
+    ORK1QuestionStep *step6 = [ORK1QuestionStep questionStepWithIdentifier:@"step6" title:@"When is your birthday?" answer:[ORK1AnswerFormat dateAnswerFormat]];
+    // ORK1FormStep
+    ORK1FormStep *formStep = [[ORK1FormStep alloc] initWithIdentifier:@"formStep" title:@"Survey" text:@"Please answer the following set of questions"];
+    ORK1FormItem *formItem1 = [[ORK1FormItem alloc] initWithIdentifier:@"formItem1" text:@"How do you feel today?" answerFormat:[ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice textChoices:textChoices]];
+    ORK1FormItem *formItem2 = [[ORK1FormItem alloc] initWithIdentifier:@"formItem2" text:@"Are you pregnant?" answerFormat:[ORK1AnswerFormat booleanAnswerFormat]];
     formStep.formItems = @[formItem1, formItem2];
-    // ORKLegacyReviewStep
-    ORKLegacyReviewStep *reviewStep = [ORKLegacyReviewStep embeddedReviewStepWithIdentifier:@"embeddedReviewStep"];
+    // ORK1ReviewStep
+    ORK1ReviewStep *reviewStep = [ORK1ReviewStep embeddedReviewStepWithIdentifier:@"embeddedReviewStep"];
     reviewStep.title = @"Review";
     reviewStep.text = @"Review your answers";
-    // ORKLegacyNumericAnswerFormat
-    ORKLegacyQuestionStep *step7 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step7" title:@"How many children do you have?" answer:[ORKLegacyAnswerFormat integerAnswerFormatWithUnit:@"children"]];
-    // ORKLegacyScaleAnswerFormat
-    ORKLegacyQuestionStep *step8 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step8" title:@"On a scale from 1 to 10: How do you feel today?" answer:[ORKLegacyAnswerFormat scaleAnswerFormatWithMaximumValue:10 minimumValue:1 defaultValue:6 step:1 vertical:NO maximumValueDescription:@"Excellent" minimumValueDescription:@"Poor"]];
-    // ORKLegacyContinousScaleAnswerFormat
-    ORKLegacyQuestionStep *step9 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step9" title:@"On a scale from 1 to 10: How do you feel today?" answer:[ORKLegacyAnswerFormat continuousScaleAnswerFormatWithMaximumValue:10 minimumValue:1 defaultValue:6 maximumFractionDigits:2 vertical:NO maximumValueDescription:@"Excellent" minimumValueDescription:@"Poor"]];
-    // ORKLegacyTextScaleAnswerFormat
-    ORKLegacyQuestionStep *step10 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step10" title:@"How do you feel today?" answer:[ORKLegacyAnswerFormat textScaleAnswerFormatWithTextChoices:textChoices defaultIndex:0 vertical:NO]];
-    // ORKLegacyTextAnswerFormat
-    ORKLegacyQuestionStep *step11 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step11" title:@"What books do you like best?" answer:[ORKLegacyAnswerFormat textAnswerFormat]];
-    // ORKLegacyEmailAnswerFormat
-    ORKLegacyQuestionStep *step12 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step12" title:@"What is your e-mail address?" answer:[ORKLegacyAnswerFormat emailAnswerFormat]];
-    // ORKLegacyTimeIntervalAnswerFormat
-    ORKLegacyQuestionStep *step13 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step13" title:@"How many hours did you sleep last night?" answer:[ORKLegacyAnswerFormat timeIntervalAnswerFormat]];
-    // ORKLegacyHeightAnswerFormat
-    ORKLegacyQuestionStep *step14 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step14" title:@"What is your height?" answer:[ORKLegacyAnswerFormat heightAnswerFormat]];
-    // ORKLegacyWeightAnswerFormat
-    ORKLegacyQuestionStep *step15 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step15" title:@"What is your weight?" answer:[ORKLegacyAnswerFormat weightAnswerFormat]];
-    // ORKLegacyLocationAnswerFormat
-    ORKLegacyQuestionStep *step16 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step16" title:@"Where do you live?" answer:[ORKLegacyAnswerFormat locationAnswerFormat]];
+    // ORK1NumericAnswerFormat
+    ORK1QuestionStep *step7 = [ORK1QuestionStep questionStepWithIdentifier:@"step7" title:@"How many children do you have?" answer:[ORK1AnswerFormat integerAnswerFormatWithUnit:@"children"]];
+    // ORK1ScaleAnswerFormat
+    ORK1QuestionStep *step8 = [ORK1QuestionStep questionStepWithIdentifier:@"step8" title:@"On a scale from 1 to 10: How do you feel today?" answer:[ORK1AnswerFormat scaleAnswerFormatWithMaximumValue:10 minimumValue:1 defaultValue:6 step:1 vertical:NO maximumValueDescription:@"Excellent" minimumValueDescription:@"Poor"]];
+    // ORK1ContinousScaleAnswerFormat
+    ORK1QuestionStep *step9 = [ORK1QuestionStep questionStepWithIdentifier:@"step9" title:@"On a scale from 1 to 10: How do you feel today?" answer:[ORK1AnswerFormat continuousScaleAnswerFormatWithMaximumValue:10 minimumValue:1 defaultValue:6 maximumFractionDigits:2 vertical:NO maximumValueDescription:@"Excellent" minimumValueDescription:@"Poor"]];
+    // ORK1TextScaleAnswerFormat
+    ORK1QuestionStep *step10 = [ORK1QuestionStep questionStepWithIdentifier:@"step10" title:@"How do you feel today?" answer:[ORK1AnswerFormat textScaleAnswerFormatWithTextChoices:textChoices defaultIndex:0 vertical:NO]];
+    // ORK1TextAnswerFormat
+    ORK1QuestionStep *step11 = [ORK1QuestionStep questionStepWithIdentifier:@"step11" title:@"What books do you like best?" answer:[ORK1AnswerFormat textAnswerFormat]];
+    // ORK1EmailAnswerFormat
+    ORK1QuestionStep *step12 = [ORK1QuestionStep questionStepWithIdentifier:@"step12" title:@"What is your e-mail address?" answer:[ORK1AnswerFormat emailAnswerFormat]];
+    // ORK1TimeIntervalAnswerFormat
+    ORK1QuestionStep *step13 = [ORK1QuestionStep questionStepWithIdentifier:@"step13" title:@"How many hours did you sleep last night?" answer:[ORK1AnswerFormat timeIntervalAnswerFormat]];
+    // ORK1HeightAnswerFormat
+    ORK1QuestionStep *step14 = [ORK1QuestionStep questionStepWithIdentifier:@"step14" title:@"What is your height?" answer:[ORK1AnswerFormat heightAnswerFormat]];
+    // ORK1WeightAnswerFormat
+    ORK1QuestionStep *step15 = [ORK1QuestionStep questionStepWithIdentifier:@"step15" title:@"What is your weight?" answer:[ORK1AnswerFormat weightAnswerFormat]];
+    // ORK1LocationAnswerFormat
+    ORK1QuestionStep *step16 = [ORK1QuestionStep questionStepWithIdentifier:@"step16" title:@"Where do you live?" answer:[ORK1AnswerFormat locationAnswerFormat]];
 
     return @[instructionStep, step1, step2, step3, step4, step5, step6, formStep, reviewStep, step7, step8, step9, step10, step11, step12, step13, step14, step15, step16];
 }
 
-- (id<ORKLegacyTask>)makeEmbeddedReviewTask {
-    // ORKLegacyValuePickerAnswerFormat
-    NSMutableArray<ORKLegacyStep *> *steps = [[NSMutableArray alloc] initWithArray:[self stepsForReviewTasks]];
-    ORKLegacyReviewStep *reviewStep = [ORKLegacyReviewStep embeddedReviewStepWithIdentifier:@"reviewStep"];
+- (id<ORK1Task>)makeEmbeddedReviewTask {
+    // ORK1ValuePickerAnswerFormat
+    NSMutableArray<ORK1Step *> *steps = [[NSMutableArray alloc] initWithArray:[self stepsForReviewTasks]];
+    ORK1ReviewStep *reviewStep = [ORK1ReviewStep embeddedReviewStepWithIdentifier:@"reviewStep"];
     reviewStep.title = @"Review";
     reviewStep.text = @"Review your answers";
     [steps addObject:reviewStep];
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:EmbeddedReviewTaskIdentifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:EmbeddedReviewTaskIdentifier steps:steps];
     return task;
 }
 
@@ -3886,13 +3886,13 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     [self beginTaskWithIdentifier:EmbeddedReviewTaskIdentifier];
 }
 
-- (id<ORKLegacyTask>)makeStandaloneReviewTask {
-    NSMutableArray<ORKLegacyStep *> *steps = [[NSMutableArray alloc] initWithArray:[self stepsForReviewTasks]];
-    ORKLegacyReviewStep *reviewStep = [ORKLegacyReviewStep standaloneReviewStepWithIdentifier:@"reviewStep" steps:steps resultSource:_embeddedReviewTaskResult];
+- (id<ORK1Task>)makeStandaloneReviewTask {
+    NSMutableArray<ORK1Step *> *steps = [[NSMutableArray alloc] initWithArray:[self stepsForReviewTasks]];
+    ORK1ReviewStep *reviewStep = [ORK1ReviewStep standaloneReviewStepWithIdentifier:@"reviewStep" steps:steps resultSource:_embeddedReviewTaskResult];
     reviewStep.title = @"Review";
     reviewStep.text = @"Review your answers from your last survey";
     reviewStep.excludeInstructionSteps = YES;
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier:StandaloneReviewTaskIdentifier steps:@[reviewStep]];
+    return [[ORK1OrderedTask alloc] initWithIdentifier:StandaloneReviewTaskIdentifier steps:@[reviewStep]];
 }
 
 - (IBAction)standaloneReviewTaskButtonTapped:(id)sender {
@@ -3924,8 +3924,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 /*
  Builds a test consent document.
  */
-- (ORKLegacyConsentDocument *)buildConsentDocument {
-    ORKLegacyConsentDocument *consent = [[ORKLegacyConsentDocument alloc] init];
+- (ORK1ConsentDocument *)buildConsentDocument {
+    ORK1ConsentDocument *consent = [[ORK1ConsentDocument alloc] init];
     
     /*
      If you have HTML review content, you can substitute it for the
@@ -3948,13 +3948,13 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     /*
      The empty signature that the user will fill in.
      */
-    ORKLegacyConsentSignature *participantSig = [ORKLegacyConsentSignature signatureForPersonWithTitle:@"Participant" dateFormatString:nil identifier:@"participantSig"];
+    ORK1ConsentSignature *participantSig = [ORK1ConsentSignature signatureForPersonWithTitle:@"Participant" dateFormatString:nil identifier:@"participantSig"];
     [consent addSignature:participantSig];
     
     /*
      Pre-populated investigator's signature.
      */
-    ORKLegacyConsentSignature *investigatorSig = [ORKLegacyConsentSignature signatureForPersonWithTitle:@"Investigator" dateFormatString:nil identifier:@"investigatorSig" givenName:@"Jake" familyName:@"Clemson" signatureImage:[UIImage imageNamed:@"signature"] dateString:@"9/2/14" ];
+    ORK1ConsentSignature *investigatorSig = [ORK1ConsentSignature signatureForPersonWithTitle:@"Investigator" dateFormatString:nil identifier:@"investigatorSig" givenName:@"Jake" familyName:@"Clemson" signatureImage:[UIImage imageNamed:@"signature"] dateString:@"9/2/14" ];
     [consent addSignature:investigatorSig];
     
     /*
@@ -3964,28 +3964,28 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
      We will create a section for each of the section types, and then add a custom
      section on the end.
      */
-    NSArray *scenes = @[@(ORKLegacyConsentSectionTypeOverview),
-                        @(ORKLegacyConsentSectionTypeDataGathering),
-                        @(ORKLegacyConsentSectionTypePrivacy),
-                        @(ORKLegacyConsentSectionTypeDataUse),
-                        @(ORKLegacyConsentSectionTypeTimeCommitment),
-                        @(ORKLegacyConsentSectionTypeStudySurvey),
-                        @(ORKLegacyConsentSectionTypeStudyTasks),
-                        @(ORKLegacyConsentSectionTypeWithdrawing)];
+    NSArray *scenes = @[@(ORK1ConsentSectionTypeOverview),
+                        @(ORK1ConsentSectionTypeDataGathering),
+                        @(ORK1ConsentSectionTypePrivacy),
+                        @(ORK1ConsentSectionTypeDataUse),
+                        @(ORK1ConsentSectionTypeTimeCommitment),
+                        @(ORK1ConsentSectionTypeStudySurvey),
+                        @(ORK1ConsentSectionTypeStudyTasks),
+                        @(ORK1ConsentSectionTypeWithdrawing)];
     
     NSMutableArray *sections = [NSMutableArray new];
     for (NSNumber *type in scenes) {
         NSString *summary = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adhuc, meo fortasse vitio, quid ego quaeram non perspicis. Plane idem, inquit, et maxima quidem, qua fieri nulla maior potest. Quonam, inquit, modo? An potest, inquit ille, quicquam esse suavius quam nihil dolere? Cave putes quicquam esse verius. Quonam, inquit, modo? Et doming eirmod delicata cum. Vel fabellas scribentur neglegentur cu, pro te iudicabit explicari. His alia idque scriptorem ei, quo no nominavi noluisse.";
-        ORKLegacyConsentSection *consentSection = [[ORKLegacyConsentSection alloc] initWithType:type.integerValue];
+        ORK1ConsentSection *consentSection = [[ORK1ConsentSection alloc] initWithType:type.integerValue];
         consentSection.summary = summary;
         
-        if (type.integerValue == ORKLegacyConsentSectionTypeOverview) {
+        if (type.integerValue == ORK1ConsentSectionTypeOverview) {
             /*
              Tests HTML content instead of text for Learn More.
              */
             consentSection.htmlContent = @"<ul><li>Lorem</li><li>ipsum</li><li>dolor</li></ul><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adhuc, meo fortasse vitio, quid ego quaeram non perspicis. Plane idem, inquit, et maxima quidem, qua fieri nulla maior potest. Quonam, inquit, modo?</p>\
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adhuc, meo fortasse vitio, quid ego quaeram non perspicis. Plane idem, inquit, et maxima quidem, qua fieri nulla maior potest. Quonam, inquit, modo?</p> 研究";
-        } else if (type.integerValue == ORKLegacyConsentSectionTypeDataGathering) {
+        } else if (type.integerValue == ORK1ConsentSectionTypeDataGathering) {
             /*
              Tests PDF content instead of text, HTML for Learn More.
              */
@@ -4012,7 +4012,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          A custom consent scene. This doesn't demo it but you can also set a custom
          animation.
          */
-        ORKLegacyConsentSection *consentSection = [[ORKLegacyConsentSection alloc] initWithType:ORKLegacyConsentSectionTypeCustom];
+        ORK1ConsentSection *consentSection = [[ORK1ConsentSection alloc] initWithType:ORK1ConsentSectionTypeCustom];
         consentSection.summary = @"Custom Scene summary";
         consentSection.title = @"Custom Scene";
         consentSection.customImage = [UIImage imageNamed:@"image_example.png"];
@@ -4026,7 +4026,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          An "only in document" scene. This is ignored for visual consent, but included in
          the concatenated document for review.
          */
-        ORKLegacyConsentSection *consentSection = [[ORKLegacyConsentSection alloc] initWithType:ORKLegacyConsentSectionTypeOnlyInDocument];
+        ORK1ConsentSection *consentSection = [[ORK1ConsentSection alloc] initWithType:ORK1ConsentSectionTypeOnlyInDocument];
         consentSection.summary = @"OnlyInDocument Scene summary";
         consentSection.title = @"OnlyInDocument Scene";
         consentSection.content = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam adhuc, meo fortasse vitio, quid ego quaeram non perspicis. Plane idem, inquit, et maxima quidem, qua fieri nulla maior potest. Quonam, inquit, modo? An potest, inquit ille, quicquam esse suavius quam nihil dolere? Cave putes quicquam esse verius. Quonam, inquit, modo?";
@@ -4072,7 +4072,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
 /*
  Dismisses the task view controller.
  */
-- (void)dismissTaskViewController:(ORKLegacyTaskViewController *)taskViewController removeOutputDirectory:(BOOL)removeOutputDirectory {
+- (void)dismissTaskViewController:(ORK1TaskViewController *)taskViewController removeOutputDirectory:(BOOL)removeOutputDirectory {
     _currentDocument = nil;
     
     NSURL *outputDirectoryURL = taskViewController.outputDirectory;
@@ -4094,7 +4094,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
     }];
 }
 
-#pragma mark - ORKLegacyTaskViewControllerDelegate
+#pragma mark - ORK1TaskViewControllerDelegate
 
 /*
  Any step can have "Learn More" content.
@@ -4102,10 +4102,10 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  For testing, we return YES only for instruction steps, except on the active
  tasks.
  */
-- (BOOL)taskViewController:(ORKLegacyTaskViewController *)taskViewController hasLearnMoreForStep:(ORKLegacyStep *)step {
+- (BOOL)taskViewController:(ORK1TaskViewController *)taskViewController hasLearnMoreForStep:(ORK1Step *)step {
     NSString *task_identifier = taskViewController.task.identifier;
 
-    return ([step isKindOfClass:[ORKLegacyInstructionStep class]]
+    return ([step isKindOfClass:[ORK1InstructionStep class]]
             && NO == [@[AudioTaskIdentifier, FitnessTaskIdentifier, GaitTaskIdentifier, TwoFingerTapTaskIdentifier, NavigableOrderedTaskIdentifier, NavigableLoopTaskIdentifier] containsObject:task_identifier]);
 }
 
@@ -4113,11 +4113,11 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  When the user taps on "Learn More" on a step, respond on this delegate callback.
  In this test app, we just print to the console.
  */
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController learnMoreForStep:(ORKLegacyStepViewController *)stepViewController {
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController learnMoreForStep:(ORK1StepViewController *)stepViewController {
     NSLog(@"Learn more tapped for step %@", stepViewController.step.identifier);
 }
 
-- (BOOL)taskViewController:(ORKLegacyTaskViewController *)taskViewController shouldPresentStep:(ORKLegacyStep *)step {
+- (BOOL)taskViewController:(ORK1TaskViewController *)taskViewController shouldPresentStep:(ORK1Step *)step {
     if ([ step.identifier isEqualToString:@"itid_002"]) {
         /*
          Tests interrupting navigation from the task view controller delegate.
@@ -4126,7 +4126,7 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
          enter a valid answer.
          */
         
-        ORKLegacyQuestionResult *questionResult = (ORKLegacyQuestionResult *)[[[taskViewController result] stepResultForStepIdentifier:@"itid_001"] firstResult];
+        ORK1QuestionResult *questionResult = (ORK1QuestionResult *)[[[taskViewController result] stepResultForStepIdentifier:@"itid_001"] firstResult];
         if (questionResult == nil || [(NSNumber *)questionResult.answer integerValue] < 18) {
             UIAlertController *alertViewController =
             [UIAlertController alertControllerWithTitle:@"Warning"
@@ -4157,8 +4157,8 @@ static const CGFloat HeaderSideLayoutMargin = 16.0;
  the behavior of the step view controller. In this test app, we do a few funny
  things to push the limits of this customization.
  */
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController
-stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController
+stepViewControllerWillAppear:(ORK1StepViewController *)stepViewController {
     
     if ([stepViewController.step.identifier isEqualToString:@"aid_001c"]) {
         /*
@@ -4190,7 +4190,7 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
                                                                                         metrics:nil
                                                                                           views:@{@"c":customView}]];
         
-        [(ORKLegacyActiveStepViewController *)stepViewController setCustomView:customView];
+        [(ORK1ActiveStepViewController *)stepViewController setCustomView:customView];
         
         // Set custom button on navigation bar
         stepViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Custom button"
@@ -4229,14 +4229,14 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
         stepViewController.navigationItem.titleView = [[UISegmentedControl alloc] initWithItems:items];
     } else if ([stepViewController.step.identifier isEqualToString:@"waitTask.step2"]) {
         // Indeterminate step
-        [((ORKLegacyWaitStepViewController *)stepViewController) performSelector:@selector(updateText:) withObject:@"Updated text" afterDelay:2.0];
-        [((ORKLegacyWaitStepViewController *)stepViewController) performSelector:@selector(goForward) withObject:nil afterDelay:5.0];
+        [((ORK1WaitStepViewController *)stepViewController) performSelector:@selector(updateText:) withObject:@"Updated text" afterDelay:2.0];
+        [((ORK1WaitStepViewController *)stepViewController) performSelector:@selector(goForward) withObject:nil afterDelay:5.0];
     } else if ([stepViewController.step.identifier isEqualToString:@"waitTask.step4"]) {
         // Determinate step
-        [self updateProgress:0.0 waitStepViewController:((ORKLegacyWaitStepViewController *)stepViewController)];
+        [self updateProgress:0.0 waitStepViewController:((ORK1WaitStepViewController *)stepViewController)];
     } else if ([stepViewController.step.identifier isEqualToString:@"completionStepWithDoneButton"] &&
-               [stepViewController isKindOfClass:[ORKLegacyCompletionStepViewController class]]) {
-        ((ORKLegacyCompletionStepViewController*)stepViewController).shouldShowContinueButton = YES;
+               [stepViewController isKindOfClass:[ORK1CompletionStepViewController class]]) {
+        ((ORK1CompletionStepViewController*)stepViewController).shouldShowContinueButton = YES;
     }
 
 }
@@ -4248,7 +4248,7 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
  active tasks that can't usefully be restarted after a significant time gap
  should not support save at all.
  */
-- (BOOL)taskViewControllerSupportsSaveAndRestore:(ORKLegacyTaskViewController *)taskViewController {
+- (BOOL)taskViewControllerSupportsSaveAndRestore:(ORK1TaskViewController *)taskViewController {
     return YES;
 }
 
@@ -4257,24 +4257,24 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
  
  In this test app, we don't dismiss on a fail (we just log it).
  */
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController didFinishWithReason:(ORKLegacyTaskViewControllerFinishReason)reason error:(NSError *)error {
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController didFinishWithReason:(ORK1TaskViewControllerFinishReason)reason error:(NSError *)error {
     switch (reason) {
-        case ORKLegacyTaskViewControllerFinishReasonCompleted:
+        case ORK1TaskViewControllerFinishReasonCompleted:
             if ([taskViewController.task.identifier isEqualToString:EmbeddedReviewTaskIdentifier]) {
                 _embeddedReviewTaskResult = taskViewController.result;
             }
             [self taskViewControllerDidComplete:taskViewController];
             break;
-        case ORKLegacyTaskViewControllerFinishReasonFailed:
+        case ORK1TaskViewControllerFinishReasonFailed:
             NSLog(@"Error on step %@: %@", taskViewController.currentStepViewController.step, error);
             break;
-        case ORKLegacyTaskViewControllerFinishReasonDiscarded:
+        case ORK1TaskViewControllerFinishReasonDiscarded:
             if ([taskViewController.task.identifier isEqualToString:EmbeddedReviewTaskIdentifier]) {
                 _embeddedReviewTaskResult = nil;
             }
             [self dismissTaskViewController:taskViewController removeOutputDirectory:YES];
             break;
-        case ORKLegacyTaskViewControllerFinishReasonSaved:
+        case ORK1TaskViewControllerFinishReasonSaved:
         {
             if ([taskViewController.task.identifier isEqualToString:EmbeddedReviewTaskIdentifier]) {
                 _embeddedReviewTaskResult = taskViewController.result;
@@ -4283,7 +4283,7 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
              Save the restoration data, dismiss the task VC, and do an early return
              so we don't clear the restoration data.
              */
-            id<ORKLegacyTask> task = taskViewController.task;
+            id<ORK1Task> task = taskViewController.task;
             _savedViewControllers[task.identifier] = taskViewController.restorationData;
             [self dismissTaskViewController:taskViewController removeOutputDirectory:NO];
             return;
@@ -4302,12 +4302,12 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
  When a task completes, we pretty-print the result to the console.
  
  This is ok for testing, but if what you want to do is see the results of a task,
- the `ORKLegacyCatalog` Swift sample app might be a better choice, since it lets
+ the `ORK1Catalog` Swift sample app might be a better choice, since it lets
  you navigate through the result structure.
  */
-- (void)taskViewControllerDidComplete:(ORKLegacyTaskViewController *)taskViewController {
+- (void)taskViewControllerDidComplete:(ORK1TaskViewController *)taskViewController {
     
-    NSLog(@"[ORKLegacyTest] task results: %@", taskViewController.result);
+    NSLog(@"[ORK1Test] task results: %@", taskViewController.result);
     
     // Validate the results
     NSArray *results = taskViewController.result.results;
@@ -4324,10 +4324,10 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
          */
         
         // Search for the review step.
-        NSArray *steps = [(ORKLegacyOrderedTask *)taskViewController.task steps];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat: @"self isKindOfClass: %@", [ORKLegacyConsentReviewStep class]];
-        ORKLegacyStep *reviewStep = [[steps filteredArrayUsingPredicate:predicate] firstObject];
-        ORKLegacyConsentSignatureResult *signatureResult = (ORKLegacyConsentSignatureResult *)[[[taskViewController result] stepResultForStepIdentifier:reviewStep.identifier] firstResult];
+        NSArray *steps = [(ORK1OrderedTask *)taskViewController.task steps];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat: @"self isKindOfClass: %@", [ORK1ConsentReviewStep class]];
+        ORK1Step *reviewStep = [[steps filteredArrayUsingPredicate:predicate] firstObject];
+        ORK1ConsentSignatureResult *signatureResult = (ORK1ConsentSignatureResult *)[[[taskViewController result] stepResultForStepIdentifier:reviewStep.identifier] firstResult];
         
         [signatureResult applyToDocument:_currentDocument];
         
@@ -4361,21 +4361,21 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
 /**
   When a task has completed it calls this method to post the result of the task to the delegate.
 */
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController didChangeResult:(ORKLegacyTaskResult *)result {
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController didChangeResult:(ORK1TaskResult *)result {
     /*
      Upon creation of a Passcode by a user, the results of their creation
-     are returned by getting it from ORKLegacyPasscodeResult in this delegate call.
+     are returned by getting it from ORK1PasscodeResult in this delegate call.
      This is triggered upon completion/failure/or cancel
      */
-    ORKLegacyStepResult *stepResult = (ORKLegacyStepResult *)[[result results] firstObject];
-    if ([[[stepResult results] firstObject] isKindOfClass:[ORKLegacyPasscodeResult class]]) {
-        ORKLegacyPasscodeResult *passcodeResult = (ORKLegacyPasscodeResult *)[[stepResult results] firstObject];
+    ORK1StepResult *stepResult = (ORK1StepResult *)[[result results] firstObject];
+    if ([[[stepResult results] firstObject] isKindOfClass:[ORK1PasscodeResult class]]) {
+        ORK1PasscodeResult *passcodeResult = (ORK1PasscodeResult *)[[stepResult results] firstObject];
         NSLog(@"passcode saved: %d , Touch ID Enabled: %d", passcodeResult.passcodeSaved, passcodeResult.touchIdEnabled);
 
     }
 }
 
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController stepViewControllerWillDisappear:(ORKLegacyStepViewController *)stepViewController navigationDirection:(ORKLegacyStepViewControllerNavigationDirection)direction {
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController stepViewControllerWillDisappear:(ORK1StepViewController *)stepViewController navigationDirection:(ORK1StepViewControllerNavigationDirection)direction {
     if ([taskViewController.task.identifier isEqualToString:StepWillDisappearTaskIdentifier] &&
         [stepViewController.step.identifier isEqualToString:StepWillDisappearFirstStepIdentifier]) {
         taskViewController.view.tintColor = [UIColor magentaColor];
@@ -4412,7 +4412,7 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     
     // Could save and restore the task's identifier separately, but the VC's
     // restoration identifier defaults to the task's identifier.
-    id<ORKLegacyTask> taskForTaskViewController = [self makeTaskWithIdentifier:_taskViewController.restorationIdentifier];
+    id<ORK1Task> taskForTaskViewController = [self makeTaskWithIdentifier:_taskViewController.restorationIdentifier];
     
     _taskViewController.task = taskForTaskViewController;
     if ([_taskViewController.restorationIdentifier isEqualToString:@"DynamicTask01"])
@@ -4438,45 +4438,45 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
 
 #pragma mark - Wait Task
 
-- (ORKLegacyOrderedTask *)makeWaitingTask {
+- (ORK1OrderedTask *)makeWaitingTask {
     
     NSMutableArray *steps = [[NSMutableArray alloc] init];
     
     /*
-     To properly use the wait steps, one needs to implement the "" method of ORKLegacyTaskViewControllerDelegate to start their background action when the wait task begins, and then call the "finish" method on the ORKLegacyWaitTaskViewController when the background task has been completed.
+     To properly use the wait steps, one needs to implement the "" method of ORK1TaskViewControllerDelegate to start their background action when the wait task begins, and then call the "finish" method on the ORK1WaitTaskViewController when the background task has been completed.
      */
-    ORKLegacyInstructionStep *step1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"waitTask.step1"];
+    ORK1InstructionStep *step1 = [[ORK1InstructionStep alloc] initWithIdentifier:@"waitTask.step1"];
     step1.title = @"Setup";
     step1.detailText = @"ORKTest needs to set up some things before you begin, once the setup is complete you will be able to continue.";
     [steps addObject:step1];
     
     // Interterminate wait step.
-    ORKLegacyWaitStep *step2 = [[ORKLegacyWaitStep alloc] initWithIdentifier:@"waitTask.step2"];
+    ORK1WaitStep *step2 = [[ORK1WaitStep alloc] initWithIdentifier:@"waitTask.step2"];
     step2.title = @"Getting Ready";
     step2.text = @"Please wait while the setup completes.";
     [steps addObject:step2];
     
-    ORKLegacyInstructionStep *step3 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"waitTask.step3"];
+    ORK1InstructionStep *step3 = [[ORK1InstructionStep alloc] initWithIdentifier:@"waitTask.step3"];
     step3.title = @"Account Setup";
     step3.detailText = @"The information you entered will be sent to the secure server to complete your account setup.";
     [steps addObject:step3];
     
     // Determinate wait step.
-    ORKLegacyWaitStep *step4 = [[ORKLegacyWaitStep alloc] initWithIdentifier:@"waitTask.step4"];
+    ORK1WaitStep *step4 = [[ORK1WaitStep alloc] initWithIdentifier:@"waitTask.step4"];
     step4.title = @"Syncing Account";
     step4.text = @"Please wait while the data is uploaded.";
-    step4.indicatorType = ORKLegacyProgressIndicatorTypeProgressBar;
+    step4.indicatorType = ORK1ProgressIndicatorTypeProgressBar;
     [steps addObject:step4];
     
-    ORKLegacyCompletionStep *step5 = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"waitTask.step5"];
+    ORK1CompletionStep *step5 = [[ORK1CompletionStep alloc] initWithIdentifier:@"waitTask.step5"];
     step5.title = @"Setup Complete";
     [steps addObject:step5];
 
-    ORKLegacyOrderedTask *waitTask = [[ORKLegacyOrderedTask alloc] initWithIdentifier:WaitTaskIdentifier steps:steps];
+    ORK1OrderedTask *waitTask = [[ORK1OrderedTask alloc] initWithIdentifier:WaitTaskIdentifier steps:steps];
     return waitTask;
 }
 
-- (void)updateProgress:(CGFloat)progress waitStepViewController:(ORKLegacyWaitStepViewController *)waitStepviewController {
+- (void)updateProgress:(CGFloat)progress waitStepViewController:(ORK1WaitStepViewController *)waitStepviewController {
     if (progress <= 1.0) {
         [waitStepviewController setProgress:progress animated:true];
         double delayInSeconds = 0.1;
@@ -4499,32 +4499,32 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:LocationTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makeLocationTask {
+- (ORK1OrderedTask *)makeLocationTask {
     NSMutableArray *steps = [[NSMutableArray alloc] init];
     
-    ORKLegacyInstructionStep *step1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"locationTask.step1"];
+    ORK1InstructionStep *step1 = [[ORK1InstructionStep alloc] initWithIdentifier:@"locationTask.step1"];
     step1.title = @"Location Survey";
     [steps addObject:step1];
     
     // Location question with current location observing on
-    ORKLegacyQuestionStep *step2 = [[ORKLegacyQuestionStep alloc] initWithIdentifier:@"locationTask.step2"];
+    ORK1QuestionStep *step2 = [[ORK1QuestionStep alloc] initWithIdentifier:@"locationTask.step2"];
     step2.title = @"Where are you right now?";
-    step2.answerFormat = [[ORKLegacyLocationAnswerFormat alloc] init];
+    step2.answerFormat = [[ORK1LocationAnswerFormat alloc] init];
     [steps addObject:step2];
     
     // Location question with current location observing off
-    ORKLegacyQuestionStep *step3 = [[ORKLegacyQuestionStep alloc] initWithIdentifier:@"locationTask.step3"];
+    ORK1QuestionStep *step3 = [[ORK1QuestionStep alloc] initWithIdentifier:@"locationTask.step3"];
     step3.title = @"Where is your home?";
-    ORKLegacyLocationAnswerFormat *locationAnswerFormat  = [[ORKLegacyLocationAnswerFormat alloc] init];
+    ORK1LocationAnswerFormat *locationAnswerFormat  = [[ORK1LocationAnswerFormat alloc] init];
     locationAnswerFormat.useCurrentLocation= NO;
     step3.answerFormat = locationAnswerFormat;
     [steps addObject:step3];
     
-    ORKLegacyCompletionStep *step4 = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"locationTask.step4"];
+    ORK1CompletionStep *step4 = [[ORK1CompletionStep alloc] initWithIdentifier:@"locationTask.step4"];
     step4.title = @"Survey Complete";
     [steps addObject:step4];
     
-    ORKLegacyOrderedTask *locationTask = [[ORKLegacyOrderedTask alloc] initWithIdentifier:LocationTaskIdentifier steps:steps];
+    ORK1OrderedTask *locationTask = [[ORK1OrderedTask alloc] initWithIdentifier:LocationTaskIdentifier steps:steps];
     return locationTask;
 }
 
@@ -4534,16 +4534,16 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:StepWillDisappearTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makeStepWillDisappearTask {
+- (ORK1OrderedTask *)makeStepWillDisappearTask {
     
-    ORKLegacyInstructionStep *step1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:StepWillDisappearFirstStepIdentifier];
+    ORK1InstructionStep *step1 = [[ORK1InstructionStep alloc] initWithIdentifier:StepWillDisappearFirstStepIdentifier];
     step1.title = @"Step Will Disappear Delegate Example";
     step1.text = @"The tint color of the task view controller is changed to magenta in the `stepViewControllerWillDisappear:` method.";
     
-    ORKLegacyCompletionStep *stepLast = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"stepLast"];
+    ORK1CompletionStep *stepLast = [[ORK1CompletionStep alloc] initWithIdentifier:@"stepLast"];
     stepLast.title = @"Survey Complete";
     
-    ORKLegacyOrderedTask *locationTask = [[ORKLegacyOrderedTask alloc] initWithIdentifier:StepWillDisappearTaskIdentifier steps:@[step1, stepLast]];
+    ORK1OrderedTask *locationTask = [[ORK1OrderedTask alloc] initWithIdentifier:StepWillDisappearTaskIdentifier steps:@[step1, stepLast]];
     return locationTask;
 }
 
@@ -4553,32 +4553,32 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:ConfirmationFormTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makeConfirmationFormTask {
+- (ORK1OrderedTask *)makeConfirmationFormTask {
     NSMutableArray *steps = [[NSMutableArray alloc] init];
     
-    ORKLegacyInstructionStep *step1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"confirmationForm.step1"];
+    ORK1InstructionStep *step1 = [[ORK1InstructionStep alloc] initWithIdentifier:@"confirmationForm.step1"];
     step1.title = @"Confirmation Form Items Survey";
     [steps addObject:step1];
     
     // Create a step for entering password with confirmation
-    ORKLegacyFormStep *step2 = [[ORKLegacyFormStep alloc] initWithIdentifier:@"confirmationForm.step2" title:@"Password" text:nil];
+    ORK1FormStep *step2 = [[ORK1FormStep alloc] initWithIdentifier:@"confirmationForm.step2" title:@"Password" text:nil];
     [steps addObject:step2];
     
     {
-        ORKLegacyTextAnswerFormat *answerFormat = [ORKLegacyAnswerFormat textAnswerFormat];
+        ORK1TextAnswerFormat *answerFormat = [ORK1AnswerFormat textAnswerFormat];
         answerFormat.multipleLines = NO;
         answerFormat.secureTextEntry = YES;
         answerFormat.autocapitalizationType = UITextAutocapitalizationTypeNone;
         answerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
         answerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
         
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"password"
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"password"
                                                                text:@"Password"
                                                        answerFormat:answerFormat
                                                            optional:NO];
         item.placeholder = @"Enter password";
 
-        ORKLegacyFormItem *confirmationItem = [item confirmationAnswerFormItemWithIdentifier:@"password.confirmation"
+        ORK1FormItem *confirmationItem = [item confirmationAnswerFormItemWithIdentifier:@"password.confirmation"
                                                                                   text:@"Confirm"
                                                                           errorMessage:@"Passwords do not match"];
         confirmationItem.placeholder = @"Enter password again";
@@ -4587,23 +4587,23 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     }
     
     // Create a step for entering participant id
-    ORKLegacyFormStep *step3 = [[ORKLegacyFormStep alloc] initWithIdentifier:@"confirmationForm.step3" title:@"Participant ID" text:nil];
+    ORK1FormStep *step3 = [[ORK1FormStep alloc] initWithIdentifier:@"confirmationForm.step3" title:@"Participant ID" text:nil];
     [steps addObject:step3];
     
     {
-        ORKLegacyTextAnswerFormat *answerFormat = [ORKLegacyAnswerFormat textAnswerFormat];
+        ORK1TextAnswerFormat *answerFormat = [ORK1AnswerFormat textAnswerFormat];
         answerFormat.multipleLines = NO;
         answerFormat.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
         answerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
         answerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
         
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:@"participantID"
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:@"participantID"
                                                                text:@"Participant ID"
                                                        answerFormat:answerFormat
                                                            optional:YES];
         item.placeholder = @"Enter Participant ID";
         
-        ORKLegacyFormItem *confirmationItem = [item confirmationAnswerFormItemWithIdentifier:@"participantID.confirmation"
+        ORK1FormItem *confirmationItem = [item confirmationAnswerFormItemWithIdentifier:@"participantID.confirmation"
                                                                                   text:@"Confirm"
                                                                           errorMessage:@"IDs do not match"];
         confirmationItem.placeholder = @"Enter ID again";
@@ -4611,11 +4611,11 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
         step3.formItems = @[item, confirmationItem];
     }
     
-    ORKLegacyCompletionStep *step4 = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"confirmationForm.lastStep"];
+    ORK1CompletionStep *step4 = [[ORK1CompletionStep alloc] initWithIdentifier:@"confirmationForm.lastStep"];
     step4.title = @"Survey Complete";
     [steps addObject:step4];
     
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier:ConfirmationFormTaskIdentifier steps:steps];
+    return [[ORK1OrderedTask alloc] initWithIdentifier:ConfirmationFormTaskIdentifier steps:steps];
 }
 
 #pragma mark - Continue button
@@ -4632,17 +4632,17 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:InstantiateCustomVCTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makeInstantiateCustomVCTask {
+- (ORK1OrderedTask *)makeInstantiateCustomVCTask {
     
-    ORKLegacyInstructionStep *step1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"locationTask.step1"];
+    ORK1InstructionStep *step1 = [[ORK1InstructionStep alloc] initWithIdentifier:@"locationTask.step1"];
     step1.title = @"Instantiate Custom View Controller";
-    step1.text = @"The next step uses a custom subclass of an ORKLegacyFormStepViewController.";
+    step1.text = @"The next step uses a custom subclass of an ORK1FormStepViewController.";
     
     DragonPokerStep *dragonStep = [[DragonPokerStep alloc] initWithIdentifier:@"dragonStep"];
     
-    ORKLegacyStep *lastStep = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"done"];
+    ORK1Step *lastStep = [[ORK1CompletionStep alloc] initWithIdentifier:@"done"];
     
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier:InstantiateCustomVCTaskIdentifier steps:@[step1, dragonStep, lastStep]];
+    return [[ORK1OrderedTask alloc] initWithIdentifier:InstantiateCustomVCTaskIdentifier steps:@[step1, dragonStep, lastStep]];
 }
 
 #pragma mark - Step Table
@@ -4651,22 +4651,22 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:TableStepTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makeTableStepTask {
+- (ORK1OrderedTask *)makeTableStepTask {
     NSMutableArray *steps = [[NSMutableArray alloc] init];
     
-    ORKLegacyInstructionStep *step1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"step1"];
-    step1.text = @"Example of an ORKLegacyTableStepViewController";
+    ORK1InstructionStep *step1 = [[ORK1InstructionStep alloc] initWithIdentifier:@"step1"];
+    step1.text = @"Example of an ORK1TableStepViewController";
     [steps addObject:step1];
     
-    ORKLegacyTableStep *tableStep = [[ORKLegacyTableStep alloc] initWithIdentifier:@"tableStep"];
+    ORK1TableStep *tableStep = [[ORK1TableStep alloc] initWithIdentifier:@"tableStep"];
     tableStep.items = @[@"Item 1", @"Item 2", @"Item 3"];
     [steps addObject:tableStep];
     
-    ORKLegacyCompletionStep *stepLast = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"lastStep"];
+    ORK1CompletionStep *stepLast = [[ORK1CompletionStep alloc] initWithIdentifier:@"lastStep"];
     stepLast.title = @"Task Complete";
     [steps addObject:stepLast];
     
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier:TableStepTaskIdentifier steps:steps];
+    return [[ORK1OrderedTask alloc] initWithIdentifier:TableStepTaskIdentifier steps:steps];
 }
 
 #pragma mark - Signature Table
@@ -4675,21 +4675,21 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:SignatureStepTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makeSignatureStepTask {
+- (ORK1OrderedTask *)makeSignatureStepTask {
     NSMutableArray *steps = [[NSMutableArray alloc] init];
     
-    ORKLegacyInstructionStep *step1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"step1"];
-    step1.text = @"Example of an ORKLegacySignatureStep";
+    ORK1InstructionStep *step1 = [[ORK1InstructionStep alloc] initWithIdentifier:@"step1"];
+    step1.text = @"Example of an ORK1SignatureStep";
     [steps addObject:step1];
     
-    ORKLegacySignatureStep *signatureStep = [[ORKLegacySignatureStep alloc] initWithIdentifier:@"signatureStep"];
+    ORK1SignatureStep *signatureStep = [[ORK1SignatureStep alloc] initWithIdentifier:@"signatureStep"];
     [steps addObject:signatureStep];
     
-    ORKLegacyCompletionStep *stepLast = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"lastStep"];
+    ORK1CompletionStep *stepLast = [[ORK1CompletionStep alloc] initWithIdentifier:@"lastStep"];
     stepLast.title = @"Task Complete";
     [steps addObject:stepLast];
     
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier:SignatureStepTaskIdentifier steps:steps];
+    return [[ORK1OrderedTask alloc] initWithIdentifier:SignatureStepTaskIdentifier steps:steps];
 }
 
 #pragma mark - Auxillary Image
@@ -4698,16 +4698,16 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:AuxillaryImageTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makeAuxillaryImageTask {
+- (ORK1OrderedTask *)makeAuxillaryImageTask {
     
-    ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:AuxillaryImageTaskIdentifier];
+    ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:AuxillaryImageTaskIdentifier];
     step.title = @"Title";
     step.text = @"This is description text.";
     step.detailText = @"This is detail text.";
-    step.image = [UIImage imageNamed:@"tremortest3a" inBundle:[NSBundle bundleForClass:[ORKLegacyOrderedTask class]] compatibleWithTraitCollection:nil];
-    step.auxiliaryImage = [UIImage imageNamed:@"tremortest3b" inBundle:[NSBundle bundleForClass:[ORKLegacyOrderedTask class]] compatibleWithTraitCollection:nil];
+    step.image = [UIImage imageNamed:@"tremortest3a" inBundle:[NSBundle bundleForClass:[ORK1OrderedTask class]] compatibleWithTraitCollection:nil];
+    step.auxiliaryImage = [UIImage imageNamed:@"tremortest3b" inBundle:[NSBundle bundleForClass:[ORK1OrderedTask class]] compatibleWithTraitCollection:nil];
     
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier:SignatureStepTaskIdentifier steps:@[step]];
+    return [[ORK1OrderedTask alloc] initWithIdentifier:SignatureStepTaskIdentifier steps:@[step]];
 }
 
 #pragma mark - Video Instruction Task
@@ -4716,24 +4716,24 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:VideoInstructionStepTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makeVideoInstructionStepTask {
+- (ORK1OrderedTask *)makeVideoInstructionStepTask {
     NSMutableArray *steps = [[NSMutableArray alloc] init];
     
-    ORKLegacyInstructionStep *firstStep = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"firstStep"];
-    firstStep.text = @"Example of an ORKLegacyVideoInstructionStep";
+    ORK1InstructionStep *firstStep = [[ORK1InstructionStep alloc] initWithIdentifier:@"firstStep"];
+    firstStep.text = @"Example of an ORK1VideoInstructionStep";
     [steps addObject:firstStep];
     
-    ORKLegacyVideoInstructionStep *videoInstructionStep = [[ORKLegacyVideoInstructionStep alloc] initWithIdentifier:@"videoInstructionStep"];
+    ORK1VideoInstructionStep *videoInstructionStep = [[ORK1VideoInstructionStep alloc] initWithIdentifier:@"videoInstructionStep"];
     videoInstructionStep.text = @"Video Instruction";
     videoInstructionStep.videoURL = [[NSURL alloc] initWithString:@"https://www.apple.com/media/us/researchkit/2016/a63aa7d4_e6fd_483f_a59d_d962016c8093/films/carekit/researchkit-carekit-cc-us-20160321_r848-9dwc.mov"];
     
     [steps addObject:videoInstructionStep];
     
-    ORKLegacyCompletionStep *lastStep = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"lastStep"];
+    ORK1CompletionStep *lastStep = [[ORK1CompletionStep alloc] initWithIdentifier:@"lastStep"];
     lastStep.title = @"Task Complete";
     [steps addObject:lastStep];
     
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier:SignatureStepTaskIdentifier steps:steps];
+    return [[ORK1OrderedTask alloc] initWithIdentifier:SignatureStepTaskIdentifier steps:steps];
 }
 
 #pragma mark - Icon Image
@@ -4742,9 +4742,9 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:IconImageTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makeIconImageTask {
+- (ORK1OrderedTask *)makeIconImageTask {
     
-    ORKLegacyInstructionStep *step1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"step1"];
+    ORK1InstructionStep *step1 = [[ORK1InstructionStep alloc] initWithIdentifier:@"step1"];
     step1.title = @"Title";
     step1.text = @"This is an example of a step with an icon image.";
 
@@ -4752,16 +4752,16 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     NSString *icon = [[infoPlist valueForKeyPath:@"CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] lastObject];
     step1.iconImage = [UIImage imageNamed:icon];
     
-    ORKLegacyInstructionStep *step2 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"step2"];
+    ORK1InstructionStep *step2 = [[ORK1InstructionStep alloc] initWithIdentifier:@"step2"];
     step2.text = @"This is an example of a step with an icon image and no title.";
     step2.iconImage = [UIImage imageNamed:icon];
     
-    ORKLegacyInstructionStep *step3 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"step3"];
+    ORK1InstructionStep *step3 = [[ORK1InstructionStep alloc] initWithIdentifier:@"step3"];
     step3.title = @"Title";
     step3.text = @"This is an example of a step with an icon image that is very big.";
     step3.iconImage = [UIImage imageNamed:@"Poppies"];
     
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier:IconImageTaskIdentifier steps:@[step1, step2, step3]];
+    return [[ORK1OrderedTask alloc] initWithIdentifier:IconImageTaskIdentifier steps:@[step1, step2, step3]];
 }
 
 #pragma mark - Trail Making Task
@@ -4776,18 +4776,18 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:CompletionStepTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makeCompletionStepTask {
+- (ORK1OrderedTask *)makeCompletionStepTask {
     NSMutableArray *steps = [[NSMutableArray alloc] init];
     
-    ORKLegacyCompletionStep *step1 = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"completionStepWithDoneButton"];
+    ORK1CompletionStep *step1 = [[ORK1CompletionStep alloc] initWithIdentifier:@"completionStepWithDoneButton"];
     step1.text = @"Example of a step view controller with the continue button in the standard location below the checkmark.";
     [steps addObject:step1];
     
-    ORKLegacyCompletionStep *stepLast = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"lastStep"];
+    ORK1CompletionStep *stepLast = [[ORK1CompletionStep alloc] initWithIdentifier:@"lastStep"];
     stepLast.title = @"Example of an step view controller with the continue button in the upper right.";
     [steps addObject:stepLast];
     
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier:CompletionStepTaskIdentifier steps:steps];
+    return [[ORK1OrderedTask alloc] initWithIdentifier:CompletionStepTaskIdentifier steps:steps];
 }
 
 #pragma mark - Page Step
@@ -4796,36 +4796,36 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:PageStepTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makePageStepTask {
+- (ORK1OrderedTask *)makePageStepTask {
     
     NSMutableArray *steps = [[NSMutableArray alloc] init];
     
-    ORKLegacyInstructionStep *step1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"step1"];
-    step1.text = @"Example of an ORKLegacyPageStep";
+    ORK1InstructionStep *step1 = [[ORK1InstructionStep alloc] initWithIdentifier:@"step1"];
+    step1.text = @"Example of an ORK1PageStep";
     [steps addObject:step1];
     
-    NSMutableArray<ORKLegacyTextChoice *> *textChoices = [[NSMutableArray alloc] init];
-    [textChoices addObject:[[ORKLegacyTextChoice alloc] initWithText:@"Good" detailText:@"" value:[NSNumber numberWithInt:0] exclusive:NO]];
-    [textChoices addObject:[[ORKLegacyTextChoice alloc] initWithText:@"Average" detailText:@"" value:[NSNumber numberWithInt:1] exclusive:NO]];
-    [textChoices addObject:[[ORKLegacyTextChoice alloc] initWithText:@"Poor" detailText:@"" value:[NSNumber numberWithInt:2] exclusive:NO]];
-    ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice textChoices:textChoices];
-    ORKLegacyFormItem *formItem = [[ORKLegacyFormItem alloc] initWithIdentifier:@"choice" text:nil answerFormat:answerFormat];
-    ORKLegacyFormStep *groupStep1 = [[ORKLegacyFormStep alloc] initWithIdentifier:@"step1" title:nil text:@"How do you feel today?"];
+    NSMutableArray<ORK1TextChoice *> *textChoices = [[NSMutableArray alloc] init];
+    [textChoices addObject:[[ORK1TextChoice alloc] initWithText:@"Good" detailText:@"" value:[NSNumber numberWithInt:0] exclusive:NO]];
+    [textChoices addObject:[[ORK1TextChoice alloc] initWithText:@"Average" detailText:@"" value:[NSNumber numberWithInt:1] exclusive:NO]];
+    [textChoices addObject:[[ORK1TextChoice alloc] initWithText:@"Poor" detailText:@"" value:[NSNumber numberWithInt:2] exclusive:NO]];
+    ORK1AnswerFormat *answerFormat = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice textChoices:textChoices];
+    ORK1FormItem *formItem = [[ORK1FormItem alloc] initWithIdentifier:@"choice" text:nil answerFormat:answerFormat];
+    ORK1FormStep *groupStep1 = [[ORK1FormStep alloc] initWithIdentifier:@"step1" title:nil text:@"How do you feel today?"];
     groupStep1.formItems = @[formItem];
     
-    NSMutableArray<ORKLegacyImageChoice *> *imageChoices = [[NSMutableArray alloc] init];
-    [imageChoices addObject:[[ORKLegacyImageChoice alloc] initWithNormalImage:[UIImage imageNamed:@"left_hand_outline"] selectedImage:[UIImage imageNamed:@"left_hand_solid"] text:@"Left hand" value:[NSNumber numberWithInt:1]]];
-    [imageChoices addObject:[[ORKLegacyImageChoice alloc] initWithNormalImage:[UIImage imageNamed:@"right_hand_outline"] selectedImage:[UIImage imageNamed:@"right_hand_solid"] text:@"Right hand" value:[NSNumber numberWithInt:0]]];
-    ORKLegacyQuestionStep *groupStep2 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"step2" title:@"Which hand was injured?" answer:[ORKLegacyAnswerFormat choiceAnswerFormatWithImageChoices:imageChoices]];
+    NSMutableArray<ORK1ImageChoice *> *imageChoices = [[NSMutableArray alloc] init];
+    [imageChoices addObject:[[ORK1ImageChoice alloc] initWithNormalImage:[UIImage imageNamed:@"left_hand_outline"] selectedImage:[UIImage imageNamed:@"left_hand_solid"] text:@"Left hand" value:[NSNumber numberWithInt:1]]];
+    [imageChoices addObject:[[ORK1ImageChoice alloc] initWithNormalImage:[UIImage imageNamed:@"right_hand_outline"] selectedImage:[UIImage imageNamed:@"right_hand_solid"] text:@"Right hand" value:[NSNumber numberWithInt:0]]];
+    ORK1QuestionStep *groupStep2 = [ORK1QuestionStep questionStepWithIdentifier:@"step2" title:@"Which hand was injured?" answer:[ORK1AnswerFormat choiceAnswerFormatWithImageChoices:imageChoices]];
     
-    ORKLegacySignatureStep *groupStep3 = [[ORKLegacySignatureStep alloc] initWithIdentifier:@"step3"];
+    ORK1SignatureStep *groupStep3 = [[ORK1SignatureStep alloc] initWithIdentifier:@"step3"];
     
-    ORKLegacyStep *groupStep4 = [[ORKLegacyConsentReviewStep alloc] initWithIdentifier:@"groupStep4" signature:nil inDocument:[self buildConsentDocument]];
+    ORK1Step *groupStep4 = [[ORK1ConsentReviewStep alloc] initWithIdentifier:@"groupStep4" signature:nil inDocument:[self buildConsentDocument]];
     
-    ORKLegacyPageStep *pageStep = [[ORKLegacyPageStep alloc] initWithIdentifier:@"pageStep" steps:@[groupStep1, groupStep2, groupStep3, groupStep4]];
+    ORK1PageStep *pageStep = [[ORK1PageStep alloc] initWithIdentifier:@"pageStep" steps:@[groupStep1, groupStep2, groupStep3, groupStep4]];
     [steps addObject:pageStep];
     
-    ORKLegacyOrderedTask *audioTask = [ORKLegacyOrderedTask audioTaskWithIdentifier:@"audioTask"
+    ORK1OrderedTask *audioTask = [ORK1OrderedTask audioTaskWithIdentifier:@"audioTask"
                                                  intendedUseDescription:nil
                                                       speechInstruction:nil
                                                  shortSpeechInstruction:nil
@@ -4833,16 +4833,16 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
                                                       recordingSettings:nil
                                                         checkAudioLevel:YES
                                                                 options:
-                                 ORKLegacyPredefinedTaskOptionExcludeInstructions |
-                                 ORKLegacyPredefinedTaskOptionExcludeConclusion];
-    ORKLegacyPageStep *audioStep = [[ORKLegacyNavigablePageStep alloc] initWithIdentifier:@"audioStep" pageTask:audioTask];
+                                 ORK1PredefinedTaskOptionExcludeInstructions |
+                                 ORK1PredefinedTaskOptionExcludeConclusion];
+    ORK1PageStep *audioStep = [[ORK1NavigablePageStep alloc] initWithIdentifier:@"audioStep" pageTask:audioTask];
     [steps addObject:audioStep];
     
-    ORKLegacyCompletionStep *stepLast = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"lastStep"];
+    ORK1CompletionStep *stepLast = [[ORK1CompletionStep alloc] initWithIdentifier:@"lastStep"];
     stepLast.title = @"Task Complete";
     [steps addObject:stepLast];
     
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier:PageStepTaskIdentifier steps:steps];
+    return [[ORK1OrderedTask alloc] initWithIdentifier:PageStepTaskIdentifier steps:steps];
     
 }
 
@@ -4853,43 +4853,43 @@ stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController {
     [self beginTaskWithIdentifier:FootnoteTaskIdentifier];
 }
 
-- (ORKLegacyOrderedTask *)makeFootnoteTask {
+- (ORK1OrderedTask *)makeFootnoteTask {
     
-    ORKLegacyInstructionStep *step1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"step1"];
+    ORK1InstructionStep *step1 = [[ORK1InstructionStep alloc] initWithIdentifier:@"step1"];
     step1.title = @"Footnote example";
     step1.text = @"This is an instruction step with a footnote.";
     step1.footnote = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dignissim tortor eget orci placerat, eu congue diam tempor. In hac.";
     
-    ORKLegacyInstructionStep *step2 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"step2"];
+    ORK1InstructionStep *step2 = [[ORK1InstructionStep alloc] initWithIdentifier:@"step2"];
     step2.title = @"Image and No Footnote";
     step2.text = @"This is an instruction step with an image and NO footnote.";
     step2.image = [UIImage imageNamed:@"image_example"];
     
-    ORKLegacyInstructionStep *step3 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"step3"];
+    ORK1InstructionStep *step3 = [[ORK1InstructionStep alloc] initWithIdentifier:@"step3"];
     step3.title = @"Image and Footnote";
     step3.text = @"This is an instruction step with an image and a footnote.";
     step3.image = [UIImage imageNamed:@"image_example"];
     step3.footnote = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dignissim tortor eget orci placerat, eu congue diam tempor. In hac.";
     
-    ORKLegacyFormStep *step4 = [[ORKLegacyFormStep alloc] initWithIdentifier:@"step4" title:@"Form Step with skip" text:@"This is a form step with a skip button."];
-    step4.formItems = @[[[ORKLegacyFormItem alloc] initWithIdentifier:@"form_item_1"
+    ORK1FormStep *step4 = [[ORK1FormStep alloc] initWithIdentifier:@"step4" title:@"Form Step with skip" text:@"This is a form step with a skip button."];
+    step4.formItems = @[[[ORK1FormItem alloc] initWithIdentifier:@"form_item_1"
                                                            text:@"Are you over 18 years of age?"
-                                                   answerFormat:[ORKLegacyAnswerFormat booleanAnswerFormat]]];
+                                                   answerFormat:[ORK1AnswerFormat booleanAnswerFormat]]];
     step4.optional = YES;
     
-    ORKLegacyFormStep *step5 = [[ORKLegacyFormStep alloc] initWithIdentifier:@"step5" title:@"Form Step with Footnote" text:@"This is a form step with a skip button and footnote."];
-    step5.formItems = @[[[ORKLegacyFormItem alloc] initWithIdentifier:@"form_item_1"
+    ORK1FormStep *step5 = [[ORK1FormStep alloc] initWithIdentifier:@"step5" title:@"Form Step with Footnote" text:@"This is a form step with a skip button and footnote."];
+    step5.formItems = @[[[ORK1FormItem alloc] initWithIdentifier:@"form_item_1"
                                                            text:@"Are you over 18 years of age?"
-                                                   answerFormat:[ORKLegacyAnswerFormat booleanAnswerFormat]]];
+                                                   answerFormat:[ORK1AnswerFormat booleanAnswerFormat]]];
     step5.optional = YES;
     step5.footnote = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dignissim tortor eget orci placerat, eu congue diam tempor. In hac.";
 
-    ORKLegacyCompletionStep *lastStep = [[ORKLegacyCompletionStep alloc] initWithIdentifier:@"lastStep"];
+    ORK1CompletionStep *lastStep = [[ORK1CompletionStep alloc] initWithIdentifier:@"lastStep"];
     lastStep.title = @"Last step.";
     lastStep.text = @"This is a completion step with a footnote.";
     lastStep.footnote = @"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dignissim tortor eget orci placerat, eu congue diam tempor. In hac.";
 
-    return [[ORKLegacyOrderedTask alloc] initWithIdentifier:FootnoteTaskIdentifier steps:@[step1, step2, step3, step4, step5, lastStep]];
+    return [[ORK1OrderedTask alloc] initWithIdentifier:FootnoteTaskIdentifier steps:@[step1, step2, step3, step4, step5, lastStep]];
 }
 
 

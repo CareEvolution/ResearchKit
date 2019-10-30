@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyHTMLPDFWriter : NSObject
+@interface ORK1HTMLPDFWriter : NSObject
 
 - (void)writePDFFromHTML:(NSString *)html withCompletionBlock:(void (^)(NSData *data, NSError *error))completionBlock;
 

@@ -36,8 +36,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTappingIntervalStep : ORKLegacyActiveStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1TappingIntervalStep : ORK1ActiveStep
 
 @end
 

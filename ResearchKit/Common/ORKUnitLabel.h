@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Text label for units during numeric value entry
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyUnitLabel : ORKLegacyLabel
+ORK1_CLASS_AVAILABLE
+@interface ORK1UnitLabel : ORK1Label
 
 @end
 

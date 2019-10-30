@@ -36,7 +36,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyImageCaptureStep` class represents a step that captures an image through the device
+ The `ORK1ImageCaptureStep` class represents a step that captures an image through the device
  camera.  A template image can optionally be laid over the camera preview to assist in properly
  capturing the image.
  
@@ -47,8 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
  take your instructions literally. So be cautious. Make sure your template image
  is high contrast and very visible against a variety of backgrounds.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyImageCaptureStep : ORKLegacyStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1ImageCaptureStep : ORK1Step
 
 /**
  An image to be displayed over the camera preview.

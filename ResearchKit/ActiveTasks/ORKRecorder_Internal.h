@@ -34,13 +34,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyDataLogger;
+@class ORK1DataLogger;
 
-@interface ORKLegacyRecorder ()
+@interface ORK1Recorder ()
 
-@property (nonatomic, strong, nullable) ORKLegacyStep *step;
+@property (nonatomic, strong, nullable) ORK1Step *step;
 
-@property (nonatomic, strong, nullable) ORKLegacyRecorderConfiguration *configuration;
+@property (nonatomic, strong, nullable) ORK1RecorderConfiguration *configuration;
 
 @property (nonatomic) BOOL continuesInBackground;
 
@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)recorderType;
 
-- (nullable ORKLegacyDataLogger *)makeJSONDataLoggerWithError:(NSError * _Nullable *)error NS_REQUIRES_SUPER;
+- (nullable ORK1DataLogger *)makeJSONDataLoggerWithError:(NSError * _Nullable *)error NS_REQUIRES_SUPER;
 
 - (void)reset NS_REQUIRES_SUPER;
 

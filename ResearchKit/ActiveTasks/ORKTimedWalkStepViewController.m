@@ -45,18 +45,18 @@
 #import "ORKHelpers_Internal.h"
 
 
-@interface ORKLegacyTimedWalkStepViewController ()
+@interface ORK1TimedWalkStepViewController ()
 
 @property (nonatomic, strong) NSMutableArray *samples;
-@property (nonatomic, strong) ORKLegacyTimedWalkContentView *timedWalkContentView;
+@property (nonatomic, strong) ORK1TimedWalkContentView *timedWalkContentView;
 @property (nonatomic, assign) NSTimeInterval trialDuration;
 
 @end
 
 
-@implementation ORKLegacyTimedWalkStepViewController
+@implementation ORK1TimedWalkStepViewController
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {
+- (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     
     if (self) {
@@ -66,21 +66,21 @@
     return self;
 }
 
-- (ORKLegacyTimedWalkStep *)timedWalkStep {
-    return (ORKLegacyTimedWalkStep *)self.step;
+- (ORK1TimedWalkStep *)timedWalkStep {
+    return (ORK1TimedWalkStep *)self.step;
 }
 
 - (void)initializeInternalButtonItems {
     [super initializeInternalButtonItems];
     
     self.internalDoneButtonItem = nil;
-    self.continueButtonTitle = ORKLegacyLocalizedString(@"BUTTON_NEXT", nil);
+    self.continueButtonTitle = ORK1LocalizedString(@"BUTTON_NEXT", nil);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.timedWalkContentView = [ORKLegacyTimedWalkContentView new];
+    self.timedWalkContentView = [ORK1TimedWalkContentView new];
     self.timedWalkContentView.image = [self timedWalkStep].image;
     self.activeStepView.activeCustomView = self.timedWalkContentView;
     self.activeStepView.stepViewFillsAvailableSpace = YES;
@@ -95,17 +95,17 @@
     [self goForward];
 }
 
-- (void)countDownTimerFired:(ORKLegacyActiveStepTimer *)timer finished:(BOOL)finished {
+- (void)countDownTimerFired:(ORK1ActiveStepTimer *)timer finished:(BOOL)finished {
     self.trialDuration = timer.runtime;
     [super countDownTimerFired:timer finished:finished];
 }
 
-- (ORKLegacyStepResult *)result {
-    ORKLegacyStepResult *sResult = [super result];
+- (ORK1StepResult *)result {
+    ORK1StepResult *sResult = [super result];
     
     NSMutableArray *results = [NSMutableArray arrayWithArray:sResult.results];
     
-    ORKLegacyTimedWalkResult *timedWalkResult = [[ORKLegacyTimedWalkResult alloc] initWithIdentifier:self.step.identifier];
+    ORK1TimedWalkResult *timedWalkResult = [[ORK1TimedWalkResult alloc] initWithIdentifier:self.step.identifier];
     timedWalkResult.distanceInMeters = [self timedWalkStep].distanceInMeters;
     timedWalkResult.timeLimit = [self timedWalkStep].stepDuration;
     timedWalkResult.duration = self.trialDuration;

@@ -37,8 +37,8 @@
 #import "HKSample+ORKJSONDictionary.h"
 
 
-@interface ORKLegacyHealthQuantityTypeRecorder () {
-    ORKLegacyDataLogger *_logger;
+@interface ORK1HealthQuantityTypeRecorder () {
+    ORK1DataLogger *_logger;
     BOOL _isRecording;
     HKHealthStore *_healthStore;
     NSPredicate *_samplePredicate;
@@ -67,12 +67,12 @@
 @end
 #endif
 
-@implementation ORKLegacyHealthQuantityTypeRecorder
+@implementation ORK1HealthQuantityTypeRecorder
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
                 healthQuantityType:(HKQuantityType *)quantityType
                               unit:(HKUnit *)unit
-                              step:(ORKLegacyStep *)step
+                              step:(ORK1Step *)step
                    outputDirectory:(NSURL *)outputDirectory {
     self = [super initWithIdentifier:identifier
                                 step:step
@@ -99,7 +99,7 @@
     _lastSample = sample;
     [self didChangeValueForKey:@"lastSample"];
     
-    id<ORKLegacyHealthQuantityTypeRecorderDelegate> delegate =  (id<ORKLegacyHealthQuantityTypeRecorderDelegate>)self.delegate;
+    id<ORK1HealthQuantityTypeRecorderDelegate> delegate =  (id<ORK1HealthQuantityTypeRecorderDelegate>)self.delegate;
     if (delegate && [delegate respondsToSelector:@selector(healthQuantityTypeRecorderDidUpdate:)]) {
         [delegate healthQuantityTypeRecorderDidUpdate:self];
     }
@@ -117,7 +117,7 @@ static const NSInteger _HealthAnchoredQueryLimit = 100;
     // Do conversion to dictionary on whatever queue we happen to be on.
     NSMutableArray *dictionaries = [NSMutableArray arrayWithCapacity:resultCount];
     [results enumerateObjectsUsingBlock:^(HKQuantitySample *sample, NSUInteger idx, BOOL *stop) {
-        [dictionaries addObject:[sample ork_JSONDictionaryWithOptions:ORKLegacySampleIncludeSource|ORKLegacySampleIncludeMetadata unit:_unit]];
+        [dictionaries addObject:[sample ork_JSONDictionaryWithOptions:ORK1SampleIncludeSource|ORK1SampleIncludeMetadata unit:_unit]];
     }];
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -150,7 +150,7 @@ static const NSInteger _HealthAnchoredQueryLimit = 100;
     void (^handleResults)(NSArray <__kindof HKSample *> *, HKQueryAnchor *, NSUInteger, NSError *) = ^ (NSArray *results, HKQueryAnchor *newAnchor, NSUInteger newAnchorValue, NSError *error) {
         if (error) {
             // An error in the query's not the end of the world: we'll probably get another chance. Just log it.
-            ORKLegacy_Log_Warning(@"Anchored query error: %@", error);
+            ORK1_Log_Warning(@"Anchored query error: %@", error);
             return;
         }
         
@@ -307,7 +307,7 @@ static const NSInteger _HealthAnchoredQueryLimit = 100;
 @end
 
 
-@implementation ORKLegacyHealthQuantityTypeRecorderConfiguration
+@implementation ORK1HealthQuantityTypeRecorderConfiguration
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
@@ -328,8 +328,8 @@ static const NSInteger _HealthAnchoredQueryLimit = 100;
 }
 #pragma clang diagnostic pop
 
-- (ORKLegacyRecorder *)recorderForStep:(ORKLegacyStep *)step outputDirectory:(NSURL *)outputDirectory {
-    return [[ORKLegacyHealthQuantityTypeRecorder alloc] initWithIdentifier:self.identifier
+- (ORK1Recorder *)recorderForStep:(ORK1Step *)step outputDirectory:(NSURL *)outputDirectory {
+    return [[ORK1HealthQuantityTypeRecorder alloc] initWithIdentifier:self.identifier
                                                   healthQuantityType:_quantityType
                                                                 unit:_unit
                                                                 step:step
@@ -339,15 +339,15 @@ static const NSInteger _HealthAnchoredQueryLimit = 100;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, quantityType, HKQuantityType);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, unit, HKUnit);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, quantityType, HKQuantityType);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, unit, HKUnit);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORKLegacy_ENCODE_OBJ(aCoder, quantityType);
-    ORKLegacy_ENCODE_OBJ(aCoder, unit);
+    ORK1_ENCODE_OBJ(aCoder, quantityType);
+    ORK1_ENCODE_OBJ(aCoder, unit);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -359,8 +359,8 @@ static const NSInteger _HealthAnchoredQueryLimit = 100;
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKLegacyEqualObjects(self.quantityType, castObject.quantityType)&&
-            ORKLegacyEqualObjects(self.unit, castObject.unit));
+            ORK1EqualObjects(self.quantityType, castObject.quantityType)&&
+            ORK1EqualObjects(self.unit, castObject.unit));
 }
 
 - (NSSet *)requestedHealthKitTypesForReading {

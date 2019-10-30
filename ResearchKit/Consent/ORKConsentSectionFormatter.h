@@ -35,11 +35,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyConsentSection;
+@class ORK1ConsentSection;
 
-@interface ORKLegacyConsentSectionFormatter : NSObject
+@interface ORK1ConsentSectionFormatter : NSObject
 
-- (NSString *)HTMLForSection:(ORKLegacyConsentSection *)section;
+- (NSString *)HTMLForSection:(ORK1ConsentSection *)section;
 
 @end
 

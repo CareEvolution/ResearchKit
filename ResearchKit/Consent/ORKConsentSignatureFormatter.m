@@ -37,9 +37,9 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyConsentSignatureFormatter
+@implementation ORK1ConsentSignatureFormatter
 
-- (NSString *)HTMLForSignature:(ORKLegacyConsentSignature *)signature {
+- (NSString *)HTMLForSignature:(ORK1ConsentSignature *)signature {
     NSMutableString *body = [NSMutableString new];
 
     NSString *hr = @"<hr align='left' width='100%' style='height:1px; border:none; color:#000; background-color:#000; margin-top: -10px; margin-bottom: 0px;' />";
@@ -66,13 +66,13 @@
             if (signature.familyName) {
                 [names addObject:signature.familyName];
             }
-            if (ORKLegacyCurrentLocalePresentsFamilyNameFirst()) {
+            if (ORK1CurrentLocalePresentsFamilyNameFirst()) {
                 names = [[[names reverseObjectEnumerator] allObjects] mutableCopy];
             }
             nameStr = [names componentsJoinedByString:@"&nbsp;"];
         }
 
-        NSString *titleFormat = ORKLegacyLocalizedString(@"CONSENT_DOC_LINE_PRINTED_NAME", nil);
+        NSString *titleFormat = ORK1LocalizedString(@"CONSENT_DOC_LINE_PRINTED_NAME", nil);
         [signatureElements addObject:[NSString stringWithFormat:signatureElementWrapper, nameStr, hr, [NSString stringWithFormat:titleFormat,signature.title]]];
     }
 
@@ -86,12 +86,12 @@
         } else {
             [body appendString:@"<br/>"];
         }
-        NSString *titleFormat = ORKLegacyLocalizedString(@"CONSENT_DOC_LINE_SIGNATURE", nil);
+        NSString *titleFormat = ORK1LocalizedString(@"CONSENT_DOC_LINE_SIGNATURE", nil);
         [signatureElements addObject:[NSString stringWithFormat:signatureElementWrapper, imageTag ? : @"&nbsp;", hr, [NSString stringWithFormat:titleFormat, signature.title]]];
     }
 
     if (addedSig) {
-        [signatureElements addObject:[NSString stringWithFormat:signatureElementWrapper, signature.signatureDate ? : @"&nbsp;", hr, ORKLegacyLocalizedString(@"CONSENT_DOC_LINE_DATE", nil)]];
+        [signatureElements addObject:[NSString stringWithFormat:signatureElementWrapper, signature.signatureDate ? : @"&nbsp;", hr, ORK1LocalizedString(@"CONSENT_DOC_LINE_DATE", nil)]];
     }
 
     NSInteger numElements = signatureElements.count;

@@ -34,37 +34,37 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacySpatialSpanGame;
+@class ORK1SpatialSpanGame;
 
-typedef NS_ENUM(NSInteger, ORKLegacySpatialSpanResult) {
-    ORKLegacySpatialSpanResultIgnore,
-    ORKLegacySpatialSpanResultCorrect,
-    ORKLegacySpatialSpanResultIncorrect
+typedef NS_ENUM(NSInteger, ORK1SpatialSpanResult) {
+    ORK1SpatialSpanResultIgnore,
+    ORK1SpatialSpanResultCorrect,
+    ORK1SpatialSpanResultIncorrect
 };
 
-typedef NS_ENUM(NSInteger, ORKLegacySpatialSpanTargetState) {
-    ORKLegacySpatialSpanTargetStateQuiescent,
-    ORKLegacySpatialSpanTargetStateActive,
-    ORKLegacySpatialSpanTargetStateCorrect,
-    ORKLegacySpatialSpanTargetStateIncorrect
+typedef NS_ENUM(NSInteger, ORK1SpatialSpanTargetState) {
+    ORK1SpatialSpanTargetStateQuiescent,
+    ORK1SpatialSpanTargetStateActive,
+    ORK1SpatialSpanTargetStateCorrect,
+    ORK1SpatialSpanTargetStateIncorrect
 };
 
-@interface ORKLegacySpatialSpanGameState : NSObject
+@interface ORK1SpatialSpanGameState : NSObject
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
 
-- (instancetype)initWithGame:(ORKLegacySpatialSpanGame *)game NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithGame:(ORK1SpatialSpanGame *)game NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, strong, readonly, nullable) ORKLegacySpatialSpanGame *game;
+@property (nonatomic, strong, readonly, nullable) ORK1SpatialSpanGame *game;
 
 @property (nonatomic, readonly, getter=isComplete) BOOL complete;
 
 /// Enumerates all tiles, indicating the state of each tile at the specified state of the game.
-- (void)enumerateTilesWithHandler:(void (^)(NSInteger tileIndex, ORKLegacySpatialSpanTargetState state, BOOL *stop))handler;
+- (void)enumerateTilesWithHandler:(void (^)(NSInteger tileIndex, ORK1SpatialSpanTargetState state, BOOL *stop))handler;
 
 /// Returns a result indicating whether the user's tap was correct, incorrect, or ignorable.
-- (ORKLegacySpatialSpanResult)playTileIndex:(NSInteger)tileIndex;
+- (ORK1SpatialSpanResult)playTileIndex:(NSInteger)tileIndex;
 
 - (void)reset;
 

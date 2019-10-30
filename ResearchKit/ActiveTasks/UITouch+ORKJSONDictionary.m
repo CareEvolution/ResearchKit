@@ -32,7 +32,7 @@
 #import "UITouch+ORKJSONDictionary.h"
 
 
-@implementation UITouch (ORKLegacyJSONDictionary)
+@implementation UITouch (ORK1JSONDictionary)
 
 - (NSDictionary *)ork_JSONDictionaryInView:(UIView *)view allTouches:(NSArray *)allTouches {
     CGPoint point = [self locationInView:view];

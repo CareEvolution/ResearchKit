@@ -50,7 +50,7 @@ class ResearchContainerViewController: UIViewController, HealthClientType {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if ORKLegacyPasscodeViewController.isPasscodeStoredInKeychain() {
+        if ORK1PasscodeViewController.isPasscodeStoredInKeychain() {
             toStudy()
         }
         else {
@@ -95,9 +95,9 @@ class ResearchContainerViewController: UIViewController, HealthClientType {
 }
 
 
-extension ResearchContainerViewController: ORKLegacyTaskViewControllerDelegate {
+extension ResearchContainerViewController: ORK1TaskViewControllerDelegate {
 
-    public func taskViewController(_ taskViewController: ORKLegacyTaskViewController, didFinishWith reason: ORKLegacyTaskViewControllerFinishReason, error: Error?) {
+    public func taskViewController(_ taskViewController: ORK1TaskViewController, didFinishWith reason: ORK1TaskViewControllerFinishReason, error: Error?) {
         // Check if the user has finished the `WithdrawViewController`.
         if taskViewController is WithdrawViewController {
             /*
@@ -105,7 +105,7 @@ extension ResearchContainerViewController: ORKLegacyTaskViewControllerDelegate {
                 the study and transition to the onboarding view.
             */
             if reason == .completed {
-                ORKLegacyPasscodeViewController.removePasscodeFromKeychain()
+                ORK1PasscodeViewController.removePasscodeFromKeychain()
                 toOnboarding()
             }
             

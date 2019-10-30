@@ -55,7 +55,7 @@
 static const CGFloat VerticalMargin = 10.0;
 static const CGFloat HorizontalMargin = 15.0;
 
-@interface ORKLegacyFormItemCell ()
+@interface ORK1FormItemCell ()
 
 - (void)cellInit NS_REQUIRES_SUPER;
 - (void)inputValueDidChange NS_REQUIRES_SUPER;
@@ -66,7 +66,7 @@ static const CGFloat HorizontalMargin = 15.0;
 // For use when setting the answer in response to user action
 - (void)ork_setAnswer:(id)answer;
 
-@property (nonatomic, strong) ORKLegacyCaption1Label *labelLabel;
+@property (nonatomic, strong) ORK1Caption1Label *labelLabel;
 @property (nonatomic, weak) UITableView *_parentTableView;
 
 // If hasChangedAnswer, then a new defaultAnswer should not change the answer
@@ -75,12 +75,12 @@ static const CGFloat HorizontalMargin = 15.0;
 @end
 
 
-@interface ORKLegacySegmentedControl : UISegmentedControl
+@interface ORK1SegmentedControl : UISegmentedControl
 
 @end
 
 
-@implementation ORKLegacySegmentedControl
+@implementation ORK1SegmentedControl
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     NSInteger previousSelectedSegmentIndex = self.selectedSegmentIndex;
@@ -93,32 +93,32 @@ static const CGFloat HorizontalMargin = 15.0;
 @end
 
 
-#pragma mark - ORKLegacyFormItemCell
+#pragma mark - ORK1FormItemCell
 
-@interface ORKLegacyFormItemCell ()
+@interface ORK1FormItemCell ()
 
 - (void)showValidityAlertWithMessage:(NSString *)text;
 
 @end
 
 
-@implementation ORKLegacyFormItemCell
+@implementation ORK1FormItemCell
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
-                               formItem:(ORKLegacyFormItem *)formItem
+                               formItem:(ORK1FormItem *)formItem
                                  answer:(id)answer
                           maxLabelWidth:(CGFloat)maxLabelWidth
-                               delegate:(id<ORKLegacyFormItemCellDelegate>)delegate {
+                               delegate:(id<ORK1FormItemCellDelegate>)delegate {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
         // Setting the 'delegate' on init is required, as some questions (such as the scale questions)
-        // need it when they wish to report their default answers to 'ORKLegacyFormStepViewController'.
+        // need it when they wish to report their default answers to 'ORK1FormStepViewController'.
         _delegate = delegate;
         
         _maxLabelWidth = maxLabelWidth;
         _answer = [answer copy];
         self.formItem = formItem;
-        _labelLabel = [[ORKLegacyCaption1Label alloc] init];
+        _labelLabel = [[ORK1Caption1Label alloc] init];
         _labelLabel.text = formItem.text;
         _labelLabel.numberOfLines = 0;
         [self.contentView addSubview:_labelLabel];
@@ -236,27 +236,27 @@ static const CGFloat HorizontalMargin = 15.0;
 @end
 
 
-#pragma mark - ORKLegacyFormItemTextFieldBasedCell
+#pragma mark - ORK1FormItemTextFieldBasedCell
 
-@interface ORKLegacyFormItemTextFieldBasedCell ()
+@interface ORK1FormItemTextFieldBasedCell ()
 
-- (ORKLegacyUnitTextField *)textField;
+- (ORK1UnitTextField *)textField;
 
-@property (nonatomic, readonly) ORKLegacyTextFieldView *textFieldView;
+@property (nonatomic, readonly) ORK1TextFieldView *textFieldView;
 @property (nonatomic, assign) BOOL editingHighlight;
 
 @end
 
 
-@implementation ORKLegacyFormItemTextFieldBasedCell {
+@implementation ORK1FormItemTextFieldBasedCell {
     NSMutableArray *_variableConstraints;
 }
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
-                               formItem:(ORKLegacyFormItem *)formItem
+                               formItem:(ORK1FormItem *)formItem
                                  answer:(id)answer
                           maxLabelWidth:(CGFloat)maxLabelWidth
-                               delegate:(id<ORKLegacyFormItemCellDelegate>)delegate{
+                               delegate:(id<ORK1FormItemCellDelegate>)delegate{
     self = [super initWithReuseIdentifier:reuseIdentifier
                                  formItem:formItem
                                    answer:answer
@@ -272,16 +272,16 @@ static const CGFloat HorizontalMargin = 15.0;
     return self;
 }
 
-- (ORKLegacyUnitTextField *)textField {
+- (ORK1UnitTextField *)textField {
     return _textFieldView.textField;
 }
 
 - (void)cellInit {
     [super cellInit];
     
-    _textFieldView = [[ORKLegacyTextFieldView alloc] init];
+    _textFieldView = [[ORK1TextFieldView alloc] init];
     
-    ORKLegacyUnitTextField *textField = _textFieldView.textField;
+    ORK1UnitTextField *textField = _textFieldView.textField;
     textField.delegate = self;
     textField.placeholder = self.formItem.placeholder;
     
@@ -385,7 +385,7 @@ static const CGFloat HorizontalMargin = 15.0;
                                                                       constant:0.0]];
     }
     
-    CGFloat defaultTableCelltHeight = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricTableCellDefaultHeight, self.window);
+    CGFloat defaultTableCelltHeight = ORK1GetMetricForWindow(ORK1ScreenMetricTableCellDefaultHeight, self.window);
     NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self.contentView
                                                                         attribute:NSLayoutAttributeHeight
                                                                         relatedBy:NSLayoutRelationGreaterThanOrEqual
@@ -429,7 +429,7 @@ static const CGFloat HorizontalMargin = 15.0;
 }
 
 - (void)updateValueLabel {
-    ORKLegacyUnitTextField *textField = [self textField];
+    ORK1UnitTextField *textField = [self textField];
     
     if (textField == nil) {
         return;
@@ -458,7 +458,7 @@ static const CGFloat HorizontalMargin = 15.0;
 }
 
 - (void)inputValueDidClear {
-    [self ork_setAnswer:ORKLegacyNullAnswerValue()];
+    [self ork_setAnswer:ORK1NullAnswerValue()];
     [super inputValueDidClear];
 }
 
@@ -513,9 +513,9 @@ static const CGFloat HorizontalMargin = 15.0;
 @end
 
 
-#pragma mark - ORKLegacyFormItemConfirmTextCell
+#pragma mark - ORK1FormItemConfirmTextCell
 
-@implementation ORKLegacyFormItemConfirmTextCell
+@implementation ORK1FormItemConfirmTextCell
 
 - (void)setSavedAnswers:(NSDictionary *)savedAnswers {
     [super setSavedAnswers:savedAnswers];
@@ -539,7 +539,7 @@ static const CGFloat HorizontalMargin = 15.0;
     BOOL isValid = NO;
     if (string.length > 0) {
         NSString *originalItemAnswer = self.savedAnswers[[self originalItemIdentifier]];
-        if (!ORKLegacyIsAnswerEmpty(originalItemAnswer) && [originalItemAnswer isEqualToString:string]) {
+        if (!ORK1IsAnswerEmpty(originalItemAnswer) && [originalItemAnswer isEqualToString:string]) {
             isValid = YES;
         }
     }
@@ -547,7 +547,7 @@ static const CGFloat HorizontalMargin = 15.0;
 }
 
 - (NSString *)originalItemIdentifier {
-    ORKLegacyConfirmTextAnswerFormat *answerFormat = (ORKLegacyConfirmTextAnswerFormat *)self.formItem.answerFormat;
+    ORK1ConfirmTextAnswerFormat *answerFormat = (ORK1ConfirmTextAnswerFormat *)self.formItem.answerFormat;
     return [answerFormat.originalItemIdentifier copy];
 }
 
@@ -579,14 +579,14 @@ static const CGFloat HorizontalMargin = 15.0;
 @end
 
 
-#pragma mark - ORKLegacyFormItemTextFieldCell
+#pragma mark - ORK1FormItemTextFieldCell
 
-@implementation ORKLegacyFormItemTextFieldCell
+@implementation ORK1FormItemTextFieldCell
 
 - (void)cellInit {
     [super cellInit];
     self.textField.allowsSelection = YES;
-    ORKLegacyTextAnswerFormat *answerFormat = (ORKLegacyTextAnswerFormat *)[self.formItem impliedAnswerFormat];
+    ORK1TextAnswerFormat *answerFormat = (ORK1TextAnswerFormat *)[self.formItem impliedAnswerFormat];
     self.textField.autocorrectionType = answerFormat.autocorrectionType;
     self.textField.autocapitalizationType = answerFormat.autocapitalizationType;
     self.textField.spellCheckingType = answerFormat.spellCheckingType;
@@ -598,7 +598,7 @@ static const CGFloat HorizontalMargin = 15.0;
 
 - (void)inputValueDidChange {
     NSString *text = self.textField.text;
-    [self ork_setAnswer:text.length ? text : ORKLegacyNullAnswerValue()];
+    [self ork_setAnswer:text.length ? text : ORK1NullAnswerValue()];
     
     [super inputValueDidChange];
 }
@@ -606,8 +606,8 @@ static const CGFloat HorizontalMargin = 15.0;
 - (void)answerDidChange {
     id answer = self.answer;
     
-    ORKLegacyTextAnswerFormat *answerFormat = (ORKLegacyTextAnswerFormat *)[self.formItem impliedAnswerFormat];
-    if (answer != ORKLegacyNullAnswerValue()) {
+    ORK1TextAnswerFormat *answerFormat = (ORK1TextAnswerFormat *)[self.formItem impliedAnswerFormat];
+    if (answer != ORK1NullAnswerValue()) {
         NSString *text = (NSString *)answer;
         NSInteger maxLength = answerFormat.maximumLength;
         BOOL changedValue = NO;
@@ -627,7 +627,7 @@ static const CGFloat HorizontalMargin = 15.0;
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    ORKLegacyTextAnswerFormat *answerFormat = (ORKLegacyTextAnswerFormat *)[self.formItem impliedAnswerFormat];
+    ORK1TextAnswerFormat *answerFormat = (ORK1TextAnswerFormat *)[self.formItem impliedAnswerFormat];
     
     NSString *text = [textField.text stringByReplacingCharactersInRange:range withString:string];
     
@@ -645,7 +645,7 @@ static const CGFloat HorizontalMargin = 15.0;
         }
     }
     
-    [self ork_setAnswer:text.length ? text : ORKLegacyNullAnswerValue()];
+    [self ork_setAnswer:text.length ? text : ORK1NullAnswerValue()];
     [super inputValueDidChange];
     
     return YES;
@@ -654,26 +654,26 @@ static const CGFloat HorizontalMargin = 15.0;
 @end
 
 
-#pragma mark - ORKLegacyFormItemNumericCell
+#pragma mark - ORK1FormItemNumericCell
 
-@implementation ORKLegacyFormItemNumericCell {
+@implementation ORK1FormItemNumericCell {
     NSNumberFormatter *_numberFormatter;
 }
 
 - (void)cellInit {
     [super cellInit];
-    ORKLegacyQuestionType questionType = [self.formItem questionType];
-    self.textField.keyboardType = (questionType == ORKLegacyQuestionTypeInteger) ? UIKeyboardTypeNumberPad : UIKeyboardTypeDecimalPad;
+    ORK1QuestionType questionType = [self.formItem questionType];
+    self.textField.keyboardType = (questionType == ORK1QuestionTypeInteger) ? UIKeyboardTypeNumberPad : UIKeyboardTypeDecimalPad;
     [self.textField addTarget:self action:@selector(valueFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     self.textField.allowsSelection = YES;
     
-    ORKLegacyNumericAnswerFormat *answerFormat = (ORKLegacyNumericAnswerFormat *)[self.formItem impliedAnswerFormat];
+    ORK1NumericAnswerFormat *answerFormat = (ORK1NumericAnswerFormat *)[self.formItem impliedAnswerFormat];
     
     self.textField.manageUnitAndPlaceholder = YES;
     self.textField.unit = answerFormat.unit;
     self.textField.placeholder = self.formItem.placeholder;
     
-    _numberFormatter = ORKLegacyDecimalNumberFormatter();
+    _numberFormatter = ORK1DecimalNumberFormatter();
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(localeDidChange:) name:NSCurrentLocaleDidChangeNotification object:nil];
     
     [self answerDidChange];
@@ -700,7 +700,7 @@ static const CGFloat HorizontalMargin = 15.0;
 
 - (void)answerDidChange {
     id answer = self.answer;
-    if (answer && answer != ORKLegacyNullAnswerValue()) {
+    if (answer && answer != ORK1NullAnswerValue()) {
         NSString *displayValue = answer;
         if ([answer isKindOfClass:[NSNumber class]]) {
             displayValue = [_numberFormatter stringFromNumber:answer];
@@ -713,11 +713,11 @@ static const CGFloat HorizontalMargin = 15.0;
 
 - (void)setAnswerWithText:(NSString *)text {
     BOOL updateInput = NO;
-    id answer = ORKLegacyNullAnswerValue();
+    id answer = ORK1NullAnswerValue();
     if (text.length) {
         answer = [[NSDecimalNumber alloc] initWithString:text locale:[NSLocale currentLocale]];
         if (!answer) {
-            answer = ORKLegacyNullAnswerValue();
+            answer = ORK1NullAnswerValue();
             updateInput = YES;
         }
     }
@@ -731,7 +731,7 @@ static const CGFloat HorizontalMargin = 15.0;
 #pragma mark UITextFieldDelegate
 
 - (void)valueFieldDidChange:(UITextField *)textField {
-    ORKLegacyNumericAnswerFormat *answerFormat = (ORKLegacyNumericAnswerFormat *)[self.formItem impliedAnswerFormat];
+    ORK1NumericAnswerFormat *answerFormat = (ORK1NumericAnswerFormat *)[self.formItem impliedAnswerFormat];
     NSString *sanitizedText = [answerFormat sanitizedTextFieldText:[textField text] decimalSeparator:[_numberFormatter decimalSeparator]];
     textField.text = sanitizedText;
     
@@ -741,10 +741,10 @@ static const CGFloat HorizontalMargin = 15.0;
 @end
 
 
-#pragma mark - ORKLegacyFormItemTextCell
+#pragma mark - ORK1FormItemTextCell
 
-@implementation ORKLegacyFormItemTextCell {
-    ORKLegacyFormTextView *_textView;
+@implementation ORK1FormItemTextCell {
+    ORK1FormTextView *_textView;
     CGFloat _lastSeenLineCount;
     NSInteger _maxLength;
 }
@@ -754,7 +754,7 @@ static const CGFloat HorizontalMargin = 15.0;
     
     _lastSeenLineCount = 1;
     self.labelLabel.text = nil;
-    _textView = [[ORKLegacyFormTextView alloc] init];
+    _textView = [[ORK1FormTextView alloc] init];
     _textView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     _textView.delegate = self;
     _textView.contentInset = UIEdgeInsetsMake(-5.0, -4.0, -5.0, 0.0);
@@ -771,7 +771,7 @@ static const CGFloat HorizontalMargin = 15.0;
 
 - (void)setUpConstraints {
     NSDictionary *views = @{ @"textView": _textView };
-    ORKLegacyEnableAutoLayoutForViews(views.allValues);
+    ORK1EnableAutoLayoutForViews(views.allValues);
     NSDictionary *metrics = @{ @"vMargin":@(10), @"hMargin":@(self.separatorInset.left) };
     
     NSMutableArray *constraints = [NSMutableArray new];
@@ -803,9 +803,9 @@ static const CGFloat HorizontalMargin = 15.0;
 }
 
 - (void)applyAnswerFormat {
-    ORKLegacyAnswerFormat *answerFormat = [self.formItem impliedAnswerFormat];
-    if ([answerFormat isKindOfClass:[ORKLegacyTextAnswerFormat class]]) {
-        ORKLegacyTextAnswerFormat *textAnswerFormat = (ORKLegacyTextAnswerFormat *)answerFormat;
+    ORK1AnswerFormat *answerFormat = [self.formItem impliedAnswerFormat];
+    if ([answerFormat isKindOfClass:[ORK1TextAnswerFormat class]]) {
+        ORK1TextAnswerFormat *textAnswerFormat = (ORK1TextAnswerFormat *)answerFormat;
         _maxLength = [textAnswerFormat maximumLength];
         _textView.autocorrectionType = textAnswerFormat.autocorrectionType;
         _textView.autocapitalizationType = textAnswerFormat.autocapitalizationType;
@@ -817,14 +817,14 @@ static const CGFloat HorizontalMargin = 15.0;
     }
 }
 
-- (void)setFormItem:(ORKLegacyFormItem *)formItem {
+- (void)setFormItem:(ORK1FormItem *)formItem {
     [super setFormItem:formItem];
     [self applyAnswerFormat];
 }
 
 - (void)answerDidChange {
     id answer = self.answer;
-    if (answer == ORKLegacyNullAnswerValue()) {
+    if (answer == ORK1NullAnswerValue()) {
         answer = nil;
     }
     _textView.text = (NSString *)answer;
@@ -841,7 +841,7 @@ static const CGFloat HorizontalMargin = 15.0;
 
 - (void)inputValueDidChange {
     NSString *text = _textView.text;
-    [self ork_setAnswer:text.length ? text : ORKLegacyNullAnswerValue()];
+    [self ork_setAnswer:text.length ? text : ORK1NullAnswerValue()];
     [super inputValueDidChange];
 }
 
@@ -909,15 +909,15 @@ static const CGFloat HorizontalMargin = 15.0;
 @end
 
 
-#pragma mark - ORKLegacyFormItemImageSelectionCell
+#pragma mark - ORK1FormItemImageSelectionCell
 
-@interface ORKLegacyFormItemImageSelectionCell () <ORKLegacyImageSelectionViewDelegate>
+@interface ORK1FormItemImageSelectionCell () <ORK1ImageSelectionViewDelegate>
 
 @end
 
 
-@implementation ORKLegacyFormItemImageSelectionCell {
-    ORKLegacyImageSelectionView *_selectionView;
+@implementation ORK1FormItemImageSelectionCell {
+    ORK1ImageSelectionView *_selectionView;
 }
 
 - (void)cellInit {
@@ -925,7 +925,7 @@ static const CGFloat HorizontalMargin = 15.0;
     
     self.labelLabel.text = nil;
     
-    _selectionView = [[ORKLegacyImageSelectionView alloc] initWithImageChoiceAnswerFormat:(ORKLegacyImageChoiceAnswerFormat *)self.formItem.answerFormat
+    _selectionView = [[ORK1ImageSelectionView alloc] initWithImageChoiceAnswerFormat:(ORK1ImageChoiceAnswerFormat *)self.formItem.answerFormat
                                                                              answer:self.answer];
     _selectionView.delegate = self;
     
@@ -941,7 +941,7 @@ static const CGFloat HorizontalMargin = 15.0;
     NSMutableArray *constraints = [NSMutableArray new];
     
     NSDictionary *views = @{@"selectionView": _selectionView };
-    ORKLegacyEnableAutoLayoutForViews(views.allValues);
+    ORK1EnableAutoLayoutForViews(views.allValues);
     [constraints addObjectsFromArray:
      [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[selectionView]-|"
                                              options:NSLayoutFormatDirectionLeadingToTrailing
@@ -956,9 +956,9 @@ static const CGFloat HorizontalMargin = 15.0;
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
-#pragma mark ORKLegacyImageSelectionViewDelegate
+#pragma mark ORK1ImageSelectionViewDelegate
 
-- (void)selectionViewSelectionDidChange:(ORKLegacyImageSelectionView *)view {
+- (void)selectionViewSelectionDidChange:(ORK1ImageSelectionView *)view {
     [self ork_setAnswer:view.answer];
     [self inputValueDidChange];
 }
@@ -973,21 +973,21 @@ static const CGFloat HorizontalMargin = 15.0;
 @end
 
 
-#pragma mark - ORKLegacyFormItemScaleCell
+#pragma mark - ORK1FormItemScaleCell
 
-@interface ORKLegacyFormItemScaleCell () <ORKLegacyScaleSliderViewDelegate>
+@interface ORK1FormItemScaleCell () <ORK1ScaleSliderViewDelegate>
 
 @end
 
 
-@implementation ORKLegacyFormItemScaleCell {
-    ORKLegacyScaleSliderView *_sliderView;
-    id<ORKLegacyScaleAnswerFormatProvider> _formatProvider;
+@implementation ORK1FormItemScaleCell {
+    ORK1ScaleSliderView *_sliderView;
+    id<ORK1ScaleAnswerFormatProvider> _formatProvider;
 }
 
-- (id<ORKLegacyScaleAnswerFormatProvider>)formatProvider {
+- (id<ORK1ScaleAnswerFormatProvider>)formatProvider {
     if (_formatProvider == nil) {
-        _formatProvider = (id<ORKLegacyScaleAnswerFormatProvider>)[self.formItem.answerFormat impliedAnswerFormat];
+        _formatProvider = (id<ORK1ScaleAnswerFormatProvider>)[self.formItem.answerFormat impliedAnswerFormat];
     }
     return _formatProvider;
 }
@@ -995,7 +995,7 @@ static const CGFloat HorizontalMargin = 15.0;
 - (void)cellInit {
     self.labelLabel.text = nil;
     
-    _sliderView = [[ORKLegacyScaleSliderView alloc] initWithFormatProvider:(ORKLegacyScaleAnswerFormat *)self.formItem.answerFormat delegate:self];
+    _sliderView = [[ORK1ScaleSliderView alloc] initWithFormatProvider:(ORK1ScaleAnswerFormat *)self.formItem.answerFormat delegate:self];
     
     [self.contentView addSubview:_sliderView];
     [self setUpConstraints];
@@ -1007,7 +1007,7 @@ static const CGFloat HorizontalMargin = 15.0;
     NSMutableArray *constraints = [NSMutableArray new];
     
     NSDictionary *views = @{ @"sliderView": _sliderView };
-    ORKLegacyEnableAutoLayoutForViews(views.allValues);
+    ORK1EnableAutoLayoutForViews(views.allValues);
     [constraints addObjectsFromArray:
      [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[sliderView]|"
                                              options:NSLayoutFormatDirectionLeadingToTrailing
@@ -1027,9 +1027,9 @@ static const CGFloat HorizontalMargin = 15.0;
 - (void)answerDidChange {
     [super answerDidChange];
     
-    id<ORKLegacyScaleAnswerFormatProvider> formatProvider = self.formatProvider;
+    id<ORK1ScaleAnswerFormatProvider> formatProvider = self.formatProvider;
     id answer = self.answer;
-    if (answer && answer != ORKLegacyNullAnswerValue()) {
+    if (answer && answer != ORK1NullAnswerValue()) {
         
         [_sliderView setCurrentAnswerValue:answer];
 
@@ -1043,7 +1043,7 @@ static const CGFloat HorizontalMargin = 15.0;
     }
 }
 
-- (void)scaleSliderViewCurrentValueDidChange:(ORKLegacyScaleSliderView *)sliderView {
+- (void)scaleSliderViewCurrentValueDidChange:(ORK1ScaleSliderView *)sliderView {
     
     [self ork_setAnswer:sliderView.currentAnswerValue];
     [super inputValueDidChange];
@@ -1052,36 +1052,36 @@ static const CGFloat HorizontalMargin = 15.0;
 @end
 
 
-#pragma mark - ORKLegacyFormItemPickerCell
+#pragma mark - ORK1FormItemPickerCell
 
-@interface ORKLegacyFormItemPickerCell () <ORKLegacyPickerDelegate>
+@interface ORK1FormItemPickerCell () <ORK1PickerDelegate>
 
 @end
 
 
-@implementation ORKLegacyFormItemPickerCell {
-    id<ORKLegacyPicker> _picker;
+@implementation ORK1FormItemPickerCell {
+    id<ORK1Picker> _picker;
 }
 
 
-- (void)setFormItem:(ORKLegacyFormItem *)formItem {
-    ORKLegacyAnswerFormat *answerFormat = formItem.impliedAnswerFormat;
+- (void)setFormItem:(ORK1FormItem *)formItem {
+    ORK1AnswerFormat *answerFormat = formItem.impliedAnswerFormat;
     
     if (!(!formItem ||
-          [answerFormat isKindOfClass:[ORKLegacyDateAnswerFormat class]] ||
-          [answerFormat isKindOfClass:[ORKLegacyTimeOfDayAnswerFormat class]] ||
-          [answerFormat isKindOfClass:[ORKLegacyTimeIntervalAnswerFormat class]] ||
-          [answerFormat isKindOfClass:[ORKLegacyValuePickerAnswerFormat class]] ||
-          [answerFormat isKindOfClass:[ORKLegacyMultipleValuePickerAnswerFormat class]] ||
-          [answerFormat isKindOfClass:[ORKLegacyHeightAnswerFormat class]] ||
-          [answerFormat isKindOfClass:[ORKLegacyWeightAnswerFormat class]])) {
-        @throw [NSException exceptionWithName:NSGenericException reason:@"formItem.answerFormat should be an ORKLegacyDateAnswerFormat, ORKLegacyTimeOfDayAnswerFormat, ORKLegacyTimeIntervalAnswerFormat, ORKLegacyValuePicker, ORKLegacyMultipleValuePickerAnswerFormat, ORKLegacyHeightAnswerFormat, or ORKLegacyWeightAnswerFormat instance" userInfo:nil];
+          [answerFormat isKindOfClass:[ORK1DateAnswerFormat class]] ||
+          [answerFormat isKindOfClass:[ORK1TimeOfDayAnswerFormat class]] ||
+          [answerFormat isKindOfClass:[ORK1TimeIntervalAnswerFormat class]] ||
+          [answerFormat isKindOfClass:[ORK1ValuePickerAnswerFormat class]] ||
+          [answerFormat isKindOfClass:[ORK1MultipleValuePickerAnswerFormat class]] ||
+          [answerFormat isKindOfClass:[ORK1HeightAnswerFormat class]] ||
+          [answerFormat isKindOfClass:[ORK1WeightAnswerFormat class]])) {
+        @throw [NSException exceptionWithName:NSGenericException reason:@"formItem.answerFormat should be an ORK1DateAnswerFormat, ORK1TimeOfDayAnswerFormat, ORK1TimeIntervalAnswerFormat, ORK1ValuePicker, ORK1MultipleValuePickerAnswerFormat, ORK1HeightAnswerFormat, or ORK1WeightAnswerFormat instance" userInfo:nil];
     }
     [super setFormItem:formItem];
 }
 
 - (void)setDefaultAnswer:(id)defaultAnswer {
-    ORKLegacy_Log_Debug(@"%@", defaultAnswer);
+    ORK1_Log_Debug(@"%@", defaultAnswer);
     [super setDefaultAnswer:defaultAnswer];
 }
 
@@ -1090,10 +1090,10 @@ static const CGFloat HorizontalMargin = 15.0;
     self.textField.text = self.picker.selectedLabelText;
 }
 
-- (id<ORKLegacyPicker>)picker {
+- (id<ORK1Picker>)picker {
     if (_picker == nil) {
-        ORKLegacyAnswerFormat *answerFormat = [self.formItem impliedAnswerFormat];
-        _picker = [ORKLegacyPicker pickerWithAnswerFormat:answerFormat answer:self.answer delegate:self];
+        ORK1AnswerFormat *answerFormat = [self.formItem impliedAnswerFormat];
+        _picker = [ORK1Picker pickerWithAnswerFormat:answerFormat answer:self.answer delegate:self];
     }
     
     return _picker;
@@ -1113,7 +1113,7 @@ static const CGFloat HorizontalMargin = 15.0;
     [super inputValueDidChange];
 }
 
-#pragma mark ORKLegacyPickerDelegate
+#pragma mark ORK1PickerDelegate
 
 - (void)picker:(id)picker answerDidChangeTo:(id)answer {
     [self inputValueDidChange];
@@ -1157,17 +1157,17 @@ static const CGFloat HorizontalMargin = 15.0;
 @end
 
 
-#pragma mark - ORKLegacyFormItemLocationCell
+#pragma mark - ORK1FormItemLocationCell
 
-@interface ORKLegacyFormItemLocationCell () <ORKLegacyLocationSelectionViewDelegate>
+@interface ORK1FormItemLocationCell () <ORK1LocationSelectionViewDelegate>
 
 @property (nonatomic, assign) BOOL editingHighlight;
 
 @end
 
 
-@implementation ORKLegacyFormItemLocationCell {
-    ORKLegacyLocationSelectionView *_selectionView;
+@implementation ORK1FormItemLocationCell {
+    ORK1LocationSelectionView *_selectionView;
     NSLayoutConstraint *_heightConstraint;
     NSLayoutConstraint *_bottomConstraint;
 }
@@ -1175,8 +1175,8 @@ static const CGFloat HorizontalMargin = 15.0;
 - (void)cellInit {
     [super cellInit];
     
-    _selectionView = [[ORKLegacyLocationSelectionView alloc] initWithFormMode:YES
-                                                     useCurrentLocation:((ORKLegacyLocationAnswerFormat *)self.formItem.answerFormat).useCurrentLocation
+    _selectionView = [[ORK1LocationSelectionView alloc] initWithFormMode:YES
+                                                     useCurrentLocation:((ORK1LocationAnswerFormat *)self.formItem.answerFormat).useCurrentLocation
                                                           leadingMargin:self.separatorInset.left];
     _selectionView.delegate = self;
     
@@ -1193,7 +1193,7 @@ static const CGFloat HorizontalMargin = 15.0;
     NSMutableArray *constraints = [NSMutableArray new];
     
     NSDictionary *dictionary = @{@"_selectionView":_selectionView};
-    ORKLegacyEnableAutoLayoutForViews([dictionary allValues]);
+    ORK1EnableAutoLayoutForViews([dictionary allValues]);
     NSDictionary *metrics = @{@"verticalMargin":@(VerticalMargin), @"horizontalMargin":@(self.separatorInset.left), @"verticalMarginBottom":@(VerticalMargin - (1.0 / [UIScreen mainScreen].scale))};
     
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_selectionView]|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:metrics views:dictionary]];
@@ -1207,7 +1207,7 @@ static const CGFloat HorizontalMargin = 15.0;
     [self.contentView addConstraints:constraints];
 }
 
-- (void)setFormItem:(ORKLegacyFormItem *)formItem {
+- (void)setFormItem:(ORK1FormItem *)formItem {
     [super setFormItem:formItem];
     
     if (_selectionView) {
@@ -1224,22 +1224,22 @@ static const CGFloat HorizontalMargin = 15.0;
     [_selectionView setTextColor:( _editingHighlight ? [self tintColor] : [UIColor blackColor])];
 }
 
-- (void)locationSelectionViewDidBeginEditing:(ORKLegacyLocationSelectionView *)view {
+- (void)locationSelectionViewDidBeginEditing:(ORK1LocationSelectionView *)view {
     self.editingHighlight = YES;
     [_selectionView showMapViewIfNecessary];
     [self.delegate formItemCellDidBecomeFirstResponder:self];
 }
 
-- (void)locationSelectionViewDidEndEditing:(ORKLegacyLocationSelectionView *)view {
+- (void)locationSelectionViewDidEndEditing:(ORK1LocationSelectionView *)view {
     self.editingHighlight = NO;
     [self.delegate formItemCellDidResignFirstResponder:self];
 }
 
-- (void)locationSelectionViewDidChange:(ORKLegacyLocationSelectionView *)view {
+- (void)locationSelectionViewDidChange:(ORK1LocationSelectionView *)view {
     [self inputValueDidChange];
 }
 
-- (void)locationSelectionViewNeedsResize:(ORKLegacyLocationSelectionView *)view {
+- (void)locationSelectionViewNeedsResize:(ORK1LocationSelectionView *)view {
     UITableView *tableView = [self parentTableView];
     
     _heightConstraint.constant = _selectionView.intrinsicContentSize.height;
@@ -1250,7 +1250,7 @@ static const CGFloat HorizontalMargin = 15.0;
 
 }
 
-- (void)locationSelectionView:(ORKLegacyLocationSelectionView *)view didFailWithErrorTitle:(NSString *)title message:(NSString *)message {
+- (void)locationSelectionView:(ORK1LocationSelectionView *)view didFailWithErrorTitle:(NSString *)title message:(NSString *)message {
     [self showErrorAlertWithTitle:title message:message];
 }
 

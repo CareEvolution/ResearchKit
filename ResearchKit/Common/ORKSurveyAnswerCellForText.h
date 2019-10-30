@@ -35,12 +35,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacySurveyAnswerCellForText : ORKLegacySurveyAnswerCell
+@interface ORK1SurveyAnswerCellForText : ORK1SurveyAnswerCell
 
 @end
 
 
-@interface ORKLegacySurveyAnswerCellForTextField : ORKLegacySurveyAnswerCell <UITextFieldDelegate>
+@interface ORK1SurveyAnswerCellForTextField : ORK1SurveyAnswerCell <UITextFieldDelegate>
 
 @end
 

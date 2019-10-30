@@ -34,13 +34,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyActiveStepTimer;
+@class ORK1ActiveStepTimer;
 
-typedef void (^ORKLegacyActiveStepTimerHandler)(ORKLegacyActiveStepTimer *timer, BOOL finished);
+typedef void (^ORK1ActiveStepTimerHandler)(ORK1ActiveStepTimer *timer, BOOL finished);
 
-@interface ORKLegacyActiveStepTimer : NSObject
+@interface ORK1ActiveStepTimer : NSObject
 
-- (instancetype)initWithDuration:(NSTimeInterval)duration interval:(NSTimeInterval)interval runtime:(NSTimeInterval)runtime handler:(ORKLegacyActiveStepTimerHandler)handler;
+- (instancetype)initWithDuration:(NSTimeInterval)duration interval:(NSTimeInterval)interval runtime:(NSTimeInterval)runtime handler:(ORK1ActiveStepTimerHandler)handler;
 
 @property (nonatomic, assign) NSTimeInterval duration;
 
@@ -54,7 +54,7 @@ typedef void (^ORKLegacyActiveStepTimerHandler)(ORKLegacyActiveStepTimer *timer,
  
  This handler is retained. Be careful not to create a retain cycle.
  */
-@property (nonatomic, copy, readonly) ORKLegacyActiveStepTimerHandler handler;
+@property (nonatomic, copy, readonly) ORK1ActiveStepTimerHandler handler;
 
 // Pauses the timer.
 - (void)pause;

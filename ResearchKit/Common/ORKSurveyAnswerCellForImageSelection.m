@@ -40,19 +40,19 @@
 #import "ORKSkin.h"
 
 
-@interface ORKLegacySurveyAnswerCellForImageSelection () <ORKLegacyImageSelectionViewDelegate>
+@interface ORK1SurveyAnswerCellForImageSelection () <ORK1ImageSelectionViewDelegate>
 
 @end
 
 
-@implementation ORKLegacySurveyAnswerCellForImageSelection {
-    ORKLegacyImageSelectionView *_selectionView;
+@implementation ORK1SurveyAnswerCellForImageSelection {
+    ORK1ImageSelectionView *_selectionView;
 }
 
 - (void)prepareView {
     [super prepareView];
     
-    _selectionView = [[ORKLegacyImageSelectionView alloc] initWithImageChoiceAnswerFormat:(ORKLegacyImageChoiceAnswerFormat *)self.step.answerFormat answer:self.answer];
+    _selectionView = [[ORK1ImageSelectionView alloc] initWithImageChoiceAnswerFormat:(ORK1ImageChoiceAnswerFormat *)self.step.answerFormat answer:self.answer];
     _selectionView.delegate = self;
     _selectionView.frame = self.bounds;
     
@@ -78,15 +78,15 @@
                                                                                       toItem:nil
                                                                                    attribute:NSLayoutAttributeNotAnAttribute
                                                                                   multiplier:1.0
-                                                                                    constant:ORKLegacyScreenMetricMaxDimension];
+                                                                                    constant:ORK1ScreenMetricMaxDimension];
     resistCompressingConstraint.priority = UILayoutPriorityDefaultHigh;
     [constraints addObject:resistCompressingConstraint];
     
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
-#pragma mark ORKLegacyImageSelectionViewDelegate
-- (void)selectionViewSelectionDidChange:(ORKLegacyImageSelectionView *)view {
+#pragma mark ORK1ImageSelectionViewDelegate
+- (void)selectionViewSelectionDidChange:(ORK1ImageSelectionView *)view {
     [self ork_setAnswer:view.answer];
 }
 

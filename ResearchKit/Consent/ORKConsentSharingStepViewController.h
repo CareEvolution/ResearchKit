@@ -36,15 +36,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyConsentSharingStepViewController` class is a view controller subclass
- used to manage a consent sharing step (`ORKLegacyConsentSharingStep`).
+ The `ORK1ConsentSharingStepViewController` class is a view controller subclass
+ used to manage a consent sharing step (`ORK1ConsentSharingStep`).
  
  You should not need to instantiate a consent sharing step view controller directly. Instead, include
  a consent sharing step in a task, and present a task view controller for that
  task.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyConsentSharingStepViewController : ORKLegacyQuestionStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1ConsentSharingStepViewController : ORK1QuestionStepViewController
 
 @end
 

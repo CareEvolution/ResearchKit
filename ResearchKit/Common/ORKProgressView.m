@@ -35,14 +35,14 @@
 static const CGFloat ProgressCircleDiameter = 10;
 static const CGFloat ProgressCircleSpacing = 4;
 
-@interface ORKLegacyProgressCircleView : UIView
+@interface ORK1ProgressCircleView : UIView
 
 @property (nonatomic, assign) BOOL completed;
 
 @end
 
 
-@implementation ORKLegacyProgressCircleView
+@implementation ORK1ProgressCircleView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -75,7 +75,7 @@ static const CGFloat ProgressCircleSpacing = 4;
 @end
 
 
-@implementation ORKLegacyProgressView {
+@implementation ORK1ProgressView {
     NSArray *_circles;
     NSInteger _index;
     NSTimer *_timer;
@@ -102,7 +102,7 @@ static const CGFloat ProgressCircleSpacing = 4;
         }
         NSMutableArray *newCircles = [NSMutableArray array];
         for (NSInteger idx = 0; idx < count; idx ++) {
-            ORKLegacyProgressCircleView *circle = [ORKLegacyProgressCircleView new];
+            ORK1ProgressCircleView *circle = [ORK1ProgressCircleView new];
             [newCircles addObject:circle];
             [self addSubview:circle];
         }
@@ -116,7 +116,7 @@ static const CGFloat ProgressCircleSpacing = 4;
 
 - (void)setIndex:(NSInteger)index {
     _index = index;
-    [_circles enumerateObjectsUsingBlock:^(ORKLegacyProgressCircleView *circle, NSUInteger idx, BOOL *stop) {
+    [_circles enumerateObjectsUsingBlock:^(ORK1ProgressCircleView *circle, NSUInteger idx, BOOL *stop) {
         circle.completed = (idx < _index);
     }];
 }

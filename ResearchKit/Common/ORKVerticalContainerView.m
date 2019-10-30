@@ -48,7 +48,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
 // #define LAYOUT_DEBUG
 
 /*
- view hierachy in ORKLegacyVerticalContainerView (from top to bottom):
+ view hierachy in ORK1VerticalContainerView (from top to bottom):
  
  scrollContainer
     - container
@@ -58,14 +58,14 @@ static const CGFloat AssumedStatusBarHeight = 20;
     - continueSkipContainer
  */
 
-@interface ORKLegacyVerticalContainerView () <UIScrollViewDelegate>
+@interface ORK1VerticalContainerView () <UIScrollViewDelegate>
 @end
 
-@implementation ORKLegacyVerticalContainerView {
+@implementation ORK1VerticalContainerView {
     UIView *_scrollContainer;
     UIView *_container;
     
-    ORKLegacyTintedImageView *_imageView;
+    ORK1TintedImageView *_imageView;
 
     NSMutableArray *_variableConstraints;
     
@@ -99,7 +99,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
         [_scrollContainer addSubview:_container];
         
         {
-            _headerView = [ORKLegacyStepHeaderView new];
+            _headerView = [ORK1StepHeaderView new];
             _headerView.layoutMargins = UIEdgeInsetsZero;
             _headerView.translatesAutoresizingMaskIntoConstraints = NO;
             [_container addSubview:_headerView];
@@ -114,7 +114,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
         {
             // This lives in the scroll container, so it doesn't affect the vertical layout of the primary content
             // except through explicit constraints.
-            _continueSkipContainer = [ORKLegacyNavigationContainerView new];
+            _continueSkipContainer = [ORK1NavigationContainerView new];
             _continueSkipContainer.bottomMargin = 20;
             _continueSkipContainer.translatesAutoresizingMaskIntoConstraints = NO;
             [_scrollContainer addSubview:_continueSkipContainer];
@@ -126,7 +126,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
             [_container addSubview:self.customViewContainer];
         }
         
-        ORKLegacyEnableAutoLayoutForViews(@[_scrollContainer, _container, _headerView, _stepViewContainer, _continueSkipContainer, _customViewContainer]);
+        ORK1EnableAutoLayoutForViews(@[_scrollContainer, _container, _headerView, _stepViewContainer, _continueSkipContainer, _customViewContainer]);
 
         [self setUpStaticConstraints];
         [self setNeedsUpdateConstraints];
@@ -318,7 +318,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
     CGSize intersectionSize = [self keyboardIntersectionSizeFromNotification:notification];
     
     // Assume the overlap is at the bottom of the view
-    ORKLegacyUpdateScrollViewBottomInset(self, intersectionSize.height);
+    ORK1UpdateScrollViewBottomInset(self, intersectionSize.height);
     
     _keyboardIsUp = YES;
     [self animateLayoutForKeyboardNotification:notification];
@@ -328,14 +328,14 @@ static const CGFloat AssumedStatusBarHeight = 20;
     CGSize intersectionSize = [self keyboardIntersectionSizeFromNotification:notification];
     
     // Assume the overlap is at the bottom of the view
-    ORKLegacyUpdateScrollViewBottomInset(self, intersectionSize.height);
+    ORK1UpdateScrollViewBottomInset(self, intersectionSize.height);
     
     _keyboardIsUp = YES;
     [self animateLayoutForKeyboardNotification:notification];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    ORKLegacyUpdateScrollViewBottomInset(self, 0);
+    ORK1UpdateScrollViewBottomInset(self, 0);
     
     _keyboardIsUp = NO;
     [self animateLayoutForKeyboardNotification:notification];
@@ -369,7 +369,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
 }
 
 - (void)updateLayoutMargins {
-    CGFloat margin = ORKLegacyStandardHorizontalMarginForView(self);
+    CGFloat margin = ORK1StandardHorizontalMarginForView(self);
     UIEdgeInsets layoutMargins = (UIEdgeInsets){.left = margin, .right = margin};
     self.layoutMargins = layoutMargins;
     _scrollContainer.layoutMargins = layoutMargins;
@@ -377,15 +377,15 @@ static const CGFloat AssumedStatusBarHeight = 20;
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
-    const CGFloat StepViewBottomToContinueTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricContinueButtonTopMargin, window);
-    const CGFloat StepViewBottomToContinueTopForIntroStep = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricContinueButtonTopMarginForIntroStep, window);
+    const CGFloat StepViewBottomToContinueTop = ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonTopMargin, window);
+    const CGFloat StepViewBottomToContinueTopForIntroStep = ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonTopMarginForIntroStep, window);
     
     {
         BOOL hasIllustration = (_imageView.image != nil);
         _headerView.hasContentAbove = hasIllustration;
 
-        const CGFloat IllustrationHeight = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricIllustrationHeight, window);
-        const CGFloat IllustrationTopMargin = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricTopToIllustration, window);
+        const CGFloat IllustrationHeight = ORK1GetMetricForWindow(ORK1ScreenMetricIllustrationHeight, window);
+        const CGFloat IllustrationTopMargin = ORK1GetMetricForWindow(ORK1ScreenMetricTopToIllustration, window);
         
         _illustrationHeightConstraint.constant = (_imageView.image ? IllustrationHeight : 0);
         _topToIllustrationConstraint.constant = (_imageView.image ?IllustrationTopMargin : 0);
@@ -666,7 +666,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
                                                                               toItem:nil
                                                                            attribute:NSLayoutAttributeNotAnAttribute
                                                                           multiplier:1.0
-                                                                            constant:ORKLegacyScreenMetricMaxDimension];
+                                                                            constant:ORK1ScreenMetricMaxDimension];
         widthConstraint.priority = UILayoutPriorityFittingSizeLevel;
         [_variableConstraints addObject:widthConstraint];
         
@@ -695,7 +695,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
                                                                              toItem:nil
                                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                                          multiplier:1.0
-                                                                           constant:ORKLegacyScreenMetricMaxDimension];
+                                                                           constant:ORK1ScreenMetricMaxDimension];
             constraint.priority = UILayoutPriorityFittingSizeLevel;
             [_variableConstraints addObject:constraint];
 
@@ -834,7 +834,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
 
 - (UIImageView *)imageView {
     if (_imageView == nil) {
-        _imageView = [[ORKLegacyTintedImageView alloc] init];
+        _imageView = [[ORK1TintedImageView alloc] init];
         [_customViewContainer addSubview:_imageView];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.userInteractionEnabled = YES;
@@ -843,7 +843,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
     return _imageView;
 }
 
-- (void)setStepView:(ORKLegacyActiveStepCustomView *)customView {
+- (void)setStepView:(ORK1ActiveStepCustomView *)customView {
     [_stepView removeFromSuperview];
     _stepView = customView;
     [_stepViewContainer addSubview:_stepView];
@@ -854,12 +854,12 @@ static const CGFloat AssumedStatusBarHeight = 20;
     
     /*
      CEV HACK - Several cases of infinite looping behavior inside of auto-layout have been found
-     to crash our apps due to the length of text in an ORKLegacyInstructionStep among the various
-     vertically stacked views being at the threshold of causing the the ORKLegacyVerticalContainerView to
+     to crash our apps due to the length of text in an ORK1InstructionStep among the various
+     vertically stacked views being at the threshold of causing the the ORK1VerticalContainerView to
      scroll.
      
      This detects excessive looping and adds a carriage return to the subheadLineLabel (text property
-     of ORKLegacyInstructionStep) which appears to break the loop by allowing the constraints to be
+     of ORK1InstructionStep) which appears to break the loop by allowing the constraints to be
      satisfied.
      
      Additional carriage returns will be added if the loop persists every 50 iterations.
@@ -875,8 +875,8 @@ static const CGFloat AssumedStatusBarHeight = 20;
         autoLayoutLoopCount / 50 > carriageReturnsAdded) {
         if (_scrollContainer.subviews.count > 0 && _scrollContainer.subviews[0].subviews.count > 0 && _scrollContainer.subviews[0].subviews[0].subviews.count > 3) {
             UIView *possibleSubheadLineLabel = _scrollContainer.subviews[0].subviews[0].subviews[3];
-            if ([possibleSubheadLineLabel isKindOfClass:[ORKLegacySubheadlineLabel class]]) {
-                ORKLegacySubheadlineLabel *subheadLineLabel = (ORKLegacySubheadlineLabel *)possibleSubheadLineLabel;
+            if ([possibleSubheadLineLabel isKindOfClass:[ORK1SubheadlineLabel class]]) {
+                ORK1SubheadlineLabel *subheadLineLabel = (ORK1SubheadlineLabel *)possibleSubheadLineLabel;
                 NSMutableString *updatedText = [NSMutableString stringWithString:subheadLineLabel.text];
                 [updatedText appendString:@"\n"];
                 subheadLineLabel.text = updatedText;

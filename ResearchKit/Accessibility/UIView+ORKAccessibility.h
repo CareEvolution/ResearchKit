@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIView (ORKLegacyAccessibility)
+@interface UIView (ORK1Accessibility)
 
 - (nullable UIView *)ork_superviewOfType:(nullable Class)aClass;
 

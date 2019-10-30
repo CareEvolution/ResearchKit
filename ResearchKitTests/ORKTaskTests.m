@@ -33,7 +33,7 @@
 @import ResearchKitLegacy.Private;
 
 
-@interface ORKLegacyTaskTests : XCTestCase
+@interface ORK1TaskTests : XCTestCase
 
 @end
 
@@ -42,41 +42,41 @@
 @property (nonatomic) NSArray *arguments;
 @end
 
-@interface TestTaskViewControllerDelegate : NSObject <ORKLegacyTaskViewControllerDelegate>
+@interface TestTaskViewControllerDelegate : NSObject <ORK1TaskViewControllerDelegate>
 @property (nonatomic) NSMutableArray <MethodObject *> *methodCalled;
 @end
 
-@interface MockTaskViewController : ORKLegacyTaskViewController
+@interface MockTaskViewController : ORK1TaskViewController
 @property (nonatomic) NSMutableArray <MethodObject *> *methodCalled;
 @end
 
 
-@implementation ORKLegacyTaskTests {
+@implementation ORK1TaskTests {
     NSArray *_orderedTaskStepIdentifiers;
     NSArray *_orderedTaskSteps;
-    ORKLegacyOrderedTask *_orderedTask;
+    ORK1OrderedTask *_orderedTask;
     
     NSArray *_navigableOrderedTaskStepIdentifiers;
     NSArray *_navigableOrderedTaskSteps;
     NSMutableDictionary *_stepNavigationRules;
-    ORKLegacyNavigableOrderedTask *_navigableOrderedTask;
+    ORK1NavigableOrderedTask *_navigableOrderedTask;
 }
 
-ORKLegacyDefineStringKey(HeadacheChoiceValue);
-ORKLegacyDefineStringKey(DizzinessChoiceValue);
-ORKLegacyDefineStringKey(NauseaChoiceValue);
+ORK1DefineStringKey(HeadacheChoiceValue);
+ORK1DefineStringKey(DizzinessChoiceValue);
+ORK1DefineStringKey(NauseaChoiceValue);
 
-ORKLegacyDefineStringKey(SymptomStepIdentifier);
-ORKLegacyDefineStringKey(SeverityStepIdentifier);
-ORKLegacyDefineStringKey(BlankStepIdentifier);
-ORKLegacyDefineStringKey(SevereHeadacheStepIdentifier);
-ORKLegacyDefineStringKey(LightHeadacheStepIdentifier);
-ORKLegacyDefineStringKey(OtherSymptomStepIdentifier);
-ORKLegacyDefineStringKey(EndStepIdentifier);
-ORKLegacyDefineStringKey(BlankBStepIdentifier);
+ORK1DefineStringKey(SymptomStepIdentifier);
+ORK1DefineStringKey(SeverityStepIdentifier);
+ORK1DefineStringKey(BlankStepIdentifier);
+ORK1DefineStringKey(SevereHeadacheStepIdentifier);
+ORK1DefineStringKey(LightHeadacheStepIdentifier);
+ORK1DefineStringKey(OtherSymptomStepIdentifier);
+ORK1DefineStringKey(EndStepIdentifier);
+ORK1DefineStringKey(BlankBStepIdentifier);
 
-ORKLegacyDefineStringKey(OrderedTaskIdentifier);
-ORKLegacyDefineStringKey(NavigableOrderedTaskIdentifier);
+ORK1DefineStringKey(OrderedTaskIdentifier);
+ORK1DefineStringKey(NavigableOrderedTaskIdentifier);
 
 - (void)generateTaskSteps:(out NSArray **)outSteps stepIdentifiers:(out NSArray **)outStepIdentifiers {
     if (outSteps == NULL || outStepIdentifiers == NULL) {
@@ -86,64 +86,64 @@ ORKLegacyDefineStringKey(NavigableOrderedTaskIdentifier);
     NSMutableArray *stepIdentifiers = [NSMutableArray new];
     NSMutableArray *steps = [NSMutableArray new];
     
-    ORKLegacyAnswerFormat *answerFormat = nil;
+    ORK1AnswerFormat *answerFormat = nil;
     NSString *stepIdentifier = nil;
-    ORKLegacyStep *step = nil;
+    ORK1Step *step = nil;
     
     NSArray *textChoices =
     @[
-      [ORKLegacyTextChoice choiceWithText:@"Headache" value:HeadacheChoiceValue],
-      [ORKLegacyTextChoice choiceWithText:@"Dizziness" value:DizzinessChoiceValue],
-      [ORKLegacyTextChoice choiceWithText:@"Nausea" value:NauseaChoiceValue]
+      [ORK1TextChoice choiceWithText:@"Headache" value:HeadacheChoiceValue],
+      [ORK1TextChoice choiceWithText:@"Dizziness" value:DizzinessChoiceValue],
+      [ORK1TextChoice choiceWithText:@"Nausea" value:NauseaChoiceValue]
       ];
     
-    answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice
+    answerFormat = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice
                                                     textChoices:textChoices];
     stepIdentifier = SymptomStepIdentifier;
-    step = [ORKLegacyQuestionStep questionStepWithIdentifier:stepIdentifier title:@"What is your symptom?" answer:answerFormat];
+    step = [ORK1QuestionStep questionStepWithIdentifier:stepIdentifier title:@"What is your symptom?" answer:answerFormat];
     step.optional = NO;
     [stepIdentifiers addObject:stepIdentifier];
     [steps addObject:step];
     
-    answerFormat = [ORKLegacyAnswerFormat booleanAnswerFormat];
+    answerFormat = [ORK1AnswerFormat booleanAnswerFormat];
     stepIdentifier = SeverityStepIdentifier;
-    step = [ORKLegacyQuestionStep questionStepWithIdentifier:stepIdentifier title:@"Does your symptom interferes with your daily life?" answer:answerFormat];
+    step = [ORK1QuestionStep questionStepWithIdentifier:stepIdentifier title:@"Does your symptom interferes with your daily life?" answer:answerFormat];
     step.optional = NO;
     [stepIdentifiers addObject:stepIdentifier];
     [steps addObject:step];
     
     stepIdentifier = BlankStepIdentifier;
-    step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
+    step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
     step.title = @"This step is intentionally left blank (you should not see it)";
     [stepIdentifiers addObject:stepIdentifier];
     [steps addObject:step];
     
     stepIdentifier = SevereHeadacheStepIdentifier;
-    step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
+    step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
     step.title = @"You have a severe headache";
     [stepIdentifiers addObject:stepIdentifier];
     [steps addObject:step];
     
     stepIdentifier = LightHeadacheStepIdentifier;
-    step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
+    step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
     step.title = @"You have a light headache";
     [stepIdentifiers addObject:stepIdentifier];
     [steps addObject:step];
     
     stepIdentifier = OtherSymptomStepIdentifier;
-    step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
+    step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
     step.title = @"You have other symptom";
     [stepIdentifiers addObject:stepIdentifier];
     [steps addObject:step];
     
     stepIdentifier = EndStepIdentifier;
-    step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
+    step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
     step.title = @"You have finished the task";
     [stepIdentifiers addObject:stepIdentifier];
     [steps addObject:step];
     
     stepIdentifier = BlankBStepIdentifier;
-    step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
+    step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
     step.title = @"This step is intentionally left blank (you should not see it)";
     [stepIdentifiers addObject:stepIdentifier];
     [steps addObject:step];
@@ -159,28 +159,28 @@ ORKLegacyDefineStringKey(NavigableOrderedTaskIdentifier);
     _orderedTaskSteps = orderedTaskSteps;
     _orderedTaskStepIdentifiers = orderedTaskStepIdentifiers;
     
-    _orderedTask = [[ORKLegacyOrderedTask alloc] initWithIdentifier:OrderedTaskIdentifier
-                                                        steps:ORKLegacyArrayCopyObjects(_orderedTaskSteps)]; // deep copy to test step copying and equality
+    _orderedTask = [[ORK1OrderedTask alloc] initWithIdentifier:OrderedTaskIdentifier
+                                                        steps:ORK1ArrayCopyObjects(_orderedTaskSteps)]; // deep copy to test step copying and equality
 }
 
 - (void)setUpNavigableOrderedTask {
-    ORKLegacyResultSelector *resultSelector = nil;
+    ORK1ResultSelector *resultSelector = nil;
     NSArray *navigableOrderedTaskSteps = nil;
     NSArray *navigableOrderedTaskStepIdentifiers = nil;
     [self generateTaskSteps:&navigableOrderedTaskSteps stepIdentifiers:&navigableOrderedTaskStepIdentifiers];
     _navigableOrderedTaskSteps = navigableOrderedTaskSteps;
     _navigableOrderedTaskStepIdentifiers = navigableOrderedTaskStepIdentifiers;
     
-    _navigableOrderedTask = [[ORKLegacyNavigableOrderedTask alloc] initWithIdentifier:NavigableOrderedTaskIdentifier
-                                                                          steps:ORKLegacyArrayCopyObjects(_navigableOrderedTaskSteps)]; // deep copy to test step copying and equality
+    _navigableOrderedTask = [[ORK1NavigableOrderedTask alloc] initWithIdentifier:NavigableOrderedTaskIdentifier
+                                                                          steps:ORK1ArrayCopyObjects(_navigableOrderedTaskSteps)]; // deep copy to test step copying and equality
     
     // Build navigation rules
     _stepNavigationRules = [NSMutableDictionary new];
     // Individual predicates
     
     // User chose headache at the symptom step
-    resultSelector = [[ORKLegacyResultSelector alloc] initWithResultIdentifier:SymptomStepIdentifier];
-    NSPredicate *predicateHeadache = [ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    resultSelector = [[ORK1ResultSelector alloc] initWithResultIdentifier:SymptomStepIdentifier];
+    NSPredicate *predicateHeadache = [ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                                         expectedAnswerValue:HeadacheChoiceValue];
     // Equivalent to:
     //      [NSPredicate predicateWithFormat:
@@ -191,29 +191,29 @@ ORKLegacyDefineStringKey(NavigableOrderedTaskIdentifier);
     NSPredicate *predicateNotHeadache = [NSCompoundPredicate notPredicateWithSubpredicate:predicateHeadache];
     
     // User chose YES at the severity step
-    resultSelector = [[ORKLegacyResultSelector alloc] initWithResultIdentifier:SeverityStepIdentifier];
-    NSPredicate *predicateSevereYes = [ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
+    resultSelector = [[ORK1ResultSelector alloc] initWithResultIdentifier:SeverityStepIdentifier];
+    NSPredicate *predicateSevereYes = [ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
                                                                                                expectedAnswer:YES];
     // Equivalent to:
     //      [NSPredicate predicateWithFormat:
     //          @"SUBQUERY(SELF, $x, $x.identifier like 'severity' AND $x.answer == YES).@count > 0"];
     
     // User chose NO at the severity step
-    NSPredicate *predicateSevereNo = [ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
+    NSPredicate *predicateSevereNo = [ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
                                                                                               expectedAnswer:NO];
     
     
     // From the "symptom" step, go to "other_symptom" is user didn't chose headache.
     // Otherwise, default to going to next step (when the defaultStepIdentifier argument is omitted,
-    // the regular ORKLegacyOrderedTask order applies).
+    // the regular ORK1OrderedTask order applies).
     NSMutableArray *resultPredicates = [NSMutableArray new];
     NSMutableArray *destinationStepIdentifiers = [NSMutableArray new];
     
     [resultPredicates addObject:predicateNotHeadache];
     [destinationStepIdentifiers addObject:OtherSymptomStepIdentifier];
     
-    ORKLegacyPredicateStepNavigationRule *predicateRule =
-    [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:resultPredicates
+    ORK1PredicateStepNavigationRule *predicateRule =
+    [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:resultPredicates
                                           destinationStepIdentifiers:destinationStepIdentifiers];
     
     [_navigableOrderedTask setNavigationRule:predicateRule forTriggerStepIdentifier:SymptomStepIdentifier];
@@ -232,7 +232,7 @@ ORKLegacyDefineStringKey(NavigableOrderedTaskIdentifier);
     [destinationStepIdentifiers addObject:LightHeadacheStepIdentifier];
     
     predicateRule =
-    [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:resultPredicates
+    [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:resultPredicates
                                           destinationStepIdentifiers:destinationStepIdentifiers
                                                defaultStepIdentifier:OtherSymptomStepIdentifier];
     
@@ -241,9 +241,9 @@ ORKLegacyDefineStringKey(NavigableOrderedTaskIdentifier);
     
     
     // Add end direct rules to skip unneeded steps
-    ORKLegacyDirectStepNavigationRule *directRule = nil;
+    ORK1DirectStepNavigationRule *directRule = nil;
     
-    directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:EndStepIdentifier];
+    directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:EndStepIdentifier];
     
     [_navigableOrderedTask setNavigationRule:directRule forTriggerStepIdentifier:SevereHeadacheStepIdentifier];
     [_navigableOrderedTask setNavigationRule:directRule forTriggerStepIdentifier:LightHeadacheStepIdentifier];
@@ -253,7 +253,7 @@ ORKLegacyDefineStringKey(NavigableOrderedTaskIdentifier);
     _stepNavigationRules[LightHeadacheStepIdentifier] = [directRule copy];
     _stepNavigationRules[OtherSymptomStepIdentifier] = [directRule copy];
     
-    directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORKLegacyNullStepIdentifier];
+    directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORK1NullStepIdentifier];
     [_navigableOrderedTask setNavigationRule:directRule forTriggerStepIdentifier:EndStepIdentifier];
     _stepNavigationRules[EndStepIdentifier] = [directRule copy];
 }
@@ -267,20 +267,20 @@ typedef NS_OPTIONS(NSUInteger, TestsTaskResultOptions) {
     TestsTaskResultOptionSeverityNo         = 1 << 4
 };
 
-- (ORKLegacyTaskResult *)getResultTreeWithTaskIdentifier:(NSString *)taskIdentifier resultOptions:(TestsTaskResultOptions)resultOptions {
+- (ORK1TaskResult *)getResultTreeWithTaskIdentifier:(NSString *)taskIdentifier resultOptions:(TestsTaskResultOptions)resultOptions {
     if ( ((resultOptions & TestsTaskResultOptionSymptomDizziness) || (resultOptions & TestsTaskResultOptionSymptomNausea)) && ((resultOptions & TestsTaskResultOptionSeverityYes) || (resultOptions & TestsTaskResultOptionSeverityNo)) ) {
         @throw [NSException exceptionWithName:NSGenericException reason:@"You can only add a severity result for the headache symptom" userInfo:nil];
     }
     
     NSMutableArray *stepResults = [NSMutableArray new];
     
-    ORKLegacyQuestionResult *questionResult = nil;
-    ORKLegacyStepResult *stepResult = nil;
+    ORK1QuestionResult *questionResult = nil;
+    ORK1StepResult *stepResult = nil;
     NSString *stepIdentifier = nil;
     
     if (resultOptions & (TestsTaskResultOptionSymptomHeadache | TestsTaskResultOptionSymptomDizziness | TestsTaskResultOptionSymptomNausea)) {
         stepIdentifier = SymptomStepIdentifier;
-        questionResult = [[ORKLegacyChoiceQuestionResult alloc] init];
+        questionResult = [[ORK1ChoiceQuestionResult alloc] init];
         questionResult.identifier = stepIdentifier;
         if (resultOptions & TestsTaskResultOptionSymptomHeadache) {
             questionResult.answer = @[HeadacheChoiceValue];
@@ -289,45 +289,45 @@ typedef NS_OPTIONS(NSUInteger, TestsTaskResultOptions) {
         } else if (resultOptions & TestsTaskResultOptionSymptomNausea) {
             questionResult.answer = @[NauseaChoiceValue];
         }
-        questionResult.questionType = ORKLegacyQuestionTypeSingleChoice;
+        questionResult.questionType = ORK1QuestionTypeSingleChoice;
         
-        stepResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:stepIdentifier results:@[questionResult]];
+        stepResult = [[ORK1StepResult alloc] initWithStepIdentifier:stepIdentifier results:@[questionResult]];
         [stepResults addObject:stepResult];
 
         if (resultOptions & (TestsTaskResultOptionSymptomDizziness | TestsTaskResultOptionSymptomNausea)) {
-            stepResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:OtherSymptomStepIdentifier results:nil];
+            stepResult = [[ORK1StepResult alloc] initWithStepIdentifier:OtherSymptomStepIdentifier results:nil];
             [stepResults addObject:stepResult];
         }
     }
     
     if (resultOptions & (TestsTaskResultOptionSeverityYes | TestsTaskResultOptionSeverityNo)) {
         stepIdentifier = SeverityStepIdentifier;
-        questionResult = [[ORKLegacyBooleanQuestionResult alloc] init];
+        questionResult = [[ORK1BooleanQuestionResult alloc] init];
         questionResult.identifier = stepIdentifier;
         if (resultOptions & TestsTaskResultOptionSeverityYes) {
             questionResult.answer = @(YES);
         } else if (resultOptions & TestsTaskResultOptionSeverityNo) {
             questionResult.answer = @(NO);
         }
-        questionResult.questionType = ORKLegacyQuestionTypeSingleChoice;
+        questionResult.questionType = ORK1QuestionTypeSingleChoice;
         
-        stepResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:stepIdentifier results:@[questionResult]];
+        stepResult = [[ORK1StepResult alloc] initWithStepIdentifier:stepIdentifier results:@[questionResult]];
         [stepResults addObject:stepResult];
         
         
         if (resultOptions & TestsTaskResultOptionSeverityYes) {
-            stepResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:SevereHeadacheStepIdentifier results:nil];
+            stepResult = [[ORK1StepResult alloc] initWithStepIdentifier:SevereHeadacheStepIdentifier results:nil];
             [stepResults addObject:stepResult];
         } else if (resultOptions & TestsTaskResultOptionSeverityNo) {
-            stepResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:LightHeadacheStepIdentifier results:nil];
+            stepResult = [[ORK1StepResult alloc] initWithStepIdentifier:LightHeadacheStepIdentifier results:nil];
             [stepResults addObject:stepResult];
         }
     }
     
-    stepResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:EndStepIdentifier results:nil];
+    stepResult = [[ORK1StepResult alloc] initWithStepIdentifier:EndStepIdentifier results:nil];
     [stepResults addObject:stepResult];
 
-    ORKLegacyTaskResult *taskResult = [[ORKLegacyTaskResult alloc] initWithTaskIdentifier:taskIdentifier
+    ORK1TaskResult *taskResult = [[ORK1TaskResult alloc] initWithTaskIdentifier:taskIdentifier
                                                                   taskRunUUID:[NSUUID UUID]
                                                               outputDirectory:[NSURL fileURLWithPath:NSTemporaryDirectory()]];
     taskResult.results = stepResults;
@@ -342,7 +342,7 @@ typedef NS_OPTIONS(NSUInteger, TestsTaskResultOptions) {
 }
 
 - (void)testOrderedTask {
-    ORKLegacyTaskResult *mockTaskResult = [[ORKLegacyTaskResult alloc] init];
+    ORK1TaskResult *mockTaskResult = [[ORK1TaskResult alloc] init];
     
     XCTAssertEqualObjects(_orderedTask.identifier, OrderedTaskIdentifier);
     XCTAssertEqualObjects(_orderedTask.steps, _orderedTaskSteps);
@@ -350,11 +350,11 @@ typedef NS_OPTIONS(NSUInteger, TestsTaskResultOptions) {
     NSUInteger expectedTotalProgress = _orderedTaskSteps.count;
     
     for (NSUInteger stepIndex = 0; stepIndex < _orderedTaskStepIdentifiers.count; stepIndex++) {
-        ORKLegacyStep *currentStep = _orderedTaskSteps[stepIndex];
+        ORK1Step *currentStep = _orderedTaskSteps[stepIndex];
         XCTAssertEqualObjects(currentStep, [_orderedTask stepWithIdentifier:_orderedTaskStepIdentifiers[stepIndex]]);
         
         const NSUInteger expectedCurrentProgress = stepIndex;
-        ORKLegacyTaskProgress currentProgress = [_orderedTask progressOfCurrentStep:currentStep withResult:mockTaskResult];
+        ORK1TaskProgress currentProgress = [_orderedTask progressOfCurrentStep:currentStep withResult:mockTaskResult];
         XCTAssertTrue(currentProgress.total == expectedTotalProgress && currentProgress.current == expectedCurrentProgress);
         
         NSString *expectedPreviousStep = (stepIndex != 0) ? _orderedTaskSteps[stepIndex - 1] : nil;
@@ -366,30 +366,30 @@ typedef NS_OPTIONS(NSUInteger, TestsTaskResultOptions) {
     // Test duplicate step identifier validation
     XCTAssertNoThrow([_orderedTask validateParameters]);
     
-    NSMutableArray *steps = [[NSMutableArray alloc] initWithArray:ORKLegacyArrayCopyObjects(_orderedTaskSteps)];
-    ORKLegacyStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:BlankStepIdentifier];
+    NSMutableArray *steps = [[NSMutableArray alloc] initWithArray:ORK1ArrayCopyObjects(_orderedTaskSteps)];
+    ORK1Step *step = [[ORK1InstructionStep alloc] initWithIdentifier:BlankStepIdentifier];
     [steps addObject:step];
     
-    XCTAssertThrows([[ORKLegacyOrderedTask alloc] initWithIdentifier:OrderedTaskIdentifier
+    XCTAssertThrows([[ORK1OrderedTask alloc] initWithIdentifier:OrderedTaskIdentifier
                                                          steps:steps]);
 }
 
 #define getIndividualNavigableOrderedTaskSteps() \
-__unused ORKLegacyStep *symptomStep = _navigableOrderedTaskSteps[0];\
-__unused ORKLegacyStep *severityStep = _navigableOrderedTaskSteps[1];\
-__unused ORKLegacyStep *blankStep = _navigableOrderedTaskSteps[2];\
-__unused ORKLegacyStep *severeHeadacheStep = _navigableOrderedTaskSteps[3];\
-__unused ORKLegacyStep *lightHeadacheStep = _navigableOrderedTaskSteps[4];\
-__unused ORKLegacyStep *otherSymptomStep = _navigableOrderedTaskSteps[5];\
-__unused ORKLegacyStep *endStep = _navigableOrderedTaskSteps[6];
+__unused ORK1Step *symptomStep = _navigableOrderedTaskSteps[0];\
+__unused ORK1Step *severityStep = _navigableOrderedTaskSteps[1];\
+__unused ORK1Step *blankStep = _navigableOrderedTaskSteps[2];\
+__unused ORK1Step *severeHeadacheStep = _navigableOrderedTaskSteps[3];\
+__unused ORK1Step *lightHeadacheStep = _navigableOrderedTaskSteps[4];\
+__unused ORK1Step *otherSymptomStep = _navigableOrderedTaskSteps[5];\
+__unused ORK1Step *endStep = _navigableOrderedTaskSteps[6];
 
-BOOL (^testStepAfterStep)(ORKLegacyNavigableOrderedTask *, ORKLegacyTaskResult *, ORKLegacyStep *, ORKLegacyStep *) =  ^BOOL(ORKLegacyNavigableOrderedTask *task, ORKLegacyTaskResult *taskResult, ORKLegacyStep *fromStep, ORKLegacyStep *expectedStep) {
-    ORKLegacyStep *testedStep = [task stepAfterStep:fromStep withResult:taskResult];
+BOOL (^testStepAfterStep)(ORK1NavigableOrderedTask *, ORK1TaskResult *, ORK1Step *, ORK1Step *) =  ^BOOL(ORK1NavigableOrderedTask *task, ORK1TaskResult *taskResult, ORK1Step *fromStep, ORK1Step *expectedStep) {
+    ORK1Step *testedStep = [task stepAfterStep:fromStep withResult:taskResult];
     return (testedStep == nil && expectedStep == nil) || [testedStep isEqual:expectedStep];
 };
 
-BOOL (^testStepBeforeStep)(ORKLegacyNavigableOrderedTask *, ORKLegacyTaskResult *, ORKLegacyStep *, ORKLegacyStep *) =  ^BOOL(ORKLegacyNavigableOrderedTask *task, ORKLegacyTaskResult *taskResult, ORKLegacyStep *fromStep, ORKLegacyStep *expectedStep) {
-    ORKLegacyStep *testedStep = [task stepBeforeStep:fromStep withResult:taskResult];
+BOOL (^testStepBeforeStep)(ORK1NavigableOrderedTask *, ORK1TaskResult *, ORK1Step *, ORK1Step *) =  ^BOOL(ORK1NavigableOrderedTask *task, ORK1TaskResult *taskResult, ORK1Step *fromStep, ORK1Step *expectedStep) {
+    ORK1Step *testedStep = [task stepBeforeStep:fromStep withResult:taskResult];
     return (testedStep == nil && expectedStep == nil) || [testedStep isEqual:expectedStep];
 };
 
@@ -402,18 +402,18 @@ BOOL (^testStepBeforeStep)(ORKLegacyNavigableOrderedTask *, ORKLegacyTaskResult 
         XCTAssertEqualObjects(_stepNavigationRules[triggerStepIdentifier], [_navigableOrderedTask navigationRuleForTriggerStepIdentifier:triggerStepIdentifier]);
     }
     
-    ORKLegacyDefineStringKey(MockTriggerStepIdentifier);
-    ORKLegacyDefineStringKey(MockDestinationStepIdentifier);
+    ORK1DefineStringKey(MockTriggerStepIdentifier);
+    ORK1DefineStringKey(MockDestinationStepIdentifier);
     
     // Test adding and removing a step navigation rule
     XCTAssertNil([_navigableOrderedTask navigationRuleForTriggerStepIdentifier:MockTriggerStepIdentifier]);
     
-    ORKLegacyDirectStepNavigationRule *mockNavigationRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:MockDestinationStepIdentifier];
+    ORK1DirectStepNavigationRule *mockNavigationRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:MockDestinationStepIdentifier];
     [_navigableOrderedTask setNavigationRule:mockNavigationRule forTriggerStepIdentifier:MockTriggerStepIdentifier];
 
     XCTAssertEqualObjects([_navigableOrderedTask navigationRuleForTriggerStepIdentifier:MockTriggerStepIdentifier], [mockNavigationRule copy]);
 
-    ORKLegacyPredicateSkipStepNavigationRule *mockSkipNavigationRule = [[ORKLegacyPredicateSkipStepNavigationRule alloc] initWithResultPredicate:[NSPredicate predicateWithFormat:@"1 == 1"]];
+    ORK1PredicateSkipStepNavigationRule *mockSkipNavigationRule = [[ORK1PredicateSkipStepNavigationRule alloc] initWithResultPredicate:[NSPredicate predicateWithFormat:@"1 == 1"]];
     [_navigableOrderedTask setSkipNavigationRule:mockSkipNavigationRule forStepIdentifier:MockTriggerStepIdentifier];
     
     XCTAssertEqualObjects([_navigableOrderedTask skipNavigationRuleForStepIdentifier:MockTriggerStepIdentifier], [mockSkipNavigationRule copy]);
@@ -428,7 +428,7 @@ BOOL (^testStepBeforeStep)(ORKLegacyNavigableOrderedTask *, ORKLegacyTaskResult 
     //
     // Empty task result
     //
-    ORKLegacyTaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:0];
+    ORK1TaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:0];
     
     // Test forward navigation
     XCTAssertTrue(testStepAfterStep(_navigableOrderedTask, taskResult, nil, symptomStep));
@@ -456,7 +456,7 @@ BOOL (^testStepBeforeStep)(ORKLegacyNavigableOrderedTask *, ORKLegacyTaskResult 
     //
     // Only headache symptom question step answered
     //
-    ORKLegacyTaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:TestsTaskResultOptionSymptomHeadache | TestsTaskResultOptionSeverityYes];
+    ORK1TaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:TestsTaskResultOptionSymptomHeadache | TestsTaskResultOptionSeverityYes];
     
     // Test forward navigation
     XCTAssertTrue(testStepAfterStep(_navigableOrderedTask, taskResult, nil, symptomStep));
@@ -478,7 +478,7 @@ BOOL (^testStepBeforeStep)(ORKLegacyNavigableOrderedTask *, ORKLegacyTaskResult 
     //
     // Only dizziness symptom question answered
     //
-    ORKLegacyTaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:TestsTaskResultOptionSymptomDizziness];
+    ORK1TaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:TestsTaskResultOptionSymptomDizziness];
     
     // Test forward navigation
     XCTAssertTrue(testStepAfterStep(_navigableOrderedTask, taskResult, nil, symptomStep));
@@ -498,7 +498,7 @@ BOOL (^testStepBeforeStep)(ORKLegacyNavigableOrderedTask *, ORKLegacyTaskResult 
     //
     // Severe headache sequence
     //
-    ORKLegacyTaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:TestsTaskResultOptionSymptomHeadache | TestsTaskResultOptionSeverityYes];
+    ORK1TaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:TestsTaskResultOptionSymptomHeadache | TestsTaskResultOptionSeverityYes];
     
     // Test forward navigation
     XCTAssertTrue(testStepAfterStep(_navigableOrderedTask, taskResult, nil, symptomStep));
@@ -520,7 +520,7 @@ BOOL (^testStepBeforeStep)(ORKLegacyNavigableOrderedTask *, ORKLegacyTaskResult 
     //
     // Light headache sequence
     //
-    ORKLegacyTaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:TestsTaskResultOptionSymptomHeadache | TestsTaskResultOptionSeverityNo];
+    ORK1TaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:TestsTaskResultOptionSymptomHeadache | TestsTaskResultOptionSeverityNo];
     
     // Test forward navigation
     XCTAssertTrue(testStepAfterStep(_navigableOrderedTask, taskResult, nil, symptomStep));
@@ -537,20 +537,20 @@ BOOL (^testStepBeforeStep)(ORKLegacyNavigableOrderedTask *, ORKLegacyTaskResult 
 }
 
 - (void)testNavigableOrderedTaskSkip {
-    ORKLegacyNavigableOrderedTask *skipTask = [_navigableOrderedTask copy];
+    ORK1NavigableOrderedTask *skipTask = [_navigableOrderedTask copy];
 
     getIndividualNavigableOrderedTaskSteps();
 
     //
     // Light headache sequence
     //
-    ORKLegacyTaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:TestsTaskResultOptionSymptomHeadache | TestsTaskResultOptionSeverityNo];
+    ORK1TaskResult *taskResult = [self getResultTreeWithTaskIdentifier:NavigableOrderedTaskIdentifier resultOptions:TestsTaskResultOptionSymptomHeadache | TestsTaskResultOptionSeverityNo];
 
     // User chose headache at the symptom step
-    ORKLegacyResultSelector *resultSelector = [[ORKLegacyResultSelector alloc] initWithResultIdentifier:SymptomStepIdentifier];
-    NSPredicate *predicateHeadache = [ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    ORK1ResultSelector *resultSelector = [[ORK1ResultSelector alloc] initWithResultIdentifier:SymptomStepIdentifier];
+    NSPredicate *predicateHeadache = [ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                                         expectedAnswerValue:HeadacheChoiceValue];
-    ORKLegacyPredicateSkipStepNavigationRule *skipRule = [[ORKLegacyPredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicateHeadache];
+    ORK1PredicateSkipStepNavigationRule *skipRule = [[ORK1PredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicateHeadache];
     
     // Skip endStep
     [skipTask setSkipNavigationRule:skipRule forStepIdentifier:EndStepIdentifier];
@@ -580,53 +580,53 @@ BOOL (^testStepBeforeStep)(ORKLegacyNavigableOrderedTask *, ORKLegacyTaskResult 
     XCTAssertTrue(testStepAfterStep(skipTask, taskResult, severityStep, nil));
 }
 
-ORKLegacyDefineStringKey(SignConsentStepIdentifier);
-ORKLegacyDefineStringKey(SignatureIdentifier);
+ORK1DefineStringKey(SignConsentStepIdentifier);
+ORK1DefineStringKey(SignatureIdentifier);
 
-ORKLegacyDefineStringKey(ScaleStepIdentifier);
-ORKLegacyDefineStringKey(ContinuousScaleStepIdentifier);
+ORK1DefineStringKey(ScaleStepIdentifier);
+ORK1DefineStringKey(ContinuousScaleStepIdentifier);
 static const NSInteger IntegerValue = 6;
 static const float FloatValue = 6.5;
 
-ORKLegacyDefineStringKey(SingleChoiceStepIdentifier);
-ORKLegacyDefineStringKey(MultipleChoiceStepIdentifier);
-ORKLegacyDefineStringKey(MixedMultipleChoiceStepIdentifier);
-ORKLegacyDefineStringKey(SingleChoiceValue);
-ORKLegacyDefineStringKey(MultipleChoiceValue1);
-ORKLegacyDefineStringKey(MultipleChoiceValue2);
+ORK1DefineStringKey(SingleChoiceStepIdentifier);
+ORK1DefineStringKey(MultipleChoiceStepIdentifier);
+ORK1DefineStringKey(MixedMultipleChoiceStepIdentifier);
+ORK1DefineStringKey(SingleChoiceValue);
+ORK1DefineStringKey(MultipleChoiceValue1);
+ORK1DefineStringKey(MultipleChoiceValue2);
 static const NSInteger MultipleChoiceValue3 = 7;
 
-ORKLegacyDefineStringKey(BooleanStepIdentifier);
+ORK1DefineStringKey(BooleanStepIdentifier);
 static const BOOL BooleanValue = YES;
 
-ORKLegacyDefineStringKey(TextStepIdentifier);
-ORKLegacyDefineStringKey(TextValue);
-ORKLegacyDefineStringKey(OtherTextValue);
+ORK1DefineStringKey(TextStepIdentifier);
+ORK1DefineStringKey(TextValue);
+ORK1DefineStringKey(OtherTextValue);
 
-ORKLegacyDefineStringKey(IntegerNumericStepIdentifier);
-ORKLegacyDefineStringKey(FloatNumericStepIdentifier);
+ORK1DefineStringKey(IntegerNumericStepIdentifier);
+ORK1DefineStringKey(FloatNumericStepIdentifier);
 
-ORKLegacyDefineStringKey(TimeOfDayStepIdentifier);
-ORKLegacyDefineStringKey(TimeIntervalStepIdentifier);
-ORKLegacyDefineStringKey(DateStepIdentifier);
+ORK1DefineStringKey(TimeOfDayStepIdentifier);
+ORK1DefineStringKey(TimeIntervalStepIdentifier);
+ORK1DefineStringKey(DateStepIdentifier);
 
-ORKLegacyDefineStringKey(FormStepIdentifier);
+ORK1DefineStringKey(FormStepIdentifier);
 
-ORKLegacyDefineStringKey(TextFormItemIdentifier);
-ORKLegacyDefineStringKey(NumericFormItemIdentifier);
+ORK1DefineStringKey(TextFormItemIdentifier);
+ORK1DefineStringKey(NumericFormItemIdentifier);
 
-ORKLegacyDefineStringKey(NilTextStepIdentifier);
+ORK1DefineStringKey(NilTextStepIdentifier);
 
-ORKLegacyDefineStringKey(AdditionalTaskIdentifier);
-ORKLegacyDefineStringKey(AdditionalFormStepIdentifier);
-ORKLegacyDefineStringKey(AdditionalTextFormItemIdentifier);
-ORKLegacyDefineStringKey(AdditionalNumericFormItemIdentifier);
+ORK1DefineStringKey(AdditionalTaskIdentifier);
+ORK1DefineStringKey(AdditionalFormStepIdentifier);
+ORK1DefineStringKey(AdditionalTextFormItemIdentifier);
+ORK1DefineStringKey(AdditionalNumericFormItemIdentifier);
 
-ORKLegacyDefineStringKey(AdditionalTextStepIdentifier);
-ORKLegacyDefineStringKey(AdditionalTextValue);
+ORK1DefineStringKey(AdditionalTextStepIdentifier);
+ORK1DefineStringKey(AdditionalTextValue);
 
-ORKLegacyDefineStringKey(MatchedDestinationStepIdentifier);
-ORKLegacyDefineStringKey(DefaultDestinationStepIdentifier);
+ORK1DefineStringKey(MatchedDestinationStepIdentifier);
+ORK1DefineStringKey(DefaultDestinationStepIdentifier);
 
 static const NSInteger AdditionalIntegerValue = 42;
 
@@ -638,53 +638,53 @@ static NSDateComponents *(^DateComponents)(void) = ^NSDateComponents *{
     return dateComponents;
 };
 
-static ORKLegacyQuestionResult *(^getQuestionResult)(NSString *, Class, ORKLegacyQuestionType, id) = ^ORKLegacyQuestionResult *(NSString *questionResultIdentifier, Class questionResultClass, ORKLegacyQuestionType questionType, id answer) {
-    ORKLegacyQuestionResult *questionResult = [[questionResultClass alloc] init];
+static ORK1QuestionResult *(^getQuestionResult)(NSString *, Class, ORK1QuestionType, id) = ^ORK1QuestionResult *(NSString *questionResultIdentifier, Class questionResultClass, ORK1QuestionType questionType, id answer) {
+    ORK1QuestionResult *questionResult = [[questionResultClass alloc] init];
     questionResult.identifier = questionResultIdentifier;
     questionResult.answer = answer;
     questionResult.questionType = questionType;
     return questionResult;
 };
 
-static ORKLegacyStepResult *(^getStepResult)(NSString *, Class, ORKLegacyQuestionType, id) = ^ORKLegacyStepResult *(NSString *stepIdentifier, Class questionResultClass, ORKLegacyQuestionType questionType, id answer) {
-    ORKLegacyQuestionResult *questionResult = getQuestionResult(stepIdentifier, questionResultClass, questionType, answer);
-    ORKLegacyStepResult *stepResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:stepIdentifier results:@[questionResult]];
+static ORK1StepResult *(^getStepResult)(NSString *, Class, ORK1QuestionType, id) = ^ORK1StepResult *(NSString *stepIdentifier, Class questionResultClass, ORK1QuestionType questionType, id answer) {
+    ORK1QuestionResult *questionResult = getQuestionResult(stepIdentifier, questionResultClass, questionType, answer);
+    ORK1StepResult *stepResult = [[ORK1StepResult alloc] initWithStepIdentifier:stepIdentifier results:@[questionResult]];
     return stepResult;
 };
 
-static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL) = ^ORKLegacyStepResult *(NSString *stepIdentifier, NSString *signatureIdentifier, BOOL consented) {
-    ORKLegacyConsentSignatureResult *consentSignatureResult = [[ORKLegacyConsentSignatureResult alloc] initWithIdentifier:signatureIdentifier];
+static ORK1StepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL) = ^ORK1StepResult *(NSString *stepIdentifier, NSString *signatureIdentifier, BOOL consented) {
+    ORK1ConsentSignatureResult *consentSignatureResult = [[ORK1ConsentSignatureResult alloc] initWithIdentifier:signatureIdentifier];
     consentSignatureResult.consented = consented;
-    return [[ORKLegacyStepResult alloc] initWithStepIdentifier:stepIdentifier results:@[consentSignatureResult]];
+    return [[ORK1StepResult alloc] initWithStepIdentifier:stepIdentifier results:@[consentSignatureResult]];
 };
 
-- (ORKLegacyTaskResult *)getGeneralTaskResultTree {
+- (ORK1TaskResult *)getGeneralTaskResultTree {
     NSMutableArray *stepResults = [NSMutableArray new];
     
-    [stepResults addObject:getStepResult(ScaleStepIdentifier, [ORKLegacyScaleQuestionResult class], ORKLegacyQuestionTypeScale, @(IntegerValue))];
-    [stepResults addObject:getStepResult(ContinuousScaleStepIdentifier, [ORKLegacyScaleQuestionResult class], ORKLegacyQuestionTypeScale, @(FloatValue))];
+    [stepResults addObject:getStepResult(ScaleStepIdentifier, [ORK1ScaleQuestionResult class], ORK1QuestionTypeScale, @(IntegerValue))];
+    [stepResults addObject:getStepResult(ContinuousScaleStepIdentifier, [ORK1ScaleQuestionResult class], ORK1QuestionTypeScale, @(FloatValue))];
     
-    [stepResults addObject:getStepResult(SingleChoiceStepIdentifier, [ORKLegacyChoiceQuestionResult class], ORKLegacyQuestionTypeSingleChoice, @[SingleChoiceValue])];
-    [stepResults addObject:getStepResult(MultipleChoiceStepIdentifier, [ORKLegacyChoiceQuestionResult class], ORKLegacyQuestionTypeMultipleChoice, @[MultipleChoiceValue1, MultipleChoiceValue2])];
-    [stepResults addObject:getStepResult(MixedMultipleChoiceStepIdentifier, [ORKLegacyChoiceQuestionResult class], ORKLegacyQuestionTypeMultipleChoice, @[MultipleChoiceValue1, MultipleChoiceValue2, @(MultipleChoiceValue3)])];
+    [stepResults addObject:getStepResult(SingleChoiceStepIdentifier, [ORK1ChoiceQuestionResult class], ORK1QuestionTypeSingleChoice, @[SingleChoiceValue])];
+    [stepResults addObject:getStepResult(MultipleChoiceStepIdentifier, [ORK1ChoiceQuestionResult class], ORK1QuestionTypeMultipleChoice, @[MultipleChoiceValue1, MultipleChoiceValue2])];
+    [stepResults addObject:getStepResult(MixedMultipleChoiceStepIdentifier, [ORK1ChoiceQuestionResult class], ORK1QuestionTypeMultipleChoice, @[MultipleChoiceValue1, MultipleChoiceValue2, @(MultipleChoiceValue3)])];
     
-    [stepResults addObject:getStepResult(BooleanStepIdentifier, [ORKLegacyBooleanQuestionResult class], ORKLegacyQuestionTypeBoolean, @(BooleanValue))];
+    [stepResults addObject:getStepResult(BooleanStepIdentifier, [ORK1BooleanQuestionResult class], ORK1QuestionTypeBoolean, @(BooleanValue))];
     
-    [stepResults addObject:getStepResult(TextStepIdentifier, [ORKLegacyTextQuestionResult class], ORKLegacyQuestionTypeText, TextValue)];
+    [stepResults addObject:getStepResult(TextStepIdentifier, [ORK1TextQuestionResult class], ORK1QuestionTypeText, TextValue)];
     
-    [stepResults addObject:getStepResult(IntegerNumericStepIdentifier, [ORKLegacyNumericQuestionResult class], ORKLegacyQuestionTypeInteger, @(IntegerValue))];
-    [stepResults addObject:getStepResult(FloatNumericStepIdentifier, [ORKLegacyNumericQuestionResult class], ORKLegacyQuestionTypeDecimal, @(FloatValue))];
+    [stepResults addObject:getStepResult(IntegerNumericStepIdentifier, [ORK1NumericQuestionResult class], ORK1QuestionTypeInteger, @(IntegerValue))];
+    [stepResults addObject:getStepResult(FloatNumericStepIdentifier, [ORK1NumericQuestionResult class], ORK1QuestionTypeDecimal, @(FloatValue))];
     
-    [stepResults addObject:getStepResult(DateStepIdentifier, [ORKLegacyDateQuestionResult class], ORKLegacyQuestionTypeDate, Date())];
+    [stepResults addObject:getStepResult(DateStepIdentifier, [ORK1DateQuestionResult class], ORK1QuestionTypeDate, Date())];
     
-    [stepResults addObject:getStepResult(TimeIntervalStepIdentifier, [ORKLegacyTimeIntervalQuestionResult class], ORKLegacyQuestionTypeTimeInterval, @(IntegerValue))];
+    [stepResults addObject:getStepResult(TimeIntervalStepIdentifier, [ORK1TimeIntervalQuestionResult class], ORK1QuestionTypeTimeInterval, @(IntegerValue))];
     
-    [stepResults addObject:getStepResult(TimeOfDayStepIdentifier, [ORKLegacyTimeOfDayQuestionResult class], ORKLegacyQuestionTypeTimeOfDay, DateComponents())];
+    [stepResults addObject:getStepResult(TimeOfDayStepIdentifier, [ORK1TimeOfDayQuestionResult class], ORK1QuestionTypeTimeOfDay, DateComponents())];
     
     // Nil result (simulate skipped step)
-    [stepResults addObject:getStepResult(NilTextStepIdentifier, [ORKLegacyTextQuestionResult class], ORKLegacyQuestionTypeText, nil)];
+    [stepResults addObject:getStepResult(NilTextStepIdentifier, [ORK1TextQuestionResult class], ORK1QuestionTypeText, nil)];
     
-    ORKLegacyTaskResult *taskResult = [[ORKLegacyTaskResult alloc] initWithTaskIdentifier:OrderedTaskIdentifier
+    ORK1TaskResult *taskResult = [[ORK1TaskResult alloc] initWithTaskIdentifier:OrderedTaskIdentifier
                                                                   taskRunUUID:[NSUUID UUID]
                                                               outputDirectory:[NSURL fileURLWithPath:NSTemporaryDirectory()]];
     taskResult.results = stepResults;
@@ -692,12 +692,12 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     return taskResult;
 }
 
-- (ORKLegacyTaskResult *)getTaskResultTreeWithConsent:(BOOL)consented {
+- (ORK1TaskResult *)getTaskResultTreeWithConsent:(BOOL)consented {
     NSMutableArray *stepResults = [NSMutableArray new];
     
     [stepResults addObject:getConsentStepResult(SignConsentStepIdentifier, SignatureIdentifier, consented)];
     
-    ORKLegacyTaskResult *taskResult = [[ORKLegacyTaskResult alloc] initWithTaskIdentifier:OrderedTaskIdentifier
+    ORK1TaskResult *taskResult = [[ORK1TaskResult alloc] initWithTaskIdentifier:OrderedTaskIdentifier
                                                                   taskRunUUID:[NSUUID UUID]
                                                               outputDirectory:[NSURL fileURLWithPath:NSTemporaryDirectory()]];
     taskResult.results = stepResults;
@@ -705,16 +705,16 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     return taskResult;
 }
 
-- (ORKLegacyTaskResult *)getSmallTaskResultTreeWithIsAdditionalTask:(BOOL)isAdditionalTask {
+- (ORK1TaskResult *)getSmallTaskResultTreeWithIsAdditionalTask:(BOOL)isAdditionalTask {
     NSMutableArray *stepResults = [NSMutableArray new];
     
     if (!isAdditionalTask) {
-        [stepResults addObject:getStepResult(TextStepIdentifier, [ORKLegacyTextQuestionResult class], ORKLegacyQuestionTypeText, TextValue)];
+        [stepResults addObject:getStepResult(TextStepIdentifier, [ORK1TextQuestionResult class], ORK1QuestionTypeText, TextValue)];
     } else {
-        [stepResults addObject:getStepResult(AdditionalTextStepIdentifier, [ORKLegacyTextQuestionResult class], ORKLegacyQuestionTypeText, AdditionalTextValue)];
+        [stepResults addObject:getStepResult(AdditionalTextStepIdentifier, [ORK1TextQuestionResult class], ORK1QuestionTypeText, AdditionalTextValue)];
     }
     
-    ORKLegacyTaskResult *taskResult = [[ORKLegacyTaskResult alloc] initWithTaskIdentifier:!isAdditionalTask ? OrderedTaskIdentifier : AdditionalTaskIdentifier
+    ORK1TaskResult *taskResult = [[ORK1TaskResult alloc] initWithTaskIdentifier:!isAdditionalTask ? OrderedTaskIdentifier : AdditionalTaskIdentifier
                                                                   taskRunUUID:[NSUUID UUID]
                                                               outputDirectory:[NSURL fileURLWithPath:NSTemporaryDirectory()]];
     taskResult.results = stepResults;
@@ -722,20 +722,20 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     return taskResult;
 }
 
-- (ORKLegacyTaskResult *)getSmallFormTaskResultTreeWithIsAdditionalTask:(BOOL)isAdditionalTask {
+- (ORK1TaskResult *)getSmallFormTaskResultTreeWithIsAdditionalTask:(BOOL)isAdditionalTask {
     NSMutableArray *formItemResults = [NSMutableArray new];
     
     if (!isAdditionalTask) {
-        [formItemResults addObject:getQuestionResult(TextFormItemIdentifier, [ORKLegacyTextQuestionResult class], ORKLegacyQuestionTypeText, TextValue)];
-        [formItemResults addObject:getQuestionResult(NumericFormItemIdentifier, [ORKLegacyNumericQuestionResult class], ORKLegacyQuestionTypeInteger, @(IntegerValue))];
+        [formItemResults addObject:getQuestionResult(TextFormItemIdentifier, [ORK1TextQuestionResult class], ORK1QuestionTypeText, TextValue)];
+        [formItemResults addObject:getQuestionResult(NumericFormItemIdentifier, [ORK1NumericQuestionResult class], ORK1QuestionTypeInteger, @(IntegerValue))];
     } else {
-        [formItemResults addObject:getQuestionResult(AdditionalTextFormItemIdentifier, [ORKLegacyTextQuestionResult class], ORKLegacyQuestionTypeText, AdditionalTextValue)];
-        [formItemResults addObject:getQuestionResult(AdditionalNumericFormItemIdentifier, [ORKLegacyNumericQuestionResult class], ORKLegacyQuestionTypeInteger, @(AdditionalIntegerValue))];
+        [formItemResults addObject:getQuestionResult(AdditionalTextFormItemIdentifier, [ORK1TextQuestionResult class], ORK1QuestionTypeText, AdditionalTextValue)];
+        [formItemResults addObject:getQuestionResult(AdditionalNumericFormItemIdentifier, [ORK1NumericQuestionResult class], ORK1QuestionTypeInteger, @(AdditionalIntegerValue))];
     }
     
-    ORKLegacyStepResult *formStepResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:(!isAdditionalTask ? FormStepIdentifier : AdditionalFormStepIdentifier) results:formItemResults];
+    ORK1StepResult *formStepResult = [[ORK1StepResult alloc] initWithStepIdentifier:(!isAdditionalTask ? FormStepIdentifier : AdditionalFormStepIdentifier) results:formItemResults];
     
-    ORKLegacyTaskResult *taskResult = [[ORKLegacyTaskResult alloc] initWithTaskIdentifier:(!isAdditionalTask ? OrderedTaskIdentifier : AdditionalTaskIdentifier)
+    ORK1TaskResult *taskResult = [[ORK1TaskResult alloc] initWithTaskIdentifier:(!isAdditionalTask ? OrderedTaskIdentifier : AdditionalTaskIdentifier)
                                                                   taskRunUUID:[NSUUID UUID]
                                                               outputDirectory:[NSURL fileURLWithPath:NSTemporaryDirectory()]];
     taskResult.results = @[formStepResult];
@@ -743,13 +743,13 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     return taskResult;
 }
 
-- (ORKLegacyTaskResult *)getSmallTaskResultTreeWithDuplicateStepIdentifiers {
+- (ORK1TaskResult *)getSmallTaskResultTreeWithDuplicateStepIdentifiers {
     NSMutableArray *stepResults = [NSMutableArray new];
     
-    [stepResults addObject:getStepResult(TextStepIdentifier, [ORKLegacyTextQuestionResult class], ORKLegacyQuestionTypeText, TextValue)];
-    [stepResults addObject:getStepResult(TextStepIdentifier, [ORKLegacyTextQuestionResult class], ORKLegacyQuestionTypeText, TextValue)];
+    [stepResults addObject:getStepResult(TextStepIdentifier, [ORK1TextQuestionResult class], ORK1QuestionTypeText, TextValue)];
+    [stepResults addObject:getStepResult(TextStepIdentifier, [ORK1TextQuestionResult class], ORK1QuestionTypeText, TextValue)];
     
-    ORKLegacyTaskResult *taskResult = [[ORKLegacyTaskResult alloc] initWithTaskIdentifier:OrderedTaskIdentifier
+    ORK1TaskResult *taskResult = [[ORK1TaskResult alloc] initWithTaskIdentifier:OrderedTaskIdentifier
                                                                   taskRunUUID:[NSUUID UUID]
                                                               outputDirectory:[NSURL fileURLWithPath:NSTemporaryDirectory()]];
     taskResult.results = stepResults;
@@ -761,49 +761,49 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     NSPredicate *predicate = nil;
     NSPredicate *predicateA = nil;
     NSPredicate *predicateB = nil;
-    ORKLegacyPredicateStepNavigationRule *predicateRule = nil;
-    ORKLegacyTaskResult *taskResult = nil;
-    ORKLegacyTaskResult *additionalTaskResult = nil;
+    ORK1PredicateStepNavigationRule *predicateRule = nil;
+    ORK1TaskResult *taskResult = nil;
+    ORK1TaskResult *additionalTaskResult = nil;
     
     NSArray *resultPredicates = nil;
     NSArray *destinationStepIdentifiers = nil;
     NSString *defaultStepIdentifier = nil;
     
-    ORKLegacyResultSelector *resultSelector = nil;
+    ORK1ResultSelector *resultSelector = nil;
     
     {
         // Test predicate step navigation rule initializers
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
-        predicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        resultSelector = [[ORK1ResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
+        predicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                           expectedString:TextValue];
         resultPredicates = @[ predicate ];
         destinationStepIdentifiers = @[ MatchedDestinationStepIdentifier ];
-        predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:resultPredicates
+        predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:resultPredicates
                                                               destinationStepIdentifiers:destinationStepIdentifiers];
         
-        XCTAssertEqualObjects(predicateRule.resultPredicates, ORKLegacyArrayCopyObjects(resultPredicates));
-        XCTAssertEqualObjects(predicateRule.destinationStepIdentifiers, ORKLegacyArrayCopyObjects(destinationStepIdentifiers));
+        XCTAssertEqualObjects(predicateRule.resultPredicates, ORK1ArrayCopyObjects(resultPredicates));
+        XCTAssertEqualObjects(predicateRule.destinationStepIdentifiers, ORK1ArrayCopyObjects(destinationStepIdentifiers));
         XCTAssertNil(predicateRule.defaultStepIdentifier);
         
         defaultStepIdentifier = DefaultDestinationStepIdentifier;
-        predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:resultPredicates
+        predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:resultPredicates
                                                               destinationStepIdentifiers:destinationStepIdentifiers
                                                                    defaultStepIdentifier:defaultStepIdentifier];
         
-        XCTAssertEqualObjects(predicateRule.resultPredicates, ORKLegacyArrayCopyObjects(resultPredicates));
-        XCTAssertEqualObjects(predicateRule.destinationStepIdentifiers, ORKLegacyArrayCopyObjects(destinationStepIdentifiers));
+        XCTAssertEqualObjects(predicateRule.resultPredicates, ORK1ArrayCopyObjects(resultPredicates));
+        XCTAssertEqualObjects(predicateRule.destinationStepIdentifiers, ORK1ArrayCopyObjects(destinationStepIdentifiers));
         XCTAssertEqualObjects(predicateRule.defaultStepIdentifier, defaultStepIdentifier);
     }
     
     {
         // Predicate matching, no additional task results, matching
-        taskResult = [ORKLegacyTaskResult new];
+        taskResult = [ORK1TaskResult new];
         taskResult.identifier = OrderedTaskIdentifier;
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
-        predicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        resultSelector = [[ORK1ResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
+        predicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                           expectedString:TextValue];
-        predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
+        predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
                                                               destinationStepIdentifiers:@[ MatchedDestinationStepIdentifier ]
                                                                    defaultStepIdentifier:DefaultDestinationStepIdentifier];
         
@@ -815,10 +815,10 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     
     {
         // Predicate matching, no additional task results, non matching
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
-        predicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        resultSelector = [[ORK1ResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
+        predicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                           expectedString:OtherTextValue];
-        predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
+        predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
                                                               destinationStepIdentifiers:@[ MatchedDestinationStepIdentifier ]
                                                                    defaultStepIdentifier:DefaultDestinationStepIdentifier];
         taskResult = [self getSmallTaskResultTreeWithIsAdditionalTask:NO];
@@ -830,21 +830,21 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
         NSPredicate *additionalPredicate = nil;
         
         // Predicate matching, additional task results
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
-        currentPredicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        resultSelector = [[ORK1ResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
+        currentPredicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                                  expectedString:TextValue];
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
                                                             resultIdentifier:AdditionalTextStepIdentifier];
-        additionalPredicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        additionalPredicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                                     expectedString:AdditionalTextValue];
         
         predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[currentPredicate, additionalPredicate]];
-        predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
+        predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
                                                               destinationStepIdentifiers:@[ MatchedDestinationStepIdentifier ]
                                                                    defaultStepIdentifier:DefaultDestinationStepIdentifier];
         
-        taskResult = [ORKLegacyTaskResult new];
+        taskResult = [ORK1TaskResult new];
         taskResult.identifier = OrderedTaskIdentifier;
         XCTAssertEqualObjects([predicateRule identifierForDestinationStepWithTaskResult:taskResult], DefaultDestinationStepIdentifier);
         
@@ -867,18 +867,18 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     
     {
         // Form predicate matching, no additional task results, matching
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
                                                             resultIdentifier:TextFormItemIdentifier];
-        predicateA = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        predicateA = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                            expectedString:TextValue];
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
                                                             resultIdentifier:NumericFormItemIdentifier];
-        predicateB = [ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+        predicateB = [ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                               expectedAnswer:IntegerValue];
         
         predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicateA, predicateB]];
-        predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
+        predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
                                                               destinationStepIdentifiers:@[ MatchedDestinationStepIdentifier ]
                                                                    defaultStepIdentifier:DefaultDestinationStepIdentifier];
         
@@ -888,11 +888,11 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     
     {
         // Form predicate matching, no additional task results, non matching
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
                                                             resultIdentifier:TextFormItemIdentifier];
-        predicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        predicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                           expectedString:OtherTextValue];
-        predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
+        predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
                                                               destinationStepIdentifiers:@[ MatchedDestinationStepIdentifier ]
                                                                    defaultStepIdentifier:DefaultDestinationStepIdentifier];
         taskResult = [self getSmallFormTaskResultTreeWithIsAdditionalTask:NO];
@@ -904,34 +904,34 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
         NSPredicate *additionalPredicate = nil;
         
         // Form predicate matching, additional task results
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
                                                             resultIdentifier:TextFormItemIdentifier];
-        predicateA = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        predicateA = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                            expectedString:TextValue];
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
                                                             resultIdentifier:NumericFormItemIdentifier];
-        predicateB = [ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+        predicateB = [ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                               expectedAnswer:IntegerValue];
         
         currentPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicateA, predicateB]];
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
                                                               stepIdentifier:AdditionalFormStepIdentifier
                                                             resultIdentifier:AdditionalTextFormItemIdentifier];
-        predicateA = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        predicateA = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                            expectedString:AdditionalTextValue];
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
                                                               stepIdentifier:AdditionalFormStepIdentifier
                                                             resultIdentifier:AdditionalNumericFormItemIdentifier];
-        predicateB = [ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+        predicateB = [ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                               expectedAnswer:AdditionalIntegerValue];
         
         additionalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicateA, predicateB]];
         
         predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[currentPredicate, additionalPredicate]];
-        predicateRule = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
+        predicateRule = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[ predicate ]
                                                               destinationStepIdentifiers:@[ MatchedDestinationStepIdentifier ]
                                                                    defaultStepIdentifier:DefaultDestinationStepIdentifier];
         
@@ -948,30 +948,30 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     NSPredicate *predicate = nil;
     NSPredicate *predicateA = nil;
     NSPredicate *predicateB = nil;
-    ORKLegacyPredicateSkipStepNavigationRule *predicateRule = nil;
-    ORKLegacyTaskResult *taskResult = nil;
-    ORKLegacyTaskResult *additionalTaskResult = nil;
+    ORK1PredicateSkipStepNavigationRule *predicateRule = nil;
+    ORK1TaskResult *taskResult = nil;
+    ORK1TaskResult *additionalTaskResult = nil;
     
-    ORKLegacyResultSelector *resultSelector = nil;
+    ORK1ResultSelector *resultSelector = nil;
     
     {
         // Test predicate step navigation rule initializers
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
-        predicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        resultSelector = [[ORK1ResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
+        predicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                           expectedString:TextValue];
-        predicateRule = [[ORKLegacyPredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
+        predicateRule = [[ORK1PredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
         XCTAssertEqualObjects(predicateRule.resultPredicate, predicate);
     }
     
     {
         // Predicate matching, no additional task results, matching
-        taskResult = [ORKLegacyTaskResult new];
+        taskResult = [ORK1TaskResult new];
         taskResult.identifier = OrderedTaskIdentifier;
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
-        predicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        resultSelector = [[ORK1ResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
+        predicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                           expectedString:TextValue];
-        predicateRule = [[ORKLegacyPredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
+        predicateRule = [[ORK1PredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
         
         XCTAssertFalse([predicateRule stepShouldSkipWithTaskResult:taskResult]);
         
@@ -981,10 +981,10 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     
     {
         // Predicate matching, no additional task results, non matching
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
-        predicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        resultSelector = [[ORK1ResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
+        predicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                           expectedString:OtherTextValue];
-        predicateRule = [[ORKLegacyPredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
+        predicateRule = [[ORK1PredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
         taskResult = [self getSmallTaskResultTreeWithIsAdditionalTask:NO];
         XCTAssertFalse([predicateRule stepShouldSkipWithTaskResult:taskResult]);
     }
@@ -994,19 +994,19 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
         NSPredicate *additionalPredicate = nil;
         
         // Predicate matching, additional task results
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
-        currentPredicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        resultSelector = [[ORK1ResultSelector alloc] initWithResultIdentifier:TextStepIdentifier];
+        currentPredicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                                  expectedString:TextValue];
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
                                                           resultIdentifier:AdditionalTextStepIdentifier];
-        additionalPredicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        additionalPredicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                                     expectedString:AdditionalTextValue];
         
         predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[currentPredicate, additionalPredicate]];
-        predicateRule = [[ORKLegacyPredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
+        predicateRule = [[ORK1PredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
         
-        taskResult = [ORKLegacyTaskResult new];
+        taskResult = [ORK1TaskResult new];
         taskResult.identifier = OrderedTaskIdentifier;
         XCTAssertFalse([predicateRule stepShouldSkipWithTaskResult:taskResult]);
         
@@ -1029,18 +1029,18 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     
     {
         // Form predicate matching, no additional task results, matching
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
                                                           resultIdentifier:TextFormItemIdentifier];
-        predicateA = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        predicateA = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                            expectedString:TextValue];
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
                                                           resultIdentifier:NumericFormItemIdentifier];
-        predicateB = [ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+        predicateB = [ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                               expectedAnswer:IntegerValue];
         
         predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicateA, predicateB]];
-        predicateRule = [[ORKLegacyPredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
+        predicateRule = [[ORK1PredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
         
         taskResult = [self getSmallFormTaskResultTreeWithIsAdditionalTask:NO];
         XCTAssertTrue([predicateRule stepShouldSkipWithTaskResult:taskResult]);
@@ -1048,11 +1048,11 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
 
     {
         // Form predicate matching, no additional task results, non matching
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
                                                           resultIdentifier:TextFormItemIdentifier];
-        predicate = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        predicate = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                           expectedString:OtherTextValue];
-        predicateRule = [[ORKLegacyPredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
+        predicateRule = [[ORK1PredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
         
         taskResult = [self getSmallFormTaskResultTreeWithIsAdditionalTask:NO];
         XCTAssertFalse([predicateRule stepShouldSkipWithTaskResult:taskResult]);
@@ -1063,34 +1063,34 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
         NSPredicate *additionalPredicate = nil;
         
         // Form predicate matching, additional task results
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
                                                           resultIdentifier:TextFormItemIdentifier];
-        predicateA = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        predicateA = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                            expectedString:TextValue];
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithStepIdentifier:FormStepIdentifier
                                                           resultIdentifier:NumericFormItemIdentifier];
-        predicateB = [ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+        predicateB = [ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                               expectedAnswer:IntegerValue];
         
         currentPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicateA, predicateB]];
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
                                                             stepIdentifier:AdditionalFormStepIdentifier
                                                           resultIdentifier:AdditionalTextFormItemIdentifier];
-        predicateA = [ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+        predicateA = [ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                            expectedString:AdditionalTextValue];
         
-        resultSelector = [[ORKLegacyResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
+        resultSelector = [[ORK1ResultSelector alloc] initWithTaskIdentifier:AdditionalTaskIdentifier
                                                             stepIdentifier:AdditionalFormStepIdentifier
                                                           resultIdentifier:AdditionalNumericFormItemIdentifier];
-        predicateB = [ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+        predicateB = [ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                               expectedAnswer:AdditionalIntegerValue];
         
         additionalPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicateA, predicateB]];
         
         predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[currentPredicate, additionalPredicate]];
-        predicateRule = [[ORKLegacyPredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
+        predicateRule = [[ORK1PredicateSkipStepNavigationRule alloc] initWithResultPredicate:predicate];
         
         taskResult = [self getSmallFormTaskResultTreeWithIsAdditionalTask:NO];
         XCTAssertFalse([predicateRule stepShouldSkipWithTaskResult:taskResult]);
@@ -1102,176 +1102,176 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
 }
 
 - (void)testDirectStepNavigationRule {
-    ORKLegacyDirectStepNavigationRule *directRule = nil;
-    ORKLegacyTaskResult *mockTaskResult = [ORKLegacyTaskResult new];
+    ORK1DirectStepNavigationRule *directRule = nil;
+    ORK1TaskResult *mockTaskResult = [ORK1TaskResult new];
     
-    directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:MatchedDestinationStepIdentifier];
+    directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:MatchedDestinationStepIdentifier];
     XCTAssertEqualObjects(directRule.destinationStepIdentifier, [MatchedDestinationStepIdentifier copy] );
     XCTAssertEqualObjects([directRule identifierForDestinationStepWithTaskResult:mockTaskResult], [MatchedDestinationStepIdentifier copy]);
     
-    directRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORKLegacyNullStepIdentifier];
-    XCTAssertEqualObjects(directRule.destinationStepIdentifier, [ORKLegacyNullStepIdentifier copy]);
-    XCTAssertEqualObjects([directRule identifierForDestinationStepWithTaskResult:mockTaskResult], [ORKLegacyNullStepIdentifier copy]);
+    directRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORK1NullStepIdentifier];
+    XCTAssertEqualObjects(directRule.destinationStepIdentifier, [ORK1NullStepIdentifier copy]);
+    XCTAssertEqualObjects([directRule identifierForDestinationStepWithTaskResult:mockTaskResult], [ORK1NullStepIdentifier copy]);
 }
 
 - (void)testResultPredicatesWithTaskIdentifier:(NSString *)taskIdentifier
                          substitutionVariables:(NSDictionary *)substitutionVariables
                                    taskResults:(NSArray *)taskResults {
-    // ORKLegacyScaleQuestionResult
-    ORKLegacyResultSelector *resultSelector = [[ORKLegacyResultSelector alloc] initWithTaskIdentifier:taskIdentifier
+    // ORK1ScaleQuestionResult
+    ORK1ResultSelector *resultSelector = [[ORK1ResultSelector alloc] initWithTaskIdentifier:taskIdentifier
                                                                          resultIdentifier:@""];
     
     resultSelector.resultIdentifier = ScaleStepIdentifier;
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
                                                                           expectedAnswer:IntegerValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
                                                                            expectedAnswer:IntegerValue + 1] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
     resultSelector.resultIdentifier = ContinuousScaleStepIdentifier;
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
                                                               minimumExpectedAnswerValue:FloatValue - 0.01
                                                               maximumExpectedAnswerValue:FloatValue + 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
                                                                minimumExpectedAnswerValue:FloatValue + 0.05
                                                                maximumExpectedAnswerValue:FloatValue + 0.06] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
                                                               minimumExpectedAnswerValue:FloatValue - 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
                                                                minimumExpectedAnswerValue:FloatValue + 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
                                                               maximumExpectedAnswerValue:FloatValue + 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForScaleQuestionResultWithResultSelector:resultSelector
                                                                maximumExpectedAnswerValue:FloatValue - 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    // ORKLegacyChoiceQuestionResult (strings)
+    // ORK1ChoiceQuestionResult (strings)
     resultSelector.resultIdentifier = SingleChoiceStepIdentifier;
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                       expectedAnswerValue:SingleChoiceValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                        expectedAnswerValue:OtherTextValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
     resultSelector.resultIdentifier = MultipleChoiceStepIdentifier;
     NSArray *expectedAnswers = nil;
     expectedAnswers = @[MultipleChoiceValue1];
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                      expectedAnswerValues:expectedAnswers] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     expectedAnswers = @[MultipleChoiceValue1, MultipleChoiceValue2];
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                      expectedAnswerValues:expectedAnswers] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     expectedAnswers = @[MultipleChoiceValue1, MultipleChoiceValue2, OtherTextValue];
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                       expectedAnswerValues:expectedAnswers] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     expectedAnswers = @[MultipleChoiceValue1, MultipleChoiceValue2, @(MultipleChoiceValue3)];
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                       expectedAnswerValues:expectedAnswers] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
     resultSelector.resultIdentifier = MixedMultipleChoiceStepIdentifier;
     expectedAnswers = @[MultipleChoiceValue1];
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                      expectedAnswerValues:expectedAnswers] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     expectedAnswers = @[@(MultipleChoiceValue3)];
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                      expectedAnswerValues:expectedAnswers] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     expectedAnswers = @[MultipleChoiceValue1, MultipleChoiceValue2, @(MultipleChoiceValue3)];
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                      expectedAnswerValues:expectedAnswers] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     expectedAnswers = @[MultipleChoiceValue1, MultipleChoiceValue2, OtherTextValue];
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                       expectedAnswerValues:expectedAnswers] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    // ORKLegacyChoiceQuestionResult (regular expressions)
+    // ORK1ChoiceQuestionResult (regular expressions)
     resultSelector.resultIdentifier = SingleChoiceStepIdentifier;
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                           matchingPattern:@"...gleChoiceValue"] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                        expectedAnswerValue:@"...SingleChoiceValue"] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
     resultSelector.resultIdentifier = MultipleChoiceStepIdentifier;
     expectedAnswers = @[@"...tipleChoiceValue1", @"...tipleChoiceValue2"];
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                          matchingPatterns:expectedAnswers] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     expectedAnswers = @[@"...MultipleChoiceValue1", @"...MultipleChoiceValue2", @"...OtherTextValue"];
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector
                                                                           matchingPatterns:expectedAnswers] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    // ORKLegacyBooleanQuestionResult
+    // ORK1BooleanQuestionResult
     resultSelector.resultIdentifier = BooleanStepIdentifier;
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
                                                                             expectedAnswer:BooleanValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
                                                                              expectedAnswer:!BooleanValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    // ORKLegacyTextQuestionResult (strings)
+    // ORK1TextQuestionResult (strings)
     resultSelector.resultIdentifier = TextStepIdentifier;
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                          expectedString:TextValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                           expectedString:OtherTextValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    // ORKLegacyTextQuestionResult (regular expressions)
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+    // ORK1TextQuestionResult (regular expressions)
+    XCTAssertTrue([[ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                         matchingPattern:@"...tValue"] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                          matchingPattern:@"...TextValue"] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    // ORKLegacyNumericQuestionResult
+    // ORK1NumericQuestionResult
     resultSelector.resultIdentifier = IntegerNumericStepIdentifier;
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                             expectedAnswer:IntegerValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                              expectedAnswer:IntegerValue + 1] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
     resultSelector.resultIdentifier = FloatNumericStepIdentifier;
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
-                                                                minimumExpectedAnswerValue:ORKLegacyIgnoreDoubleValue
-                                                                maximumExpectedAnswerValue:ORKLegacyIgnoreDoubleValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
+    XCTAssertTrue([[ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+                                                                minimumExpectedAnswerValue:ORK1IgnoreDoubleValue
+                                                                maximumExpectedAnswerValue:ORK1IgnoreDoubleValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                 minimumExpectedAnswerValue:FloatValue - 0.01
                                                                 maximumExpectedAnswerValue:FloatValue + 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                  minimumExpectedAnswerValue:FloatValue + 0.05
                                                                  maximumExpectedAnswerValue:FloatValue + 0.06] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                 minimumExpectedAnswerValue:FloatValue - 0.01
                                                                 maximumExpectedAnswerValue:FloatValue + 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                  minimumExpectedAnswerValue:FloatValue + 0.05
                                                                  maximumExpectedAnswerValue:FloatValue + 0.06] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                 minimumExpectedAnswerValue:FloatValue - 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                  minimumExpectedAnswerValue:FloatValue + 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                 maximumExpectedAnswerValue:FloatValue + 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForNumericQuestionResultWithResultSelector:resultSelector
                                                                  maximumExpectedAnswerValue:FloatValue - 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    // ORKLegacyTimeOfDayQuestionResult
+    // ORK1TimeOfDayQuestionResult
     resultSelector.resultIdentifier = TimeOfDayStepIdentifier;
     NSDateComponents *expectedDateComponentsMinimum = DateComponents();
     NSDateComponents *expectedDateComponentsMaximum = DateComponents();
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForTimeOfDayQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForTimeOfDayQuestionResultWithResultSelector:resultSelector
                                                                          minimumExpectedHour:expectedDateComponentsMinimum.hour
                                                                        minimumExpectedMinute:expectedDateComponentsMinimum.minute
                                                                          maximumExpectedHour:expectedDateComponentsMaximum.hour
                                                                        maximumExpectedMinute:expectedDateComponentsMaximum.minute] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     expectedDateComponentsMinimum.minute -= 2;
     expectedDateComponentsMaximum.minute += 2;
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForTimeOfDayQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForTimeOfDayQuestionResultWithResultSelector:resultSelector
                                                                          minimumExpectedHour:expectedDateComponentsMinimum.hour
                                                                        minimumExpectedMinute:expectedDateComponentsMinimum.minute
                                                                          maximumExpectedHour:expectedDateComponentsMaximum.hour
                                                                        maximumExpectedMinute:expectedDateComponentsMaximum.minute] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
     expectedDateComponentsMinimum.minute += 3;
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForTimeOfDayQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForTimeOfDayQuestionResultWithResultSelector:resultSelector
                                                                           minimumExpectedHour:expectedDateComponentsMinimum.hour
                                                                         minimumExpectedMinute:expectedDateComponentsMinimum.minute
                                                                           maximumExpectedHour:expectedDateComponentsMaximum.hour
@@ -1280,102 +1280,102 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     expectedDateComponentsMinimum.minute -= 3;
     expectedDateComponentsMinimum.hour += 1;
     expectedDateComponentsMaximum.hour += 2;
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForTimeOfDayQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForTimeOfDayQuestionResultWithResultSelector:resultSelector
                                                                           minimumExpectedHour:expectedDateComponentsMinimum.hour
                                                                         minimumExpectedMinute:expectedDateComponentsMinimum.minute
                                                                           maximumExpectedHour:expectedDateComponentsMaximum.hour
                                                                         maximumExpectedMinute:expectedDateComponentsMaximum.minute] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    // ORKLegacyTimeIntervalQuestionResult
+    // ORK1TimeIntervalQuestionResult
     resultSelector.resultIdentifier = FloatNumericStepIdentifier;
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
-                                                                     minimumExpectedAnswerValue:ORKLegacyIgnoreTimeIntervalValue
-                                                                     maximumExpectedAnswerValue:ORKLegacyIgnoreTimeIntervalValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
+    XCTAssertTrue([[ORK1ResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
+                                                                     minimumExpectedAnswerValue:ORK1IgnoreTimeIntervalValue
+                                                                     maximumExpectedAnswerValue:ORK1IgnoreTimeIntervalValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
                                                                      minimumExpectedAnswerValue:FloatValue - 0.01
                                                                      maximumExpectedAnswerValue:FloatValue + 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
                                                                       minimumExpectedAnswerValue:FloatValue + 0.05
                                                                       maximumExpectedAnswerValue:FloatValue + 0.06] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
                                                                      minimumExpectedAnswerValue:FloatValue - 0.01
                                                                      maximumExpectedAnswerValue:FloatValue + 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
                                                                       minimumExpectedAnswerValue:FloatValue + 0.05
                                                                       maximumExpectedAnswerValue:FloatValue + 0.06] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
                                                                      minimumExpectedAnswerValue:FloatValue - 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
                                                                       minimumExpectedAnswerValue:FloatValue + 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
                                                                      maximumExpectedAnswerValue:FloatValue + 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForTimeIntervalQuestionResultWithResultSelector:resultSelector
                                                                       maximumExpectedAnswerValue:FloatValue - 0.01] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    // ORKLegacyDateQuestionResult
+    // ORK1DateQuestionResult
     resultSelector.resultIdentifier = DateStepIdentifier;
     NSDate *expectedDate = Date();
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
                                                               minimumExpectedAnswerDate:[expectedDate dateByAddingTimeInterval:-60]
                                                               maximumExpectedAnswerDate:[expectedDate dateByAddingTimeInterval:+60]] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
                                                                minimumExpectedAnswerDate:[expectedDate dateByAddingTimeInterval:+60]
                                                                maximumExpectedAnswerDate:[expectedDate dateByAddingTimeInterval:+120]] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
                                                               minimumExpectedAnswerDate:[expectedDate dateByAddingTimeInterval:-60]
                                                               maximumExpectedAnswerDate:nil] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
                                                                minimumExpectedAnswerDate:[expectedDate dateByAddingTimeInterval:+1]
                                                                maximumExpectedAnswerDate:nil] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
                                                               minimumExpectedAnswerDate:nil
                                                               maximumExpectedAnswerDate:[expectedDate dateByAddingTimeInterval:+60]] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
+    XCTAssertFalse([[ORK1ResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
                                                                minimumExpectedAnswerDate:nil
                                                                maximumExpectedAnswerDate:[expectedDate dateByAddingTimeInterval:-1]] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
+    XCTAssertTrue([[ORK1ResultPredicate predicateForDateQuestionResultWithResultSelector:resultSelector
                                                               minimumExpectedAnswerDate:nil
                                                               maximumExpectedAnswerDate:nil] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
     // Result with nil value
     resultSelector.resultIdentifier = NilTextStepIdentifier;
-    XCTAssertTrue([[ORKLegacyResultPredicate predicateForNilQuestionResultWithResultSelector:resultSelector] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
+    XCTAssertTrue([[ORK1ResultPredicate predicateForNilQuestionResultWithResultSelector:resultSelector] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
     resultSelector.resultIdentifier = TextStepIdentifier;
-    XCTAssertFalse([[ORKLegacyResultPredicate predicateForNilQuestionResultWithResultSelector:resultSelector] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
+    XCTAssertFalse([[ORK1ResultPredicate predicateForNilQuestionResultWithResultSelector:resultSelector] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
 }
 
 - (void)testConsentPredicate {
-    ORKLegacyResultSelector *resultSelector = [[ORKLegacyResultSelector alloc] initWithTaskIdentifier:OrderedTaskIdentifier
+    ORK1ResultSelector *resultSelector = [[ORK1ResultSelector alloc] initWithTaskIdentifier:OrderedTaskIdentifier
                                                                            stepIdentifier:SignConsentStepIdentifier
                                                                          resultIdentifier:SignatureIdentifier];
     {
-        ORKLegacyTaskResult *consentedTaskResult = [self getTaskResultTreeWithConsent:YES];
-        XCTAssertTrue([[ORKLegacyResultPredicate predicateForConsentWithResultSelector:resultSelector
+        ORK1TaskResult *consentedTaskResult = [self getTaskResultTreeWithConsent:YES];
+        XCTAssertTrue([[ORK1ResultPredicate predicateForConsentWithResultSelector:resultSelector
                                                                       didConsent:YES] evaluateWithObject:@[consentedTaskResult] substitutionVariables:nil]);
-        XCTAssertFalse([[ORKLegacyResultPredicate predicateForConsentWithResultSelector:resultSelector
+        XCTAssertFalse([[ORK1ResultPredicate predicateForConsentWithResultSelector:resultSelector
                                                                        didConsent:NO] evaluateWithObject:@[consentedTaskResult] substitutionVariables:nil]);
     }
     
     {
-        ORKLegacyTaskResult *didNotConsentTaskResult = [self getTaskResultTreeWithConsent:NO];
+        ORK1TaskResult *didNotConsentTaskResult = [self getTaskResultTreeWithConsent:NO];
         
-        XCTAssertTrue([[ORKLegacyResultPredicate predicateForConsentWithResultSelector:resultSelector
+        XCTAssertTrue([[ORK1ResultPredicate predicateForConsentWithResultSelector:resultSelector
                                                                       didConsent:NO] evaluateWithObject:@[didNotConsentTaskResult] substitutionVariables:nil]);
-        XCTAssertFalse([[ORKLegacyResultPredicate predicateForConsentWithResultSelector:resultSelector
+        XCTAssertFalse([[ORK1ResultPredicate predicateForConsentWithResultSelector:resultSelector
                                                                        didConsent:YES] evaluateWithObject:@[didNotConsentTaskResult] substitutionVariables:nil]);
     }
 }
 
 - (void)testResultPredicates {
-    ORKLegacyTaskResult *taskResult = [self getGeneralTaskResultTree];
+    ORK1TaskResult *taskResult = [self getGeneralTaskResultTree];
     NSArray *taskResults = @[ taskResult ];
     
     // The following two calls are equivalent since 'substitutionVariables' are ignored when you provide a non-nil task identifier
@@ -1383,82 +1383,82 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
                            substitutionVariables:nil
                                      taskResults:taskResults];
     [self testResultPredicatesWithTaskIdentifier:OrderedTaskIdentifier
-                           substitutionVariables:@{ORKLegacyResultPredicateTaskIdentifierVariableName: OrderedTaskIdentifier}
+                           substitutionVariables:@{ORK1ResultPredicateTaskIdentifierVariableName: OrderedTaskIdentifier}
                                      taskResults:taskResults];
     // Test nil task identifier variable substitution
     [self testResultPredicatesWithTaskIdentifier:nil
-                           substitutionVariables:@{ORKLegacyResultPredicateTaskIdentifierVariableName: OrderedTaskIdentifier}
+                           substitutionVariables:@{ORK1ResultPredicateTaskIdentifierVariableName: OrderedTaskIdentifier}
                                      taskResults:taskResults];
 }
 
 - (void)testStepViewControllerWillDisappear {
     TestTaskViewControllerDelegate *delegate = [[TestTaskViewControllerDelegate alloc] init];
-    ORKLegacyOrderedTask *task = [ORKLegacyOrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"test" intendedUseDescription:nil duration:30 handOptions:0 options:0];
-    ORKLegacyTaskViewController *taskViewController = [[MockTaskViewController alloc] initWithTask:task taskRunUUID:nil];
+    ORK1OrderedTask *task = [ORK1OrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"test" intendedUseDescription:nil duration:30 handOptions:0 options:0];
+    ORK1TaskViewController *taskViewController = [[MockTaskViewController alloc] initWithTask:task taskRunUUID:nil];
     taskViewController.delegate = delegate;
-    ORKLegacyInstructionStepViewController *stepViewController = [[ORKLegacyInstructionStepViewController alloc] initWithStep:task.steps.firstObject];
+    ORK1InstructionStepViewController *stepViewController = [[ORK1InstructionStepViewController alloc] initWithStep:task.steps.firstObject];
     
     //-- call method under test
-    [taskViewController stepViewController:stepViewController didFinishWithNavigationDirection:ORKLegacyStepViewControllerNavigationDirectionForward];
+    [taskViewController stepViewController:stepViewController didFinishWithNavigationDirection:ORK1StepViewControllerNavigationDirectionForward];
     
     // Check that the expected methods were called
     XCTAssertEqual(delegate.methodCalled.count, 1);
     XCTAssertEqualObjects(delegate.methodCalled.firstObject.selectorName, @"taskViewController:stepViewControllerWillDisappear:navigationDirection:");
-    NSArray *expectedArgs = @[taskViewController, stepViewController, @(ORKLegacyStepViewControllerNavigationDirectionForward)];
+    NSArray *expectedArgs = @[taskViewController, stepViewController, @(ORK1StepViewControllerNavigationDirectionForward)];
     XCTAssertEqualObjects(delegate.methodCalled.firstObject.arguments, expectedArgs);
     
 }
 
 - (void)testIndexOfStep {
-    ORKLegacyOrderedTask *task = [ORKLegacyOrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"tapping" intendedUseDescription:nil duration:30 handOptions:0 options:0];
+    ORK1OrderedTask *task = [ORK1OrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"tapping" intendedUseDescription:nil duration:30 handOptions:0 options:0];
     
     // get the first step
-    ORKLegacyStep *step0 = [task.steps firstObject];
+    ORK1Step *step0 = [task.steps firstObject];
     XCTAssertNotNil(step0);
     XCTAssertEqual([task indexOfStep:step0], 0);
     
     // get the second step
-    ORKLegacyStep *step1 = [task stepWithIdentifier:ORKLegacyInstruction1StepIdentifier];
+    ORK1Step *step1 = [task stepWithIdentifier:ORK1Instruction1StepIdentifier];
     XCTAssertNotNil(step1);
     XCTAssertEqual([task indexOfStep:step1], 1);
     
     // get the last step
-    ORKLegacyStep *stepLast = [task.steps lastObject];
+    ORK1Step *stepLast = [task.steps lastObject];
     XCTAssertNotNil(stepLast);
     XCTAssertEqual([task indexOfStep:stepLast], task.steps.count - 1);
     
     // Look for not found
-    ORKLegacyStep *stepNF = [[ORKLegacyStep alloc] initWithIdentifier:@"foo"];
+    ORK1Step *stepNF = [[ORK1Step alloc] initWithIdentifier:@"foo"];
     XCTAssertEqual([task indexOfStep:stepNF], NSNotFound);
     
 }
 
 - (void)testAudioTask_WithSoundCheck {
-    ORKLegacyNavigableOrderedTask *task = [ORKLegacyOrderedTask audioTaskWithIdentifier:@"audio" intendedUseDescription:nil speechInstruction:nil shortSpeechInstruction:nil duration:20 recordingSettings:nil checkAudioLevel:YES options:0];
+    ORK1NavigableOrderedTask *task = [ORK1OrderedTask audioTaskWithIdentifier:@"audio" intendedUseDescription:nil speechInstruction:nil shortSpeechInstruction:nil duration:20 recordingSettings:nil checkAudioLevel:YES options:0];
     
-    NSArray *expectedStepIdentifiers = @[ORKLegacyInstruction0StepIdentifier,
-                                         ORKLegacyInstruction1StepIdentifier,
-                                         ORKLegacyCountdownStepIdentifier,
-                                         ORKLegacyAudioTooLoudStepIdentifier,
-                                         ORKLegacyAudioStepIdentifier,
-                                         ORKLegacyConclusionStepIdentifier];
+    NSArray *expectedStepIdentifiers = @[ORK1Instruction0StepIdentifier,
+                                         ORK1Instruction1StepIdentifier,
+                                         ORK1CountdownStepIdentifier,
+                                         ORK1AudioTooLoudStepIdentifier,
+                                         ORK1AudioStepIdentifier,
+                                         ORK1ConclusionStepIdentifier];
     NSArray *stepIdentifiers = [task.steps valueForKey:@"identifier"];
     XCTAssertEqual(stepIdentifiers.count, expectedStepIdentifiers.count);
     XCTAssertEqualObjects(stepIdentifiers, expectedStepIdentifiers);
     
-    XCTAssertNotNil([task navigationRuleForTriggerStepIdentifier:ORKLegacyCountdownStepIdentifier]);
-    XCTAssertNotNil([task navigationRuleForTriggerStepIdentifier:ORKLegacyAudioTooLoudStepIdentifier]);
+    XCTAssertNotNil([task navigationRuleForTriggerStepIdentifier:ORK1CountdownStepIdentifier]);
+    XCTAssertNotNil([task navigationRuleForTriggerStepIdentifier:ORK1AudioTooLoudStepIdentifier]);
 }
 
 - (void)testAudioTask_NoSoundCheck {
     
-    ORKLegacyNavigableOrderedTask *task = [ORKLegacyOrderedTask audioTaskWithIdentifier:@"audio" intendedUseDescription:nil speechInstruction:nil shortSpeechInstruction:nil duration:20 recordingSettings:nil checkAudioLevel:NO options:0];
+    ORK1NavigableOrderedTask *task = [ORK1OrderedTask audioTaskWithIdentifier:@"audio" intendedUseDescription:nil speechInstruction:nil shortSpeechInstruction:nil duration:20 recordingSettings:nil checkAudioLevel:NO options:0];
     
-    NSArray *expectedStepIdentifiers = @[ORKLegacyInstruction0StepIdentifier,
-                                         ORKLegacyInstruction1StepIdentifier,
-                                         ORKLegacyCountdownStepIdentifier,
-                                         ORKLegacyAudioStepIdentifier,
-                                         ORKLegacyConclusionStepIdentifier];
+    NSArray *expectedStepIdentifiers = @[ORK1Instruction0StepIdentifier,
+                                         ORK1Instruction1StepIdentifier,
+                                         ORK1CountdownStepIdentifier,
+                                         ORK1AudioStepIdentifier,
+                                         ORK1ConclusionStepIdentifier];
     NSArray *stepIdentifiers = [task.steps valueForKey:@"identifier"];
     XCTAssertEqual(stepIdentifiers.count, expectedStepIdentifiers.count);
     XCTAssertEqualObjects(stepIdentifiers, expectedStepIdentifiers);
@@ -1468,24 +1468,24 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
 - (void)testWalkBackAndForthTask_30SecondDuration {
     
     // Create the task
-    ORKLegacyOrderedTask *task = [ORKLegacyOrderedTask walkBackAndForthTaskWithIdentifier:@"walking" intendedUseDescription:nil walkDuration:30 restDuration:30 options:0];
+    ORK1OrderedTask *task = [ORK1OrderedTask walkBackAndForthTaskWithIdentifier:@"walking" intendedUseDescription:nil walkDuration:30 restDuration:30 options:0];
     
     // Check that the steps match the expected - If these change, it will affect the results and
     // could adversely impact existing studies that are expecting this step order.
-    NSArray *expectedStepIdentifiers = @[ORKLegacyInstruction0StepIdentifier,
-                                         ORKLegacyInstruction1StepIdentifier,
-                                         ORKLegacyCountdownStepIdentifier,
-                                         ORKLegacyShortWalkOutboundStepIdentifier,
-                                         ORKLegacyShortWalkRestStepIdentifier,
-                                         ORKLegacyConclusionStepIdentifier];
+    NSArray *expectedStepIdentifiers = @[ORK1Instruction0StepIdentifier,
+                                         ORK1Instruction1StepIdentifier,
+                                         ORK1CountdownStepIdentifier,
+                                         ORK1ShortWalkOutboundStepIdentifier,
+                                         ORK1ShortWalkRestStepIdentifier,
+                                         ORK1ConclusionStepIdentifier];
     XCTAssertEqual(task.steps.count, expectedStepIdentifiers.count);
     NSArray *stepIdentifiers = [task.steps valueForKey:@"identifier"];
     XCTAssertEqualObjects(stepIdentifiers, expectedStepIdentifiers);
     
     // Check that the active steps include speaking the halfway point
-    ORKLegacyActiveStep *walkingStep = (ORKLegacyActiveStep *)[task stepWithIdentifier:ORKLegacyShortWalkOutboundStepIdentifier];
+    ORK1ActiveStep *walkingStep = (ORK1ActiveStep *)[task stepWithIdentifier:ORK1ShortWalkOutboundStepIdentifier];
     XCTAssertTrue(walkingStep.shouldSpeakRemainingTimeAtHalfway);
-    ORKLegacyActiveStep *restStep = (ORKLegacyActiveStep *)[task stepWithIdentifier:ORKLegacyShortWalkRestStepIdentifier];
+    ORK1ActiveStep *restStep = (ORK1ActiveStep *)[task stepWithIdentifier:ORK1ShortWalkRestStepIdentifier];
     XCTAssertTrue(restStep.shouldSpeakRemainingTimeAtHalfway);
     
 }
@@ -1493,21 +1493,21 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
 - (void)testWalkBackAndForthTask_15SecondDuration_NoRest {
     
     // Create the task
-    ORKLegacyOrderedTask *task = [ORKLegacyOrderedTask walkBackAndForthTaskWithIdentifier:@"walking" intendedUseDescription:nil walkDuration:15 restDuration:0 options:0];
+    ORK1OrderedTask *task = [ORK1OrderedTask walkBackAndForthTaskWithIdentifier:@"walking" intendedUseDescription:nil walkDuration:15 restDuration:0 options:0];
     
     // Check that the steps match the expected - If these change, it will affect the results and
     // could adversely impact existing studies that are expecting this step order.
-    NSArray *expectedStepIdentifiers = @[ORKLegacyInstruction0StepIdentifier,
-                                         ORKLegacyInstruction1StepIdentifier,
-                                         ORKLegacyCountdownStepIdentifier,
-                                         ORKLegacyShortWalkOutboundStepIdentifier,
-                                         ORKLegacyConclusionStepIdentifier];
+    NSArray *expectedStepIdentifiers = @[ORK1Instruction0StepIdentifier,
+                                         ORK1Instruction1StepIdentifier,
+                                         ORK1CountdownStepIdentifier,
+                                         ORK1ShortWalkOutboundStepIdentifier,
+                                         ORK1ConclusionStepIdentifier];
     XCTAssertEqual(task.steps.count, expectedStepIdentifiers.count);
     NSArray *stepIdentifiers = [task.steps valueForKey:@"identifier"];
     XCTAssertEqualObjects(stepIdentifiers, expectedStepIdentifiers);
     
     // Check that the active steps include speaking the halfway point
-    ORKLegacyActiveStep *walkingStep = (ORKLegacyActiveStep *)[task stepWithIdentifier:ORKLegacyShortWalkOutboundStepIdentifier];
+    ORK1ActiveStep *walkingStep = (ORK1ActiveStep *)[task stepWithIdentifier:ORK1ShortWalkOutboundStepIdentifier];
     XCTAssertFalse(walkingStep.shouldSpeakRemainingTimeAtHalfway);
     
 }
@@ -1516,36 +1516,36 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
 
 - (void)testTwoFingerTappingIntervalTaskWithIdentifier_TapHandOptionUndefined {
     
-    ORKLegacyOrderedTask *task = [ORKLegacyOrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"test"
+    ORK1OrderedTask *task = [ORK1OrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"test"
                                                                intendedUseDescription:nil
                                                                              duration:10
                                                                           handOptions:0
                                                                               options:0];
-    NSArray *expectedStepIdentifiers = @[ORKLegacyInstruction0StepIdentifier,
-                                              ORKLegacyInstruction1StepIdentifier,
-                                              ORKLegacyTappingStepIdentifier,
-                                              ORKLegacyConclusionStepIdentifier];
+    NSArray *expectedStepIdentifiers = @[ORK1Instruction0StepIdentifier,
+                                              ORK1Instruction1StepIdentifier,
+                                              ORK1TappingStepIdentifier,
+                                              ORK1ConclusionStepIdentifier];
     NSArray *stepIdentifiers = [task.steps valueForKey:@"identifier"];
     XCTAssertEqual(stepIdentifiers.count, expectedStepIdentifiers.count);
     XCTAssertEqualObjects(stepIdentifiers, expectedStepIdentifiers);
     
-    ORKLegacyStep *tappingStep = [task stepWithIdentifier:ORKLegacyTappingStepIdentifier];
+    ORK1Step *tappingStep = [task stepWithIdentifier:ORK1TappingStepIdentifier];
     XCTAssertFalse(tappingStep.optional);
 
 }
 
 - (void)testTwoFingerTappingIntervalTaskWithIdentifier_TapHandOptionLeft {
     
-    ORKLegacyOrderedTask *task = [ORKLegacyOrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"test"
+    ORK1OrderedTask *task = [ORK1OrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"test"
                                                                intendedUseDescription:nil
                                                                              duration:10
-                                                                          handOptions:ORKLegacyPredefinedTaskHandOptionLeft
+                                                                          handOptions:ORK1PredefinedTaskHandOptionLeft
                                                                               options:0];
     // Check assumption around how many steps
     XCTAssertEqual(task.steps.count, 4);
     
     // Check that none of the language or identifiers contain the word "right"
-    for (ORKLegacyStep *step in task.steps) {
+    for (ORK1Step *step in task.steps) {
         XCTAssertFalse([step.identifier.lowercaseString hasSuffix:@"right"]);
         XCTAssertFalse([step.title.lowercaseString containsString:@"right"]);
         XCTAssertFalse([step.text.lowercaseString containsString:@"right"]);
@@ -1560,14 +1560,14 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     // Look for instruction step
     NSArray *instructions = filteredSteps(@"instruction1", @"left");
     XCTAssertEqual(instructions.count, 1);
-    ORKLegacyStep *instructionStep = [instructions firstObject];
+    ORK1Step *instructionStep = [instructions firstObject];
     XCTAssertEqualObjects(instructionStep.title, @"Left Hand");
     XCTAssertEqualObjects(instructionStep.text, @"Put your phone on a flat surface. Use two fingers on your left hand to alternately tap the buttons on the screen. Tap one finger, then the other. Try to time your taps to be as even as possible. Keep tapping for 10 seconds.");
     
     // Look for the activity step
     NSArray *tappings = filteredSteps(@"tapping", @"left");
     XCTAssertEqual(tappings.count, 1);
-    ORKLegacyStep *tappingStep = [tappings firstObject];
+    ORK1Step *tappingStep = [tappings firstObject];
     XCTAssertEqualObjects(tappingStep.title, @"Tap the buttons using your LEFT hand.");
     XCTAssertFalse(tappingStep.optional);
     
@@ -1575,16 +1575,16 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
 
 - (void)testTwoFingerTappingIntervalTaskWithIdentifier_TapHandOptionRight {
     
-    ORKLegacyOrderedTask *task = [ORKLegacyOrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"test"
+    ORK1OrderedTask *task = [ORK1OrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"test"
                                                                intendedUseDescription:nil
                                                                              duration:10
-                                                                          handOptions:ORKLegacyPredefinedTaskHandOptionRight
+                                                                          handOptions:ORK1PredefinedTaskHandOptionRight
                                                                               options:0];
     // Check assumption around how many steps
     XCTAssertEqual(task.steps.count, 4);
     
     // Check that none of the language or identifiers contain the word "right"
-    for (ORKLegacyStep *step in task.steps) {
+    for (ORK1Step *step in task.steps) {
         XCTAssertFalse([step.identifier.lowercaseString hasSuffix:@"left"]);
         XCTAssertFalse([step.title.lowercaseString containsString:@"left"]);
         XCTAssertFalse([step.text.lowercaseString containsString:@"left"]);
@@ -1599,14 +1599,14 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     // Look for instruction step
     NSArray *instructions = filteredSteps(@"instruction1", @"right");
     XCTAssertEqual(instructions.count, 1);
-    ORKLegacyStep *instructionStep = [instructions firstObject];
+    ORK1Step *instructionStep = [instructions firstObject];
     XCTAssertEqualObjects(instructionStep.title, @"Right Hand");
     XCTAssertEqualObjects(instructionStep.text, @"Put your phone on a flat surface. Use two fingers on your right hand to alternately tap the buttons on the screen. Tap one finger, then the other. Try to time your taps to be as even as possible. Keep tapping for 10 seconds.");
     
     // Look for the activity step
     NSArray *tappings = filteredSteps(@"tapping", @"right");
     XCTAssertEqual(tappings.count, 1);
-    ORKLegacyStep *tappingStep = [tappings firstObject];
+    ORK1Step *tappingStep = [tappings firstObject];
     XCTAssertEqualObjects(tappingStep.title, @"Tap the buttons using your RIGHT hand.");
     XCTAssertFalse(tappingStep.optional);
     
@@ -1619,21 +1619,21 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     NSUInteger threshold = 30;
     
     for (int ii = 0; ii < totalCount; ii++) {
-        ORKLegacyOrderedTask *task = [ORKLegacyOrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"test"
+        ORK1OrderedTask *task = [ORK1OrderedTask twoFingerTappingIntervalTaskWithIdentifier:@"test"
                                                                    intendedUseDescription:nil
                                                                                  duration:10
-                                                                              handOptions:ORKLegacyPredefinedTaskHandOptionBoth
+                                                                              handOptions:ORK1PredefinedTaskHandOptionBoth
                                                                                   options:0];
-        ORKLegacyStep * (^filteredSteps)(NSString*, NSString*) = ^(NSString *part1, NSString *part2) {
+        ORK1Step * (^filteredSteps)(NSString*, NSString*) = ^(NSString *part1, NSString *part2) {
             NSString *keyValue = [NSString stringWithFormat:@"%@.%@", part1, part2];
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", NSStringFromSelector(@selector(identifier)), keyValue];
             return [[task.steps filteredArrayUsingPredicate:predicate] firstObject];
         };
         
         // Look for instruction steps
-        ORKLegacyStep *rightInstructionStep = filteredSteps(@"instruction1", @"right");
+        ORK1Step *rightInstructionStep = filteredSteps(@"instruction1", @"right");
         XCTAssertNotNil(rightInstructionStep);
-        ORKLegacyStep *leftInstructionStep = filteredSteps(@"instruction1", @"left");
+        ORK1Step *leftInstructionStep = filteredSteps(@"instruction1", @"left");
         XCTAssertNotNil(leftInstructionStep);
         
         // Depending upon the seed (clock time) this will be either the right or left hand
@@ -1662,12 +1662,12 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
             }
             
             // Look for tapping steps
-            ORKLegacyStep *rightTapStep = filteredSteps(@"tapping", @"right");
+            ORK1Step *rightTapStep = filteredSteps(@"tapping", @"right");
             XCTAssertNotNil(rightTapStep);
             XCTAssertEqualObjects(rightTapStep.title, @"Tap the buttons using your RIGHT hand.");
             XCTAssertTrue(rightTapStep.optional);
             
-            ORKLegacyStep *leftTapStep = filteredSteps(@"tapping", @"left");
+            ORK1Step *leftTapStep = filteredSteps(@"tapping", @"left");
             XCTAssertNotNil(leftTapStep);
             XCTAssertEqualObjects(leftTapStep.title, @"Tap the buttons using your LEFT hand.");
             XCTAssertTrue(leftTapStep.optional);
@@ -1684,43 +1684,43 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
 - (void)testKeyValueStepModifier {
     
     // Setup the task
-    ORKLegacyStep *boolStep = [ORKLegacyQuestionStep  questionStepWithIdentifier:@"question"
+    ORK1Step *boolStep = [ORK1QuestionStep  questionStepWithIdentifier:@"question"
                                                                title:@"Yes or No"
-                                                              answer:[ORKLegacyAnswerFormat booleanAnswerFormat]];
+                                                              answer:[ORK1AnswerFormat booleanAnswerFormat]];
     
-    ORKLegacyStep *nextStep = [[ORKLegacyInstructionStep alloc] initWithIdentifier:@"nextStep"];
+    ORK1Step *nextStep = [[ORK1InstructionStep alloc] initWithIdentifier:@"nextStep"];
     nextStep.title = @"Yes";
 
-    ORKLegacyNavigableOrderedTask *task = [[ORKLegacyNavigableOrderedTask alloc] initWithIdentifier:NavigableOrderedTaskIdentifier
+    ORK1NavigableOrderedTask *task = [[ORK1NavigableOrderedTask alloc] initWithIdentifier:NavigableOrderedTaskIdentifier
                                                                                   steps:@[boolStep, nextStep]];
     
-    ORKLegacyResultSelector *resultSelector = [ORKLegacyResultSelector selectorWithStepIdentifier:@"question"
+    ORK1ResultSelector *resultSelector = [ORK1ResultSelector selectorWithStepIdentifier:@"question"
                                                                      resultIdentifier:@"question"];
-    NSPredicate *predicate = [ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
+    NSPredicate *predicate = [ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:resultSelector
                                                                                       expectedAnswer:NO];
-    ORKLegacyStepModifier *stepModifier = [[ORKLegacyKeyValueStepModifier alloc] initWithResultPredicate:predicate
+    ORK1StepModifier *stepModifier = [[ORK1KeyValueStepModifier alloc] initWithResultPredicate:predicate
                                                                                keyValueMap:@{ @"title" : @"No" }];
     
     [task setStepModifier:stepModifier forStepIdentifier:@"nextStep"];
     
     // -- Check the title if the answer is YES
-    ORKLegacyBooleanQuestionResult *result = [[ORKLegacyBooleanQuestionResult alloc] initWithIdentifier:@"question"];
+    ORK1BooleanQuestionResult *result = [[ORK1BooleanQuestionResult alloc] initWithIdentifier:@"question"];
     result.booleanAnswer = @(YES);
-    ORKLegacyStepResult *stepResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:@"question" results:@[result]];
-    ORKLegacyTaskResult *taskResult = [[ORKLegacyTaskResult alloc] initWithIdentifier:NavigableOrderedTaskIdentifier];
+    ORK1StepResult *stepResult = [[ORK1StepResult alloc] initWithStepIdentifier:@"question" results:@[result]];
+    ORK1TaskResult *taskResult = [[ORK1TaskResult alloc] initWithIdentifier:NavigableOrderedTaskIdentifier];
     taskResult.results = @[stepResult];
     
     // For the case where the answer is YES, then the title should be "Yes" (unmodified)
-    ORKLegacyStep *yesStep = [task stepAfterStep:boolStep withResult:taskResult];
+    ORK1Step *yesStep = [task stepAfterStep:boolStep withResult:taskResult];
     XCTAssertEqualObjects(yesStep.title, @"Yes");
     
     // -- Check the title if the answer is NO
     result.booleanAnswer = @(NO);
-    stepResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:@"question" results:@[result]];
+    stepResult = [[ORK1StepResult alloc] initWithStepIdentifier:@"question" results:@[result]];
     taskResult.results = @[stepResult];
     
     // For the case where the answer is NO, then the title should be modified to be "No"
-    ORKLegacyStep *noStep = [task stepAfterStep:boolStep withResult:taskResult];
+    ORK1Step *noStep = [task stepAfterStep:boolStep withResult:taskResult];
     XCTAssertEqualObjects(noStep.title, @"No");
 }
 
@@ -1742,7 +1742,7 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     return self;
 }
 
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController didFinishWithReason:(ORKLegacyTaskViewControllerFinishReason)reason error:(NSError *)error {
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController didFinishWithReason:(ORK1TaskViewControllerFinishReason)reason error:(NSError *)error {
     
     // Add results of method call
     MethodObject *obj = [[MethodObject alloc] init];
@@ -1753,7 +1753,7 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     [self.methodCalled addObject:obj];
 }
 
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController stepViewControllerWillDisappear:(ORKLegacyStepViewController *)stepViewController navigationDirection:(ORKLegacyStepViewControllerNavigationDirection)direction {
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController stepViewControllerWillDisappear:(ORK1StepViewController *)stepViewController navigationDirection:(ORK1StepViewControllerNavigationDirection)direction {
     // Add results of method call
     MethodObject *obj = [[MethodObject alloc] init];
     obj.selectorName = NSStringFromSelector(@selector(taskViewController:stepViewControllerWillDisappear:navigationDirection:));
@@ -1767,7 +1767,7 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
 
 @implementation MockTaskViewController
 
-- (void)flipToNextPageFrom:(ORKLegacyStepViewController *)fromController {
+- (void)flipToNextPageFrom:(ORK1StepViewController *)fromController {
     // Add results of method call
     MethodObject *obj = [[MethodObject alloc] init];
     obj.selectorName = NSStringFromSelector(@selector(flipToNextPageFrom:));
@@ -1775,7 +1775,7 @@ static ORKLegacyStepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL
     [self.methodCalled addObject:obj];
 }
 
-- (void)flipToPreviousPageFrom:(ORKLegacyStepViewController *)fromController {
+- (void)flipToPreviousPageFrom:(ORK1StepViewController *)fromController {
     // Add results of method call
     MethodObject *obj = [[MethodObject alloc] init];
     obj.selectorName = NSStringFromSelector(@selector(flipToPreviousPageFrom:));

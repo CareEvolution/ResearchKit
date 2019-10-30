@@ -269,8 +269,8 @@ enum TaskListRow: Int, Printable {
     
     // MARK: Properties
     
-    /// Returns a new `ORKLegacyTask` that the `TaskListRow` enumeration represents.
-    var representedTask: ORKLegacyTask {
+    /// Returns a new `ORK1Task` that the `TaskListRow` enumeration represents.
+    var representedTask: ORK1Task {
         switch self {
             case .ScaleQuestion:
                 return scaleQuestionTask
@@ -355,47 +355,47 @@ enum TaskListRow: Int, Printable {
     // MARK: Task Creation Convenience
     
     /// This task presents two options for questions displaying a scale control.
-    private var scaleQuestionTask: ORKLegacyTask {
-        var steps = [ORKLegacyStep]()
+    private var scaleQuestionTask: ORK1Task {
+        var steps = [ORK1Step]()
         
         // The first step is a scale control with 10 discrete ticks.
-        let step1AnswerFormat = ORKLegacyAnswerFormat.scaleAnswerFormatWithMaximumValue(10, minimumValue: 1, defaultValue: NSIntegerMax, step: 1, vertical: false, maximumValueDescription: exampleHighValueText, minimumValueDescription: exampleLowValueText)
+        let step1AnswerFormat = ORK1AnswerFormat.scaleAnswerFormatWithMaximumValue(10, minimumValue: 1, defaultValue: NSIntegerMax, step: 1, vertical: false, maximumValueDescription: exampleHighValueText, minimumValueDescription: exampleLowValueText)
         
-        let questionStep1 = ORKLegacyQuestionStep(identifier: Identifier.DiscreteScaleQuestionStep.rawValue, title: exampleQuestionText, answer: step1AnswerFormat)
+        let questionStep1 = ORK1QuestionStep(identifier: Identifier.DiscreteScaleQuestionStep.rawValue, title: exampleQuestionText, answer: step1AnswerFormat)
         
         questionStep1.text = exampleDetailText
         
         steps += [questionStep1]
         
         // The second step is a scale control that allows continuous movement with a percent formatter.
-        let step2AnswerFormat = ORKLegacyAnswerFormat.continuousScaleAnswerFormatWithMaximumValue(1.0, minimumValue: 0.0, defaultValue: 99.0, maximumFractionDigits: 0, vertical: false, maximumValueDescription: nil, minimumValueDescription: nil)
+        let step2AnswerFormat = ORK1AnswerFormat.continuousScaleAnswerFormatWithMaximumValue(1.0, minimumValue: 0.0, defaultValue: 99.0, maximumFractionDigits: 0, vertical: false, maximumValueDescription: nil, minimumValueDescription: nil)
         step2AnswerFormat.numberStyle = .Percent
         
-        let questionStep2 = ORKLegacyQuestionStep(identifier: Identifier.ContinuousScaleQuestionStep.rawValue, title: exampleQuestionText, answer: step2AnswerFormat)
+        let questionStep2 = ORK1QuestionStep(identifier: Identifier.ContinuousScaleQuestionStep.rawValue, title: exampleQuestionText, answer: step2AnswerFormat)
         
         questionStep2.text = exampleDetailText
         
         steps += [questionStep2]
 
         // The third step is a vertical scale control with 10 discrete ticks.
-        let step3AnswerFormat = ORKLegacyAnswerFormat.scaleAnswerFormatWithMaximumValue(10, minimumValue: 1, defaultValue: NSIntegerMax, step: 1, vertical: true, maximumValueDescription: nil, minimumValueDescription: nil)
+        let step3AnswerFormat = ORK1AnswerFormat.scaleAnswerFormatWithMaximumValue(10, minimumValue: 1, defaultValue: NSIntegerMax, step: 1, vertical: true, maximumValueDescription: nil, minimumValueDescription: nil)
         
-        let questionStep3 = ORKLegacyQuestionStep(identifier: Identifier.DiscreteVerticalScaleQuestionStep.rawValue, title: exampleQuestionText, answer: step3AnswerFormat)
+        let questionStep3 = ORK1QuestionStep(identifier: Identifier.DiscreteVerticalScaleQuestionStep.rawValue, title: exampleQuestionText, answer: step3AnswerFormat)
         
         questionStep3.text = exampleDetailText
         
         steps += [questionStep3]
 
         // The fourth step is a vertical scale control that allows continuous movement.
-        let step4AnswerFormat = ORKLegacyAnswerFormat.continuousScaleAnswerFormatWithMaximumValue(5.0, minimumValue: 1.0, defaultValue: 99.0, maximumFractionDigits: 2, vertical: true, maximumValueDescription: exampleHighValueText, minimumValueDescription: exampleLowValueText)
+        let step4AnswerFormat = ORK1AnswerFormat.continuousScaleAnswerFormatWithMaximumValue(5.0, minimumValue: 1.0, defaultValue: 99.0, maximumFractionDigits: 2, vertical: true, maximumValueDescription: exampleHighValueText, minimumValueDescription: exampleLowValueText)
         
-        let questionStep4 = ORKLegacyQuestionStep(identifier: Identifier.ContinuousVerticalScaleQuestionStep.rawValue, title: exampleQuestionText, answer: step4AnswerFormat)
+        let questionStep4 = ORK1QuestionStep(identifier: Identifier.ContinuousVerticalScaleQuestionStep.rawValue, title: exampleQuestionText, answer: step4AnswerFormat)
         
         questionStep4.text = exampleDetailText
         
         steps += [questionStep4]
         
-        return ORKLegacyOrderedTask(identifier: Identifier.ScaleQuestionTask.rawValue, steps: steps)
+        return ORK1OrderedTask(identifier: Identifier.ScaleQuestionTask.rawValue, steps: steps)
     }
     
     /**
@@ -403,14 +403,14 @@ enum TaskListRow: Int, Printable {
         Note that the unit is just a string, prompting the user to enter the value
         in the expected unit. The unit string propagates into the result object.
     */
-    private var numericQuestionTask: ORKLegacyTask {
-        var steps = [ORKLegacyStep]()
+    private var numericQuestionTask: ORK1Task {
+        var steps = [ORK1Step]()
         
         // This answer format will display a unit in-line with the numeric entry field.
         let localizedQuestionStep1AnswerFormatUnit = NSLocalizedString("Your unit", comment: "")
-        let questionStep1AnswerFormat = ORKLegacyAnswerFormat.decimalAnswerFormatWithUnit(localizedQuestionStep1AnswerFormatUnit)
+        let questionStep1AnswerFormat = ORK1AnswerFormat.decimalAnswerFormatWithUnit(localizedQuestionStep1AnswerFormatUnit)
         
-        let questionStep1 = ORKLegacyQuestionStep(identifier: Identifier.NumericQuestionStep.rawValue, title: exampleQuestionText, answer: questionStep1AnswerFormat)
+        let questionStep1 = ORK1QuestionStep(identifier: Identifier.NumericQuestionStep.rawValue, title: exampleQuestionText, answer: questionStep1AnswerFormat)
         
         questionStep1.text = exampleDetailText
         questionStep1.placeholder = NSLocalizedString("Your placeholder.", comment: "")
@@ -418,61 +418,61 @@ enum TaskListRow: Int, Printable {
         steps += [questionStep1]
         
         // This answer format is similar to the previous one, but this time without displaying a unit.
-        let questionStep2 = ORKLegacyQuestionStep(identifier: Identifier.NumericNoUnitQuestionStep.rawValue, title: exampleQuestionText, answer: ORKLegacyAnswerFormat.decimalAnswerFormatWithUnit(nil))
+        let questionStep2 = ORK1QuestionStep(identifier: Identifier.NumericNoUnitQuestionStep.rawValue, title: exampleQuestionText, answer: ORK1AnswerFormat.decimalAnswerFormatWithUnit(nil))
         
         questionStep2.text = exampleDetailText
         questionStep2.placeholder = NSLocalizedString("Placeholder without unit.", comment: "")
         
         steps += [questionStep2]
         
-        return ORKLegacyOrderedTask(identifier: Identifier.NumericQuestionTask.rawValue, steps: steps)
+        return ORK1OrderedTask(identifier: Identifier.NumericQuestionTask.rawValue, steps: steps)
     }
 
     /// This task demonstrates a question asking for a time of day.
-    private var timeOfDayQuestionTask: ORKLegacyTask {
+    private var timeOfDayQuestionTask: ORK1Task {
         /*
             Because we don't specify a default, the picker will default to the
             time the step is presented. For questions like "What time do you have
             breakfast?", it would make sense to set the default on the answer
             format.
         */
-        let answerFormat = ORKLegacyAnswerFormat.timeOfDayAnswerFormat()
+        let answerFormat = ORK1AnswerFormat.timeOfDayAnswerFormat()
         
-        let questionStep = ORKLegacyQuestionStep(identifier: Identifier.TimeOfDayQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
+        let questionStep = ORK1QuestionStep(identifier: Identifier.TimeOfDayQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
         
         questionStep.text = exampleDetailText
         
-        return ORKLegacyOrderedTask(identifier: Identifier.TimeOfDayQuestionTask.rawValue, steps: [questionStep])
+        return ORK1OrderedTask(identifier: Identifier.TimeOfDayQuestionTask.rawValue, steps: [questionStep])
     }
     
     /// This task demonstrates a question which asks for a date.
-    private var dateQuestionTask: ORKLegacyTask {
+    private var dateQuestionTask: ORK1Task {
         /*
             The date answer format can also support minimum and maximum limits,
             a specific default value, and overriding the calendar to use.
         */
-        let answerFormat = ORKLegacyAnswerFormat.dateAnswerFormat()
+        let answerFormat = ORK1AnswerFormat.dateAnswerFormat()
         
-        let step = ORKLegacyQuestionStep(identifier: Identifier.DateQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
+        let step = ORK1QuestionStep(identifier: Identifier.DateQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
         
         step.text = exampleDetailText
         
-        return ORKLegacyOrderedTask(identifier: Identifier.DateQuestionTask.rawValue, steps: [step])
+        return ORK1OrderedTask(identifier: Identifier.DateQuestionTask.rawValue, steps: [step])
     }
     
     /// This task demonstrates a question asking for a date and time of an event.
-    private var dateTimeQuestionTask: ORKLegacyTask {
+    private var dateTimeQuestionTask: ORK1Task {
         /*
             This uses the default calendar. Use a more detailed constructor to
             set minimum / maximum limits.
          */
-        let answerFormat = ORKLegacyAnswerFormat.dateTimeAnswerFormat()
+        let answerFormat = ORK1AnswerFormat.dateTimeAnswerFormat()
         
-        let step = ORKLegacyQuestionStep(identifier: Identifier.DateTimeQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
+        let step = ORK1QuestionStep(identifier: Identifier.DateTimeQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
         
         step.text = exampleDetailText
         
-        return ORKLegacyOrderedTask(identifier: Identifier.DateTimeQuestionTask.rawValue, steps: [step])
+        return ORK1OrderedTask(identifier: Identifier.DateTimeQuestionTask.rawValue, steps: [step])
     }
     
     /**
@@ -480,19 +480,19 @@ enum TaskListRow: Int, Printable {
         be a suitable answer format for a question like "How long is your morning
         commute?"
     */
-    private var timeIntervalQuestionTask: ORKLegacyTask {
+    private var timeIntervalQuestionTask: ORK1Task {
         /* 
             The time interval answer format is constrained to entering a time
             less than 24 hours and in steps of minutes. For times that don't fit
             these restrictions, use another mode of data entry.
         */
-        let answerFormat = ORKLegacyAnswerFormat.timeIntervalAnswerFormat()
+        let answerFormat = ORK1AnswerFormat.timeIntervalAnswerFormat()
         
-        let step = ORKLegacyQuestionStep(identifier: Identifier.TimeIntervalQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
+        let step = ORK1QuestionStep(identifier: Identifier.TimeIntervalQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
         
         step.text = exampleDetailText
         
-        return ORKLegacyOrderedTask(identifier: Identifier.TimeIntervalQuestionTask.rawValue, steps: [step])
+        return ORK1OrderedTask(identifier: Identifier.TimeIntervalQuestionTask.rawValue, steps: [step])
     }
 
     /**
@@ -500,14 +500,14 @@ enum TaskListRow: Int, Printable {
         text entry are supported, with appropriate parameters to the text answer
         format.
     */
-    private var textQuestionTask: ORKLegacyTask {
-        let answerFormat = ORKLegacyAnswerFormat.textAnswerFormat()
+    private var textQuestionTask: ORK1Task {
+        let answerFormat = ORK1AnswerFormat.textAnswerFormat()
         
-        let step = ORKLegacyQuestionStep(identifier: Identifier.TextQuestionStep.rawValue, title: exampleQuestionText, answer: ORKLegacyAnswerFormat.textAnswerFormat())
+        let step = ORK1QuestionStep(identifier: Identifier.TextQuestionStep.rawValue, title: exampleQuestionText, answer: ORK1AnswerFormat.textAnswerFormat())
         
         step.text = exampleDetailText
         
-        return ORKLegacyOrderedTask(identifier: Identifier.TextQuestionTask.rawValue, steps: [step])
+        return ORK1OrderedTask(identifier: Identifier.TextQuestionTask.rawValue, steps: [step])
     }
 
     /**
@@ -515,26 +515,26 @@ enum TaskListRow: Int, Printable {
         Compare with the `textChoiceQuestionTask` and `imageChoiceQuestionTask`
         which can serve a similar purpose.
     */
-    private var valuePickerChoiceQuestionTask: ORKLegacyTask {
+    private var valuePickerChoiceQuestionTask: ORK1Task {
         let textChoiceOneText = NSLocalizedString("Choice 1", comment: "")
         let textChoiceTwoText = NSLocalizedString("Choice 2", comment: "")
         let textChoiceThreeText = NSLocalizedString("Choice 3", comment: "")
         
         // The text to display can be separate from the value coded for each choice:
         let textChoices = [
-            ORKLegacyTextChoice(text: textChoiceOneText, value: "choice_1"),
-            ORKLegacyTextChoice(text: textChoiceTwoText, value: "choice_2"),
-            ORKLegacyTextChoice(text: textChoiceThreeText, value: "choice_3")
+            ORK1TextChoice(text: textChoiceOneText, value: "choice_1"),
+            ORK1TextChoice(text: textChoiceTwoText, value: "choice_2"),
+            ORK1TextChoice(text: textChoiceThreeText, value: "choice_3")
         ]
         
-        let answerFormat = ORKLegacyAnswerFormat.valuePickerAnswerFormatWithTextChoices(textChoices)
+        let answerFormat = ORK1AnswerFormat.valuePickerAnswerFormatWithTextChoices(textChoices)
         
-        let questionStep = ORKLegacyQuestionStep(identifier: Identifier.ValuePickerChoiceQuestionStep.rawValue, title: exampleQuestionText,
+        let questionStep = ORK1QuestionStep(identifier: Identifier.ValuePickerChoiceQuestionStep.rawValue, title: exampleQuestionText,
             answer: answerFormat)
         
         questionStep.text = exampleDetailText
         
-        return ORKLegacyOrderedTask(identifier: Identifier.ValuePickerChoiceQuestionTask.rawValue, steps: [questionStep])
+        return ORK1OrderedTask(identifier: Identifier.ValuePickerChoiceQuestionTask.rawValue, steps: [questionStep])
     }
 
     /**
@@ -542,25 +542,25 @@ enum TaskListRow: Int, Printable {
         choices. In this case, the text choices are presented in a table view
         (compare with the `valuePickerQuestionTask`).
     */
-    private var textChoiceQuestionTask: ORKLegacyTask {
+    private var textChoiceQuestionTask: ORK1Task {
         let textChoiceOneText = NSLocalizedString("Choice 1", comment: "")
         let textChoiceTwoText = NSLocalizedString("Choice 2", comment: "")
         let textChoiceThreeText = NSLocalizedString("Choice 3", comment: "")
         
         // The text to display can be separate from the value coded for each choice:
         let textChoices = [
-            ORKLegacyTextChoice(text: textChoiceOneText, value: "choice_1"),
-            ORKLegacyTextChoice(text: textChoiceTwoText, value: "choice_2"),
-            ORKLegacyTextChoice(text: textChoiceThreeText, value: "choice_3")
+            ORK1TextChoice(text: textChoiceOneText, value: "choice_1"),
+            ORK1TextChoice(text: textChoiceTwoText, value: "choice_2"),
+            ORK1TextChoice(text: textChoiceThreeText, value: "choice_3")
         ]
         
-        let answerFormat = ORKLegacyAnswerFormat.choiceAnswerFormatWithStyle(.SingleChoice, textChoices: textChoices)
+        let answerFormat = ORK1AnswerFormat.choiceAnswerFormatWithStyle(.SingleChoice, textChoices: textChoices)
         
-        let questionStep = ORKLegacyQuestionStep(identifier: Identifier.TextChoiceQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
+        let questionStep = ORK1QuestionStep(identifier: Identifier.TextChoiceQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
         
         questionStep.text = exampleDetailText
         
-        return ORKLegacyOrderedTask(identifier: Identifier.TextChoiceQuestionTask.rawValue, steps: [questionStep])
+        return ORK1OrderedTask(identifier: Identifier.TextChoiceQuestionTask.rawValue, steps: [questionStep])
     }
 
     /**
@@ -568,7 +568,7 @@ enum TaskListRow: Int, Printable {
         image choices. A more realistic applciation of this type of question might be to
         use a range of icons for faces ranging from happy to sad.
     */
-    private var imageChoiceQuestionTask: ORKLegacyTask {
+    private var imageChoiceQuestionTask: ORK1Task {
         let roundShapeImage = UIImage(named: "round_shape")!
         let roundShapeText = NSLocalizedString("Round Shape", comment: "")
         
@@ -576,40 +576,40 @@ enum TaskListRow: Int, Printable {
         let squareShapeText = NSLocalizedString("Square Shape", comment: "")
         
         let imageChoces = [
-            ORKLegacyImageChoice(normalImage: roundShapeImage, selectedImage: nil, text: roundShapeText, value: roundShapeText),
-            ORKLegacyImageChoice(normalImage: squareShapeImage, selectedImage: nil, text: squareShapeText, value: squareShapeText)
+            ORK1ImageChoice(normalImage: roundShapeImage, selectedImage: nil, text: roundShapeText, value: roundShapeText),
+            ORK1ImageChoice(normalImage: squareShapeImage, selectedImage: nil, text: squareShapeText, value: squareShapeText)
         ]
         
-        let answerFormat = ORKLegacyAnswerFormat.choiceAnswerFormatWithImageChoices(imageChoces)
+        let answerFormat = ORK1AnswerFormat.choiceAnswerFormatWithImageChoices(imageChoces)
         
-        let questionStep = ORKLegacyQuestionStep(identifier: Identifier.ImageChoiceQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
+        let questionStep = ORK1QuestionStep(identifier: Identifier.ImageChoiceQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
         
         questionStep.text = exampleDetailText
         
-        return ORKLegacyOrderedTask(identifier: Identifier.ImageChoiceQuestionTask.rawValue, steps: [questionStep])
+        return ORK1OrderedTask(identifier: Identifier.ImageChoiceQuestionTask.rawValue, steps: [questionStep])
     }
 
     /// This task presents just a single "Yes" / "No" question.
-    private var booleanQuestionTask: ORKLegacyTask {
-        let answerFormat = ORKLegacyBooleanAnswerFormat()
+    private var booleanQuestionTask: ORK1Task {
+        let answerFormat = ORK1BooleanAnswerFormat()
 
         // We attach an answer format to a question step to specify what controls the user sees.
-        let questionStep = ORKLegacyQuestionStep(identifier: Identifier.BooleanQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
+        let questionStep = ORK1QuestionStep(identifier: Identifier.BooleanQuestionStep.rawValue, title: exampleQuestionText, answer: answerFormat)
         
         // The detail text is shown in a small font below the title.
         questionStep.text = exampleDetailText
         
-        return ORKLegacyOrderedTask(identifier: Identifier.BooleanQuestionTask.rawValue, steps: [questionStep])
+        return ORK1OrderedTask(identifier: Identifier.BooleanQuestionTask.rawValue, steps: [questionStep])
     }
 
     /// This task presents the Two Finger Tapping pre-defined active task.
-    private var twoFingerTappingIntervalTask: ORKLegacyTask {
-        return ORKLegacyOrderedTask.twoFingerTappingIntervalTaskWithIdentifier(Identifier.TwoFingerTappingIntervalTask.rawValue, intendedUseDescription: exampleDescription, duration: 20, options: nil)
+    private var twoFingerTappingIntervalTask: ORK1Task {
+        return ORK1OrderedTask.twoFingerTappingIntervalTaskWithIdentifier(Identifier.TwoFingerTappingIntervalTask.rawValue, intendedUseDescription: exampleDescription, duration: 20, options: nil)
     }
 
     /// This task presents the Spatial Span Memory pre-defined active task.
-    private var spatialSpanMemoryTask: ORKLegacyTask {
-        return ORKLegacyOrderedTask.spatialSpanMemoryTaskWithIdentifier(Identifier.SpatialSpanMemoryTask.rawValue, intendedUseDescription: exampleDescription, initialSpan: 3, minimumSpan: 2, maximumSpan: 15, playSpeed: 1.0, maxTests: 5, maxConsecutiveFailures: 3, customTargetImage: nil, customTargetPluralName: nil, requireReversal: false, options: nil)
+    private var spatialSpanMemoryTask: ORK1Task {
+        return ORK1OrderedTask.spatialSpanMemoryTaskWithIdentifier(Identifier.SpatialSpanMemoryTask.rawValue, intendedUseDescription: exampleDescription, initialSpan: 3, minimumSpan: 2, maximumSpan: 15, playSpeed: 1.0, maxTests: 5, maxConsecutiveFailures: 3, customTargetImage: nil, customTargetPluralName: nil, requireReversal: false, options: nil)
     }
     
     /**
@@ -617,41 +617,41 @@ enum TaskListRow: Int, Printable {
         short walking and rest durations of 20 seconds each are used, whereas more
         realistic durations might be several minutes each.
     */
-    private var fitnessTask: ORKLegacyTask {
-        return ORKLegacyOrderedTask.fitnessCheckTaskWithIdentifier(Identifier.FitnessTask.rawValue, intendedUseDescription: exampleDescription, walkDuration: 20, restDuration: 20, options: nil)
+    private var fitnessTask: ORK1Task {
+        return ORK1OrderedTask.fitnessCheckTaskWithIdentifier(Identifier.FitnessTask.rawValue, intendedUseDescription: exampleDescription, walkDuration: 20, restDuration: 20, options: nil)
     }
 
     /// This task presents the Gait and Balance pre-defined active task.
-    private var shortWalkTask: ORKLegacyTask {
-        return ORKLegacyOrderedTask.shortWalkTaskWithIdentifier(Identifier.ShortWalkTask.rawValue, intendedUseDescription: exampleDescription, numberOfStepsPerLeg: 20, restDuration: 20, options: nil)
+    private var shortWalkTask: ORK1Task {
+        return ORK1OrderedTask.shortWalkTaskWithIdentifier(Identifier.ShortWalkTask.rawValue, intendedUseDescription: exampleDescription, numberOfStepsPerLeg: 20, restDuration: 20, options: nil)
     }
 
     /// This task presents the Audio pre-defined active task.
-    private var audioTask: ORKLegacyTask {
-        return ORKLegacyOrderedTask.audioTaskWithIdentifier(Identifier.AudioTask.rawValue, intendedUseDescription: exampleDescription, speechInstruction: exampleSpeechInstruction, shortSpeechInstruction: exampleSpeechInstruction, duration: 20, recordingSettings: nil, options: nil)
+    private var audioTask: ORK1Task {
+        return ORK1OrderedTask.audioTaskWithIdentifier(Identifier.AudioTask.rawValue, intendedUseDescription: exampleDescription, speechInstruction: exampleSpeechInstruction, shortSpeechInstruction: exampleSpeechInstruction, duration: 20, recordingSettings: nil, options: nil)
     }
     
-    private var reactionTimeTask: ORKLegacyTask {
-        return ORKLegacyOrderedTask.reactionTimeTaskWithIdentifier(Identifier.ReactionTime.rawValue, intendedUseDescription: exampleDescription, maximumStimulusInterval: 10, minimumStimulusInterval: 4, thresholdAcceleration: 0.5, numberOfAttempts: 3, timeout: 3, successSound: exampleSuccessSound, timeoutSound: 0, failureSound: UInt32(kSystemSoundID_Vibrate), options: nil)
+    private var reactionTimeTask: ORK1Task {
+        return ORK1OrderedTask.reactionTimeTaskWithIdentifier(Identifier.ReactionTime.rawValue, intendedUseDescription: exampleDescription, maximumStimulusInterval: 10, minimumStimulusInterval: 4, thresholdAcceleration: 0.5, numberOfAttempts: 3, timeout: 3, successSound: exampleSuccessSound, timeoutSound: 0, failureSound: UInt32(kSystemSoundID_Vibrate), options: nil)
     }
     
-    private var towerOfHanoiTask: ORKLegacyTask {
-        return ORKLegacyOrderedTask.towerOfHanoiTaskWithIdentifier(Identifier.TowerOfHanoi.rawValue, intendedUseDescription: exampleDescription, numberOfDisks: 5, options: nil)
+    private var towerOfHanoiTask: ORK1Task {
+        return ORK1OrderedTask.towerOfHanoiTaskWithIdentifier(Identifier.TowerOfHanoi.rawValue, intendedUseDescription: exampleDescription, numberOfDisks: 5, options: nil)
     }
     
     /// This task presents the PSAT pre-defined active task.
-    private var PSATTask: ORKLegacyTask {
-        return ORKLegacyOrderedTask.PSATTaskWithIdentifier(Identifier.PSATTask.rawValue, intendedUseDescription: exampleDescription, presentationMode: (.Auditory | .Visual), interStimulusInterval: 3.0, stimulusDuration: 1.0, seriesLength: 60, options: nil)
+    private var PSATTask: ORK1Task {
+        return ORK1OrderedTask.PSATTaskWithIdentifier(Identifier.PSATTask.rawValue, intendedUseDescription: exampleDescription, presentationMode: (.Auditory | .Visual), interStimulusInterval: 3.0, stimulusDuration: 1.0, seriesLength: 60, options: nil)
     }
     
     /// This task presents the Timed Walk pre-defined active task.
-    private var timedWalkTask: ORKLegacyTask {
-        return ORKLegacyOrderedTask.timedWalkTaskWithIdentifier(String(Identifier.TimedWalkTask), intendedUseDescription: exampleDescription, distanceInMeters: 100.0, timeLimit: 180.0, includeAssistiveDeviceForm: true, options: [])
+    private var timedWalkTask: ORK1Task {
+        return ORK1OrderedTask.timedWalkTaskWithIdentifier(String(Identifier.TimedWalkTask), intendedUseDescription: exampleDescription, distanceInMeters: 100.0, timeLimit: 180.0, includeAssistiveDeviceForm: true, options: [])
     }
     
     /// This task presents the Hole Peg Test pre-defined active task.
-    private var holePegTestTask: ORKLegacyTask {
-        return ORKLegacyNavigableOrderedTask.holePegTestTaskWithIdentifier(Identifier.HolePegTestTask.rawValue, intendedUseDescription: exampleDescription, dominantHand: .Right, numberOfPegs: 9, threshold: 0.2, rotated: false, timeLimit: 300, options: nil)
+    private var holePegTestTask: ORK1Task {
+        return ORK1NavigableOrderedTask.holePegTestTaskWithIdentifier(Identifier.HolePegTestTask.rawValue, intendedUseDescription: exampleDescription, dominantHand: .Right, numberOfPegs: 9, threshold: 0.2, rotated: false, timeLimit: 300, options: nil)
     }
     
     private var exampleSuccessSound: UInt32 {
@@ -662,16 +662,16 @@ enum TaskListRow: Int, Printable {
     }
 
     /// This task presents the Tone Audiometry pre-defined active task.
-    private var toneAudiometryTask: ORKLegacyTask {
-        return ORKLegacyOrderedTask.toneAudiometryTaskWithIdentifier(Identifier.ToneAudiometryTask.rawValue, intendedUseDescription: exampleDescription, speechInstruction: nil, shortSpeechInstruction: nil, toneDuration: 20, options: nil)
+    private var toneAudiometryTask: ORK1Task {
+        return ORK1OrderedTask.toneAudiometryTaskWithIdentifier(Identifier.ToneAudiometryTask.rawValue, intendedUseDescription: exampleDescription, speechInstruction: nil, shortSpeechInstruction: nil, toneDuration: 20, options: nil)
     }
     
     /// This task presents the image capture step in an ordered task.
-    private var imageCaptureTask: ORKLegacyTask {
-        var steps = [ORKLegacyStep]()
+    private var imageCaptureTask: ORK1Task {
+        var steps = [ORK1Step]()
         
         // Create the intro step.
-        let instructionStep = ORKLegacyInstructionStep(identifier: Identifier.IntroStep.rawValue)
+        let instructionStep = ORK1InstructionStep(identifier: Identifier.IntroStep.rawValue)
         
         instructionStep.title = NSLocalizedString("Sample Survey", comment: "")
         
@@ -681,7 +681,7 @@ enum TaskListRow: Int, Printable {
         
         steps += [instructionStep]
         
-        let imageCaptureStep = ORKLegacyImageCaptureStep(identifier: Identifier.ImageCaptureStep.rawValue)
+        let imageCaptureStep = ORK1ImageCaptureStep(identifier: Identifier.ImageCaptureStep.rawValue)
         imageCaptureStep.optional = false
         imageCaptureStep.accessibilityInstructions = NSLocalizedString("Your instructions for capturing the image", comment: "")
         imageCaptureStep.accessibilityHint = NSLocalizedString("Captures the image visible in the preview", comment: "")
@@ -692,18 +692,18 @@ enum TaskListRow: Int, Printable {
         
         steps += [imageCaptureStep]
         
-        return ORKLegacyOrderedTask(identifier: Identifier.ImageCaptureTask.rawValue, steps: steps)
+        return ORK1OrderedTask(identifier: Identifier.ImageCaptureTask.rawValue, steps: steps)
     }
 
     /**
         A task demonstrating how the ResearchKit framework can be used to present a simple
         survey with an introduction, a question, and a conclusion.
     */
-    private var surveyTask: ORKLegacyTask {
-        var steps = [ORKLegacyStep]()
+    private var surveyTask: ORK1Task {
+        var steps = [ORK1Step]()
         
         // Create the intro step.
-        let instructionStep = ORKLegacyInstructionStep(identifier: Identifier.IntroStep.rawValue)
+        let instructionStep = ORK1InstructionStep(identifier: Identifier.IntroStep.rawValue)
         
         instructionStep.title = NSLocalizedString("Sample Survey", comment: "")
         
@@ -712,32 +712,32 @@ enum TaskListRow: Int, Printable {
         steps += [instructionStep]
         
         // Add a question step.
-        let questionStepAnswerFormat = ORKLegacyBooleanAnswerFormat()
+        let questionStepAnswerFormat = ORK1BooleanAnswerFormat()
         
         let questionStepTitle = NSLocalizedString("Would you like to subscribe to our newsletter?", comment: "")
-        let questionStep = ORKLegacyQuestionStep(identifier: Identifier.QuestionStep.rawValue, title: questionStepTitle, answer: questionStepAnswerFormat)
+        let questionStep = ORK1QuestionStep(identifier: Identifier.QuestionStep.rawValue, title: questionStepTitle, answer: questionStepAnswerFormat)
         
         steps += [questionStep]
         
         // Add a summary step.
-        let summaryStep = ORKLegacyInstructionStep(identifier: Identifier.SummaryStep.rawValue)
+        let summaryStep = ORK1InstructionStep(identifier: Identifier.SummaryStep.rawValue)
         summaryStep.title = NSLocalizedString("Thanks", comment: "")
         summaryStep.text = NSLocalizedString("Thank you for participating in this sample survey.", comment: "")
         
         steps += [summaryStep]
         
-        return ORKLegacyOrderedTask(identifier: Identifier.SurveyTask.rawValue, steps: steps)
+        return ORK1OrderedTask(identifier: Identifier.SurveyTask.rawValue, steps: steps)
     }
 
     /// A task demonstrating how the ResearchKit framework can be used to obtain informed consent.
-    private var consentTask: ORKLegacyTask {
-        var steps = [ORKLegacyStep]()
+    private var consentTask: ORK1Task {
+        var steps = [ORK1Step]()
         
         /*
             Informed consent starts by presenting an animated sequence conveying
             the main points of your consent document.
         */
-        let visualConsentStep = ORKLegacyVisualConsentStep(identifier: Identifier.VisualConsentStep.rawValue, document: consentDocument)
+        let visualConsentStep = ORK1VisualConsentStep(identifier: Identifier.VisualConsentStep.rawValue, document: consentDocument)
         
         steps += [visualConsentStep]
         
@@ -751,7 +751,7 @@ enum TaskListRow: Int, Printable {
             explicit permission from the participant. Use the consent sharing step
             for this.
         */
-        let sharingConsentStep = ORKLegacyConsentSharingStep(identifier: Identifier.ConsentSharingStep.rawValue, investigatorShortDescription: investigatorShortDescription, investigatorLongDescription: investigatorLongDescription, localizedLearnMoreHTMLContent: localizedLearnMoreHTMLContent)
+        let sharingConsentStep = ORK1ConsentSharingStep(identifier: Identifier.ConsentSharingStep.rawValue, investigatorShortDescription: investigatorShortDescription, investigatorLongDescription: investigatorLongDescription, localizedLearnMoreHTMLContent: localizedLearnMoreHTMLContent)
         
         steps += [sharingConsentStep]
         
@@ -763,9 +763,9 @@ enum TaskListRow: Int, Printable {
             This effectively tells the consent review step which signatory is
             reviewing the document.
         */
-        let signature = consentDocument.signatures!.first as! ORKLegacyConsentSignature
+        let signature = consentDocument.signatures!.first as! ORK1ConsentSignature
 
-        let reviewConsentStep = ORKLegacyConsentReviewStep(identifier: Identifier.ConsentReviewStep.rawValue, signature: signature, inDocument: consentDocument)
+        let reviewConsentStep = ORK1ConsentReviewStep(identifier: Identifier.ConsentReviewStep.rawValue, signature: signature, inDocument: consentDocument)
 
         // In a real application, you would supply your own localized text.
         reviewConsentStep.text = loremIpsumText
@@ -773,7 +773,7 @@ enum TaskListRow: Int, Printable {
         
         steps += [reviewConsentStep]
         
-        return ORKLegacyOrderedTask(identifier: Identifier.ConsentTask.rawValue, steps: steps)
+        return ORK1OrderedTask(identifier: Identifier.ConsentTask.rawValue, steps: steps)
     }
     
     /**
@@ -782,22 +782,22 @@ enum TaskListRow: Int, Printable {
         data, like taking a blood pressure reading with separate systolic and
         diastolic values.
     */
-    private var formTask: ORKLegacyTask {
-        let step = ORKLegacyFormStep(identifier: Identifier.FormTask.rawValue, title: exampleQuestionText, text: exampleDetailText)
+    private var formTask: ORK1Task {
+        let step = ORK1FormStep(identifier: Identifier.FormTask.rawValue, title: exampleQuestionText, text: exampleDetailText)
         
         // A first field, for entering an integer.
         let formItem01Text = NSLocalizedString("Field01", comment: "")
-        let formItem01 = ORKLegacyFormItem(identifier: Identifier.FormItem01.rawValue, text: formItem01Text, answerFormat: ORKLegacyAnswerFormat.integerAnswerFormatWithUnit(nil))
+        let formItem01 = ORK1FormItem(identifier: Identifier.FormItem01.rawValue, text: formItem01Text, answerFormat: ORK1AnswerFormat.integerAnswerFormatWithUnit(nil))
         formItem01.placeholder = NSLocalizedString("Your placeholder here", comment: "")
 
         // A second field, for entering a time interval.
         let formItem02Text = NSLocalizedString("Field02", comment: "")
-        let formItem02 = ORKLegacyFormItem(identifier: Identifier.FormItem02.rawValue, text: formItem02Text, answerFormat: ORKLegacyTimeIntervalAnswerFormat())
+        let formItem02 = ORK1FormItem(identifier: Identifier.FormItem02.rawValue, text: formItem02Text, answerFormat: ORK1TimeIntervalAnswerFormat())
         formItem02.placeholder = NSLocalizedString("Your placeholder here", comment: "")
         
         step.formItems = [formItem01, formItem02]
 
-        return ORKLegacyOrderedTask(identifier: Identifier.FormTask.rawValue, steps: [step])
+        return ORK1OrderedTask(identifier: Identifier.FormTask.rawValue, steps: [step])
     }
     
     // MARK: Consent Document Creation Convenience
@@ -807,8 +807,8 @@ enum TaskListRow: Int, Printable {
         review steps. This helper sets up a consent document with some dummy
         content. You should populate your consent document to suit your study.
     */
-    private var consentDocument: ORKLegacyConsentDocument {
-        let consentDocument = ORKLegacyConsentDocument()
+    private var consentDocument: ORK1ConsentDocument {
+        let consentDocument = ORK1ConsentDocument()
         
         /*
             This is the title of the document, displayed both for review and in
@@ -832,7 +832,7 @@ enum TaskListRow: Int, Printable {
             the consent review step.
         */
         let participantSignatureTitle = NSLocalizedString("Participant", comment: "")
-        let participantSignature = ORKLegacyConsentSignature(forPersonWithTitle: participantSignatureTitle, dateFormatString: nil, identifier: Identifier.ConsentDocumentParticipantSignature.rawValue)
+        let participantSignature = ORK1ConsentSignature(forPersonWithTitle: participantSignatureTitle, dateFormatString: nil, identifier: Identifier.ConsentDocumentParticipantSignature.rawValue)
         
         consentDocument.addSignature(participantSignature)
         
@@ -850,7 +850,7 @@ enum TaskListRow: Int, Printable {
         let investigatorSignatureFamilyName = NSLocalizedString("Appleseed", comment: "")
         let investigatorSignatureDateString = "3/10/15"
 
-        let investigatorSignature = ORKLegacyConsentSignature(forPersonWithTitle: investigatorSignatureTitle, dateFormatString: nil, identifier: Identifier.ConsentDocumentInvestigatorSignature.rawValue, givenName: investigatorSignatureGivenName, familyName: investigatorSignatureFamilyName, signatureImage: signatureImage, dateString: investigatorSignatureDateString)
+        let investigatorSignature = ORK1ConsentSignature(forPersonWithTitle: investigatorSignatureTitle, dateFormatString: nil, identifier: Identifier.ConsentDocumentInvestigatorSignature.rawValue, givenName: investigatorSignatureGivenName, familyName: investigatorSignatureFamilyName, signatureImage: signatureImage, dateString: investigatorSignatureDateString)
         
         consentDocument.addSignature(investigatorSignature)
         
@@ -860,7 +860,7 @@ enum TaskListRow: Int, Printable {
             have different content for each section.
           
             If your content is just text, you can use the `content` property
-            instead of the `htmlContent` property of `ORKLegacyConsentSection`.
+            instead of the `htmlContent` property of `ORK1ConsentSection`.
         */
         let htmlContentString = "<ul><li>Lorem</li><li>ipsum</li><li>dolor</li></ul><p>\(loremIpsumLongText)</p><p>\(loremIpsumMediumText)</p>"
         
@@ -869,7 +869,7 @@ enum TaskListRow: Int, Printable {
             and images. We use them in this specific order, so we see the available
             animated transitions.
         */
-        let consentSectionTypes: [ORKLegacyConsentSectionType] = [
+        let consentSectionTypes: [ORK1ConsentSectionType] = [
             .Overview,
             .DataGathering,
             .Privacy,
@@ -882,12 +882,12 @@ enum TaskListRow: Int, Printable {
         
         /*
             For each consent section type in `consentSectionTypes`, create an
-            `ORKLegacyConsentSection` that represents it.
+            `ORK1ConsentSection` that represents it.
 
             In a real app, you would set specific content for each section.
         */
-        var consentSections: [ORKLegacyConsentSection] = consentSectionTypes.map { contentSectionType in
-            let consentSection = ORKLegacyConsentSection(type: contentSectionType)
+        var consentSections: [ORK1ConsentSection] = consentSectionTypes.map { contentSectionType in
+            let consentSection = ORK1ConsentSection(type: contentSectionType)
             
             consentSection.summary = self.loremIpsumShortText
             
@@ -903,9 +903,9 @@ enum TaskListRow: Int, Printable {
         
         /*
             This is an example of a section that is only in the review document
-            or only in the generated PDF, and is not displayed in `ORKLegacyVisualConsentStep`.
+            or only in the generated PDF, and is not displayed in `ORK1VisualConsentStep`.
         */
-        let consentSection = ORKLegacyConsentSection(type: .OnlyInDocument)
+        let consentSection = ORK1ConsentSection(type: .OnlyInDocument)
         consentSection.summary = NSLocalizedString(".OnlyInDocument Scene Summary", comment: "")
         consentSection.title = NSLocalizedString(".OnlyInDocument Scene", comment: "")
         consentSection.content = loremIpsumLongText
@@ -918,7 +918,7 @@ enum TaskListRow: Int, Printable {
         return consentDocument
     }
     
-    // MARK: `ORKLegacyTask` Reused Text Convenience
+    // MARK: `ORK1Task` Reused Text Convenience
     
     private var exampleDescription: String {
         return NSLocalizedString("Your description goes here.", comment: "")

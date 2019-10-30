@@ -44,10 +44,10 @@
 #import "ORKResult.h"
 
 
-@interface ORKLegacyHolePegTestRemoveStepViewController () <ORKLegacyHolePegTestRemoveContentViewDelegate>
+@interface ORK1HolePegTestRemoveStepViewController () <ORK1HolePegTestRemoveContentViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *samples;
-@property (nonatomic, strong) ORKLegacyHolePegTestRemoveContentView *holePegTestRemoveContentView;
+@property (nonatomic, strong) ORK1HolePegTestRemoveContentView *holePegTestRemoveContentView;
 @property (nonatomic, assign) NSTimeInterval sampleStart;
 @property (nonatomic, assign) NSUInteger successes;
 @property (nonatomic, assign) NSUInteger failures;
@@ -55,9 +55,9 @@
 @end
 
 
-@implementation ORKLegacyHolePegTestRemoveStepViewController
+@implementation ORK1HolePegTestRemoveStepViewController
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {
+- (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     if (self) {
         self.suspendIfInactive = YES;
@@ -65,8 +65,8 @@
     return self;
 }
 
-- (ORKLegacyHolePegTestRemoveStep *)holePegTestRemoveStep {
-    return (ORKLegacyHolePegTestRemoveStep *)self.step;
+- (ORK1HolePegTestRemoveStep *)holePegTestRemoveStep {
+    return (ORK1HolePegTestRemoveStep *)self.step;
 }
 
 - (void)initializeInternalButtonItems {
@@ -80,14 +80,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.holePegTestRemoveContentView = [[ORKLegacyHolePegTestRemoveContentView alloc] initWithMovingDirection:[self holePegTestRemoveStep].movingDirection];
+    self.holePegTestRemoveContentView = [[ORK1HolePegTestRemoveContentView alloc] initWithMovingDirection:[self holePegTestRemoveStep].movingDirection];
     self.holePegTestRemoveContentView.threshold = [self holePegTestRemoveStep].threshold;
     self.holePegTestRemoveContentView.delegate = self;
     self.activeStepView.activeCustomView = self.holePegTestRemoveContentView;
     self.activeStepView.stepViewFillsAvailableSpace = YES;
     
     NSString *identifier = [[self holePegTestRemoveStep].identifier stringByReplacingOccurrencesOfString:@"remove" withString:@"place"];
-    NSTimeInterval placeStepDuration = ((ORKLegacyHolePegTestResult *)[[self.taskViewController.result stepResultForStepIdentifier:identifier].results firstObject]).totalTime;
+    NSTimeInterval placeStepDuration = ((ORK1HolePegTestResult *)[[self.taskViewController.result stepResultForStepIdentifier:identifier].results firstObject]).totalTime;
     [self holePegTestRemoveStep].stepDuration -= placeStepDuration;
     
     [self start];
@@ -107,12 +107,12 @@
 
 #pragma mark - result methods
 
-- (ORKLegacyStepResult *)result {
-    ORKLegacyStepResult *sResult = [super result];
+- (ORK1StepResult *)result {
+    ORK1StepResult *sResult = [super result];
     
     NSMutableArray *results = [NSMutableArray arrayWithArray:sResult.results];
     
-    ORKLegacyHolePegTestResult *holePegTestResult = [[ORKLegacyHolePegTestResult alloc] initWithIdentifier:self.step.identifier];
+    ORK1HolePegTestResult *holePegTestResult = [[ORK1HolePegTestResult alloc] initWithIdentifier:self.step.identifier];
     holePegTestResult.movingDirection = [self holePegTestRemoveStep].movingDirection;
     holePegTestResult.dominantHandTested = [self holePegTestRemoveStep].isDominantHandTested;
     holePegTestResult.numberOfPegs = [self holePegTestRemoveStep].numberOfPegs;
@@ -122,7 +122,7 @@
     holePegTestResult.totalFailures = self.failures;
     holePegTestResult.totalTime = [self holePegTestRemoveStep].stepDuration - self.timeRemaining;
     double totalDistance = 0.0;
-    for (ORKLegacyHolePegTestSample *sample in self.samples) {
+    for (ORK1HolePegTestSample *sample in self.samples) {
         totalDistance += sample.distance;
     }
     holePegTestResult.totalDistance = totalDistance;
@@ -136,7 +136,7 @@
 }
 
 - (void)saveSampleWithDistance:(CGFloat)distance {
-    ORKLegacyHolePegTestSample *sample = [[ORKLegacyHolePegTestSample alloc] init];
+    ORK1HolePegTestSample *sample = [[ORK1HolePegTestSample alloc] init];
     sample.time = CACurrentMediaTime() - self.sampleStart;
     sample.distance = distance;
     self.sampleStart = CACurrentMediaTime();
@@ -147,34 +147,34 @@
 #pragma mark - hole peg test content view delegate
 
 - (NSString *)stepTitle {
-    NSString *title = ([self holePegTestRemoveStep].movingDirection == ORKLegacyBodySagittalLeft) ? ORKLegacyLocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_RIGHT_HAND", nil) : ORKLegacyLocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_LEFT_HAND", nil);
+    NSString *title = ([self holePegTestRemoveStep].movingDirection == ORK1BodySagittalLeft) ? ORK1LocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_RIGHT_HAND", nil) : ORK1LocalizedString(@"HOLE_PEG_TEST_REMOVE_INSTRUCTION_LEFT_HAND", nil);
     return title;
 }
 
-- (void)holePegTestRemoveDidProgress:(ORKLegacyHolePegTestRemoveContentView *)holePegTestRemoveContentView {
+- (void)holePegTestRemoveDidProgress:(ORK1HolePegTestRemoveContentView *)holePegTestRemoveContentView {
     [self.activeStepView updateTitle:[self stepTitle]
-                                text:ORKLegacyLocalizedString(@"HOLE_PEG_TEST_TEXT_2", nil)];
+                                text:ORK1LocalizedString(@"HOLE_PEG_TEST_TEXT_2", nil)];
 }
 
-- (void)holePegTestRemoveDidSucceed:(ORKLegacyHolePegTestRemoveContentView *)holePegTestRemoveContentView withDistance:(CGFloat)distance {
+- (void)holePegTestRemoveDidSucceed:(ORK1HolePegTestRemoveContentView *)holePegTestRemoveContentView withDistance:(CGFloat)distance {
     self.successes++;
     
     [self saveSampleWithDistance:distance];
     
     [holePegTestRemoveContentView setProgress:((CGFloat)self.successes / [self holePegTestRemoveStep].numberOfPegs) animated:YES];
     [self.activeStepView updateTitle:[self stepTitle]
-                                text:ORKLegacyLocalizedString(@"HOLE_PEG_TEST_TEXT", nil)];
+                                text:ORK1LocalizedString(@"HOLE_PEG_TEST_TEXT", nil)];
     
     if (self.successes >= [self holePegTestRemoveStep].numberOfPegs) {
         [self finish];
     }
 }
 
-- (void)holePegTestRemoveDidFail:(ORKLegacyHolePegTestRemoveContentView *)holePegTestRemoveContentView {
+- (void)holePegTestRemoveDidFail:(ORK1HolePegTestRemoveContentView *)holePegTestRemoveContentView {
     self.failures++;
     
     [self.activeStepView updateTitle:[self stepTitle]
-                                text:ORKLegacyLocalizedString(@"HOLE_PEG_TEST_TEXT", nil)];
+                                text:ORK1LocalizedString(@"HOLE_PEG_TEST_TEXT", nil)];
 }
 
 @end

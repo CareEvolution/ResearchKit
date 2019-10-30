@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ORKLegacyImageCaptureViewDelegate <NSObject>
+@protocol ORK1ImageCaptureViewDelegate <NSObject>
 
 - (void)capturePressed:(void (^ _Nullable)(BOOL captureSuccess))handler;
 - (void)retakePressed:(void (^ _Nullable)(void))handler;
@@ -43,12 +43,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@class ORKLegacyImageCaptureStep;
+@class ORK1ImageCaptureStep;
 
-@interface ORKLegacyImageCaptureView : UIView
+@interface ORK1ImageCaptureView : UIView
 
-@property (nonatomic, strong, nullable) ORKLegacyImageCaptureStep *imageCaptureStep;
-@property (nonatomic, weak, nullable) id<ORKLegacyImageCaptureViewDelegate> delegate;
+@property (nonatomic, strong, nullable) ORK1ImageCaptureStep *imageCaptureStep;
+@property (nonatomic, weak, nullable) id<ORK1ImageCaptureViewDelegate> delegate;
 @property (nonatomic, weak, nullable) AVCaptureSession *session;
 @property (nonatomic, strong, nullable) UIBarButtonItem *continueButtonItem;
 @property (nonatomic, strong, nullable) UIBarButtonItem *skipButtonItem;

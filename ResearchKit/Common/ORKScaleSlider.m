@@ -43,14 +43,14 @@
 #import "ORKSkin.h"
 
 
-@interface ORKLegacyScaleSlider ()
+@interface ORK1ScaleSlider ()
 
 @property (nonatomic, strong, nullable) CAGradientLayer *gradientLayer;
 
 @end
 
 
-@implementation ORKLegacyScaleSlider {
+@implementation ORK1ScaleSlider {
     CFAbsoluteTime _axLastOutputTime;
     BOOL _thumbImageNeedsTransformUpdate;
 }
@@ -140,7 +140,7 @@
 - (CGSize)intrinsicContentSize {
     CGSize intrinsicContentSize = [super intrinsicContentSize];
     if (_vertical) {
-        CGFloat verticalScaleHeight = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricVerticalScaleHeight, self.window);
+        CGFloat verticalScaleHeight = ORK1GetMetricForWindow(ORK1ScreenMetricVerticalScaleHeight, self.window);
         intrinsicContentSize = (CGSize){.width = verticalScaleHeight, .height = verticalScaleHeight};
     }
     return intrinsicContentSize;
@@ -283,7 +283,7 @@ static const CGFloat Padding = 2.0;
 }
 
 - (NSString *)accessibilityLabel {
-    ORKLegacyScaleSliderView *sliderView = (ORKLegacyScaleSliderView *)[self ork_superviewOfType:[ORKLegacyScaleSliderView class]];
+    ORK1ScaleSliderView *sliderView = (ORK1ScaleSliderView *)[self ork_superviewOfType:[ORK1ScaleSliderView class]];
     NSString *minimumValue = [self _axFormattedValue:self.minimumValue];
     NSString *maximumValue = [self _axFormattedValue:self.maximumValue];
     
@@ -302,7 +302,7 @@ static const CGFloat Padding = 2.0;
     }
     
     
-    return [NSString stringWithFormat:ORKLegacyLocalizedString(@"AX_SLIDER_LABEL", nil), minimumValue, maximumValue];
+    return [NSString stringWithFormat:ORK1LocalizedString(@"AX_SLIDER_LABEL", nil), minimumValue, maximumValue];
 }
 
 - (NSString *)accessibilityValue {
@@ -311,7 +311,7 @@ static const CGFloat Padding = 2.0;
     if (!self.showThumb) {
         return nil;
     } else if (self.textChoices) {
-        ORKLegacyTextChoice *textChoice = self.textChoices[(NSInteger)self.value - 1];
+        ORK1TextChoice *textChoice = self.textChoices[(NSInteger)self.value - 1];
         return textChoice.text;
     }
     return [self _axFormattedValue:self.value];
@@ -331,9 +331,9 @@ static const CGFloat Padding = 2.0;
 
 - (NSString *)_axFormattedValue:(CGFloat)value {
     if (_numberOfSteps == 0) {
-        return ORKLegacyAccessibilityFormatContinuousScaleSliderValue(value, self);
+        return ORK1AccessibilityFormatContinuousScaleSliderValue(value, self);
     } else {
-        return ORKLegacyAccessibilityFormatScaleSliderValue(value, self);
+        return ORK1AccessibilityFormatScaleSliderValue(value, self);
     }
 }
 

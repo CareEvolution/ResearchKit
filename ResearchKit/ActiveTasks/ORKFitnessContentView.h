@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyFitnessContentView : ORKLegacyActiveStepCustomView
+@interface ORK1FitnessContentView : ORK1ActiveStepCustomView
 
 @property (nonatomic, assign, getter=isFinished) BOOL finished;
 

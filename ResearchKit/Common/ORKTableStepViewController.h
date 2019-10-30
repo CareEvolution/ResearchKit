@@ -36,31 +36,31 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ORKLegacyTableStepSource;
+@protocol ORK1TableStepSource;
 
 /**
- The `ORKLegacyTableStepViewController` class is an base class that inherits from `ORKLegacyStepViewController` 
+ The `ORK1TableStepViewController` class is an base class that inherits from `ORK1StepViewController` 
  and provides a UITableView.
  
- `ORKLegacyTableStepViewController` is designed to take advantage of the internal class methods 
- used by `ORKLegacyFormStepViewController`, `ORKLegacyQuestionStepViewController` and `ORKLegacyReviewStepViewController` 
+ `ORK1TableStepViewController` is designed to take advantage of the internal class methods 
+ used by `ORK1FormStepViewController`, `ORK1QuestionStepViewController` and `ORK1ReviewStepViewController` 
  to allow for a consistent UI in a custom implementation of a main view that is a UITableView.
  
  This will class will setup a consistent look for the title, text, learn more, skip and next UI elements
  that are used by these classes as well as most of the other view controllers within this framework by 
  automatically adding them as the header and footer of the tableview.
  
- The base class implementation REQUIRES using an `ORKLegacyTableStep` as its data source. If you do not inherit 
- the step from ORKLegacyTableStep, then subclasses MUST override `-cellForRowAtIndexPath`.
+ The base class implementation REQUIRES using an `ORK1TableStep` as its data source. If you do not inherit 
+ the step from ORK1TableStep, then subclasses MUST override `-cellForRowAtIndexPath`.
  
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTableStepViewController : ORKLegacyStepViewController <UITableViewDataSource, UITableViewDelegate>
+ORK1_CLASS_AVAILABLE
+@interface ORK1TableStepViewController : ORK1StepViewController <UITableViewDataSource, UITableViewDelegate>
 
 /**
- @return    The step associated with this view controller if it conforms to ORKLegacyTableStepSource.
+ @return    The step associated with this view controller if it conforms to ORK1TableStepSource.
  */
-@property (nonatomic, readonly, nullable) id <ORKLegacyTableStepSource> tableStep;
+@property (nonatomic, readonly, nullable) id <ORK1TableStepSource> tableStep;
 
 /**
  @return    The table view managed by the controller object.

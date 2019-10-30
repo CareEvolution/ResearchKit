@@ -34,10 +34,10 @@
 #import "ORKCountdownStepViewController.h"
 
 
-@implementation ORKLegacyCountdownStep
+@implementation ORK1CountdownStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyCountdownStepViewController class];
+    return [ORK1CountdownStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -55,10 +55,10 @@
     
     [super validateParameters];
     
-    NSTimeInterval const ORKLegacyCountdownStepMinimumDuration = 3.0;
+    NSTimeInterval const ORK1CountdownStepMinimumDuration = 3.0;
     
-    if ( self.stepDuration < ORKLegacyCountdownStepMinimumDuration) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"duration cannot be shorter than %@ seconds.", @(ORKLegacyCountdownStepMinimumDuration)]  userInfo:nil];
+    if ( self.stepDuration < ORK1CountdownStepMinimumDuration) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"duration cannot be shorter than %@ seconds.", @(ORK1CountdownStepMinimumDuration)]  userInfo:nil];
     }
     
 }

@@ -45,18 +45,18 @@
 #import "ORKSkin.h"
 
 
-@interface ORKLegacySignatureWrapperView : UIView
+@interface ORK1SignatureWrapperView : UIView
 
-@property (nonatomic, strong) ORKLegacySignatureView *signatureView;
+@property (nonatomic, strong) ORK1SignatureView *signatureView;
 
-@property (nonatomic, strong) ORKLegacyTextButton *clearButton;
+@property (nonatomic, strong) ORK1TextButton *clearButton;
 
 @property (nonatomic, assign) BOOL clearButtonEnabled;
 
 @end
 
 
-@implementation ORKLegacySignatureWrapperView
+@implementation ORK1SignatureWrapperView
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {
     [super willMoveToWindow:newWindow];
@@ -67,17 +67,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         {
-            _clearButton = [ORKLegacyTextButton new];
+            _clearButton = [ORK1TextButton new];
             _clearButton.contentEdgeInsets = (UIEdgeInsets){12,10,8,10}; // insets adjusted to get correct vertical height from bottom of screen when aligned to margin
             _clearButton.exclusiveTouch = YES;
-            [_clearButton setTitle:ORKLegacyLocalizedString(@"BUTTON_CLEAR", nil) forState:UIControlStateNormal];
+            [_clearButton setTitle:ORK1LocalizedString(@"BUTTON_CLEAR", nil) forState:UIControlStateNormal];
             _clearButton.translatesAutoresizingMaskIntoConstraints = NO;
             _clearButton.alpha = 0;
             [self addSubview:_clearButton];
         }
         
         {
-            _signatureView = [ORKLegacySignatureView new];
+            _signatureView = [ORK1SignatureView new];
             [_signatureView setClipsToBounds:YES];
             
             _signatureView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -90,7 +90,7 @@
 }
 
 - (void)updateLayoutMargins {
-    CGFloat margin = ORKLegacyStandardHorizontalMarginForView(self);
+    CGFloat margin = ORK1StandardHorizontalMarginForView(self);
     self.layoutMargins = (UIEdgeInsets){.left = margin, .right = margin };
 }
 
@@ -174,20 +174,20 @@
 @end
 
 
-@interface ORKLegacyConsentSigningView : ORKLegacyVerticalContainerView
+@interface ORK1ConsentSigningView : ORK1VerticalContainerView
 
-@property (nonatomic, strong) ORKLegacySignatureWrapperView *wrapperView;
+@property (nonatomic, strong) ORK1SignatureWrapperView *wrapperView;
 
 @end
 
 
-@implementation ORKLegacyConsentSigningView
+@implementation ORK1ConsentSigningView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         
-        _wrapperView = [ORKLegacySignatureWrapperView new];
+        _wrapperView = [ORK1SignatureWrapperView new];
         _wrapperView.translatesAutoresizingMaskIntoConstraints = NO;
         
         self.stepView = _wrapperView;
@@ -201,25 +201,25 @@
 @end
 
 
-@interface ORKLegacySignatureStepViewController () <ORKLegacySignatureViewDelegate>
+@interface ORK1SignatureStepViewController () <ORK1SignatureViewDelegate>
 
-@property (nonatomic, strong, readonly, nullable) ORKLegacySignatureView *signatureView;
-@property (nonatomic, strong) ORKLegacyConsentSigningView *signingView;
-@property (nonatomic, strong) ORKLegacyNavigationContainerView *continueSkipView;
+@property (nonatomic, strong, readonly, nullable) ORK1SignatureView *signatureView;
+@property (nonatomic, strong) ORK1ConsentSigningView *signingView;
+@property (nonatomic, strong) ORK1NavigationContainerView *continueSkipView;
 @property (nonatomic, strong) NSArray <UIBezierPath *> *originalPath;
 
 @end
 
 
-@implementation ORKLegacySignatureStepViewController
+@implementation ORK1SignatureStepViewController
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step result:(ORKLegacyResult *)result {
+- (instancetype)initWithStep:(ORK1Step *)step result:(ORK1Result *)result {
     self = [super initWithStep:step result:result];
     if (self && step) {
-        if ([result isKindOfClass:[ORKLegacyStepResult class]]) {
-            [[(ORKLegacyStepResult *)result results] enumerateObjectsUsingBlock:^(ORKLegacyResult * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj isKindOfClass:[ORKLegacySignatureResult class]]) {
-                    _originalPath = [(ORKLegacySignatureResult*)obj signaturePath];
+        if ([result isKindOfClass:[ORK1StepResult class]]) {
+            [[(ORK1StepResult *)result results] enumerateObjectsUsingBlock:^(ORK1Result * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([obj isKindOfClass:[ORK1SignatureResult class]]) {
+                    _originalPath = [(ORK1SignatureResult*)obj signaturePath];
                     *stop = YES;
                 }
             }];
@@ -237,11 +237,11 @@
     [self updateButtonStates];
 }
 
-- (ORKLegacyStepResult *)result {
-    ORKLegacyStepResult *parentResult = [super result];
+- (ORK1StepResult *)result {
+    ORK1StepResult *parentResult = [super result];
     
     if (self.signatureView.signatureExists) {
-        ORKLegacySignatureResult *sigResult = [[ORKLegacySignatureResult alloc] initWithSignatureImage:self.signatureView.signatureImage
+        ORK1SignatureResult *sigResult = [[ORK1SignatureResult alloc] initWithSignatureImage:self.signatureView.signatureImage
                                                                              signaturePath:self.signatureView.signaturePath];
         parentResult.results = @[sigResult];
     }
@@ -274,7 +274,7 @@
     [_signingView removeFromSuperview];
     _signingView.wrapperView.signatureView.delegate = nil;
     
-    _signingView = [ORKLegacyConsentSigningView new];
+    _signingView = [ORK1ConsentSigningView new];
     _signingView.wrapperView.signatureView.delegate = self;
     _signingView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _signingView.frame = self.view.bounds;
@@ -291,7 +291,7 @@
     [self.view addSubview:_signingView];
 }
 
-- (ORKLegacySignatureView *)signatureView {
+- (ORK1SignatureView *)signatureView {
     return _signingView.wrapperView.signatureView;
 }
 
@@ -301,7 +301,7 @@
     [self notifyDelegateOnResultChange];
 }
 
-- (void)signatureViewDidEditImage:(ORKLegacySignatureView *)signatureView {
+- (void)signatureViewDidEditImage:(ORK1SignatureView *)signatureView {
     [self updateButtonStates];
     [self notifyDelegateOnResultChange];
 }

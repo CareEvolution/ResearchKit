@@ -37,15 +37,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyLocationRecorder` class represents a recorder for collecting location data from CoreLocation.
+ The `ORK1LocationRecorder` class represents a recorder for collecting location data from CoreLocation.
  
  Because location data is sensitive information, you need to take special care in handling it, including removoing or otherwise preparing it for a
  anonymous data set.
  
  The accuracy of location data may be limited indoors.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyLocationRecorder : ORKLegacyRecorder
+ORK1_CLASS_AVAILABLE
+@interface ORK1LocationRecorder : ORK1Recorder
 
 /**
  Returns an initialized location recorder.
@@ -57,7 +57,7 @@ ORKLegacy_CLASS_AVAILABLE
  @return An initialized location recorder.
 */
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                              step:(nullable ORKLegacyStep *)step
+                              step:(nullable ORK1Step *)step
                    outputDirectory:(nullable NSURL *)outputDirectory NS_DESIGNATED_INITIALIZER;
 
 

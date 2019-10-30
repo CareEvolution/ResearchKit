@@ -36,12 +36,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyCompletionStep` class is a subclass of `ORKLegacyInstructionStep` which behaves like
+ The `ORK1CompletionStep` class is a subclass of `ORK1InstructionStep` which behaves like
  an instruction step, but includes animated imagery that thanks the user
  for participating in the task.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyCompletionStep : ORKLegacyInstructionStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1CompletionStep : ORK1InstructionStep
 
 @end
 

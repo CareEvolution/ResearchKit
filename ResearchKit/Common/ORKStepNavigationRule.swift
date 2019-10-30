@@ -30,7 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import Foundation
 
-public extension ORKLegacyPredicateStepNavigationRule {
+public extension ORK1PredicateStepNavigationRule {
 
     convenience init(resultPredicatesAndDestinationStepIdentifiers tuples: [ (resultPredicate: NSPredicate, destinationStepIdentifier: String) ], defaultStepIdentifierOrNil: String? = nil ) {
         var resultPredicates: [NSPredicate] = []

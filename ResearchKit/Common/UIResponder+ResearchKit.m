@@ -32,7 +32,7 @@
 #import "UIResponder+ResearchKit.h"
 
 
-@implementation UIResponder (ORKLegacyFirstResponderAdditions)
+@implementation UIResponder (ORK1FirstResponderAdditions)
 
 - (void)ork_updateCurrentFirstResponder:(NSMutableArray *)sender {
     

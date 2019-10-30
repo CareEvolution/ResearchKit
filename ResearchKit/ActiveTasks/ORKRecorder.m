@@ -39,20 +39,20 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyRecorderConfiguration
+@implementation ORK1RecorderConfiguration
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     self = [super init];
     if (self) {
-        ORKLegacyThrowInvalidArgumentExceptionIfNil(identifier);
+        ORK1ThrowInvalidArgumentExceptionIfNil(identifier);
         _identifier = [identifier copy];
     }
     return self;
@@ -61,13 +61,13 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORKLegacy_ENCODE_OBJ(aCoder, identifier);
+    ORK1_ENCODE_OBJ(aCoder, identifier);
 }
 
 - (BOOL)isEqual:(id)object {
@@ -85,34 +85,34 @@
     return YES;
 }
 
-- (ORKLegacyRecorder *)recorderForStep:(ORKLegacyStep *)step outputDirectory:(NSURL *)outputDirectory {
+- (ORK1Recorder *)recorderForStep:(ORK1Step *)step outputDirectory:(NSURL *)outputDirectory {
     return nil;
 }
 
 - (NSSet<HKObjectType *> *)requestedHealthKitTypesForReading {
     return nil;
 }
-- (ORKLegacyPermissionMask)requestedPermissionMask {
-    return ORKLegacyPermissionNone;
+- (ORK1PermissionMask)requestedPermissionMask {
+    return ORK1PermissionNone;
 }
 
 @end
 
 
-@implementation ORKLegacyRecorder {
+@implementation ORK1Recorder {
     UIBackgroundTaskIdentifier _backgroundTask;
     NSUUID *_recorderUUID;
 }
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
     @throw [NSException exceptionWithName:NSGenericException reason:@"Use designated initializer" userInfo:nil];
 }
 
-- (instancetype)initWithIdentifier:(NSString *)identifier step:(ORKLegacyStep *)step outputDirectory:(NSURL *)outputDirectory {
+- (instancetype)initWithIdentifier:(NSString *)identifier step:(ORK1Step *)step outputDirectory:(NSURL *)outputDirectory {
     self = [super init];
     if (self) {
         if (nil == identifier) {
@@ -157,7 +157,7 @@
     
     if (error) {
         // ALWAYS report errors to the delegate, even if we think we're finished already
-        id<ORKLegacyRecorderDelegate> localDelegate = self.delegate;
+        id<ORK1RecorderDelegate> localDelegate = self.delegate;
         if (localDelegate && [localDelegate respondsToSelector:@selector(recorder:didFailWithError:)]) {
             [localDelegate recorder:self didFailWithError:error];
         }
@@ -192,11 +192,11 @@
     return [NSString stringWithFormat:@"%@_%@", [self recorderType], _recorderUUID.UUIDString];
 }
 
-- (ORKLegacyDataLogger *)makeJSONDataLoggerWithError:(NSError **)error {
+- (ORK1DataLogger *)makeJSONDataLoggerWithError:(NSError **)error {
     NSURL *workingDir = [self recordingDirectoryURL];
     if (!workingDir) {
         if (error) {
-            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteInvalidFileNameError userInfo:@{NSLocalizedDescriptionKey:ORKLegacyLocalizedString(@"ERROR_RECORDER_NO_OUTPUT_DIRECTORY", nil)}];
+            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteInvalidFileNameError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"ERROR_RECORDER_NO_OUTPUT_DIRECTORY", nil)}];
         }
         return nil;
     }
@@ -208,9 +208,9 @@
     NSString *logName = [identifier stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
     
     // Class B data protection for temporary file during active task logging.
-    ORKLegacyDataLogger *logger = [[ORKLegacyDataLogger alloc] initWithDirectory:workingDir logName:logName formatter:[ORKLegacyJSONLogFormatter new] delegate:nil];
+    ORK1DataLogger *logger = [[ORK1DataLogger alloc] initWithDirectory:workingDir logName:logName formatter:[ORK1JSONLogFormatter new] delegate:nil];
     
-    logger.fileProtectionMode = ORKLegacyFileProtectionCompleteUnlessOpen;
+    logger.fileProtectionMode = ORK1FileProtectionCompleteUnlessOpen;
     return logger;
 }
 
@@ -226,20 +226,20 @@
     return nil;
 }
 
-- (void)applyFileProtection:(ORKLegacyFileProtectionMode)fileProtection toFileAtURL:(NSURL *)url {
+- (void)applyFileProtection:(ORK1FileProtectionMode)fileProtection toFileAtURL:(NSURL *)url {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
-    if (! [fileManager setAttributes:@{NSFileProtectionKey: ORKLegacyFileProtectionFromMode(fileProtection)} ofItemAtPath:[url path] error:&error]) {
-        ORKLegacy_Log_Warning(@"Error setting %@ on %@: %@", ORKLegacyFileProtectionFromMode(fileProtection), url, error);
+    if (! [fileManager setAttributes:@{NSFileProtectionKey: ORK1FileProtectionFromMode(fileProtection)} ofItemAtPath:[url path] error:&error]) {
+        ORK1_Log_Warning(@"Error setting %@ on %@: %@", ORK1FileProtectionFromMode(fileProtection), url, error);
     }
 }
 
 - (void)reportFileResultWithFile:(NSURL *)fileUrl error:(NSError *)error {
     
-    id<ORKLegacyRecorderDelegate> localDelegate = self.delegate;
+    id<ORK1RecorderDelegate> localDelegate = self.delegate;
     if (fileUrl && !error) {
         if (localDelegate && [localDelegate respondsToSelector:@selector(recorder:didCompleteWithResult:)]) {
-            ORKLegacyFileResult *result = [[ORKLegacyFileResult alloc] initWithIdentifier:self.identifier];
+            ORK1FileResult *result = [[ORK1FileResult alloc] initWithIdentifier:self.identifier];
             result.contentType = [self mimeType];
             result.fileURL = fileUrl;
             result.userInfo = self.userInfo;
@@ -254,7 +254,7 @@
         if (!error) {
             error = [NSError errorWithDomain:NSCocoaErrorDomain
                                         code:NSFileReadNoSuchFileError
-                                    userInfo:@{NSLocalizedDescriptionKey:ORKLegacyLocalizedString(@"ERROR_RECORDER_NO_DATA", nil)}];
+                                    userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"ERROR_RECORDER_NO_DATA", nil)}];
         }
         [self finishRecordingWithError:error];
     }

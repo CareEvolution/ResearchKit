@@ -33,30 +33,30 @@
 @import ResearchKitLegacy.Private;
 
 
-@interface ORKLegacyResultTests : XCTestCase
+@interface ORK1ResultTests : XCTestCase
 
 @end
 
 
-@implementation ORKLegacyResultTests
+@implementation ORK1ResultTests
 
-- (ORKLegacyTaskResult *)createTaskResultTree {
+- (ORK1TaskResult *)createTaskResultTree {
     // Construction
-    ORKLegacyFileResult *fileResult1 = [[ORKLegacyFileResult alloc] init];
+    ORK1FileResult *fileResult1 = [[ORK1FileResult alloc] init];
     fileResult1.fileURL = [NSURL fileURLWithPath:NSTemporaryDirectory()];
     fileResult1.contentType = @"file";
     
-    ORKLegacyTextQuestionResult *questionResult1 = [[ORKLegacyTextQuestionResult alloc] init];
+    ORK1TextQuestionResult *questionResult1 = [[ORK1TextQuestionResult alloc] init];
     questionResult1.identifier = @"qid";
     questionResult1.answer = @"answer";
-    questionResult1.questionType = ORKLegacyQuestionTypeText;
+    questionResult1.questionType = ORK1QuestionTypeText;
     
-    ORKLegacyConsentSignatureResult *consentResult1 = [[ORKLegacyConsentSignatureResult alloc] init];
-    consentResult1.signature = [[ORKLegacyConsentSignature alloc] init];
+    ORK1ConsentSignatureResult *consentResult1 = [[ORK1ConsentSignatureResult alloc] init];
+    consentResult1.signature = [[ORK1ConsentSignature alloc] init];
     
-    ORKLegacyStepResult *stepResult1 = [[ORKLegacyStepResult alloc] initWithStepIdentifier:@"StepIdentifier" results:@[fileResult1, questionResult1, consentResult1]];
+    ORK1StepResult *stepResult1 = [[ORK1StepResult alloc] initWithStepIdentifier:@"StepIdentifier" results:@[fileResult1, questionResult1, consentResult1]];
     
-    ORKLegacyTaskResult *taskResult1 = [[ORKLegacyTaskResult alloc] initWithTaskIdentifier:@"taskIdetifier"
+    ORK1TaskResult *taskResult1 = [[ORK1TaskResult alloc] initWithTaskIdentifier:@"taskIdetifier"
                                                                    taskRunUUID:[NSUUID UUID]
                                                                outputDirectory: [NSURL fileURLWithPath:NSTemporaryDirectory()]];
     taskResult1.results = @[stepResult1];
@@ -64,7 +64,7 @@
     return taskResult1;
 }
 
-- (void)compareTaskResult1:(ORKLegacyTaskResult *)taskResult1 andTaskResult2:(ORKLegacyTaskResult *)taskResult2 {
+- (void)compareTaskResult1:(ORK1TaskResult *)taskResult1 andTaskResult2:(ORK1TaskResult *)taskResult2 {
     // Compare
     XCTAssert([taskResult1.taskRunUUID isEqual:taskResult2.taskRunUUID], @"");
     XCTAssert([taskResult1.outputDirectory.absoluteString isEqual:taskResult2.outputDirectory.absoluteString], @"");
@@ -73,19 +73,19 @@
     XCTAssert(taskResult1 != taskResult2, @"");
 
     [taskResult1.results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        ORKLegacyResult *result1 = obj;
-        ORKLegacyResult *result2 = taskResult2.results[idx];
+        ORK1Result *result1 = obj;
+        ORK1Result *result2 = taskResult2.results[idx];
         XCTAssertNotNil(result2, @"");
         XCTAssert(result1.class == result2.class);
-        XCTAssert(result2.class == ORKLegacyStepResult.class);
-        ORKLegacyStepResult *stepResult1 = (ORKLegacyStepResult *)result1;
-        ORKLegacyStepResult *stepResult2 = (ORKLegacyStepResult *)result2;
+        XCTAssert(result2.class == ORK1StepResult.class);
+        ORK1StepResult *stepResult1 = (ORK1StepResult *)result1;
+        ORK1StepResult *stepResult2 = (ORK1StepResult *)result2;
         
         XCTAssert(stepResult1 != stepResult2, @"");
         
         [stepResult1.results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            ORKLegacyResult *result1 = obj;
-            ORKLegacyResult *result2 = stepResult2.results[idx];
+            ORK1Result *result1 = obj;
+            ORK1Result *result2 = stepResult2.results[idx];
             XCTAssertNotNil(result2, @"");
             XCTAssert(result1.class == result2.class);
             XCTAssert([result1.startDate isEqualToDate: result2.startDate], @"");
@@ -93,24 +93,24 @@
             
             XCTAssert(result1 != result2, @"");
             
-            if ([result1 isKindOfClass:[ORKLegacyQuestionResult class]]) {
-                ORKLegacyQuestionResult *q1 = (ORKLegacyQuestionResult *)result1;
-                ORKLegacyQuestionResult *q2 = (ORKLegacyQuestionResult *)result2;
+            if ([result1 isKindOfClass:[ORK1QuestionResult class]]) {
+                ORK1QuestionResult *q1 = (ORK1QuestionResult *)result1;
+                ORK1QuestionResult *q2 = (ORK1QuestionResult *)result2;
                 
                 XCTAssert(q1.questionType == q2.questionType, @"");
                 if (![q1.answer isEqual:q2.answer]) {
                     XCTAssert([q1.answer isEqual:q2.answer], @"");
                 }
                 XCTAssert([q1.identifier isEqualToString:q2.identifier], @"%@ and %@", q1.identifier, q2.identifier);
-            } else if ([result1 isKindOfClass:[ORKLegacyFileResult class]]) {
-                ORKLegacyFileResult *f1 = (ORKLegacyFileResult *)result1;
-                ORKLegacyFileResult *f2 = (ORKLegacyFileResult *)result2;
+            } else if ([result1 isKindOfClass:[ORK1FileResult class]]) {
+                ORK1FileResult *f1 = (ORK1FileResult *)result1;
+                ORK1FileResult *f2 = (ORK1FileResult *)result2;
                 
                 XCTAssert( [f1.fileURL.absoluteString isEqual:f2.fileURL.absoluteString], @"");
                 XCTAssert( [f1.contentType isEqualToString:f2.contentType], @"");
-            } else if ([result1 isKindOfClass:[ORKLegacyConsentSignatureResult class]]) {
-                ORKLegacyConsentSignatureResult *c1 = (ORKLegacyConsentSignatureResult *)result1;
-                ORKLegacyConsentSignatureResult *c2 = (ORKLegacyConsentSignatureResult *)result2;
+            } else if ([result1 isKindOfClass:[ORK1ConsentSignatureResult class]]) {
+                ORK1ConsentSignatureResult *c1 = (ORK1ConsentSignatureResult *)result1;
+                ORK1ConsentSignatureResult *c2 = (ORK1ConsentSignatureResult *)result2;
                 
                 XCTAssert(c1.signature != c2.signature, @"");
             }
@@ -119,13 +119,13 @@
 }
 
 - (void)testResultSerialization {
-    ORKLegacyTaskResult *taskResult1 = [self createTaskResultTree];
+    ORK1TaskResult *taskResult1 = [self createTaskResultTree];
     
     // Archive
     id data = [NSKeyedArchiver archivedDataWithRootObject:taskResult1];
     NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
     unarchiver.requiresSecureCoding = YES;
-    ORKLegacyTaskResult *taskResult2 = [unarchiver decodeObjectOfClass:[ORKLegacyTaskResult class] forKey:NSKeyedArchiveRootObjectKey];
+    ORK1TaskResult *taskResult2 = [unarchiver decodeObjectOfClass:[ORK1TaskResult class] forKey:NSKeyedArchiveRootObjectKey];
     
     [self compareTaskResult1:taskResult1 andTaskResult2:taskResult2];
 
@@ -133,9 +133,9 @@
 }
 
 - (void)testResultCopy {
-    ORKLegacyTaskResult *taskResult1 = [self createTaskResultTree];
+    ORK1TaskResult *taskResult1 = [self createTaskResultTree];
     
-    ORKLegacyTaskResult *taskResult2 = [taskResult1 copy];
+    ORK1TaskResult *taskResult2 = [taskResult1 copy];
     
     [self compareTaskResult1:taskResult1 andTaskResult2:taskResult2];
     
@@ -143,10 +143,10 @@
 }
 
 - (void)testCollectionResult {
-    ORKLegacyCollectionResult *result = [[ORKLegacyCollectionResult alloc] initWithIdentifier:@"001"];
-    [result setResults:@[ [[ORKLegacyResult alloc]initWithIdentifier: @"101"], [[ORKLegacyResult alloc]initWithIdentifier: @"007"] ]];
+    ORK1CollectionResult *result = [[ORK1CollectionResult alloc] initWithIdentifier:@"001"];
+    [result setResults:@[ [[ORK1Result alloc]initWithIdentifier: @"101"], [[ORK1Result alloc]initWithIdentifier: @"007"] ]];
     
-    ORKLegacyResult *childResult = [result resultForIdentifier:@"005"];
+    ORK1Result *childResult = [result resultForIdentifier:@"005"];
     XCTAssertNil(childResult, @"%@", childResult.identifier);
     
     childResult = [result resultForIdentifier:@"007"];
@@ -158,35 +158,35 @@
 
 - (void)testPageResult {
     
-    NSArray *steps = @[[[ORKLegacyStep alloc] initWithIdentifier:@"step1"],
-                       [[ORKLegacyStep alloc] initWithIdentifier:@"step2"],
-                       [[ORKLegacyStep alloc] initWithIdentifier:@"step3"],
+    NSArray *steps = @[[[ORK1Step alloc] initWithIdentifier:@"step1"],
+                       [[ORK1Step alloc] initWithIdentifier:@"step2"],
+                       [[ORK1Step alloc] initWithIdentifier:@"step3"],
                        ];
-    ORKLegacyPageStep *pageStep = [[ORKLegacyPageStep alloc] initWithIdentifier:@"pageStep" steps:steps];
+    ORK1PageStep *pageStep = [[ORK1PageStep alloc] initWithIdentifier:@"pageStep" steps:steps];
     
-    ORKLegacyChoiceQuestionResult *step1Result1 = [[ORKLegacyChoiceQuestionResult alloc] initWithIdentifier:@"step1.result1"];
+    ORK1ChoiceQuestionResult *step1Result1 = [[ORK1ChoiceQuestionResult alloc] initWithIdentifier:@"step1.result1"];
     step1Result1.choiceAnswers = @[ @(1) ];
-    ORKLegacyChoiceQuestionResult *step1Result2 = [[ORKLegacyChoiceQuestionResult alloc] initWithIdentifier:@"step1.result2"];
+    ORK1ChoiceQuestionResult *step1Result2 = [[ORK1ChoiceQuestionResult alloc] initWithIdentifier:@"step1.result2"];
     step1Result2.choiceAnswers = @[ @(2) ];
-    ORKLegacyChoiceQuestionResult *step2Result1 = [[ORKLegacyChoiceQuestionResult alloc] initWithIdentifier:@"step2.result1"];
+    ORK1ChoiceQuestionResult *step2Result1 = [[ORK1ChoiceQuestionResult alloc] initWithIdentifier:@"step2.result1"];
     step2Result1.choiceAnswers = @[ @(3) ];
     
-    ORKLegacyStepResult *inputResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:@"pageStep"
+    ORK1StepResult *inputResult = [[ORK1StepResult alloc] initWithStepIdentifier:@"pageStep"
                                                                       results:@[step1Result1, step1Result2, step2Result1]];
     
-    // Test that the page result creates ORKLegacyStepResults for each result that matches the prefix test
-    ORKLegacyPageResult *pageResult = [[ORKLegacyPageResult alloc] initWithPageStep:pageStep stepResult:inputResult];
+    // Test that the page result creates ORK1StepResults for each result that matches the prefix test
+    ORK1PageResult *pageResult = [[ORK1PageResult alloc] initWithPageStep:pageStep stepResult:inputResult];
     XCTAssertEqual(pageResult.results.count, 2);
     
-    ORKLegacyStepResult *stepResult1 = [pageResult stepResultForStepIdentifier:@"step1"];
+    ORK1StepResult *stepResult1 = [pageResult stepResultForStepIdentifier:@"step1"];
     XCTAssertNotNil(stepResult1);
     XCTAssertEqual(stepResult1.results.count, 2);
     
-    ORKLegacyStepResult *stepResult2 = [pageResult stepResultForStepIdentifier:@"step2"];
+    ORK1StepResult *stepResult2 = [pageResult stepResultForStepIdentifier:@"step2"];
     XCTAssertNotNil(stepResult2);
     XCTAssertEqual(stepResult2.results.count, 1);
     
-    ORKLegacyStepResult *stepResult3 = [pageResult stepResultForStepIdentifier:@"step3"];
+    ORK1StepResult *stepResult3 = [pageResult stepResultForStepIdentifier:@"step3"];
     XCTAssertNil(stepResult3);
     
     // Check that the flattened results match the input results

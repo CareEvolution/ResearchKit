@@ -38,10 +38,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyImageCaptureStep
+@implementation ORK1ImageCaptureStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyImageCaptureStepViewController class];
+    return [ORK1ImageCaptureStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -55,20 +55,20 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_IMAGE(aDecoder, templateImage);
-        ORKLegacy_DECODE_UIEDGEINSETS(aDecoder, templateImageInsets);
-        ORKLegacy_DECODE_OBJ(aDecoder, accessibilityHint);
-        ORKLegacy_DECODE_OBJ(aDecoder, accessibilityInstructions);
+        ORK1_DECODE_IMAGE(aDecoder, templateImage);
+        ORK1_DECODE_UIEDGEINSETS(aDecoder, templateImageInsets);
+        ORK1_DECODE_OBJ(aDecoder, accessibilityHint);
+        ORK1_DECODE_OBJ(aDecoder, accessibilityInstructions);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_IMAGE(aCoder, templateImage);
-    ORKLegacy_ENCODE_UIEDGEINSETS(aCoder, templateImageInsets);
-    ORKLegacy_ENCODE_OBJ(aCoder, accessibilityHint);
-    ORKLegacy_ENCODE_OBJ(aCoder, accessibilityInstructions);
+    ORK1_ENCODE_IMAGE(aCoder, templateImage);
+    ORK1_ENCODE_UIEDGEINSETS(aCoder, templateImageInsets);
+    ORK1_ENCODE_OBJ(aCoder, accessibilityHint);
+    ORK1_ENCODE_OBJ(aCoder, accessibilityInstructions);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -76,7 +76,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyImageCaptureStep *step = [super copyWithZone:zone];
+    ORK1ImageCaptureStep *step = [super copyWithZone:zone];
     step.templateImage = self.templateImage;
     step.templateImageInsets = self.templateImageInsets;
     step.accessibilityHint = self.accessibilityHint;
@@ -88,10 +88,10 @@
     BOOL isParentSame = [super isEqual:object];
     
     __typeof(self) castObject = object;
-    return isParentSame && ORKLegacyEqualObjects(self.templateImage, castObject.templateImage)
+    return isParentSame && ORK1EqualObjects(self.templateImage, castObject.templateImage)
                         && UIEdgeInsetsEqualToEdgeInsets(self.templateImageInsets, castObject.templateImageInsets)
-                        && ORKLegacyEqualObjects(self.accessibilityHint, castObject.accessibilityHint)
-                        && ORKLegacyEqualObjects(self.accessibilityInstructions, castObject.accessibilityInstructions);
+                        && ORK1EqualObjects(self.accessibilityHint, castObject.accessibilityHint)
+                        && ORK1EqualObjects(self.accessibilityInstructions, castObject.accessibilityInstructions);
 }
 
 @end

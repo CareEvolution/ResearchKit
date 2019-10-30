@@ -31,19 +31,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import UIKit
 import ResearchKitLegacy
 
-class WithdrawViewController: ORKLegacyTaskViewController {
+class WithdrawViewController: ORK1TaskViewController {
     // MARK: Initialization
     
     init() {
-        let instructionStep = ORKLegacyInstructionStep(identifier: "WithdrawlInstruction")
+        let instructionStep = ORK1InstructionStep(identifier: "WithdrawlInstruction")
         instructionStep.title = NSLocalizedString("Are you sure you want to withdraw?", comment: "")
         instructionStep.text = NSLocalizedString("Withdrawing from the study will reset the app to the state it was in prior to you originally joining the study.", comment: "")
         
-        let completionStep = ORKLegacyCompletionStep(identifier: "Withdraw")
+        let completionStep = ORK1CompletionStep(identifier: "Withdraw")
         completionStep.title = NSLocalizedString("We appreciate your time.", comment: "")
         completionStep.text = NSLocalizedString("Thank you for your contribution to this study. We are sorry that you could not continue.", comment: "")
         
-        let withdrawTask = ORKLegacyOrderedTask(identifier: "Withdraw", steps: [instructionStep, completionStep])
+        let withdrawTask = ORK1OrderedTask(identifier: "Withdraw", steps: [instructionStep, completionStep])
         
         super.init(task: withdrawTask, taskRun: nil)
     }

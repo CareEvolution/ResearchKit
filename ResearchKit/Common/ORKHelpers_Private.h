@@ -35,24 +35,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#if !defined(ORKLegacy_INLINE)
+#if !defined(ORK1_INLINE)
 #  if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
-#    define ORKLegacy_INLINE static inline
+#    define ORK1_INLINE static inline
 #  elif defined(__cplusplus)
-#    define ORKLegacy_INLINE static inline
+#    define ORK1_INLINE static inline
 #  elif defined(__GNUC__)
-#    define ORKLegacy_INLINE static __inline__
+#    define ORK1_INLINE static __inline__
 #  else
-#    define ORKLegacy_INLINE static
+#    define ORK1_INLINE static
 #  endif
 #endif
 
-#define ORKLegacy_STRINGIFY2( x) #x
-#define ORKLegacy_STRINGIFY(x) ORKLegacy_STRINGIFY2(x)
+#define ORK1_STRINGIFY2( x) #x
+#define ORK1_STRINGIFY(x) ORK1_STRINGIFY2(x)
 
-#define ORKLegacyDefineStringKey(x) static NSString *const x = @ORKLegacy_STRINGIFY(x)
+#define ORK1DefineStringKey(x) static NSString *const x = @ORK1_STRINGIFY(x)
 
-ORKLegacy_INLINE NSArray *ORKLegacyArrayCopyObjects(NSArray *a) {
+ORK1_INLINE NSArray *ORK1ArrayCopyObjects(NSArray *a) {
     if (!a) {
         return nil;
     }
@@ -63,14 +63,14 @@ ORKLegacy_INLINE NSArray *ORKLegacyArrayCopyObjects(NSArray *a) {
     return [b copy];
 }
 
-ORKLegacy_EXTERN NSString *ORKLegacyStringFromDateISO8601(NSDate *date) ORKLegacy_AVAILABLE_DECL;
-ORKLegacy_EXTERN NSDate *ORKLegacyDateFromStringISO8601(NSString *string) ORKLegacy_AVAILABLE_DECL;
+ORK1_EXTERN NSString *ORK1StringFromDateISO8601(NSDate *date) ORK1_AVAILABLE_DECL;
+ORK1_EXTERN NSDate *ORK1DateFromStringISO8601(NSString *string) ORK1_AVAILABLE_DECL;
 
-ORKLegacy_EXTERN NSString *ORKLegacyTimeOfDayStringFromComponents(NSDateComponents *dateComponents) ORKLegacy_AVAILABLE_DECL;
-ORKLegacy_EXTERN NSDateComponents *ORKLegacyTimeOfDayComponentsFromString(NSString *string) ORKLegacy_AVAILABLE_DECL;
+ORK1_EXTERN NSString *ORK1TimeOfDayStringFromComponents(NSDateComponents *dateComponents) ORK1_AVAILABLE_DECL;
+ORK1_EXTERN NSDateComponents *ORK1TimeOfDayComponentsFromString(NSString *string) ORK1_AVAILABLE_DECL;
 
-ORKLegacy_EXTERN NSDateFormatter *ORKLegacyResultDateTimeFormatter(void) ORKLegacy_AVAILABLE_DECL;
-ORKLegacy_EXTERN NSDateFormatter *ORKLegacyResultTimeFormatter(void) ORKLegacy_AVAILABLE_DECL;
-ORKLegacy_EXTERN NSDateFormatter *ORKLegacyResultDateFormatter(void) ORKLegacy_AVAILABLE_DECL;
+ORK1_EXTERN NSDateFormatter *ORK1ResultDateTimeFormatter(void) ORK1_AVAILABLE_DECL;
+ORK1_EXTERN NSDateFormatter *ORK1ResultTimeFormatter(void) ORK1_AVAILABLE_DECL;
+ORK1_EXTERN NSDateFormatter *ORK1ResultDateFormatter(void) ORK1_AVAILABLE_DECL;
 
 NS_ASSUME_NONNULL_END

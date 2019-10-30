@@ -36,8 +36,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTrailmakingStepViewController : ORKLegacyActiveStepViewController {
+ORK1_CLASS_AVAILABLE
+@interface ORK1TrailmakingStepViewController : ORK1ActiveStepViewController {
 }
 
 @end

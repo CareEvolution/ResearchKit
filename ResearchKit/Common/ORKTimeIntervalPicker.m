@@ -36,12 +36,12 @@
 #import "ORKHelpers_Internal.h"
 
 
-@interface ORKLegacyDatePicker : UIDatePicker
+@interface ORK1DatePicker : UIDatePicker
 
 @end
 
 
-@implementation ORKLegacyDatePicker
+@implementation ORK1DatePicker
 
 - (void)didMoveToWindow {
     [super didMoveToWindow];
@@ -55,25 +55,25 @@
 @end
 
 
-@interface ORKLegacyTimeIntervalPicker ()
+@interface ORK1TimeIntervalPicker ()
 
-@property (nonatomic, strong) ORKLegacyTimeIntervalAnswerFormat *answerFormat;
+@property (nonatomic, strong) ORK1TimeIntervalAnswerFormat *answerFormat;
 
 @end
 
 
-@implementation ORKLegacyTimeIntervalPicker {
+@implementation ORK1TimeIntervalPicker {
     id _answer;
-    __weak id<ORKLegacyPickerDelegate> _pickerDelegate;
-    ORKLegacyDatePicker *_pickerView;
+    __weak id<ORK1PickerDelegate> _pickerDelegate;
+    ORK1DatePicker *_pickerView;
 }
 
 @synthesize pickerDelegate = _pickerDelegate;
 @synthesize answer = _answer;
 
-- (instancetype)initWithAnswerFormat:(ORKLegacyTimeIntervalAnswerFormat *)answerFormat
+- (instancetype)initWithAnswerFormat:(ORK1TimeIntervalAnswerFormat *)answerFormat
                               answer:(id)answer
-                      pickerDelegate:(id<ORKLegacyPickerDelegate>)delegate {
+                      pickerDelegate:(id<ORK1PickerDelegate>)delegate {
     self = [super init];
     if (self) {
         self.answerFormat = answerFormat;
@@ -85,7 +85,7 @@
 
 - (UIView *)pickerView {
     if (_pickerView == nil) {
-        _pickerView = [[ORKLegacyDatePicker alloc] init];
+        _pickerView = [[ORK1DatePicker alloc] init];
         _pickerView.datePickerMode = UIDatePickerModeCountDownTimer;
         [_pickerView addTarget:self action:@selector(valueDidChange:) forControlEvents:UIControlEventValueChanged];
         [self setAnswerFormat:_answerFormat];
@@ -98,7 +98,7 @@
     _answer = answer;
     
     NSTimeInterval value;
-    if (answer != nil && answer != ORKLegacyNullAnswerValue()  && [answer isKindOfClass:[NSNumber class]]) {
+    if (answer != nil && answer != ORK1NullAnswerValue()  && [answer isKindOfClass:[NSNumber class]]) {
         value = ((NSNumber *)answer).doubleValue;
     } else {
         value = [_answerFormat pickerDefaultDuration];
@@ -107,15 +107,15 @@
     _pickerView.countDownDuration = value;
 }
 
-- (void)setAnswerFormat:(ORKLegacyTimeIntervalAnswerFormat *)answerFormat {
+- (void)setAnswerFormat:(ORK1TimeIntervalAnswerFormat *)answerFormat {
     _answerFormat = answerFormat;
-    NSAssert([answerFormat isKindOfClass:[ORKLegacyTimeIntervalAnswerFormat class]], @"");
+    NSAssert([answerFormat isKindOfClass:[ORK1TimeIntervalAnswerFormat class]], @"");
     
     _pickerView.minuteInterval = [answerFormat step];
 }
 
 - (NSString *)selectedLabelText {
-    return  (_answer == nil || _answer == ORKLegacyNullAnswerValue()) ? nil : [ORKLegacyTimeIntervalLabelFormatter() stringFromTimeInterval:((NSNumber *)self.answer).floatValue];
+    return  (_answer == nil || _answer == ORK1NullAnswerValue()) ? nil : [ORK1TimeIntervalLabelFormatter() stringFromTimeInterval:((NSNumber *)self.answer).floatValue];
 }
 
 - (void)pickerWillAppear {

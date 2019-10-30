@@ -35,8 +35,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyToneAudiometryPracticeStepViewController : ORKLegacyActiveStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1ToneAudiometryPracticeStepViewController : ORK1ActiveStepViewController
 
 @end
 

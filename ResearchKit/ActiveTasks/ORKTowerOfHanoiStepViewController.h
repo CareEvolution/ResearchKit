@@ -36,8 +36,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTowerOfHanoiViewController : ORKLegacyActiveStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1TowerOfHanoiViewController : ORK1ActiveStepViewController
 
 @end
 

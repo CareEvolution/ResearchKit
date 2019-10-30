@@ -36,25 +36,25 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- `ORKLegacyConsentSectionType` enumerates the predefined visual consent sections
+ `ORK1ConsentSectionType` enumerates the predefined visual consent sections
  available in the ResearchKit framework.
  
  Although the visuals are predefined, and default localized titles and Learn
- More button titles are provided, you need to provide in `ORKLegacyConsentSection` the summary strapline on each visual consent
+ More button titles are provided, you need to provide in `ORK1ConsentSection` the summary strapline on each visual consent
  page and the actual Learn More content, because these items are specific to each individual
  study.
  
  Not every section is applicable to every study, and most studies
  are likely to require additional sections.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyConsentSectionType) {
+typedef NS_ENUM(NSInteger, ORK1ConsentSectionType) {
     /**
      Overview of the informed consent process.
      
      This content can inform the user of what to expect during the process,
      and provide general background information on the purpose of the study.
      */
-    ORKLegacyConsentSectionTypeOverview,
+    ORK1ConsentSectionTypeOverview,
     
     /**
      A section informing the user that sensor data will be collected.
@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyConsentSectionType) {
      This content can identify which sensors will be used, for how long,
      and for what purpose.
      */
-    ORKLegacyConsentSectionTypeDataGathering,
+    ORK1ConsentSectionTypeDataGathering,
     
     /**
      A section describing the privacy policies for the study.
@@ -71,7 +71,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyConsentSectionType) {
      to sanitize the collected data or make it anonymous, and address the risks
      involved.
      */
-    ORKLegacyConsentSectionTypePrivacy,
+    ORK1ConsentSectionTypePrivacy,
     
     /**
      A section describing how the collected data will be used.
@@ -80,14 +80,14 @@ typedef NS_ENUM(NSInteger, ORKLegacyConsentSectionType) {
      analysis that will be performed, and the degree of control the participant
      may have over the data after it is collected.
      */
-    ORKLegacyConsentSectionTypeDataUse,
+    ORK1ConsentSectionTypeDataUse,
     
     /**
     A section describing how much time is required for the study.
      
      This content can help users understand what to expect as they participate in the study.
      */
-    ORKLegacyConsentSectionTypeTimeCommitment,
+    ORK1ConsentSectionTypeTimeCommitment,
     
     /**
      A section describing survey use in the study.
@@ -95,7 +95,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyConsentSectionType) {
      This content can explain how survey data will be collected, for what purpose,
      and make it clear to what extent participation is optional.
      */
-    ORKLegacyConsentSectionTypeStudySurvey,
+    ORK1ConsentSectionTypeStudySurvey,
     
     /**
      A section describing active task use in the study.
@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyConsentSectionType) {
      often, and for what purpose. Any risks that are involved can
      also be communicated in this section.
      */
-    ORKLegacyConsentSectionTypeStudyTasks,
+    ORK1ConsentSectionTypeStudyTasks,
     
     /**
      A section describing how to withdraw from the study.
@@ -112,7 +112,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyConsentSectionType) {
      This section can describe the policies
      that govern the collected data if the user decides to withdraw.
      */
-    ORKLegacyConsentSectionTypeWithdrawing,
+    ORK1ConsentSectionTypeWithdrawing,
     
     /**
      A custom section.
@@ -121,7 +121,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyConsentSectionType) {
      or animation. A consent document may have as many or as few custom sections
      as needed.
      */
-    ORKLegacyConsentSectionTypeCustom,
+    ORK1ConsentSectionTypeCustom,
     
     /**
      Document-only sections.
@@ -129,45 +129,45 @@ typedef NS_ENUM(NSInteger, ORKLegacyConsentSectionType) {
      Document-only sections are ignored for a visual consent step and are only
      displayed in a consent review step (assuming no value is provided for the  `htmlReviewContent` property).
      */
-    ORKLegacyConsentSectionTypeOnlyInDocument
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1ConsentSectionTypeOnlyInDocument
+} ORK1_ENUM_AVAILABLE;
 
 /**
- The `ORKLegacyConsentSection` class represents one section in a consent document. Each
- `ORKLegacyConsentSection` object (apart from those of type `ORKLegacyConsentSectionTypeOnlyInDocument`)
+ The `ORK1ConsentSection` class represents one section in a consent document. Each
+ `ORK1ConsentSection` object (apart from those of type `ORK1ConsentSectionTypeOnlyInDocument`)
  corresponds to a page in a visual consent step, or a section in the document
  reviewed in consent review step.
  
- If you initialize a consent section with one of the defined section types, you get a prepopulated title, a default image, and animation (when appropriate). You can override these properties or you can use the `ORKLegacyConsentSectionTypeCustom` type to
+ If you initialize a consent section with one of the defined section types, you get a prepopulated title, a default image, and animation (when appropriate). You can override these properties or you can use the `ORK1ConsentSectionTypeCustom` type to
  avoid any prepopulation.
  
- If you provide content for the `ORKLegacyConsentSection` object, be sure to use localized content.
+ If you provide content for the `ORK1ConsentSection` object, be sure to use localized content.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyConsentSection : NSObject <NSSecureCoding, NSCopying>
+ORK1_CLASS_AVAILABLE
+@interface ORK1ConsentSection : NSObject <NSSecureCoding, NSCopying>
 
 /**
  Returns an initialized consent section using the specified type.
  
  This method populates the title and summary for all types except for
- `ORKLegacyConsentSectionTypeCustom` and `ORKLegacyConsentSectionTypeOnlyInDocument`.
+ `ORK1ConsentSectionTypeCustom` and `ORK1ConsentSectionTypeOnlyInDocument`.
  
  @param type     The consent section type.
  */
-- (instancetype)initWithType:(ORKLegacyConsentSectionType)type;
+- (instancetype)initWithType:(ORK1ConsentSectionType)type;
 
 /**
  The type of section. (read-only)
  
  The value of this property indicates whether a predefined image, title, and animation are present.
  */
-@property (nonatomic, readonly) ORKLegacyConsentSectionType type;
+@property (nonatomic, readonly) ORK1ConsentSectionType type;
 
 /**
  The title of the consent section in a localized string.
  
  The title is displayed as a scene title in the animated consent sequence and is also included in the PDF file, but it can be overridden by setting `formalTitle`.
- The title is prefilled unless the type is `ORKLegacyConsentSectionTypeCustom` or `ORKLegacyConsentSectionTypeOnlyInDocument`.
+ The title is prefilled unless the type is `ORK1ConsentSectionTypeCustom` or `ORK1ConsentSectionTypeOnlyInDocument`.
   */
 @property (nonatomic, copy, nullable) NSString *title;
 
@@ -225,7 +225,7 @@ ORKLegacy_CLASS_AVAILABLE
  A custom illustration for the consent.
  
  The custom image can override the image associated with any of the predefined
- section types for an `ORKLegacyVisualConsentStep` object. It is ignored for a consent review step and
+ section types for an `ORK1VisualConsentStep` object. It is ignored for a consent review step and
  for PDF generation.
  
  The image is used in template rendering mode, and is tinted using the tint color.

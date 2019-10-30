@@ -39,40 +39,40 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKLegacyPieChartTitleTextView  {
-    __weak ORKLegacyPieChartView *_parentPieChartView;
+@implementation ORK1PieChartTitleTextView  {
+    __weak ORK1PieChartView *_parentPieChartView;
     
     NSMutableArray<NSLayoutConstraint *> *_variableConstraints;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 #pragma clang diagnostic pop
 
-- (instancetype)initWithParentPieChartView:(ORKLegacyPieChartView *)parentPieChartView {
+- (instancetype)initWithParentPieChartView:(ORK1PieChartView *)parentPieChartView {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         _parentPieChartView = parentPieChartView;
         self.translatesAutoresizingMaskIntoConstraints = NO;
         
         _titleLabel = [UILabel new];
-        _titleLabel.textColor = ORKLegacyColor(ORKLegacyChartDefaultTextColorKey);
+        _titleLabel.textColor = ORK1Color(ORK1ChartDefaultTextColorKey);
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
         
         _textLabel = [UILabel new];
-        _textLabel.textColor = ORKLegacyColor(ORKLegacyChartDefaultTextColorKey);
+        _textLabel.textColor = ORK1Color(ORK1ChartDefaultTextColorKey);
         [_textLabel setTextAlignment:NSTextAlignmentCenter];
         
         _noDataLabel = [UILabel new];
         _noDataLabel.textColor = [UIColor lightGrayColor];
-        _noDataLabel.text = ORKLegacyLocalizedString(@"CHART_NO_DATA_TEXT", nil);
+        _noDataLabel.text = ORK1LocalizedString(@"CHART_NO_DATA_TEXT", nil);
         _noDataLabel.textAlignment = NSTextAlignmentCenter;
         _noDataLabel.hidden = YES;
         

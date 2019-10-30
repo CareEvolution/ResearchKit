@@ -38,10 +38,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyTrailmakingStep
+@implementation ORK1TrailmakingStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyTrailmakingStepViewController class];
+    return [ORK1TrailmakingStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -50,7 +50,7 @@
         self.shouldShowDefaultTimer = NO;
         self.shouldContinueOnFinish = YES;
         self.optional = NO; // default to *not* optional
-        _trailType = ORKLegacyTrailMakingTypeIdentifierA;
+        _trailType = ORK1TrailMakingTypeIdentifierA;
     }
     return self;
 }
@@ -58,7 +58,7 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    NSArray *supportedTypes = @[ORKLegacyTrailMakingTypeIdentifierA, ORKLegacyTrailMakingTypeIdentifierB];
+    NSArray *supportedTypes = @[ORK1TrailMakingTypeIdentifierA, ORK1TrailMakingTypeIdentifierB];
     if (self.trailType == nil || ![supportedTypes containsObject:self.trailType]) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:@"trailType must be A or B"
@@ -71,7 +71,7 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    ORKLegacyTrailmakingStep *step = [super copyWithZone:zone];
+    ORK1TrailmakingStep *step = [super copyWithZone:zone];
     step.trailType = self.trailType;
     return step;
 }
@@ -79,14 +79,14 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ(aDecoder, trailType);
+        ORK1_DECODE_OBJ(aDecoder, trailType);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_OBJ(aCoder, trailType);
+    ORK1_ENCODE_OBJ(aCoder, trailType);
 }
 
 + (BOOL)supportsSecureCoding {

@@ -45,23 +45,23 @@
 #import "ORKHelpers_Internal.h"
 
 
-@interface ORKLegacyPSATStepViewController () <ORKLegacyPSATKeyboardViewDelegate>
+@interface ORK1PSATStepViewController () <ORK1PSATKeyboardViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *samples;
-@property (nonatomic, strong) ORKLegacyPSATContentView *psatContentView;
+@property (nonatomic, strong) ORK1PSATContentView *psatContentView;
 @property (nonatomic, strong) NSArray<NSNumber *> *digits;
 @property (nonatomic, assign) NSUInteger currentDigitIndex;
 @property (nonatomic, assign) NSInteger currentAnswer;
-@property (nonatomic, strong) ORKLegacyActiveStepTimer *clearDigitsTimer;
+@property (nonatomic, strong) ORK1ActiveStepTimer *clearDigitsTimer;
 @property (nonatomic, assign) NSTimeInterval answerStart;
 @property (nonatomic, assign) NSTimeInterval answerEnd;
 
 @end
 
 
-@implementation ORKLegacyPSATStepViewController
+@implementation ORK1PSATStepViewController
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {
+- (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     
     if (self) {
@@ -71,9 +71,9 @@
     return self;
 }
 
-- (ORKLegacyPSATStep *)psatStep {
-    NSAssert(self.step == nil || [self.step isKindOfClass:[ORKLegacyPSATStep class]], @"Step class must be subclass of ORKLegacyPSATStep.");
-    return (ORKLegacyPSATStep *)self.step;
+- (ORK1PSATStep *)psatStep {
+    NSAssert(self.step == nil || [self.step isKindOfClass:[ORK1PSATStep class]], @"Step class must be subclass of ORK1PSATStep.");
+    return (ORK1PSATStep *)self.step;
 }
 
 - (NSArray *)arrayWithPSATDigits {
@@ -101,7 +101,7 @@
     [super viewDidLoad];
     
     self.activeStepView.stepViewFillsAvailableSpace = YES;
-    self.psatContentView = [[ORKLegacyPSATContentView alloc] initWithPresentationMode:[self psatStep].presentationMode];
+    self.psatContentView = [[ORK1PSATContentView alloc] initWithPresentationMode:[self psatStep].presentationMode];
     self.psatContentView.keyboardView.delegate = self;
     [self.psatContentView setEnabled:NO];
     self.activeStepView.activeCustomView = self.psatContentView;
@@ -109,16 +109,16 @@
     self.timerUpdateInterval = [self psatStep].interStimulusInterval;
 }
 
-- (ORKLegacyStepResult *)result {
+- (ORK1StepResult *)result {
     
-    ORKLegacyStepResult *sResult = [super result];
+    ORK1StepResult *sResult = [super result];
     
     NSMutableArray *results = [NSMutableArray arrayWithArray:sResult.results];
     
-    ORKLegacyPSATResult *PSATResult = [[ORKLegacyPSATResult alloc] initWithIdentifier:self.step.identifier];
+    ORK1PSATResult *PSATResult = [[ORK1PSATResult alloc] initWithIdentifier:self.step.identifier];
     PSATResult.presentationMode = [self psatStep].presentationMode;
     PSATResult.interStimulusInterval = [self psatStep].interStimulusInterval;
-    if ([self psatStep].presentationMode & ORKLegacyPSATPresentationModeVisual) {
+    if ([self psatStep].presentationMode & ORK1PSATPresentationModeVisual) {
         PSATResult.stimulusDuration = [self psatStep].stimulusDuration;
     } else {
         PSATResult.stimulusDuration = 0.0;
@@ -129,7 +129,7 @@
     BOOL previousAnswerCorrect = NO;
     NSInteger totalDyad = 0;
     CGFloat totalTime = 0.0;
-    for (ORKLegacyPSATSample *sample in self.samples) {
+    for (ORK1PSATSample *sample in self.samples) {
         totalTime += sample.time;
         if (sample.isCorrect) {
             totalCorrect++;
@@ -159,16 +159,16 @@
     self.currentAnswer = -1;
     self.samples = [NSMutableArray array];
     
-    if ([self psatStep].presentationMode & ORKLegacyPSATPresentationModeVisual &&
+    if ([self psatStep].presentationMode & ORK1PSATPresentationModeVisual &&
         ([self psatStep].interStimulusInterval - [self psatStep].stimulusDuration) > 0.05 ) {
         
         // Don't show `-` if the difference between stimulusDuration and interStimulusInterval is less than timer's resolution.
-        ORKLegacyWeakTypeOf(self) weakSelf = self;
-        self.clearDigitsTimer = [[ORKLegacyActiveStepTimer alloc] initWithDuration:[self psatStep].stepDuration
+        ORK1WeakTypeOf(self) weakSelf = self;
+        self.clearDigitsTimer = [[ORK1ActiveStepTimer alloc] initWithDuration:[self psatStep].stepDuration
                                                                     interval:[self psatStep].interStimulusInterval
                                                                      runtime:-[self psatStep].stimulusDuration
-                                                                     handler:^(ORKLegacyActiveStepTimer *timer, BOOL finished) {
-                                                                         ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
+                                                                     handler:^(ORK1ActiveStepTimer *timer, BOOL finished) {
+                                                                         ORK1StrongTypeOf(self) strongSelf = weakSelf;
                                                                          [strongSelf clearDigitsTimerFired];
                                                                      }];
         [self.clearDigitsTimer resume];
@@ -193,10 +193,10 @@
     [super finish];
 }
 
-- (void)countDownTimerFired:(ORKLegacyActiveStepTimer *)timer finished:(BOOL)finished {
+- (void)countDownTimerFired:(ORK1ActiveStepTimer *)timer finished:(BOOL)finished {
     if (self.currentDigitIndex == 0) {
         [self.psatContentView setEnabled:YES];
-        [self.activeStepView updateTitle:ORKLegacyLocalizedString(@"PSAT_INSTRUCTION", nil) text:nil];
+        [self.activeStepView updateTitle:ORK1LocalizedString(@"PSAT_INSTRUCTION", nil) text:nil];
     } else {
         [self saveSample];
     }
@@ -222,7 +222,7 @@
 }
 
 - (void)saveSample {
-    ORKLegacyPSATSample *sample = [[ORKLegacyPSATSample alloc] init];
+    ORK1PSATSample *sample = [[ORK1PSATSample alloc] init];
     NSInteger previousDigit = self.digits[self.currentDigitIndex - 1].integerValue;
     NSInteger currentDigit = self.digits[self.currentDigitIndex].integerValue;;
     sample.correct = previousDigit + currentDigit == self.currentAnswer ? YES : NO;
@@ -235,7 +235,7 @@
 
 #pragma mark - keyboard view delegate
 
-- (void)keyboardView:(ORKLegacyPSATKeyboardView *)keyboardView didSelectAnswer:(NSInteger)answer {
+- (void)keyboardView:(ORK1PSATKeyboardView *)keyboardView didSelectAnswer:(NSInteger)answer {
     self.currentAnswer = answer;
     self.answerEnd = CACurrentMediaTime();
 }

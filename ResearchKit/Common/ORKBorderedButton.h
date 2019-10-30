@@ -35,8 +35,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyBorderedButton : ORKLegacyTextButton
+ORK1_CLASS_AVAILABLE
+@interface ORK1BorderedButton : ORK1TextButton
 
 @property (nonatomic, assign) NSTimeInterval fadeDelay;
 

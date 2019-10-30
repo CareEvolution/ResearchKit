@@ -39,12 +39,12 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyConsentSharingStepViewController
+@implementation ORK1ConsentSharingStepViewController
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {
+- (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     if (self) {
-        [super setLearnMoreButtonItem:[[UIBarButtonItem alloc] initWithTitle:ORKLegacyLocalizedString(@"LEARN_MORE_CONSENT_SHARING", nil) style:UIBarButtonItemStylePlain target:self action:@selector(consentLearnMoreAction:)]];
+        [super setLearnMoreButtonItem:[[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"LEARN_MORE_CONSENT_SHARING", nil) style:UIBarButtonItemStylePlain target:self action:@selector(consentLearnMoreAction:)]];
     }
     return self;
 }
@@ -55,10 +55,10 @@
 }
 
 - (void)consentLearnMoreAction:(id)sender {
-    ORKLegacyConsentSharingStep *step = (ORKLegacyConsentSharingStep *)self.step;
+    ORK1ConsentSharingStep *step = (ORK1ConsentSharingStep *)self.step;
     
-    ORKLegacyConsentLearnMoreViewController *viewController = [[ORKLegacyConsentLearnMoreViewController alloc] initWithHTMLContent:step.localizedLearnMoreHTMLContent];
-    viewController.title = ORKLegacyLocalizedString(@"CONSENT_LEARN_MORE_TITLE", nil);
+    ORK1ConsentLearnMoreViewController *viewController = [[ORK1ConsentLearnMoreViewController alloc] initWithHTMLContent:step.localizedLearnMoreHTMLContent];
+    viewController.title = ORK1LocalizedString(@"CONSENT_LEARN_MORE_TITLE", nil);
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
     navigationController.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:navigationController animated:YES completion:nil];

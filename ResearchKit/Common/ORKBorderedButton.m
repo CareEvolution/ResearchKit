@@ -33,14 +33,14 @@
 #import "ORKTextButton_Internal.h"
 
 
-@implementation ORKLegacyBorderedButton {
+@implementation ORK1BorderedButton {
     UIColor *_normalTintColor;
     UIColor *_normalHighlightOrSelectTintColor;
     UIColor *_disableTintColor;
 }
 
-- (void)init_ORKLegacyTextButton {
-    [super init_ORKLegacyTextButton];
+- (void)init_ORK1TextButton {
+    [super init_ORK1TextButton];
     
     self.layer.borderWidth = 1.0f;
     self.layer.cornerRadius = 5.0f;

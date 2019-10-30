@@ -36,9 +36,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyPieChartView;
+@class ORK1PieChartView;
 
-@interface ORKLegacyPieChartPieView : UIView
+@interface ORK1PieChartPieView : UIView
 
 @property (nonatomic) UIFont *percentageLabelFont;
 
@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 
-- (instancetype)initWithParentPieChartView:(ORKLegacyPieChartView *)parentPieChartView NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithParentPieChartView:(ORK1PieChartView *)parentPieChartView NS_DESIGNATED_INITIALIZER;
 
 - (CGFloat)normalizeValues;
 

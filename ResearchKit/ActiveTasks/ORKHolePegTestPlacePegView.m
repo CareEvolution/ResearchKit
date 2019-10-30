@@ -32,7 +32,7 @@
 #import "ORKHolePegTestPlacePegView.h"
 
 
-@implementation ORKLegacyHolePegTestPlacePegView
+@implementation ORK1HolePegTestPlacePegView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

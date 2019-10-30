@@ -37,22 +37,22 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyQuestionStepViewController` class is the concrete `ORKLegacyStepViewController`
- implementation for `ORKLegacyQuestionStep`.
+ The `ORK1QuestionStepViewController` class is the concrete `ORK1StepViewController`
+ implementation for `ORK1QuestionStep`.
  
- You should not need to instantiate an `ORKLegacyQuestionStepViewController` object
- directly. Instead, create an `ORKLegacyQuestionStep` object, include it in a task
+ You should not need to instantiate an `ORK1QuestionStepViewController` object
+ directly. Instead, create an `ORK1QuestionStep` object, include it in a task
  the task using a task view controller. The task view
  controller automatically instantiates the question step view controller
  when it needs to present a question step.
  
- To use `ORKLegacyQuestionStepViewController` directly, create an `ORKLegacyQuestionStep` object and use
+ To use `ORK1QuestionStepViewController` directly, create an `ORK1QuestionStep` object and use
  `initWithStep:` to initialize it. To receive the result of the question, and to determine
- when to dismiss the view controller, implement `ORKLegacyStepViewControllerDelegate`.
+ when to dismiss the view controller, implement `ORK1StepViewControllerDelegate`.
  */
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyQuestionStepViewController : ORKLegacyStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1QuestionStepViewController : ORK1StepViewController
 
 @end
 

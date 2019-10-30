@@ -40,15 +40,15 @@
 
 
 // Internal object to hold the direction we're animating, the phase of the animation, and the animation completion handler.
-@interface ORKLegacyVisualConsentAnimationContext : NSObject
+@interface ORK1VisualConsentAnimationContext : NSObject
 
 @property (nonatomic, assign) UIPageViewControllerNavigationDirection direction;
 
 @property (nonatomic, assign) BOOL hasCalledLoadHandler;
 
-@property (nonatomic, copy) ORKLegacyVisualConsentAnimationCompletionHandler handler;
+@property (nonatomic, copy) ORK1VisualConsentAnimationCompletionHandler handler;
 
-@property (nonatomic, copy) ORKLegacyVisualConsentAnimationCompletionHandler loadHandler;
+@property (nonatomic, copy) ORK1VisualConsentAnimationCompletionHandler loadHandler;
 
 @property (nonatomic, strong) NSValue *startTime;
 
@@ -58,18 +58,18 @@
 @end
 
 
-@implementation ORKLegacyVisualConsentAnimationContext
+@implementation ORK1VisualConsentAnimationContext
 
 @end
 
 
-@interface ORKLegacyVisualConsentTransitionAnimator () <AVPlayerItemOutputPullDelegate>
+@interface ORK1VisualConsentTransitionAnimator () <AVPlayerItemOutputPullDelegate>
 
 @end
 
 
-@implementation ORKLegacyVisualConsentTransitionAnimator {
-    __weak ORKLegacyVisualConsentStepViewController *_stepViewController;
+@implementation ORK1VisualConsentTransitionAnimator {
+    __weak ORK1VisualConsentStepViewController *_stepViewController;
     NSURL *_movieURL;
     AVPlayer *_moviePlayer;
     AVPlayerItem *_playerItem;
@@ -81,10 +81,10 @@
     AVPlayerItemVideoOutput *_videoOutput;
     dispatch_queue_t _videoOutputQueue;
     NSInteger _frameCounter;
-    ORKLegacyVisualConsentAnimationContext *_pendingContext;
+    ORK1VisualConsentAnimationContext *_pendingContext;
 }
 
-- (instancetype)initWithVisualConsentStepViewController:(ORKLegacyVisualConsentStepViewController *)stepViewController
+- (instancetype)initWithVisualConsentStepViewController:(ORK1VisualConsentStepViewController *)stepViewController
                                                movieURL:(NSURL *)movieURL {
     self = [super init];
     if (self) {
@@ -116,9 +116,9 @@
 }
 
 - (void)animateTransitionWithDirection:(UIPageViewControllerNavigationDirection)direction
-                           loadHandler:(ORKLegacyVisualConsentAnimationCompletionHandler)loadHandler
-                     completionHandler:(ORKLegacyVisualConsentAnimationCompletionHandler)handler {
-    ORKLegacyVisualConsentAnimationContext *context = [ORKLegacyVisualConsentAnimationContext new];
+                           loadHandler:(ORK1VisualConsentAnimationCompletionHandler)loadHandler
+                     completionHandler:(ORK1VisualConsentAnimationCompletionHandler)handler {
+    ORK1VisualConsentAnimationContext *context = [ORK1VisualConsentAnimationContext new];
     context.handler = handler;
     context.direction = direction;
     context.loadHandler = loadHandler;
@@ -134,7 +134,7 @@
     [self attemptAnimationWithContext:context];
 }
 
-- (void)attemptAnimationWithContext:(ORKLegacyVisualConsentAnimationContext *)context {
+- (void)attemptAnimationWithContext:(ORK1VisualConsentAnimationContext *)context {
     BOOL playerIsReady = [_moviePlayer status] == AVPlayerStatusReadyToPlay;
     BOOL playerItemIsReady = CMTimeGetSeconds([_playerItem duration]) > 0;
     
@@ -167,13 +167,13 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    ORKLegacyVisualConsentAnimationContext *animationContext = (__bridge ORKLegacyVisualConsentAnimationContext *)context;
+    ORK1VisualConsentAnimationContext *animationContext = (__bridge ORK1VisualConsentAnimationContext *)context;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         if (([keyPath isEqualToString:@"status"] && object == _moviePlayer) ||
             ([keyPath isEqualToString:@"duration"] && object == _playerItem)) {
             if (_moviePlayer.error) {
-                ORKLegacy_Log_Warning(@"%@", _moviePlayer.error);
+                ORK1_Log_Warning(@"%@", _moviePlayer.error);
             }
             
             [self attemptAnimationWithContext:animationContext];
@@ -191,7 +191,7 @@
     [self finishAnimationWithContext:_pendingContext];
 }
 
-- (void)performAnimationWithContext:(ORKLegacyVisualConsentAnimationContext *)context {
+- (void)performAnimationWithContext:(ORK1VisualConsentAnimationContext *)context {
     
     _pendingContext = context;
     
@@ -209,7 +209,7 @@
              }];
 }
 
-- (void)finishAnimationWithContext:(ORKLegacyVisualConsentAnimationContext *)context {
+- (void)finishAnimationWithContext:(ORK1VisualConsentAnimationContext *)context {
     if (context == _pendingContext) {
         _pendingContext = nil;
     }
@@ -229,7 +229,7 @@
 - (void)initialFrameDidDisplay {
     // Once our initial frame has definitely been drawn, we make ourselves visible
     // and signal the caller that the animation has started.
-    ORKLegacyEAGLMoviePlayerView *playerView = [_stepViewController animationPlayerView];
+    ORK1EAGLMoviePlayerView *playerView = [_stepViewController animationPlayerView];
     playerView.hidden = NO;
     
     if (_pendingContext && !_pendingContext.hasCalledLoadHandler) {
@@ -257,7 +257,7 @@
         CVPixelBufferRef pixelBuffer = NULL;
         pixelBuffer = [_videoOutput copyPixelBufferForItemTime:outputItemTime itemTimeForDisplay:NULL];
         
-        ORKLegacyEAGLMoviePlayerView *playerView = [_stepViewController animationPlayerView];
+        ORK1EAGLMoviePlayerView *playerView = [_stepViewController animationPlayerView];
         CGSize playerItemPresentationSize = _playerItem.presentationSize;
         if (!CGSizeEqualToSize(playerView.presentationSize, playerItemPresentationSize)) {
             playerView.presentationSize = playerItemPresentationSize;

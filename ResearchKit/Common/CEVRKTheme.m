@@ -14,7 +14,7 @@
 #import "ORKTaskViewController.h"
 #import "ORKTask.h"
 
-NSNotificationName const CEVORKLegacyStepViewControllerViewWillAppearNotification = @"CEVORKLegacyStepViewControllerViewWillAppearNotification";
+NSNotificationName const CEVORK1StepViewControllerViewWillAppearNotification = @"CEVORK1StepViewControllerViewWillAppearNotification";
 NSString *const CEVRKThemeKey = @"cev_theme";
 
 @interface CEVRKTheme()
@@ -47,8 +47,8 @@ NSString *const CEVRKThemeKey = @"cev_theme";
             return theme;
         }
     }
-    if ([element isKindOfClass:[ORKLegacyStepViewController class]]) {                                                  // is stepViewController, jump to task for theme
-        id <ORKLegacyTask> task = [(ORKLegacyStepViewController *)element taskViewController].task;
+    if ([element isKindOfClass:[ORK1StepViewController class]]) {                                                  // is stepViewController, jump to task for theme
+        id <ORK1Task> task = [(ORK1StepViewController *)element taskViewController].task;
         return [CEVRKTheme themeForElement:task];
     } else if ([element respondsToSelector:@selector(nextResponder)] && [element nextResponder]) {                // continue up responder chain
         id nextResponder = [element nextResponder];
@@ -90,7 +90,7 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 - (UIColor *)headlineLabelFontColor {
     switch (self.themeType) {
         case CEVRKThemeTypeAllOfUs:
-            return ORKLegacyRGB(0x262262);
+            return ORK1RGB(0x262262);
         default:
             return nil;
     }
@@ -99,7 +99,7 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 - (UIColor *)taskViewControllerTintColor {
     switch (self.themeType) {
         case CEVRKThemeTypeAllOfUs:
-            return ORKLegacyRGB(0x216fb4);
+            return ORK1RGB(0x216fb4);
         default:
             return nil;
     }
@@ -143,7 +143,7 @@ NSString *const CEVRKThemeKey = @"cev_theme";
     }
 }
 
-- (void)updateAppearanceForContinueButton:(ORKLegacyContinueButton *)continueButton {
+- (void)updateAppearanceForContinueButton:(ORK1ContinueButton *)continueButton {
     switch (self.themeType) {
         case CEVRKThemeTypeAllOfUs: {
             // remove any previous gradient layers if button resizes due to state changes
@@ -167,9 +167,9 @@ NSString *const CEVRKThemeKey = @"cev_theme";
             CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
             gradient.frame = continueButton.bounds;
             if (continueButton.highlighted || continueButton.selected) {
-                gradient.colors = @[(id)ORKLegacyRGB(0xcd6754).CGColor, (id)ORKLegacyRGB(0xd2a32e).CGColor];
+                gradient.colors = @[(id)ORK1RGB(0xcd6754).CGColor, (id)ORK1RGB(0xd2a32e).CGColor];
             } else {
-                gradient.colors = @[(id)ORKLegacyRGB(0xf38d7a).CGColor, (id)ORKLegacyRGB(0xf8c954).CGColor];
+                gradient.colors = @[(id)ORK1RGB(0xf38d7a).CGColor, (id)ORK1RGB(0xf8c954).CGColor];
             }
             gradient.startPoint = CGPointMake(0, 0);
             gradient.endPoint = CGPointMake(1, 0);
@@ -184,16 +184,16 @@ NSString *const CEVRKThemeKey = @"cev_theme";
     }
 }
 
-- (void)updateTextForContinueButton:(ORKLegacyContinueButton *)continueButton {
+- (void)updateTextForContinueButton:(ORK1ContinueButton *)continueButton {
     switch (self.themeType) {
         case CEVRKThemeTypeAllOfUs: {
             if (!continueButton.titleLabel.text) {
                 return;
             }
             
-            UIColor *textColor = continueButton.isEnabled ? ORKLegacyRGB(0x262262) : [self disabledTintColor];
+            UIColor *textColor = continueButton.isEnabled ? ORK1RGB(0x262262) : [self disabledTintColor];
             
-            UIFont *fontToMakeBold = [ORKLegacyContinueButton defaultFont];
+            UIFont *fontToMakeBold = [ORK1ContinueButton defaultFont];
             NSDictionary *attributes = @{           NSFontAttributeName            : [UIFont boldSystemFontOfSize:fontToMakeBold.pointSize],
                                                     NSForegroundColorAttributeName : textColor,
                                                     NSKernAttributeName            : @(3)};  // 3 pts = 0.25 em

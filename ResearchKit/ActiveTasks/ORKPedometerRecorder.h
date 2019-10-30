@@ -35,12 +35,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyPedometerRecorder;
+@class ORK1PedometerRecorder;
 
-@protocol ORKLegacyPedometerRecorderDelegate <ORKLegacyRecorderDelegate>
+@protocol ORK1PedometerRecorderDelegate <ORK1RecorderDelegate>
 
 @optional
-- (void)pedometerRecorderDidUpdate:(ORKLegacyPedometerRecorder *)pedometerRecorder;
+- (void)pedometerRecorderDidUpdate:(ORK1PedometerRecorder *)pedometerRecorder;
 
 @end
 
@@ -51,8 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
  The accelerometer recorder continues to record if the application enters the
  background using UIApplication's background task support.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyPedometerRecorder : ORKLegacyRecorder
+ORK1_CLASS_AVAILABLE
+@interface ORK1PedometerRecorder : ORK1Recorder
 
 @property (nonatomic, readonly, nullable) NSDate *lastUpdateDate;
 
@@ -71,7 +71,7 @@ ORKLegacy_CLASS_AVAILABLE
  @return An initialized pedometer recorder.
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                              step:(nullable ORKLegacyStep *)step
+                              step:(nullable ORK1Step *)step
                    outputDirectory:(nullable NSURL *)outputDirectory NS_DESIGNATED_INITIALIZER;
 
 @end

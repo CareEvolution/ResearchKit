@@ -36,14 +36,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyConsentSharingStep` class represents a question step that includes prepopulated content that asks users about how much they're willing to allow
+ The `ORK1ConsentSharingStep` class represents a question step that includes prepopulated content that asks users about how much they're willing to allow
  data to be shared after collection.
  
  To use the consent sharing step, include it in a task and present that task
  with a task view controller. It's easy to incorporate a consent sharing step into the review flow, because it provides default content for its title, text, and answer format.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyConsentSharingStep : ORKLegacyQuestionStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1ConsentSharingStep : ORK1QuestionStep
 
 /**
  Returns an initialized consent sharing step using the specified title, text, and answer format.

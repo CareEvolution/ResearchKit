@@ -34,16 +34,16 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyConsentSignature
+@implementation ORK1ConsentSignature
 
-+ (ORKLegacyConsentSignature *)signatureForPersonWithTitle:(NSString *)title
++ (ORK1ConsentSignature *)signatureForPersonWithTitle:(NSString *)title
                                    dateFormatString:(NSString *)dateFormatString
                                          identifier:(NSString *)identifier
                                           givenName:(NSString *)givenName
                                            familyName:(NSString *)familyName
                                      signatureImage:(UIImage *)signatureImage
                                          dateString:(NSString *)signatureDate {
-    ORKLegacyConsentSignature *sig = [ORKLegacyConsentSignature new];
+    ORK1ConsentSignature *sig = [ORK1ConsentSignature new];
     sig.title = title;
     sig.givenName = givenName;
     sig.familyName = familyName;
@@ -55,10 +55,10 @@
     return sig;
 }
 
-+ (ORKLegacyConsentSignature *)signatureForPersonWithTitle:(NSString *)title
++ (ORK1ConsentSignature *)signatureForPersonWithTitle:(NSString *)title
                                    dateFormatString:(NSString *)dateFormatString
                                          identifier:(NSString *)identifier {
-    ORKLegacyConsentSignature *sig = [ORKLegacyConsentSignature signatureForPersonWithTitle:title dateFormatString:dateFormatString identifier:identifier givenName:nil familyName:nil signatureImage:nil dateString:nil ];
+    ORK1ConsentSignature *sig = [ORK1ConsentSignature signatureForPersonWithTitle:title dateFormatString:dateFormatString identifier:identifier givenName:nil familyName:nil signatureImage:nil dateString:nil ];
     return sig;
 }
 
@@ -73,7 +73,7 @@
 }
 
 - (void)setIdentifier:(NSString *)identifier {
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(identifier);
+    ORK1ThrowInvalidArgumentExceptionIfNil(identifier);
     
     _identifier = identifier;
 }
@@ -85,29 +85,29 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, title, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, givenName, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, familyName, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, signatureDate, NSString);
-        ORKLegacy_DECODE_BOOL(aDecoder, requiresName);
-        ORKLegacy_DECODE_BOOL(aDecoder, requiresSignatureImage);
-        ORKLegacy_DECODE_IMAGE(aDecoder, signatureImage);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, signatureDateFormatString, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, title, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, givenName, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, familyName, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, signatureDate, NSString);
+        ORK1_DECODE_BOOL(aDecoder, requiresName);
+        ORK1_DECODE_BOOL(aDecoder, requiresSignatureImage);
+        ORK1_DECODE_IMAGE(aDecoder, signatureImage);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, signatureDateFormatString, NSString);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORKLegacy_ENCODE_OBJ(aCoder, identifier);
-    ORKLegacy_ENCODE_OBJ(aCoder, title);
-    ORKLegacy_ENCODE_OBJ(aCoder, givenName);
-    ORKLegacy_ENCODE_OBJ(aCoder, familyName);
-    ORKLegacy_ENCODE_OBJ(aCoder, signatureDate);
-    ORKLegacy_ENCODE_BOOL(aCoder, requiresName);
-    ORKLegacy_ENCODE_BOOL(aCoder, requiresSignatureImage);
-    ORKLegacy_ENCODE_IMAGE(aCoder, signatureImage);
-    ORKLegacy_ENCODE_OBJ(aCoder, signatureDateFormatString);
+    ORK1_ENCODE_OBJ(aCoder, identifier);
+    ORK1_ENCODE_OBJ(aCoder, title);
+    ORK1_ENCODE_OBJ(aCoder, givenName);
+    ORK1_ENCODE_OBJ(aCoder, familyName);
+    ORK1_ENCODE_OBJ(aCoder, signatureDate);
+    ORK1_ENCODE_BOOL(aCoder, requiresName);
+    ORK1_ENCODE_BOOL(aCoder, requiresSignatureImage);
+    ORK1_ENCODE_IMAGE(aCoder, signatureImage);
+    ORK1_ENCODE_OBJ(aCoder, signatureDateFormatString);
 }
 
 - (BOOL)isEqual:(id)object {
@@ -116,13 +116,13 @@
     }
     
     __typeof(self) castObject = object;
-    return (ORKLegacyEqualObjects(self.identifier, castObject.identifier)
-            && ORKLegacyEqualObjects(self.title, castObject.title)
-            && ORKLegacyEqualObjects(self.givenName, castObject.givenName)
-            && ORKLegacyEqualObjects(self.familyName, castObject.familyName)
-            && ORKLegacyEqualObjects(self.signatureDate, castObject.signatureDate)
-            && ORKLegacyEqualObjects(self.signatureImage, castObject.signatureImage)
-            && ORKLegacyEqualObjects(self.signatureDateFormatString, castObject.signatureDateFormatString)
+    return (ORK1EqualObjects(self.identifier, castObject.identifier)
+            && ORK1EqualObjects(self.title, castObject.title)
+            && ORK1EqualObjects(self.givenName, castObject.givenName)
+            && ORK1EqualObjects(self.familyName, castObject.familyName)
+            && ORK1EqualObjects(self.signatureDate, castObject.signatureDate)
+            && ORK1EqualObjects(self.signatureImage, castObject.signatureImage)
+            && ORK1EqualObjects(self.signatureDateFormatString, castObject.signatureDateFormatString)
             && (self.requiresName == castObject.requiresName)
             && (self.requiresSignatureImage == castObject.requiresSignatureImage));
 }
@@ -132,7 +132,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyConsentSignature *sig = [[[self class] allocWithZone:zone] init];
+    ORK1ConsentSignature *sig = [[[self class] allocWithZone:zone] init];
     sig.identifier = [_identifier copy];
     sig.title = [_title copy];
     sig.givenName = [_givenName copy];

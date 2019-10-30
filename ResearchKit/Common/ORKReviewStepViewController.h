@@ -36,23 +36,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyReviewStepViewController;
+@class ORK1ReviewStepViewController;
 
-@protocol ORKLegacyReviewStepViewControllerDelegate <NSObject>
+@protocol ORK1ReviewStepViewControllerDelegate <NSObject>
 
-- (void)reviewStepViewController:(ORKLegacyReviewStepViewController*)reviewStepViewController
-                  willReviewStep:(ORKLegacyStep*)step;
+- (void)reviewStepViewController:(ORK1ReviewStepViewController*)reviewStepViewController
+                  willReviewStep:(ORK1Step*)step;
 @end
 
 
-@protocol ORKLegacyTaskResultSource;
+@protocol ORK1TaskResultSource;
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyReviewStepViewController : ORKLegacyStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1ReviewStepViewController : ORK1StepViewController
 
-- (instancetype)initWithReviewStep:(ORKLegacyReviewStep *)reviewStep steps:(NSArray<ORKLegacyStep *> *)steps resultSource:(id<ORKLegacyTaskResultSource>)resultSource;
+- (instancetype)initWithReviewStep:(ORK1ReviewStep *)reviewStep steps:(NSArray<ORK1Step *> *)steps resultSource:(id<ORK1TaskResultSource>)resultSource;
 
-@property (nonatomic, weak, nullable) id<ORKLegacyReviewStepViewControllerDelegate> reviewDelegate;
+@property (nonatomic, weak, nullable) id<ORK1ReviewStepViewControllerDelegate> reviewDelegate;
 
 @end
 

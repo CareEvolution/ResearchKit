@@ -36,10 +36,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyHolePegTestRemoveStep
+@implementation ORK1HolePegTestRemoveStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyHolePegTestRemoveStepViewController class];
+    return [ORK1HolePegTestRemoveStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -54,29 +54,29 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    int const ORKLegacyHolePegTestMinimumNumberOfPegs = 1;
+    int const ORK1HolePegTestMinimumNumberOfPegs = 1;
     
-    double const ORKLegacyHolePegTestMinimumThreshold = 0.0f;
-    double const ORKLegacyHolePegTestMaximumThreshold = 1.0f;
+    double const ORK1HolePegTestMinimumThreshold = 0.0f;
+    double const ORK1HolePegTestMaximumThreshold = 1.0f;
     
-    NSTimeInterval const ORKLegacyHolePegTestMinimumDuration = 1.0f;
+    NSTimeInterval const ORK1HolePegTestMinimumDuration = 1.0f;
     
-    if (self.movingDirection != ORKLegacyBodySagittalLeft &&
-        self.movingDirection != ORKLegacyBodySagittalRight) {
+    if (self.movingDirection != ORK1BodySagittalLeft &&
+        self.movingDirection != ORK1BodySagittalRight) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"moving direction should be left or right."] userInfo:nil];
     }
     
-    if (self.numberOfPegs < ORKLegacyHolePegTestMinimumNumberOfPegs) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"number of pegs must be greater than or equal to %@.", @(ORKLegacyHolePegTestMinimumNumberOfPegs)] userInfo:nil];
+    if (self.numberOfPegs < ORK1HolePegTestMinimumNumberOfPegs) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"number of pegs must be greater than or equal to %@.", @(ORK1HolePegTestMinimumNumberOfPegs)] userInfo:nil];
     }
     
-    if (self.threshold < ORKLegacyHolePegTestMinimumThreshold ||
-        self.threshold > ORKLegacyHolePegTestMaximumThreshold) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"threshold must be greater than or equal to %@ and lower or equal to %@.", @(ORKLegacyHolePegTestMinimumThreshold), @(ORKLegacyHolePegTestMaximumThreshold)] userInfo:nil];
+    if (self.threshold < ORK1HolePegTestMinimumThreshold ||
+        self.threshold > ORK1HolePegTestMaximumThreshold) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"threshold must be greater than or equal to %@ and lower or equal to %@.", @(ORK1HolePegTestMinimumThreshold), @(ORK1HolePegTestMaximumThreshold)] userInfo:nil];
     }
     
-    if (self.stepDuration < ORKLegacyHolePegTestMinimumDuration) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"duration cannot be shorter than %@ seconds.", @(ORKLegacyHolePegTestMinimumDuration)] userInfo:nil];
+    if (self.stepDuration < ORK1HolePegTestMinimumDuration) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"duration cannot be shorter than %@ seconds.", @(ORK1HolePegTestMinimumDuration)] userInfo:nil];
     }
 }
 
@@ -91,20 +91,20 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_ENUM(aDecoder, movingDirection);
-        ORKLegacy_DECODE_BOOL(aDecoder, dominantHandTested);
-        ORKLegacy_DECODE_INTEGER(aDecoder, numberOfPegs);
-        ORKLegacy_DECODE_DOUBLE(aDecoder, threshold);
+        ORK1_DECODE_ENUM(aDecoder, movingDirection);
+        ORK1_DECODE_BOOL(aDecoder, dominantHandTested);
+        ORK1_DECODE_INTEGER(aDecoder, numberOfPegs);
+        ORK1_DECODE_DOUBLE(aDecoder, threshold);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_ENUM(aCoder, movingDirection);
-    ORKLegacy_ENCODE_BOOL(aCoder, dominantHandTested);
-    ORKLegacy_ENCODE_INTEGER(aCoder, numberOfPegs);
-    ORKLegacy_ENCODE_DOUBLE(aCoder, threshold);
+    ORK1_ENCODE_ENUM(aCoder, movingDirection);
+    ORK1_ENCODE_BOOL(aCoder, dominantHandTested);
+    ORK1_ENCODE_INTEGER(aCoder, numberOfPegs);
+    ORK1_ENCODE_DOUBLE(aCoder, threshold);
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {

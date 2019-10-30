@@ -35,24 +35,24 @@
 #import "ORKAccessibilityFunctions.h"
 
 
-@interface ORKLegacyHeightPicker () <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface ORK1HeightPicker () <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @end
 
 
-@implementation ORKLegacyHeightPicker {
+@implementation ORK1HeightPicker {
     UIPickerView *_pickerView;
-    ORKLegacyHeightAnswerFormat *_answerFormat;
+    ORK1HeightAnswerFormat *_answerFormat;
     id _answer;
-    __weak id<ORKLegacyPickerDelegate> _pickerDelegate;
+    __weak id<ORK1PickerDelegate> _pickerDelegate;
 }
 
 @synthesize pickerDelegate = _pickerDelegate;
 
-- (instancetype)initWithAnswerFormat:(ORKLegacyHeightAnswerFormat *)answerFormat answer:(id)answer pickerDelegate:(id<ORKLegacyPickerDelegate>)delegate {
+- (instancetype)initWithAnswerFormat:(ORK1HeightAnswerFormat *)answerFormat answer:(id)answer pickerDelegate:(id<ORK1PickerDelegate>)delegate {
     self = [super init];
     if (self) {
-        NSAssert([answerFormat isKindOfClass:[ORKLegacyHeightAnswerFormat class]], @"answerFormat should be ORKLegacyHeightAnswerFormat");
+        NSAssert([answerFormat isKindOfClass:[ORK1HeightAnswerFormat class]], @"answerFormat should be ORK1HeightAnswerFormat");
         
         // Take into account locale changes so unit string can be updated
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -79,7 +79,7 @@
 - (void)setAnswer:(id)answer {
     _answer = answer;
     
-    if (ORKLegacyIsAnswerEmpty(answer)) {
+    if (ORK1IsAnswerEmpty(answer)) {
         answer = [self defaultAnswerValue];
     }
     
@@ -92,7 +92,7 @@
         [_pickerView selectRow:index inComponent:0 animated:NO];
     } else {
         double feet, inches;
-        ORKLegacyCentimetersToFeetAndInches(((NSNumber *)answer).doubleValue, &feet, &inches);
+        ORK1CentimetersToFeetAndInches(((NSNumber *)answer).doubleValue, &feet, &inches);
         NSUInteger feetIndex = [[self feetValues] indexOfObject:@((NSInteger)feet)];
         NSUInteger inchesIndex = [[self inchesValues] indexOfObject:@((NSInteger)inches)];
         if (feetIndex == NSNotFound || inchesIndex == NSNotFound) {
@@ -128,7 +128,7 @@
         NSInteger inchesRow = [_pickerView selectedRowInComponent:1];
         NSNumber *feet = [self feetValues][feetRow];
         NSNumber *inches = [self inchesValues][inchesRow];
-        answer = @( ORKLegacyFeetAndInchesToCentimeters(feet.doubleValue, inches.doubleValue) );
+        answer = @( ORK1FeetAndInchesToCentimeters(feet.doubleValue, inches.doubleValue) );
     }
     return answer;
 }
@@ -138,7 +138,7 @@
 }
 
 - (void)pickerWillAppear {
-    // Report current value, since ORKLegacyHeightPicker always has a value
+    // Report current value, since ORK1HeightPicker always has a value
     [self pickerView];
     [self valueDidChange:self];
     [self accessibilityFocusOnPickerElement];
@@ -155,7 +155,7 @@
 
 - (void)accessibilityFocusOnPickerElement {
     if (UIAccessibilityIsVoiceOverRunning()) {
-        ORKLegacyAccessibilityPerformBlockAfterDelay(0.75, ^{
+        ORK1AccessibilityPerformBlockAfterDelay(0.75, ^{
             NSArray *axElements = [self.pickerView accessibilityElements];
             if ([axElements count] > 0) {
                 UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, [axElements objectAtIndex:0]);
@@ -187,12 +187,12 @@
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSString *title = nil;
     if (_answerFormat.useMetricSystem) {
-        title = [NSString stringWithFormat:@"%@ %@", [self centimeterValues][row], ORKLegacyLocalizedString(@"MEASURING_UNIT_CM", nil)];
+        title = [NSString stringWithFormat:@"%@ %@", [self centimeterValues][row], ORK1LocalizedString(@"MEASURING_UNIT_CM", nil)];
     } else {
         if (component == 0) {
-            title = [NSString stringWithFormat:@"%@ %@", [self feetValues][row], ORKLegacyLocalizedString(@"MEASURING_UNIT_FT", nil)];
+            title = [NSString stringWithFormat:@"%@ %@", [self feetValues][row], ORK1LocalizedString(@"MEASURING_UNIT_FT", nil)];
         } else {
-            title = [NSString stringWithFormat:@"%@ %@", [self inchesValues][row], ORKLegacyLocalizedString(@"MEASURING_UNIT_IN", nil)];
+            title = [NSString stringWithFormat:@"%@ %@", [self inchesValues][row], ORK1LocalizedString(@"MEASURING_UNIT_IN", nil)];
         }
     }
     return title;

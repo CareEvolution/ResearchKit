@@ -37,21 +37,21 @@
 #import "ORKTextChoiceCellGroup.h"
 
 
-@interface ORKLegacyTextChoiceCellGroupTests : XCTestCase
+@interface ORK1TextChoiceCellGroupTests : XCTestCase
 
 @end
 
 
-@implementation ORKLegacyTextChoiceCellGroupTests
+@implementation ORK1TextChoiceCellGroupTests
 
 - (NSArray *)textChoices {
     static NSArray *choices = nil;
     
     if (choices == nil) {
-        choices = @[[ORKLegacyTextChoice choiceWithText:@"choice 01" value:@"c1"],
-                    [ORKLegacyTextChoice choiceWithText:@"choice 02" value:@"c2"],
-                    [ORKLegacyTextChoice choiceWithText:@"choice 03" value:@"c3"],
-                    [ORKLegacyTextChoice choiceWithText:@"choice 04" value:@"c4"]];
+        choices = @[[ORK1TextChoice choiceWithText:@"choice 01" value:@"c1"],
+                    [ORK1TextChoice choiceWithText:@"choice 02" value:@"c2"],
+                    [ORK1TextChoice choiceWithText:@"choice 03" value:@"c3"],
+                    [ORK1TextChoice choiceWithText:@"choice 04" value:@"c4"]];
     }
     
     return choices;
@@ -61,10 +61,10 @@
     static NSArray *choicesWithOneExclusive = nil;
     
     if (choicesWithOneExclusive == nil) {
-        choicesWithOneExclusive = @[[ORKLegacyTextChoice choiceWithText:@"choice 01" value:@"c1"],
-                                    [ORKLegacyTextChoice choiceWithText:@"choice 02" detailText:nil value:@"c2" exclusive:YES],
-                                [ORKLegacyTextChoice choiceWithText:@"choice 03" value:@"c3"],
-                                [ORKLegacyTextChoice choiceWithText:@"choice 04" value:@"c4"]];
+        choicesWithOneExclusive = @[[ORK1TextChoice choiceWithText:@"choice 01" value:@"c1"],
+                                    [ORK1TextChoice choiceWithText:@"choice 02" detailText:nil value:@"c2" exclusive:YES],
+                                [ORK1TextChoice choiceWithText:@"choice 03" value:@"c3"],
+                                [ORK1TextChoice choiceWithText:@"choice 04" value:@"c4"]];
     }
     
     return choicesWithOneExclusive;
@@ -74,10 +74,10 @@
     static NSArray *choicesWithTwoExclusives = nil;
     
     if (choicesWithTwoExclusives == nil) {
-        choicesWithTwoExclusives = @[[ORKLegacyTextChoice choiceWithText:@"choice 01" value:@"c1"],
-                                 [ORKLegacyTextChoice choiceWithText:@"choice 02" detailText:nil value:@"c2" exclusive:YES],
-                                 [ORKLegacyTextChoice choiceWithText:@"choice 03" detailText:nil value:@"c3" exclusive:YES],
-                                 [ORKLegacyTextChoice choiceWithText:@"choice 04" value:@"c4"]];
+        choicesWithTwoExclusives = @[[ORK1TextChoice choiceWithText:@"choice 01" value:@"c1"],
+                                 [ORK1TextChoice choiceWithText:@"choice 02" detailText:nil value:@"c2" exclusive:YES],
+                                 [ORK1TextChoice choiceWithText:@"choice 03" detailText:nil value:@"c3" exclusive:YES],
+                                 [ORK1TextChoice choiceWithText:@"choice 04" value:@"c4"]];
     }
     
     return choicesWithTwoExclusives;
@@ -87,10 +87,10 @@
     static NSArray *choicesWithAllExclusives = nil;
     
     if (choicesWithAllExclusives == nil) {
-        choicesWithAllExclusives = @[[ORKLegacyTextChoice choiceWithText:@"choice 01" detailText:nil value:@"c1" exclusive:YES],
-                                 [ORKLegacyTextChoice choiceWithText:@"choice 02" detailText:nil value:@"c2" exclusive:YES],
-                                 [ORKLegacyTextChoice choiceWithText:@"choice 03" detailText:nil value:@"c3" exclusive:YES],
-                                 [ORKLegacyTextChoice choiceWithText:@"choice 04" detailText:nil value:@"c4" exclusive:YES]];
+        choicesWithAllExclusives = @[[ORK1TextChoice choiceWithText:@"choice 01" detailText:nil value:@"c1" exclusive:YES],
+                                 [ORK1TextChoice choiceWithText:@"choice 02" detailText:nil value:@"c2" exclusive:YES],
+                                 [ORK1TextChoice choiceWithText:@"choice 03" detailText:nil value:@"c3" exclusive:YES],
+                                 [ORK1TextChoice choiceWithText:@"choice 04" detailText:nil value:@"c4" exclusive:YES]];
     }
     
     return choicesWithAllExclusives;
@@ -98,13 +98,13 @@
 
 - (void)testSingleChoice {
     NSArray *choices = [self textChoices];
-    ORKLegacyTextChoiceAnswerFormat *answerFormat = [ORKLegacyTextChoiceAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice textChoices:choices];
+    ORK1TextChoiceAnswerFormat *answerFormat = [ORK1TextChoiceAnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice textChoices:choices];
     [self testSingleChoice:answerFormat choices:choices];
 }
 
-- (void)testSingleChoice:(ORKLegacyTextChoiceAnswerFormat *)answerFormat choices:(NSArray *)choices {
+- (void)testSingleChoice:(ORK1TextChoiceAnswerFormat *)answerFormat choices:(NSArray *)choices {
     
-    ORKLegacyTextChoiceCellGroup *group = [[ORKLegacyTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
+    ORK1TextChoiceCellGroup *group = [[ORK1TextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
                                                                                             answer:nil
                                                                                 beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                                                                                immediateNavigation:YES];
@@ -123,18 +123,18 @@
     // Test cell generation
     NSUInteger index = 0;
     for ( index = 0 ; index < group.size; index++) {
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertNotNil(cell, @"");
         XCTAssertEqualObjects(cell.reuseIdentifier, @"abc", @"");
         XCTAssertEqual(cell.immediateNavigation, YES, @"");
         XCTAssertEqual(cell.accessoryType, UITableViewCellAccessoryDisclosureIndicator, @"");
     }
     
-    ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+    ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
     XCTAssertNil(cell, @"");
     
     // Regenerate cell group
-    group = [[ORKLegacyTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
+    group = [[ORK1TextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
                                                                     answer:nil
                                                         beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                                                        immediateNavigation:YES];
@@ -147,7 +147,7 @@
         NSArray *answerArray = answer;
         XCTAssertEqual(answerArray.count, 1);
 
-        ORKLegacyTextChoice *choice = choices[index];
+        ORK1TextChoice *choice = choices[index];
         id value = choice.value;
         
         if (value == nil) {
@@ -156,11 +156,11 @@
         
         XCTAssertEqualObjects(answerArray.firstObject, value, @"%@ vs %@", answerArray.firstObject, value );
         
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertEqual( cell.selectedItem, YES);
     }
     
-    // Test cell deselection (ORKLegacyChoiceAnswerStyleSingleChoice: selected cell should not deselect if chosen again)
+    // Test cell deselection (ORK1ChoiceAnswerStyleSingleChoice: selected cell should not deselect if chosen again)
     [group didSelectCellAtIndexPath:[NSIndexPath indexPathForRow:group.size-1 inSection:0]];
     
     id answer = group.answer;
@@ -175,20 +175,20 @@
     answerArray = answer;
     XCTAssertEqual(answerArray.count, 0);
     for ( index = 0 ; index < group.size; index++) {
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertEqual(cell.selectedItem, NO);
     }
-    [group setAnswer:ORKLegacyNullAnswerValue()];
+    [group setAnswer:ORK1NullAnswerValue()];
     XCTAssertEqual(answerArray.count, 0);
     
     for ( index = 0 ; index < group.size; index++) {
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertEqual( cell.selectedItem, NO);
     }
     
     // Test set answer
     for ( index = 0 ; index < group.size; index++) {
-        ORKLegacyTextChoice *choice = choices[index];
+        ORK1TextChoice *choice = choices[index];
         id value = choice.value;
         
         if (value == nil) {
@@ -204,15 +204,15 @@
        
         XCTAssertEqualObjects(answerArray.firstObject, value, @"%@ vs %@", answerArray.firstObject, value );
         
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertTrue( cell.selectedItem );
     }
 }
 
 - (void)testMultiChoice {
-    ORKLegacyTextChoiceAnswerFormat *answerFormat = [ORKLegacyTextChoiceAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleMultipleChoice textChoices:[self textChoices]];
+    ORK1TextChoiceAnswerFormat *answerFormat = [ORK1TextChoiceAnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleMultipleChoice textChoices:[self textChoices]];
     
-    ORKLegacyTextChoiceCellGroup *group = [[ORKLegacyTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
+    ORK1TextChoiceCellGroup *group = [[ORK1TextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
                                                                                             answer:nil
                                                                                 beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                                                                                immediateNavigation:NO];
@@ -231,18 +231,18 @@
     // Test cell generation
     NSUInteger index = 0;
     for ( index = 0 ; index < group.size; index++) {
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertNotNil(cell, @"");
         XCTAssertEqualObjects(cell.reuseIdentifier, @"abc", @"");
         XCTAssertEqual( cell.immediateNavigation, NO, @"");
     }
     
     // Test cell generation with invalid indexPath
-    ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+    ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
     XCTAssertNil(cell, @"");
     
     // Regenerate cellGroup
-    group = [[ORKLegacyTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
+    group = [[ORK1TextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
                                                                     answer:nil
                                                         beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                                                        immediateNavigation:NO];
@@ -255,7 +255,7 @@
         NSArray *answerArray = answer;
         XCTAssertEqual(answerArray.count, index+1);
         
-        ORKLegacyTextChoice *choice = [self textChoices][index];
+        ORK1TextChoice *choice = [self textChoices][index];
         id value = choice.value;
         
         if (value == nil) {
@@ -264,7 +264,7 @@
         
         XCTAssertEqualObjects(answerArray.lastObject, value, @"%@ vs %@", answerArray.lastObject, value );
         
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertEqual( cell.selectedItem, YES);
     }
     
@@ -279,14 +279,14 @@
             XCTAssertEqual(answerArray.count, group.size - index -1);
         } else {
             // Answer becomes NSNull when all cells are deselected
-            XCTAssert(answer == ORKLegacyNullAnswerValue());
+            XCTAssert(answer == ORK1NullAnswerValue());
         }
         
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertEqual( cell.selectedItem, NO);
     }
     
-    XCTAssert(group.answer == ORKLegacyNullAnswerValue());
+    XCTAssert(group.answer == ORK1NullAnswerValue());
 
     // Select all cells again
     for ( index = 0 ; index < group.size; index++) {
@@ -300,7 +300,7 @@
     [group setAnswer:nil];
     XCTAssertNil(group.answer);
     for ( index = 0 ; index < group.size; index++) {
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssert( cell.selectedItem == NO);
     }
 
@@ -312,17 +312,17 @@
     answerArray = group.answer;
     XCTAssertEqual(answerArray.count, group.size);
 
-    [group setAnswer:ORKLegacyNullAnswerValue()];
-    XCTAssert(group.answer == ORKLegacyNullAnswerValue());
+    [group setAnswer:ORK1NullAnswerValue()];
+    XCTAssert(group.answer == ORK1NullAnswerValue());
     for ( index = 0 ; index < group.size; index++) {
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertEqual(cell.selectedItem, NO);
     }
 
     // Test set answers
     NSMutableArray *answers = [NSMutableArray new];
     for ( index = 0 ; index < group.size; index++) {
-        ORKLegacyTextChoice *choice = [self textChoices][index];
+        ORK1TextChoice *choice = [self textChoices][index];
         id value = choice.value;
         
         if (value == nil) {
@@ -340,7 +340,7 @@
         
         XCTAssertEqualObjects(answerArray.lastObject, value, @"%@ vs %@", answerArray.lastObject, value );
         
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertTrue( cell.selectedItem );
     }
 }
@@ -354,9 +354,9 @@
 }
 
 - (void)testMultiChoiceWithExclusives:(NSArray *)choices {
-    ORKLegacyTextChoiceAnswerFormat *answerFormat = [ORKLegacyTextChoiceAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleMultipleChoice textChoices:choices];
+    ORK1TextChoiceAnswerFormat *answerFormat = [ORK1TextChoiceAnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleMultipleChoice textChoices:choices];
     
-    ORKLegacyTextChoiceCellGroup *group = [[ORKLegacyTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
+    ORK1TextChoiceCellGroup *group = [[ORK1TextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
                                                                                             answer:nil
                                                                                 beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                                                                                immediateNavigation:NO];
@@ -375,18 +375,18 @@
     // Test cell generation
     NSUInteger index = 0;
     for ( index = 0 ; index < group.size; index++) {
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertNotNil(cell, @"");
         XCTAssertEqualObjects(cell.reuseIdentifier, @"abc", @"");
         XCTAssertEqual( cell.immediateNavigation, NO, @"");
     }
     
     // Test cell generation with invalid indexPath
-    ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+    ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
     XCTAssertNil(cell, @"");
     
     // Regenerate cellGroup
-    group = [[ORKLegacyTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
+    group = [[ORK1TextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:answerFormat
                                                                     answer:nil
                                                         beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]
                                                        immediateNavigation:NO];
@@ -395,7 +395,7 @@
     NSMutableArray *exclusiveIndexes = [[NSMutableArray alloc] init];
     NSMutableArray *nonExclusiveIndexes = [[NSMutableArray alloc] init];
     for (index = 0 ; index < group.size; index++) {
-        ORKLegacyTextChoice *choice = choices[index];
+        ORK1TextChoice *choice = choices[index];
         if (choice.exclusive) {
             [exclusiveIndexes addObject:@(index)];
         } else {
@@ -412,7 +412,7 @@
         NSUInteger nonExclusiveIndexI = 0;
         for ( nonExclusiveIndexI = 0 ; nonExclusiveIndexI < nonExclusiveIndexes.count; nonExclusiveIndexI++) {
             NSUInteger index = ((NSNumber *)nonExclusiveIndexes[nonExclusiveIndexI]).unsignedIntegerValue;
-            ORKLegacyTextChoice *choice = choices[index];
+            ORK1TextChoice *choice = choices[index];
             [group didSelectCellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
             id answer = group.answer;
             XCTAssert([answer isKindOfClass:[NSArray class]]);
@@ -427,7 +427,7 @@
             
             XCTAssertEqualObjects(answerArray.lastObject, value, @"%@ vs %@", answerArray.lastObject, value );
             
-            ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+            ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
             XCTAssertEqual( cell.selectedItem, YES);
         }
         // Now, Select the exclusive choice, which should unselect all the non-exclusive choices chosen
@@ -436,13 +436,13 @@
         XCTAssert([exclusiveAnswer isKindOfClass:[NSArray class]]);
         NSArray *exclusiveAnswerArray = exclusiveAnswer;
         XCTAssertEqual(exclusiveAnswerArray.count, 1);
-        ORKLegacyChoiceViewCell *exclusiveCell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:exclusiveIndex inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *exclusiveCell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:exclusiveIndex inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertEqual(exclusiveCell.selectedItem, YES);
     
         // Test cell deselection.  First deselect the exclusive, and confirm no choices are selected
         [group didSelectCellAtIndexPath:[NSIndexPath indexPathForRow:exclusiveIndex inSection:0]];
         exclusiveAnswer = group.answer;
-        XCTAssert(exclusiveAnswer == ORKLegacyNullAnswerValue());
+        XCTAssert(exclusiveAnswer == ORK1NullAnswerValue());
         exclusiveCell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:exclusiveIndex inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertEqual(exclusiveCell.selectedItem, NO);
         
@@ -460,7 +460,7 @@
         XCTAssert([exclusiveAnswer isKindOfClass:[NSArray class]]);
         exclusiveAnswerArray = exclusiveAnswer;
         XCTAssertEqual(exclusiveAnswerArray.count, 1);
-        ORKLegacyChoiceViewCell *nonExclusiveCell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:((NSNumber *)nonExclusiveIndexes[0]).unsignedIntegerValue inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *nonExclusiveCell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:((NSNumber *)nonExclusiveIndexes[0]).unsignedIntegerValue inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertEqual(nonExclusiveCell.selectedItem, YES);
         exclusiveCell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:exclusiveIndex inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertEqual(exclusiveCell.selectedItem, NO);
@@ -502,7 +502,7 @@
         for (nonExclusiveIndexI = 0 ; nonExclusiveIndexI < nonExclusiveIndexes.count; nonExclusiveIndexI++) {
             NSUInteger index = ((NSNumber *)nonExclusiveIndexes[nonExclusiveIndexI]).unsignedIntegerValue;
             [group didSelectCellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-            ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+            ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
             XCTAssertEqual( cell.selectedItem, YES);
         }
         XCTAssertEqual(((NSArray *)group.answer).count, nonExclusiveIndexes.count);
@@ -518,15 +518,15 @@
                 XCTAssertEqual(answerArray.count, nonExclusiveIndexes.count - nonExclusiveIndexI - 1);
             } else {
                 // Answer becomes NSNull when there are no selected cells
-                XCTAssert(answer == ORKLegacyNullAnswerValue());
+                XCTAssert(answer == ORK1NullAnswerValue());
             }
             
-            ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+            ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
             XCTAssertEqual( cell.selectedItem, NO);
         }
         
         id answer = group.answer;
-        XCTAssert(answer == ORKLegacyNullAnswerValue());
+        XCTAssert(answer == ORK1NullAnswerValue());
     }
     
     // Test set nil/null answer
@@ -536,21 +536,21 @@
     NSArray *answerArray = answer;
     XCTAssertEqual(answerArray.count, 0);
     for ( index = 0 ; index < group.size; index++) {
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssert(cell.selectedItem == NO);
     }
-    [group setAnswer:ORKLegacyNullAnswerValue()];
+    [group setAnswer:ORK1NullAnswerValue()];
     XCTAssertEqual(answerArray.count, 0);
 
     for (index = 0 ; index < group.size; index++) {
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertEqual(cell.selectedItem, NO);
     }
 
     // Test set answers
     NSMutableArray *answers = [NSMutableArray new];
     for (index = 0 ; index < group.size; index++) {
-        ORKLegacyTextChoice *choice = choices[index];
+        ORK1TextChoice *choice = choices[index];
         id value = choice.value;
         
         if (value == nil) {
@@ -569,7 +569,7 @@
         
         XCTAssertEqualObjects(answerArray.lastObject, value, @"%@ vs %@", answerArray.lastObject, value );
         
-        ORKLegacyChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
+        ORK1ChoiceViewCell *cell = [group cellAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] withReuseIdentifier:@"abc"];
         XCTAssertTrue(cell.selectedItem );
     }
 }
@@ -577,7 +577,7 @@
 - (void)testMultiChoiceWithAllExclusives {
     // All exclusives should behave exactly like single choice mode, so use that test method
     NSArray *choices = [self textChoicesWithAllExclusives];
-    ORKLegacyTextChoiceAnswerFormat *answerFormat = [ORKLegacyTextChoiceAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice textChoices:choices];
+    ORK1TextChoiceAnswerFormat *answerFormat = [ORK1TextChoiceAnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice textChoices:choices];
     [self testSingleChoice:answerFormat choices:choices];
 }
 

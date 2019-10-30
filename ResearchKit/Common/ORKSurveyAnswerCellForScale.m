@@ -40,19 +40,19 @@
 #import "ORKSkin.h"
 
 
-@interface ORKLegacySurveyAnswerCellForScale () <ORKLegacyScaleSliderViewDelegate>
+@interface ORK1SurveyAnswerCellForScale () <ORK1ScaleSliderViewDelegate>
 
-@property (nonatomic, strong) ORKLegacyScaleSliderView *sliderView;
-@property (nonatomic, strong) id<ORKLegacyScaleAnswerFormatProvider> formatProvider;
+@property (nonatomic, strong) ORK1ScaleSliderView *sliderView;
+@property (nonatomic, strong) id<ORK1ScaleAnswerFormatProvider> formatProvider;
 
 @end
 
 
-@implementation ORKLegacySurveyAnswerCellForScale
+@implementation ORK1SurveyAnswerCellForScale
 
-- (id<ORKLegacyScaleAnswerFormatProvider>)formatProvider {
+- (id<ORK1ScaleAnswerFormatProvider>)formatProvider {
     if (_formatProvider == nil) {
-        _formatProvider = (id<ORKLegacyScaleAnswerFormatProvider>)[self.step impliedAnswerFormat];
+        _formatProvider = (id<ORK1ScaleAnswerFormatProvider>)[self.step impliedAnswerFormat];
     }
     return _formatProvider;
 }
@@ -60,10 +60,10 @@
 - (void)prepareView {
     [super prepareView];
     
-    id<ORKLegacyScaleAnswerFormatProvider> formatProvider = self.formatProvider;
+    id<ORK1ScaleAnswerFormatProvider> formatProvider = self.formatProvider;
     
     if (_sliderView == nil) {
-        _sliderView = [[ORKLegacyScaleSliderView alloc] initWithFormatProvider:formatProvider delegate:self];
+        _sliderView = [[ORK1ScaleSliderView alloc] initWithFormatProvider:formatProvider delegate:self];
         
         [self addSubview:_sliderView];
         
@@ -87,9 +87,9 @@
 }
 
 - (void)answerDidChange {
-    id<ORKLegacyScaleAnswerFormatProvider> formatProvider = self.formatProvider;
+    id<ORK1ScaleAnswerFormatProvider> formatProvider = self.formatProvider;
     id answer = self.answer;
-    if (answer && answer != ORKLegacyNullAnswerValue()) {
+    if (answer && answer != ORK1NullAnswerValue()) {
         [_sliderView setCurrentAnswerValue:answer];
     } else {
         if (answer == nil && [formatProvider defaultAnswer]) {
@@ -105,7 +105,7 @@
     return @[];
 }
 
-- (void)scaleSliderViewCurrentValueDidChange:(ORKLegacyScaleSliderView *)sliderView {
+- (void)scaleSliderViewCurrentValueDidChange:(ORK1ScaleSliderView *)sliderView {
     [self ork_setAnswer:sliderView.currentAnswerValue];
 }
 

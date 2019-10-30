@@ -40,10 +40,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-NSString *const ORKLegacyLoginFormItemIdentifierEmail = @"ORKLoginFormItemEmail";
-NSString *const ORKLegacyLoginFormItemIdentifierPassword = @"ORKLoginFormItemPassword";
+NSString *const ORK1LoginFormItemIdentifierEmail = @"ORKLoginFormItemEmail";
+NSString *const ORK1LoginFormItemIdentifierPassword = @"ORKLoginFormItemPassword";
 
-@implementation ORKLegacyLoginStep
+@implementation ORK1LoginStep
 
 - (Class)stepViewControllerClass {
     return self.loginViewControllerClass;
@@ -54,7 +54,7 @@ NSString *const ORKLegacyLoginFormItemIdentifierPassword = @"ORKLoginFormItemPas
 - (instancetype)initWithIdentifier:(NSString *)identifier
                              title:(nullable NSString *)title
                               text:(nullable NSString *)text {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
@@ -62,7 +62,7 @@ NSString *const ORKLegacyLoginFormItemIdentifierPassword = @"ORKLoginFormItemPas
                               text:(NSString *)text
           loginViewControllerClass:(Class)loginViewControllerClass {
     
-    NSParameterAssert([loginViewControllerClass isSubclassOfClass:[ORKLegacyLoginStepViewController class]]);
+    NSParameterAssert([loginViewControllerClass isSubclassOfClass:[ORK1LoginStepViewController class]]);
     
     self = [super initWithIdentifier:identifier title:title text:text];
     if (self) {
@@ -74,34 +74,34 @@ NSString *const ORKLegacyLoginFormItemIdentifierPassword = @"ORKLoginFormItemPas
     return self;
 }
 
-- (NSArray <ORKLegacyFormItem *> *)loginFormItems {
+- (NSArray <ORK1FormItem *> *)loginFormItems {
     NSMutableArray *formItems = [NSMutableArray new];
     
     {
-        ORKLegacyEmailAnswerFormat *answerFormat = [ORKLegacyAnswerFormat emailAnswerFormat];
+        ORK1EmailAnswerFormat *answerFormat = [ORK1AnswerFormat emailAnswerFormat];
         
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyLoginFormItemIdentifierEmail
-                                                               text:ORKLegacyLocalizedString(@"EMAIL_FORM_ITEM_TITLE", nil)
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:ORK1LoginFormItemIdentifierEmail
+                                                               text:ORK1LocalizedString(@"EMAIL_FORM_ITEM_TITLE", nil)
                                                        answerFormat:answerFormat
                                                            optional:NO];
-        item.placeholder = ORKLegacyLocalizedString(@"EMAIL_FORM_ITEM_PLACEHOLDER", nil);
+        item.placeholder = ORK1LocalizedString(@"EMAIL_FORM_ITEM_PLACEHOLDER", nil);
         
         [formItems addObject:item];
     }
     
     {
-        ORKLegacyTextAnswerFormat *answerFormat = [ORKLegacyAnswerFormat textAnswerFormat];
+        ORK1TextAnswerFormat *answerFormat = [ORK1AnswerFormat textAnswerFormat];
         answerFormat.multipleLines = NO;
         answerFormat.secureTextEntry = YES;
         answerFormat.autocapitalizationType = UITextAutocapitalizationTypeNone;
         answerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
         answerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
         
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyLoginFormItemIdentifierPassword
-                                                               text:ORKLegacyLocalizedString(@"PASSWORD_FORM_ITEM_TITLE", nil)
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:ORK1LoginFormItemIdentifierPassword
+                                                               text:ORK1LocalizedString(@"PASSWORD_FORM_ITEM_TITLE", nil)
                                                        answerFormat:answerFormat
                                                            optional:NO];
-        item.placeholder = ORKLegacyLocalizedString(@"PASSWORD_FORM_ITEM_PLACEHOLDER", nil);
+        item.placeholder = ORK1LocalizedString(@"PASSWORD_FORM_ITEM_PLACEHOLDER", nil);
         
         [formItems addObject:item];
     }
@@ -118,7 +118,7 @@ NSString *const ORKLegacyLoginFormItemIdentifierPassword = @"ORKLoginFormItemPas
     
     if (!_loginViewControllerString || !NSClassFromString(_loginViewControllerString)) {
         @throw [NSException exceptionWithName:NSGenericException
-                                       reason:@"Unable to find ORKLegacyLoginStepViewController subclass."
+                                       reason:@"Unable to find ORK1LoginStepViewController subclass."
                                      userInfo:nil];
     }
 }
@@ -139,18 +139,18 @@ NSString *const ORKLegacyLoginFormItemIdentifierPassword = @"ORKLoginFormItemPas
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ(aDecoder, loginViewControllerString);
+        ORK1_DECODE_OBJ(aDecoder, loginViewControllerString);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_OBJ(aCoder, loginViewControllerString);
+    ORK1_ENCODE_OBJ(aCoder, loginViewControllerString);
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyLoginStep *step = [super copyWithZone:zone];
+    ORK1LoginStep *step = [super copyWithZone:zone];
     step->_loginViewControllerString = [self.loginViewControllerString copy];
     return step;
 }
@@ -160,7 +160,7 @@ NSString *const ORKLegacyLoginFormItemIdentifierPassword = @"ORKLoginFormItemPas
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKLegacyEqualObjects(self.loginViewControllerString, castObject.loginViewControllerString));
+            ORK1EqualObjects(self.loginViewControllerString, castObject.loginViewControllerString));
 }
 
 @end

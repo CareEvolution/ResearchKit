@@ -35,21 +35,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyBorderedButton;
-@protocol ORKLegacyPSATKeyboardViewDelegate;
+@class ORK1BorderedButton;
+@protocol ORK1PSATKeyboardViewDelegate;
 
-@interface ORKLegacyPSATKeyboardView : UIView
+@interface ORK1PSATKeyboardView : UIView
 
-@property (nonatomic, weak) id<ORKLegacyPSATKeyboardViewDelegate> delegate;
-@property (nonatomic, weak) ORKLegacyBorderedButton *selectedAnswerButton;
+@property (nonatomic, weak) id<ORK1PSATKeyboardViewDelegate> delegate;
+@property (nonatomic, weak) ORK1BorderedButton *selectedAnswerButton;
 
 - (void)setEnabled:(BOOL)enabled;
 
 @end
 
-@protocol ORKLegacyPSATKeyboardViewDelegate <NSObject>
+@protocol ORK1PSATKeyboardViewDelegate <NSObject>
 
-- (void)keyboardView:(ORKLegacyPSATKeyboardView *)keyboardView didSelectAnswer:(NSInteger)answer;
+- (void)keyboardView:(ORK1PSATKeyboardView *)keyboardView didSelectAnswer:(NSInteger)answer;
 
 @end
 

@@ -37,14 +37,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyLineGraphChartView` class presents the data provided by an object conforming to the
- `ORKLegacyValueRangeGraphChartViewDataSource` protocol as a line graph.
+ The `ORK1LineGraphChartView` class presents the data provided by an object conforming to the
+ `ORK1ValueRangeGraphChartViewDataSource` protocol as a line graph.
  
  The primary plot is colored by the `tintColor`, and any additional plots are colored using the
  `referenceLineColor` property.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyLineGraphChartView : ORKLegacyValueRangeGraphChartView
+ORK1_CLASS_AVAILABLE
+@interface ORK1LineGraphChartView : ORK1ValueRangeGraphChartView
 
 @end
 

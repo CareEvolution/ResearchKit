@@ -36,7 +36,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacySignatureStep` class is used to represent collecting a signature.
+ The `ORK1SignatureStep` class is used to represent collecting a signature.
  Typically, the consent signature is collected as a part of the consent review process.
  
  However, since in some cases the signature is collected after displaying custom 
@@ -45,11 +45,11 @@ NS_ASSUME_NONNULL_BEGIN
  To use a consent signature step, configure it and include it in a task. Then
  present the task in a task view controller.
  
- The result of this step is an `ORKLegacySignatureResult` which will include both the `UIImage` and 
+ The result of this step is an `ORK1SignatureResult` which will include both the `UIImage` and 
  the path used to draw the image.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacySignatureStep : ORKLegacyStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1SignatureStep : ORK1Step
 
 @end
 

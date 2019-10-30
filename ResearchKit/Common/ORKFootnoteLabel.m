@@ -33,12 +33,12 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKLegacyFootnoteLabel
+@implementation ORK1FootnoteLabel
 
 + (UIFont *)defaultFont {
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleFootnote];
     const CGFloat defaultSize = 12;
-    return [UIFont systemFontOfSize:[[descriptor objectForKey:UIFontDescriptorSizeAttribute] doubleValue] - defaultSize + ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricFontSizeFootnote, nil)];
+    return [UIFont systemFontOfSize:[[descriptor objectForKey:UIFontDescriptorSizeAttribute] doubleValue] - defaultSize + ORK1GetMetricForWindow(ORK1ScreenMetricFontSizeFootnote, nil)];
 }
 
 @end

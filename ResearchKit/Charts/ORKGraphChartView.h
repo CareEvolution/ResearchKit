@@ -38,63 +38,63 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyValueRange;
-@class ORKLegacyValueStack;
-@class ORKLegacyGraphChartView;
+@class ORK1ValueRange;
+@class ORK1ValueStack;
+@class ORK1GraphChartView;
 
 /**
  The graph chart view delegate protocol forwards pan gesture events occuring
- within the bounds of an `ORKLegacyGraphChartView` object.
+ within the bounds of an `ORK1GraphChartView` object.
 */
-ORKLegacy_AVAILABLE_DECL
-@protocol ORKLegacyGraphChartViewDelegate <NSObject>
+ORK1_AVAILABLE_DECL
+@protocol ORK1GraphChartViewDelegate <NSObject>
 
 @optional
 /**
- Notifies the delegate that a pan gesture has begun within the bounds of an `ORKLegacyGraphChartView`
+ Notifies the delegate that a pan gesture has begun within the bounds of an `ORK1GraphChartView`
  object.
 
  @param graphChartView      The graph chart view in which the gesture occurred.
 */
-- (void)graphChartViewTouchesBegan:(ORKLegacyGraphChartView *)graphChartView;
+- (void)graphChartViewTouchesBegan:(ORK1GraphChartView *)graphChartView;
 
 /**
  Notifies the delegate of updates in the x-coordinate of an ongoing pan gesture within the bounds
- of an `ORKLegacyGraphChartView` object.
+ of an `ORK1GraphChartView` object.
 
  @param graphChartView      The graph chart view object in which the gesture occurred.
  @param xPosition           The updated x-coordinate of the ongoing pan gesture.
 */
-- (void)graphChartView:(ORKLegacyGraphChartView *)graphChartView touchesMovedToXPosition:(CGFloat)xPosition;
+- (void)graphChartView:(ORK1GraphChartView *)graphChartView touchesMovedToXPosition:(CGFloat)xPosition;
 
 /**
- Notifies the delegate that a pan gesture that began within the bounds of an `ORKLegacyGraphChartView`
+ Notifies the delegate that a pan gesture that began within the bounds of an `ORK1GraphChartView`
  object has ended.
 
 @param graphChartView       The graph chart view object in which the gesture occurred.
 */
-- (void)graphChartViewTouchesEnded:(ORKLegacyGraphChartView *)graphChartView;
+- (void)graphChartViewTouchesEnded:(ORK1GraphChartView *)graphChartView;
 
 @end
 
 
 /**
- The abstract `ORKLegacyGraphChartViewDataSource` protocol is the base protocol which conforms the basis
- for the `ORKLegacyValueRangeGraphChartViewDataSource` and `ORKLegacyValueStackGraphChartViewDataSource`
- protocols, required to populate the concrete `ORKLegacyGraphChartView` subclass.
+ The abstract `ORK1GraphChartViewDataSource` protocol is the base protocol which conforms the basis
+ for the `ORK1ValueRangeGraphChartViewDataSource` and `ORK1ValueStackGraphChartViewDataSource`
+ protocols, required to populate the concrete `ORK1GraphChartView` subclass.
 
  At a minimum, a data source object must implement the `graphChartView:numberOfPointsInPlot:` and
  `graphChartView:plot:valueForPointAtIndex:` methods. These methods return
  the number of points in a plot and the points themselves. Each point in a plot is represented by
- an object of the `ORKLegacyValueRange` or `ORKLegacyValueStack` class, depending on the concrete subprotocol.
+ an object of the `ORK1ValueRange` or `ORK1ValueStack` class, depending on the concrete subprotocol.
  
  A data source object may provide additional information to the graph chart view by implementing the
  optional methods.
 
- When configuring an `ORKLegacyGraphChartView` object, assign your data source to its `dataSource`
+ When configuring an `ORK1GraphChartView` object, assign your data source to its `dataSource`
  property.
 */
-@protocol ORKLegacyGraphChartViewDataSource <NSObject>
+@protocol ORK1GraphChartViewDataSource <NSObject>
 
 @required
 /**
@@ -107,7 +107,7 @@ ORKLegacy_AVAILABLE_DECL
 
  @return The number of range points in the plot at `plotIndex`.
 */
-- (NSInteger)graphChartView:(ORKLegacyGraphChartView *)graphChartView numberOfDataPointsForPlotIndex:(NSInteger)plotIndex;
+- (NSInteger)graphChartView:(ORK1GraphChartView *)graphChartView numberOfDataPointsForPlotIndex:(NSInteger)plotIndex;
 
 
 /**
@@ -117,7 +117,7 @@ ORKLegacy_AVAILABLE_DECL
 
  @return The number of plots in the graph chart view.
 */
-- (NSInteger)numberOfPlotsInGraphChartView:(ORKLegacyGraphChartView *)graphChartView;
+- (NSInteger)numberOfPlotsInGraphChartView:(ORK1GraphChartView *)graphChartView;
 
 @optional
 /**
@@ -132,12 +132,12 @@ ORKLegacy_AVAILABLE_DECL
  
  @return The color of the segment at the specified index in a pie chart view.
  */
-- (UIColor *)graphChartView:(ORKLegacyGraphChartView *)graphChartView colorForPlotIndex:(NSInteger)plotIndex;
+- (UIColor *)graphChartView:(ORK1GraphChartView *)graphChartView colorForPlotIndex:(NSInteger)plotIndex;
 
 /**
  Asks the data source for the fill color of the specified plot.
  
- The fill color is only used by `ORKLegacyLineGraphChartView`. If this method is not implemented, the
+ The fill color is only used by `ORK1LineGraphChartView`. If this method is not implemented, the
  chart uses the main color of the specified plot with a 0.4 opacity value.
  
  @param graphChartView      The graph chart view asking for the color of the segment.
@@ -146,7 +146,7 @@ ORKLegacy_AVAILABLE_DECL
  
  @return The color of the fill layer at the specified index in a line chart view.
  */
-- (UIColor *)graphChartView:(ORKLegacyGraphChartView *)graphChartView fillColorForPlotIndex:(NSInteger)plotIndex;
+- (UIColor *)graphChartView:(ORK1GraphChartView *)graphChartView fillColorForPlotIndex:(NSInteger)plotIndex;
 
 /**
  Asks the data source which plot the scrubber should snap to in multigraph chart views.
@@ -157,12 +157,12 @@ ORKLegacy_AVAILABLE_DECL
  
  @return The index of the plot that the scrubber should snap to.
  */
-- (NSInteger)scrubbingPlotIndexForGraphChartView:(ORKLegacyGraphChartView *)graphChartView;
+- (NSInteger)scrubbingPlotIndexForGraphChartView:(ORK1GraphChartView *)graphChartView;
 
 /**
  Asks the data source for the upper limit of the y-axis drawn by the graph chart view.
 
- If this method is not implemented, the greatest `maximumValue` of all `ORKLegacyValueRange` instances
+ If this method is not implemented, the greatest `maximumValue` of all `ORK1ValueRange` instances
  returned in `graphChartView:plot:valueForPointAtIndex:` is used.
 
  See also: `graphChartView:plot:valueForPointAtIndex:`.
@@ -171,12 +171,12 @@ ORKLegacy_AVAILABLE_DECL
 
  @return The maximum value of the y-axis drawn by `graphChartView`.
 */
-- (double)maximumValueForGraphChartView:(ORKLegacyGraphChartView *)graphChartView;
+- (double)maximumValueForGraphChartView:(ORK1GraphChartView *)graphChartView;
 
 /**
  Asks the data source for the lower limit of the y-axis drawn by the graph chart view.
 
- If this method is not implemented, the smallest `minimumValue` of all ORKLegacyValueRange instances
+ If this method is not implemented, the smallest `minimumValue` of all ORK1ValueRange instances
  returned in `graphChartView:plot:valueForPointAtIndex:` is used.
 
  See also: `graphChartView:plot:valueForPointAtIndex:`.
@@ -185,7 +185,7 @@ ORKLegacy_AVAILABLE_DECL
 
  @return The minimum value of the y-axis drawn by `graphChartView`.
 */
-- (double)minimumValueForGraphChartView:(ORKLegacyGraphChartView *)graphChartView;
+- (double)minimumValueForGraphChartView:(ORK1GraphChartView *)graphChartView;
 
 /**
  Asks the data source for the number of divisions in the x-axis. The value is ignored if it is lower
@@ -196,7 +196,7 @@ ORKLegacy_AVAILABLE_DECL
 
  @return The number of divisions in the x-axis for `graphChartView`.
 */
-- (NSInteger)numberOfDivisionsInXAxisForGraphChartView:(ORKLegacyGraphChartView *)graphChartView;
+- (NSInteger)numberOfDivisionsInXAxisForGraphChartView:(ORK1GraphChartView *)graphChartView;
 
 /**
  Asks the data source for the title to be displayed adjacent to each division in the x-axis (the
@@ -213,7 +213,7 @@ ORKLegacy_AVAILABLE_DECL
  @return The title string to be displayed adjacent to each division of the x-axis of the graph chart
  view.
 */
-- (nullable NSString *)graphChartView:(ORKLegacyGraphChartView *)graphChartView titleForXAxisAtPointIndex:(NSInteger)pointIndex;
+- (nullable NSString *)graphChartView:(ORK1GraphChartView *)graphChartView titleForXAxisAtPointIndex:(NSInteger)pointIndex;
 
 /**
  Asks the data source if the vertical reference line at the specified point index should be drawn..
@@ -226,13 +226,13 @@ ORKLegacy_AVAILABLE_DECL
  
  @return Whether the graph chart view should draw the vertical reference line.
  */
-- (BOOL)graphChartView:(ORKLegacyGraphChartView *)graphChartView drawsVerticalReferenceLineAtPointIndex:(NSInteger)pointIndex;
+- (BOOL)graphChartView:(ORK1GraphChartView *)graphChartView drawsVerticalReferenceLineAtPointIndex:(NSInteger)pointIndex;
 
 
 /**
  Asks the data source if the plot at specified index should display circular indicators on its data points.
  
- This only applys to `ORKLegacyLineGrapthChartView`.
+ This only applys to `ORK1LineGrapthChartView`.
  If this method is not implemented, point indicators will be drawn for all plots.
  
  @param graphChartView  The graph view asking whether point indicators should be drawn.
@@ -241,7 +241,7 @@ ORKLegacy_AVAILABLE_DECL
  
  @return Whether the graph chart view should draw point indicators for its points.
  */
-- (BOOL)graphChartView:(ORKLegacyGraphChartView *)graphChartView drawsPointIndicatorsForPlotIndex:(NSInteger)plotIndex;
+- (BOOL)graphChartView:(ORK1GraphChartView *)graphChartView drawsPointIndicatorsForPlotIndex:(NSInteger)plotIndex;
 
 
 /**
@@ -255,7 +255,7 @@ ORKLegacy_AVAILABLE_DECL
  
  @return An appropriate unit label for the given plot.
  */
-- (NSString *)graphChartView:(ORKLegacyGraphChartView *)graphChartView accessibilityUnitLabelForPlotIndex:(NSInteger)plotIndex;
+- (NSString *)graphChartView:(ORK1GraphChartView *)graphChartView accessibilityUnitLabelForPlotIndex:(NSInteger)plotIndex;
 
 
 /**
@@ -268,19 +268,19 @@ ORKLegacy_AVAILABLE_DECL
  
  @return An appropriate accessibility label for the given index of the graph.
  */
-- (NSString *)graphChartView:(ORKLegacyGraphChartView *)graphChartView accessibilityLabelForXAxisAtPointIndex:(NSInteger)pointIndex;
+- (NSString *)graphChartView:(ORK1GraphChartView *)graphChartView accessibilityLabelForXAxisAtPointIndex:(NSInteger)pointIndex;
 
 @end
 
 
 /**
- An object that adopts the `ORKLegacyValueRangeGraphChartViewDataSource` protocol is responsible for
- providing data in the form of `ORKLegacyValueRange` values required to populate an
- `ORKLegacyValueRangeGraphChartView` concrete subclass, such as `ORKLegacyLineGraphChartView` and
- `ORKLegacyDiscreteGraphChartView`.
+ An object that adopts the `ORK1ValueRangeGraphChartViewDataSource` protocol is responsible for
+ providing data in the form of `ORK1ValueRange` values required to populate an
+ `ORK1ValueRangeGraphChartView` concrete subclass, such as `ORK1LineGraphChartView` and
+ `ORK1DiscreteGraphChartView`.
  */
-ORKLegacy_AVAILABLE_DECL
-@protocol ORKLegacyValueRangeGraphChartViewDataSource <ORKLegacyGraphChartViewDataSource>
+ORK1_AVAILABLE_DECL
+@protocol ORK1ValueRangeGraphChartViewDataSource <ORK1GraphChartViewDataSource>
 
 @required
 
@@ -296,18 +296,18 @@ ORKLegacy_AVAILABLE_DECL
  @return The value range specified by `pointIndex` in the plot specified by `plotIndex` for the
  specified graph chart view`.
  */
-- (ORKLegacyValueRange *)graphChartView:(ORKLegacyGraphChartView *)graphChartView dataPointForPointIndex:(NSInteger)pointIndex plotIndex:(NSInteger)plotIndex;
+- (ORK1ValueRange *)graphChartView:(ORK1GraphChartView *)graphChartView dataPointForPointIndex:(NSInteger)pointIndex plotIndex:(NSInteger)plotIndex;
 
 @end
 
 
 /**
- An object that adopts the `ORKLegacyValueStackGraphChartViewDataSource` protocol is responsible for
- providing data in the form of `ORKLegacyValueStack` values required to populate an `ORKLegacyBarGraphChartView`
+ An object that adopts the `ORK1ValueStackGraphChartViewDataSource` protocol is responsible for
+ providing data in the form of `ORK1ValueStack` values required to populate an `ORK1BarGraphChartView`
  object.
  */
-ORKLegacy_AVAILABLE_DECL
-@protocol ORKLegacyValueStackGraphChartViewDataSource <ORKLegacyGraphChartViewDataSource>
+ORK1_AVAILABLE_DECL
+@protocol ORK1ValueStackGraphChartViewDataSource <ORK1GraphChartViewDataSource>
 
 @required
 
@@ -323,30 +323,30 @@ ORKLegacy_AVAILABLE_DECL
  @return The value stack specified by `pointIndex` in the plot specified by `plotIndex` for the
  specified graph chart view`.
  */
-- (ORKLegacyValueStack *)graphChartView:(ORKLegacyGraphChartView *)graphChartView dataPointForPointIndex:(NSInteger)pointIndex plotIndex:(NSInteger)plotIndex;
+- (ORK1ValueStack *)graphChartView:(ORK1GraphChartView *)graphChartView dataPointForPointIndex:(NSInteger)pointIndex plotIndex:(NSInteger)plotIndex;
 
 @end
 
 
 /**
- The `ORKLegacyGraphChartView` class is an abstract class which holds properties and methods common to
+ The `ORK1GraphChartView` class is an abstract class which holds properties and methods common to
  concrete subclasseses.
  
  You should not instantiate this class directly; use one of the subclasses instead. The concrete
- subclasses are `ORKLegacyLineGraphChartView`, `ORKLegacyDiscreteGraphChartView`, and `ORKLegacyBarGraphChartView`.
+ subclasses are `ORK1LineGraphChartView`, `ORK1DiscreteGraphChartView`, and `ORK1BarGraphChartView`.
 */
-ORKLegacy_CLASS_AVAILABLE
+ORK1_CLASS_AVAILABLE
 IB_DESIGNABLE
-@interface ORKLegacyGraphChartView : UIView
+@interface ORK1GraphChartView : UIView
 
 /**
  The minimum value of the y-axis.
 
- You can provide this value to an instance of `ORKLegacyGraphChartView` by implementing the optional
- `minimumValueForGraphChartView:` method of the `ORKLegacyGraphChartViewDataSource` protocol.
+ You can provide this value to an instance of `ORK1GraphChartView` by implementing the optional
+ `minimumValueForGraphChartView:` method of the `ORK1GraphChartViewDataSource` protocol.
 
  If `minimumValueForGraphChartView:` is not implemented, the minimum value is assigned to the
- smallest value of the `minimumValue` property of all `ORKLegacyValueRange` instances returned by the
+ smallest value of the `minimumValue` property of all `ORK1ValueRange` instances returned by the
  graph chart view data source.
 */
 @property (nonatomic, readonly) double minimumValue;
@@ -354,11 +354,11 @@ IB_DESIGNABLE
 /**
  The maximum value of the y-axis.
 
- You can provide this value instance of `ORKLegacyGraphChartView` by implementing the
- optional `maximumValueForGraphChartView:` method of the `ORKLegacyGraphChartViewDataSource` protocol.
+ You can provide this value instance of `ORK1GraphChartView` by implementing the
+ optional `maximumValueForGraphChartView:` method of the `ORK1GraphChartViewDataSource` protocol.
 
  If `maximumValueForGraphChartView:` is not implemented, the maximum value is assigned to the
- largest value of the `maximumValue` property of all `ORKLegacyValueRange` instances returned by the
+ largest value of the `maximumValue` property of all `ORK1ValueRange` instances returned by the
  graph chart view data source.
 */
 @property (nonatomic, readonly) double maximumValue;
@@ -381,16 +381,16 @@ IB_DESIGNABLE
  The delegate is notified of pan gesture events occuring within the bounds of the graph chart
  view.
 
- See the `ORKLegacyGraphChartViewDelegate` protocol.
+ See the `ORK1GraphChartViewDelegate` protocol.
 */
-@property (nonatomic, weak, nullable) id <ORKLegacyGraphChartViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id <ORK1GraphChartViewDelegate> delegate;
 
 /**
  The data source responsible for providing the data required to populate the graph chart view.
 
- See the `ORKLegacyGraphChartViewDataSource` protocol.
+ See the `ORK1GraphChartViewDataSource` protocol.
 */
-@property (nonatomic, weak) id <ORKLegacyGraphChartViewDataSource> dataSource;
+@property (nonatomic, weak) id <ORK1GraphChartViewDataSource> dataSource;
 
 /**
  The color of the axes drawn by the graph chart view.
@@ -499,21 +499,21 @@ IB_DESIGNABLE
 
 
 /**
- The `ORKLegacyValueRangeGraphChartView` class is an abstract class which holds a data source comforming
- to the `ORKLegacyValueRangeGraphChartViewDataSource` protocol, common to concrete subclasseses.
+ The `ORK1ValueRangeGraphChartView` class is an abstract class which holds a data source comforming
+ to the `ORK1ValueRangeGraphChartViewDataSource` protocol, common to concrete subclasseses.
  
  You should not instantiate this class directly; use one of the subclasses instead. The concrete
- subclasses are `ORKLegacyLineGraphChartView` and `ORKLegacyDiscreteGraphChartView`.
+ subclasses are `ORK1LineGraphChartView` and `ORK1DiscreteGraphChartView`.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyValueRangeGraphChartView : ORKLegacyGraphChartView
+ORK1_CLASS_AVAILABLE
+@interface ORK1ValueRangeGraphChartView : ORK1GraphChartView
 
 /**
  The data source responsible for providing the data required to populate the graph chart view.
  
- See the `ORKLegacyValueRangeGraphChartViewDataSource` protocol.
+ See the `ORK1ValueRangeGraphChartViewDataSource` protocol.
  */
-@property (nonatomic, weak) id <ORKLegacyValueRangeGraphChartViewDataSource> dataSource;
+@property (nonatomic, weak) id <ORK1ValueRangeGraphChartViewDataSource> dataSource;
 
 @end
 

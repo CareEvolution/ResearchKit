@@ -35,21 +35,21 @@
 
 
 /**
- The `ORKLegacyBarGraphChartView` class presents the data provided by an object conforming to the
- `ORKLegacyValueStackGraphChartViewDataSource` protocol as a bar graph.
+ The `ORK1BarGraphChartView` class presents the data provided by an object conforming to the
+ `ORK1ValueStackGraphChartViewDataSource` protocol as a bar graph.
  
  By default, the primary plot is colored by the `tintColor`, and any additional plots are colored
  using the `referenceLineColor` property. You can customize the plot colors by implementing the
  `-graphChartView:colorForPlotIndex:` method in the data source.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyBarGraphChartView : ORKLegacyGraphChartView
+ORK1_CLASS_AVAILABLE
+@interface ORK1BarGraphChartView : ORK1GraphChartView
 
 /**
  The data source responsible for providing the data required to populate the graph chart view.
  
- See the `ORKLegacyValueStackGraphChartViewDataSource` protocol.
+ See the `ORK1ValueStackGraphChartViewDataSource` protocol.
  */
-@property (nonatomic, weak) id <ORKLegacyValueStackGraphChartViewDataSource> dataSource;
+@property (nonatomic, weak) id <ORK1ValueStackGraphChartViewDataSource> dataSource;
 
 @end

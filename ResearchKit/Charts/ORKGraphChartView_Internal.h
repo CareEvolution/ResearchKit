@@ -39,40 +39,40 @@ NS_ASSUME_NONNULL_BEGIN
 
 #if TARGET_INTERFACE_BUILDER
 
-@interface ORKLegacyIBGraphChartViewDataSource : NSObject <ORKLegacyGraphChartViewDataSource>
+@interface ORK1IBGraphChartViewDataSource : NSObject <ORK1GraphChartViewDataSource>
 
 @property (nonatomic, strong, nullable) NSArray <NSArray *> *plotPoints;
 
 @end
 
 
-@interface ORKLegacyIBValueRangeGraphChartViewDataSource : ORKLegacyIBGraphChartViewDataSource <ORKLegacyValueRangeGraphChartViewDataSource>
+@interface ORK1IBValueRangeGraphChartViewDataSource : ORK1IBGraphChartViewDataSource <ORK1ValueRangeGraphChartViewDataSource>
 
 @end
 
 #endif
 
 
-@class ORKLegacyXAxisView;
+@class ORK1XAxisView;
 
-typedef NS_ENUM(NSUInteger, ORKLegacyGraphAnimationType) {
+typedef NS_ENUM(NSUInteger, ORK1GraphAnimationType) {
     ORkGraphAnimationTypeNone,
-    ORKLegacyGraphAnimationTypeFade,
-    ORKLegacyGraphAnimationTypeGrow,
-    ORKLegacyGraphAnimationTypePop
+    ORK1GraphAnimationTypeFade,
+    ORK1GraphAnimationTypeGrow,
+    ORK1GraphAnimationTypePop
 };
 
-extern const CGFloat ORKLegacyGraphChartViewLeftPadding;
-extern const CGFloat ORKLegacyGraphChartViewPointAndLineWidth;
-extern const CGFloat ORKLegacyGraphChartViewScrubberMoveAnimationDuration;
-extern const CGFloat ORKLegacyGraphChartViewAxisTickLength;
-extern const CGFloat ORKLegacyGraphChartViewYAxisTickPadding;
+extern const CGFloat ORK1GraphChartViewLeftPadding;
+extern const CGFloat ORK1GraphChartViewPointAndLineWidth;
+extern const CGFloat ORK1GraphChartViewScrubberMoveAnimationDuration;
+extern const CGFloat ORK1GraphChartViewAxisTickLength;
+extern const CGFloat ORK1GraphChartViewYAxisTickPadding;
 
-ORKLegacy_INLINE CGFloat scalePixelAdjustment() {
+ORK1_INLINE CGFloat scalePixelAdjustment() {
     return (1.0 / [UIScreen mainScreen].scale);
 }
 
-ORKLegacy_INLINE CAShapeLayer *graphLineLayer() {
+ORK1_INLINE CAShapeLayer *graphLineLayer() {
     CAShapeLayer *lineLayer = [CAShapeLayer layer];
     lineLayer.fillColor = [UIColor clearColor].CGColor;
     lineLayer.lineJoin = kCALineJoinRound;
@@ -81,11 +81,11 @@ ORKLegacy_INLINE CAShapeLayer *graphLineLayer() {
     return lineLayer;
 }
 
-ORKLegacy_INLINE CGFloat xAxisPoint(NSInteger pointIndex, NSInteger numberOfXAxisPoints, CGFloat canvasWidth) {
+ORK1_INLINE CGFloat xAxisPoint(NSInteger pointIndex, NSInteger numberOfXAxisPoints, CGFloat canvasWidth) {
     return floor((canvasWidth / MAX(1, numberOfXAxisPoints - 1)) * pointIndex);
 }
 
-ORKLegacy_INLINE CGFloat xOffsetForPlotIndex(NSInteger plotIndex, NSInteger numberOfPlots, CGFloat plotWidth) {
+ORK1_INLINE CGFloat xOffsetForPlotIndex(NSInteger plotIndex, NSInteger numberOfPlots, CGFloat plotWidth) {
     CGFloat offset = 0;
     if (numberOfPlots % 2 == 0) {
         // Even
@@ -98,15 +98,15 @@ ORKLegacy_INLINE CGFloat xOffsetForPlotIndex(NSInteger plotIndex, NSInteger numb
 }
 
 
-@interface ORKLegacyGraphChartView ()
+@interface ORK1GraphChartView ()
 
 @property (nonatomic) NSMutableArray<NSMutableArray<NSMutableArray<CAShapeLayer *> *> *> *lineLayers;
 
 @property (nonatomic) NSInteger numberOfXAxisPoints;
 
-@property (nonatomic) NSMutableArray<NSMutableArray<NSObject<ORKLegacyValueCollectionType> *> *> *dataPoints; // Actual data
+@property (nonatomic) NSMutableArray<NSMutableArray<NSObject<ORK1ValueCollectionType> *> *> *dataPoints; // Actual data
 
-@property (nonatomic) NSMutableArray<NSMutableArray<NSObject<ORKLegacyValueCollectionType> *> *> *yAxisPoints; // Normalized for the plot view height
+@property (nonatomic) NSMutableArray<NSMutableArray<NSObject<ORK1ValueCollectionType> *> *> *yAxisPoints; // Normalized for the plot view height
 
 @property (nonatomic) UIView *plotView; // Holds the plots
 
@@ -124,7 +124,7 @@ ORKLegacy_INLINE CGFloat xOffsetForPlotIndex(NSInteger plotIndex, NSInteger numb
 
 - (void)calculateMinAndMaxValues;
 
-- (NSMutableArray<NSObject<ORKLegacyValueCollectionType> *> *)normalizedCanvasDataPointsForPlotIndex:(NSInteger)plotIndex canvasHeight:(CGFloat)viewHeight;
+- (NSMutableArray<NSObject<ORK1ValueCollectionType> *> *)normalizedCanvasDataPointsForPlotIndex:(NSInteger)plotIndex canvasHeight:(CGFloat)viewHeight;
 
 - (NSInteger)numberOfPlots;
 
@@ -171,12 +171,12 @@ ORKLegacy_INLINE CGFloat xOffsetForPlotIndex(NSInteger plotIndex, NSInteger numb
 @end
 
 
-// Abstract base class for ORKLegacyDiscreteGraphChartView and ORKLegacyLineGraphChartView
-@interface ORKLegacyValueRangeGraphChartView ()
+// Abstract base class for ORK1DiscreteGraphChartView and ORK1LineGraphChartView
+@interface ORK1ValueRangeGraphChartView ()
 
-@property (nonatomic) NSMutableArray<NSMutableArray<ORKLegacyValueRange *> *> *dataPoints; // Actual data
+@property (nonatomic) NSMutableArray<NSMutableArray<ORK1ValueRange *> *> *dataPoints; // Actual data
 
-@property (nonatomic) NSMutableArray<NSMutableArray<ORKLegacyValueRange *> *> *yAxisPoints; // Normalized for the plot view height
+@property (nonatomic) NSMutableArray<NSMutableArray<ORK1ValueRange *> *> *yAxisPoints; // Normalized for the plot view height
 
 - (void)updatePointLayers;
 

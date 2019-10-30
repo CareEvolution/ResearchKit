@@ -47,18 +47,18 @@
 #import "ORKHelpers_Internal.h"
 
 
-@interface ORKLegacyFitnessStepViewController () <ORKLegacyHealthQuantityTypeRecorderDelegate, ORKLegacyPedometerRecorderDelegate> {
+@interface ORK1FitnessStepViewController () <ORK1HealthQuantityTypeRecorderDelegate, ORK1PedometerRecorderDelegate> {
     NSInteger _intendedSteps;
-    ORKLegacyFitnessContentView *_contentView;
+    ORK1FitnessContentView *_contentView;
     NSNumberFormatter *_hrFormatter;
 }
 
 @end
 
 
-@implementation ORKLegacyFitnessStepViewController
+@implementation ORK1FitnessStepViewController
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {    
+- (instancetype)initWithStep:(ORK1Step *)step {    
     self = [super initWithStep:step];
     if (self) {
         self.suspendIfInactive = NO;
@@ -66,8 +66,8 @@
     return self;
 }
 
-- (ORKLegacyFitnessStep *)fitnessStep {
-    return (ORKLegacyFitnessStep *)self.step;
+- (ORK1FitnessStep *)fitnessStep {
+    return (ORK1FitnessStep *)self.step;
 }
 
 - (void)stepDidChange {
@@ -81,7 +81,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _contentView = [ORKLegacyFitnessContentView new];
+    _contentView = [ORK1FitnessContentView new];
     _contentView.image = self.fitnessStep.image;
     _contentView.timeLeft = self.fitnessStep.stepDuration;
     self.activeStepView.activeCustomView = _contentView;
@@ -108,15 +108,15 @@
 - (void)recordersDidChange {
     [super recordersDidChange];
     
-    ORKLegacyPedometerRecorder *pedometerRecorder = nil;
-    ORKLegacyHealthQuantityTypeRecorder *heartRateRecorder = nil;
-    for (ORKLegacyRecorder *recorder in self.recorders) {
-        if ([recorder isKindOfClass:[ORKLegacyPedometerRecorder class]]) {
-            pedometerRecorder = (ORKLegacyPedometerRecorder *)recorder;
-        } else if ([recorder isKindOfClass:[ORKLegacyHealthQuantityTypeRecorder class]]) {
-            ORKLegacyHealthQuantityTypeRecorder *rec1 = (ORKLegacyHealthQuantityTypeRecorder *)recorder;
+    ORK1PedometerRecorder *pedometerRecorder = nil;
+    ORK1HealthQuantityTypeRecorder *heartRateRecorder = nil;
+    for (ORK1Recorder *recorder in self.recorders) {
+        if ([recorder isKindOfClass:[ORK1PedometerRecorder class]]) {
+            pedometerRecorder = (ORK1PedometerRecorder *)recorder;
+        } else if ([recorder isKindOfClass:[ORK1HealthQuantityTypeRecorder class]]) {
+            ORK1HealthQuantityTypeRecorder *rec1 = (ORK1HealthQuantityTypeRecorder *)recorder;
             if ([[[rec1 quantityType] identifier] isEqualToString:HKQuantityTypeIdentifierHeartRate]) {
-                heartRateRecorder = (ORKLegacyHealthQuantityTypeRecorder *)recorder;
+                heartRateRecorder = (ORK1HealthQuantityTypeRecorder *)recorder;
             }
         }
     }
@@ -130,22 +130,22 @@
     
 }
 
-- (void)countDownTimerFired:(ORKLegacyActiveStepTimer *)timer finished:(BOOL)finished {
+- (void)countDownTimerFired:(ORK1ActiveStepTimer *)timer finished:(BOOL)finished {
     _contentView.timeLeft = finished ? 0 : (timer.duration - timer.runtime);
     [super countDownTimerFired:timer finished:finished];
 }
 
-#pragma mark - ORKLegacyHealthQuantityTypeRecorderDelegate
+#pragma mark - ORK1HealthQuantityTypeRecorderDelegate
 
-- (void)healthQuantityTypeRecorderDidUpdate:(ORKLegacyHealthQuantityTypeRecorder *)healthQuantityTypeRecorder {
+- (void)healthQuantityTypeRecorderDidUpdate:(ORK1HealthQuantityTypeRecorder *)healthQuantityTypeRecorder {
     if ([[healthQuantityTypeRecorder.quantityType identifier] isEqualToString:HKQuantityTypeIdentifierHeartRate]) {
         [self updateHeartRateWithQuantity:healthQuantityTypeRecorder.lastSample unit:healthQuantityTypeRecorder.unit];
     }
 }
 
-#pragma mark - ORKLegacyPedometerRecorderDelegate
+#pragma mark - ORK1PedometerRecorderDelegate
 
-- (void)pedometerRecorderDidUpdate:(ORKLegacyPedometerRecorder *)pedometerRecorder {
+- (void)pedometerRecorderDidUpdate:(ORK1PedometerRecorder *)pedometerRecorder {
     double distanceInMeters = pedometerRecorder.totalDistance;
     [self updateDistance:distanceInMeters];
 }

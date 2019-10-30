@@ -34,10 +34,10 @@
 #import "ORKTappingIntervalStepViewController.h"
 
 
-@implementation ORKLegacyTappingIntervalStep
+@implementation ORK1TappingIntervalStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyTappingIntervalStepViewController class];
+    return [ORK1TappingIntervalStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -52,10 +52,10 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    NSTimeInterval const ORKLegacyTwoFingerTappingMinimumDuration = 5.0;
+    NSTimeInterval const ORK1TwoFingerTappingMinimumDuration = 5.0;
     
-    if ( self.stepDuration < ORKLegacyTwoFingerTappingMinimumDuration) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"duration cannot be shorter than %@ seconds.", @(ORKLegacyTwoFingerTappingMinimumDuration)]  userInfo:nil];
+    if ( self.stepDuration < ORK1TwoFingerTappingMinimumDuration) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"duration cannot be shorter than %@ seconds.", @(ORK1TwoFingerTappingMinimumDuration)]  userInfo:nil];
     }
 }
 

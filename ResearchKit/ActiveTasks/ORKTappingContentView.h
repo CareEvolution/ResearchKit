@@ -35,18 +35,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyRoundTappingButton;
+@class ORK1RoundTappingButton;
 
-@interface ORKLegacyTappingContentView : ORKLegacyActiveStepCustomView
+@interface ORK1TappingContentView : ORK1ActiveStepCustomView
 
 - (void)setTapCount:(NSUInteger)tapCount;
 - (void)setProgress:(CGFloat)progress animated:(BOOL)animated;
 
 @property (nonatomic, assign) BOOL hasSkipButton;
 
-@property (nonatomic, strong, readonly) ORKLegacyRoundTappingButton *tapButton1;
+@property (nonatomic, strong, readonly) ORK1RoundTappingButton *tapButton1;
 
-@property (nonatomic, strong, readonly) ORKLegacyRoundTappingButton *tapButton2;
+@property (nonatomic, strong, readonly) ORK1RoundTappingButton *tapButton2;
 
 @property (nonatomic, assign) NSInteger lastTappedButton;
 

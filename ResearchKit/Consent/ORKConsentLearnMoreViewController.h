@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyConsentLearnMoreViewController : UIViewController
+@interface ORK1ConsentLearnMoreViewController : UIViewController
 
 - (instancetype)initWithHTMLContent:(NSString *)content;
 - (instancetype)initWithContentURL:(NSURL *)contentURL;

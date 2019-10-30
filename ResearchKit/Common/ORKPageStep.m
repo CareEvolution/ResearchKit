@@ -34,21 +34,21 @@
 #import "ORKResult.h"
 
 
-@implementation ORKLegacyPageStep
+@implementation ORK1PageStep
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     return [self initWithIdentifier:identifier steps:@[]];
 }
 
-- (instancetype)initWithIdentifier:(NSString *)identifier steps:(NSArray<ORKLegacyStep *> *)steps {
+- (instancetype)initWithIdentifier:(NSString *)identifier steps:(NSArray<ORK1Step *> *)steps {
     self = [super initWithIdentifier:identifier];
     if (self) {
-        [self ork_initializePageTask:[[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps]];
+        [self ork_initializePageTask:[[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps]];
     }
     return self;
 }
 
-- (instancetype)initWithIdentifier:(NSString *)identifier pageTask:(ORKLegacyOrderedTask *)task {
+- (instancetype)initWithIdentifier:(NSString *)identifier pageTask:(ORK1OrderedTask *)task {
     self = [super initWithIdentifier:identifier];
     if (self) {
         [self ork_initializePageTask:task];
@@ -56,28 +56,28 @@
     return self;
 }
 
-- (void)ork_initializePageTask:(ORKLegacyOrderedTask *)task {
+- (void)ork_initializePageTask:(ORK1OrderedTask *)task {
     _pageTask = [task copy];
     [self validateParameters];
 }
 
-- (NSArray<ORKLegacyStep *> *)steps {
+- (NSArray<ORK1Step *> *)steps {
     return self.pageTask.steps;
 }
 
 #pragma mark - view controller instantiation
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyPageStepViewController class];
+    return [ORK1PageStepViewController class];
 }
 
 #pragma mark - permissions
 
-- (ORKLegacyPermissionMask)requestedPermissions {
+- (ORK1PermissionMask)requestedPermissions {
     if ([self.pageTask respondsToSelector:@selector(requestedPermissions)]) {
         return [self.pageTask requestedPermissions];
     }
-    return ORKLegacyPermissionNone;
+    return ORK1PermissionNone;
 }
 
 - (NSSet<HKObjectType *> *)requestedHealthKitTypesForReading {
@@ -90,7 +90,7 @@
 #pragma mark - NSCopying
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyPageStep *copy = [super copyWithZone:zone];
+    ORK1PageStep *copy = [super copyWithZone:zone];
     copy->_pageTask = [_pageTask copyWithZone:zone];
     return copy;
 }
@@ -104,7 +104,7 @@
     
     __typeof(self) castObject = object;
     return ([super isEqual:object]
-            && ORKLegacyEqualObjects(self.pageTask, castObject.pageTask));
+            && ORK1EqualObjects(self.pageTask, castObject.pageTask));
 }
 
 - (NSUInteger)hash {
@@ -119,17 +119,17 @@
     }
 }
 
-- (ORKLegacyStep *)stepAfterStepWithIdentifier:(NSString *)identifier withResult:(ORKLegacyTaskResult *)result {
-    ORKLegacyStep *step = (identifier != nil) ? [self stepWithIdentifier:identifier] : nil;
+- (ORK1Step *)stepAfterStepWithIdentifier:(NSString *)identifier withResult:(ORK1TaskResult *)result {
+    ORK1Step *step = (identifier != nil) ? [self stepWithIdentifier:identifier] : nil;
     return [self.pageTask stepAfterStep:step withResult:result];
 }
 
-- (ORKLegacyStep *)stepBeforeStepWithIdentifier:(NSString *)identifier withResult:(ORKLegacyTaskResult *)result {
-    ORKLegacyStep *step = (identifier != nil) ? [self stepWithIdentifier:identifier] : nil;
+- (ORK1Step *)stepBeforeStepWithIdentifier:(NSString *)identifier withResult:(ORK1TaskResult *)result {
+    ORK1Step *step = (identifier != nil) ? [self stepWithIdentifier:identifier] : nil;
     return [self.pageTask stepBeforeStep:step withResult:result];
 }
 
-- (ORKLegacyStep *)stepWithIdentifier:(NSString *)identifier {
+- (ORK1Step *)stepWithIdentifier:(NSString *)identifier {
     return [self.pageTask stepWithIdentifier:identifier];
 }
 
@@ -141,13 +141,13 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_OBJ(aCoder, pageTask);
+    ORK1_ENCODE_OBJ(aCoder, pageTask);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, pageTask, ORKLegacyOrderedTask);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, pageTask, ORK1OrderedTask);
     }
     return self;
 }

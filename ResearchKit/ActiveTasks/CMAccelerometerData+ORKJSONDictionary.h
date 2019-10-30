@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CMAccelerometerData (ORKLegacyJSONDictionary)
+@interface CMAccelerometerData (ORK1JSONDictionary)
 
 - (NSDictionary *)ork_JSONDictionary;
 

@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyVerificationStepView : ORKLegacyVerticalContainerView
+@interface ORK1VerificationStepView : ORK1VerticalContainerView
 
 @property (nonatomic, strong, readonly) UIButton *resendEmailButton;
 

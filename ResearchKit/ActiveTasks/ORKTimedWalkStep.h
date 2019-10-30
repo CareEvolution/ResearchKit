@@ -36,8 +36,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTimedWalkStep : ORKLegacyActiveStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1TimedWalkStep : ORK1ActiveStep
 
 @property (nonatomic, assign) double distanceInMeters;
 

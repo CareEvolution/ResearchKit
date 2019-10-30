@@ -34,29 +34,29 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyNavigablePageStep` class is a concrete subclass of `ORKLegacyPageStep`, used for presenting a subgrouping of
- `ORKLegacyStepViewController` views using a `UIPageViewController`. It allows for using an `ORKLegacyOrderedTask` as
+ The `ORK1NavigablePageStep` class is a concrete subclass of `ORK1PageStep`, used for presenting a subgrouping of
+ `ORK1StepViewController` views using a `UIPageViewController`. It allows for using an `ORK1OrderedTask` as
  the model object used to define navigation, and has been added specifically to allow developers to use 
- `ORKLegacyNavigableOrderedTask` and other subclasses of ORKLegacyOrderedTask with the `ORKLegacyPageStep`.
+ `ORK1NavigableOrderedTask` and other subclasses of ORK1OrderedTask with the `ORK1PageStep`.
  
- To use `ORKLegacyNavigablePageStep`, instantiate the object, fill in its properties, and include it in a task.
+ To use `ORK1NavigablePageStep`, instantiate the object, fill in its properties, and include it in a task.
  Next, create a task view controller for the task and present it.
  
- The base class implementation will instatiate a read-only `ORKLegacyPageStepViewController` to display
- a series of substeps. For each substep, the `ORKLegacyStepViewController` will be instantiated and added
- as a child of the `UIPageViewController` contained by the parent `ORKLegacyPageStepViewController`..
+ The base class implementation will instatiate a read-only `ORK1PageStepViewController` to display
+ a series of substeps. For each substep, the `ORK1StepViewController` will be instantiated and added
+ as a child of the `UIPageViewController` contained by the parent `ORK1PageStepViewController`..
  
- Customization can be handled by overriding the base class implementations in either `ORKLegacyNavigablePageStep`
- or `ORKLegacyPageStepViewController`.
+ Customization can be handled by overriding the base class implementations in either `ORK1NavigablePageStep`
+ or `ORK1PageStepViewController`.
  */
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyNavigablePageStep : ORKLegacyPageStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1NavigablePageStep : ORK1PageStep
 
 /**
  The subtask used to determine the next/previous steps that are in this grouping
  */
-@property (nonatomic, copy, readonly) ORKLegacyOrderedTask *pageTask;
+@property (nonatomic, copy, readonly) ORK1OrderedTask *pageTask;
 
 /**
  Returns an initialized page step using the specified identifier and task.
@@ -67,7 +67,7 @@ ORKLegacy_CLASS_AVAILABLE
  @return An initialized navigable page step.
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                          pageTask:(ORKLegacyOrderedTask *)task NS_DESIGNATED_INITIALIZER;
+                          pageTask:(ORK1OrderedTask *)task NS_DESIGNATED_INITIALIZER;
 
 /**
  Returns a page step initialized from data in the given unarchiver.

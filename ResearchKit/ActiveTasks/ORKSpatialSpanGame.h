@@ -35,12 +35,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacySpatialSpanGame` class represents a model object that represents one game-like experience in a spatial span memory task.
+ The `ORK1SpatialSpanGame` class represents a model object that represents one game-like experience in a spatial span memory task.
  
  A game consists of a subset of a permutation of the integers [0 .. gameSize - 1],
  which represent the sequence of targets that should be tapped.
  */
-@interface ORKLegacySpatialSpanGame : NSObject
+@interface ORK1SpatialSpanGame : NSObject
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;

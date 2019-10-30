@@ -36,41 +36,41 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-BOOL ORKLegacyIsAnswerEmpty(_Nullable id answer);
+BOOL ORK1IsAnswerEmpty(_Nullable id answer);
 
-NSString *ORKLegacyHKBiologicalSexString(HKBiologicalSex biologicalSex);
-NSString *ORKLegacyHKBloodTypeString(HKBloodType bloodType);
-NSString *ORKLegacyQuestionTypeString(ORKLegacyQuestionType questionType);
+NSString *ORK1HKBiologicalSexString(HKBiologicalSex biologicalSex);
+NSString *ORK1HKBloodTypeString(HKBloodType bloodType);
+NSString *ORK1QuestionTypeString(ORK1QuestionType questionType);
 
 // Need to mark these as designated initializers to avoid warnings once we designate the others.
-#define ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(C) \
+#define ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(C) \
 @interface C () \
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER; \
 @end
 
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyImageChoiceAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyValuePickerAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyMultipleValuePickerAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyTextChoiceAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyTextChoice)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyImageChoice)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyTimeOfDayAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyDateAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyTimeOfDayAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyNumericAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyScaleAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyContinuousScaleAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyTextScaleAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyTextAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyTimeIntervalAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyHeightAnswerFormat)
-ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyWeightAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1AnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1ImageChoiceAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1ValuePickerAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1MultipleValuePickerAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1TextChoiceAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1TextChoice)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1ImageChoice)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1TimeOfDayAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1DateAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1TimeOfDayAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1NumericAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1ScaleAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1ContinuousScaleAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1TextScaleAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1TextAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1TimeIntervalAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1HeightAnswerFormat)
+ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1WeightAnswerFormat)
 
 
-@class ORKLegacyQuestionResult;
+@class ORK1QuestionResult;
 
-@interface ORKLegacyAnswerFormat ()
+@interface ORK1AnswerFormat ()
 
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
 
@@ -89,14 +89,14 @@ ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyWeightAnswerF
 
 - (nonnull Class)questionResultClass;
 
-- (ORKLegacyQuestionResult *)resultWithIdentifier:(NSString *)identifier answer:(id)answer;
+- (ORK1QuestionResult *)resultWithIdentifier:(NSString *)identifier answer:(id)answer;
 
 - (nullable NSString *)stringForAnswer:(id)answer;
 
 @end
 
 
-@interface ORKLegacyNumericAnswerFormat ()
+@interface ORK1NumericAnswerFormat ()
 
 - (nullable NSString *)sanitizedTextFieldText:(nullable NSString *)text decimalSeparator:(nullable NSString *)separator;
 
@@ -104,9 +104,9 @@ ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyWeightAnswerF
 
 
 /**
- The `ORKLegacyAnswerOption` protocol defines brief option text for a option which can be included within `ORKLegacy*ChoiceAnswerFormat`.
+ The `ORK1AnswerOption` protocol defines brief option text for a option which can be included within `ORK1*ChoiceAnswerFormat`.
  */
-@protocol ORKLegacyAnswerOption <NSObject>
+@protocol ORK1AnswerOption <NSObject>
 
 /**
  Brief option text.
@@ -117,14 +117,14 @@ ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyWeightAnswerF
  The value to be returned if this option is selected.
 
  Expected to be a scalar type serializable to JSON, e.g. `NSNumber` or `NSString`.
- If no value is provided, the index of the option in the `ORKLegacy*ChoiceAnswerFormat` options list will be used.
+ If no value is provided, the index of the option in the `ORK1*ChoiceAnswerFormat` options list will be used.
  */
 - (nullable id)value;
 
 @end
 
 
-@protocol ORKLegacyScaleAnswerFormatProvider <NSObject>
+@protocol ORK1ScaleAnswerFormatProvider <NSObject>
 
 - (nullable NSNumber *)minimumNumber;
 - (nullable NSNumber *)maximumNumber;
@@ -143,63 +143,63 @@ ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyWeightAnswerF
 @end
 
 
-@protocol ORKLegacyTextScaleAnswerFormatProvider <ORKLegacyScaleAnswerFormatProvider>
+@protocol ORK1TextScaleAnswerFormatProvider <ORK1ScaleAnswerFormatProvider>
 
-- (NSArray<ORKLegacyTextChoice *> *)textChoices;
-- (ORKLegacyTextChoice *)textChoiceAtIndex:(NSUInteger)index;
+- (NSArray<ORK1TextChoice *> *)textChoices;
+- (ORK1TextChoice *)textChoiceAtIndex:(NSUInteger)index;
 - (NSUInteger)textChoiceIndexForValue:(id<NSCopying, NSCoding, NSObject>)value;
 
 @end
 
-@protocol ORKLegacyConfirmAnswerFormatProvider <NSObject>
+@protocol ORK1ConfirmAnswerFormatProvider <NSObject>
 
-- (ORKLegacyAnswerFormat *)confirmationAnswerFormatWithOriginalItemIdentifier:(NSString *)originalItemIdentifier
+- (ORK1AnswerFormat *)confirmationAnswerFormatWithOriginalItemIdentifier:(NSString *)originalItemIdentifier
                                                            errorMessage:(NSString *)errorMessage;
 
 @end
 
 
-@interface ORKLegacyScaleAnswerFormat () <ORKLegacyScaleAnswerFormatProvider>
+@interface ORK1ScaleAnswerFormat () <ORK1ScaleAnswerFormatProvider>
 
 @end
 
 
-@interface ORKLegacyContinuousScaleAnswerFormat () <ORKLegacyScaleAnswerFormatProvider>
+@interface ORK1ContinuousScaleAnswerFormat () <ORK1ScaleAnswerFormatProvider>
 
 @end
 
 
-@interface ORKLegacyTextScaleAnswerFormat () <ORKLegacyTextScaleAnswerFormatProvider>
+@interface ORK1TextScaleAnswerFormat () <ORK1TextScaleAnswerFormatProvider>
 
 @end
 
 
-@interface ORKLegacyTextChoice () <ORKLegacyAnswerOption>
+@interface ORK1TextChoice () <ORK1AnswerOption>
 
 @end
 
-@interface ORKLegacyValuePickerAnswerFormat ()
+@interface ORK1ValuePickerAnswerFormat ()
 
-- (instancetype)initWithTextChoices:(NSArray<ORKLegacyTextChoice *> *)textChoices nullChoice:(ORKLegacyTextChoice *)nullChoice NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTextChoices:(NSArray<ORK1TextChoice *> *)textChoices nullChoice:(ORK1TextChoice *)nullChoice NS_DESIGNATED_INITIALIZER;
 
-- (ORKLegacyTextChoice *)nullTextChoice;
-
-@end
-
-
-@interface ORKLegacyImageChoice () <ORKLegacyAnswerOption>
+- (ORK1TextChoice *)nullTextChoice;
 
 @end
 
 
-@interface ORKLegacyTimeOfDayAnswerFormat ()
+@interface ORK1ImageChoice () <ORK1AnswerOption>
+
+@end
+
+
+@interface ORK1TimeOfDayAnswerFormat ()
 
 - (NSDate *)pickerDefaultDate;
 
 @end
 
 
-@interface ORKLegacyDateAnswerFormat ()
+@interface ORK1DateAnswerFormat ()
 
 - (NSDate *)pickerDefaultDate;
 - (nullable NSDate *)pickerMinimumDate;
@@ -210,43 +210,43 @@ ORKLegacy_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKLegacyWeightAnswerF
 @end
 
 
-@interface ORKLegacyTimeIntervalAnswerFormat ()
+@interface ORK1TimeIntervalAnswerFormat ()
 
 - (NSTimeInterval)pickerDefaultDuration;
 
 @end
 
 
-@interface ORKLegacyTextAnswerFormat () <ORKLegacyConfirmAnswerFormatProvider>
+@interface ORK1TextAnswerFormat () <ORK1ConfirmAnswerFormatProvider>
 
 @end
 
 
-@interface ORKLegacyHeightAnswerFormat ()
+@interface ORK1HeightAnswerFormat ()
 
 @property (nonatomic, readonly) BOOL useMetricSystem;
 
 @end
 
 
-@interface ORKLegacyWeightAnswerFormat ()
+@interface ORK1WeightAnswerFormat ()
 
 @property (nonatomic, readonly) BOOL useMetricSystem;
 
 @end
 
 
-@interface ORKLegacyAnswerDefaultSource : NSObject
+@interface ORK1AnswerDefaultSource : NSObject
 
 + (instancetype)sourceWithHealthStore:(HKHealthStore *)healthStore;
 - (instancetype)initWithHealthStore:(HKHealthStore *)healthStore NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, strong, readonly, nullable) HKHealthStore *healthStore;
 
-- (void)fetchDefaultValueForAnswerFormat:(nullable ORKLegacyAnswerFormat *)answerFormat handler:(void(^)(id defaultValue, NSError *error))handler;
+- (void)fetchDefaultValueForAnswerFormat:(nullable ORK1AnswerFormat *)answerFormat handler:(void(^)(id defaultValue, NSError *error))handler;
 
-- (HKUnit *)defaultHealthKitUnitForAnswerFormat:(ORKLegacyAnswerFormat *)answerFormat;
-- (void)updateHealthKitUnitForAnswerFormat:(ORKLegacyAnswerFormat *)answerFormat force:(BOOL)force;
+- (HKUnit *)defaultHealthKitUnitForAnswerFormat:(ORK1AnswerFormat *)answerFormat;
+- (void)updateHealthKitUnitForAnswerFormat:(ORK1AnswerFormat *)answerFormat force:(BOOL)force;
 
 @end
 

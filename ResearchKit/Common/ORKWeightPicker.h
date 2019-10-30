@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyWeightPicker : NSObject <ORKLegacyPicker>
+@interface ORK1WeightPicker : NSObject <ORK1Picker>
 
 @end
 

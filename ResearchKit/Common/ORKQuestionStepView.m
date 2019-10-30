@@ -39,15 +39,15 @@
 #import "ORKQuestionStep_Internal.h"
 
 
-@implementation ORKLegacyQuestionStepView
+@implementation ORK1QuestionStepView
 
-- (void)setQuestionCustomView:(ORKLegacyQuestionStepCustomView *)questionCustomView {
+- (void)setQuestionCustomView:(ORK1QuestionStepCustomView *)questionCustomView {
     _questionCustomView = questionCustomView;
     questionCustomView.translatesAutoresizingMaskIntoConstraints = NO;
     self.stepView = _questionCustomView;
 }
 
-- (void)setQuestionStep:(ORKLegacyQuestionStep *)step {
+- (void)setQuestionStep:(ORK1QuestionStep *)step {
     self.continueSkipContainer.useNextForSkip = (step ? NO : YES);
     _questionStep = step;
     self.headerView.instructionLabel.hidden = ![_questionStep text].length;

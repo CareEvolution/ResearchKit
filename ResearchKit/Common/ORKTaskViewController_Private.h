@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyTaskViewController (ORKLegacyActiveTaskSupport)
+@interface ORK1TaskViewController (ORK1ActiveTaskSupport)
 
 /**
  Suspends the task.

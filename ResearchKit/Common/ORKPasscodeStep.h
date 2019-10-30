@@ -36,24 +36,24 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- An enumeration of values used in `ORKLegacyPasscodeStepViewController` to indicate the type of flow used
+ An enumeration of values used in `ORK1PasscodeStepViewController` to indicate the type of flow used
  by the view controller.
  */
-typedef NS_ENUM(NSUInteger, ORKLegacyPasscodeFlow) {
-    ORKLegacyPasscodeFlowCreate,
-    ORKLegacyPasscodeFlowAuthenticate,
-    ORKLegacyPasscodeFlowEdit
+typedef NS_ENUM(NSUInteger, ORK1PasscodeFlow) {
+    ORK1PasscodeFlowCreate,
+    ORK1PasscodeFlowAuthenticate,
+    ORK1PasscodeFlowEdit
 };
 
 /**
- An `ORKLegacyPasscodeStep` object provides the participant a passcode creation step.
+ An `ORK1PasscodeStep` object provides the participant a passcode creation step.
  
  It is recommended to use a passcode step as part of the consent process to ensure
  that the participant signing the consent is the same participant completing other 
  modules within that context.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyPasscodeStep : ORKLegacyStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1PasscodeStep : ORK1Step
 
 /**
  Returns a new passcode step with the specified identifier and passcode flow.
@@ -62,21 +62,21 @@ ORKLegacy_CLASS_AVAILABLE
  @param passcodeFlow  The passcode flow to be used for the step.
  */
 + (instancetype)passcodeStepWithIdentifier:(NSString *)identifier
-                              passcodeFlow:(ORKLegacyPasscodeFlow)passcodeFlow;
+                              passcodeFlow:(ORK1PasscodeFlow)passcodeFlow;
 
 /**
  The passcode flow to be used for the step.
  
- The default value of this property is `ORKLegacyPasscodeFlowCreate`.
+ The default value of this property is `ORK1PasscodeFlowCreate`.
  */
-@property (nonatomic) ORKLegacyPasscodeFlow passcodeFlow;
+@property (nonatomic) ORK1PasscodeFlow passcodeFlow;
 
 /**
  The passcode type to be used for the step.
  
- The default value of this property is `ORKLegacyPasscodeType4Digit`.
+ The default value of this property is `ORK1PasscodeType4Digit`.
  */
-@property (nonatomic) ORKLegacyPasscodeType passcodeType;
+@property (nonatomic) ORK1PasscodeType passcodeType;
 
 @end
 

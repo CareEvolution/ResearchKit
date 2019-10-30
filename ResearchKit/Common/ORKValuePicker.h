@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyValuePicker : NSObject <ORKLegacyPicker>
+@interface ORK1ValuePicker : NSObject <ORK1Picker>
 
 @end
 

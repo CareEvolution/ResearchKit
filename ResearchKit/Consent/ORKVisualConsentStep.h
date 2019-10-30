@@ -35,24 +35,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyConsentDocument;
+@class ORK1ConsentDocument;
 
 /**
- The `ORKLegacyVisualConsentStep` class represents a step in the visual consent sequence.
+ The `ORK1VisualConsentStep` class represents a step in the visual consent sequence.
  
  To use a visual consent step, first create a consent document with at least one
- section (at least one section must not be of type `ORKLegacyConsentSectionTypeOnlyInDocument`) and attach the document to a visual consent step. Put the visual consent step
+ section (at least one section must not be of type `ORK1ConsentSectionTypeOnlyInDocument`) and attach the document to a visual consent step. Put the visual consent step
  into a ResearchKit task, and present it with a task view controller.
  
- In the ResearchKit framework, an `ORKLegacyVisualConsentStep` object is used to present a series of simple
+ In the ResearchKit framework, an `ORK1VisualConsentStep` object is used to present a series of simple
  graphics to help study participants understand the content of an informed
  consent document. The default graphics include animated transitions.
  The textual content you need to provide in the `consentDocument` property should relate to the specific study being run and should be localized.
  
- An `ORKLegacyVisualConsentStep` object produces an `ORKLegacyStepResult` object, in which the dates indicate the total amount of time participants have spent in the consent process, and the route by which they can exit the consent process.
+ An `ORK1VisualConsentStep` object produces an `ORK1StepResult` object, in which the dates indicate the total amount of time participants have spent in the consent process, and the route by which they can exit the consent process.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyVisualConsentStep : ORKLegacyStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1VisualConsentStep : ORK1Step
 
 /**
  Returns an initialized visual consent step using the specified identifier and consent document.
@@ -60,13 +60,13 @@ ORKLegacy_CLASS_AVAILABLE
  @param identifier          The identifier of the visual consent step, unique within the document.
  @param consentDocument     The informed consent document.
  */
-- (instancetype)initWithIdentifier:(NSString *)identifier document:(nullable ORKLegacyConsentDocument *)consentDocument;
+- (instancetype)initWithIdentifier:(NSString *)identifier document:(nullable ORK1ConsentDocument *)consentDocument;
 
 /**
  The consent document whose sections determine the order and appearance of scenes
  in the visual consent step.
  */
-@property (nonatomic, strong, nullable) ORKLegacyConsentDocument *consentDocument;
+@property (nonatomic, strong, nullable) ORK1ConsentDocument *consentDocument;
 
 @end
 

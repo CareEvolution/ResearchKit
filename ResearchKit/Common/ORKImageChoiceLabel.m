@@ -34,10 +34,10 @@
 #import "ORKSubheadlineLabel.h"
 
 
-@implementation ORKLegacyImageChoiceLabel
+@implementation ORK1ImageChoiceLabel
 
 + (UIFont *)defaultFont {
-    return [ORKLegacySubheadlineLabel defaultFont];
+    return [ORK1SubheadlineLabel defaultFont];
 }
 
 - (CGSize)intrinsicContentSize {

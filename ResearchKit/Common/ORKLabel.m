@@ -34,12 +34,12 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyLabel
+@implementation ORK1Label
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [self init_ORKLegacyLabel];
+        [self init_ORK1Label];
     }
     return self;
 }
@@ -47,12 +47,12 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self init_ORKLegacyLabel];
+        [self init_ORK1Label];
     }
     return self;
 }
 
-- (void)init_ORKLegacyLabel {
+- (void)init_ORK1Label {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateAppearance)
                                                  name:UIContentSizeCategoryDidChangeNotification
@@ -76,7 +76,7 @@
 
 + (UIFont *)defaultFont {
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline];
-    return ORKLegacyMediumFontWithSize(((NSNumber *)[descriptor objectForKey: UIFontDescriptorSizeAttribute]).doubleValue + 3.0);
+    return ORK1MediumFontWithSize(((NSNumber *)[descriptor objectForKey: UIFontDescriptorSizeAttribute]).doubleValue + 3.0);
 }
 
 @end

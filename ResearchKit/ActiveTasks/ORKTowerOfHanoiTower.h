@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyTowerOfHanoiTower : NSObject
+@interface ORK1TowerOfHanoiTower : NSObject
 
 @property (nonatomic, copy, readonly) NSArray *disks;
 
@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithDisks:(NSArray *)disks;
 
-- (BOOL)recieveDiskFrom:(ORKLegacyTowerOfHanoiTower *)donorTower;
+- (BOOL)recieveDiskFrom:(ORK1TowerOfHanoiTower *)donorTower;
 
 @end
 

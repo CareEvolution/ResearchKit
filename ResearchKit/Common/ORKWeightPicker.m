@@ -35,16 +35,16 @@
 #import "ORKAccessibilityFunctions.h"
 
 
-@interface ORKLegacyWeightPicker () <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface ORK1WeightPicker () <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @end
 
 
-@implementation ORKLegacyWeightPicker {
+@implementation ORK1WeightPicker {
     UIPickerView *_pickerView;
-    ORKLegacyWeightAnswerFormat *_answerFormat;
+    ORK1WeightAnswerFormat *_answerFormat;
     id _answer;
-    __weak id<ORKLegacyPickerDelegate> _pickerDelegate;
+    __weak id<ORK1PickerDelegate> _pickerDelegate;
     NSArray *_majorValues;
     NSArray *_minorValues;
     double _canonicalMaximumValue;
@@ -53,10 +53,10 @@
 
 @synthesize pickerDelegate = _pickerDelegate;
 
-- (instancetype)initWithAnswerFormat:(ORKLegacyWeightAnswerFormat *)answerFormat answer:(id)answer pickerDelegate:(id<ORKLegacyPickerDelegate>)delegate {
+- (instancetype)initWithAnswerFormat:(ORK1WeightAnswerFormat *)answerFormat answer:(id)answer pickerDelegate:(id<ORK1PickerDelegate>)delegate {
     self = [super init];
     if (self) {
-        NSAssert([answerFormat isKindOfClass:[ORKLegacyWeightAnswerFormat class]], @"answerFormat should be ORKLegacyWeightAnswerFormat");
+        NSAssert([answerFormat isKindOfClass:[ORK1WeightAnswerFormat class]], @"answerFormat should be ORK1WeightAnswerFormat");
                 
         // Take into account locale changes so unit string can be updated
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -67,8 +67,8 @@
         _pickerDelegate = delegate;
         self.answer = answer;
         
-        _canonicalMaximumValue = ORKLegacyDoubleDefaultValue;
-        _canonicalMinimumValue = ORKLegacyDoubleDefaultValue;
+        _canonicalMaximumValue = ORK1DoubleDefaultValue;
+        _canonicalMinimumValue = ORK1DoubleDefaultValue;
 
         if (_answerFormat.useMetricSystem) {
             _majorValues = [self kilogramValues];
@@ -76,7 +76,7 @@
             _majorValues = [self poundValues];
         }
         
-        if (_answerFormat.numericPrecision == ORKLegacyNumericPrecisionHigh) {
+        if (_answerFormat.numericPrecision == ORK1NumericPrecisionHigh) {
             _minorValues = [self _minorValues];
         }
     }
@@ -96,12 +96,12 @@
 - (void)setAnswer:(id)answer {
     _answer = answer;
     
-    if (ORKLegacyIsAnswerEmpty(answer)) {
+    if (ORK1IsAnswerEmpty(answer)) {
         answer = [self defaultAnswerValue];
     }
     
     if (_answerFormat.useMetricSystem) {
-        if (_answerFormat.numericPrecision != ORKLegacyNumericPrecisionHigh) {
+        if (_answerFormat.numericPrecision != ORK1NumericPrecisionHigh) {
             NSUInteger index = [_majorValues indexOfObject:@((NSInteger)((NSNumber *)answer).doubleValue)];
             if (index == NSNotFound) {
                 [self setAnswer:[self defaultAnswerValue]];
@@ -110,7 +110,7 @@
             [_pickerView selectRow:index inComponent:0 animated:NO];
         } else {
             double whole, fraction;
-            ORKLegacyKilogramsToWholeAndFraction(((NSNumber *)answer).doubleValue, &whole, &fraction);
+            ORK1KilogramsToWholeAndFraction(((NSNumber *)answer).doubleValue, &whole, &fraction);
             NSUInteger wholeIndex = [_majorValues indexOfObject:@((NSInteger)whole)];
             NSUInteger fractionIndex = [_minorValues indexOfObject:@((NSInteger)fraction)];
             if (wholeIndex == NSNotFound || fractionIndex == NSNotFound) {
@@ -122,8 +122,8 @@
             [_pickerView selectRow:0 inComponent:2 animated:NO];
         }
     } else {
-        if (_answerFormat.numericPrecision != ORKLegacyNumericPrecisionHigh) {
-            double pounds = ORKLegacyKilogramsToPounds(((NSNumber *)answer).doubleValue);
+        if (_answerFormat.numericPrecision != ORK1NumericPrecisionHigh) {
+            double pounds = ORK1KilogramsToPounds(((NSNumber *)answer).doubleValue);
             NSUInteger poundsIndex = [_majorValues indexOfObject:@((NSInteger)pounds)];
             if (poundsIndex == NSNotFound) {
                 [self setAnswer:[self defaultAnswerValue]];
@@ -132,7 +132,7 @@
             [_pickerView selectRow:poundsIndex inComponent:0 animated:NO];
         } else {
             double pounds, ounces;
-            ORKLegacyKilogramsToPoundsAndOunces(((NSNumber *)answer).doubleValue, &pounds, &ounces);
+            ORK1KilogramsToPoundsAndOunces(((NSNumber *)answer).doubleValue, &pounds, &ounces);
             NSUInteger poundsIndex = [_majorValues indexOfObject:@((NSInteger)pounds)];
             NSUInteger ouncesIndex = [_minorValues indexOfObject:@((NSInteger)ounces)];
             if (poundsIndex == NSNotFound || ouncesIndex == NSNotFound) {
@@ -150,8 +150,8 @@
 }
 
 - (NSNumber *)defaultAnswerValue {
-    double defaultValue = ORKLegacyDoubleDefaultValue;
-    if (_answerFormat.defaultValue == ORKLegacyDoubleDefaultValue) {
+    double defaultValue = ORK1DoubleDefaultValue;
+    if (_answerFormat.defaultValue == ORK1DoubleDefaultValue) {
         if (_answerFormat.useMetricSystem) {
             defaultValue = 60.00; // Default metric weight: 60 kg
         } else {
@@ -161,13 +161,13 @@
         if (_answerFormat.useMetricSystem) {
             defaultValue = _answerFormat.defaultValue;
         } else {
-            defaultValue = ORKLegacyPoundsToKilograms(_answerFormat.defaultValue); // Convert to kg
+            defaultValue = ORK1PoundsToKilograms(_answerFormat.defaultValue); // Convert to kg
         }
     }
     // Ensure default value is within bounds
-    if ((_canonicalMinimumValue != ORKLegacyDoubleDefaultValue) && (defaultValue < _canonicalMinimumValue)) {
+    if ((_canonicalMinimumValue != ORK1DoubleDefaultValue) && (defaultValue < _canonicalMinimumValue)) {
         defaultValue = _canonicalMinimumValue;
-    } else if ((_canonicalMaximumValue  != ORKLegacyDoubleDefaultValue) && (defaultValue > _canonicalMaximumValue)) {
+    } else if ((_canonicalMaximumValue  != ORK1DoubleDefaultValue) && (defaultValue > _canonicalMaximumValue)) {
         defaultValue = _canonicalMaximumValue;
     }
     
@@ -179,22 +179,22 @@
     if (_answerFormat.useMetricSystem) {
         NSInteger wholeRow = [_pickerView selectedRowInComponent:0];
         NSNumber *whole = _majorValues[wholeRow];
-        if (_answerFormat.numericPrecision != ORKLegacyNumericPrecisionHigh) {
+        if (_answerFormat.numericPrecision != ORK1NumericPrecisionHigh) {
             answer = @( whole.doubleValue );
         } else {
             NSInteger fractionRow = [_pickerView selectedRowInComponent:1];
             NSNumber *fraction = _minorValues[fractionRow];
-            answer = @( ORKLegacyWholeAndFractionToKilograms(whole.doubleValue, fraction.doubleValue) );
+            answer = @( ORK1WholeAndFractionToKilograms(whole.doubleValue, fraction.doubleValue) );
         }
     } else {
         NSInteger poundsRow = [_pickerView selectedRowInComponent:0];
         NSNumber *pounds = _majorValues[poundsRow];
-        if (_answerFormat.numericPrecision != ORKLegacyNumericPrecisionHigh) {
-            answer = @( ORKLegacyPoundsToKilograms(pounds.doubleValue) );
+        if (_answerFormat.numericPrecision != ORK1NumericPrecisionHigh) {
+            answer = @( ORK1PoundsToKilograms(pounds.doubleValue) );
         } else {
             NSInteger ouncesRow = [_pickerView selectedRowInComponent:1];
             NSNumber *ounces = _minorValues[ouncesRow];
-            answer = @( ORKLegacyPoundsAndOuncesToKilograms(pounds.doubleValue, ounces.doubleValue) );
+            answer = @( ORK1PoundsAndOuncesToKilograms(pounds.doubleValue, ounces.doubleValue) );
         }
     }
     
@@ -206,7 +206,7 @@
 }
 
 - (void)pickerWillAppear {
-    // Report current value, since ORKLegacyWeightPicker always has a value
+    // Report current value, since ORK1WeightPicker always has a value
     [self pickerView];
     [self valueDidChange:self];
     [self accessibilityFocusOnPickerElement];
@@ -223,7 +223,7 @@
 
 - (void)accessibilityFocusOnPickerElement {
     if (UIAccessibilityIsVoiceOverRunning()) {
-        ORKLegacyAccessibilityPerformBlockAfterDelay(0.75, ^{
+        ORK1AccessibilityPerformBlockAfterDelay(0.75, ^{
             NSArray *axElements = [self.pickerView accessibilityElements];
             if ([axElements count] > 0) {
                 UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, [axElements objectAtIndex:0]);
@@ -235,7 +235,7 @@
 #pragma mark - UIPickerViewDataSource
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return (_answerFormat.numericPrecision != ORKLegacyNumericPrecisionHigh) ? 1 : (_answerFormat.useMetricSystem ? 3 : 2);
+    return (_answerFormat.numericPrecision != ORK1NumericPrecisionHigh) ? 1 : (_answerFormat.useMetricSystem ? 3 : 2);
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
@@ -254,24 +254,24 @@
     NSString *title = nil;
     if (_answerFormat.useMetricSystem) {
         if (component == 0) {
-            if (_answerFormat.numericPrecision != ORKLegacyNumericPrecisionHigh) {
-                title = [NSString stringWithFormat:@"%@ %@", _majorValues[row], ORKLegacyLocalizedString(@"MEASURING_UNIT_KG", nil)];
+            if (_answerFormat.numericPrecision != ORK1NumericPrecisionHigh) {
+                title = [NSString stringWithFormat:@"%@ %@", _majorValues[row], ORK1LocalizedString(@"MEASURING_UNIT_KG", nil)];
             } else {
                 title = [NSString stringWithFormat:@"%@", _majorValues[row]];
             }
         } else if (component == 1) {
-            NSNumberFormatter *formatter = ORKLegacyDecimalNumberFormatter();
+            NSNumberFormatter *formatter = ORK1DecimalNumberFormatter();
             formatter.minimumIntegerDigits = 2;
             formatter.maximumFractionDigits = 0;
             title = [NSString stringWithFormat:@".%@", [formatter stringFromNumber:_minorValues[row]]];
         } else if (component == 2) {
-            title = ORKLegacyLocalizedString(@"MEASURING_UNIT_KG", nil);
+            title = ORK1LocalizedString(@"MEASURING_UNIT_KG", nil);
         }
     } else {
         if (component == 0) {
-            title = [NSString stringWithFormat:@"%@ %@", _majorValues[row], ORKLegacyLocalizedString(@"MEASURING_UNIT_LB", nil)];
+            title = [NSString stringWithFormat:@"%@ %@", _majorValues[row], ORK1LocalizedString(@"MEASURING_UNIT_LB", nil)];
         } else {
-            title = [NSString stringWithFormat:@"%@ %@", _minorValues[row], ORKLegacyLocalizedString(@"MEASURING_UNIT_OZ", nil)];
+            title = [NSString stringWithFormat:@"%@ %@", _minorValues[row], ORK1LocalizedString(@"MEASURING_UNIT_OZ", nil)];
         }
     }    
     return title;
@@ -287,10 +287,10 @@
 
     double minimumValue = 0;
     double maximumValue = 657;
-    if ((_answerFormat.minimumValue != ORKLegacyDoubleDefaultValue) && (_answerFormat.minimumValue <= maximumValue)) {
+    if ((_answerFormat.minimumValue != ORK1DoubleDefaultValue) && (_answerFormat.minimumValue <= maximumValue)) {
         minimumValue = _answerFormat.minimumValue;
     }
-    if ((_answerFormat.maximumValue != ORKLegacyDoubleDefaultValue) && (_answerFormat.maximumValue >= minimumValue)) {
+    if ((_answerFormat.maximumValue != ORK1DoubleDefaultValue) && (_answerFormat.maximumValue >= minimumValue)) {
         maximumValue = _answerFormat.maximumValue;
     }
     _canonicalMinimumValue = minimumValue;
@@ -298,7 +298,7 @@
     
     for (double i = minimumValue; i <= maximumValue; i++) {
         [mutableWholeValues addObject:@(i)];
-        if (_answerFormat.numericPrecision == ORKLegacyNumericPrecisionDefault) {
+        if (_answerFormat.numericPrecision == ORK1NumericPrecisionDefault) {
             [mutableWholeValues addObject:@(i + 0.5)];
         }
     }
@@ -312,14 +312,14 @@
 
     double minimumValue = 0;
     double maximumValue = 1450;
-    if ((_answerFormat.minimumValue != ORKLegacyDoubleDefaultValue) && (_answerFormat.minimumValue <= maximumValue)) {
+    if ((_answerFormat.minimumValue != ORK1DoubleDefaultValue) && (_answerFormat.minimumValue <= maximumValue)) {
         minimumValue = _answerFormat.minimumValue;
     }
-    if ((_answerFormat.maximumValue != ORKLegacyDoubleDefaultValue) && (_answerFormat.maximumValue >= minimumValue)) {
+    if ((_answerFormat.maximumValue != ORK1DoubleDefaultValue) && (_answerFormat.maximumValue >= minimumValue)) {
         maximumValue = _answerFormat.maximumValue;
     }
-    _canonicalMinimumValue = ORKLegacyPoundsToKilograms(minimumValue); // Convert to kg
-    _canonicalMaximumValue = ORKLegacyPoundsToKilograms(maximumValue); // Convert to kg
+    _canonicalMinimumValue = ORK1PoundsToKilograms(minimumValue); // Convert to kg
+    _canonicalMaximumValue = ORK1PoundsToKilograms(maximumValue); // Convert to kg
     
     for (NSInteger i = minimumValue; i <= maximumValue; i++) {
         [mutableWholeValues addObject:[NSNumber numberWithInteger:i]];

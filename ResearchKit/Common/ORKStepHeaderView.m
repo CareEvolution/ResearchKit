@@ -36,9 +36,9 @@
 #import "ORKSkin.h"
 
 
-#define ORKLegacyVerticalContainerLog(...)
+#define ORK1VerticalContainerLog(...)
 
-@implementation ORKLegacyStepHeaderView {
+@implementation ORK1StepHeaderView {
     NSLayoutConstraint *_captionMinBottomSpacingConstraint;
     NSLayoutConstraint *_captionToInstructionConstraint;
     NSLayoutConstraint *_headerZeroHeightConstraint;
@@ -51,7 +51,7 @@
 }
 
 - (void)updateCaptionLabelPreferredWidth {
-    CGFloat sideMargin = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricHeadlineSideMargin, self.window);
+    CGFloat sideMargin = ORK1GetMetricForWindow(ORK1ScreenMetricHeadlineSideMargin, self.window);
     UIEdgeInsets layoutMargins = self.layoutMargins;
     
     // If we don't do this, sometimes the label doesn't split onto two lines properly.
@@ -89,14 +89,14 @@
         
         // Text Label
         {
-            _captionLabel = [ORKLegacyHeadlineLabel new];
+            _captionLabel = [ORK1HeadlineLabel new];
             _captionLabel.numberOfLines = 0;
             _captionLabel.textAlignment = NSTextAlignmentCenter;
             [self addSubview:_captionLabel];
         }
         
         {
-            _learnMoreButton = [ORKLegacyTextButton new];
+            _learnMoreButton = [ORK1TextButton new];
             _learnMoreButton.contentEdgeInsets = (UIEdgeInsets){10,10,10,10};
             [_learnMoreButton setTitle:nil forState:UIControlStateNormal];
             [_learnMoreButton addTarget:self action:@selector(learnMoreAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -108,7 +108,7 @@
         }
         
         {
-            _instructionLabel = [ORKLegacySubheadlineLabel new];
+            _instructionLabel = [ORK1SubheadlineLabel new];
             _instructionLabel.numberOfLines = 0;
             _instructionLabel.textAlignment = NSTextAlignmentCenter;
             
@@ -143,7 +143,7 @@
 }
 
 - (void)learnMoreAction:(id)sender {
-    ORKLegacySuppressPerformSelectorWarning(
+    ORK1SuppressPerformSelectorWarning(
                                       (void)[_learnMoreButtonItem.target performSelector:_learnMoreButtonItem.action withObject:self];
                                       );
 }
@@ -161,7 +161,7 @@
     CGRect bounds = self.bounds;
     CGRect insetBounds = UIEdgeInsetsInsetRect(bounds, self.layoutMargins);
     
-    CGFloat sideMargin = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLearnMoreButtonSideMargin, self.window);
+    CGFloat sideMargin = ORK1GetMetricForWindow(ORK1ScreenMetricLearnMoreButtonSideMargin, self.window);
     _learnMoreButton.titleLabel.preferredMaxLayoutWidth = insetBounds.size.width - sideMargin * 2;
 }
 
@@ -171,25 +171,25 @@ const CGFloat IconHeight = 60;
     static const CGFloat AssumedNavBarHeight = 44;
     static const CGFloat AssumedStatusBarHeight = 20;
     
-    const CGFloat IconBottomToCaptionBaseline = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricIconImageViewToCaptionBaseline, window);;
+    const CGFloat IconBottomToCaptionBaseline = ORK1GetMetricForWindow(ORK1ScreenMetricIconImageViewToCaptionBaseline, window);;
     
-    const CGFloat TopToIconTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricTopToIconImageViewTop, window);
+    const CGFloat TopToIconTop = ORK1GetMetricForWindow(ORK1ScreenMetricTopToIconImageViewTop, window);
     BOOL hasIconView = _iconImageView.image != nil;
     
-    const CGFloat IllustrationToCaptionBaseline = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricIllustrationToCaptionBaseline, window);
-    const CGFloat TopToCaptionBaseline = hasIconView ? (IconBottomToCaptionBaseline + IconHeight + TopToIconTop) : (ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricTopToCaptionBaseline, window) - AssumedStatusBarHeight - AssumedNavBarHeight);
+    const CGFloat IllustrationToCaptionBaseline = ORK1GetMetricForWindow(ORK1ScreenMetricIllustrationToCaptionBaseline, window);
+    const CGFloat TopToCaptionBaseline = hasIconView ? (IconBottomToCaptionBaseline + IconHeight + TopToIconTop) : (ORK1GetMetricForWindow(ORK1ScreenMetricTopToCaptionBaseline, window) - AssumedStatusBarHeight - AssumedNavBarHeight);
     
-    const CGFloat CaptionBaselineToInstructionBaseline_WithInstruction = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricCaptionBaselineToInstructionBaseline, window);
+    const CGFloat CaptionBaselineToInstructionBaseline_WithInstruction = ORK1GetMetricForWindow(ORK1ScreenMetricCaptionBaselineToInstructionBaseline, window);
     const CGFloat CaptionBaselineToInstructionBaseline_NoInstruction = MIN(26, CaptionBaselineToInstructionBaseline_WithInstruction); // Not part of spec
-    const CGFloat InstructionBaselineToLearnMoreBaseline = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricInstructionBaselineToLearnMoreBaseline, window);
-    const CGFloat LearnMoreBaselineToStepViewTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLearnMoreBaselineToStepViewTop, window);
-    const CGFloat InstructionBaselineToStepViewTopWithNoLearnMore = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLearnMoreBaselineToStepViewTopWithNoLearnMore, window);
+    const CGFloat InstructionBaselineToLearnMoreBaseline = ORK1GetMetricForWindow(ORK1ScreenMetricInstructionBaselineToLearnMoreBaseline, window);
+    const CGFloat LearnMoreBaselineToStepViewTop = ORK1GetMetricForWindow(ORK1ScreenMetricLearnMoreBaselineToStepViewTop, window);
+    const CGFloat InstructionBaselineToStepViewTopWithNoLearnMore = ORK1GetMetricForWindow(ORK1ScreenMetricLearnMoreBaselineToStepViewTopWithNoLearnMore, window);
     
     BOOL hasCaptionLabel = _captionLabel.text.length > 0 || hasIconView;
     BOOL hasInstructionLabel = _instructionLabel.text.length > 0;
     BOOL hasLearnMoreButton = (_learnMoreButton.alpha > 0);
     
-    ORKLegacyVerticalContainerLog(@"hasCaption=%@ hasInstruction=%@ hasLearnMore=%@", @(hasCaption), @(hasInstruction), @(hasLearnMore));
+    ORK1VerticalContainerLog(@"hasCaption=%@ hasInstruction=%@ hasLearnMore=%@", @(hasCaption), @(hasInstruction), @(hasLearnMore));
     
     // If one label is empty and the other is not, then allow the empty label to shrink to nothing
     // and the other label to grow to fill
@@ -252,7 +252,7 @@ const CGFloat IconHeight = 60;
                                                                           toItem:nil
                                                                        attribute:NSLayoutAttributeNotAnAttribute
                                                                       multiplier:1.0
-                                                                        constant:ORKLegacyScreenMetricMaxDimension];
+                                                                        constant:ORK1ScreenMetricMaxDimension];
     widthConstraint.priority = UILayoutPriorityDefaultLow - 1;
     [constraints addObject:widthConstraint];
     
@@ -261,7 +261,7 @@ const CGFloat IconHeight = 60;
     [_captionLabel setContentHuggingPriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
     [_instructionLabel setContentHuggingPriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
     [_learnMoreButton setContentHuggingPriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
-    ORKLegacyEnableAutoLayoutForViews(views);
+    ORK1EnableAutoLayoutForViews(views);
     
     {
         _topToIconImageViewConstraint = [NSLayoutConstraint constraintWithItem:_iconImageView

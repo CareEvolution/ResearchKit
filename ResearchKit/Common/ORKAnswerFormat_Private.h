@@ -34,10 +34,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_EXTERN id ORKLegacyNullAnswerValue(void) ORKLegacy_AVAILABLE_DECL;
+ORK1_EXTERN id ORK1NullAnswerValue(void) ORK1_AVAILABLE_DECL;
 
 
-@interface ORKLegacyAnswerFormat ()
+@interface ORK1AnswerFormat ()
 
 - (BOOL)isAnswerValidWithString:(nullable NSString *)text;
 
@@ -45,13 +45,13 @@ ORKLegacy_EXTERN id ORKLegacyNullAnswerValue(void) ORKLegacy_AVAILABLE_DECL;
 
 
 /**
- The `ORKLegacyConfirmTextAnswerFormat` class represents the answer format for questions that collect a text
+ The `ORK1ConfirmTextAnswerFormat` class represents the answer format for questions that collect a text
  response from the user and validates it with another text answer format.
  
- An `ORKLegacyConfirmTextAnswerFormat` object produces an `ORKLegacyBooleanQuestionResult` object.
+ An `ORK1ConfirmTextAnswerFormat` object produces an `ORK1BooleanQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyConfirmTextAnswerFormat : ORKLegacyTextAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1ConfirmTextAnswerFormat : ORK1TextAnswerFormat
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;

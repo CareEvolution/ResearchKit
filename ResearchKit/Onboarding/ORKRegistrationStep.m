@@ -36,135 +36,135 @@
 #import "ORKHelpers_Internal.h"
 
 
-NSString *const ORKLegacyRegistrationFormItemIdentifierEmail = @"ORKRegistrationFormItemEmail";
-NSString *const ORKLegacyRegistrationFormItemIdentifierPassword = @"ORKRegistrationFormItemPassword";
-NSString *const ORKLegacyRegistrationFormItemIdentifierConfirmPassword = @"ORKRegistrationFormItemConfirmPassword";
-NSString *const ORKLegacyRegistrationFormItemIdentifierGivenName = @"ORKRegistrationFormItemGivenName";
-NSString *const ORKLegacyRegistrationFormItemIdentifierFamilyName = @"ORKRegistrationFormItemFamilyName";
-NSString *const ORKLegacyRegistrationFormItemIdentifierGender = @"ORKRegistrationFormItemGender";
-NSString *const ORKLegacyRegistrationFormItemIdentifierDOB = @"ORKRegistrationFormItemDOB";
+NSString *const ORK1RegistrationFormItemIdentifierEmail = @"ORKRegistrationFormItemEmail";
+NSString *const ORK1RegistrationFormItemIdentifierPassword = @"ORKRegistrationFormItemPassword";
+NSString *const ORK1RegistrationFormItemIdentifierConfirmPassword = @"ORKRegistrationFormItemConfirmPassword";
+NSString *const ORK1RegistrationFormItemIdentifierGivenName = @"ORKRegistrationFormItemGivenName";
+NSString *const ORK1RegistrationFormItemIdentifierFamilyName = @"ORKRegistrationFormItemFamilyName";
+NSString *const ORK1RegistrationFormItemIdentifierGender = @"ORKRegistrationFormItemGender";
+NSString *const ORK1RegistrationFormItemIdentifierDOB = @"ORKRegistrationFormItemDOB";
 
-static id ORKLegacyFindInArrayByFormItemId(NSArray *array, NSString *formItemIdentifier) {
+static id ORK1FindInArrayByFormItemId(NSArray *array, NSString *formItemIdentifier) {
     return findInArrayByKey(array, @"identifier", formItemIdentifier);
 }
 
-static NSArray <ORKLegacyFormItem*> *ORKLegacyRegistrationFormItems(ORKLegacyRegistrationStepOption options) {
+static NSArray <ORK1FormItem*> *ORK1RegistrationFormItems(ORK1RegistrationStepOption options) {
     NSMutableArray *formItems = [NSMutableArray new];
     
     {
-        ORKLegacyEmailAnswerFormat *answerFormat = [ORKLegacyAnswerFormat emailAnswerFormat];
+        ORK1EmailAnswerFormat *answerFormat = [ORK1AnswerFormat emailAnswerFormat];
         
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyRegistrationFormItemIdentifierEmail
-                                                               text:ORKLegacyLocalizedString(@"EMAIL_FORM_ITEM_TITLE", nil)
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:ORK1RegistrationFormItemIdentifierEmail
+                                                               text:ORK1LocalizedString(@"EMAIL_FORM_ITEM_TITLE", nil)
                                                        answerFormat:answerFormat
                                                            optional:NO];
-        item.placeholder = ORKLegacyLocalizedString(@"EMAIL_FORM_ITEM_PLACEHOLDER", nil);
+        item.placeholder = ORK1LocalizedString(@"EMAIL_FORM_ITEM_PLACEHOLDER", nil);
         
         [formItems addObject:item];
     }
     
-    ORKLegacyFormItem *passwordFormItem;
+    ORK1FormItem *passwordFormItem;
     {
-        ORKLegacyTextAnswerFormat *answerFormat = [ORKLegacyAnswerFormat textAnswerFormat];
+        ORK1TextAnswerFormat *answerFormat = [ORK1AnswerFormat textAnswerFormat];
         answerFormat.multipleLines = NO;
         answerFormat.secureTextEntry = YES;
         answerFormat.autocapitalizationType = UITextAutocapitalizationTypeNone;
         answerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
         answerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
         
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyRegistrationFormItemIdentifierPassword
-                                                               text:ORKLegacyLocalizedString(@"PASSWORD_FORM_ITEM_TITLE", nil)
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:ORK1RegistrationFormItemIdentifierPassword
+                                                               text:ORK1LocalizedString(@"PASSWORD_FORM_ITEM_TITLE", nil)
                                                        answerFormat:answerFormat
                                                            optional:NO];
-        item.placeholder = ORKLegacyLocalizedString(@"PASSWORD_FORM_ITEM_PLACEHOLDER", nil);
+        item.placeholder = ORK1LocalizedString(@"PASSWORD_FORM_ITEM_PLACEHOLDER", nil);
         passwordFormItem = item;
         
         [formItems addObject:item];
     }
     
     {
-        ORKLegacyFormItem *item = [passwordFormItem confirmationAnswerFormItemWithIdentifier:ORKLegacyRegistrationFormItemIdentifierConfirmPassword
-                                                text:ORKLegacyLocalizedString(@"CONFIRM_PASSWORD_FORM_ITEM_TITLE", nil)
-                                                errorMessage:ORKLegacyLocalizedString(@"CONFIRM_PASSWORD_ERROR_MESSAGE", nil)];
-        item.placeholder = ORKLegacyLocalizedString(@"CONFIRM_PASSWORD_FORM_ITEM_PLACEHOLDER", nil);
+        ORK1FormItem *item = [passwordFormItem confirmationAnswerFormItemWithIdentifier:ORK1RegistrationFormItemIdentifierConfirmPassword
+                                                text:ORK1LocalizedString(@"CONFIRM_PASSWORD_FORM_ITEM_TITLE", nil)
+                                                errorMessage:ORK1LocalizedString(@"CONFIRM_PASSWORD_ERROR_MESSAGE", nil)];
+        item.placeholder = ORK1LocalizedString(@"CONFIRM_PASSWORD_FORM_ITEM_PLACEHOLDER", nil);
         
         [formItems addObject:item];
     }
     
-    if (options & (ORKLegacyRegistrationStepIncludeFamilyName | ORKLegacyRegistrationStepIncludeGivenName | ORKLegacyRegistrationStepIncludeDOB | ORKLegacyRegistrationStepIncludeGender)) {
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithSectionTitle:ORKLegacyLocalizedString(@"ADDITIONAL_INFO_SECTION_TITLE", nil)];
+    if (options & (ORK1RegistrationStepIncludeFamilyName | ORK1RegistrationStepIncludeGivenName | ORK1RegistrationStepIncludeDOB | ORK1RegistrationStepIncludeGender)) {
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithSectionTitle:ORK1LocalizedString(@"ADDITIONAL_INFO_SECTION_TITLE", nil)];
         
         [formItems addObject:item];
     }
     
-    if (options & ORKLegacyRegistrationStepIncludeGivenName) {
-        ORKLegacyTextAnswerFormat *answerFormat = [ORKLegacyAnswerFormat textAnswerFormat];
+    if (options & ORK1RegistrationStepIncludeGivenName) {
+        ORK1TextAnswerFormat *answerFormat = [ORK1AnswerFormat textAnswerFormat];
         answerFormat.multipleLines = NO;
         
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyRegistrationFormItemIdentifierGivenName
-                                                               text:ORKLegacyLocalizedString(@"CONSENT_NAME_GIVEN", nil)
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:ORK1RegistrationFormItemIdentifierGivenName
+                                                               text:ORK1LocalizedString(@"CONSENT_NAME_GIVEN", nil)
                                                        answerFormat:answerFormat
                                                            optional:NO];
-        item.placeholder = ORKLegacyLocalizedString(@"GIVEN_NAME_ITEM_PLACEHOLDER", nil);
+        item.placeholder = ORK1LocalizedString(@"GIVEN_NAME_ITEM_PLACEHOLDER", nil);
         
         [formItems addObject:item];
     }
     
-    if (options & ORKLegacyRegistrationStepIncludeFamilyName) {
-        ORKLegacyTextAnswerFormat *answerFormat = [ORKLegacyAnswerFormat textAnswerFormat];
+    if (options & ORK1RegistrationStepIncludeFamilyName) {
+        ORK1TextAnswerFormat *answerFormat = [ORK1AnswerFormat textAnswerFormat];
         answerFormat.multipleLines = NO;
         
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyRegistrationFormItemIdentifierFamilyName
-                                                               text:ORKLegacyLocalizedString(@"CONSENT_NAME_FAMILY", nil)
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:ORK1RegistrationFormItemIdentifierFamilyName
+                                                               text:ORK1LocalizedString(@"CONSENT_NAME_FAMILY", nil)
                                                        answerFormat:answerFormat
                                                            optional:NO];
-        item.placeholder = ORKLegacyLocalizedString(@"FAMILY_NAME_ITEM_PLACEHOLDER", nil);
+        item.placeholder = ORK1LocalizedString(@"FAMILY_NAME_ITEM_PLACEHOLDER", nil);
         
         [formItems addObject:item];
     }
     
     // Adjust order of given name and family name form item cells based on current locale.
-    if ((options & ORKLegacyRegistrationStepIncludeGivenName) && (options & ORKLegacyRegistrationStepIncludeFamilyName)) {
-        if (ORKLegacyCurrentLocalePresentsFamilyNameFirst()) {
-            ORKLegacyFormItem *givenNameFormItem = ORKLegacyFindInArrayByFormItemId(formItems, ORKLegacyRegistrationFormItemIdentifierGivenName);
-            ORKLegacyFormItem *familyNameFormItem = ORKLegacyFindInArrayByFormItemId(formItems, ORKLegacyRegistrationFormItemIdentifierFamilyName);
+    if ((options & ORK1RegistrationStepIncludeGivenName) && (options & ORK1RegistrationStepIncludeFamilyName)) {
+        if (ORK1CurrentLocalePresentsFamilyNameFirst()) {
+            ORK1FormItem *givenNameFormItem = ORK1FindInArrayByFormItemId(formItems, ORK1RegistrationFormItemIdentifierGivenName);
+            ORK1FormItem *familyNameFormItem = ORK1FindInArrayByFormItemId(formItems, ORK1RegistrationFormItemIdentifierFamilyName);
             [formItems exchangeObjectAtIndex:[formItems indexOfObject:givenNameFormItem]
                            withObjectAtIndex:[formItems indexOfObject:familyNameFormItem]];
         }
     }
     
-    if (options & ORKLegacyRegistrationStepIncludeGender) {
-        NSArray *textChoices = @[[ORKLegacyTextChoice choiceWithText:ORKLegacyLocalizedString(@"GENDER_FEMALE", nil) value:@"female"],
-                                 [ORKLegacyTextChoice choiceWithText:ORKLegacyLocalizedString(@"GENDER_MALE", nil) value:@"male"],
-                                 [ORKLegacyTextChoice choiceWithText:ORKLegacyLocalizedString(@"GENDER_OTHER", nil) value:@"other"]];
-        ORKLegacyValuePickerAnswerFormat *answerFormat = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
+    if (options & ORK1RegistrationStepIncludeGender) {
+        NSArray *textChoices = @[[ORK1TextChoice choiceWithText:ORK1LocalizedString(@"GENDER_FEMALE", nil) value:@"female"],
+                                 [ORK1TextChoice choiceWithText:ORK1LocalizedString(@"GENDER_MALE", nil) value:@"male"],
+                                 [ORK1TextChoice choiceWithText:ORK1LocalizedString(@"GENDER_OTHER", nil) value:@"other"]];
+        ORK1ValuePickerAnswerFormat *answerFormat = [ORK1AnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
         
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyRegistrationFormItemIdentifierGender
-                                                               text:ORKLegacyLocalizedString(@"GENDER_FORM_ITEM_TITLE", nil)
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:ORK1RegistrationFormItemIdentifierGender
+                                                               text:ORK1LocalizedString(@"GENDER_FORM_ITEM_TITLE", nil)
                                                        answerFormat:answerFormat
                                                            optional:NO];
-        item.placeholder = ORKLegacyLocalizedString(@"GENDER_FORM_ITEM_PLACEHOLDER", nil);
+        item.placeholder = ORK1LocalizedString(@"GENDER_FORM_ITEM_PLACEHOLDER", nil);
         
         [formItems addObject:item];
     }
     
-    if (options & ORKLegacyRegistrationStepIncludeDOB) {
+    if (options & ORK1RegistrationStepIncludeDOB) {
         // Calculate default date (20 years from now).
         NSDate *defaultDate = [[NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian] dateByAddingUnit:NSCalendarUnitYear
                                                                        value:-20
                                                                       toDate:[NSDate date]
                                                                      options:(NSCalendarOptions)0];
         
-        ORKLegacyDateAnswerFormat *answerFormat = [ORKLegacyAnswerFormat dateAnswerFormatWithDefaultDate:defaultDate
+        ORK1DateAnswerFormat *answerFormat = [ORK1AnswerFormat dateAnswerFormatWithDefaultDate:defaultDate
                                                                                  minimumDate:nil
                                                                                  maximumDate:[NSDate date]
                                                                                     calendar:[NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian]];
         
-        ORKLegacyFormItem *item = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyRegistrationFormItemIdentifierDOB
-                                                               text:ORKLegacyLocalizedString(@"DOB_FORM_ITEM_TITLE", nil)
+        ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:ORK1RegistrationFormItemIdentifierDOB
+                                                               text:ORK1LocalizedString(@"DOB_FORM_ITEM_TITLE", nil)
                                                        answerFormat:answerFormat
                                                            optional:NO];
-        item.placeholder = ORKLegacyLocalizedString(@"DOB_FORM_ITEM_PLACEHOLDER", nil);
+        item.placeholder = ORK1LocalizedString(@"DOB_FORM_ITEM_PLACEHOLDER", nil);
         
         [formItems addObject:item];
     }
@@ -173,14 +173,14 @@ static NSArray <ORKLegacyFormItem*> *ORKLegacyRegistrationFormItems(ORKLegacyReg
 }
 
 
-@implementation ORKLegacyRegistrationStep
+@implementation ORK1RegistrationStep
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
                              title:(NSString *)title
                               text:(NSString *)text
 passcodeValidationRegularExpression:(NSRegularExpression *)passcodeValidationRegularExpression
             passcodeInvalidMessage:(NSString *)passcodeInvalidMessage
-                           options:(ORKLegacyRegistrationStepOption)options {
+                           options:(ORK1RegistrationStepOption)options {
     self = [super initWithIdentifier:identifier title:title text:text];
     if (self) {
         _options = options;
@@ -194,7 +194,7 @@ passcodeValidationRegularExpression:(NSRegularExpression *)passcodeValidationReg
 - (instancetype)initWithIdentifier:(NSString *)identifier
                              title:(NSString *)title
                               text:(NSString *)text
-                           options:(ORKLegacyRegistrationStepOption)options {
+                           options:(ORK1RegistrationStepOption)options {
     return [self initWithIdentifier:identifier
                               title:title
                                text:text
@@ -209,7 +209,7 @@ passcodeValidationRegularExpression:nil
     return [self initWithIdentifier:identifier
                               title:title
                                text:text
-                            options:ORKLegacyRegistrationStepDefault];
+                            options:ORK1RegistrationStepDefault];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -218,29 +218,29 @@ passcodeValidationRegularExpression:nil
                                text:nil];
 }
 
-- (ORKLegacyTextAnswerFormat *)passwordAnswerFormat {
-    ORKLegacyFormItem *passwordFormItem = ORKLegacyFindInArrayByFormItemId(self.formItems, ORKLegacyRegistrationFormItemIdentifierPassword);
-    ORKLegacyTextAnswerFormat *passwordAnswerFormat = (ORKLegacyTextAnswerFormat *)passwordFormItem.answerFormat;
+- (ORK1TextAnswerFormat *)passwordAnswerFormat {
+    ORK1FormItem *passwordFormItem = ORK1FindInArrayByFormItemId(self.formItems, ORK1RegistrationFormItemIdentifierPassword);
+    ORK1TextAnswerFormat *passwordAnswerFormat = (ORK1TextAnswerFormat *)passwordFormItem.answerFormat;
     return passwordAnswerFormat;
 }
 
-- (NSArray <ORKLegacyFormItem *> *)formItems {
+- (NSArray <ORK1FormItem *> *)formItems {
     if (![super formItems]) {
-        self.formItems = ORKLegacyRegistrationFormItems(_options);
+        self.formItems = ORK1RegistrationFormItems(_options);
     }
     
-    ORKLegacyFormItem *dobFormItem = ORKLegacyFindInArrayByFormItemId([super formItems], ORKLegacyRegistrationFormItemIdentifierDOB);
-    ORKLegacyDateAnswerFormat *originalAnswerFormat = (ORKLegacyDateAnswerFormat *)dobFormItem.answerFormat;
-    ORKLegacyDateAnswerFormat *modifiedAnswerFormat = [ORKLegacyAnswerFormat dateAnswerFormatWithDefaultDate:originalAnswerFormat.defaultDate
+    ORK1FormItem *dobFormItem = ORK1FindInArrayByFormItemId([super formItems], ORK1RegistrationFormItemIdentifierDOB);
+    ORK1DateAnswerFormat *originalAnswerFormat = (ORK1DateAnswerFormat *)dobFormItem.answerFormat;
+    ORK1DateAnswerFormat *modifiedAnswerFormat = [ORK1AnswerFormat dateAnswerFormatWithDefaultDate:originalAnswerFormat.defaultDate
                                                                                      minimumDate:originalAnswerFormat.minimumDate
                                                                                      maximumDate:[NSDate date]
                                                                                         calendar:originalAnswerFormat.calendar];
 
-    dobFormItem = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyRegistrationFormItemIdentifierDOB
-                                                     text:ORKLegacyLocalizedString(@"DOB_FORM_ITEM_TITLE", nil)
+    dobFormItem = [[ORK1FormItem alloc] initWithIdentifier:ORK1RegistrationFormItemIdentifierDOB
+                                                     text:ORK1LocalizedString(@"DOB_FORM_ITEM_TITLE", nil)
                                              answerFormat:modifiedAnswerFormat
                                                  optional:NO];
-    dobFormItem.placeholder = ORKLegacyLocalizedString(@"DOB_FORM_ITEM_PLACEHOLDER", nil);
+    dobFormItem.placeholder = ORK1LocalizedString(@"DOB_FORM_ITEM_PLACEHOLDER", nil);
     
     return [super formItems];
 }
@@ -271,8 +271,8 @@ passcodeValidationRegularExpression:nil
         
         // `passcodeValidationRegularExpression` and `passcodeInvalidMessage` are transparent
         // properties. The corresponding decoding for these properties takes place in the answer
-        // format's `-initWithCode:` method, invoked from super's (ORKLegacyFormStep) implementation.
-        ORKLegacy_DECODE_INTEGER(aDecoder, options);
+        // format's `-initWithCode:` method, invoked from super's (ORK1FormStep) implementation.
+        ORK1_DECODE_INTEGER(aDecoder, options);
     }
     return self;
 }
@@ -282,16 +282,16 @@ passcodeValidationRegularExpression:nil
     
     // `passcodeValidationRegularExpression` and `passcodeInvalidMessage` are transparent
     // properties. The corresponding encoding for these properties takes place in the answer format's
-    // `-encodeWithCoder:` method, invoked from super's (ORKLegacyFormStep) implementation.
-    ORKLegacy_ENCODE_INTEGER(aCoder, options);
+    // `-encodeWithCoder:` method, invoked from super's (ORK1FormStep) implementation.
+    ORK1_ENCODE_INTEGER(aCoder, options);
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyRegistrationStep *step = [super copyWithZone:zone];
+    ORK1RegistrationStep *step = [super copyWithZone:zone];
     
     // `passcodeValidationRegularExpression` and `passcodeInvalidMessage` are transparent
     // properties. The corresponding copying of these properties happens in the answer format
-    // `-copyWithZone:` method, invoked from the super's (ORKLegacyFormStep) implementation.
+    // `-copyWithZone:` method, invoked from the super's (ORK1FormStep) implementation.
     step->_options = self.options;
     return step;
 }
@@ -301,7 +301,7 @@ passcodeValidationRegularExpression:nil
     
     // `passcodeValidationRegularExpression` and `passcodeInvalidMessage` are transparent
     // properties. The corresponding equality test for these properties takes place in the answer
-    // format's `-isEqual:` method, invoked from super's (ORKLegacyFormStep) implementation.
+    // format's `-isEqual:` method, invoked from super's (ORK1FormStep) implementation.
     __typeof(self) castObject = object;
     return (isParentSame &&
             self.options == castObject.options);

@@ -34,26 +34,26 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyTableContainerView;
+@class ORK1TableContainerView;
 
-@protocol ORKLegacyTableContainerViewDelegate <NSObject>
+@protocol ORK1TableContainerViewDelegate <NSObject>
 
 @required
-- (UITableViewCell *)currentFirstResponderCellForTableContainerView:(ORKLegacyTableContainerView *)tableContainerView;
+- (UITableViewCell *)currentFirstResponderCellForTableContainerView:(ORK1TableContainerView *)tableContainerView;
 
 @end
 
 
-@class ORKLegacyStepHeaderView;
-@class ORKLegacyNavigationContainerView;
+@class ORK1StepHeaderView;
+@class ORK1NavigationContainerView;
 
-@interface ORKLegacyTableContainerView : UIView
+@interface ORK1TableContainerView : UIView
 
-@property (nonatomic, weak, nullable) id<ORKLegacyTableContainerViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORK1TableContainerViewDelegate> delegate;
 
 @property (nonatomic, strong, readonly) UITableView *tableView;
-@property (nonatomic, strong, readonly) ORKLegacyStepHeaderView *stepHeaderView;
-@property (nonatomic, strong, readonly) ORKLegacyNavigationContainerView *continueSkipContainerView;
+@property (nonatomic, strong, readonly) ORK1StepHeaderView *stepHeaderView;
+@property (nonatomic, strong, readonly) ORK1NavigationContainerView *continueSkipContainerView;
 
 /*
  If tap off events should be accepted from outside this view's bounds, provide

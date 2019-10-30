@@ -34,19 +34,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyActiveStepViewController;
+@class ORK1ActiveStepViewController;
 
-@interface ORKLegacyActiveStepCustomView : UIView
+@interface ORK1ActiveStepCustomView : UIView
 
-@property (nonatomic, weak, nullable) ORKLegacyActiveStepViewController *activeStepViewController;
+@property (nonatomic, weak, nullable) ORK1ActiveStepViewController *activeStepViewController;
 
-- (void)resetStep:(ORKLegacyActiveStepViewController *)viewController;
-- (void)startStep:(ORKLegacyActiveStepViewController *)viewController;
-- (void)suspendStep:(ORKLegacyActiveStepViewController *)viewController;
-- (void)resumeStep:(ORKLegacyActiveStepViewController *)viewController;
-- (void)finishStep:(ORKLegacyActiveStepViewController *)viewController;
+- (void)resetStep:(ORK1ActiveStepViewController *)viewController;
+- (void)startStep:(ORK1ActiveStepViewController *)viewController;
+- (void)suspendStep:(ORK1ActiveStepViewController *)viewController;
+- (void)resumeStep:(ORK1ActiveStepViewController *)viewController;
+- (void)finishStep:(ORK1ActiveStepViewController *)viewController;
 
-- (void)updateDisplay:(ORKLegacyActiveStepViewController *)viewController;
+- (void)updateDisplay:(ORK1ActiveStepViewController *)viewController;
 
 @end
 

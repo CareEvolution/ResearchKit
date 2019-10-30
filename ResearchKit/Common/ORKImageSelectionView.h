@@ -35,20 +35,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyImageSelectionView;
+@class ORK1ImageSelectionView;
 
-@protocol ORKLegacyImageSelectionViewDelegate <NSObject>
+@protocol ORK1ImageSelectionViewDelegate <NSObject>
 
-- (void)selectionViewSelectionDidChange:(ORKLegacyImageSelectionView *)view;
+- (void)selectionViewSelectionDidChange:(ORK1ImageSelectionView *)view;
 
 @end
 
 
-@interface ORKLegacyImageSelectionView : UIView
+@interface ORK1ImageSelectionView : UIView
 
-- (instancetype)initWithImageChoiceAnswerFormat:(ORKLegacyImageChoiceAnswerFormat *)answerFormat answer:(nullable id)answer;
+- (instancetype)initWithImageChoiceAnswerFormat:(ORK1ImageChoiceAnswerFormat *)answerFormat answer:(nullable id)answer;
 
-@property (nonatomic, weak, nullable) id<ORKLegacyImageSelectionViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORK1ImageSelectionViewDelegate> delegate;
 
 @property (nonatomic, strong, nullable) id answer;
 

@@ -32,11 +32,11 @@
 #import <ResearchKitLegacy/ORKOrderedTask.h>
 
 
-@interface ORKLegacyPageStep ()
+@interface ORK1PageStep ()
 
-@property (nonatomic, copy, readonly) ORKLegacyOrderedTask *pageTask;
+@property (nonatomic, copy, readonly) ORK1OrderedTask *pageTask;
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                          pageTask:(ORKLegacyOrderedTask *)task NS_DESIGNATED_INITIALIZER;
+                          pageTask:(ORK1OrderedTask *)task NS_DESIGNATED_INITIALIZER;
 
 @end

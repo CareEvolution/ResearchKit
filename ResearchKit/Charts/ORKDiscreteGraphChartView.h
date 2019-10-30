@@ -37,8 +37,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyDiscreteGraphChartView` class presents data provided by an object conforming to the
- `ORKLegacyValueRangeGraphChartViewDataSource` protocol as a discrete graph of ranged points.
+ The `ORK1DiscreteGraphChartView` class presents data provided by an object conforming to the
+ `ORK1ValueRangeGraphChartViewDataSource` protocol as a discrete graph of ranged points.
  
  You can optionally display a line connecting each ranged point pair.
  
@@ -46,8 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
  using the `referenceLineColor` property. You can customize the plot colors by implementing the
  `-graphChartView:colorForPlotIndex:` method in the data source.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyDiscreteGraphChartView : ORKLegacyValueRangeGraphChartView
+ORK1_CLASS_AVAILABLE
+@interface ORK1DiscreteGraphChartView : ORK1ValueRangeGraphChartView
 
 /**
  A Boolean value indicating whether to draw a line connecting the minimum value and maximum value of

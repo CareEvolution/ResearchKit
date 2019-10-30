@@ -37,13 +37,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Step view controller corresponding to `ORKLegacyFitnessStep`.
+ Step view controller corresponding to `ORK1FitnessStep`.
  
  Observes countdown timer, heart rate, and distance, and relays these to the
  screen during the task.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyFitnessStepViewController : ORKLegacyActiveStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1FitnessStepViewController : ORK1ActiveStepViewController
 
 @end
 

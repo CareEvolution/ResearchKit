@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyCaretOptionalTextField : ORKLegacyAnswerTextField
+@interface ORK1CaretOptionalTextField : ORK1AnswerTextField
 
 @property (nonatomic) BOOL allowsSelection; // Defaults to NO
 
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface ORKLegacyPasscodeTextField : ORKLegacyCaretOptionalTextField
+@interface ORK1PasscodeTextField : ORK1CaretOptionalTextField
 
 - (void)updateTextWithNumberOfFilledBullets:(NSInteger)filledBullets;
 
@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface ORKLegacyUnitTextField : ORKLegacyCaretOptionalTextField
+@interface ORK1UnitTextField : ORK1CaretOptionalTextField
 
 @property (nonatomic, copy, nullable) NSString *unit;
 
@@ -65,9 +65,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Manages a text field with unit label and a clear button: [text unit    (x)]
  */
-@interface ORKLegacyTextFieldView : UIView
+@interface ORK1TextFieldView : UIView
 
-@property (nonatomic, strong, readonly) ORKLegacyUnitTextField *textField;
+@property (nonatomic, strong, readonly) ORK1UnitTextField *textField;
 
 @property (nonatomic, readonly) CGFloat estimatedWidth;
 

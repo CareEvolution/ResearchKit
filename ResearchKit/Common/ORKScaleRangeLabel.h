@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Start/End of the range in scale slider.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyScaleRangeLabel : ORKLegacyLabel
+ORK1_CLASS_AVAILABLE
+@interface ORK1ScaleRangeLabel : ORK1Label
 
 @end
 

@@ -37,16 +37,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyCollector;
-@class ORKLegacyHealthCollector;
-@class ORKLegacyMotionActivityCollector;
+@class ORK1Collector;
+@class ORK1HealthCollector;
+@class ORK1MotionActivityCollector;
 
 
 /**
  Abstract class of data collector.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyCollector : NSObject <NSCopying, NSSecureCoding>
+ORK1_CLASS_AVAILABLE
+@interface ORK1Collector : NSObject <NSCopying, NSSecureCoding>
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -81,13 +81,13 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- ORKLegacyHealthCollector collects HKSample.
+ ORK1HealthCollector collects HKSample.
  
  It cannot be initiated directly. 
- Use `addHealthCollectorWithSampleType:`to add one to a `ORKLegacyDataCollectionManager`.
+ Use `addHealthCollectorWithSampleType:`to add one to a `ORK1DataCollectionManager`.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyHealthCollector : ORKLegacyCollector
+ORK1_CLASS_AVAILABLE
+@interface ORK1HealthCollector : ORK1Collector
 
 /**
  HealthKit sample type.
@@ -113,13 +113,13 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- ORKLegacyHealthCollector collects HKCorrelation.
+ ORK1HealthCollector collects HKCorrelation.
  
  It cannot be initiated directly.
- Use `addHealthCorrelationCollectorWithCorrelationType:`to add one to a `ORKLegacyDataCollectionManager`.
+ Use `addHealthCorrelationCollectorWithCorrelationType:`to add one to a `ORK1DataCollectionManager`.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyHealthCorrelationCollector : ORKLegacyCollector
+ORK1_CLASS_AVAILABLE
+@interface ORK1HealthCorrelationCollector : ORK1Collector
 
 /**
  HealthKit correlation type.
@@ -150,13 +150,13 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- ORKLegacyHealthCollector collects CMMotionActivity.
+ ORK1HealthCollector collects CMMotionActivity.
  
  It cannot be initiated directly.
- Use `addMotionActivityCollectorWithStartDate:`to add one to a `ORKLegacyDataCollectionManager`.
+ Use `addMotionActivityCollectorWithStartDate:`to add one to a `ORK1DataCollectionManager`.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyMotionActivityCollector : ORKLegacyCollector
+ORK1_CLASS_AVAILABLE
+@interface ORK1MotionActivityCollector : ORK1Collector
 
 /**
  Samples should be collected starting at this date.

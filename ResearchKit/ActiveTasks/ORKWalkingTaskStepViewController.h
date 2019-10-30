@@ -37,13 +37,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- View controller corresponding to the `ORKLegacyWalkingTaskStep`.
+ View controller corresponding to the `ORK1WalkingTaskStep`.
  
  Observes the results of the pedometer, in order to finish early
  when the threshold number of steps have been observed.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyWalkingTaskStepViewController : ORKLegacyActiveStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1WalkingTaskStepViewController : ORK1ActiveStepViewController
 
 @end
 

@@ -38,7 +38,7 @@
 
 static const CGFloat ContinueButtonTouchMargin = 10;
 
-@implementation ORKLegacyContinueButton {
+@implementation ORK1ContinueButton {
     NSLayoutConstraint *_heightConstraint;
     NSLayoutConstraint *_widthConstraint;
 }
@@ -82,16 +82,16 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     if (overrideWidth) {
         return overrideWidth.floatValue;
     } else {
-        return ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricContinueButtonWidth, self.window);
+        return ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonWidth, self.window);
     }
 }
 
 - (CGFloat)buttonHeightForWindow:(UIWindow *)window {
     CGFloat height = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) ?
-    ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricContinueButtonHeightCompact, window) :
-    ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricContinueButtonHeightRegular, window);
+    ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonHeightCompact, window) :
+    ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonHeightRegular, window);
     
-    CGSize textSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [ORKLegacyContinueButton defaultFont]}];
+    CGSize textSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [ORK1ContinueButton defaultFont]}];
     return ([[CEVRKTheme themeForElement:self] continueButtonHeightForTextSize:textSize] ?: @(height)).floatValue;
 }
     

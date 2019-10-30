@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Text label under image answer option icon
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyImageChoiceLabel : ORKLegacyLabel
+ORK1_CLASS_AVAILABLE
+@interface ORK1ImageChoiceLabel : ORK1Label
 
 @property (nonatomic, copy, nullable) NSArray *textArray;
 

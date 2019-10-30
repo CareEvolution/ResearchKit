@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyPieChartSection : NSObject
+@interface ORK1PieChartSection : NSObject
 
 - (instancetype)initWithLabel:(UILabel *)label angle:(CGFloat)angle;
 
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface ORKLegacyPieChartView ()
+@interface ORK1PieChartView ()
 
 - (UIColor *)colorForSegmentAtIndex:(NSInteger)index;
 

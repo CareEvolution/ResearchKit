@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyTimeIntervalPicker : NSObject <ORKLegacyPicker>
+@interface ORK1TimeIntervalPicker : NSObject <ORK1Picker>
 
 @end
 

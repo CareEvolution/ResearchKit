@@ -42,27 +42,27 @@ static const CGFloat OriginAngle = -M_PI_2;
 static const CGFloat PercentageLabelOffset = 10.0;
 static const CGFloat InterAnimationDelay = 0.05;
 
-@implementation ORKLegacyPieChartPieView {
-    __weak ORKLegacyPieChartView *_parentPieChartView;
+@implementation ORK1PieChartPieView {
+    __weak ORK1PieChartView *_parentPieChartView;
     
     CAShapeLayer *_circleLayer;
     NSMutableArray<NSNumber *> *_normalizedValues;
     NSMutableArray<CAShapeLayer *> *_segmentLayers;
-    NSMutableArray<ORKLegacyPieChartSection *> *_pieSections;
+    NSMutableArray<ORK1PieChartSection *> *_pieSections;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 #pragma clang diagnostic pop
 
-- (instancetype)initWithParentPieChartView:(ORKLegacyPieChartView *)parentPieChartView {
+- (instancetype)initWithParentPieChartView:(ORK1PieChartView *)parentPieChartView {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         _parentPieChartView = parentPieChartView;
@@ -83,7 +83,7 @@ static const CGFloat InterAnimationDelay = 0.05;
 
 - (void)setPercentageLabelFont:(UIFont *)percentageLabelFont {
     _percentageLabelFont = percentageLabelFont;
-    for (ORKLegacyPieChartSection *pieSection in _pieSections) {
+    for (ORK1PieChartSection *pieSection in _pieSections) {
         pieSection.label.font = percentageLabelFont;
         [pieSection.label sizeToFit];
     }
@@ -175,7 +175,7 @@ static const CGFloat InterAnimationDelay = 0.05;
 }
 
 - (void)updatePercentageLabels {
-    for (ORKLegacyPieChartSection *pieSection in _pieSections) {
+    for (ORK1PieChartSection *pieSection in _pieSections) {
         [pieSection.label removeFromSuperview];
     }
     [_pieSections removeAllObjects];
@@ -205,7 +205,7 @@ static const CGFloat InterAnimationDelay = 0.05;
             }
             
             cumulativeValue += value;
-            ORKLegacyPieChartSection *pieSection = [[ORKLegacyPieChartSection alloc] initWithLabel:label angle:angle];
+            ORK1PieChartSection *pieSection = [[ORK1PieChartSection alloc] initWithLabel:label angle:angle];
             [_pieSections addObject:pieSection];
             [self addSubview:label];
         }
@@ -220,7 +220,7 @@ static const CGFloat InterAnimationDelay = 0.05;
             segmentLayer.strokeColor = [_parentPieChartView colorForSegmentAtIndex:idx].CGColor;
         }
         if (_pieSections.count == numberOfSegments) {
-            ORKLegacyPieChartSection *pieSection = _pieSections[idx];
+            ORK1PieChartSection *pieSection = _pieSections[idx];
             UILabel *label = pieSection.label;
             label.textColor = [_parentPieChartView colorForSegmentAtIndex:idx];
         }
@@ -244,7 +244,7 @@ static const CGFloat InterAnimationDelay = 0.05;
         CGFloat value = _normalizedValues[idx].floatValue;
 
         // Get a label
-        ORKLegacyPieChartSection *pieSection = _pieSections[idx];
+        ORK1PieChartSection *pieSection = _pieSections[idx];
         UILabel *label = pieSection.label;
         
         // Calculate the angle to the centre of this segment in radians
@@ -281,7 +281,7 @@ static const CGFloat InterAnimationDelay = 0.05;
     return  CGPointMake(x, y);
 }
 
-- (void)adjustIntersectionsOfPercentageLabels:(NSArray<ORKLegacyPieChartSection *> *)pieSections pieRadius:(CGFloat)pieRadius {
+- (void)adjustIntersectionsOfPercentageLabels:(NSArray<ORK1PieChartSection *> *)pieSections pieRadius:(CGFloat)pieRadius {
     if (pieSections.count == 0) {
         return;
     }
@@ -305,16 +305,16 @@ static const CGFloat InterAnimationDelay = 0.05;
                         return;
                     }
                 }
-                ORKLegacyPieChartSection *pieLabel  = pieSections[idx];
-                ORKLegacyPieChartSection *nextPieLabel = pieSections[(idx + 1)];
+                ORK1PieChartSection *pieLabel  = pieSections[idx];
+                ORK1PieChartSection *nextPieLabel = pieSections[(idx + 1)];
                 if ([self shiftSectionLabel:nextPieLabel fromSectionLabel:pieLabel direction:rotateDirection pieRadius:pieRadius]) {
                     intersections = YES;
                 }
             }
         } else {
             for (NSInteger idx = pieSections.count - 1; idx > 0; idx--) {
-                ORKLegacyPieChartSection *pieLabel = pieSections[idx];
-                ORKLegacyPieChartSection *nextPieLabel = pieSections[idx - 1];
+                ORK1PieChartSection *pieLabel = pieSections[idx];
+                ORK1PieChartSection *nextPieLabel = pieSections[idx - 1];
                 if ([self shiftSectionLabel:nextPieLabel fromSectionLabel:pieLabel direction:-rotateDirection pieRadius:pieRadius]) {
                     intersections = YES;
                 }
@@ -322,8 +322,8 @@ static const CGFloat InterAnimationDelay = 0.05;
         }
         
         // Adjust space between last and first element
-        ORKLegacyPieChartSection *firstPieLabel = pieSections.firstObject;
-        ORKLegacyPieChartSection *lastPieLabel = pieSections.lastObject;
+        ORK1PieChartSection *firstPieLabel = pieSections.firstObject;
+        ORK1PieChartSection *lastPieLabel = pieSections.lastObject;
         UILabel *firstLabel = firstPieLabel.label;
         UILabel *lastLabel = lastPieLabel.label;
         if (CGRectIntersectsRect(lastLabel.frame, firstLabel.frame)) {
@@ -337,8 +337,8 @@ static const CGFloat InterAnimationDelay = 0.05;
     }
 }
 
-- (BOOL)shiftSectionLabel:(ORKLegacyPieChartSection *)nextPieSection
-         fromSectionLabel:(ORKLegacyPieChartSection *)fromPieSection
+- (BOOL)shiftSectionLabel:(ORK1PieChartSection *)nextPieSection
+         fromSectionLabel:(ORK1PieChartSection *)fromPieSection
                 direction:(CGFloat)direction
                 pieRadius:(CGFloat)pieRadius {
     CGFloat shiftStep = 0.01;
@@ -377,7 +377,7 @@ static const CGFloat InterAnimationDelay = 0.05;
         [segmentLayer addAnimation:strokeAnimation forKey:@"strokeAnimation"];
         
         if (_parentPieChartView.showsPercentageLabels && _pieSections.count == numberOfSegmentLayers) {
-            ORKLegacyPieChartSection *pieSection = _pieSections[idx];
+            ORK1PieChartSection *pieSection = _pieSections[idx];
             UILabel *label = pieSection.label;
             label.alpha = 0;
             [UIView animateWithDuration:singleAnimationDuration

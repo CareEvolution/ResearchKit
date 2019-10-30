@@ -55,12 +55,12 @@
 @import AudioToolbox;
 
 
-@interface ORKLegacyAudioGenerator () {
+@interface ORK1AudioGenerator () {
   @public
     AudioComponentInstance _toneUnit;
     double _frequency;
     double _theta;
-    ORKLegacyAudioChannel _activeChannel;
+    ORK1AudioChannel _activeChannel;
     BOOL _playsStereo;
     double _fadeInFactor;
     NSTimeInterval _fadeInDuration;
@@ -74,22 +74,22 @@
 @end
 
 
-const double ORKLegacySineWaveToneGeneratorAmplitudeDefault = 0.03f;
-const double ORKLegacySineWaveToneGeneratorSampleRateDefault = 44100.0f;
+const double ORK1SineWaveToneGeneratorAmplitudeDefault = 0.03f;
+const double ORK1SineWaveToneGeneratorSampleRateDefault = 44100.0f;
 
-OSStatus ORKLegacyAudioGeneratorRenderTone(void *inRefCon,
+OSStatus ORK1AudioGeneratorRenderTone(void *inRefCon,
                                      AudioUnitRenderActionFlags *ioActionFlags,
                                      const AudioTimeStamp 		*inTimeStamp,
                                      UInt32 					inBusNumber,
                                      UInt32 					inNumberFrames,
                                      AudioBufferList 			*ioData) {
     // Fixed amplitude is good enough for our purposes
-    const double amplitude = ORKLegacySineWaveToneGeneratorAmplitudeDefault;
+    const double amplitude = ORK1SineWaveToneGeneratorAmplitudeDefault;
 
     // Get the tone parameters out of the view controller
-    ORKLegacyAudioGenerator *audioGenerator = (__bridge ORKLegacyAudioGenerator *)inRefCon;
+    ORK1AudioGenerator *audioGenerator = (__bridge ORK1AudioGenerator *)inRefCon;
     double theta = audioGenerator->_theta;
-    double theta_increment = 2.0 * M_PI * audioGenerator->_frequency / ORKLegacySineWaveToneGeneratorSampleRateDefault;
+    double theta_increment = 2.0 * M_PI * audioGenerator->_frequency / ORK1SineWaveToneGeneratorSampleRateDefault;
 
     double fadeInFactor = audioGenerator->_fadeInFactor;
 
@@ -112,7 +112,7 @@ OSStatus ORKLegacyAudioGeneratorRenderTone(void *inRefCon,
             theta -= 2.0 * M_PI;
         }
 
-        fadeInFactor += 1.0 / (ORKLegacySineWaveToneGeneratorSampleRateDefault * audioGenerator->_fadeInDuration);
+        fadeInFactor += 1.0 / (ORK1SineWaveToneGeneratorSampleRateDefault * audioGenerator->_fadeInDuration);
         if (fadeInFactor >= 1) {
             fadeInFactor = 1;
         }
@@ -126,7 +126,7 @@ OSStatus ORKLegacyAudioGeneratorRenderTone(void *inRefCon,
 }
 
 
-@implementation ORKLegacyAudioGenerator
+@implementation ORK1AudioGenerator
 
 - (instancetype)init {
     self = [super init];
@@ -165,7 +165,7 @@ OSStatus ORKLegacyAudioGeneratorRenderTone(void *inRefCon,
 }
 
 - (double)volumeAmplitude {
-    return ORKLegacySineWaveToneGeneratorAmplitudeDefault * pow(10, 2 * _fadeInFactor - 2);
+    return ORK1SineWaveToneGeneratorAmplitudeDefault * pow(10, 2 * _fadeInFactor - 2);
 }
 
 - (void)playSoundAtFrequency:(double)playFrequency {
@@ -178,7 +178,7 @@ OSStatus ORKLegacyAudioGeneratorRenderTone(void *inRefCon,
 }
 
 - (void)playSoundAtFrequency:(double)playFrequency
-                   onChannel:(ORKLegacyAudioChannel)playChannel
+                   onChannel:(ORK1AudioChannel)playChannel
               fadeInDuration:(NSTimeInterval)duration {
     _frequency = playFrequency;
     _activeChannel = playChannel;
@@ -245,7 +245,7 @@ OSStatus ORKLegacyAudioGeneratorRenderTone(void *inRefCon,
 
     // Set our tone rendering function on the unit
     AURenderCallbackStruct input;
-    input.inputProc = ORKLegacyAudioGeneratorRenderTone;
+    input.inputProc = ORK1AudioGeneratorRenderTone;
     input.inputProcRefCon = (__bridge void *)(self);
     error = AudioUnitSetProperty(_toneUnit,
                                kAudioUnitProperty_SetRenderCallback,
@@ -259,7 +259,7 @@ OSStatus ORKLegacyAudioGeneratorRenderTone(void *inRefCon,
     const int four_bytes_per_float = 4;
     const int eight_bits_per_byte = 8;
     AudioStreamBasicDescription streamFormat;
-    streamFormat.mSampleRate = ORKLegacySineWaveToneGeneratorSampleRateDefault;
+    streamFormat.mSampleRate = ORK1SineWaveToneGeneratorSampleRateDefault;
     streamFormat.mFormatID = kAudioFormatLinearPCM;
     streamFormat.mFormatFlags = kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved;
     streamFormat.mBytesPerPacket = four_bytes_per_float;

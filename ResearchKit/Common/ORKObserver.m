@@ -34,14 +34,14 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyObserver
+@implementation ORK1Observer
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithTarget:(id)target keyPaths:(NSArray *)keyPaths delegate:(id)delegate action:(SEL)action context:(void *)context {
@@ -62,7 +62,7 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     NSAssert(context == self.context, @"Unexpected KVO");
-    ORKLegacySuppressPerformSelectorWarning(
+    ORK1SuppressPerformSelectorWarning(
                                       (void)[self.delegate performSelector:self.action withObject:self.target];
                                       );
 }
@@ -97,16 +97,16 @@
 @end
 
 
-@implementation ORKLegacyScrollViewObserver
+@implementation ORK1ScrollViewObserver
 
-static void *_ORKLegacyScrollViewObserverContext = &_ORKLegacyScrollViewObserverContext;
+static void *_ORK1ScrollViewObserverContext = &_ORK1ScrollViewObserverContext;
 
-- (instancetype)initWithTargetView:(UIScrollView *)scrollView delegate:(id <ORKLegacyScrollViewObserverDelegate>)delegate {
+- (instancetype)initWithTargetView:(UIScrollView *)scrollView delegate:(id <ORK1ScrollViewObserverDelegate>)delegate {
     return [super initWithTarget:scrollView
                         keyPaths:@[ @"contentOffset" ]
                         delegate:delegate
                           action:@selector(observedScrollViewDidScroll:)
-                         context:_ORKLegacyScrollViewObserverContext];
+                         context:_ORK1ScrollViewObserverContext];
 }
 
 @end

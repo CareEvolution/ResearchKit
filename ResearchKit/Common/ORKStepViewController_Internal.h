@@ -34,12 +34,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyStepViewController () <UIViewControllerRestoration>
+@interface ORK1StepViewController () <UIViewControllerRestoration>
 
 - (void)stepDidChange;
 
 @property (nonatomic, copy, nullable) NSURL *outputDirectory;
-@property (nonatomic, copy, readonly, nullable) NSArray <ORKLegacyResult *> *addedResults;
+@property (nonatomic, copy, readonly, nullable) NSArray <ORK1Result *> *addedResults;
 
 @property (nonatomic, strong, nullable) UIBarButtonItem *internalContinueButtonItem;
 @property (nonatomic, strong, nullable) UIBarButtonItem *internalBackButtonItem;
@@ -63,9 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) BOOL isBeingReviewed;
 
-@property (nonatomic, nullable) ORKLegacyReviewStep* parentReviewStep;
+@property (nonatomic, nullable) ORK1ReviewStep* parentReviewStep;
 
-- (void)willNavigateDirection:(ORKLegacyStepViewControllerNavigationDirection)direction;
+- (void)willNavigateDirection:(ORK1StepViewControllerNavigationDirection)direction;
 
 - (void)notifyDelegateOnResultChange;
 

@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyImageCaptureCameraPreviewView : UIView
+@interface ORK1ImageCaptureCameraPreviewView : UIView
 
 @property (nonatomic, weak, nullable) AVCaptureSession *session;
 @property (nonatomic) AVCaptureVideoOrientation videoOrientation;

@@ -34,18 +34,18 @@
 #import "ORKRegistrationStep_Internal.h"
 
 
-@implementation ORKLegacyAnswerFormat (Deprecated)
+@implementation ORK1AnswerFormat (Deprecated)
 
-+ (ORKLegacyTextAnswerFormat *)textAnswerFormatWithValidationRegex:(NSString *)validationRegularExpressionPattern
++ (ORK1TextAnswerFormat *)textAnswerFormatWithValidationRegex:(NSString *)validationRegularExpressionPattern
                                               invalidMessage:(NSString *)invalidMessage {
-        return [[ORKLegacyTextAnswerFormat alloc] initWithValidationRegex:validationRegularExpressionPattern
+        return [[ORK1TextAnswerFormat alloc] initWithValidationRegex:validationRegularExpressionPattern
                                                      invalidMessage:invalidMessage];
 }
 
 @end
 
 
-@implementation ORKLegacyTextAnswerFormat (Deprecated)
+@implementation ORK1TextAnswerFormat (Deprecated)
 
 - (instancetype)initWithValidationRegex:(NSString *)validationRegularExpressionPattern
                          invalidMessage:(NSString *)invalidMessage {
@@ -64,14 +64,14 @@
 @end
 
 
-@implementation ORKLegacyRegistrationStep (Deprecated)
+@implementation ORK1RegistrationStep (Deprecated)
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
                              title:(nullable NSString *)title
                               text:(nullable NSString *)text
            passcodeValidationRegex:(nullable NSString *)passcodeValidationRegularExpressionPattern
             passcodeInvalidMessage:(nullable NSString *)passcodeInvalidMessage
-                           options:(ORKLegacyRegistrationStepOption)options {
+                           options:(ORK1RegistrationStepOption)options {
     NSRegularExpression *validationRegularExpression = [NSRegularExpression regularExpressionWithPattern:passcodeValidationRegularExpressionPattern
                                                                                                  options:(NSRegularExpressionOptions)0
                                                                                                    error:nil];

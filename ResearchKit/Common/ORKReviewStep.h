@@ -35,26 +35,26 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ORKLegacyTaskResultSource;
+@protocol ORK1TaskResultSource;
 
 /**
- The `ORKLegacyReviewStep` class is a concrete subclass of `ORKLegacyStep` that represents
+ The `ORK1ReviewStep` class is a concrete subclass of `ORK1Step` that represents
  a step in which existing question results can be reviewed by the user.
  
- There are two separate scenarios for using `ORKLegacyReviewStep`. The first one is to embed a review step within an ongoing 
- survey, which means an instance of `ORKLegacyReviewStep` might be placed at the end or in the middle of a task. The second 
- scenario is meant to use `ORKLegacyReviewStep` standalone for reviewing an already completed task.
+ There are two separate scenarios for using `ORK1ReviewStep`. The first one is to embed a review step within an ongoing 
+ survey, which means an instance of `ORK1ReviewStep` might be placed at the end or in the middle of a task. The second 
+ scenario is meant to use `ORK1ReviewStep` standalone for reviewing an already completed task.
  
- To use a review step, instantiate an `ORKLegacyReviewStep` object, fill in its properties, and include it in a task. Next, 
+ To use a review step, instantiate an `ORK1ReviewStep` object, fill in its properties, and include it in a task. Next, 
  create a task view controller for the task and present it.
  
- When a task view controller presents an `ORKLegacyReviewStep` object, it instantiates an `ORKLegacyReviewStepViewController` object 
+ When a task view controller presents an `ORK1ReviewStep` object, it instantiates an `ORK1ReviewStepViewController` object 
  to present the step. This view controller lists both steps and step results to provide all entered data at a glance. It
  also allows the user to navigate directly to a certain step. However, results may only be changed from there, if the 
  review step is used within an ongoing survey (`embedded`).
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyReviewStep : ORKLegacyStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1ReviewStep : ORK1Step
 
 /**
  Returns a new standalone review step that includes the specified identifier, steps, and result source.
@@ -66,7 +66,7 @@ ORKLegacy_CLASS_AVAILABLE
  */
 + (instancetype)standaloneReviewStepWithIdentifier:(NSString *)identifier
                                              steps:(NSArray *)steps
-                                      resultSource:(id<ORKLegacyTaskResultSource, NSSecureCoding>)resultSource;
+                                      resultSource:(id<ORK1TaskResultSource, NSSecureCoding>)resultSource;
 
 /**
  Returns a new embedded review step that includes the specified identifier. Steps and step results are directly taken 
@@ -82,19 +82,19 @@ ORKLegacy_CLASS_AVAILABLE
  This property contains all steps that are included in the review process. Currently, only question, instruction and 
  form steps can be reviewed. Any other step type will be ignored.
  */
-@property (nonatomic, copy, readonly) NSArray<ORKLegacyStep *> *steps;
+@property (nonatomic, copy, readonly) NSArray<ORK1Step *> *steps;
 
 /**
  The result source to obtain step results from. (read-only)
  
  This property contains the source that should be consulted to obtain step results.
  */
-@property (nonatomic, readonly) id<ORKLegacyTaskResultSource, NSSecureCoding> resultSource;
+@property (nonatomic, readonly) id<ORK1TaskResultSource, NSSecureCoding> resultSource;
 
 /**
  A Boolean value indicating whether instruction steps should be excluded from review.
  
- The default value of this property is `NO`. When the value is `YES`, any instances of `ORKLegacyInstructionStep` are 
+ The default value of this property is `NO`. When the value is `YES`, any instances of `ORK1InstructionStep` are 
  excluded from the review step in either embedded or standalone mode.
  */
 @property (nonatomic) BOOL excludeInstructionSteps;

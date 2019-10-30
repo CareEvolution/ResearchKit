@@ -34,32 +34,32 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyFormItem;
-@class ORKLegacyFormItemCell;
+@class ORK1FormItem;
+@class ORK1FormItemCell;
 
-@protocol ORKLegacyFormItemCellDelegate <NSObject>
+@protocol ORK1FormItemCellDelegate <NSObject>
 
 @required
-- (void)formItemCell:(ORKLegacyFormItemCell *)cell answerDidChangeTo:(nullable id)answer;
-- (void)formItemCellDidBecomeFirstResponder:(ORKLegacyFormItemCell *)cell;
-- (void)formItemCellDidResignFirstResponder:(ORKLegacyFormItemCell *)cell;
-- (void)formItemCell:(ORKLegacyFormItemCell *)cell invalidInputAlertWithMessage:(NSString *)input;
-- (void)formItemCell:(ORKLegacyFormItemCell *)cell invalidInputAlertWithTitle:(NSString *)title message:(NSString *)message;
+- (void)formItemCell:(ORK1FormItemCell *)cell answerDidChangeTo:(nullable id)answer;
+- (void)formItemCellDidBecomeFirstResponder:(ORK1FormItemCell *)cell;
+- (void)formItemCellDidResignFirstResponder:(ORK1FormItemCell *)cell;
+- (void)formItemCell:(ORK1FormItemCell *)cell invalidInputAlertWithMessage:(NSString *)input;
+- (void)formItemCell:(ORK1FormItemCell *)cell invalidInputAlertWithTitle:(NSString *)title message:(NSString *)message;
 
 @end
 
 
-@interface ORKLegacyFormItemCell : UITableViewCell
+@interface ORK1FormItemCell : UITableViewCell
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
-                               formItem:(ORKLegacyFormItem *)formItem
+                               formItem:(ORK1FormItem *)formItem
                                  answer:(nullable id)answer
                           maxLabelWidth:(CGFloat)maxLabelWidth
-                               delegate:(id<ORKLegacyFormItemCellDelegate>)delegate;
+                               delegate:(id<ORK1FormItemCellDelegate>)delegate;
 
-@property (nonatomic, weak, readonly) id<ORKLegacyFormItemCellDelegate> delegate;
+@property (nonatomic, weak, readonly) id<ORK1FormItemCellDelegate> delegate;
 @property (nonatomic, copy, nullable) id answer;
-@property (nonatomic, strong) ORKLegacyFormItem *formItem;
+@property (nonatomic, strong) ORK1FormItem *formItem;
 @property (nonatomic, copy, nullable) id defaultAnswer;
 @property (nonatomic) CGFloat maxLabelWidth;
 @property (nonatomic) CGFloat expectedLayoutWidth;
@@ -68,47 +68,47 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface ORKLegacyFormItemTextFieldBasedCell : ORKLegacyFormItemCell <UITextFieldDelegate>
+@interface ORK1FormItemTextFieldBasedCell : ORK1FormItemCell <UITextFieldDelegate>
 
 @end
 
 
-@interface ORKLegacyFormItemTextFieldCell : ORKLegacyFormItemTextFieldBasedCell
+@interface ORK1FormItemTextFieldCell : ORK1FormItemTextFieldBasedCell
 
 @end
 
 
-@interface ORKLegacyFormItemConfirmTextCell : ORKLegacyFormItemTextFieldCell
+@interface ORK1FormItemConfirmTextCell : ORK1FormItemTextFieldCell
 
 @end
 
 
-@interface ORKLegacyFormItemNumericCell : ORKLegacyFormItemTextFieldBasedCell
+@interface ORK1FormItemNumericCell : ORK1FormItemTextFieldBasedCell
 
 @end
 
 
-@interface ORKLegacyFormItemTextCell : ORKLegacyFormItemCell <UITextViewDelegate>
+@interface ORK1FormItemTextCell : ORK1FormItemCell <UITextViewDelegate>
 
 @end
 
 
-@interface ORKLegacyFormItemImageSelectionCell : ORKLegacyFormItemCell
+@interface ORK1FormItemImageSelectionCell : ORK1FormItemCell
 
 @end
 
 
-@interface ORKLegacyFormItemPickerCell : ORKLegacyFormItemTextFieldBasedCell
+@interface ORK1FormItemPickerCell : ORK1FormItemTextFieldBasedCell
 
 @end
 
 
-@interface ORKLegacyFormItemScaleCell : ORKLegacyFormItemCell
+@interface ORK1FormItemScaleCell : ORK1FormItemCell
 
 @end
 
 
-@interface ORKLegacyFormItemLocationCell : ORKLegacyFormItemCell
+@interface ORK1FormItemLocationCell : ORK1FormItemCell
 
 @end
 

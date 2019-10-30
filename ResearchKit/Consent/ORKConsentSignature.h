@@ -36,23 +36,23 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyConsentSignature` class represents a signature in as `ORKLegacyConsentDocument` object.
+ The `ORK1ConsentSignature` class represents a signature in as `ORK1ConsentDocument` object.
  The signature can be that of an investigator, possibly prefilled with
  an image, date, and first and last name; or you might need to collect the details of a signature.
  
- Signatures can be collected in a consent review step (`ORKLegacyConsentReviewStep`). After a signature has
- been obtained (which produces an `ORKLegacyConsentSignatureResult` object), the resulting signature
+ Signatures can be collected in a consent review step (`ORK1ConsentReviewStep`). After a signature has
+ been obtained (which produces an `ORK1ConsentSignatureResult` object), the resulting signature
  can be substituted into a copy of the document, and used when generating a PDF.
  
  Alternatively, the details of a signature can be uploaded to a server
  for PDF generation elsewhere or simply as a record of having obtained consent.
  
  The signature object has no concept of a cryptographic signature -- it is merely
- a record of any input the user made during a consent review step. Also, an `ORKLegacyConsentSignature` object
+ a record of any input the user made during a consent review step. Also, an `ORK1ConsentSignature` object
  does not verify or vouch for user identity.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyConsentSignature : NSObject <NSSecureCoding, NSCopying>
+ORK1_CLASS_AVAILABLE
+@interface ORK1ConsentSignature : NSObject <NSSecureCoding, NSCopying>
 
 /// @name Factory methods
 
@@ -69,7 +69,7 @@ ORKLegacy_CLASS_AVAILABLE
  @param signatureImage      An image of the signature.
  @param signatureDate       The date on which the signature was obtained, represented as a string.
  */
-+ (ORKLegacyConsentSignature *)signatureForPersonWithTitle:(nullable NSString *)title
++ (ORK1ConsentSignature *)signatureForPersonWithTitle:(nullable NSString *)title
                                     dateFormatString:(nullable NSString *)dateFormatString
                                           identifier:(NSString *)identifier
                                            givenName:(nullable NSString *)givenName
@@ -86,7 +86,7 @@ ORKLegacy_CLASS_AVAILABLE
  @param dateFormatString    The format string to use when formatting the date of signature.
  @param identifier          The identifier of the signature, unique within this document.
  */
-+ (ORKLegacyConsentSignature *)signatureForPersonWithTitle:(nullable NSString *)title
++ (ORK1ConsentSignature *)signatureForPersonWithTitle:(nullable NSString *)title
                                     dateFormatString:(nullable NSString *)dateFormatString
                                           identifier:(NSString *)identifier;
 
@@ -113,8 +113,8 @@ ORKLegacy_CLASS_AVAILABLE
  The identifier for this signature.
  
  The identifier should be unique in the document. It can be used to find or
- replace a specific signature in an `ORKLegacyConsentDocument` object. The identifier is also reproduced in
- the `ORKLegacyConsentSignatureResult` object produced by an `ORKLegacyConsentReviewStep` object.
+ replace a specific signature in an `ORK1ConsentDocument` object. The identifier is also reproduced in
+ the `ORK1ConsentSignatureResult` object produced by an `ORK1ConsentReviewStep` object.
  */
 @property (nonatomic, copy) NSString *identifier;
 

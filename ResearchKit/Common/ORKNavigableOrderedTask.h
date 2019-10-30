@@ -35,23 +35,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyStepNavigationRule;
-@class ORKLegacySkipStepNavigationRule;
-@class ORKLegacyStepModifier;
+@class ORK1StepNavigationRule;
+@class ORK1SkipStepNavigationRule;
+@class ORK1StepModifier;
 
 /**
- The `ORKLegacyNavigableOrderedTask` class adds conditional step navigation to the behavior inherited from
- the `ORKLegacyOrderedTask` class.
+ The `ORK1NavigableOrderedTask` class adds conditional step navigation to the behavior inherited from
+ the `ORK1OrderedTask` class.
  
  For implementing conditional task navigation, you must instantiate concrete subclasses of
- `ORKLegacyStepNavigationRule` and `ORKLegacySkipStepNavigationRule` and attach them to trigger steps by using
+ `ORK1StepNavigationRule` and `ORK1SkipStepNavigationRule` and attach them to trigger steps by using
  the `setNavigationRule:forTriggerStepIdentifier:` and `setSkipNavigationRule:forStepIdentifier:`
  methods.
  
  For example, if you want to display a survey question only when the user answered Yes to a previous
- question you can use `ORKLegacyPredicateStepNavigationRule`; or if you want to define an arbitrary jump
- between two steps you can use `ORKLegacyDirectStepNavigationRule`. You can also optionally omit steps by
- using `ORKLegacyPredicateSkipStepNavigationRule` objects.
+ question you can use `ORK1PredicateStepNavigationRule`; or if you want to define an arbitrary jump
+ between two steps you can use `ORK1DirectStepNavigationRule`. You can also optionally omit steps by
+ using `ORK1PredicateSkipStepNavigationRule` objects.
  
  Note that each step in the task can have at most one attached navigation rule and one attached skip
  navigation rule.
@@ -65,8 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
  The same applies when navigating backwards over looped steps: only your last valid answer is shown
  every time you encounter a revisited step.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyNavigableOrderedTask : ORKLegacyOrderedTask
+ORK1_CLASS_AVAILABLE
+@interface ORK1NavigableOrderedTask : ORK1OrderedTask
 
 /**
  Adds a navigation rule for a trigger step identifier.
@@ -80,7 +80,7 @@ ORKLegacy_CLASS_AVAILABLE
                                     task.
  @param triggerStepIdentifier   The identifier of the step that triggers the rule.
  */
-- (void)setNavigationRule:(ORKLegacyStepNavigationRule *)stepNavigationRule forTriggerStepIdentifier:(NSString *)triggerStepIdentifier;
+- (void)setNavigationRule:(ORK1StepNavigationRule *)stepNavigationRule forTriggerStepIdentifier:(NSString *)triggerStepIdentifier;
 
 /**
  Returns the step navigation rule associated with a trigger step identifier, or `nil` if there is
@@ -90,7 +90,7 @@ ORKLegacy_CLASS_AVAILABLE
 
  @return A step navigation rule, or `nil` if the trigger step identifier has none.
  */
-- (nullable ORKLegacyStepNavigationRule *)navigationRuleForTriggerStepIdentifier:(NSString *)triggerStepIdentifier;
+- (nullable ORK1StepNavigationRule *)navigationRuleForTriggerStepIdentifier:(NSString *)triggerStepIdentifier;
 
 /**
  Removes the navigation rule, if any, associated with the specified trigger step identifier.
@@ -102,9 +102,9 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  A dictionary of step navigation rules in the task, keyed by trigger step identifier.
  
- Each object in the dictionary should be a `ORKLegacyStepNavigationRule` subclass.
+ Each object in the dictionary should be a `ORK1StepNavigationRule` subclass.
  */
-@property (nonatomic, copy, readonly) NSDictionary<NSString *, ORKLegacyStepNavigationRule *> *stepNavigationRules;
+@property (nonatomic, copy, readonly) NSDictionary<NSString *, ORK1StepNavigationRule *> *stepNavigationRules;
 
 /**
  Adds a skip step navigation rule for a step identifier.
@@ -119,7 +119,7 @@ ORKLegacy_CLASS_AVAILABLE
  @param stepIdentifier              The identifier of the step that is checked against the skip
                                         rule.
  */
-- (void)setSkipNavigationRule:(ORKLegacySkipStepNavigationRule *)skipStepNavigationRule forStepIdentifier:(NSString *)stepIdentifier;
+- (void)setSkipNavigationRule:(ORK1SkipStepNavigationRule *)skipStepNavigationRule forStepIdentifier:(NSString *)stepIdentifier;
 
 /**
  Returns the skip step navigation rule associated with a step identifier,  or `nil` if there is no
@@ -129,7 +129,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return A skip step navigation rule, or `nil` if the step identifier has none.
  */
-- (nullable ORKLegacySkipStepNavigationRule *)skipNavigationRuleForStepIdentifier:(NSString *)stepIdentifier;
+- (nullable ORK1SkipStepNavigationRule *)skipNavigationRuleForStepIdentifier:(NSString *)stepIdentifier;
 
 /**
  Removes the skip step navigation rule, if any, associated with the specified step identifier.
@@ -141,9 +141,9 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  A dictionary of step navigation rules in the task, keyed by trigger step identifier.
  
- Each object in the dictionary should be a `ORKLegacyStepNavigationRule` subclass.
+ Each object in the dictionary should be a `ORK1StepNavigationRule` subclass.
  */
-@property (nonatomic, copy, readonly) NSDictionary<NSString *, ORKLegacySkipStepNavigationRule *> *skipStepNavigationRules;
+@property (nonatomic, copy, readonly) NSDictionary<NSString *, ORK1SkipStepNavigationRule *> *skipStepNavigationRules;
 
 /**
  Adds a step modifier for a step identifier.
@@ -152,7 +152,7 @@ ORKLegacy_CLASS_AVAILABLE
  @param stepIdentifier      The identifier of the step that is checked against the skip
  rule.
  */
-- (void)setStepModifier:(ORKLegacyStepModifier *)stepModifier forStepIdentifier:(NSString *)stepIdentifier;
+- (void)setStepModifier:(ORK1StepModifier *)stepModifier forStepIdentifier:(NSString *)stepIdentifier;
 
 /**
  Returns the step modifier associated with a step identifier,  or `nil` if there is no
@@ -162,7 +162,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return A step modifier, or `nil` if the step identifier has none.
  */
-- (nullable ORKLegacyStepModifier *)stepModifierForStepIdentifier:(NSString *)stepIdentifier;
+- (nullable ORK1StepModifier *)stepModifierForStepIdentifier:(NSString *)stepIdentifier;
 
 /**
  Removes the step modifier, if any, associated with the specified step identifier.
@@ -174,9 +174,9 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  A dictionary of step modifiers in the task, keyed by trigger step identifier.
  
- Each object in the dictionary should be a `ORKLegacyStepModifier` subclass.
+ Each object in the dictionary should be a `ORK1StepModifier` subclass.
  */
-@property (nonatomic, copy, readonly) NSDictionary<NSString *, ORKLegacyStepModifier *> *stepModifiers;
+@property (nonatomic, copy, readonly) NSDictionary<NSString *, ORK1StepModifier *> *stepModifiers;
 
 /**
  Determines whether the task should report its progress as a linear ordered task or not.
@@ -187,7 +187,7 @@ ORKLegacy_CLASS_AVAILABLE
 @end
 
 
-@interface ORKLegacyNavigableOrderedTask (ORKLegacyPredefinedActiveTask)
+@interface ORK1NavigableOrderedTask (ORK1PredefinedActiveTask)
 
 /**
  Returns a predefined task that measures the upper extremity function.
@@ -196,7 +196,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  A hole peg test task can be used to assess arm and hand function, especially in patients with severe disability.
  
- Data collected in this task is in the form of an `ORKLegacyHolePegTestResult` object.
+ Data collected in this task is in the form of an `ORK1HolePegTestResult` object.
  
  @param identifier              The task identifier to use for this task, appropriate to the study.
  @param intendedUseDescription  A localized string describing the intended use of the data
@@ -209,16 +209,16 @@ ORKLegacy_CLASS_AVAILABLE
  @param timeLimit               The duration allowed to validate the peg position.
  @param options                 Options that affect the features of the predefined task.
  
- @return An active hole peg test task that can be presented with an `ORKLegacyTaskViewController` object.
+ @return An active hole peg test task that can be presented with an `ORK1TaskViewController` object.
  */
-+ (ORKLegacyNavigableOrderedTask *)holePegTestTaskWithIdentifier:(NSString *)identifier
++ (ORK1NavigableOrderedTask *)holePegTestTaskWithIdentifier:(NSString *)identifier
                                     intendedUseDescription:(nullable NSString *)intendedUseDescription
-                                              dominantHand:(ORKLegacyBodySagittal)dominantHand
+                                              dominantHand:(ORK1BodySagittal)dominantHand
                                               numberOfPegs:(int)numberOfPegs
                                                  threshold:(double)threshold
                                                    rotated:(BOOL)rotated
                                                  timeLimit:(NSTimeInterval)timeLimit
-                                                   options:(ORKLegacyPredefinedTaskOption)options;
+                                                   options:(ORK1PredefinedTaskOption)options;
 
 @end
 

@@ -36,26 +36,26 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacySpatialSpanGameState {
+@implementation ORK1SpatialSpanGameState {
     NSMutableArray *_plays;
-    ORKLegacySpatialSpanTargetState *_states;
+    ORK1SpatialSpanTargetState *_states;
 }
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
-- (instancetype)initWithGame:(ORKLegacySpatialSpanGame *)game {
+- (instancetype)initWithGame:(ORK1SpatialSpanGame *)game {
     self = [super init];
     if (self) {
         _game = game;
         _plays = [NSMutableArray array];
         
-        _states = calloc([_game gameSize], sizeof(ORKLegacySpatialSpanTargetState));
+        _states = calloc([_game gameSize], sizeof(ORK1SpatialSpanTargetState));
         if (_states == NULL) {
             self = nil;
         }
@@ -73,14 +73,14 @@
 - (void)reset {
     const NSInteger gameSize = [_game gameSize];
     for (NSInteger tileIndex = 0; tileIndex < gameSize; tileIndex++) {
-        _states[tileIndex] = ORKLegacySpatialSpanTargetStateQuiescent;
+        _states[tileIndex] = ORK1SpatialSpanTargetStateQuiescent;
     }
     [_plays removeAllObjects];
     _complete = NO;
 }
 
 /// Enumerate all tiles, indicating the state of each tile at this point in the game.
-- (void)enumerateTilesWithHandler:(void (^)(NSInteger tileIndex, ORKLegacySpatialSpanTargetState state, BOOL *stop))handler {
+- (void)enumerateTilesWithHandler:(void (^)(NSInteger tileIndex, ORK1SpatialSpanTargetState state, BOOL *stop))handler {
     const NSInteger gameSize = [_game gameSize];
     BOOL stop = NO;
     for (NSInteger tileIndex = 0; tileIndex < gameSize; tileIndex++) {
@@ -90,14 +90,14 @@
 }
 
 /// User tapped a tile. Returns YES if it was the correct next tile.
-- (ORKLegacySpatialSpanResult)playTileIndex:(NSInteger)tileIndex {
-    if (_states[tileIndex] != ORKLegacySpatialSpanTargetStateQuiescent) {
-        return ORKLegacySpatialSpanResultIgnore;
+- (ORK1SpatialSpanResult)playTileIndex:(NSInteger)tileIndex {
+    if (_states[tileIndex] != ORK1SpatialSpanTargetStateQuiescent) {
+        return ORK1SpatialSpanResultIgnore;
     }
     
     NSInteger sequencePosition = _plays.count;
     BOOL correct = ([_game tileIndexForStep:sequencePosition] == tileIndex);
-    _states[tileIndex] = correct ? ORKLegacySpatialSpanTargetStateCorrect : ORKLegacySpatialSpanTargetStateIncorrect;
+    _states[tileIndex] = correct ? ORK1SpatialSpanTargetStateCorrect : ORK1SpatialSpanTargetStateIncorrect;
     if (correct) {
         [_plays addObject:@(tileIndex)];
     }
@@ -105,7 +105,7 @@
         _complete = YES;
     }
     
-    return correct ? ORKLegacySpatialSpanResultCorrect : ORKLegacySpatialSpanResultIncorrect;
+    return correct ? ORK1SpatialSpanResultCorrect : ORK1SpatialSpanResultIncorrect;
 }
 
 - (NSInteger)currentStepIndex {

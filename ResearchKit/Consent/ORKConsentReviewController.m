@@ -40,12 +40,12 @@
 #import "ORKSkin.h"
 
 
-@interface ORKLegacyConsentReviewController () <WKNavigationDelegate, UIScrollViewDelegate>
+@interface ORK1ConsentReviewController () <WKNavigationDelegate, UIScrollViewDelegate>
 
 @end
 
 
-@implementation ORKLegacyConsentReviewController {
+@implementation ORK1ConsentReviewController {
     UIToolbar *_toolbar;
     NSString *_htmlString;
     NSMutableArray *_variableConstraints;
@@ -53,21 +53,21 @@
     BOOL _webViewFinishedLoading;
 }
 
-- (instancetype)initWithHTML:(NSString *)html delegate:(id<ORKLegacyConsentReviewControllerDelegate>)delegate requiresScrollToBottom:(BOOL)requiresScrollToBottom {
+- (instancetype)initWithHTML:(NSString *)html delegate:(id<ORK1ConsentReviewControllerDelegate>)delegate requiresScrollToBottom:(BOOL)requiresScrollToBottom {
     self = [super init];
     if (self) {
         _htmlString = html;
         _delegate = delegate;
         _webViewFinishedLoading = NO;
         
-        _agreeButton = [[UIBarButtonItem alloc] initWithTitle:ORKLegacyLocalizedString(@"BUTTON_AGREE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(ack)];
+        _agreeButton = [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"BUTTON_AGREE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(ack)];
         if (requiresScrollToBottom) {
             _agreeButton.enabled = NO;
             _agreeButton.accessibilityHint = @"must scroll to the bottom to enable this button";
         }
         
         self.toolbarItems = @[
-                             [[UIBarButtonItem alloc] initWithTitle:ORKLegacyLocalizedString(@"BUTTON_DISAGREE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancel)],
+                             [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"BUTTON_DISAGREE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancel)],
                              [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                              _agreeButton];
     }
@@ -80,13 +80,13 @@
     _toolbar = [[UIToolbar alloc] init];
     _toolbar.items = self.toolbarItems;
     
-    self.view.backgroundColor = ORKLegacyColor(ORKLegacyBackgroundColorKey);
+    self.view.backgroundColor = ORK1Color(ORK1BackgroundColorKey);
     
     WKWebViewConfiguration *webViewConfiguration = [WKWebViewConfiguration new];
     _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:webViewConfiguration];
-    [_webView loadHTMLString:_htmlString baseURL:ORKLegacyCreateRandomBaseURL()];
-    _webView.backgroundColor = ORKLegacyColor(ORKLegacyBackgroundColorKey);
-    _webView.scrollView.backgroundColor = ORKLegacyColor(ORKLegacyBackgroundColorKey);
+    [_webView loadHTMLString:_htmlString baseURL:ORK1CreateRandomBaseURL()];
+    _webView.backgroundColor = ORK1Color(ORK1BackgroundColorKey);
+    _webView.scrollView.backgroundColor = ORK1Color(ORK1BackgroundColorKey);
     if (!_agreeButton.isEnabled) {
         _webView.scrollView.delegate = self;
     }
@@ -107,7 +107,7 @@
 }
 
 - (void)updateLayoutMargins {
-    const CGFloat margin = ORKLegacyStandardHorizontalMarginForView(self.view);
+    const CGFloat margin = ORK1StandardHorizontalMarginForView(self.view);
     _webView.scrollView.scrollIndicatorInsets = (UIEdgeInsets){.left = -margin, .right = -margin};
 }
     
@@ -134,7 +134,7 @@
                                                            toItem:nil
                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                        multiplier:1.0
-                                                         constant:ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricToolbarHeight, self.view.window)]];
+                                                         constant:ORK1GetMetricForWindow(ORK1ScreenMetricToolbarHeight, self.view.window)]];
     
     [NSLayoutConstraint activateConstraints:constraints];
 }
@@ -148,7 +148,7 @@
     [_variableConstraints removeAllObjects];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_webView, _toolbar);
-    const CGFloat horizontalMargin = ORKLegacyStandardHorizontalMarginForView(self.view);
+    const CGFloat horizontalMargin = ORK1StandardHorizontalMarginForView(self.view);
     [_variableConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-horizMargin-[_webView]-horizMargin-|"
                                                                       options:(NSLayoutFormatOptions)0
                                                                                       metrics:@{ @"horizMargin": @(horizontalMargin) }
@@ -169,12 +169,12 @@
 }
 
 - (IBAction)ack {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:ORKLegacyLocalizedString(@"CONSENT_REVIEW_ALERT_TITLE", nil)
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:ORK1LocalizedString(@"CONSENT_REVIEW_ALERT_TITLE", nil)
                                                                    message:self.localizedReasonForConsent
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:[UIAlertAction actionWithTitle:ORKLegacyLocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleDefault handler:nil]];
-    [alert addAction:[UIAlertAction actionWithTitle:ORKLegacyLocalizedString(@"BUTTON_AGREE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [alert addAction:[UIAlertAction actionWithTitle:ORK1LocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleDefault handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:ORK1LocalizedString(@"BUTTON_AGREE", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         // Have to dispatch, so following transition animation works
         dispatch_async(dispatch_get_main_queue(), ^{
             [self doAck];

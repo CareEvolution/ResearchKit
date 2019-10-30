@@ -32,7 +32,7 @@
 #import "ORKReactionTimeStimulusView.h"
 
 
-@implementation ORKLegacyReactionTimeStimulusView {
+@implementation ORK1ReactionTimeStimulusView {
     CAShapeLayer *_tickLayer;
     CAShapeLayer *_crossLayer;
 }

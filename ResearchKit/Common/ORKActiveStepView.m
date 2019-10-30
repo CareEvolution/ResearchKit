@@ -40,14 +40,14 @@
 #import "ORKStep_Private.h"
 
 
-@implementation  ORKLegacyActiveStepView {
-    ORKLegacyTintedImageView *_imageView;
+@implementation  ORK1ActiveStepView {
+    ORK1TintedImageView *_imageView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _imageView = [ORKLegacyTintedImageView new];
+        _imageView = [ORK1TintedImageView new];
         _imageView.translatesAutoresizingMaskIntoConstraints = NO;
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         
@@ -66,7 +66,7 @@
     }
 }
 
-- (void)setActiveStep:(ORKLegacyActiveStep *)step {
+- (void)setActiveStep:(ORK1ActiveStep *)step {
     self.continueSkipContainer.useNextForSkip = step.shouldUseNextAsSkipButton;
     _activeStep = step;
     self.headerView.instructionLabel.hidden = !(_activeStep.hasText);
@@ -87,14 +87,14 @@
 }
 
 - (void)updateTitle:(NSString *)title text:(NSString *)text {
-    ORKLegacyStepHeaderView *headerView = [self headerView];
+    ORK1StepHeaderView *headerView = [self headerView];
     [headerView.captionLabel setText:title];
     [headerView.instructionLabel setText:text];
     headerView.instructionLabel.hidden = (text == nil);
     [headerView updateCaptionLabelPreferredWidth];
 }
 
-- (void)setActiveCustomView:(ORKLegacyActiveStepCustomView *)activeCustomView {
+- (void)setActiveCustomView:(ORK1ActiveStepCustomView *)activeCustomView {
     _activeCustomView = activeCustomView;
     [self updateStepView];
 }

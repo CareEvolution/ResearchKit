@@ -46,21 +46,21 @@
 #import "ORKErrors.h"
 
 
-@implementation ORKLegacyConsentDocument {
-    NSMutableArray<ORKLegacyConsentSignature *> *_signatures;
+@implementation ORK1ConsentDocument {
+    NSMutableArray<ORK1ConsentSignature *> *_signatures;
 }
 
 #pragma mark - Initializers
 
 - (instancetype)init {
-    return [self initWithHTMLPDFWriter:[[ORKLegacyHTMLPDFWriter alloc] init]
-            consentSectionFormatter:[[ORKLegacyConsentSectionFormatter alloc] init]
-            consentSignatureFormatter:[[ORKLegacyConsentSignatureFormatter alloc] init]];
+    return [self initWithHTMLPDFWriter:[[ORK1HTMLPDFWriter alloc] init]
+            consentSectionFormatter:[[ORK1ConsentSectionFormatter alloc] init]
+            consentSignatureFormatter:[[ORK1ConsentSignatureFormatter alloc] init]];
 }
 
-- (instancetype)initWithHTMLPDFWriter:(ORKLegacyHTMLPDFWriter *)writer
-              consentSectionFormatter:(ORKLegacyConsentSectionFormatter *)sectionFormatter
-            consentSignatureFormatter:(ORKLegacyConsentSignatureFormatter *)signatureFormatter{
+- (instancetype)initWithHTMLPDFWriter:(ORK1HTMLPDFWriter *)writer
+              consentSectionFormatter:(ORK1ConsentSectionFormatter *)sectionFormatter
+            consentSignatureFormatter:(ORK1ConsentSignatureFormatter *)signatureFormatter{
     if (self = [super init]) {
         _writer = writer;
         _sectionFormatter = sectionFormatter;
@@ -71,17 +71,17 @@
 
 #pragma mark - Accessors
 
-- (void)setSignatures:(NSArray<ORKLegacyConsentSignature *> *)signatures {
+- (void)setSignatures:(NSArray<ORK1ConsentSignature *> *)signatures {
     _signatures = [signatures mutableCopy];
 }
 
-- (NSArray<ORKLegacyConsentSignature *> *)signatures {
+- (NSArray<ORK1ConsentSignature *> *)signatures {
     return [_signatures copy];
 }
 
 #pragma mark - Public
 
-- (void)addSignature:(ORKLegacyConsentSignature *)signature {
+- (void)addSignature:(ORK1ConsentSignature *)signature {
     if (!_signatures) {
         _signatures = [NSMutableArray array];
     }
@@ -114,8 +114,8 @@
         [css appendString:@"body { margin-left: 0px; margin-right: 0px; }\n"];
         
         
-        CGFloat adjustment = [[ORKLegacySubheadlineLabel defaultFont] pointSize] - 17.0;
-        NSArray *hPointSizes = @[ @([[ORKLegacyHeadlineLabel defaultFont] pointSize]),
+        CGFloat adjustment = [[ORK1SubheadlineLabel defaultFont] pointSize] - 17.0;
+        NSArray *hPointSizes = @[ @([[ORK1HeadlineLabel defaultFont] pointSize]),
                                  @(24.0 + adjustment),
                                  @(19.0 + adjustment),
                                  @(17.0 + adjustment),
@@ -187,7 +187,7 @@
         [body appendFormat:@"<h3>%@</h3>", _title ? : @""];
         
         // scenes
-        for (ORKLegacyConsentSection *section in _sections) {
+        for (ORK1ConsentSection *section in _sections) {
             if (!section.omitFromDocument) {
                 [body appendFormat:@"%@", [_sectionFormatter HTMLForSection:section]];
             }
@@ -198,7 +198,7 @@
             [body appendFormat:@"<h4 class=\"pagebreak\">%@</h4>", _signaturePageTitle ? : @""];
             [body appendFormat:@"<p>%@</p>", _signaturePageContent ? : @""];
             
-            for (ORKLegacyConsentSignature *signature in self.signatures) {
+            for (ORK1ConsentSignature *signature in self.signatures) {
                 [body appendFormat:@"%@", [_signatureFormatter HTMLForSignature:signature]];
             }
         }
@@ -211,24 +211,24 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, title, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, signaturePageTitle, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, signaturePageContent, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, htmlReviewContent, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, title, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, signaturePageTitle, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, signaturePageContent, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, htmlReviewContent, NSString);
         NSArray *signatures = (NSArray *)[aDecoder decodeObjectOfClass:[NSArray class] forKey:@"signatures"];
         _signatures = [signatures mutableCopy];
-        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, sections, ORKLegacyConsentSection);
+        ORK1_DECODE_OBJ_ARRAY(aDecoder, sections, ORK1ConsentSection);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORKLegacy_ENCODE_OBJ(aCoder, title);
-    ORKLegacy_ENCODE_OBJ(aCoder, signaturePageTitle);
-    ORKLegacy_ENCODE_OBJ(aCoder, signaturePageContent);
-    ORKLegacy_ENCODE_OBJ(aCoder, signatures);
-    ORKLegacy_ENCODE_OBJ(aCoder, htmlReviewContent);
-    ORKLegacy_ENCODE_OBJ(aCoder, sections);
+    ORK1_ENCODE_OBJ(aCoder, title);
+    ORK1_ENCODE_OBJ(aCoder, signaturePageTitle);
+    ORK1_ENCODE_OBJ(aCoder, signaturePageContent);
+    ORK1_ENCODE_OBJ(aCoder, signatures);
+    ORK1_ENCODE_OBJ(aCoder, htmlReviewContent);
+    ORK1_ENCODE_OBJ(aCoder, sections);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -238,17 +238,17 @@
 #pragma mark - <NSCopying>
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyConsentDocument *doc = [[[self class] allocWithZone:zone] init];
+    ORK1ConsentDocument *doc = [[[self class] allocWithZone:zone] init];
     doc.title = _title;
     doc.signaturePageTitle = _signaturePageTitle;
     doc.signaturePageContent = _signaturePageContent;
     doc.htmlReviewContent = _htmlReviewContent;
     
     // Deep copy the signatures
-    doc.signatures = ORKLegacyArrayCopyObjects(_signatures);
+    doc.signatures = ORK1ArrayCopyObjects(_signatures);
     
     // Deep copy the sections
-    doc.sections = ORKLegacyArrayCopyObjects(_sections);
+    doc.sections = ORK1ArrayCopyObjects(_sections);
     
     return doc;
 }
@@ -261,12 +261,12 @@
     }
 
     __typeof(self) castObject = object;
-    return (ORKLegacyEqualObjects(self.title, castObject.title)
-            && ORKLegacyEqualObjects(self.signaturePageTitle, castObject.signaturePageTitle)
-            && ORKLegacyEqualObjects(self.signaturePageContent, castObject.signaturePageContent)
-            && ORKLegacyEqualObjects(self.htmlReviewContent, castObject.htmlReviewContent)
-            && ORKLegacyEqualObjects(self.signatures, castObject.signatures)
-            && ORKLegacyEqualObjects(self.sections, castObject.sections));
+    return (ORK1EqualObjects(self.title, castObject.title)
+            && ORK1EqualObjects(self.signaturePageTitle, castObject.signaturePageTitle)
+            && ORK1EqualObjects(self.signaturePageContent, castObject.signaturePageContent)
+            && ORK1EqualObjects(self.htmlReviewContent, castObject.htmlReviewContent)
+            && ORK1EqualObjects(self.signatures, castObject.signatures)
+            && ORK1EqualObjects(self.sections, castObject.sections));
 }
 
 - (NSUInteger)hash {

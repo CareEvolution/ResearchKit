@@ -37,14 +37,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The ORKLegacyAudioRecorder class represents a recorder that uses the app's 
+ The ORK1AudioRecorder class represents a recorder that uses the app's 
  `AVAudioSession` object to record audio.
  
  To ensure audio recording continues when a task enters the background,
  add the `audio` tag to `UIBackgroundModes` in your app's `Info.plist` file.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyAudioRecorder : ORKLegacyRecorder
+ORK1_CLASS_AVAILABLE
+@interface ORK1AudioRecorder : ORK1Recorder
 
 /**
  The default audio format settings.
@@ -75,7 +75,7 @@ ORKLegacy_CLASS_AVAILABLE
  */
 - (instancetype)initWithIdentifier:(NSString *)identifier
                   recorderSettings:(nullable NSDictionary *)recorderSettings
-                              step:(nullable ORKLegacyStep *)step
+                              step:(nullable ORK1Step *)step
                    outputDirectory:(nullable NSURL *)outputDirectory NS_DESIGNATED_INITIALIZER;
 
 /**

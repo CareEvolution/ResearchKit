@@ -34,11 +34,11 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyScaleValueLabel
+@implementation ORK1ScaleValueLabel
 
 + (UIFont *)defaultFont {
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
-    return ORKLegacyLightFontWithSize(((NSNumber *)[descriptor objectForKey: UIFontDescriptorSizeAttribute]).doubleValue + 18.0);
+    return ORK1LightFontWithSize(((NSNumber *)[descriptor objectForKey: UIFontDescriptorSizeAttribute]).doubleValue + 18.0);
 }
 
 - (CGSize)intrinsicContentSize {

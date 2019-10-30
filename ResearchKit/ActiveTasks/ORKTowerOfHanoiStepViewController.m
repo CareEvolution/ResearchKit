@@ -48,7 +48,7 @@
 
 static const NSUInteger NumberOfTowers = 3;
 
-@interface ORKLegacyTowerOfHanoiViewController () <ORKLegacyTowerOfHanoiTowerViewDataSource, ORKLegacyTowerOfHanoiTowerViewDelegate>
+@interface ORK1TowerOfHanoiViewController () <ORK1TowerOfHanoiTowerViewDataSource, ORK1TowerOfHanoiTowerViewDelegate>
 
 @property (nonatomic, strong) NSDateComponentsFormatter *dateComponentsFormatter;
 @property (nonatomic, strong) NSMutableArray *moves;
@@ -56,8 +56,8 @@ static const NSUInteger NumberOfTowers = 3;
 @end
 
 
-@implementation ORKLegacyTowerOfHanoiViewController {
-    ORKLegacyActiveStepCustomView *_towerOfHanoiCustomView;
+@implementation ORK1TowerOfHanoiViewController {
+    ORK1ActiveStepCustomView *_towerOfHanoiCustomView;
     NSNumber *_selectedIndex;
     NSArray *_variableConstraints;
     NSMutableArray *_towers;
@@ -71,17 +71,17 @@ static const NSUInteger NumberOfTowers = 3;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _towerOfHanoiCustomView = [ORKLegacyActiveStepCustomView new];
+    _towerOfHanoiCustomView = [ORK1ActiveStepCustomView new];
     _towerOfHanoiCustomView.translatesAutoresizingMaskIntoConstraints = NO;
     self.activeStepView.activeCustomView = _towerOfHanoiCustomView;
-    self.activeStepView.minimumStepHeaderHeight = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricMinimumStepHeaderHeightForTowerOfHanoiPuzzle, self.view.window);
+    self.activeStepView.minimumStepHeaderHeight = ORK1GetMetricForWindow(ORK1ScreenMetricMinimumStepHeaderHeightForTowerOfHanoiPuzzle, self.view.window);
     
     [self setUpTowers];
     [self setUpTowerViews];
     [self reloadData];
-    NSString *title = ORKLegacyLocalizedString(@"TOWER_OF_HANOI_TASK_ACTIVE_STEP_INTRO_TEXT",nil);
-    NSString *text = ORKLegacyLocalizedString(@"TOWER_OF_HANOI_TASK_INTRO_TEXT",nil);
-    NSString *skip = ORKLegacyLocalizedString(@"TOWER_OF_HANOI_TASK_ACTIVE_STEP_SKIP_BUTTON_TITLE", nil);
+    NSString *title = ORK1LocalizedString(@"TOWER_OF_HANOI_TASK_ACTIVE_STEP_INTRO_TEXT",nil);
+    NSString *text = ORK1LocalizedString(@"TOWER_OF_HANOI_TASK_INTRO_TEXT",nil);
+    NSString *skip = ORK1LocalizedString(@"TOWER_OF_HANOI_TASK_ACTIVE_STEP_SKIP_BUTTON_TITLE", nil);
     [self.activeStepView updateTitle:title text:text];
     [self setSkipButtonTitle:skip];
 }
@@ -108,17 +108,17 @@ static const NSUInteger NumberOfTowers = 3;
     [NSLayoutConstraint activateConstraints:_variableConstraints];
 }
 
-#pragma mark - ORKLegacyStepViewController
+#pragma mark - ORK1StepViewController
 
 - (void)skipForward {
     [self finish];
 }
 
-#pragma mark - ORKLegacyActiveTaskViewController
+#pragma mark - ORK1ActiveTaskViewController
 
-- (ORKLegacyResult *)result {
-    ORKLegacyStepResult *stepResult = [super result];
-    ORKLegacyTowerOfHanoiResult *result = [[ORKLegacyTowerOfHanoiResult alloc] initWithIdentifier:self.step.identifier];
+- (ORK1Result *)result {
+    ORK1StepResult *stepResult = [super result];
+    ORK1TowerOfHanoiResult *result = [[ORK1TowerOfHanoiResult alloc] initWithIdentifier:self.step.identifier];
     result.moves = self.moves;
     result.puzzleWasSolved = [self puzzleIsSolved];
     if (_firstMoveDate != nil) {
@@ -128,23 +128,23 @@ static const NSUInteger NumberOfTowers = 3;
     return stepResult;
 }
 
-#pragma mark - ORKLegacyTowerOfHanoiTowerViewDataSource
+#pragma mark - ORK1TowerOfHanoiTowerViewDataSource
  
-- (NSUInteger)numberOfDisksInTowerOfHanoiView:(ORKLegacyTowerOfHanoiTowerView *)towerView {
+- (NSUInteger)numberOfDisksInTowerOfHanoiView:(ORK1TowerOfHanoiTowerView *)towerView {
     NSInteger towerIndex = [_towerViews indexOfObject:towerView];
-    ORKLegacyTowerOfHanoiTower *tower = _towers[towerIndex];
+    ORK1TowerOfHanoiTower *tower = _towers[towerIndex];
     return tower.disks.count;
 }
  
-- (NSNumber *)towerOfHanoiView:(ORKLegacyTowerOfHanoiTowerView *)towerView diskAtIndex:(NSUInteger)index {
+- (NSNumber *)towerOfHanoiView:(ORK1TowerOfHanoiTowerView *)towerView diskAtIndex:(NSUInteger)index {
     NSInteger towerIndex = [_towerViews indexOfObject:towerView];
-    ORKLegacyTowerOfHanoiTower *tower = _towers[towerIndex];
+    ORK1TowerOfHanoiTower *tower = _towers[towerIndex];
     return (index >= tower.disks.count) ? nil :tower.disks[index];
 }
 
-#pragma mark - ORKLegacyTowerOfHanoiTowerViewDelegate
+#pragma mark - ORK1TowerOfHanoiTowerViewDelegate
 
-- (void)towerOfHanoiTowerViewWasSelected:(ORKLegacyTowerOfHanoiTowerView *)towerView {
+- (void)towerOfHanoiTowerViewWasSelected:(ORK1TowerOfHanoiTowerView *)towerView {
     NSInteger newSelectedIndex = [_towerViews indexOfObject:towerView];
     if (_selectedIndex == nil) {
         _selectedIndex = @(newSelectedIndex);
@@ -158,11 +158,11 @@ static const NSUInteger NumberOfTowers = 3;
     [self evaluatePuzzle];
 }
 
-- (ORKLegacyTowerOfHanoiTowerView *)towerOfHanoiHighlightedTowerView {
+- (ORK1TowerOfHanoiTowerView *)towerOfHanoiHighlightedTowerView {
     return (_selectedIndex != nil ? _towerViews[_selectedIndex.integerValue] : nil);
 }
 
-#pragma mark - ORKLegacyTowerOfHanoiViewController
+#pragma mark - ORK1TowerOfHanoiViewController
 
 - (NSMutableArray *)moves {
     if (_moves == nil) {
@@ -182,26 +182,26 @@ static const NSUInteger NumberOfTowers = 3;
 }
 
 - (NSUInteger)numberOfDisks {
-    return ((ORKLegacyTowerOfHanoiStep *)self.step).numberOfDisks;
+    return ((ORK1TowerOfHanoiStep *)self.step).numberOfDisks;
 }
 
 - (void)updateTitleText {
-    NSString *moves = ORKLegacyLocalizedStringFromNumber(@(self.moves.count));
+    NSString *moves = ORK1LocalizedStringFromNumber(@(self.moves.count));
     NSString *time = [self.dateComponentsFormatter stringFromTimeInterval:_secondsElapsed];
-    NSString *title = ORKLegacyLocalizedString(@"TOWER_OF_HANOI_TASK_ACTIVE_STEP_INTRO_TEXT",nil);
-    NSString *text = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"TOWER_OF_HANOI_TASK_ACTIVE_STEP_PROGRESS_TEXT", nil), moves, time];
+    NSString *title = ORK1LocalizedString(@"TOWER_OF_HANOI_TASK_ACTIVE_STEP_INTRO_TEXT",nil);
+    NSString *text = [NSString localizedStringWithFormat:ORK1LocalizedString(@"TOWER_OF_HANOI_TASK_ACTIVE_STEP_PROGRESS_TEXT", nil), moves, time];
     [self.activeStepView updateTitle:title text:text];
 }
 
 - (void)reloadData {
-    for (ORKLegacyTowerOfHanoiTowerView *towerView in _towerViews) {
+    for (ORK1TowerOfHanoiTowerView *towerView in _towerViews) {
         towerView.highlighted = _selectedIndex != nil && [_towerViews indexOfObject:towerView] == _selectedIndex.integerValue;
         [towerView reloadData];
     }
 }
 
 - (BOOL)puzzleIsSolved {
-    return ((ORKLegacyTowerOfHanoiTower *)_towers.lastObject).disks.count == [self numberOfDisks];
+    return ((ORK1TowerOfHanoiTower *)_towers.lastObject).disks.count == [self numberOfDisks];
 }
 
 - (void)evaluatePuzzle {
@@ -215,13 +215,13 @@ static const NSUInteger NumberOfTowers = 3;
     for (NSInteger disk = [self numberOfDisks] ; disk > 0 ; disk--) {
         [diskStack addObject: @(disk)];
     }
-    _towers = [@[[[ORKLegacyTowerOfHanoiTower alloc] initWithDisks:diskStack], [ORKLegacyTowerOfHanoiTower emptyTower], [ORKLegacyTowerOfHanoiTower emptyTower]] mutableCopy];
+    _towers = [@[[[ORK1TowerOfHanoiTower alloc] initWithDisks:diskStack], [ORK1TowerOfHanoiTower emptyTower], [ORK1TowerOfHanoiTower emptyTower]] mutableCopy];
 }
 
 - (void)setUpTowerViews {
     NSMutableArray *towerViews = [NSMutableArray array];
     for (NSInteger index = 0 ; index < 3 ; index++) {
-        ORKLegacyTowerOfHanoiTowerView *towerView = [[ORKLegacyTowerOfHanoiTowerView alloc] initWithFrame:CGRectZero maximumNumberOfDisks:[self numberOfDisks]];
+        ORK1TowerOfHanoiTowerView *towerView = [[ORK1TowerOfHanoiTowerView alloc] initWithFrame:CGRectZero maximumNumberOfDisks:[self numberOfDisks]];
         towerView.delegate = self;
         towerView.dataSource = self;
         towerView.targeted = (index == NumberOfTowers - 1);
@@ -233,8 +233,8 @@ static const NSUInteger NumberOfTowers = 3;
 }
 
 - (void)transferDiskFromTowerAtIndex:(NSInteger)donorTowerIndex toTowerAtIndex:(NSInteger)recipientTowerIndex {
-    ORKLegacyTowerOfHanoiTower *donorTower = _towers[donorTowerIndex];
-    ORKLegacyTowerOfHanoiTower *recipientTower = _towers[recipientTowerIndex];
+    ORK1TowerOfHanoiTower *donorTower = _towers[donorTowerIndex];
+    ORK1TowerOfHanoiTower *recipientTower = _towers[recipientTowerIndex];
     if ([recipientTower recieveDiskFrom:donorTower]) {
         [self makeMoveFromTowerAtIndex:donorTowerIndex toTowerAtIndex:recipientTowerIndex];
     } else {
@@ -243,7 +243,7 @@ static const NSUInteger NumberOfTowers = 3;
         
         if (donorSize && recipientSize) {
             // Only announce if the both donor and recipient are valid
-            NSString *invalidMoveAnnouncement = [NSString stringWithFormat:ORKLegacyLocalizedString(@"AX_TOWER_OF_HANOI_INVALID_MOVE_FORMAT", nil), donorSize.stringValue, recipientSize.stringValue];
+            NSString *invalidMoveAnnouncement = [NSString stringWithFormat:ORK1LocalizedString(@"AX_TOWER_OF_HANOI_INVALID_MOVE_FORMAT", nil), donorSize.stringValue, recipientSize.stringValue];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
                 UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, invalidMoveAnnouncement);
             });
@@ -252,7 +252,7 @@ static const NSUInteger NumberOfTowers = 3;
 }
 
 - (void)makeMoveFromTowerAtIndex:(NSUInteger)donorTowerIndex toTowerAtIndex:(NSUInteger)recipientTowerIndex {
-    ORKLegacyTowerOfHanoiMove *move = [[ORKLegacyTowerOfHanoiMove alloc] init];
+    ORK1TowerOfHanoiMove *move = [[ORK1TowerOfHanoiMove alloc] init];
     move.donorTowerIndex = donorTowerIndex;
     move.recipientTowerIndex = recipientTowerIndex;
     move.timestamp = (self.moves.count == 0) ? 0 : fabs([_firstMoveDate timeIntervalSinceNow]);

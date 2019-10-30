@@ -36,11 +36,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyTableStepSource` is a protocol that can be used for presenting a list of model
- objects in a UITableView. Any `ORKLegacyStep` subclass that implements this protocol can be used with
- an `ORKLegacyTableStepViewController` to display the list of items.
+ The `ORK1TableStepSource` is a protocol that can be used for presenting a list of model
+ objects in a UITableView. Any `ORK1Step` subclass that implements this protocol can be used with
+ an `ORK1TableStepViewController` to display the list of items.
  */
-@protocol ORKLegacyTableStepSource <NSObject>
+@protocol ORK1TableStepSource <NSObject>
     
 /**
  Returns the number of rows in the section.
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)numberOfSections;
 
 /**
- Returns the reuseIdentifier for the object at this index path. Default = `ORKLegacyBasicCellReuseIdentifier`
+ Returns the reuseIdentifier for the object at this index path. Default = `ORK1BasicCellReuseIdentifier`
  
  @param  indexPath      The indexpath of the section/row for the cell
  @return                The model object for this section/row
@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Optional override for registering UITableViewCell instances. The default registers a `UITableViewCell` 
- for `ORKLegacyBasicCellReuseIdentifier`.
+ for `ORK1BasicCellReuseIdentifier`.
  
  @param tableView       The table view to register cells
  */
@@ -88,22 +88,22 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /**
- The `ORKLegacyTableStep` class is a concrete subclass of `ORKLegacyStep`, used for presenting a list of model 
+ The `ORK1TableStep` class is a concrete subclass of `ORK1Step`, used for presenting a list of model 
  objects in a UITableView.
  
- To use `ORKLegacyTableStep`, instantiate the object, fill in its properties, and include it
+ To use `ORK1TableStep`, instantiate the object, fill in its properties, and include it
  in a task. Next, create a task view controller for the task and present it.
  
- The base class implementation will instatiate a read-only `ORKLegacyTableStepViewController` to display 
+ The base class implementation will instatiate a read-only `ORK1TableStepViewController` to display 
  the list of items using `UITableViewCell` with the text set to the `-description` for each item in 
  the `items` array.
  
- Customization can be handled by overriding the base class implementations in either `ORKLegacyTableStep`
- or `ORKLegacyTableStepViewController`.
+ Customization can be handled by overriding the base class implementations in either `ORK1TableStep`
+ or `ORK1TableStepViewController`.
  */
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTableStep : ORKLegacyStep <ORKLegacyTableStepSource>
+ORK1_CLASS_AVAILABLE
+@interface ORK1TableStep : ORK1Step <ORK1TableStepSource>
 
 /**
  The array of items in table. These items must conform to NSCopying and NSSecureCoding protocols.
@@ -134,7 +134,7 @@ ORKLegacy_CLASS_AVAILABLE
 - (id <NSObject, NSCopying, NSSecureCoding>)objectForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
- Returns the reuseIdentifier for the object at this index path. Default = `ORKLegacyBasicCellReuseIdentifier`
+ Returns the reuseIdentifier for the object at this index path. Default = `ORK1BasicCellReuseIdentifier`
  
  @param  indexPath      The indexpath of the section/row for the cell
  @return                The model object for this section/row
@@ -142,7 +142,7 @@ ORKLegacy_CLASS_AVAILABLE
 - (NSString *)reuseIdentifierForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 /**
- Optional override for registering UITableViewCell instances. The default registers for `ORKLegacyBasicCellReuseIdentifier`.
+ Optional override for registering UITableViewCell instances. The default registers for `ORK1BasicCellReuseIdentifier`.
  */
 - (void)registerCellsForTableView:(UITableView *)tableView;
 

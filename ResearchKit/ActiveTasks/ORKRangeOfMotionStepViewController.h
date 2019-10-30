@@ -36,11 +36,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- This class is used by the `ORKLegacyRangeOfMotionStep.` Its result corresponds to the device's orientation
+ This class is used by the `ORK1RangeOfMotionStep.` Its result corresponds to the device's orientation
  as recorded by CoreMotion.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyRangeOfMotionStepViewController : ORKLegacyActiveStepViewController {
+ORK1_CLASS_AVAILABLE
+@interface ORK1RangeOfMotionStepViewController : ORK1ActiveStepViewController {
     double _flexedAngle;
     double _rangeOfMotionAngle;
 }

@@ -47,7 +47,7 @@ Float32 const MaxAmplitude = 32767.0;
 Float32 const VolumeClamp = 60.0;
 
 
-@interface ORKLegacyAudioLevelNavigationRule ()
+@interface ORK1AudioLevelNavigationRule ()
 
 @property (nonatomic, copy, readwrite) NSString *audioLevelStepIdentifier;
 @property (nonatomic, copy, readwrite) NSString *destinationStepIdentifier;
@@ -56,23 +56,23 @@ Float32 const VolumeClamp = 60.0;
 @end
 
 
-@implementation ORKLegacyAudioLevelNavigationRule
+@implementation ORK1AudioLevelNavigationRule
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithAudioLevelStepIdentifier:(NSString *)audioLevelStepIdentifier
                        destinationStepIdentifier:(NSString *)destinationStepIdentifier
                                recordingSettings:(NSDictionary *)recordingSettings
 {
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(audioLevelStepIdentifier);
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(destinationStepIdentifier);
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(recordingSettings);
+    ORK1ThrowInvalidArgumentExceptionIfNil(audioLevelStepIdentifier);
+    ORK1ThrowInvalidArgumentExceptionIfNil(destinationStepIdentifier);
+    ORK1ThrowInvalidArgumentExceptionIfNil(recordingSettings);
     self = [super init];
     if (self) {
         _audioLevelStepIdentifier = [audioLevelStepIdentifier copy];
@@ -91,18 +91,18 @@ Float32 const VolumeClamp = 60.0;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, audioLevelStepIdentifier, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, destinationStepIdentifier, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, recordingSettings, NSDictionary);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, audioLevelStepIdentifier, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, destinationStepIdentifier, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, recordingSettings, NSDictionary);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_OBJ(aCoder, audioLevelStepIdentifier);
-    ORKLegacy_ENCODE_OBJ(aCoder, destinationStepIdentifier);
-    ORKLegacy_ENCODE_OBJ(aCoder, recordingSettings);
+    ORK1_ENCODE_OBJ(aCoder, audioLevelStepIdentifier);
+    ORK1_ENCODE_OBJ(aCoder, destinationStepIdentifier);
+    ORK1_ENCODE_OBJ(aCoder, recordingSettings);
 }
 
 #pragma mark NSCopying
@@ -116,9 +116,9 @@ Float32 const VolumeClamp = 60.0;
     BOOL isParentSame = [super isEqual:object];
     __typeof(self) castObject = object;
     return (isParentSame
-            && ORKLegacyEqualObjects(self.audioLevelStepIdentifier, castObject.audioLevelStepIdentifier)
-            && ORKLegacyEqualObjects(self.destinationStepIdentifier, castObject.destinationStepIdentifier)
-            && ORKLegacyEqualObjects(self.recordingSettings, castObject.recordingSettings));
+            && ORK1EqualObjects(self.audioLevelStepIdentifier, castObject.audioLevelStepIdentifier)
+            && ORK1EqualObjects(self.destinationStepIdentifier, castObject.destinationStepIdentifier)
+            && ORK1EqualObjects(self.recordingSettings, castObject.recordingSettings));
 }
 
 - (NSUInteger)hash {
@@ -127,11 +127,11 @@ Float32 const VolumeClamp = 60.0;
 
 #pragma mark - Required overrides
 
-- (NSString *)identifierForDestinationStepWithTaskResult:(ORKLegacyTaskResult *)taskResult {
+- (NSString *)identifierForDestinationStepWithTaskResult:(ORK1TaskResult *)taskResult {
     
     // Get the result file
-    ORKLegacyStepResult *stepResult = (ORKLegacyStepResult *)[taskResult resultForIdentifier:self.audioLevelStepIdentifier];
-    ORKLegacyFileResult *audioLevelResult = (ORKLegacyFileResult *)[stepResult.results firstObject];
+    ORK1StepResult *stepResult = (ORK1StepResult *)[taskResult resultForIdentifier:self.audioLevelStepIdentifier];
+    ORK1FileResult *audioLevelResult = (ORK1FileResult *)[stepResult.results firstObject];
     
     // Check the volume
     if ((audioLevelResult.fileURL != nil) && [self checkAudioLevelFromSoundFile:audioLevelResult.fileURL]) {

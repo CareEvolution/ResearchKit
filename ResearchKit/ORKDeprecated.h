@@ -39,9 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Deprecated in v1.5.0 (scheduled for removal in v1.6.0).
  */
-@interface ORKLegacyAnswerFormat (Deprecated)
+@interface ORK1AnswerFormat (Deprecated)
 
-+ (ORKLegacyTextAnswerFormat *)textAnswerFormatWithValidationRegex:(NSString *)validationRegex
++ (ORK1TextAnswerFormat *)textAnswerFormatWithValidationRegex:(NSString *)validationRegex
                                               invalidMessage:(NSString *)invalidMessage
 __attribute__((deprecated("Use '-textAnswerFormatWithValidationRegularExpression:invalidMessage:' instead.",
                           "textAnswerFormatWithValidationRegularExpression")));
@@ -52,7 +52,7 @@ __attribute__((deprecated("Use '-textAnswerFormatWithValidationRegularExpression
 /**
  Deprecated in v1.5.0 (scheduled for removal in v1.6.0).
  */
-@interface ORKLegacyTextAnswerFormat (Deprecated)
+@interface ORK1TextAnswerFormat (Deprecated)
 
 /**
  Returns an initialized text answer format using the regular expression.
@@ -85,19 +85,19 @@ __attribute__((deprecated("Use 'validationRegularExpression' instead.",
 /**
  Deprecated in v1.5.0 (scheduled for removal in v1.6.0).
  */
-@interface ORKLegacyRegistrationStep (Deprecated)
+@interface ORK1RegistrationStep (Deprecated)
 
 /**
  Returns an initialized registration step using the specified identifier,
  title, text, options, passcodeValidationRegularExpressionPattern, and
  passcodeInvalidMessage.
  
- @param identifier                  The string that identifies the step (see `ORKLegacyStep`).
- @param title                       The title of the form (see `ORKLegacyStep`).
- @param text                        The text shown immediately below the title (see `ORKLegacyStep`).
- @param passcodeValidationRegex     The regular expression pattern used to validate the passcode form item (see `ORKLegacyTextAnswerFormat`).
- @param passcodeInvalidMessage      The invalid message displayed for invalid input (see `ORKLegacyTextAnswerFormat`).
- @param options                     The options used for the step (see `ORKLegacyRegistrationStepOption`).
+ @param identifier                  The string that identifies the step (see `ORK1Step`).
+ @param title                       The title of the form (see `ORK1Step`).
+ @param text                        The text shown immediately below the title (see `ORK1Step`).
+ @param passcodeValidationRegex     The regular expression pattern used to validate the passcode form item (see `ORK1TextAnswerFormat`).
+ @param passcodeInvalidMessage      The invalid message displayed for invalid input (see `ORK1TextAnswerFormat`).
+ @param options                     The options used for the step (see `ORK1RegistrationStepOption`).
   
  @return An initialized registration step object.
    */
@@ -106,13 +106,13 @@ __attribute__((deprecated("Use 'validationRegularExpression' instead.",
                               text:(nullable NSString *)text
            passcodeValidationRegex:(nullable NSString *)passcodeValidationRegularExpressionPattern
             passcodeInvalidMessage:(nullable NSString *)passcodeInvalidMessage
-                           options:(ORKLegacyRegistrationStepOption)options
+                           options:(ORK1RegistrationStepOption)options
 __attribute__((deprecated("Use '-initWithIdentifier:title:text:passcodeValidationRegularExpression:passcodeInvalidMessage:options:' instead.")));
 
 
 /**
  The regular expression pattern used to validate the passcode form item.
- This is a transparent property pointing to its definition in `ORKLegacyTextAnswerFormat`.
+ This is a transparent property pointing to its definition in `ORK1TextAnswerFormat`.
    
  The passcode invalid message property must also be set along with this property.
  By default, there is no validation on the passcode.

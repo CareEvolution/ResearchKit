@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import ResearchKitLegacy
 import HealthKit
 
-class HealthDataStep: ORKLegacyInstructionStep {
+class HealthDataStep: ORK1InstructionStep {
     // MARK: Properties
     
     let healthDataItemsToRead: Set<HKObjectType> = [
@@ -62,7 +62,7 @@ class HealthDataStep: ORKLegacyInstructionStep {
     
     func getHealthAuthorization(_ completion: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         guard HKHealthStore.isHealthDataAvailable() else {
-            let error = NSError(domain: "com.example.apple-samplecode.ORKLegacySample", code: 2, userInfo: [NSLocalizedDescriptionKey: "Health data is not available on this device."])
+            let error = NSError(domain: "com.example.apple-samplecode.ORK1Sample", code: 2, userInfo: [NSLocalizedDescriptionKey: "Health data is not available on this device."])
             
             completion(false, error)
             

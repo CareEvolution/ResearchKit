@@ -53,26 +53,26 @@
 #import "ORKSkin.h"
 
 
-@interface ORKLegacyTableCellItem : NSObject
+@interface ORK1TableCellItem : NSObject
 
-- (instancetype)initWithFormItem:(ORKLegacyFormItem *)formItem;
-- (instancetype)initWithFormItem:(ORKLegacyFormItem *)formItem choiceIndex:(NSUInteger)index;
+- (instancetype)initWithFormItem:(ORK1FormItem *)formItem;
+- (instancetype)initWithFormItem:(ORK1FormItem *)formItem choiceIndex:(NSUInteger)index;
 
-@property (nonatomic, copy) ORKLegacyFormItem *formItem;
+@property (nonatomic, copy) ORK1FormItem *formItem;
 
-@property (nonatomic, copy) ORKLegacyAnswerFormat *answerFormat;
+@property (nonatomic, copy) ORK1AnswerFormat *answerFormat;
 
 @property (nonatomic, readonly) CGFloat labelWidth;
 
 // For choice types only
-@property (nonatomic, copy, readonly) ORKLegacyTextChoice *choice;
+@property (nonatomic, copy, readonly) ORK1TextChoice *choice;
 
 @end
 
 
-@implementation ORKLegacyTableCellItem
+@implementation ORK1TableCellItem
 
-- (instancetype)initWithFormItem:(ORKLegacyFormItem *)formItem {
+- (instancetype)initWithFormItem:(ORK1FormItem *)formItem {
     self = [super init];
     if (self) {
         self.formItem = formItem;
@@ -81,7 +81,7 @@
     return self;
 }
 
-- (instancetype)initWithFormItem:(ORKLegacyFormItem *)formItem choiceIndex:(NSUInteger)index {
+- (instancetype)initWithFormItem:(ORK1FormItem *)formItem choiceIndex:(NSUInteger)index {
     self = [super init];
     if (self) {
         self.formItem = formItem;
@@ -94,18 +94,18 @@
     return self;
 }
 
-- (ORKLegacyTextChoiceAnswerFormat *)textChoiceAnswerFormat {
-    if ([self.answerFormat isKindOfClass:[ORKLegacyTextChoiceAnswerFormat class]]) {
-        return (ORKLegacyTextChoiceAnswerFormat *)self.answerFormat;
+- (ORK1TextChoiceAnswerFormat *)textChoiceAnswerFormat {
+    if ([self.answerFormat isKindOfClass:[ORK1TextChoiceAnswerFormat class]]) {
+        return (ORK1TextChoiceAnswerFormat *)self.answerFormat;
     }
     return nil;
 }
 
 - (CGFloat)labelWidth {
-    static ORKLegacyCaption1Label *sharedLabel;
+    static ORK1Caption1Label *sharedLabel;
     
     if (sharedLabel == nil) {
-        sharedLabel = [ORKLegacyCaption1Label new];
+        sharedLabel = [ORK1Caption1Label new];
     }
     
     sharedLabel.text = _formItem.text;
@@ -116,7 +116,7 @@
 @end
 
 
-@interface ORKLegacyTableSection : NSObject
+@interface ORK1TableSection : NSObject
 
 - (instancetype)initWithSectionIndex:(NSUInteger)index;
 
@@ -124,23 +124,23 @@
 
 @property (nonatomic, copy) NSString *title;
 
-@property (nonatomic, copy, readonly) NSArray<ORKLegacyTableCellItem *> *items;
-@property (nonatomic, copy, readonly) NSArray<ORKLegacyFormItem *> *formItems;
+@property (nonatomic, copy, readonly) NSArray<ORK1TableCellItem *> *items;
+@property (nonatomic, copy, readonly) NSArray<ORK1FormItem *> *formItems;
 
 @property (nonatomic, readonly) BOOL hasChoiceRows;
 
-@property (nonatomic, strong) ORKLegacyTextChoiceCellGroup *textChoiceCellGroup;
+@property (nonatomic, strong) ORK1TextChoiceCellGroup *textChoiceCellGroup;
 
-- (void)addFormItem:(ORKLegacyFormItem *)item;
-- (ORKLegacyTableCellItem * _Nullable)cellItemForFormItem:(ORKLegacyFormItem *)formItem;
+- (void)addFormItem:(ORK1FormItem *)item;
+- (ORK1TableCellItem * _Nullable)cellItemForFormItem:(ORK1FormItem *)formItem;
 
 @property (nonatomic, readonly) CGFloat maxLabelWidth;
 
 @end
 
 
-@implementation ORKLegacyTableSection {
-    NSMutableDictionary<ORKLegacyFormItem *, ORKLegacyTableCellItem*> *_cellItemForFormItem;
+@implementation ORK1TableSection {
+    NSMutableDictionary<ORK1FormItem *, ORK1TableCellItem*> *_cellItemForFormItem;
 }
 
 - (instancetype)initWithSectionIndex:(NSUInteger)index {
@@ -159,36 +159,36 @@
     _title = [[title uppercaseStringWithLocale:[NSLocale currentLocale]] copy];
 }
 
-- (void)addFormItem:(ORKLegacyFormItem *)item {
-    if ([[item impliedAnswerFormat] isKindOfClass:[ORKLegacyTextChoiceAnswerFormat class]]) {
+- (void)addFormItem:(ORK1FormItem *)item {
+    if ([[item impliedAnswerFormat] isKindOfClass:[ORK1TextChoiceAnswerFormat class]]) {
         _hasChoiceRows = YES;
-        ORKLegacyTextChoiceAnswerFormat *textChoiceAnswerFormat = (ORKLegacyTextChoiceAnswerFormat *)[item impliedAnswerFormat];
+        ORK1TextChoiceAnswerFormat *textChoiceAnswerFormat = (ORK1TextChoiceAnswerFormat *)[item impliedAnswerFormat];
         
-        _textChoiceCellGroup = [[ORKLegacyTextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:textChoiceAnswerFormat
+        _textChoiceCellGroup = [[ORK1TextChoiceCellGroup alloc] initWithTextChoiceAnswerFormat:textChoiceAnswerFormat
                                                                                        answer:nil
                                                                            beginningIndexPath:[NSIndexPath indexPathForRow:0 inSection:_index]
                                                                           immediateNavigation:NO];
         
         [textChoiceAnswerFormat.textChoices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            ORKLegacyTableCellItem *cellItem = [[ORKLegacyTableCellItem alloc] initWithFormItem:item choiceIndex:idx];
+            ORK1TableCellItem *cellItem = [[ORK1TableCellItem alloc] initWithFormItem:item choiceIndex:idx];
             [(NSMutableArray *)self.items addObject:cellItem];
         }];
         
     } else {
-        ORKLegacyTableCellItem *cellItem = [[ORKLegacyTableCellItem alloc] initWithFormItem:item];
+        ORK1TableCellItem *cellItem = [[ORK1TableCellItem alloc] initWithFormItem:item];
         [(NSMutableArray *)self.items addObject:cellItem];
         _cellItemForFormItem[item] = cellItem;
     }
     [(NSMutableArray *)self.formItems addObject:item];
 }
 
-- (ORKLegacyTableCellItem * _Nullable)cellItemForFormItem:(ORKLegacyFormItem *)formItem {
+- (ORK1TableCellItem * _Nullable)cellItemForFormItem:(ORK1FormItem *)formItem {
     return _cellItemForFormItem[formItem];
 }
 
 - (CGFloat)maxLabelWidth {
     CGFloat max = 0;
-    for (ORKLegacyTableCellItem *item in self.items) {
+    for (ORK1TableCellItem *item in self.items) {
         if (item.labelWidth > max) {
             max = item.labelWidth;
         }
@@ -198,7 +198,7 @@
 
 @end
 
-@interface ORKLegacyFormSectionHeaderView : UIView
+@interface ORK1FormSectionHeaderView : UIView
 
 - (instancetype)initWithTitle:(NSString *)title tableView:(UITableView *)tableView firstSection:(BOOL)firstSection;
 
@@ -209,8 +209,8 @@
 @end
 
 
-@implementation ORKLegacyFormSectionHeaderView {
-    ORKLegacyFormSectionTitleLabel *_label;
+@implementation ORK1FormSectionHeaderView {
+    ORK1FormSectionTitleLabel *_label;
     BOOL _firstSection;
 }
 
@@ -221,7 +221,7 @@
         _firstSection = firstSection;
         self.backgroundColor = [UIColor whiteColor];
         
-        _label = [ORKLegacyFormSectionTitleLabel new];
+        _label = [ORK1FormSectionTitleLabel new];
         _label.text = title;
         _label.numberOfLines = 0;
         _label.translatesAutoresizingMaskIntoConstraints = NO;
@@ -282,11 +282,11 @@
 
 @end
 
-@interface ORKLegacyFormStepViewController () <UITableViewDataSource, UITableViewDelegate, ORKLegacyFormItemCellDelegate, ORKLegacyTableContainerViewDelegate>
+@interface ORK1FormStepViewController () <UITableViewDataSource, UITableViewDelegate, ORK1FormItemCellDelegate, ORK1TableContainerViewDelegate>
 
-@property (nonatomic, strong) ORKLegacyTableContainerView *tableContainer;
+@property (nonatomic, strong) ORK1TableContainerView *tableContainer;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) ORKLegacyStepHeaderView *headerView;
+@property (nonatomic, strong) ORK1StepHeaderView *headerView;
 
 @property (nonatomic, strong) NSMutableDictionary *savedAnswers;
 @property (nonatomic, strong) NSMutableDictionary *savedAnswerDates;
@@ -299,26 +299,26 @@
 @end
 
 
-@implementation ORKLegacyFormStepViewController {
-    ORKLegacyAnswerDefaultSource *_defaultSource;
-    ORKLegacyNavigationContainerView *_continueSkipView;
+@implementation ORK1FormStepViewController {
+    ORK1AnswerDefaultSource *_defaultSource;
+    ORK1NavigationContainerView *_continueSkipView;
     NSMutableSet *_formItemCells;
-    NSMutableArray<ORKLegacyTableSection *> *_sections;
-    NSMutableArray<ORKLegacyTableSection *> *_allSections;
-    NSMutableArray<ORKLegacyFormItem *> *_hiddenFormItems;
-    NSMutableArray<ORKLegacyTableCellItem *> *_hiddenCellItems;
+    NSMutableArray<ORK1TableSection *> *_sections;
+    NSMutableArray<ORK1TableSection *> *_allSections;
+    NSMutableArray<ORK1FormItem *> *_hiddenFormItems;
+    NSMutableArray<ORK1TableCellItem *> *_hiddenCellItems;
     BOOL _skipped;
-    ORKLegacyFormItemCell *_currentFirstResponderCell;
+    ORK1FormItemCell *_currentFirstResponderCell;
 }
 
-- (instancetype)ORKLegacyFormStepViewController_initWithResult:(ORKLegacyResult *)result {
-    _defaultSource = [ORKLegacyAnswerDefaultSource sourceWithHealthStore:[HKHealthStore new]];
+- (instancetype)ORK1FormStepViewController_initWithResult:(ORK1Result *)result {
+    _defaultSource = [ORK1AnswerDefaultSource sourceWithHealthStore:[HKHealthStore new]];
     if (result) {
-        NSAssert([result isKindOfClass:[ORKLegacyStepResult class]], @"Expect a ORKLegacyStepResult instance");
+        NSAssert([result isKindOfClass:[ORK1StepResult class]], @"Expect a ORK1StepResult instance");
 
-        NSArray *resultsArray = [(ORKLegacyStepResult *)result results];
-        for (ORKLegacyQuestionResult *result in resultsArray) {
-            id answer = result.answer ? : ORKLegacyNullAnswerValue();
+        NSArray *resultsArray = [(ORK1StepResult *)result results];
+        for (ORK1QuestionResult *result in resultsArray) {
+            id answer = result.answer ? : ORK1NullAnswerValue();
             [self setAnswer:answer forIdentifier:result.identifier];
         }
         self.originalAnswers = [[NSDictionary alloc] initWithDictionary:self.savedAnswers];
@@ -326,15 +326,15 @@
     return self;
 }
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {
+- (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
-    return [self ORKLegacyFormStepViewController_initWithResult:nil];
+    return [self ORK1FormStepViewController_initWithResult:nil];
 }
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step result:(ORKLegacyResult *)result {
+- (instancetype)initWithStep:(ORK1Step *)step result:(ORK1Result *)result {
 
     self = [super initWithStep:step];
-    return [self ORKLegacyFormStepViewController_initWithResult:result];
+    return [self ORK1FormStepViewController_initWithResult:result];
 }
 
 - (void)viewDidLoad {
@@ -348,8 +348,8 @@
     [self.taskViewController setRegisteredScrollView:_tableView];
     
     NSMutableSet *types = [NSMutableSet set];
-    for (ORKLegacyFormItem *item in [self formItems]) {
-        ORKLegacyAnswerFormat *format = [item answerFormat];
+    for (ORK1FormItem *item in [self formItems]) {
+        ORK1AnswerFormat *format = [item answerFormat];
         HKObjectType *objType = [format healthKitObjectTypeForAuthorization];
         if (objType) {
             [types addObject:objType];
@@ -363,7 +363,7 @@
             refreshDefaultsPending = YES;
             [_defaultSource.healthStore requestAuthorizationToShareTypes:nil readTypes:types completion:^(BOOL success, NSError *error) {
                 if (!success) {
-                    ORKLegacy_Log_Debug(@"Authorization: %@",error);
+                    ORK1_Log_Debug(@"Authorization: %@",error);
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self refreshDefaults];
@@ -387,13 +387,13 @@
 - (void)updateDefaults:(NSMutableDictionary *)defaults {
     _savedDefaults = defaults;
     
-    for (ORKLegacyFormItemCell *cell in [_tableView visibleCells]) {
+    for (ORK1FormItemCell *cell in [_tableView visibleCells]) {
         NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
         
-        ORKLegacyTableSection *section = _sections[indexPath.section];
-        ORKLegacyTableCellItem *cellItem = [section items][indexPath.row];
-        ORKLegacyFormItem *formItem = cellItem.formItem;
-        if ([cell isKindOfClass:[ORKLegacyChoiceViewCell class]]) {
+        ORK1TableSection *section = _sections[indexPath.section];
+        ORK1TableCellItem *cellItem = [section items][indexPath.row];
+        ORK1FormItem *formItem = cellItem.formItem;
+        if ([cell isKindOfClass:[ORK1ChoiceViewCell class]]) {
             id answer = _savedAnswers[formItem.identifier];
             answer = answer ? : _savedDefaults[formItem.identifier];
             
@@ -414,28 +414,28 @@
 
 - (void)refreshDefaults {
     NSArray *formItems = [self formItems];
-    ORKLegacyAnswerDefaultSource *source = _defaultSource;
-    ORKLegacyWeakTypeOf(self) weakSelf = self;
+    ORK1AnswerDefaultSource *source = _defaultSource;
+    ORK1WeakTypeOf(self) weakSelf = self;
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         __block NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
-        for (ORKLegacyFormItem *formItem in formItems) {
+        for (ORK1FormItem *formItem in formItems) {
             [source fetchDefaultValueForAnswerFormat:formItem.answerFormat handler:^(id defaultValue, NSError *error) {
                 if (defaultValue != nil) {
                     defaults[formItem.identifier] = defaultValue;
                 } else if (error != nil) {
-                    ORKLegacy_Log_Warning(@"Error fetching default for %@: %@", formItem, error);
+                    ORK1_Log_Warning(@"Error fetching default for %@: %@", formItem, error);
                 }
                 dispatch_semaphore_signal(semaphore);
             }];
         }
-        for (__unused ORKLegacyFormItem *formItem in formItems) {
+        for (__unused ORK1FormItem *formItem in formItems) {
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
         }
         
         // All fetches have completed.
         dispatch_async(dispatch_get_main_queue(), ^{
-            ORKLegacyStrongTypeOf(weakSelf) strongSelf = weakSelf;
+            ORK1StrongTypeOf(weakSelf) strongSelf = weakSelf;
             [strongSelf updateDefaults:defaults];
         });
         
@@ -514,7 +514,7 @@
         
         _formItemCells = [NSMutableSet new];
         
-        _tableContainer = [[ORKLegacyTableContainerView alloc] initWithFrame:self.view.bounds];
+        _tableContainer = [[ORK1TableContainerView alloc] initWithFrame:self.view.bounds];
         _tableContainer.delegate = self;
         [self.view addSubview:_tableContainer];
         _tableContainer.tapOffView = self.view;
@@ -524,7 +524,7 @@
         _tableView.dataSource = self;
         _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
-        _tableView.estimatedRowHeight = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricTableCellDefaultHeight, self.view.window);
+        _tableView.estimatedRowHeight = ORK1GetMetricForWindow(ORK1ScreenMetricTableCellDefaultHeight, self.view.window);
         _tableView.estimatedSectionHeaderHeight = 30.0;
         
         _headerView = _tableContainer.stepHeaderView;
@@ -553,37 +553,37 @@
     NSArray *items = [self allFormItems];
     
     _allSections = [NSMutableArray new];
-    ORKLegacyTableSection *section = nil;
+    ORK1TableSection *section = nil;
     
-    NSArray *singleSectionTypes = @[@(ORKLegacyQuestionTypeBoolean),
-                                    @(ORKLegacyQuestionTypeSingleChoice),
-                                    @(ORKLegacyQuestionTypeMultipleChoice),
-                                    @(ORKLegacyQuestionTypeLocation)];
+    NSArray *singleSectionTypes = @[@(ORK1QuestionTypeBoolean),
+                                    @(ORK1QuestionTypeSingleChoice),
+                                    @(ORK1QuestionTypeMultipleChoice),
+                                    @(ORK1QuestionTypeLocation)];
 
-    for (ORKLegacyFormItem *item in items) {
+    for (ORK1FormItem *item in items) {
         // Section header
         if ([item impliedAnswerFormat] == nil) {
             // Add new section
-            section = [[ORKLegacyTableSection alloc] initWithSectionIndex:_allSections.count];
+            section = [[ORK1TableSection alloc] initWithSectionIndex:_allSections.count];
             [_allSections addObject:section];
             
             // Save title
             section.title = item.text;
         // Actual item
         } else {
-            ORKLegacyAnswerFormat *answerFormat = [item impliedAnswerFormat];
+            ORK1AnswerFormat *answerFormat = [item impliedAnswerFormat];
             
             BOOL multiCellChoices = ([singleSectionTypes containsObject:@(answerFormat.questionType)] &&
-                                     NO == [answerFormat isKindOfClass:[ORKLegacyValuePickerAnswerFormat class]]);
+                                     NO == [answerFormat isKindOfClass:[ORK1ValuePickerAnswerFormat class]]);
             
-            BOOL multilineTextEntry = (answerFormat.questionType == ORKLegacyQuestionTypeText && [(ORKLegacyTextAnswerFormat *)answerFormat multipleLines]);
+            BOOL multilineTextEntry = (answerFormat.questionType == ORK1QuestionTypeText && [(ORK1TextAnswerFormat *)answerFormat multipleLines]);
             
-            BOOL scale = (answerFormat.questionType == ORKLegacyQuestionTypeScale);
+            BOOL scale = (answerFormat.questionType == ORK1QuestionTypeScale);
             
             // Items require individual section
             if (multiCellChoices || multilineTextEntry || scale) {
                 // Add new section
-                section = [[ORKLegacyTableSection alloc]  initWithSectionIndex:_allSections.count];
+                section = [[ORK1TableSection alloc]  initWithSectionIndex:_allSections.count];
                 [_allSections addObject:section];
                 
                 // Save title
@@ -596,7 +596,7 @@
             } else {
                 // In case no section available, create new one.
                 if (section == nil) {
-                    section = [[ORKLegacyTableSection alloc]  initWithSectionIndex:_allSections.count];
+                    section = [[ORK1TableSection alloc]  initWithSectionIndex:_allSections.count];
                     [_allSections addObject:section];
                 }
                 [section addFormItem:item];
@@ -608,7 +608,7 @@
 - (NSInteger)numberOfAnsweredFormItemsInDictionary:(NSDictionary *)dictionary {
     __block NSInteger nonNilCount = 0;
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id answer, BOOL *stop) {
-        if (ORKLegacyIsAnswerEmpty(answer) == NO) {
+        if (ORK1IsAnswerEmpty(answer) == NO) {
             nonNilCount ++;
         }
     }];
@@ -620,9 +620,9 @@
 }
 
 - (BOOL)allAnsweredFormItemsAreValid {
-    for (ORKLegacyFormItem *item in [self formItems]) {
+    for (ORK1FormItem *item in [self formItems]) {
         id answer = _savedAnswers[item.identifier];
-        if (ORKLegacyIsAnswerEmpty(answer) == NO && ![item.impliedAnswerFormat isAnswerValid:answer]) {
+        if (ORK1IsAnswerEmpty(answer) == NO && ![item.impliedAnswerFormat isAnswerValid:answer]) {
             return NO;
         }
     }
@@ -630,13 +630,13 @@
 }
 
 - (BOOL)allNonOptionalFormItemsHaveAnswers {
-    ORKLegacyTaskResult *taskResult = self.taskViewController.result;
-    for (ORKLegacyFormItem *item in [self formItems]) {
+    ORK1TaskResult *taskResult = self.taskViewController.result;
+    for (ORK1FormItem *item in [self formItems]) {
         BOOL hideFormItem = [item.hidePredicate evaluateWithObject:@[taskResult]
-                                             substitutionVariables:@{ORKLegacyResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
+                                             substitutionVariables:@{ORK1ResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
         if (!item.optional && !hideFormItem) {
             id answer = _savedAnswers[item.identifier];
-            if (ORKLegacyIsAnswerEmpty(answer) || ![item.impliedAnswerFormat isAnswerValid:answer]) {
+            if (ORK1IsAnswerEmpty(answer) || ![item.impliedAnswerFormat isAnswerValid:answer]) {
                 return NO;
             }
         }
@@ -663,7 +663,7 @@
 }
 
 - (void)hideSections {
-    NSArray<ORKLegacyTableSection *> *oldSections = _sections;
+    NSArray<ORK1TableSection *> *oldSections = _sections;
     _sections = [NSMutableArray new];
     
     NSArray *oldHiddenCellItems = _hiddenCellItems;
@@ -671,18 +671,18 @@
     _hiddenCellItems = [NSMutableArray new];
     _hiddenFormItems = [NSMutableArray new];
     
-    ORKLegacyTaskResult *taskResult = self.taskViewController.result;
+    ORK1TaskResult *taskResult = self.taskViewController.result;
     
     NSMutableIndexSet *sectionsToInsert = [NSMutableIndexSet indexSet];
     NSMutableIndexSet *sectionsToDelete = [NSMutableIndexSet indexSet];
     NSMutableIndexSet *sectionsToUpdateCells = [NSMutableIndexSet indexSet];
     
-    for (ORKLegacyTableSection *section in _allSections) {
+    for (ORK1TableSection *section in _allSections) {
         BOOL hideSection = YES;
-        for (ORKLegacyFormItem *formItem in section.formItems) {
+        for (ORK1FormItem *formItem in section.formItems) {
             BOOL formItemIsHidden = [formItem.hidePredicate evaluateWithObject:@[taskResult]
-                                                         substitutionVariables:@{ORKLegacyResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
-            ORKLegacyTableCellItem *cellItem = [section cellItemForFormItem:formItem];
+                                                         substitutionVariables:@{ORK1ResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
+            ORK1TableCellItem *cellItem = [section cellItemForFormItem:formItem];
             if (formItemIsHidden) {
                 if (cellItem) {
                     [_hiddenCellItems addObject:cellItem];
@@ -736,9 +736,9 @@
 
 #pragma mark Helpers
 
-- (ORKLegacyFormStep *)formStep {
-    NSAssert(!self.step || [self.step isKindOfClass:[ORKLegacyFormStep class]], nil);
-    return (ORKLegacyFormStep *)self.step;
+- (ORK1FormStep *)formStep {
+    NSAssert(!self.step || [self.step isKindOfClass:[ORK1FormStep class]], nil);
+    return (ORK1FormStep *)self.step;
 }
 
 - (NSArray *)allFormItems {
@@ -748,7 +748,7 @@
 - (NSArray *)formItems {
     NSArray *formItems = [self allFormItems];
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:formItems.count];
-    for (ORKLegacyFormItem *item in formItems) {
+    for (ORK1FormItem *item in formItems) {
         if (item.answerFormat != nil) {
             [array addObject:item];
         }
@@ -766,8 +766,8 @@
     [super showValidityAlertWithMessage:text];
 }
 
-- (ORKLegacyStepResult *)result {
-    ORKLegacyStepResult *parentResult = [super result];
+- (ORK1StepResult *)result {
+    ORK1StepResult *parentResult = [super result];
     
     NSArray *items = [self formItems];
     
@@ -776,7 +776,7 @@
     NSDate *now = parentResult.endDate;
     
     NSMutableArray *qResults = [NSMutableArray new];
-    for (ORKLegacyFormItem *item in items) {
+    for (ORK1FormItem *item in items) {
         
         if ([_hiddenFormItems containsObject:item]) {
             continue;
@@ -785,7 +785,7 @@
         // Skipped forms report a "null" value for every item -- by skipping, the user has explicitly said they don't want
         // to report any values from this form.
         
-        id answer = ORKLegacyNullAnswerValue();
+        id answer = ORK1NullAnswerValue();
         NSDate *answerDate = now;
         NSCalendar *systemCalendar = [NSCalendar currentCalendar];
         NSTimeZone *systemTimeZone = [NSTimeZone systemTimeZone];
@@ -793,25 +793,25 @@
             answer = _savedAnswers[item.identifier];
             answerDate = _savedAnswerDates[item.identifier] ? : now;
             systemCalendar = _savedSystemCalendars[item.identifier];
-            NSAssert(answer == nil || answer == ORKLegacyNullAnswerValue() || systemCalendar != nil, @"systemCalendar NOT saved");
+            NSAssert(answer == nil || answer == ORK1NullAnswerValue() || systemCalendar != nil, @"systemCalendar NOT saved");
             systemTimeZone = _savedSystemTimeZones[item.identifier];
-            NSAssert(answer == nil || answer == ORKLegacyNullAnswerValue() || systemTimeZone != nil, @"systemTimeZone NOT saved");
+            NSAssert(answer == nil || answer == ORK1NullAnswerValue() || systemTimeZone != nil, @"systemTimeZone NOT saved");
         }
         
-        ORKLegacyQuestionResult *result = [item.answerFormat resultWithIdentifier:item.identifier answer:answer];
-        ORKLegacyAnswerFormat *impliedAnswerFormat = [item impliedAnswerFormat];
+        ORK1QuestionResult *result = [item.answerFormat resultWithIdentifier:item.identifier answer:answer];
+        ORK1AnswerFormat *impliedAnswerFormat = [item impliedAnswerFormat];
         
-        if ([impliedAnswerFormat isKindOfClass:[ORKLegacyDateAnswerFormat class]]) {
-            ORKLegacyDateQuestionResult *dqr = (ORKLegacyDateQuestionResult *)result;
+        if ([impliedAnswerFormat isKindOfClass:[ORK1DateAnswerFormat class]]) {
+            ORK1DateQuestionResult *dqr = (ORK1DateQuestionResult *)result;
             if (dqr.dateAnswer) {
-                NSCalendar *usedCalendar = [(ORKLegacyDateAnswerFormat *)impliedAnswerFormat calendar] ? : systemCalendar;
+                NSCalendar *usedCalendar = [(ORK1DateAnswerFormat *)impliedAnswerFormat calendar] ? : systemCalendar;
                 dqr.calendar = [NSCalendar calendarWithIdentifier:usedCalendar.calendarIdentifier];
                 dqr.timeZone = systemTimeZone;
             }
-        } else if ([impliedAnswerFormat isKindOfClass:[ORKLegacyNumericAnswerFormat class]]) {
-            ORKLegacyNumericQuestionResult *nqr = (ORKLegacyNumericQuestionResult *)result;
+        } else if ([impliedAnswerFormat isKindOfClass:[ORK1NumericAnswerFormat class]]) {
+            ORK1NumericQuestionResult *nqr = (ORK1NumericQuestionResult *)result;
             if (nqr.unit == nil) {
-                nqr.unit = [(ORKLegacyNumericAnswerFormat *)impliedAnswerFormat unit];
+                nqr.unit = [(ORK1NumericAnswerFormat *)impliedAnswerFormat unit];
             }
         }
         
@@ -850,7 +850,7 @@
 }
 
 - (NSInteger)numberOfRowsInSection:(NSInteger)section {
-    ORKLegacyTableSection *sectionObject = (ORKLegacyTableSection *)_sections[section];
+    ORK1TableSection *sectionObject = (ORK1TableSection *)_sections[section];
     return sectionObject.items.count;
 }
 
@@ -863,70 +863,70 @@
     NSString *identifier = [NSString stringWithFormat:@"%ld-%ld",(long)unhiddenIndexPath.section, (long)unhiddenIndexPath.row];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    ORKLegacyTableSection *section = (ORKLegacyTableSection *)_sections[indexPath.section];
-    ORKLegacyTableCellItem *cellItem = [section items][indexPath.row];
+    ORK1TableSection *section = (ORK1TableSection *)_sections[indexPath.section];
+    ORK1TableCellItem *cellItem = [section items][indexPath.row];
     
     if (cell == nil) {
-        ORKLegacyFormItem *formItem = cellItem.formItem;
+        ORK1FormItem *formItem = cellItem.formItem;
         id answer = _savedAnswers[formItem.identifier];
         
         if (section.textChoiceCellGroup) {
             [section.textChoiceCellGroup setAnswer:answer];
             cell = [section.textChoiceCellGroup cellAtIndexPath:unhiddenIndexPath withReuseIdentifier:identifier];
         } else {
-            ORKLegacyAnswerFormat *answerFormat = [cellItem.formItem impliedAnswerFormat];
-            ORKLegacyQuestionType type = answerFormat.questionType;
+            ORK1AnswerFormat *answerFormat = [cellItem.formItem impliedAnswerFormat];
+            ORK1QuestionType type = answerFormat.questionType;
             
             Class class = nil;
             switch (type) {
-                case ORKLegacyQuestionTypeSingleChoice:
-                case ORKLegacyQuestionTypeMultipleChoice: {
-                    if ([formItem.impliedAnswerFormat isKindOfClass:[ORKLegacyImageChoiceAnswerFormat class]]) {
-                        class = [ORKLegacyFormItemImageSelectionCell class];
-                    } else if ([formItem.impliedAnswerFormat isKindOfClass:[ORKLegacyValuePickerAnswerFormat class]]) {
-                        class = [ORKLegacyFormItemPickerCell class];
+                case ORK1QuestionTypeSingleChoice:
+                case ORK1QuestionTypeMultipleChoice: {
+                    if ([formItem.impliedAnswerFormat isKindOfClass:[ORK1ImageChoiceAnswerFormat class]]) {
+                        class = [ORK1FormItemImageSelectionCell class];
+                    } else if ([formItem.impliedAnswerFormat isKindOfClass:[ORK1ValuePickerAnswerFormat class]]) {
+                        class = [ORK1FormItemPickerCell class];
                     }
                     break;
                 }
                     
-                case ORKLegacyQuestionTypeDateAndTime:
-                case ORKLegacyQuestionTypeDate:
-                case ORKLegacyQuestionTypeTimeOfDay:
-                case ORKLegacyQuestionTypeTimeInterval:
-                case ORKLegacyQuestionTypeMultiplePicker:
-                case ORKLegacyQuestionTypeHeight:
-                case ORKLegacyQuestionTypeWeight: {
-                    class = [ORKLegacyFormItemPickerCell class];
+                case ORK1QuestionTypeDateAndTime:
+                case ORK1QuestionTypeDate:
+                case ORK1QuestionTypeTimeOfDay:
+                case ORK1QuestionTypeTimeInterval:
+                case ORK1QuestionTypeMultiplePicker:
+                case ORK1QuestionTypeHeight:
+                case ORK1QuestionTypeWeight: {
+                    class = [ORK1FormItemPickerCell class];
                     break;
                 }
                     
-                case ORKLegacyQuestionTypeDecimal:
-                case ORKLegacyQuestionTypeInteger: {
-                    class = [ORKLegacyFormItemNumericCell class];
+                case ORK1QuestionTypeDecimal:
+                case ORK1QuestionTypeInteger: {
+                    class = [ORK1FormItemNumericCell class];
                     break;
                 }
                     
-                case ORKLegacyQuestionTypeText: {
-                    if ([formItem.answerFormat isKindOfClass:[ORKLegacyConfirmTextAnswerFormat class]]) {
-                        class = [ORKLegacyFormItemConfirmTextCell class];
+                case ORK1QuestionTypeText: {
+                    if ([formItem.answerFormat isKindOfClass:[ORK1ConfirmTextAnswerFormat class]]) {
+                        class = [ORK1FormItemConfirmTextCell class];
                     } else {
-                        ORKLegacyTextAnswerFormat *textFormat = (ORKLegacyTextAnswerFormat *)answerFormat;
+                        ORK1TextAnswerFormat *textFormat = (ORK1TextAnswerFormat *)answerFormat;
                         if (!textFormat.multipleLines) {
-                            class = [ORKLegacyFormItemTextFieldCell class];
+                            class = [ORK1FormItemTextFieldCell class];
                         } else {
-                            class = [ORKLegacyFormItemTextCell class];
+                            class = [ORK1FormItemTextCell class];
                         }
                     }
                     break;
                 }
                     
-                case ORKLegacyQuestionTypeScale: {
-                    class = [ORKLegacyFormItemScaleCell class];
+                case ORK1QuestionTypeScale: {
+                    class = [ORK1FormItemScaleCell class];
                     break;
                 }
                     
-                case ORKLegacyQuestionTypeLocation: {
-                    class = [ORKLegacyFormItemLocationCell class];
+                case ORK1QuestionTypeLocation: {
+                    class = [ORK1FormItemLocationCell class];
                     break;
                 }
                     
@@ -936,10 +936,10 @@
             }
             
             if (class) {
-                if ([class isSubclassOfClass:[ORKLegacyChoiceViewCell class]]) {
+                if ([class isSubclassOfClass:[ORK1ChoiceViewCell class]]) {
                     NSAssert(NO, @"SHOULD NOT FALL IN HERE");
                 } else {
-                    ORKLegacyFormItemCell *formCell = nil;
+                    ORK1FormItemCell *formCell = nil;
                     formCell = [[class alloc] initWithReuseIdentifier:identifier formItem:formItem answer:answer maxLabelWidth:section.maxLabelWidth delegate:self];
                     [_formItemCells addObject:formCell];
                     [formCell setExpectedLayoutWidth:self.tableView.bounds.size.width];
@@ -961,7 +961,7 @@
 
 - (BOOL)isChoiceSelected:(id)value atIndex:(NSUInteger)index answer:(id)answer {
     BOOL isSelected = NO;
-    if (answer != nil && answer != ORKLegacyNullAnswerValue()) {
+    if (answer != nil && answer != ORK1NullAnswerValue()) {
         if ([answer isKindOfClass:[NSArray class]]) {
             if (value) {
                 isSelected = [(NSArray *)answer containsObject:value];
@@ -989,17 +989,17 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    ORKLegacyFormItemCell *cell = (ORKLegacyFormItemCell *)[tableView cellForRowAtIndexPath:indexPath];
-    if ([cell isKindOfClass:[ORKLegacyFormItemCell class]]) {
+    ORK1FormItemCell *cell = (ORK1FormItemCell *)[tableView cellForRowAtIndexPath:indexPath];
+    if ([cell isKindOfClass:[ORK1FormItemCell class]]) {
         [cell becomeFirstResponder];
     } else {
         // Dismiss other textField's keyboard
         [tableView endEditing:NO];
         
-        ORKLegacyTableSection *section = _sections[indexPath.section];
-        ORKLegacyTableCellItem *cellItem = section.items[indexPath.row];
+        ORK1TableSection *section = _sections[indexPath.section];
+        ORK1TableCellItem *cellItem = section.items[indexPath.row];
         [section.textChoiceCellGroup didSelectCellAtIndexPath:[self unhiddenIndexPathForIndexPath:indexPath]];
-        id answer = ([cellItem.formItem.answerFormat isKindOfClass:[ORKLegacyBooleanAnswerFormat class]]) ? [section.textChoiceCellGroup answerForBoolean] : [section.textChoiceCellGroup answer];
+        id answer = ([cellItem.formItem.answerFormat isKindOfClass:[ORK1BooleanAnswerFormat class]]) ? [section.textChoiceCellGroup answerForBoolean] : [section.textChoiceCellGroup answer];
         NSString *formItemIdentifier = cellItem.formItem.identifier;
         if (answer && formItemIdentifier) {
             [self setAnswer:answer forIdentifier:formItemIdentifier];
@@ -1016,10 +1016,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ORKLegacyTableCellItem *cellItem = ([_sections[indexPath.section] items][indexPath.row]);
+    ORK1TableCellItem *cellItem = ([_sections[indexPath.section] items][indexPath.row]);
     CGFloat cellHeight = [_hiddenCellItems containsObject:cellItem] ? 0 : UITableViewAutomaticDimension;
-    if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ORKLegacyChoiceViewCell class]]) {
-        return [ORKLegacyChoiceViewCell suggestedCellHeightForShortText:cellItem.choice.text LongText:cellItem.choice.detailText inTableView:_tableView];
+    if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ORK1ChoiceViewCell class]]) {
+        return [ORK1ChoiceViewCell suggestedCellHeightForShortText:cellItem.choice.text LongText:cellItem.choice.detailText inTableView:_tableView];
     }
     return cellHeight;
 }
@@ -1033,21 +1033,21 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *title = _sections[section].title;
     
-    ORKLegacyFormSectionHeaderView *view = (ORKLegacyFormSectionHeaderView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@(section).stringValue];
+    ORK1FormSectionHeaderView *view = (ORK1FormSectionHeaderView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:@(section).stringValue];
     
     if (view == nil) {
         // Do not create a header view if first section header has no title
         if (title.length > 0 || section > 0) {
-            view = [[ORKLegacyFormSectionHeaderView alloc] initWithTitle:title tableView:tableView firstSection:(section == 0)];
+            view = [[ORK1FormSectionHeaderView alloc] initWithTitle:title tableView:tableView firstSection:(section == 0)];
         }
     }
 
     return view;
 }
 
-#pragma mark ORKLegacyFormItemCellDelegate
+#pragma mark ORK1FormItemCellDelegate
 
-- (void)formItemCellDidBecomeFirstResponder:(ORKLegacyFormItemCell *)cell {
+- (void)formItemCellDidBecomeFirstResponder:(ORK1FormItemCell *)cell {
     _currentFirstResponderCell = cell;
     NSIndexPath *path = [_tableView indexPathForCell:cell];
     if (path) {
@@ -1055,21 +1055,21 @@
     }
 }
 
-- (void)formItemCellDidResignFirstResponder:(ORKLegacyFormItemCell *)cell {
+- (void)formItemCellDidResignFirstResponder:(ORK1FormItemCell *)cell {
     if (_currentFirstResponderCell == cell) {
         _currentFirstResponderCell = nil;
     }
 }
 
-- (void)formItemCell:(ORKLegacyFormItemCell *)cell invalidInputAlertWithMessage:(NSString *)input {
+- (void)formItemCell:(ORK1FormItemCell *)cell invalidInputAlertWithMessage:(NSString *)input {
     [self showValidityAlertWithMessage:input];
 }
 
-- (void)formItemCell:(ORKLegacyFormItemCell *)cell invalidInputAlertWithTitle:(NSString *)title message:(NSString *)message {
+- (void)formItemCell:(ORK1FormItemCell *)cell invalidInputAlertWithTitle:(NSString *)title message:(NSString *)message {
     [self showValidityAlertWithTitle:title message:message];
 }
 
-- (void)formItemCell:(ORKLegacyFormItemCell *)cell answerDidChangeTo:(id)answer {
+- (void)formItemCell:(ORK1FormItemCell *)cell answerDidChangeTo:(id)answer {
     if (answer && cell.formItem.identifier) {
         [self setAnswer:answer forIdentifier:cell.formItem.identifier];
     } else if (answer == nil && cell.formItem.identifier) {
@@ -1081,45 +1081,45 @@
     [self notifyDelegateOnResultChange];
 }
 
-#pragma mark ORKLegacyTableContainerViewDelegate
+#pragma mark ORK1TableContainerViewDelegate
 
-- (UITableViewCell *)currentFirstResponderCellForTableContainerView:(ORKLegacyTableContainerView *)tableContainerView {
+- (UITableViewCell *)currentFirstResponderCellForTableContainerView:(ORK1TableContainerView *)tableContainerView {
     return _currentFirstResponderCell;
 }
 
 #pragma mark UIStateRestoration
 
-static NSString *const _ORKLegacySavedAnswersRestoreKey = @"savedAnswers";
-static NSString *const _ORKLegacySavedAnswerDatesRestoreKey = @"savedAnswerDates";
-static NSString *const _ORKLegacySavedSystemCalendarsRestoreKey = @"savedSystemCalendars";
-static NSString *const _ORKLegacySavedSystemTimeZonesRestoreKey = @"savedSystemTimeZones";
-static NSString *const _ORKLegacyOriginalAnswersRestoreKey = @"originalAnswers";
+static NSString *const _ORK1SavedAnswersRestoreKey = @"savedAnswers";
+static NSString *const _ORK1SavedAnswerDatesRestoreKey = @"savedAnswerDates";
+static NSString *const _ORK1SavedSystemCalendarsRestoreKey = @"savedSystemCalendars";
+static NSString *const _ORK1SavedSystemTimeZonesRestoreKey = @"savedSystemTimeZones";
+static NSString *const _ORK1OriginalAnswersRestoreKey = @"originalAnswers";
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
     
-    [coder encodeObject:_savedAnswers forKey:_ORKLegacySavedAnswersRestoreKey];
-    [coder encodeObject:_savedAnswerDates forKey:_ORKLegacySavedAnswerDatesRestoreKey];
-    [coder encodeObject:_savedSystemCalendars forKey:_ORKLegacySavedSystemCalendarsRestoreKey];
-    [coder encodeObject:_savedSystemTimeZones forKey:_ORKLegacySavedSystemTimeZonesRestoreKey];
-    [coder encodeObject:_originalAnswers forKey:_ORKLegacyOriginalAnswersRestoreKey];
+    [coder encodeObject:_savedAnswers forKey:_ORK1SavedAnswersRestoreKey];
+    [coder encodeObject:_savedAnswerDates forKey:_ORK1SavedAnswerDatesRestoreKey];
+    [coder encodeObject:_savedSystemCalendars forKey:_ORK1SavedSystemCalendarsRestoreKey];
+    [coder encodeObject:_savedSystemTimeZones forKey:_ORK1SavedSystemTimeZonesRestoreKey];
+    [coder encodeObject:_originalAnswers forKey:_ORK1OriginalAnswersRestoreKey];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     
-    _savedAnswers = [coder decodeObjectOfClass:[NSMutableDictionary class] forKey:_ORKLegacySavedAnswersRestoreKey];
-    _savedAnswerDates = [coder decodeObjectOfClass:[NSMutableDictionary class] forKey:_ORKLegacySavedAnswerDatesRestoreKey];
-    _savedSystemCalendars = [coder decodeObjectOfClass:[NSMutableDictionary class] forKey:_ORKLegacySavedSystemCalendarsRestoreKey];
-    _savedSystemTimeZones = [coder decodeObjectOfClass:[NSMutableDictionary class] forKey:_ORKLegacySavedSystemTimeZonesRestoreKey];
-    _originalAnswers = [coder decodeObjectOfClass:[NSMutableDictionary class] forKey:_ORKLegacyOriginalAnswersRestoreKey];
+    _savedAnswers = [coder decodeObjectOfClass:[NSMutableDictionary class] forKey:_ORK1SavedAnswersRestoreKey];
+    _savedAnswerDates = [coder decodeObjectOfClass:[NSMutableDictionary class] forKey:_ORK1SavedAnswerDatesRestoreKey];
+    _savedSystemCalendars = [coder decodeObjectOfClass:[NSMutableDictionary class] forKey:_ORK1SavedSystemCalendarsRestoreKey];
+    _savedSystemTimeZones = [coder decodeObjectOfClass:[NSMutableDictionary class] forKey:_ORK1SavedSystemTimeZonesRestoreKey];
+    _originalAnswers = [coder decodeObjectOfClass:[NSMutableDictionary class] forKey:_ORK1OriginalAnswersRestoreKey];
 }
 
 #pragma mark Rotate
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    for (ORKLegacyFormItemCell *cell in _formItemCells) {
+    for (ORK1FormItemCell *cell in _formItemCells) {
         [cell setExpectedLayoutWidth:size.width];
     }
 }

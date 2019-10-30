@@ -36,20 +36,20 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacySignatureStep
+@implementation ORK1SignatureStep
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     self = [super initWithIdentifier:identifier];
     if (self) {
         // Set default values for the title and text
-        self.title = ORKLegacyLocalizedString(@"CONSENT_SIGNATURE_TITLE", nil);
-        self.text = ORKLegacyLocalizedString(@"CONSENT_SIGNATURE_INSTRUCTION", nil);
+        self.title = ORK1LocalizedString(@"CONSENT_SIGNATURE_TITLE", nil);
+        self.text = ORK1LocalizedString(@"CONSENT_SIGNATURE_INSTRUCTION", nil);
     }
     return self;
 }
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacySignatureStepViewController class];
+    return [ORK1SignatureStepViewController class];
 }
 
 + (BOOL)supportsSecureCoding {

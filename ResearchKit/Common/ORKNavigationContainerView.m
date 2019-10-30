@@ -37,7 +37,7 @@
 #import "CEVRKTheme.h"
 
 
-@implementation ORKLegacyNavigationContainerView {
+@implementation ORK1NavigationContainerView {
     NSLayoutConstraint *_skipToContinueButtonConstraint;
     NSLayoutConstraint *_footnoteToContinueButtonConstraint;
     NSLayoutConstraint *_footnoteToSkipButtonConstraint;
@@ -49,7 +49,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         {
-            _skipButton = [ORKLegacyTextButton new];
+            _skipButton = [ORK1TextButton new];
             _skipButton.contentEdgeInsets = (UIEdgeInsets){12,10,8,10}; // insets adjusted to get correct vertical height from bottom of screen when aligned to margin
             _skipButton.exclusiveTouch = YES;
             [_skipButton setTitle:nil forState:UIControlStateNormal];
@@ -59,7 +59,7 @@
         }
         
         {
-            _continueButton = [[ORKLegacyContinueButton alloc] initWithTitle:@"" isDoneButton:NO];
+            _continueButton = [[ORK1ContinueButton alloc] initWithTitle:@"" isDoneButton:NO];
             _continueButton.alpha = 0;
             _continueButton.exclusiveTouch = YES;
             _continueButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -68,7 +68,7 @@
         }
         
         {
-            _footnoteLabel = [ORKLegacyFootnoteLabel new];
+            _footnoteLabel = [ORK1FootnoteLabel new];
             _footnoteLabel.numberOfLines = 0;
             _footnoteLabel.textAlignment = NSTextAlignmentLeft;
             _footnoteLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -115,11 +115,11 @@
     
     // Disable button for 0.5s
     ((UIView *)sender).userInteractionEnabled = NO;
-    ((ORKLegacyTextButton *)sender).isInTransition = YES;
+    ((ORK1TextButton *)sender).isInTransition = YES;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // Re-enable skip button
         ((UIView *)sender).userInteractionEnabled = YES;
-        ((ORKLegacyTextButton *)sender).isInTransition = NO;
+        ((ORK1TextButton *)sender).isInTransition = NO;
     });
 }
 
@@ -132,23 +132,23 @@
     
     // Disable button for 0.5s
     ((UIView *)sender).userInteractionEnabled = NO;
-    ((ORKLegacyTextButton *)sender).isInTransition = YES;
+    ((ORK1TextButton *)sender).isInTransition = YES;
     _continueButtonJustTapped = YES;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         _continueButtonJustTapped = NO;
-        ((ORKLegacyTextButton *)sender).isInTransition = NO;
+        ((ORK1TextButton *)sender).isInTransition = NO;
         [self updateContinueAndSkipEnabled];
     });
 }
 
 - (void)continueAction:(id)sender {
-    ORKLegacySuppressPerformSelectorWarning(
+    ORK1SuppressPerformSelectorWarning(
                                       (void)[_continueButtonItem.target performSelector:_continueButtonItem.action withObject:self];
                                       );
 }
 
 - (void)skipAction:(id)sender {
-    ORKLegacySuppressPerformSelectorWarning(
+    ORK1SuppressPerformSelectorWarning(
                                       (void)[_skipButtonItem.target performSelector:_skipButtonItem.action withObject:_skipButton];
                                       );
 }
@@ -179,7 +179,7 @@
 }
 
 - (void)updateContinueAndSkipEnabled {
-    [_skipButton setTitle:_skipButtonItem.title ? : ORKLegacyLocalizedString(@"BUTTON_SKIP_QUESTION", nil) forState:UIControlStateNormal];
+    [_skipButton setTitle:_skipButtonItem.title ? : ORK1LocalizedString(@"BUTTON_SKIP_QUESTION", nil) forState:UIControlStateNormal];
     if ([self neverHasSkipButton]) {
         [_skipButton setFrame:(CGRect){{0,0},{0,0}}];
     }
@@ -401,7 +401,7 @@
                                                                             attribute:NSLayoutAttributeNotAnAttribute
                                                                            multiplier:1.0
                                                                              constant:0.0];
-        // This covers the case which occurs in the view hierarchy of instances of `ORKLegacyTowerOfHanoiStepViewController`
+        // This covers the case which occurs in the view hierarchy of instances of `ORK1TowerOfHanoiStepViewController`
         // in which there is no continue button but there is a skip button.
         heightConstraint.priority = UILayoutPriorityDefaultHigh + 1;
         [_variableConstraints addObject:heightConstraint];
@@ -423,7 +423,7 @@
 }
 
 - (void)updateFootnoteLabelPreferredWidth {
-    CGFloat sideMargin = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricHeadlineSideMargin, self.window);
+    CGFloat sideMargin = ORK1GetMetricForWindow(ORK1ScreenMetricHeadlineSideMargin, self.window);
     UIEdgeInsets layoutMargins = self.layoutMargins;
     
     // If we don't do this, sometimes the label doesn't split onto two lines properly.

@@ -38,15 +38,15 @@
 #import "ORKSkin.h"
 
 
-@interface ORKLegacyToneAudiometryContentView ()
+@interface ORK1ToneAudiometryContentView ()
 
-@property (nonatomic, strong) ORKLegacyUnitLabel *captionLabel;
+@property (nonatomic, strong) ORK1UnitLabel *captionLabel;
 @property (nonatomic, strong) UIProgressView *progressView;
 
 @end
 
 
-@implementation ORKLegacyToneAudiometryContentView {
+@implementation ORK1ToneAudiometryContentView {
     NSLayoutConstraint *_topToProgressViewConstraint;
     NSLayoutConstraint *_topToCaptionLabelConstraint;
     NSLayoutConstraint *_leftButtonToBottomConstraint;
@@ -59,7 +59,7 @@
     self = [super init];
     if (self) {
         
-        _captionLabel = [ORKLegacyUnitLabel new];
+        _captionLabel = [ORK1UnitLabel new];
         _captionLabel.textAlignment = NSTextAlignmentCenter;
         _captionLabel.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -68,19 +68,19 @@
         _progressView.progressTintColor = [self tintColor];
         [_progressView setAlpha:0];
         
-        _leftButton = [[ORKLegacyRoundTappingButton alloc] init];
+        _leftButton = [[ORK1RoundTappingButton alloc] init];
         _leftButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_leftButton setTitle:ORKLegacyLocalizedString(@"TAP_BUTTON_TITLE", nil) forState:UIControlStateNormal];
+        [_leftButton setTitle:ORK1LocalizedString(@"TAP_BUTTON_TITLE", nil) forState:UIControlStateNormal];
         
-        _rightButton = [[ORKLegacyRoundTappingButton alloc] init];
+        _rightButton = [[ORK1RoundTappingButton alloc] init];
         _rightButton.translatesAutoresizingMaskIntoConstraints = NO;
-        [_rightButton setTitle:ORKLegacyLocalizedString(@"TAP_BUTTON_TITLE", nil) forState: UIControlStateNormal];
+        [_rightButton setTitle:ORK1LocalizedString(@"TAP_BUTTON_TITLE", nil) forState: UIControlStateNormal];
         
-        _leftLabel = [ORKLegacyUnitLabel new];
-        _rightLabel = [ORKLegacyUnitLabel new];
+        _leftLabel = [ORK1UnitLabel new];
+        _rightLabel = [ORK1UnitLabel new];
         
-        _leftLabel.text = ORKLegacyLocalizedString(@"TONE_AUDIOMETRY_LABEL_LEFT_EAR", nil);
-        _rightLabel.text = ORKLegacyLocalizedString(@"TONE_AUDIOMETRY_LABEL_RIGHT_EAR", nil);
+        _leftLabel.text = ORK1LocalizedString(@"TONE_AUDIOMETRY_LABEL_LEFT_EAR", nil);
+        _rightLabel.text = ORK1LocalizedString(@"TONE_AUDIOMETRY_LABEL_RIGHT_EAR", nil);
         
         _leftLabel.textColor = [UIColor lightGrayColor];
         _rightLabel.textColor = [UIColor lightGrayColor];
@@ -128,15 +128,15 @@
     }];
 }
 
-- (void)finishStep:(ORKLegacyActiveStepViewController *)viewController {
+- (void)finishStep:(ORK1ActiveStepViewController *)viewController {
     [super finishStep:viewController];
     self.leftButton.enabled = NO;
     self.rightButton.enabled = NO;
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
-    const CGFloat HeaderBaselineToCaptionTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricCaptionBaselineToTappingLabelTop, window);
-    const CGFloat AssumedHeaderBaselineToStepViewTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLearnMoreBaselineToStepViewTop, window);
+    const CGFloat HeaderBaselineToCaptionTop = ORK1GetMetricForWindow(ORK1ScreenMetricCaptionBaselineToTappingLabelTop, window);
+    const CGFloat AssumedHeaderBaselineToStepViewTop = ORK1GetMetricForWindow(ORK1ScreenMetricLearnMoreBaselineToStepViewTop, window);
     static const CGFloat buttonBottomToBottom = 36.0;
     
     _topToProgressViewConstraint.constant = (HeaderBaselineToCaptionTop / 3) - AssumedHeaderBaselineToStepViewTop;
@@ -147,7 +147,7 @@
 }
 
 - (void)updateLayoutMargins {
-    CGFloat margin = ORKLegacyStandardHorizontalMarginForView(self);
+    CGFloat margin = ORK1StandardHorizontalMarginForView(self);
     self.layoutMargins = (UIEdgeInsets){.left = margin * 2, .right = margin * 2};
 }
 
@@ -272,7 +272,7 @@
                                                                                   toItem:nil
                                                                                attribute:NSLayoutAttributeNotAnAttribute
                                                                               multiplier:1.0
-                                                                                constant:ORKLegacyScreenMetricMaxDimension];
+                                                                                constant:ORK1ScreenMetricMaxDimension];
     progressWidthConstraint.priority = UILayoutPriorityRequired - 1;
     [constraints addObject:progressWidthConstraint];
     

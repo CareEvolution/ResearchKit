@@ -36,7 +36,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyTaskViewController () <ORKLegacyReviewStepViewControllerDelegate, UIViewControllerRestoration>
+@interface ORK1TaskViewController () <ORK1ReviewStepViewControllerDelegate, UIViewControllerRestoration>
 
 - (nullable NSSet<HKObjectType *> *)requestedHealthTypesForRead;
 - (nullable NSSet<HKObjectType *> *)requestedHealthTypesForWrite;

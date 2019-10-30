@@ -37,7 +37,7 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKLegacyVerificationStepView
+@implementation ORK1VerificationStepView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -47,7 +47,7 @@
         self.stepView.translatesAutoresizingMaskIntoConstraints = NO;
         
         _resendEmailButton = [UIButton new];
-        [_resendEmailButton setTitle:ORKLegacyLocalizedString(@"RESEND_EMAIL_BUTTON_TITLE", nil) forState:UIControlStateNormal];
+        [_resendEmailButton setTitle:ORK1LocalizedString(@"RESEND_EMAIL_BUTTON_TITLE", nil) forState:UIControlStateNormal];
         [_resendEmailButton setTitleColor:self.tintColor forState:UIControlStateNormal];
         [self.stepView addSubview:_resendEmailButton];
         
@@ -61,8 +61,8 @@
     NSMutableArray *constraints = [NSMutableArray new];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_resendEmailButton);
-    ORKLegacyEnableAutoLayoutForViews(views.allValues);
-    const CGFloat textBaselineToResendButtonBaselineMetric = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricVerificationTextBaselineToResendButtonBaseline, self.window);
+    ORK1EnableAutoLayoutForViews(views.allValues);
+    const CGFloat textBaselineToResendButtonBaselineMetric = ORK1GetMetricForWindow(ORK1ScreenMetricVerificationTextBaselineToResendButtonBaseline, self.window);
     
     [constraints addObjectsFromArray:@[
                                        [NSLayoutConstraint constraintWithItem:_resendEmailButton

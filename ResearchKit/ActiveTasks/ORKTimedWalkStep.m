@@ -34,10 +34,10 @@
 #import "ORKTimedWalkStepViewController.h"
 
 
-@implementation ORKLegacyTimedWalkStep
+@implementation ORK1TimedWalkStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyTimedWalkStepViewController class];
+    return [ORK1TimedWalkStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -56,18 +56,18 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    double const ORKLegacyTimedWalkMinimumDistanceInMeters = 1.0;
-    double const ORKLegacyTimedWalkMaximumDistanceInMeters = 10000.0;
+    double const ORK1TimedWalkMinimumDistanceInMeters = 1.0;
+    double const ORK1TimedWalkMaximumDistanceInMeters = 10000.0;
     
-    NSTimeInterval const ORKLegacyTimedWalkMinimumDuration = 1.0;
+    NSTimeInterval const ORK1TimedWalkMinimumDuration = 1.0;
     
-    if (self.distanceInMeters < ORKLegacyTimedWalkMinimumDistanceInMeters ||
-        self.distanceInMeters > ORKLegacyTimedWalkMaximumDistanceInMeters) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"timed walk distance must be greater than or equal to %@ meters and less than or equal to %@ meters.", @(ORKLegacyTimedWalkMinimumDistanceInMeters), @(ORKLegacyTimedWalkMaximumDistanceInMeters)] userInfo:nil];
+    if (self.distanceInMeters < ORK1TimedWalkMinimumDistanceInMeters ||
+        self.distanceInMeters > ORK1TimedWalkMaximumDistanceInMeters) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"timed walk distance must be greater than or equal to %@ meters and less than or equal to %@ meters.", @(ORK1TimedWalkMinimumDistanceInMeters), @(ORK1TimedWalkMaximumDistanceInMeters)] userInfo:nil];
     }
     
-    if (self.stepDuration < ORKLegacyTimedWalkMinimumDuration) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"duration cannot be shorter than %@ seconds.", @(ORKLegacyTimedWalkMinimumDuration)] userInfo:nil];
+    if (self.stepDuration < ORK1TimedWalkMinimumDuration) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"duration cannot be shorter than %@ seconds.", @(ORK1TimedWalkMinimumDuration)] userInfo:nil];
     }
 }
 

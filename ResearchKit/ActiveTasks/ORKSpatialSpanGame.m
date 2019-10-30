@@ -34,16 +34,16 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacySpatialSpanGame {
+@implementation ORK1SpatialSpanGame {
     NSInteger *_sequence;
 }
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (void)generateSequence {

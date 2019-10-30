@@ -40,9 +40,9 @@
 #import "ORKBorderedButton.h"
 
 
-@interface ORKLegacyStroopStepViewController ()
+@interface ORK1StroopStepViewController ()
 
-@property (nonatomic, strong) ORKLegacyStroopContentView *stroopContentView;
+@property (nonatomic, strong) ORK1StroopContentView *stroopContentView;
 @property (nonatomic, copy) NSMutableDictionary *colors;
 @property (nonatomic, copy) NSMutableDictionary *differentColorLabels;
 @property (nonatomic) NSUInteger questionNumber;
@@ -50,7 +50,7 @@
 @end
 
 
-@implementation ORKLegacyStroopStepViewController {
+@implementation ORK1StroopStepViewController {
     UIColor *_red;
     UIColor *_green;
     UIColor *_blue;
@@ -66,7 +66,7 @@
     NSTimeInterval _endTime;
 }
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {
+- (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     
     if (self) {
@@ -76,17 +76,17 @@
     return self;
 }
 
-- (ORKLegacyStroopStep *)stroopStep {
-    return (ORKLegacyStroopStep *)self.step;
+- (ORK1StroopStep *)stroopStep {
+    return (ORK1StroopStep *)self.step;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _results = [NSMutableArray new];
-    _redString = ORKLegacyLocalizedString(@"STROOP_COLOR_RED", nil);
-    _greenString = ORKLegacyLocalizedString(@"STROOP_COLOR_GREEN", nil);
-    _blueString = ORKLegacyLocalizedString(@"STROOP_COLOR_BLUE", nil);
-    _yellowString = ORKLegacyLocalizedString(@"STROOP_COLOR_YELLOW", nil);
+    _redString = ORK1LocalizedString(@"STROOP_COLOR_RED", nil);
+    _greenString = ORK1LocalizedString(@"STROOP_COLOR_GREEN", nil);
+    _blueString = ORK1LocalizedString(@"STROOP_COLOR_BLUE", nil);
+    _yellowString = ORK1LocalizedString(@"STROOP_COLOR_YELLOW", nil);
     _red = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
     _green = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0];
     _blue = [UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:1.0];
@@ -108,7 +108,7 @@
                                   _yellow, nil], _greenString, nil];
 
     self.questionNumber = 0;
-    _stroopContentView = [ORKLegacyStroopContentView new];
+    _stroopContentView = [ORK1StroopContentView new];
     self.activeStepView.activeCustomView = _stroopContentView;
     self.activeStepView.stepViewFillsAvailableSpace = YES;
     
@@ -169,8 +169,8 @@
     [self goForward];
 }
 
-- (ORKLegacyStepResult *)result {
-    ORKLegacyStepResult *stepResult = [super result];
+- (ORK1StepResult *)result {
+    ORK1StepResult *stepResult = [super result];
     if (_results) {
          stepResult.results = [_results copy];
     }
@@ -183,10 +183,10 @@
 }
 
 
-#pragma mark - ORKLegacyResult
+#pragma mark - ORK1Result
 
 - (void)createResult:(NSString *)color withText:(NSString *)text withColorSelected:(NSString *)colorSelected {
-    ORKLegacyStroopResult *stroopResult = [[ORKLegacyStroopResult alloc] initWithIdentifier:self.step.identifier];
+    ORK1StroopResult *stroopResult = [[ORK1StroopResult alloc] initWithIdentifier:self.step.identifier];
     stroopResult.startTime = _startTime;
     stroopResult.endTime =  [NSProcessInfo processInfo].systemUptime;
     stroopResult.color = color;

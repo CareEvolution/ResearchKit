@@ -30,52 +30,52 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import ResearchKitLegacy
 
-class LineGraphDataSource: NSObject, ORKLegacyValueRangeGraphChartViewDataSource {
+class LineGraphDataSource: NSObject, ORK1ValueRangeGraphChartViewDataSource {
     // MARK: Properties
     
     var plotPoints =
     [
         [
-            ORKLegacyValueRange(value: 10),
-            ORKLegacyValueRange(value: 20),
-            ORKLegacyValueRange(value: 25),
-            ORKLegacyValueRange(),
-            ORKLegacyValueRange(value: 30),
-            ORKLegacyValueRange(value: 40),
+            ORK1ValueRange(value: 10),
+            ORK1ValueRange(value: 20),
+            ORK1ValueRange(value: 25),
+            ORK1ValueRange(),
+            ORK1ValueRange(value: 30),
+            ORK1ValueRange(value: 40),
         ],
         [
-            ORKLegacyValueRange(value: 2),
-            ORKLegacyValueRange(value: 4),
-            ORKLegacyValueRange(value: 8),
-            ORKLegacyValueRange(value: 16),
-            ORKLegacyValueRange(value: 32),
-            ORKLegacyValueRange(value: 64),
+            ORK1ValueRange(value: 2),
+            ORK1ValueRange(value: 4),
+            ORK1ValueRange(value: 8),
+            ORK1ValueRange(value: 16),
+            ORK1ValueRange(value: 32),
+            ORK1ValueRange(value: 64),
         ]
     ]
     
-    // MARK: ORKLegacyGraphChartViewDataSource
+    // MARK: ORK1GraphChartViewDataSource
     
-    func numberOfPlots(in graphChartView: ORKLegacyGraphChartView) -> Int {
+    func numberOfPlots(in graphChartView: ORK1GraphChartView) -> Int {
         return plotPoints.count
     }
     
-    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, dataPointForPointIndex pointIndex: Int, plotIndex: Int) -> ORKLegacyValueRange {
+    func graphChartView(_ graphChartView: ORK1GraphChartView, dataPointForPointIndex pointIndex: Int, plotIndex: Int) -> ORK1ValueRange {
         return plotPoints[plotIndex][pointIndex]
     }
     
-    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, numberOfDataPointsForPlotIndex plotIndex: Int) -> Int {
+    func graphChartView(_ graphChartView: ORK1GraphChartView, numberOfDataPointsForPlotIndex plotIndex: Int) -> Int {
         return plotPoints[plotIndex].count
     }
     
-    func maximumValue(for graphChartView: ORKLegacyGraphChartView) -> Double {
+    func maximumValue(for graphChartView: ORK1GraphChartView) -> Double {
         return 70
     }
     
-    func minimumValue(for graphChartView: ORKLegacyGraphChartView) -> Double {
+    func minimumValue(for graphChartView: ORK1GraphChartView) -> Double {
         return 0
     }
     
-    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String? {
+    func graphChartView(_ graphChartView: ORK1GraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String? {
         return "\(pointIndex + 1)"
     }
 }

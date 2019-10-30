@@ -41,24 +41,24 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyVerificationStepViewController {
-    ORKLegacyVerificationStepView *_verificationStepView;
+@implementation ORK1VerificationStepViewController {
+    ORK1VerificationStepView *_verificationStepView;
 }
 
-- (ORKLegacyVerificationStep *)verificationStep {
-    return (ORKLegacyVerificationStep *)self.step;
+- (ORK1VerificationStep *)verificationStep {
+    return (ORK1VerificationStep *)self.step;
 }
 
 - (void)stepDidChange {
     [super stepDidChange];
     
     if (self.step && [self isViewLoaded]) {
-        self.navigationItem.title = ORKLegacyLocalizedString(@"VERIFICATION_NAV_TITLE", nil);
+        self.navigationItem.title = ORK1LocalizedString(@"VERIFICATION_NAV_TITLE", nil);
         
-        _verificationStepView = [[ORKLegacyVerificationStepView alloc] initWithFrame:self.view.bounds];
+        _verificationStepView = [[ORK1VerificationStepView alloc] initWithFrame:self.view.bounds];
         _verificationStepView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         _verificationStepView.headerView.captionLabel.text = [self verificationStep].title;
-        _verificationStepView.headerView.instructionLabel.text = [[self verificationStep].text stringByAppendingString:[NSString stringWithFormat:@"\n\n%@", ORKLegacyLocalizedString(@"RESEND_EMAIL_LABEL_MESSAGE", nil)]];
+        _verificationStepView.headerView.instructionLabel.text = [[self verificationStep].text stringByAppendingString:[NSString stringWithFormat:@"\n\n%@", ORK1LocalizedString(@"RESEND_EMAIL_LABEL_MESSAGE", nil)]];
         
         [self.view addSubview:_verificationStepView];
         

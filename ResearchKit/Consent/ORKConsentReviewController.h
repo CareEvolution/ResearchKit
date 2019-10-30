@@ -35,23 +35,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyConsentReviewController;
+@class ORK1ConsentReviewController;
 
-@protocol ORKLegacyConsentReviewControllerDelegate <NSObject>
+@protocol ORK1ConsentReviewControllerDelegate <NSObject>
 
-- (void)consentReviewControllerDidAcknowledge:(ORKLegacyConsentReviewController *)consentReviewController;
-- (void)consentReviewControllerDidCancel:(ORKLegacyConsentReviewController *)consentReviewController;
+- (void)consentReviewControllerDidAcknowledge:(ORK1ConsentReviewController *)consentReviewController;
+- (void)consentReviewControllerDidCancel:(ORK1ConsentReviewController *)consentReviewController;
 
 @end
 
 
-@interface ORKLegacyConsentReviewController : UIViewController
+@interface ORK1ConsentReviewController : UIViewController
 
-- (instancetype)initWithHTML:(NSString *)html delegate:(id<ORKLegacyConsentReviewControllerDelegate>)delegate requiresScrollToBottom:(BOOL)requiresScrollToBottom;
+- (instancetype)initWithHTML:(NSString *)html delegate:(id<ORK1ConsentReviewControllerDelegate>)delegate requiresScrollToBottom:(BOOL)requiresScrollToBottom;
 
 @property (nonatomic, strong, nullable) WKWebView *webView;
 
-@property (nonatomic, weak, nullable) id<ORKLegacyConsentReviewControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORK1ConsentReviewControllerDelegate> delegate;
 
 @property (nonatomic, strong, nullable) NSString *localizedReasonForConsent;
 

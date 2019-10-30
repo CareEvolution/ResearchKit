@@ -36,17 +36,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyFormStepViewController` class is the concrete `ORKLegacyStepViewController`
- implementation for `ORKLegacyFormStep`.
+ The `ORK1FormStepViewController` class is the concrete `ORK1StepViewController`
+ implementation for `ORK1FormStep`.
  
  You should not need to instantiate a form step view controller
- directly. Instead, create an `ORKLegacyFormStep` object and include it in a task for an
- `ORKLegacyTaskViewController` object, and present the task view controller. The task view
+ directly. Instead, create an `ORK1FormStep` object and include it in a task for an
+ `ORK1TaskViewController` object, and present the task view controller. The task view
  controller automatically instantiates the form step view controller
  when it encounters a form step and needs to present it.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyFormStepViewController : ORKLegacyStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1FormStepViewController : ORK1StepViewController
 
 @end
 

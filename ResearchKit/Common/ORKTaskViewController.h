@@ -35,32 +35,32 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyResult;
-@class ORKLegacyStep;
-@class ORKLegacyStepViewController;
-@class ORKLegacyTaskResult;
-@class ORKLegacyTaskViewController;
-@protocol ORKLegacyStepViewControllerDelegate;
-@protocol ORKLegacyTask;
-@protocol ORKLegacyTaskResultSource;
+@class ORK1Result;
+@class ORK1Step;
+@class ORK1StepViewController;
+@class ORK1TaskResult;
+@class ORK1TaskViewController;
+@protocol ORK1StepViewControllerDelegate;
+@protocol ORK1Task;
+@protocol ORK1TaskResultSource;
 
 /**
- The `ORKLegacyTaskViewControllerFinishReason` value indicates how the task view controller has finished
+ The `ORK1TaskViewControllerFinishReason` value indicates how the task view controller has finished
  the task.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyTaskViewControllerFinishReason) {
+typedef NS_ENUM(NSInteger, ORK1TaskViewControllerFinishReason) {
     
     /// The task was canceled by the participant or the developer, and the participant asked to save the current result.
-    ORKLegacyTaskViewControllerFinishReasonSaved,
+    ORK1TaskViewControllerFinishReasonSaved,
     
     /// The task was canceled by the participant or the developer, and the participant asked to discard the current result.
-    ORKLegacyTaskViewControllerFinishReasonDiscarded,
+    ORK1TaskViewControllerFinishReasonDiscarded,
     
     /// The task has completed successfully, because all steps have been completed.
-    ORKLegacyTaskViewControllerFinishReasonCompleted,
+    ORK1TaskViewControllerFinishReasonCompleted,
     
     /// An error was detected during the current step.
-    ORKLegacyTaskViewControllerFinishReasonFailed
+    ORK1TaskViewControllerFinishReasonFailed
 };
 
 /**
@@ -68,7 +68,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyTaskViewControllerFinishReason) {
  of the task, exerting some control over how the controller behaves, and providing
  auxiliary content as needed.
  */
-@protocol ORKLegacyTaskViewControllerDelegate <NSObject>
+@protocol ORK1TaskViewControllerDelegate <NSObject>
 
 /**
  Tells the delegate that the task has finished.
@@ -81,11 +81,11 @@ typedef NS_ENUM(NSInteger, ORKLegacyTaskViewControllerFinishReason) {
  in response to this method, and may also need to collect and process the results
  of the task.
 
- @param taskViewController  The `ORKLegacyTaskViewController `instance that is returning the result.
- @param reason              An `ORKLegacyTaskViewControllerFinishReason` value indicating how the user chose to complete the task.
+ @param taskViewController  The `ORK1TaskViewController `instance that is returning the result.
+ @param reason              An `ORK1TaskViewControllerFinishReason` value indicating how the user chose to complete the task.
  @param error               If failure occurred, an `NSError` object indicating the reason for the failure. The value of this parameter is `nil` if `result` does not indicate failure.
  */
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController didFinishWithReason:(ORKLegacyTaskViewControllerFinishReason)reason error:(nullable NSError *)error;
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController didFinishWithReason:(ORK1TaskViewControllerFinishReason)reason error:(nullable NSError *)error;
 
 @optional
 /**
@@ -94,11 +94,11 @@ typedef NS_ENUM(NSInteger, ORKLegacyTaskViewControllerFinishReason) {
  Recorder errors can occur during active steps, typically because sensor data is unavailable or there isn't enough disk space to record the results.
  You can use this method as an opportunity to respond to the error by, for example, logging and ignoring it.
  
- @param taskViewController  The calling `ORKLegacyTaskViewController` instance.
- @param recorder            The recorder that detected the error. `ORKLegacyStep` and `ORKLegacyRecorderConfiguration` objects can be found in the recorder instance.
+ @param taskViewController  The calling `ORK1TaskViewController` instance.
+ @param recorder            The recorder that detected the error. `ORK1Step` and `ORK1RecorderConfiguration` objects can be found in the recorder instance.
  @param error               The error that was detected.
  */
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController recorder:(ORKLegacyRecorder *)recorder didFailWithError:(NSError *)error;
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController recorder:(ORK1Recorder *)recorder didFailWithError:(NSError *)error;
 
 /**
  Asks the delegate if the state of the current uncompleted task should be saved.
@@ -111,11 +111,11 @@ typedef NS_ENUM(NSInteger, ORKLegacyTaskViewControllerFinishReason) {
 task view controller and pass that data to `initWithTask:restorationData:` when it is time
  to create a new task view controller to continue from the point at which the user stopped.
  
- @param taskViewController  The calling `ORKLegacyTaskViewController` instance.
+ @param taskViewController  The calling `ORK1TaskViewController` instance.
  
  @return `YES` if save and restore should be supported; otherwise, `NO`.
  */
-- (BOOL)taskViewControllerSupportsSaveAndRestore:(ORKLegacyTaskViewController *)taskViewController;
+- (BOOL)taskViewControllerSupportsSaveAndRestore:(ORK1TaskViewController *)taskViewController;
 
 /**
  Asks the delegate if the cancel action should be confirmed
@@ -127,11 +127,11 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
  If this method returns `YES`, then cancel action will be confirmed.
  If this method returns `NO`, then the results will immediately be discarded.
  
- @param taskViewController  The calling `ORKLegacyTaskViewController` instance.
+ @param taskViewController  The calling `ORK1TaskViewController` instance.
  
  @return `YES` to confirm cancel action; `NO` to immediately discard the results.
  */
-- (BOOL)taskViewControllerShouldConfirmCancel:(ORKLegacyTaskViewController *)taskViewController;
+- (BOOL)taskViewControllerShouldConfirmCancel:(ORK1TaskViewController *)taskViewController;
 
 /**
  Asks the delegate if there is Learn More content for this step.
@@ -145,12 +145,12 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
  the task view controller asks its delegate to determine if Learn More content is available,
  and to request that it be displayed.
  
- @param taskViewController  The calling `ORKLegacyTaskViewController` instance.
+ @param taskViewController  The calling `ORK1TaskViewController` instance.
  @param step                The step for which the task view controller needs to know if there is Learn More content.
  
  @return `NO` if there is no Learn More content to display.
  */
-- (BOOL)taskViewController:(ORKLegacyTaskViewController *)taskViewController hasLearnMoreForStep:(ORKLegacyStep *)step;
+- (BOOL)taskViewController:(ORK1TaskViewController *)taskViewController hasLearnMoreForStep:(ORK1Step *)step;
 
 /**
  Tells the delegate that the user has tapped the Learn More button in the step.
@@ -167,10 +167,10 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
  When this method is called, the app should respond to the Learn More action by
  presenting a dialog or other view (possibly modal) that contains the Learn More content.
  
- @param taskViewController  The calling `ORKLegacyTaskViewController` instance.
- @param stepViewController  The `ORKLegacyStepViewController` that reported the Learn More event to the task view controller.
+ @param taskViewController  The calling `ORK1TaskViewController` instance.
+ @param stepViewController  The `ORK1StepViewController` that reported the Learn More event to the task view controller.
  */
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController learnMoreForStep:(ORKLegacyStepViewController *)stepViewController;
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController learnMoreForStep:(ORK1StepViewController *)stepViewController;
 
 /**
  Asks the delegate for a custom view controller for the specified step.
@@ -184,12 +184,12 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
  
  The delegate should provide a step view controller implementation for any custom step.
  
- @param taskViewController  The calling `ORKLegacyTaskViewController` instance.
+ @param taskViewController  The calling `ORK1TaskViewController` instance.
  @param step                The step for which a view controller is requested.
  
  @return A custom view controller, or `nil` to request the default step controller for this step.
  */
-- (nullable ORKLegacyStepViewController *)taskViewController:(ORKLegacyTaskViewController *)taskViewController viewControllerForStep:(ORKLegacyStep *)step;
+- (nullable ORK1StepViewController *)taskViewController:(ORK1TaskViewController *)taskViewController viewControllerForStep:(ORK1Step *)step;
 
 /**
  Asks the delegate if the task view controller should proceed to the specified step.
@@ -204,12 +204,12 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
  If you return `NO`, it's often appropriate to present a dialog or take
  some other UI action to explain why navigation was denied.
  
- @param taskViewController  The calling `ORKLegacyTaskViewController` instance.
+ @param taskViewController  The calling `ORK1TaskViewController` instance.
  @param step                The step for which presentation is requested.
  
  @return `YES` if navigation should proceed to the specified step; `NO` if navigation should not proceed.
  */
-- (BOOL)taskViewController:(ORKLegacyTaskViewController *)taskViewController shouldPresentStep:(ORKLegacyStep *)step;
+- (BOOL)taskViewController:(ORK1TaskViewController *)taskViewController shouldPresentStep:(ORK1Step *)step;
 
 /**
  Tells the delegate that a step view controller is about to be displayed.
@@ -222,22 +222,22 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
  properties, or modify other button state. Another possible use case is when a particular
  step view controller requires additional setup before presentation.
  
- @param taskViewController  The calling `ORKLegacyTaskViewController` instance.
- @param stepViewController  The `ORKLegacyStepViewController` that is about to be displayed.
+ @param taskViewController  The calling `ORK1TaskViewController` instance.
+ @param stepViewController  The `ORK1StepViewController` that is about to be displayed.
  */
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController;
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController stepViewControllerWillAppear:(ORK1StepViewController *)stepViewController;
 
 /**
  Tells the delegate that a step will disappear.
  
- This is called in the `ORKLegacyStepViewControllerDelegate` method for `stepViewController:didFinishWithNavigationDirection:`
+ This is called in the `ORK1StepViewControllerDelegate` method for `stepViewController:didFinishWithNavigationDirection:`
  after saving the result of the step to the task view controller and before navigating to the next/previous step.
  
- @param taskViewController  The calling `ORKLegacyTaskViewController` instance.
- @param stepViewController  The `ORKLegacyStepViewController` that has just finished.
- @param direction           The `ORKLegacyStepViewControllerNavigationDirection` of navigation.
+ @param taskViewController  The calling `ORK1TaskViewController` instance.
+ @param stepViewController  The `ORK1StepViewController` that has just finished.
+ @param direction           The `ORK1StepViewControllerNavigationDirection` of navigation.
  */
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController stepViewControllerWillDisappear:(ORKLegacyStepViewController *)stepViewController navigationDirection:(ORKLegacyStepViewControllerNavigationDirection)direction;
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController stepViewControllerWillDisappear:(ORK1StepViewController *)stepViewController navigationDirection:(ORK1StepViewControllerNavigationDirection)direction;
 
 /**
  Tells the delegate that the result has substantively changed.
@@ -245,17 +245,17 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
  The task view controller calls this method when steps start or finish, or if an answer has
  changed in the current step due to editing or other user interaction.
  
- @param taskViewController  The calling `ORKLegacyTaskViewController` instance.
+ @param taskViewController  The calling `ORK1TaskViewController` instance.
  @param result              The current value of the result.
  */
-- (void)taskViewController:(ORKLegacyTaskViewController *)taskViewController didChangeResult:(ORKLegacyTaskResult *)result;
+- (void)taskViewController:(ORK1TaskViewController *)taskViewController didChangeResult:(ORK1TaskResult *)result;
 
 @end
 
 
 /**
- The `ORKLegacyTaskViewController` class is the primary entry point for the presentation of the
- ResearchKit framework UI. Note that a task view controller usually presents an `ORKLegacyOrderedTask` instance, but it can present any object that implements `ORKLegacyTask`.
+ The `ORK1TaskViewController` class is the primary entry point for the presentation of the
+ ResearchKit framework UI. Note that a task view controller usually presents an `ORK1OrderedTask` instance, but it can present any object that implements `ORK1Task`.
  
  The task view controller is intended for modal presentation, which lets the user cancel participation in the task at any time. Typically, the task view
  controller displays a navigation bar and conducts right-to-left
@@ -265,9 +265,9 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
  identifier and take the appropriate action to restore the task view controller when your app restarts or resumes.
  
  The task view controller also lets users save their progress in the middle of a task. To support
- this scenario in your app, implement `[ORKLegacyTaskViewControllerDelegate taskViewControllerSupportsSaveAndRestore:]` in your
+ this scenario in your app, implement `[ORK1TaskViewControllerDelegate taskViewControllerSupportsSaveAndRestore:]` in your
  task view controller delegate, and return `YES`. If the task completes with the
- status `ORKLegacyTaskViewControllerFinishReasonSaved`, copy and store the value of the
+ status `ORK1TaskViewControllerFinishReasonSaved`, copy and store the value of the
  `restorationData` property. When the user resumes the task, create a
  new task view controller using the `initWithTask:restorationData:` initializer,
  and present it.
@@ -278,11 +278,11 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
 
  When conducting active tasks which may produce file results, always set the
  `outputDirectory` property. Files generated during active steps are written to
- the output directory that you specify, and references to these files are returned by `ORKLegacyFileResult`
+ the output directory that you specify, and references to these files are returned by `ORK1FileResult`
  objects in the result hierarchy.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTaskViewController : UIViewController <ORKLegacyStepViewControllerDelegate, UIViewControllerRestoration>
+ORK1_CLASS_AVAILABLE
+@interface ORK1TaskViewController : UIViewController <ORK1StepViewControllerDelegate, UIViewControllerRestoration>
 
 /**
  Returns a newly initialized task view controller.
@@ -294,7 +294,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return A new task view controller.
  */
-- (instancetype)initWithTask:(nullable id<ORKLegacyTask>)task taskRunUUID:(nullable NSUUID *)taskRunUUID NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTask:(nullable id<ORK1Task>)task taskRunUUID:(nullable NSUUID *)taskRunUUID NS_DESIGNATED_INITIALIZER;
 
 /**
  Returns a new task view controller initialized from data in the given unarchiver.
@@ -335,7 +335,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return A new task view controller.
  */
-- (instancetype)initWithTask:(nullable id<ORKLegacyTask>)task restorationData:(nullable NSData *)data delegate:(nullable id<ORKLegacyTaskViewControllerDelegate>)delegate;
+- (instancetype)initWithTask:(nullable id<ORK1Task>)task restorationData:(nullable NSData *)data delegate:(nullable id<ORK1TaskViewControllerDelegate>)delegate;
 
 /**
  The delegate for the task view controller.
@@ -344,18 +344,18 @@ ORKLegacy_CLASS_AVAILABLE
  completion. When the task view controller completes its task, it is the delegate's
  responsibility to dismiss it.
  
- See also: `[ORKLegacyTaskViewControllerDelegate taskViewController:didFinishWithReason:error:]`.
+ See also: `[ORK1TaskViewControllerDelegate taskViewController:didFinishWithReason:error:]`.
  */
-@property (nonatomic, weak, nullable) id<ORKLegacyTaskViewControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORK1TaskViewControllerDelegate> delegate;
 
 /**
  The task for this task view controller.
  
- The task functions as the data source for an `ORKLegacyTaskViewController` object, providing
+ The task functions as the data source for an `ORK1TaskViewController` object, providing
  the steps that the user must complete in order to complete the task.
  It is an error to change the task after presenting the task view controller.
  */
-@property (nonatomic, strong, nullable) id<ORKLegacyTask> task;
+@property (nonatomic, strong, nullable) id<ORK1Task> task;
 
 /**
  A source that the task view controller can consult to obtain default answers
@@ -363,10 +363,10 @@ ORKLegacy_CLASS_AVAILABLE
  
  The source can provide default answers, perhaps based on previous runs of
  the same task, which will be used to prefill question and form items.
- For example, an `ORKLegacyTaskResult` object from a previous run of the task can function as
- an `ORKLegacyTaskResultSource` object, because `ORKLegacyTaskResult` implements the protocol.
+ For example, an `ORK1TaskResult` object from a previous run of the task can function as
+ an `ORK1TaskResultSource` object, because `ORK1TaskResult` implements the protocol.
  */
-@property (nonatomic, strong, nullable) id<ORKLegacyTaskResultSource> defaultResultSource;
+@property (nonatomic, strong, nullable) id<ORK1TaskResultSource> defaultResultSource;
 
 /**
  A unique identifier (UUID) for this presentation of the task.
@@ -386,21 +386,21 @@ ORKLegacy_CLASS_AVAILABLE
  The current state of the task result. (read-only)
  
  Use this property to obtain or inspect the results of the task. The results
- are hierarchical; the children of `result` are `ORKLegacyStepResult` instances,
+ are hierarchical; the children of `result` are `ORK1StepResult` instances,
  one for each step that the user visited during the task.
  
  If the user uses the Back button to go back through the steps, the
  results of steps that are ahead of the currently visible step are not included
  in the result.
  */
-@property (nonatomic, copy, readonly) ORKLegacyTaskResult *result;
+@property (nonatomic, copy, readonly) ORK1TaskResult *result;
 
 /**
  Snapshot data that can be used for future restoration.
  
  When the user taps Cancel during a task and selects the Save option,
- the `[ORKLegacyTaskViewControllerDelegate taskViewController:didFinishWithReason:error:]`
- method is called with `ORKLegacyTaskViewControllerFinishReasonSaved`. When that happens,
+ the `[ORK1TaskViewControllerDelegate taskViewController:didFinishWithReason:error:]`
+ method is called with `ORK1TaskViewControllerFinishReasonSaved`. When that happens,
  use `restorationData` to obtain restoration data that can be used to restore
  the task at a later date.
  
@@ -422,7 +422,7 @@ ORKLegacy_CLASS_AVAILABLE
  controller and before presenting it.
  
  Before presenting the view controller, set the `outputDirectory` property to specify a
- path where files should be written when an `ORKLegacyFileResult` object must be returned for
+ path where files should be written when an `ORK1FileResult` object must be returned for
  a step.
  */
 @property (nonatomic, copy, nullable) NSURL *outputDirectory;
@@ -431,7 +431,7 @@ ORKLegacy_CLASS_AVAILABLE
  A Boolean value indicating whether progress is shown in the navigation bar.
  
  Setting this property to `YES` does not display progress if you don't also implement the `progress`
- method of `ORKLegacyTask`.
+ method of `ORK1Task`.
  
  The default value of this property is `YES`. To disable the display of progress in the navigation bar, set the value to `NO`.
  */
@@ -446,7 +446,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  The value of this property may be `nil` if the task view controller has not yet been presented.
  */
-@property (nonatomic, strong, readonly, nullable) ORKLegacyStepViewController *currentStepViewController;
+@property (nonatomic, strong, readonly, nullable) ORK1StepViewController *currentStepViewController;
 
 /**
  Forces navigation to the next step.

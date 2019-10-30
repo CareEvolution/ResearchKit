@@ -36,14 +36,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyVisualConsentStepViewController;
-@class ORKLegacyConsentSection;
+@class ORK1VisualConsentStepViewController;
+@class ORK1ConsentSection;
 
 /**
  Implement this delegate in order to observe the user's interaction with a visual consent step.
  */
-ORKLegacy_CLASS_AVAILABLE
-@protocol ORKLegacyVisualConsentStepViewControllerDelegate<NSObject>
+ORK1_CLASS_AVAILABLE
+@protocol ORK1VisualConsentStepViewControllerDelegate<NSObject>
 
 @optional
 
@@ -54,26 +54,26 @@ ORKLegacy_CLASS_AVAILABLE
  @param section            The consent section displayed.
  @param index              The index of the consent section.
  */
-- (void)visualConsentStepViewController:(ORKLegacyVisualConsentStepViewController *)stepViewController didShowSection:(ORKLegacyConsentSection *)section sectionIndex:(NSInteger)index;
+- (void)visualConsentStepViewController:(ORK1VisualConsentStepViewController *)stepViewController didShowSection:(ORK1ConsentSection *)section sectionIndex:(NSInteger)index;
 
 @end
 
 
 /**
- The `ORKLegacyVisualConsentStepViewController` class is a view controller subclass
- used to manage a visual consent step (`ORKLegacyVisualConsentStep`).
+ The `ORK1VisualConsentStepViewController` class is a view controller subclass
+ used to manage a visual consent step (`ORK1VisualConsentStep`).
  
  You should not need to instantiate a visual consent step view controller directly. Instead, include
  a visual consent step in a task, and present a task view controller for that 
  task.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyVisualConsentStepViewController : ORKLegacyStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1VisualConsentStepViewController : ORK1StepViewController
 
 /**
  The delegate for visual consent interactions. This delegate is optional.
  */
-@property (nonatomic, weak, nullable) id<ORKLegacyVisualConsentStepViewControllerDelegate> visualConsentDelegate;
+@property (nonatomic, weak, nullable) id<ORK1VisualConsentStepViewControllerDelegate> visualConsentDelegate;
 
 /**
  The view in which animations are displayed.

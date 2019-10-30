@@ -39,31 +39,31 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyScaleAnswerFormat;
-@class ORKLegacyContinuousScaleAnswerFormat;
-@class ORKLegacyTextScaleAnswerFormat;
-@class ORKLegacyValuePickerAnswerFormat;
-@class ORKLegacyMultipleValuePickerAnswerFormat;
-@class ORKLegacyImageChoiceAnswerFormat;
-@class ORKLegacyTextChoiceAnswerFormat;
-@class ORKLegacyBooleanAnswerFormat;
-@class ORKLegacyNumericAnswerFormat;
-@class ORKLegacyTimeOfDayAnswerFormat;
-@class ORKLegacyDateAnswerFormat;
-@class ORKLegacyTextAnswerFormat;
-@class ORKLegacyEmailAnswerFormat;
-@class ORKLegacyTimeIntervalAnswerFormat;
-@class ORKLegacyHeightAnswerFormat;
-@class ORKLegacyWeightAnswerFormat;
-@class ORKLegacyLocationAnswerFormat;
+@class ORK1ScaleAnswerFormat;
+@class ORK1ContinuousScaleAnswerFormat;
+@class ORK1TextScaleAnswerFormat;
+@class ORK1ValuePickerAnswerFormat;
+@class ORK1MultipleValuePickerAnswerFormat;
+@class ORK1ImageChoiceAnswerFormat;
+@class ORK1TextChoiceAnswerFormat;
+@class ORK1BooleanAnswerFormat;
+@class ORK1NumericAnswerFormat;
+@class ORK1TimeOfDayAnswerFormat;
+@class ORK1DateAnswerFormat;
+@class ORK1TextAnswerFormat;
+@class ORK1EmailAnswerFormat;
+@class ORK1TimeIntervalAnswerFormat;
+@class ORK1HeightAnswerFormat;
+@class ORK1WeightAnswerFormat;
+@class ORK1LocationAnswerFormat;
 
-@class ORKLegacyTextChoice;
-@class ORKLegacyImageChoice;
+@class ORK1TextChoice;
+@class ORK1ImageChoice;
 
 /**
- The `ORKLegacyAnswerFormat` class is the abstract base class for classes that describe the
+ The `ORK1AnswerFormat` class is the abstract base class for classes that describe the
  format in which a survey question or form item should be answered. The ResearchKit framework uses
- `ORKLegacyQuestionStep` and `ORKLegacyFormItem` to represent questions to ask the user. Each
+ `ORK1QuestionStep` and `ORK1FormItem` to represent questions to ask the user. Each
  question must have an associated answer format.
  
  To use an answer format, instantiate the appropriate answer format subclass and
@@ -78,8 +78,8 @@ NS_ASSUME_NONNULL_BEGIN
  is presented in the same way as a single-choice answer format with the
  choices Yes and No mapping to `@(YES)` and `@(NO)`, respectively.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyAnswerFormat : NSObject <NSSecureCoding, NSCopying>
+ORK1_CLASS_AVAILABLE
+@interface ORK1AnswerFormat : NSObject <NSSecureCoding, NSCopying>
 
 /// @name Properties
 
@@ -92,11 +92,11 @@ ORKLegacy_CLASS_AVAILABLE
  Note that answer format subclasses override the getter to return the appropriate question
  type.
  */
-@property (readonly) ORKLegacyQuestionType questionType;
+@property (readonly) ORK1QuestionType questionType;
 
 /// @name Factory methods
 
-+ (ORKLegacyScaleAnswerFormat *)scaleAnswerFormatWithMaximumValue:(NSInteger)scaleMaximum
++ (ORK1ScaleAnswerFormat *)scaleAnswerFormatWithMaximumValue:(NSInteger)scaleMaximum
                                                minimumValue:(NSInteger)scaleMinimum
                                                defaultValue:(NSInteger)defaultValue
                                                        step:(NSInteger)step
@@ -104,7 +104,7 @@ ORKLegacy_CLASS_AVAILABLE
                                     maximumValueDescription:(nullable NSString *)maximumValueDescription
                                     minimumValueDescription:(nullable NSString *)minimumValueDescription;
 
-+ (ORKLegacyContinuousScaleAnswerFormat *)continuousScaleAnswerFormatWithMaximumValue:(double)scaleMaximum
++ (ORK1ContinuousScaleAnswerFormat *)continuousScaleAnswerFormatWithMaximumValue:(double)scaleMaximum
                                                                    minimumValue:(double)scaleMinimum
                                                                    defaultValue:(double)defaultValue
                                                           maximumFractionDigits:(NSInteger)maximumFractionDigits
@@ -112,74 +112,74 @@ ORKLegacy_CLASS_AVAILABLE
                                                         maximumValueDescription:(nullable NSString *)maximumValueDescription
                                                         minimumValueDescription:(nullable NSString *)minimumValueDescription;
 
-+ (ORKLegacyTextScaleAnswerFormat *)textScaleAnswerFormatWithTextChoices:(NSArray <ORKLegacyTextChoice *> *)textChoices
++ (ORK1TextScaleAnswerFormat *)textScaleAnswerFormatWithTextChoices:(NSArray <ORK1TextChoice *> *)textChoices
                                                       defaultIndex:(NSInteger)defaultIndex
                                                           vertical:(BOOL)vertical;
 
-+ (ORKLegacyBooleanAnswerFormat *)booleanAnswerFormat;
++ (ORK1BooleanAnswerFormat *)booleanAnswerFormat;
 
-+ (ORKLegacyBooleanAnswerFormat *)booleanAnswerFormatWithYesString:(NSString *)yes
++ (ORK1BooleanAnswerFormat *)booleanAnswerFormatWithYesString:(NSString *)yes
                                                     noString:(NSString *)no;
 
-+ (ORKLegacyValuePickerAnswerFormat *)valuePickerAnswerFormatWithTextChoices:(NSArray<ORKLegacyTextChoice *> *)textChoices;
++ (ORK1ValuePickerAnswerFormat *)valuePickerAnswerFormatWithTextChoices:(NSArray<ORK1TextChoice *> *)textChoices;
 
-+ (ORKLegacyMultipleValuePickerAnswerFormat *)multipleValuePickerAnswerFormatWithValuePickers:(NSArray<ORKLegacyValuePickerAnswerFormat *> *)valuePickers;
++ (ORK1MultipleValuePickerAnswerFormat *)multipleValuePickerAnswerFormatWithValuePickers:(NSArray<ORK1ValuePickerAnswerFormat *> *)valuePickers;
 
-+ (ORKLegacyImageChoiceAnswerFormat *)choiceAnswerFormatWithImageChoices:(NSArray<ORKLegacyImageChoice *> *)imageChoices;
++ (ORK1ImageChoiceAnswerFormat *)choiceAnswerFormatWithImageChoices:(NSArray<ORK1ImageChoice *> *)imageChoices;
 
-+ (ORKLegacyTextChoiceAnswerFormat *)choiceAnswerFormatWithStyle:(ORKLegacyChoiceAnswerStyle)style
-                                               textChoices:(NSArray<ORKLegacyTextChoice *> *)textChoices;
++ (ORK1TextChoiceAnswerFormat *)choiceAnswerFormatWithStyle:(ORK1ChoiceAnswerStyle)style
+                                               textChoices:(NSArray<ORK1TextChoice *> *)textChoices;
 
-+ (ORKLegacyNumericAnswerFormat *)decimalAnswerFormatWithUnit:(nullable NSString *)unit;
-+ (ORKLegacyNumericAnswerFormat *)integerAnswerFormatWithUnit:(nullable NSString *)unit;
++ (ORK1NumericAnswerFormat *)decimalAnswerFormatWithUnit:(nullable NSString *)unit;
++ (ORK1NumericAnswerFormat *)integerAnswerFormatWithUnit:(nullable NSString *)unit;
 
-+ (ORKLegacyTimeOfDayAnswerFormat *)timeOfDayAnswerFormat;
-+ (ORKLegacyTimeOfDayAnswerFormat *)timeOfDayAnswerFormatWithDefaultComponents:(nullable NSDateComponents *)defaultComponents;
++ (ORK1TimeOfDayAnswerFormat *)timeOfDayAnswerFormat;
++ (ORK1TimeOfDayAnswerFormat *)timeOfDayAnswerFormatWithDefaultComponents:(nullable NSDateComponents *)defaultComponents;
 
-+ (ORKLegacyDateAnswerFormat *)dateTimeAnswerFormat;
-+ (ORKLegacyDateAnswerFormat *)dateTimeAnswerFormatWithDefaultDate:(nullable NSDate *)defaultDate
++ (ORK1DateAnswerFormat *)dateTimeAnswerFormat;
++ (ORK1DateAnswerFormat *)dateTimeAnswerFormatWithDefaultDate:(nullable NSDate *)defaultDate
                                                  minimumDate:(nullable NSDate *)minimumDate
                                                  maximumDate:(nullable NSDate *)maximumDate
                                                     calendar:(nullable NSCalendar *)calendar;
 
-+ (ORKLegacyDateAnswerFormat *)dateAnswerFormat;
-+ (ORKLegacyDateAnswerFormat *)dateAnswerFormatWithDefaultDate:(nullable NSDate *)defaultDate
++ (ORK1DateAnswerFormat *)dateAnswerFormat;
++ (ORK1DateAnswerFormat *)dateAnswerFormatWithDefaultDate:(nullable NSDate *)defaultDate
                                              minimumDate:(nullable NSDate *)minimumDate
                                              maximumDate:(nullable NSDate *)maximumDate
                                                 calendar:(nullable NSCalendar *)calendar;
 
-+ (ORKLegacyTextAnswerFormat *)textAnswerFormat;
++ (ORK1TextAnswerFormat *)textAnswerFormat;
 
-+ (ORKLegacyTextAnswerFormat *)textAnswerFormatWithMaximumLength:(NSInteger)maximumLength;
++ (ORK1TextAnswerFormat *)textAnswerFormatWithMaximumLength:(NSInteger)maximumLength;
 
-+ (ORKLegacyTextAnswerFormat *)textAnswerFormatWithValidationRegularExpression:(NSRegularExpression *)validationRegularExpression
++ (ORK1TextAnswerFormat *)textAnswerFormatWithValidationRegularExpression:(NSRegularExpression *)validationRegularExpression
                                                           invalidMessage:(NSString *)invalidMessage;
 
-+ (ORKLegacyEmailAnswerFormat *)emailAnswerFormat;
++ (ORK1EmailAnswerFormat *)emailAnswerFormat;
 
-+ (ORKLegacyTimeIntervalAnswerFormat *)timeIntervalAnswerFormat;
++ (ORK1TimeIntervalAnswerFormat *)timeIntervalAnswerFormat;
 
-+ (ORKLegacyTimeIntervalAnswerFormat *)timeIntervalAnswerFormatWithDefaultInterval:(NSTimeInterval)defaultInterval
++ (ORK1TimeIntervalAnswerFormat *)timeIntervalAnswerFormatWithDefaultInterval:(NSTimeInterval)defaultInterval
                                                                         step:(NSInteger)step;
 
-+ (ORKLegacyHeightAnswerFormat *)heightAnswerFormat;
++ (ORK1HeightAnswerFormat *)heightAnswerFormat;
 
-+ (ORKLegacyHeightAnswerFormat *)heightAnswerFormatWithMeasurementSystem:(ORKLegacyMeasurementSystem)measurementSystem;
++ (ORK1HeightAnswerFormat *)heightAnswerFormatWithMeasurementSystem:(ORK1MeasurementSystem)measurementSystem;
 
-+ (ORKLegacyWeightAnswerFormat *)weightAnswerFormat;
++ (ORK1WeightAnswerFormat *)weightAnswerFormat;
 
-+ (ORKLegacyWeightAnswerFormat *)weightAnswerFormatWithMeasurementSystem:(ORKLegacyMeasurementSystem)measurementSystem;
++ (ORK1WeightAnswerFormat *)weightAnswerFormatWithMeasurementSystem:(ORK1MeasurementSystem)measurementSystem;
 
-+ (ORKLegacyWeightAnswerFormat *)weightAnswerFormatWithMeasurementSystem:(ORKLegacyMeasurementSystem)measurementSystem
-                                                  numericPrecision:(ORKLegacyNumericPrecision)numericPrecision;
++ (ORK1WeightAnswerFormat *)weightAnswerFormatWithMeasurementSystem:(ORK1MeasurementSystem)measurementSystem
+                                                  numericPrecision:(ORK1NumericPrecision)numericPrecision;
 
-+ (ORKLegacyWeightAnswerFormat *)weightAnswerFormatWithMeasurementSystem:(ORKLegacyMeasurementSystem)measurementSystem
-                                                  numericPrecision:(ORKLegacyNumericPrecision)numericPrecision
++ (ORK1WeightAnswerFormat *)weightAnswerFormatWithMeasurementSystem:(ORK1MeasurementSystem)measurementSystem
+                                                  numericPrecision:(ORK1NumericPrecision)numericPrecision
                                                       minimumValue:(double)minimumValue
                                                       maximumValue:(double)maximumValue
                                                       defaultValue:(double)defaultValue;
 
-+ (ORKLegacyLocationAnswerFormat *)locationAnswerFormat;
++ (ORK1LocationAnswerFormat *)locationAnswerFormat;
 
 /// @name Validation
 
@@ -198,17 +198,17 @@ ORKLegacy_CLASS_AVAILABLE
  the answer format type. For example, a Boolean answer format is presented in the 
  same way as a single-choice answer format with the choices Yes and No mapping to 
  `@(YES)` and `@(NO)`, respectively, so its `impliedAnswerFormat` is an 
- `ORKLegacyTextChoiceAnswerFormat` with those options.
+ `ORK1TextChoiceAnswerFormat` with those options.
  */
-- (ORKLegacyAnswerFormat *)impliedAnswerFormat;
+- (ORK1AnswerFormat *)impliedAnswerFormat;
 
 @end
 
 
 /**
- The `ORKLegacyScaleAnswerFormat `class represents an answer format that includes a slider control.
+ The `ORK1ScaleAnswerFormat `class represents an answer format that includes a slider control.
  
- The scale answer format produces an `ORKLegacyScaleQuestionResult` object that contains an integer whose
+ The scale answer format produces an `ORK1ScaleQuestionResult` object that contains an integer whose
  value is between the scale's minimum and maximum values, and represents one of the quantized step
  values.
 
@@ -221,8 +221,8 @@ ORKLegacy_CLASS_AVAILABLE
  * The upper bound value in scale answer format cannot be more than 10000.
 
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyScaleAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1ScaleAnswerFormat : ORK1AnswerFormat
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -378,14 +378,14 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The `ORKLegacyContinuousScaleAnswerFormat` class represents an answer format that lets participants
+ The `ORK1ContinuousScaleAnswerFormat` class represents an answer format that lets participants
  select a value on a continuous scale.
  
- The continuous scale answer format produces an `ORKLegacyScaleQuestionResult` object that has a
+ The continuous scale answer format produces an `ORK1ScaleQuestionResult` object that has a
  real-number value.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyContinuousScaleAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1ContinuousScaleAnswerFormat : ORK1AnswerFormat
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -485,7 +485,7 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  A formatting style applied to the minimum, maximum, and slider values.
  */
-@property ORKLegacyNumberFormattingStyle numberStyle;
+@property ORK1NumberFormattingStyle numberStyle;
 
 /**
  A number formatter applied to the minimum, maximum, and slider values. Can be overridden by
@@ -539,13 +539,13 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The `ORKLegacyTextScaleAnswerFormat` represents an answer format that includes a discrete slider control
+ The `ORK1TextScaleAnswerFormat` represents an answer format that includes a discrete slider control
  with a text label next to each step.
  
- The scale answer format produces an `ORKLegacyChoiceQuestionResult` object that contains the selected text 
+ The scale answer format produces an `ORK1ChoiceQuestionResult` object that contains the selected text 
  choice's value. */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTextScaleAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1TextScaleAnswerFormat : ORK1AnswerFormat
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -566,7 +566,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return An initialized text scale answer format.
  */
-- (instancetype)initWithTextChoices:(NSArray<ORKLegacyTextChoice *> *)textChoices
+- (instancetype)initWithTextChoices:(NSArray<ORK1TextChoice *> *)textChoices
                        defaultIndex:(NSInteger)defaultIndex
                            vertical:(BOOL)vertical NS_DESIGNATED_INITIALIZER;
 
@@ -584,14 +584,14 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return An initialized text scale answer format.
  */
-- (instancetype)initWithTextChoices:(NSArray<ORKLegacyTextChoice *> *)textChoices
+- (instancetype)initWithTextChoices:(NSArray<ORK1TextChoice *> *)textChoices
                        defaultIndex:(NSInteger)defaultIndex;
 
 /**
  An array of text choices which provides the text to be shown next to each of the slider steps.
  (read-only)
  */
-@property (copy, readonly) NSArray<ORKLegacyTextChoice *> *textChoices;
+@property (copy, readonly) NSArray<ORK1TextChoice *> *textChoices;
 
 /**
  The default index for the slider. (read-only)
@@ -630,19 +630,19 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The `ORKLegacyValuePickerAnswerFormat` class represents an answer format that lets participants use a
+ The `ORK1ValuePickerAnswerFormat` class represents an answer format that lets participants use a
  value picker to choose from a fixed set of text choices.
  
  When the number of choices is relatively large and the text that describes each choice
  is short, you might want to use the value picker answer format instead of the text choice answer
- format (`ORKLegacyTextChoiceAnswerFormat`). When the text that describes each choice is long, or there
+ format (`ORK1TextChoiceAnswerFormat`). When the text that describes each choice is long, or there
  are only a very small number of choices, it's usually better to use the text choice answer format.
  
  Note that the value picker answer format reports itself as being of the single choice question
- type. The value picker answer format produces an `ORKLegacyChoiceQuestionResult` object.
+ type. The value picker answer format produces an `ORK1ChoiceQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyValuePickerAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1ValuePickerAnswerFormat : ORK1AnswerFormat
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -653,11 +653,11 @@ ORKLegacy_CLASS_AVAILABLE
  Note that the `detailText` property of each choice is ignored. Be sure to create localized text for
  each choice that is short enough to fit in a `UIPickerView` object.
  
- @param textChoices     Array of `ORKLegacyTextChoice` objects.
+ @param textChoices     Array of `ORK1TextChoice` objects.
  
  @return An initialized value picker answer format.
  */
-- (instancetype)initWithTextChoices:(NSArray<ORKLegacyTextChoice *> *)textChoices NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithTextChoices:(NSArray<ORK1TextChoice *> *)textChoices NS_DESIGNATED_INITIALIZER;
 
 /**
  An array of text choices that represent the options to display in the picker. (read-only)
@@ -665,24 +665,24 @@ ORKLegacy_CLASS_AVAILABLE
  Note that the `detailText` property of each choice is ignored. Be sure to create localized text for
  each choice that is short enough to fit in a `UIPickerView` object.
  */
-@property (copy, readonly) NSArray<ORKLegacyTextChoice *> *textChoices;
+@property (copy, readonly) NSArray<ORK1TextChoice *> *textChoices;
 
 @end
 
 
 /**
- The `ORKLegacyMultipleValuePickerAnswerFormat` class represents an answer format that lets participants use a
+ The `ORK1MultipleValuePickerAnswerFormat` class represents an answer format that lets participants use a
  multiple-component value picker to choose from a fixed set of text choices.
  
  Note that the multiple value picker answer format reports itself as being of the multiple picker question
- type. The multiple-component value picker answer format produces an `ORKLegacyMultipleComponentQuestionResult` 
- object where the index into the array matches the array of `ORKLegacyValuePickerAnswerFormat` objects.
+ type. The multiple-component value picker answer format produces an `ORK1MultipleComponentQuestionResult` 
+ object where the index into the array matches the array of `ORK1ValuePickerAnswerFormat` objects.
  
  For example, if the picker shows two columns with choices of `[[A, B, C], [1, 2, 3, 4]]` and the user picked
  `B` and `3` then this would result in `componentsAnswer = [B, 3]`.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyMultipleValuePickerAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1MultipleValuePickerAnswerFormat : ORK1AnswerFormat
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -690,26 +690,26 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  Returns a multiple value picker answer format using the specified array of value pickers.
  
- @param valuePickers     Array of `ORKLegacyValuePickerAnswerFormat` objects.
+ @param valuePickers     Array of `ORK1ValuePickerAnswerFormat` objects.
  
  @return An initialized multiple value picker answer format.
  */
-- (instancetype)initWithValuePickers:(NSArray<ORKLegacyValuePickerAnswerFormat *> *)valuePickers;
+- (instancetype)initWithValuePickers:(NSArray<ORK1ValuePickerAnswerFormat *> *)valuePickers;
 
 /**
  Returns a multiple value picker answer format using the specified array of value pickers.
  
- @param valuePickers     Array of `ORKLegacyValuePickerAnswerFormat` objects.
+ @param valuePickers     Array of `ORK1ValuePickerAnswerFormat` objects.
  @param separator        String used to separate the components
  
  @return An initialized multiple value picker answer format.
  */
-- (instancetype)initWithValuePickers:(NSArray<ORKLegacyValuePickerAnswerFormat *> *)valuePickers separator:(NSString *)separator NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithValuePickers:(NSArray<ORK1ValuePickerAnswerFormat *> *)valuePickers separator:(NSString *)separator NS_DESIGNATED_INITIALIZER;
 
 /**
  An array of value pickers that represent the options to display in the picker. (read-only)
  */
-@property (copy, readonly) NSArray<ORKLegacyValuePickerAnswerFormat *> *valuePickers;
+@property (copy, readonly) NSArray<ORK1ValuePickerAnswerFormat *> *valuePickers;
 
 /**
  A string used to define the separator for the format of the string. Default = " ".
@@ -720,17 +720,17 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The `ORKLegacyImageChoiceAnswerFormat` class represents an answer format that lets participants choose
+ The `ORK1ImageChoiceAnswerFormat` class represents an answer format that lets participants choose
  one image from a fixed set of images in a single choice question.
  
  For example, you might use the image choice answer format to represent a range of moods that range
  from very sad
  to very happy.
  
- The image choice answer format produces an `ORKLegacyChoiceQuestionResult` object.
+ The image choice answer format produces an `ORK1ChoiceQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyImageChoiceAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1ImageChoiceAnswerFormat : ORK1AnswerFormat
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -738,35 +738,35 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  Returns an initialized image choice answer format using the specified array of images.
  
- @param imageChoices    Array of `ORKLegacyImageChoice` objects.
+ @param imageChoices    Array of `ORK1ImageChoice` objects.
  
  @return An initialized image choice answer format.
  */
-- (instancetype)initWithImageChoices:(NSArray<ORKLegacyImageChoice *> *)imageChoices NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithImageChoices:(NSArray<ORK1ImageChoice *> *)imageChoices NS_DESIGNATED_INITIALIZER;
 
 /**
- An array of `ORKLegacyImageChoice` objects that represent the available choices. (read-only)
+ An array of `ORK1ImageChoice` objects that represent the available choices. (read-only)
  
  The text of the currently selected choice is displayed on screen. The text for
  each choice is spoken by VoiceOver when an image is highlighted.
  */
-@property (copy, readonly) NSArray<ORKLegacyImageChoice *> *imageChoices;
+@property (copy, readonly) NSArray<ORK1ImageChoice *> *imageChoices;
 
 @end
 
 
 /**
- The `ORKLegacyTextChoiceAnswerFormat` class represents an answer format that lets participants choose
+ The `ORK1TextChoiceAnswerFormat` class represents an answer format that lets participants choose
  from a fixed set of text choices in a multiple or single choice question.
  
  The text choices are presented in a table view, using one row for each answer.
  The text for each answer is given more prominence than the `detailText` in the row, but
  both are shown.
  
- The text choice answer format produces an `ORKLegacyChoiceQuestionResult` object.
+ The text choice answer format produces an `ORK1ChoiceQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTextChoiceAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1TextChoiceAnswerFormat : ORK1AnswerFormat
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -776,38 +776,38 @@ ORKLegacy_CLASS_AVAILABLE
  text choices.
  
  @param style           The style of question, such as single or multiple choice.
- @param textChoices     An array of `ORKLegacyTextChoice` objects.
+ @param textChoices     An array of `ORK1TextChoice` objects.
  
  @return An initialized text choice answer format.
  */
-- (instancetype)initWithStyle:(ORKLegacyChoiceAnswerStyle)style
-                  textChoices:(NSArray<ORKLegacyTextChoice *> *)textChoices NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithStyle:(ORK1ChoiceAnswerStyle)style
+                  textChoices:(NSArray<ORK1TextChoice *> *)textChoices NS_DESIGNATED_INITIALIZER;
 
 /**
  The style of the question (that is, single or multiple choice).
  */
-@property (readonly) ORKLegacyChoiceAnswerStyle style;
+@property (readonly) ORK1ChoiceAnswerStyle style;
 
 /**
- An array of `ORKLegacyTextChoice` objects that represent the choices that are displayed to participants.
+ An array of `ORK1TextChoice` objects that represent the choices that are displayed to participants.
  
  The choices are presented as a table view, using one row for each answer.
  The text for each answer is given more prominence than the `detailText` in the row, but
  both are shown.
  */
-@property (copy, readonly) NSArray<ORKLegacyTextChoice *> *textChoices;
+@property (copy, readonly) NSArray<ORK1TextChoice *> *textChoices;
 
 @end
 
 
 /**
- The `ORKLegacyBooleanAnswerFormat` class behaves the same as the `ORKLegacyTextChoiceAnswerFormat` class,
+ The `ORK1BooleanAnswerFormat` class behaves the same as the `ORK1TextChoiceAnswerFormat` class,
  except that it is preconfigured to use only Yes and No answers.
  
- The Boolean answer format produces an `ORKLegacyBooleanQuestionResult` object.
+ The Boolean answer format produces an `ORK1BooleanQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyBooleanAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1BooleanAnswerFormat : ORK1AnswerFormat
 
 /**
  Returns an initialized Boolean answer format using the specified strings for Yes and No answers.
@@ -833,14 +833,14 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The `ORKLegacyTextChoice` class defines the text for a choice in answer formats such
- as `ORKLegacyTextChoiceAnswerFormat` and `ORKLegacyValuePickerAnswerFormat`.
+ The `ORK1TextChoice` class defines the text for a choice in answer formats such
+ as `ORK1TextChoiceAnswerFormat` and `ORK1ValuePickerAnswerFormat`.
  
  When a participant chooses a text choice item, the value recorded in a result
  is specified by the `value` property.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTextChoice : NSObject <NSSecureCoding, NSCopying, NSObject>
+ORK1_CLASS_AVAILABLE
+@interface ORK1TextChoice : NSObject <NSSecureCoding, NSCopying, NSObject>
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -905,7 +905,7 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  The text that provides additional details about the choice in a localized string.
  
- The detail text can span multiple lines. Note that `ORKLegacyValuePickerAnswerFormat` ignores detail
+ The detail text can span multiple lines. Note that `ORK1ValuePickerAnswerFormat` ignores detail
  text.
   */
 @property (copy, readonly, nullable) NSString *detailText;
@@ -922,19 +922,19 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The `ORKLegacyImageChoice` class defines a choice that can
- be included in an `ORKLegacyImageChoiceAnswerFormat` object.
+ The `ORK1ImageChoice` class defines a choice that can
+ be included in an `ORK1ImageChoiceAnswerFormat` object.
  
  Typically, image choices are displayed in a horizontal row, so you need to use appropriate sizes.
- For example, when five image choices are displayed in an `ORKLegacyImageChoiceAnswerFormat`, image sizes
+ For example, when five image choices are displayed in an `ORK1ImageChoiceAnswerFormat`, image sizes
  of about 45 to 60 points allow the images to look good in apps that run on all versions of iPhone.
  
  The text that describes an image choice should be reasonably short. However, only the text for the
  currently selected image choice is displayed, so text that wraps to more than one line
  is supported.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyImageChoice : NSObject <NSSecureCoding, NSCopying>
+ORK1_CLASS_AVAILABLE
+@interface ORK1ImageChoice : NSObject <NSSecureCoding, NSCopying>
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -1001,7 +1001,7 @@ ORKLegacy_CLASS_AVAILABLE
  The value to return when the image is selected. (read-only)
  
  The value of this property is expected to be a scalar property list type, such as `NSNumber` or
- `NSString`. If no value is provided, the index of the option in the `ORKLegacyImageChoiceAnswerFormat`
+ `NSString`. If no value is provided, the index of the option in the `ORK1ImageChoiceAnswerFormat`
  options list is used.
  */
 @property (copy, readonly) id<NSCopying, NSCoding, NSObject> value;
@@ -1010,24 +1010,24 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The style of answer for an `ORKLegacyNumericAnswerFormat` object, which controls the keyboard that is
+ The style of answer for an `ORK1NumericAnswerFormat` object, which controls the keyboard that is
  presented during numeric entry.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyNumericAnswerStyle) {
+typedef NS_ENUM(NSInteger, ORK1NumericAnswerStyle) {
 
     /**
      A decimal question type asks the participant to enter a decimal number.
      */
-    ORKLegacyNumericAnswerStyleDecimal,
+    ORK1NumericAnswerStyleDecimal,
     
     /**
      An integer question type asks the participant to enter an integer number.
      */
-    ORKLegacyNumericAnswerStyleInteger
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1NumericAnswerStyleInteger
+} ORK1_ENUM_AVAILABLE;
 
 /**
- The `ORKLegacyNumericAnswerFormat` class defines the attributes for a numeric
+ The `ORK1NumericAnswerFormat` class defines the attributes for a numeric
  answer format that participants enter using a numeric keyboard.
  
  If you specify maximum or minimum values and the user enters a value outside the
@@ -1035,10 +1035,10 @@ typedef NS_ENUM(NSInteger, ORKLegacyNumericAnswerStyle) {
  until the participant provides a value that is within the valid range.
  
  Questions and form items that use this answer format produce an
- `ORKLegacyNumericQuestionResult` object.
+ `ORK1NumericQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyNumericAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1NumericAnswerFormat : ORK1AnswerFormat
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -1050,7 +1050,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return An initialized numeric answer format.
  */
-- (instancetype)initWithStyle:(ORKLegacyNumericAnswerStyle)style;
+- (instancetype)initWithStyle:(ORK1NumericAnswerStyle)style;
 
 /**
  Returns an initialized numeric answer format using the specified style and unit designation.
@@ -1060,7 +1060,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return An initialized numeric answer format.
  */
-- (instancetype)initWithStyle:(ORKLegacyNumericAnswerStyle)style
+- (instancetype)initWithStyle:(ORK1NumericAnswerStyle)style
                          unit:(nullable NSString *)unit;
 
 /**
@@ -1076,7 +1076,7 @@ Returns an initialized numeric answer format using the specified style, unit des
  
  @return An initialized numeric answer format.
  */
-- (instancetype)initWithStyle:(ORKLegacyNumericAnswerStyle)style
+- (instancetype)initWithStyle:(ORK1NumericAnswerStyle)style
                          unit:(nullable NSString *)unit
                       minimum:(nullable NSNumber *)minimum
                       maximum:(nullable NSNumber *)maximum NS_DESIGNATED_INITIALIZER;
@@ -1084,14 +1084,14 @@ Returns an initialized numeric answer format using the specified style, unit des
 /**
  The style of numeric entry (decimal or integer). (read-only)
  */
-@property (readonly) ORKLegacyNumericAnswerStyle style;
+@property (readonly) ORK1NumericAnswerStyle style;
 
 /**
  A string that displays a localized version of the unit designation next to the numeric value.
  (read-only)
  
  Examples of unit designations are days, lbs, and liters.
- The unit string is included in the `ORKLegacyNumericQuestionResult` object.
+ The unit string is included in the `ORK1NumericQuestionResult` object.
   */
 @property (copy, readonly, nullable) NSString *unit;
 
@@ -1113,13 +1113,13 @@ Returns an initialized numeric answer format using the specified style, unit des
 
 
 /**
- The `ORKLegacyTimeOfDayAnswerFormat` class represents the answer format for questions that require users
+ The `ORK1TimeOfDayAnswerFormat` class represents the answer format for questions that require users
  to enter a time of day.
  
- A time of day answer format produces an `ORKLegacyTimeOfDayQuestionResult` object.
+ A time of day answer format produces an `ORK1TimeOfDayQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTimeOfDayAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1TimeOfDayAnswerFormat : ORK1AnswerFormat
 
 /**
  Returns an initialized time of day answer format using the specified default value.
@@ -1144,30 +1144,30 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The style of date picker to use in an `ORKLegacyDateAnswerFormat` object.
+ The style of date picker to use in an `ORK1DateAnswerFormat` object.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyDateAnswerStyle) {
+typedef NS_ENUM(NSInteger, ORK1DateAnswerStyle) {
 
     /**
      The date and time question type asks participants to choose a time or a combination of date
      and time, from a picker.
      */
-    ORKLegacyDateAnswerStyleDateAndTime,
+    ORK1DateAnswerStyleDateAndTime,
     
     /**
      The date question type asks participants to choose a particular date from a picker.
      */
-    ORKLegacyDateAnswerStyleDate
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1DateAnswerStyleDate
+} ORK1_ENUM_AVAILABLE;
 
 /**
- The `ORKLegacyDateAnswerFormat` class represents the answer format for questions that require users
+ The `ORK1DateAnswerFormat` class represents the answer format for questions that require users
  to enter a date, or a date and time.
  
- A date answer format produces an `ORKLegacyDateQuestionResult` object.
+ A date answer format produces an `ORK1DateQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyDateAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1DateAnswerFormat : ORK1AnswerFormat
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -1179,7 +1179,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return An initialized date answer format.
  */
-- (instancetype)initWithStyle:(ORKLegacyDateAnswerStyle)style;
+- (instancetype)initWithStyle:(ORK1DateAnswerStyle)style;
 
 /**
  Returns an initialized date answer format using the specified answer style and default date values.
@@ -1198,7 +1198,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return An initialized date answer format.
  */
-- (instancetype)initWithStyle:(ORKLegacyDateAnswerStyle)style
+- (instancetype)initWithStyle:(ORK1DateAnswerStyle)style
                   defaultDate:(nullable NSDate *)defaultDate
                   minimumDate:(nullable NSDate *)minimumDate
                   maximumDate:(nullable NSDate *)maximumDate
@@ -1207,7 +1207,7 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  The style of date entry.
  */
-@property (readonly) ORKLegacyDateAnswerStyle style;
+@property (readonly) ORK1DateAnswerStyle style;
 
 /**
  The date to use as the default.
@@ -1243,14 +1243,14 @@ When the value of this property is `nil`, there is no minimum.
 
 
 /**
- The `ORKLegacyTextAnswerFormat` class represents the answer format for questions that collect a text
+ The `ORK1TextAnswerFormat` class represents the answer format for questions that collect a text
  response
  from the user.
  
- An `ORKLegacyTextAnswerFormat` object produces an `ORKLegacyTextQuestionResult` object.
+ An `ORK1TextAnswerFormat` object produces an `ORK1TextQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTextAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1TextAnswerFormat : ORK1AnswerFormat
 
 /**
  Returns an initialized text answer format using the regular expression.
@@ -1344,31 +1344,31 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The `ORKLegacyEmailAnswerFormat` class represents the answer format for questions that collect an email
+ The `ORK1EmailAnswerFormat` class represents the answer format for questions that collect an email
  response from the user.
  
- An `ORKLegacyEmailAnswerFormat` object produces an `ORKLegacyTextQuestionResult` object.
+ An `ORK1EmailAnswerFormat` object produces an `ORK1TextQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyEmailAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1EmailAnswerFormat : ORK1AnswerFormat
 
 @end
 
 
 /**
- The `ORKLegacyTimeIntervalAnswerFormat` class represents the answer format for questions that ask users
+ The `ORK1TimeIntervalAnswerFormat` class represents the answer format for questions that ask users
   to specify a time interval.
  
  The time interval answer format is suitable for time intervals up to 24 hours. If you need to track
  time intervals of longer duration, use a different answer format, such as
- `ORKLegacyValuePickerAnswerFormat`.
+ `ORK1ValuePickerAnswerFormat`.
  
  Note that the time interval answer format does not support the selection of 0.
  
- A time interval answer format produces an `ORKLegacyTimeIntervalQuestionResult` object.
+ A time interval answer format produces an `ORK1TimeIntervalQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyTimeIntervalAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1TimeIntervalAnswerFormat : ORK1AnswerFormat
 
 /**
  Returns an initialized time interval answer format using the specified default interval and step 
@@ -1401,14 +1401,14 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The `ORKLegacyHeightAnswerFormat` class represents the answer format for questions that require users
+ The `ORK1HeightAnswerFormat` class represents the answer format for questions that require users
  to enter a height.
  
- A height answer format produces an `ORKLegacyNumericQuestionResult` object. The result is always reported
+ A height answer format produces an `ORK1NumericQuestionResult` object. The result is always reported
  in the metric system using the `cm` unit.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyHeightAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1HeightAnswerFormat : ORK1AnswerFormat
 
 /**
  Returns an initialized height answer format using the measurement system specified in the current
@@ -1423,30 +1423,30 @@ ORKLegacy_CLASS_AVAILABLE
  
  This method is the designated initializer.
  
- @param measurementSystem   The measurement system to use. See `ORKLegacyMeasurementSystem` for the
+ @param measurementSystem   The measurement system to use. See `ORK1MeasurementSystem` for the
                                 accepted values.
  
  @return An initialized height answer format.
  */
-- (instancetype)initWithMeasurementSystem:(ORKLegacyMeasurementSystem)measurementSystem NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithMeasurementSystem:(ORK1MeasurementSystem)measurementSystem NS_DESIGNATED_INITIALIZER;
 
 /**
  The measurement system used by the answer format.
  */
-@property (readonly) ORKLegacyMeasurementSystem measurementSystem;
+@property (readonly) ORK1MeasurementSystem measurementSystem;
 
 @end
 
 
 /**
- The `ORKLegacyWeightAnswerFormat` class represents the answer format for questions that require users
+ The `ORK1WeightAnswerFormat` class represents the answer format for questions that require users
  to enter a weight.
  
- A weight answer format produces an `ORKLegacyNumericQuestionResult` object. The result is always reported
+ A weight answer format produces an `ORK1NumericQuestionResult` object. The result is always reported
  in the metric system using the `kg` unit.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyWeightAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1WeightAnswerFormat : ORK1AnswerFormat
 
 /**
  Returns an initialized weight answer format using the measurement system specified in the current
@@ -1461,69 +1461,69 @@ ORKLegacy_CLASS_AVAILABLE
  
  This method is the designated initializer.
  
- @param measurementSystem   The measurement system to use. See `ORKLegacyMeasurementSystem` for the
+ @param measurementSystem   The measurement system to use. See `ORK1MeasurementSystem` for the
  accepted values.
  
  @return An initialized weight answer format.
  */
-- (instancetype)initWithMeasurementSystem:(ORKLegacyMeasurementSystem)measurementSystem;
+- (instancetype)initWithMeasurementSystem:(ORK1MeasurementSystem)measurementSystem;
 
 /**
  Returns an initialized weight answer format using the specified measurement system and numeric
  precision.
  
- @param measurementSystem       The measurement system to use. See `ORKLegacyMeasurementSystem` for the
+ @param measurementSystem       The measurement system to use. See `ORK1MeasurementSystem` for the
                                     accepted values.
  @param numericPrecision        The numeric precision used by the picker. If you pass
-                                    `ORKLegacyNumericPrecisionDefault`, the picker will use 0.5 kg
+                                    `ORK1NumericPrecisionDefault`, the picker will use 0.5 kg
                                     increments for the metric measurement system and whole pound
                                     increments for the USC measurement system, which mimics the
-                                    default iOS behavior. If you pass `ORKLegacyNumericPrecisionLow`, the
+                                    default iOS behavior. If you pass `ORK1NumericPrecisionLow`, the
                                     picker will use 1 kg increments for the metric measurement
                                     system and whole pound increments for the USC measurement
-                                    system. If you pass `ORKLegacyNumericPrecisionHigher`, the picker
+                                    system. If you pass `ORK1NumericPrecisionHigher`, the picker
                                     use 0.01 gr increments for the metric measurement system,
                                     and ounce increments for the USC measurement system.
  
  @return An initialized weight answer format.
  */
-- (instancetype)initWithMeasurementSystem:(ORKLegacyMeasurementSystem)measurementSystem
-                         numericPrecision:(ORKLegacyNumericPrecision)numericPrecision;
+- (instancetype)initWithMeasurementSystem:(ORK1MeasurementSystem)measurementSystem
+                         numericPrecision:(ORK1NumericPrecision)numericPrecision;
 
 /**
  Returns an initialized weight answer format using the specified measurement system, numeric
  precision, and default, minimum and maximum values.
  
- @param measurementSystem       The measurement system to use. See `ORKLegacyMeasurementSystem` for the
+ @param measurementSystem       The measurement system to use. See `ORK1MeasurementSystem` for the
                                     accepted values.
  @param numericPrecision        The numeric precision used by the picker. If you pass
-                                    `ORKLegacyNumericPrecisionDefault`, the picker will use 0.5 kg
+                                    `ORK1NumericPrecisionDefault`, the picker will use 0.5 kg
                                     increments for the metric measurement system and whole pound
                                     increments for the USC measurement system, which mimics the
-                                    default iOS behavior. If you pass `ORKLegacyNumericPrecisionLow`, the
+                                    default iOS behavior. If you pass `ORK1NumericPrecisionLow`, the
                                     picker will use 1 kg increments for the metric measurement
                                     system and whole pound increments for the USC measurement
-                                    system. If you pass `ORKLegacyNumericPrecisionHigher`, the picker
+                                    system. If you pass `ORK1NumericPrecisionHigher`, the picker
                                     use 0.01 gr increments for the metric measurement system,
                                     and ounce increments for the USC measurement system.
  @param minimumValue            The minimum value that is displayed in the picker. If you specify
-                                    `ORKLegacyDefaultValue`, the minimum values are 0 kg when using the
+                                    `ORK1DefaultValue`, the minimum values are 0 kg when using the
                                     metric measurement system and 0 lbs when using the USC
                                     measurement system.
  @param maximumValue            The maximum value that is displayed in the picker. If you specify
-                                    `ORKLegacyDefaultValue`, the maximum values are 657 kg when using the
+                                    `ORK1DefaultValue`, the maximum values are 657 kg when using the
                                     metric measurement system and 1,450 lbs when using the USC
                                     measurement system.
  @param defaultValue            The default value to be initially selected in the picker. If you
-                                    specify `ORKLegacyDefaultValue`, the initally selected values are
+                                    specify `ORK1DefaultValue`, the initally selected values are
                                     60 kg when using the metric measurement system and 133 lbs when
                                     using the USC measurement system. This value must be between
                                     `minimumValue` and `maximumValue`.
  
  @return An initialized weight answer format.
  */
-- (instancetype)initWithMeasurementSystem:(ORKLegacyMeasurementSystem)measurementSystem
-                         numericPrecision:(ORKLegacyNumericPrecision)numericPrecision
+- (instancetype)initWithMeasurementSystem:(ORK1MeasurementSystem)measurementSystem
+                         numericPrecision:(ORK1NumericPrecision)numericPrecision
                              minimumValue:(double)minimumValue
                              maximumValue:(double)maximumValue
                              defaultValue:(double)defaultValue NS_DESIGNATED_INITIALIZER;
@@ -1531,27 +1531,27 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  Indicates the measurement system used by the answer format.
  */
-@property (readonly) ORKLegacyMeasurementSystem measurementSystem;
+@property (readonly) ORK1MeasurementSystem measurementSystem;
 
 /**
  The numeric precision used by the picker.
  
- An `ORKLegacyNumericPrecisionDefault` value indicates that the picker will use 0.5 kg increments for the
+ An `ORK1NumericPrecisionDefault` value indicates that the picker will use 0.5 kg increments for the
  metric measurement system and whole pound increments for the USC measurement system, which mimics
- the default iOS behavior. An `ORKLegacyNumericPrecisionLow` value indicates that the picker will use
+ the default iOS behavior. An `ORK1NumericPrecisionLow` value indicates that the picker will use
  1 kg increments for the metric measurement system and whole pound increments for the USC
- measurement system. An `ORKLegacyNumericPrecisionHigher` value indicates that the picker will use
+ measurement system. An `ORK1NumericPrecisionHigher` value indicates that the picker will use
  0.01 gr increments for the metric measurement system and ounce increments for the USC measurement
  system.
  
- The default value of this property is `ORKLegacyNumericPrecisionDefault`.
+ The default value of this property is `ORK1NumericPrecisionDefault`.
  */
-@property (readonly, getter=isAdditionalPrecision) ORKLegacyNumericPrecision numericPrecision;
+@property (readonly, getter=isAdditionalPrecision) ORK1NumericPrecision numericPrecision;
 
 /**
  The minimum value that is displayed in the picker.
  
- When this property has a value equal to `ORKLegacyDefaultValue`, the minimum values are 0 kg when using
+ When this property has a value equal to `ORK1DefaultValue`, the minimum values are 0 kg when using
  the metric measurement system and 0 lbs when using the USC measurement system.
  */
 @property (readonly) double minimumValue;
@@ -1559,7 +1559,7 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  The maximum value that is displayed in the picker.
  
- When this property has a value equal to `ORKLegacyDefaultValue`, the maximum values are 657 kg when using
+ When this property has a value equal to `ORK1DefaultValue`, the maximum values are 657 kg when using
  the metric measurement system and 1,450 lbs when using the USC measurement system.
  */
 @property (readonly) double maximumValue;
@@ -1567,7 +1567,7 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  The default value to initially selected in the picker.
  
- When this property has a value equal to `ORKLegacyDefaultValue`, the initally selected values are 60 kg
+ When this property has a value equal to `ORK1DefaultValue`, the initally selected values are 60 kg
  when using the metric measurement system and 133 lbs when using the USC measurement system. This
  value must be between `minimumValue` and `maximumValue`.
  */
@@ -1577,13 +1577,13 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The `ORKLegacyLocationAnswerFormat` class represents the answer format for questions that collect a location response
+ The `ORK1LocationAnswerFormat` class represents the answer format for questions that collect a location response
  from the user.
  
- An `ORKLegacyLocationAnswerFormat` object produces an `ORKLegacyLocationQuestionResult` object.
+ An `ORK1LocationAnswerFormat` object produces an `ORK1LocationQuestionResult` object.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyLocationAnswerFormat : ORKLegacyAnswerFormat
+ORK1_CLASS_AVAILABLE
+@interface ORK1LocationAnswerFormat : ORK1AnswerFormat
 
 /**
  Indicates whether or not the user's current location should be automatically entered the first time they tap on the input field.

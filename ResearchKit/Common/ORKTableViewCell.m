@@ -36,7 +36,7 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKLegacyTableViewCell {
+@implementation ORK1TableViewCell {
     UIView *_topSeparator;
     NSLayoutConstraint *_topSeparatorLeftMarginConstraint;
     UIView *_bottomSeparator;
@@ -61,7 +61,7 @@
         _bottomSeparatorLeftInset = 0;
 
         
-        [self init_ORKLegacyTableViewCell];
+        [self init_ORK1TableViewCell];
         
     }
     return self;
@@ -180,7 +180,7 @@
     _topSeparatorLeftMarginConstraint.constant = _topSeparatorLeftInset;
 }
 
-- (void)init_ORKLegacyTableViewCell {
+- (void)init_ORK1TableViewCell {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateAppearance)
                                                  name:UIContentSizeCategoryDidChangeNotification
@@ -190,7 +190,7 @@
 }
 
 - (void)updateAppearance {
-    self.textLabel.font = [ORKLegacySelectionTitleLabel defaultFont];
+    self.textLabel.font = [ORK1SelectionTitleLabel defaultFont];
     [self invalidateIntrinsicContentSize];
 
 }

@@ -36,12 +36,12 @@
 @import CoreMotion;
 
 
-@interface ORKLegacyMockLocationManager : CLLocationManager
+@interface ORK1MockLocationManager : CLLocationManager
 
 @end
 
 
-@implementation ORKLegacyMockLocationManager
+@implementation ORK1MockLocationManager
 
 - (void)setPausesLocationUpdatesAutomatically:(BOOL)pausesLocationUpdatesAutomatically {
     
@@ -50,26 +50,26 @@
 @end
 
 
-@interface ORKLegacyMockLocationRecorder : ORKLegacyLocationRecorder
+@interface ORK1MockLocationRecorder : ORK1LocationRecorder
 
 @end
 
 
-@implementation ORKLegacyMockLocationRecorder
+@implementation ORK1MockLocationRecorder
 
 - (CLLocationManager *)createLocationManager {
-    return [[ORKLegacyMockLocationManager alloc] init];
+    return [[ORK1MockLocationManager alloc] init];
 }
 
 @end
 
 
-@interface ORKLegacyMockTouch : UITouch
+@interface ORK1MockTouch : UITouch
 
 @end
 
 
-@implementation ORKLegacyMockTouch
+@implementation ORK1MockTouch
 
 - (CGPoint)locationInView:(UIView *)view {
     return CGPointMake(11.0, 12.0);
@@ -86,7 +86,7 @@
 @end
 
 
-@interface ORKLegacyMockMotionManager : CMMotionManager
+@interface ORK1MockMotionManager : CMMotionManager
 
 - (void)injectMotion:(CMDeviceMotion *)motion;
 
@@ -95,7 +95,7 @@
 @end
 
 
-@implementation ORKLegacyMockMotionManager {
+@implementation ORK1MockMotionManager {
     CMDeviceMotionHandler _motionHandler;
     CMAccelerometerHandler _accelerometerHandler;
 }
@@ -129,14 +129,14 @@
 @end
 
 
-@interface ORKLegacyMockPedometer : CMPedometer
+@interface ORK1MockPedometer : CMPedometer
 
 - (void)injectData:(CMPedometerData *)data;
 
 @end
 
 
-@implementation ORKLegacyMockPedometer {
+@implementation ORK1MockPedometer {
     CMPedometerHandler _handler;
 }
 
@@ -155,14 +155,14 @@
 @end
 
 
-@interface ORKLegacyMockAccelerometerRecorder : ORKLegacyAccelerometerRecorder
+@interface ORK1MockAccelerometerRecorder : ORK1AccelerometerRecorder
 
-@property (nonatomic, strong) ORKLegacyMockMotionManager* mockManager;
+@property (nonatomic, strong) ORK1MockMotionManager* mockManager;
 
 @end
 
 
-@implementation ORKLegacyMockAccelerometerRecorder
+@implementation ORK1MockAccelerometerRecorder
 
 - (CMMotionManager *)createMotionManager {
     return _mockManager;
@@ -171,12 +171,12 @@
 @end
 
 
-@interface ORKLegacyMockAccelerometerData : CMAccelerometerData
+@interface ORK1MockAccelerometerData : CMAccelerometerData
 
 @end
 
 
-@implementation ORKLegacyMockAccelerometerData
+@implementation ORK1MockAccelerometerData
 
 - (CMAcceleration)acceleration {
     return (CMAcceleration){.x=0.1, .y=0.12, .z=0.123};
@@ -189,14 +189,14 @@
 @end
 
 
-@interface ORKLegacyMockPedometerRecorder : ORKLegacyPedometerRecorder
+@interface ORK1MockPedometerRecorder : ORK1PedometerRecorder
 
-@property (nonatomic, strong) ORKLegacyMockPedometer* mockPedometer;
+@property (nonatomic, strong) ORK1MockPedometer* mockPedometer;
 
 @end
 
 
-@implementation ORKLegacyMockPedometerRecorder
+@implementation ORK1MockPedometerRecorder
 
 - (CMPedometer *)createPedometer {
     return _mockPedometer;
@@ -205,12 +205,12 @@
 @end
 
 
-@interface ORKLegacyMockPedometerData : CMPedometerData
+@interface ORK1MockPedometerData : CMPedometerData
 
 @end
 
 
-@implementation ORKLegacyMockPedometerData
+@implementation ORK1MockPedometerData
 
 - (NSDate *)startDate {
     return  [NSDate dateWithTimeIntervalSinceReferenceDate:1000.0];
@@ -239,14 +239,14 @@
 @end
 
 
-@interface ORKLegacyMockDeviceMotionRecorder : ORKLegacyDeviceMotionRecorder
+@interface ORK1MockDeviceMotionRecorder : ORK1DeviceMotionRecorder
 
-@property (nonatomic, strong) ORKLegacyMockMotionManager* mockManager;
+@property (nonatomic, strong) ORK1MockMotionManager* mockManager;
 
 @end
 
 
-@implementation ORKLegacyMockDeviceMotionRecorder
+@implementation ORK1MockDeviceMotionRecorder
 
 - (CMMotionManager *)createMotionManager {
     return _mockManager;
@@ -255,12 +255,12 @@
 @end
 
 
-@interface ORKLegacyMockAttitude : CMAttitude
+@interface ORK1MockAttitude : CMAttitude
 
 @end
 
 
-@implementation ORKLegacyMockAttitude
+@implementation ORK1MockAttitude
 
 - (CMQuaternion)quaternion {
     return (CMQuaternion){.x=0.1, .y=0.12, .z=0.123, .w=0.1234};
@@ -269,19 +269,19 @@
 @end
 
 
-@interface ORKLegacyMockDeviceMotion : CMDeviceMotion
+@interface ORK1MockDeviceMotion : CMDeviceMotion
 
 @end
 
 
-@implementation ORKLegacyMockDeviceMotion
+@implementation ORK1MockDeviceMotion
 
 - (NSTimeInterval)timestamp {
     return 1000.0;
 }
 
 - (CMAttitude *)attitude {
-    return [ORKLegacyMockAttitude new];
+    return [ORK1MockAttitude new];
 }
 
 - (CMRotationRate)rotationRate {
@@ -308,18 +308,18 @@ static BOOL ork_doubleEqual(double x, double y) {
     return (fabs(x-y) < K * DBL_EPSILON * fabs(x+y) || fabs(x-y) < DBL_MIN);
 }
 
-#pragma mark - ORKLegacyRecorderTests
+#pragma mark - ORK1RecorderTests
 #pragma mark -
 
-@interface ORKLegacyRecorderTests : XCTestCase <ORKLegacyRecorderDelegate>
+@interface ORK1RecorderTests : XCTestCase <ORK1RecorderDelegate>
 
 @end
 
 
-@implementation ORKLegacyRecorderTests {
+@implementation ORK1RecorderTests {
     NSString  *_outputPath;
-    ORKLegacyRecorder *_recorder;
-    ORKLegacyResult *_result;
+    ORK1Recorder *_recorder;
+    ORK1Result *_result;
     NSArray   *_items;
 }
 
@@ -349,20 +349,20 @@ static const NSInteger kNumberOfSamples = 5;
     [super tearDown];
 }
 
-- (void)recorder:(ORKLegacyRecorder *)recorder didCompleteWithResult:(ORKLegacyResult *)result {
+- (void)recorder:(ORK1Recorder *)recorder didCompleteWithResult:(ORK1Result *)result {
      NSLog(@"didCompleteWithResult: %@", result);
     _recorder = recorder;
     _result = result;
 }
 
-- (void)recorder:(ORKLegacyRecorder *)recorder didFailWithError:(NSError *)error {
+- (void)recorder:(ORK1Recorder *)recorder didFailWithError:(NSError *)error {
     NSLog(@"didFailWithError: %@", error);
     _recorder = nil;
     _result = nil;
 }
 
-- (ORKLegacyRecorder *)createRecorder:(ORKLegacyRecorderConfiguration *)recorderConfiguration {
-    ORKLegacyRecorder *recorder = [recorderConfiguration recorderForStep:[[ORKLegacyStep alloc] initWithIdentifier:@"step"]
+- (ORK1Recorder *)createRecorder:(ORK1RecorderConfiguration *)recorderConfiguration {
+    ORK1Recorder *recorder = [recorderConfiguration recorderForStep:[[ORK1Step alloc] initWithIdentifier:@"step"]
                                                    outputDirectory:[NSURL fileURLWithPath:_outputPath]];
     XCTAssert([recorder.identifier isEqualToString:recorderConfiguration.identifier], @"");
     recorder.delegate = self;
@@ -372,10 +372,10 @@ static const NSInteger kNumberOfSamples = 5;
 - (void)checkResult {
     
     XCTAssertNotNil(_result, @"");
-    XCTAssert([_result isKindOfClass:[ORKLegacyFileResult class]], @"");
+    XCTAssert([_result isKindOfClass:[ORK1FileResult class]], @"");
     XCTAssert([_recorder.identifier isEqualToString:_result.identifier], @"");
     
-    ORKLegacyFileResult *fileResult = (ORKLegacyFileResult *)_result;
+    ORK1FileResult *fileResult = (ORK1FileResult *)_result;
     
     NSError *error;
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:fileResult.fileURL ] options:(NSJSONReadingOptions)0 error:&error];
@@ -390,10 +390,10 @@ static const NSInteger kNumberOfSamples = 5;
 
 - (void)testLocationRecorder {
     
-    ORKLegacyLocationRecorder *recorder = (ORKLegacyLocationRecorder *)[self createRecorder:[[ORKLegacyLocationRecorderConfiguration alloc] initWithIdentifier:@"location"]];
-    XCTAssertTrue([recorder isKindOfClass:[ORKLegacyLocationRecorder class]], @"");
+    ORK1LocationRecorder *recorder = (ORK1LocationRecorder *)[self createRecorder:[[ORK1LocationRecorderConfiguration alloc] initWithIdentifier:@"location"]];
+    XCTAssertTrue([recorder isKindOfClass:[ORK1LocationRecorder class]], @"");
     
-    recorder = [[ORKLegacyMockLocationRecorder alloc] initWithIdentifier:@"location"
+    recorder = [[ORK1MockLocationRecorder alloc] initWithIdentifier:@"location"
                                                               step:recorder.step
                                                    outputDirectory:recorder.outputDirectory];
     recorder.delegate = self;
@@ -434,7 +434,7 @@ static const NSInteger kNumberOfSamples = 5;
         XCTAssertTrue(ork_doubleEqual(verticalAccuracy, ((NSNumber *)sample[@"verticalAccuracy"]).doubleValue), @"");
         XCTAssertTrue(ork_doubleEqual(course, ((NSNumber *)sample[@"course"]).doubleValue), @"");
         XCTAssertTrue(ork_doubleEqual(speed, ((NSNumber *)sample[@"speed"]).doubleValue), @"");
-        XCTAssertEqualObjects(ORKLegacyStringFromDateISO8601(timestamp), sample[@"timestamp"], @"");
+        XCTAssertEqualObjects(ORK1StringFromDateISO8601(timestamp), sample[@"timestamp"], @"");
         XCTAssertTrue(ork_doubleEqual(latitude, ((NSNumber *)sample[@"coordinate"][@"latitude"]).doubleValue), @"");
         XCTAssertTrue(ork_doubleEqual(longitude, ((NSNumber *)sample[@"coordinate"][@"longitude"]).doubleValue), @"");
     }
@@ -442,21 +442,21 @@ static const NSInteger kNumberOfSamples = 5;
 
 - (void)testAccelerometerRecorder {
     
-    ORKLegacyAccelerometerRecorderConfiguration *recorderConfiguration = [[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:@"accelerometer" frequency:60.0];
-    Class recorderClass = [ORKLegacyAccelerometerRecorder class];
-    ORKLegacyAccelerometerRecorder *recorder = (ORKLegacyAccelerometerRecorder *)[self createRecorder:recorderConfiguration];
+    ORK1AccelerometerRecorderConfiguration *recorderConfiguration = [[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:@"accelerometer" frequency:60.0];
+    Class recorderClass = [ORK1AccelerometerRecorder class];
+    ORK1AccelerometerRecorder *recorder = (ORK1AccelerometerRecorder *)[self createRecorder:recorderConfiguration];
     
     XCTAssertTrue([recorder isKindOfClass:recorderClass], @"");
     XCTAssertTrue([recorder.identifier isEqualToString:recorderConfiguration.identifier], @"");
     
-    recorder = [[ORKLegacyMockAccelerometerRecorder alloc] initWithIdentifier:@"accelerometer" frequency:recorder.frequency step:recorder.step outputDirectory:recorder.outputDirectory];
+    recorder = [[ORK1MockAccelerometerRecorder alloc] initWithIdentifier:@"accelerometer" frequency:recorder.frequency step:recorder.step outputDirectory:recorder.outputDirectory];
     recorder.delegate = self;
-    ORKLegacyMockMotionManager *manager = [ORKLegacyMockMotionManager new];
-    [(ORKLegacyMockAccelerometerRecorder*)recorder setMockManager:manager];
+    ORK1MockMotionManager *manager = [ORK1MockMotionManager new];
+    [(ORK1MockAccelerometerRecorder*)recorder setMockManager:manager];
     
     [recorder start];
     
-    ORKLegacyMockAccelerometerData *data = [ORKLegacyMockAccelerometerData new];
+    ORK1MockAccelerometerData *data = [ORK1MockAccelerometerData new];
     for (NSInteger i = 0; i < kNumberOfSamples; i++) {
         [manager injectAccelerometerData:data];
     }
@@ -474,20 +474,20 @@ static const NSInteger kNumberOfSamples = 5;
 
 - (void)testDeviceMotionRecorder {
     
-    ORKLegacyDeviceMotionRecorderConfiguration *recorderConfiguration = [[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"deviceMotion" frequency:60.0];
-    Class recorderClass = [ORKLegacyDeviceMotionRecorder class];
-    ORKLegacyDeviceMotionRecorder *recorder = (ORKLegacyDeviceMotionRecorder *)[self createRecorder:recorderConfiguration];
+    ORK1DeviceMotionRecorderConfiguration *recorderConfiguration = [[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"deviceMotion" frequency:60.0];
+    Class recorderClass = [ORK1DeviceMotionRecorder class];
+    ORK1DeviceMotionRecorder *recorder = (ORK1DeviceMotionRecorder *)[self createRecorder:recorderConfiguration];
     
     XCTAssertTrue([recorder isKindOfClass:recorderClass], @"");
     
-    recorder = [[ORKLegacyMockDeviceMotionRecorder alloc] initWithIdentifier:@"deviceMotion" frequency:recorder.frequency step:recorder.step outputDirectory:recorder.outputDirectory];
+    recorder = [[ORK1MockDeviceMotionRecorder alloc] initWithIdentifier:@"deviceMotion" frequency:recorder.frequency step:recorder.step outputDirectory:recorder.outputDirectory];
     recorder.delegate = self;
-    ORKLegacyMockMotionManager *manager = [ORKLegacyMockMotionManager new];
-    [(ORKLegacyMockAccelerometerRecorder*)recorder setMockManager:manager];
+    ORK1MockMotionManager *manager = [ORK1MockMotionManager new];
+    [(ORK1MockAccelerometerRecorder*)recorder setMockManager:manager];
     
     [recorder start];
     
-    ORKLegacyMockDeviceMotion *motion = [ORKLegacyMockDeviceMotion new];
+    ORK1MockDeviceMotion *motion = [ORK1MockDeviceMotion new];
     for (NSInteger i = 0; i < kNumberOfSamples; i++) {
         [manager injectMotion:motion];
     }
@@ -524,19 +524,19 @@ static const NSInteger kNumberOfSamples = 5;
 
 - (void)testPedometerRecorder {
     
-    Class recorderClass = [ORKLegacyPedometerRecorder class];
-    ORKLegacyPedometerRecorder *recorder = (ORKLegacyPedometerRecorder *)[self createRecorder:[[ORKLegacyPedometerRecorderConfiguration alloc] initWithIdentifier:@"pedometer"]];
+    Class recorderClass = [ORK1PedometerRecorder class];
+    ORK1PedometerRecorder *recorder = (ORK1PedometerRecorder *)[self createRecorder:[[ORK1PedometerRecorderConfiguration alloc] initWithIdentifier:@"pedometer"]];
     
     XCTAssertTrue([recorder isKindOfClass:recorderClass], @"");
     
-    recorder = [[ORKLegacyMockPedometerRecorder alloc] initWithIdentifier:@"pedometer" step:recorder.step outputDirectory:recorder.outputDirectory];
+    recorder = [[ORK1MockPedometerRecorder alloc] initWithIdentifier:@"pedometer" step:recorder.step outputDirectory:recorder.outputDirectory];
     recorder.delegate = self;
-    ORKLegacyMockPedometer *pedometer = [ORKLegacyMockPedometer new];
-    [(ORKLegacyMockPedometerRecorder*)recorder setMockPedometer:pedometer];
+    ORK1MockPedometer *pedometer = [ORK1MockPedometer new];
+    [(ORK1MockPedometerRecorder*)recorder setMockPedometer:pedometer];
     
     [recorder start];
     
-    ORKLegacyMockPedometerData *data = [ORKLegacyMockPedometerData new];
+    ORK1MockPedometerData *data = [ORK1MockPedometerData new];
     for (NSInteger i = 0; i < kNumberOfSamples; i++) {
         [pedometer injectData:data];
     }
@@ -546,8 +546,8 @@ static const NSInteger kNumberOfSamples = 5;
     
     for (NSDictionary *sample in _items) {
         
-        XCTAssertEqualObjects(ORKLegacyStringFromDateISO8601(data.startDate), sample[@"startDate"], @"");
-        XCTAssertEqualObjects(ORKLegacyStringFromDateISO8601(data.endDate), sample[@"endDate"], @"");
+        XCTAssertEqualObjects(ORK1StringFromDateISO8601(data.startDate), sample[@"startDate"], @"");
+        XCTAssertEqualObjects(ORK1StringFromDateISO8601(data.endDate), sample[@"endDate"], @"");
         
         XCTAssertTrue(ork_doubleEqual(data.distance.doubleValue, ((NSNumber *)sample[@"distance"]).doubleValue), @"");
         XCTAssertEqual(data.numberOfSteps.integerValue, ((NSNumber *)sample[@"numberOfSteps"]).integerValue, @"");
@@ -558,8 +558,8 @@ static const NSInteger kNumberOfSamples = 5;
 
 - (void)testTouchRecorder {
     
-    Class recorderClass = [ORKLegacyTouchRecorder class];
-    ORKLegacyTouchRecorder *recorder = (ORKLegacyTouchRecorder *)[self createRecorder:[[ORKLegacyTouchRecorderConfiguration alloc] initWithIdentifier:@"touch"]];
+    Class recorderClass = [ORK1TouchRecorder class];
+    ORK1TouchRecorder *recorder = (ORK1TouchRecorder *)[self createRecorder:[[ORK1TouchRecorderConfiguration alloc] initWithIdentifier:@"touch"]];
     
     XCTAssertTrue([recorder isKindOfClass:recorderClass], @"");
     
@@ -567,7 +567,7 @@ static const NSInteger kNumberOfSamples = 5;
     [recorder viewController:[UIViewController new] willStartStepWithView:view];
     [recorder start];
     
-    ORKLegacyMockTouch *touch = [ORKLegacyMockTouch new];
+    ORK1MockTouch *touch = [ORK1MockTouch new];
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -595,9 +595,9 @@ static const NSInteger kNumberOfSamples = 5;
 
 - (void)testAudioRecorder {
     
-    ORKLegacyAudioRecorderConfiguration *recorderConfiguration = [[ORKLegacyAudioRecorderConfiguration alloc] initWithIdentifier:@"audio" recorderSettings:@{}];
-    Class recorderClass = [ORKLegacyAudioRecorder class];
-    ORKLegacyAudioRecorder *recorder = (ORKLegacyAudioRecorder *)[self createRecorder:recorderConfiguration];
+    ORK1AudioRecorderConfiguration *recorderConfiguration = [[ORK1AudioRecorderConfiguration alloc] initWithIdentifier:@"audio" recorderSettings:@{}];
+    Class recorderClass = [ORK1AudioRecorder class];
+    ORK1AudioRecorder *recorder = (ORK1AudioRecorder *)[self createRecorder:recorderConfiguration];
     
     XCTAssertTrue([recorder isKindOfClass:recorderClass], @"");
 }
@@ -606,9 +606,9 @@ static const NSInteger kNumberOfSamples = 5;
     
     HKUnit *bpmUnit = [[HKUnit countUnit] unitDividedByUnit:[HKUnit minuteUnit]];
     HKQuantityType *hbQuantityType = [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate];
-    ORKLegacyHealthQuantityTypeRecorderConfiguration *recorderConfiguration = [[ORKLegacyHealthQuantityTypeRecorderConfiguration alloc] initWithIdentifier:@"healtQuantityTypeRecorder" healthQuantityType:hbQuantityType unit:bpmUnit];
-    Class recorderClass = [ORKLegacyHealthQuantityTypeRecorder class];
-    ORKLegacyHealthQuantityTypeRecorder *recorder = (ORKLegacyHealthQuantityTypeRecorder *)[self createRecorder:recorderConfiguration];
+    ORK1HealthQuantityTypeRecorderConfiguration *recorderConfiguration = [[ORK1HealthQuantityTypeRecorderConfiguration alloc] initWithIdentifier:@"healtQuantityTypeRecorder" healthQuantityType:hbQuantityType unit:bpmUnit];
+    Class recorderClass = [ORK1HealthQuantityTypeRecorder class];
+    ORK1HealthQuantityTypeRecorder *recorder = (ORK1HealthQuantityTypeRecorder *)[self createRecorder:recorderConfiguration];
     
     XCTAssertTrue([recorder isKindOfClass:recorderClass], @"");
 }

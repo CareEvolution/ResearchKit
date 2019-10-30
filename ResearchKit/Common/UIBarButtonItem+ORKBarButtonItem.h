@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIBarButtonItem (ORKLegacyBarButtonItem)
+@interface UIBarButtonItem (ORK1BarButtonItem)
 
 + (instancetype)ork_backBarButtonItemWithTarget:(nullable id)target action:(nullable SEL)selector;
 

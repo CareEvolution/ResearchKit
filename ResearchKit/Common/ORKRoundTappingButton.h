@@ -35,8 +35,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyRoundTappingButton : ORKLegacyBorderedButton {
+ORK1_CLASS_AVAILABLE
+@interface ORK1RoundTappingButton : ORK1BorderedButton {
     CGFloat diameter;
 }
 

@@ -73,7 +73,7 @@ class ChartListViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         self.tableView.dataSource = self;
         
-        // ORKLegacyPieChartView
+        // ORK1PieChartView
         pieChartTableViewCell = (tableView.dequeueReusableCell(withIdentifier: pieChartIdentifier) as! PieChartTableViewCell)
         let pieChartView = pieChartTableViewCell.pieChartView
         pieChartView?.dataSource = randomColorPieChartDataSource
@@ -106,9 +106,9 @@ class ChartListViewController: UIViewController, UITableViewDataSource {
             pieChartView?.textColor = nil
         }
 
-        // ORKLegacyBarGraphChartView
+        // ORK1BarGraphChartView
         barGraphChartTableViewCell = (tableView.dequeueReusableCell(withIdentifier: barGraphChartIdentifier) as! BarGraphChartTableViewCell)
-        let barGraphChartView = barGraphChartTableViewCell.graphChartView as! ORKLegacyBarGraphChartView
+        let barGraphChartView = barGraphChartTableViewCell.graphChartView as! ORK1BarGraphChartView
         barGraphChartView.dataSource = barGraphChartDataSource
         executeAfterDelay(1.5) {
             barGraphChartView.tintColor = UIColor.purple
@@ -139,9 +139,9 @@ class ChartListViewController: UIViewController, UITableViewDataSource {
             barGraphChartView.minimumValueImage = minimumValueImage
         }
 
-        // ORKLegacyLineGraphChartView
+        // ORK1LineGraphChartView
         lineGraphChartTableViewCell = (tableView.dequeueReusableCell(withIdentifier: lineGraphChartIdentifier) as! LineGraphChartTableViewCell)
-        let lineGraphChartView = lineGraphChartTableViewCell.graphChartView as! ORKLegacyLineGraphChartView
+        let lineGraphChartView = lineGraphChartTableViewCell.graphChartView as! ORK1LineGraphChartView
         lineGraphChartView.dataSource = lineGraphChartDataSource
         // Optional custom configuration
         executeAfterDelay(1.5) {
@@ -173,9 +173,9 @@ class ChartListViewController: UIViewController, UITableViewDataSource {
             lineGraphChartView.minimumValueImage = minimumValueImage
         }
         
-        // ORKLegacyDiscreteGraphChartView
+        // ORK1DiscreteGraphChartView
         discreteGraphChartTableViewCell = (tableView.dequeueReusableCell(withIdentifier: discreteGraphChartIdentifier) as! DiscreteGraphChartTableViewCell)
-        let discreteGraphChartView = discreteGraphChartTableViewCell.graphChartView as! ORKLegacyDiscreteGraphChartView
+        let discreteGraphChartView = discreteGraphChartTableViewCell.graphChartView as! ORK1DiscreteGraphChartView
         discreteGraphChartView.dataSource = discreteGraphChartDataSource
         // Optional custom configuration
         discreteGraphChartView.showsHorizontalReferenceLines = true
@@ -237,17 +237,17 @@ class ChartPerformanceListViewController: UIViewController, UITableViewDataSourc
     override func viewDidLoad() {
         self.tableView.dataSource = self;
         
-        // ORKLegacyLineGraphChartView
+        // ORK1LineGraphChartView
         lineGraphChartTableViewCell = (tableView.dequeueReusableCell(withIdentifier: lineGraphChartIdentifier) as! LineGraphChartTableViewCell)
-        let lineGraphChartView = lineGraphChartTableViewCell.graphChartView as! ORKLegacyLineGraphChartView
+        let lineGraphChartView = lineGraphChartTableViewCell.graphChartView as! ORK1LineGraphChartView
         lineGraphChartView.dataSource = graphChartDataSource
         // Optional custom configuration
         lineGraphChartView.showsHorizontalReferenceLines = true
         lineGraphChartView.showsVerticalReferenceLines = true
 
-        // ORKLegacyDiscreteGraphChartView
+        // ORK1DiscreteGraphChartView
         discreteGraphChartTableViewCell = (tableView.dequeueReusableCell(withIdentifier: discreteGraphChartIdentifier) as! DiscreteGraphChartTableViewCell)
-        let discreteGraphChartView = discreteGraphChartTableViewCell.graphChartView as! ORKLegacyDiscreteGraphChartView
+        let discreteGraphChartView = discreteGraphChartTableViewCell.graphChartView as! ORK1DiscreteGraphChartView
         discreteGraphChartView.dataSource = graphChartDataSource
         // Optional custom configuration
         discreteGraphChartView.showsHorizontalReferenceLines = true

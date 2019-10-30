@@ -40,8 +40,8 @@
 #import "UIView+ORKAccessibility.h"
 
 
-NSString *ORKLegacyAccessibilityFormatScaleSliderValue(CGFloat value, ORKLegacyScaleSlider *slider) {
-    ORKLegacyScaleSliderView *sliderView = (ORKLegacyScaleSliderView *)[slider ork_superviewOfType:[ORKLegacyScaleSliderView class]];
+NSString *ORK1AccessibilityFormatScaleSliderValue(CGFloat value, ORK1ScaleSlider *slider) {
+    ORK1ScaleSliderView *sliderView = (ORK1ScaleSliderView *)[slider ork_superviewOfType:[ORK1ScaleSliderView class]];
     if (!slider || !sliderView) {
         return nil;
     }
@@ -50,8 +50,8 @@ NSString *ORKLegacyAccessibilityFormatScaleSliderValue(CGFloat value, ORKLegacyS
     return [sliderView.formatProvider localizedStringForNumber:normalizedValue];
 }
 
-NSString *ORKLegacyAccessibilityFormatContinuousScaleSliderValue(CGFloat value, ORKLegacyScaleSlider *slider) {
-    ORKLegacyScaleSliderView *sliderView = (ORKLegacyScaleSliderView *)[slider ork_superviewOfType:[ORKLegacyScaleSliderView class]];
+NSString *ORK1AccessibilityFormatContinuousScaleSliderValue(CGFloat value, ORK1ScaleSlider *slider) {
+    ORK1ScaleSliderView *sliderView = (ORK1ScaleSliderView *)[slider ork_superviewOfType:[ORK1ScaleSliderView class]];
     if (!slider || !sliderView) {
         return nil;
     }
@@ -59,7 +59,7 @@ NSString *ORKLegacyAccessibilityFormatContinuousScaleSliderValue(CGFloat value, 
     return [sliderView.formatProvider localizedStringForNumber:@(value)];
 }
 
-void ORKLegacyAccessibilityPerformBlockAfterDelay(NSTimeInterval delay, void(^block)(void)) {
+void ORK1AccessibilityPerformBlockAfterDelay(NSTimeInterval delay, void(^block)(void)) {
     if (block == nil) {
         return;
     }
@@ -71,7 +71,7 @@ void ORKLegacyAccessibilityPerformBlockAfterDelay(NSTimeInterval delay, void(^bl
     });
 }
 
-NSString *_ORKLegacyAccessibilityStringForVariables(NSInteger numParameters, NSString *baseString, ...) {
+NSString *_ORK1AccessibilityStringForVariables(NSInteger numParameters, NSString *baseString, ...) {
     NSMutableArray *variables = [[NSMutableArray alloc] init];
     
     NSInteger paramIndex = 0;

@@ -36,30 +36,30 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ORKLegacyHolePegTestPlaceContentViewDelegate;
+@protocol ORK1HolePegTestPlaceContentViewDelegate;
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyHolePegTestPlaceContentView : ORKLegacyActiveStepCustomView
+ORK1_CLASS_AVAILABLE
+@interface ORK1HolePegTestPlaceContentView : ORK1ActiveStepCustomView
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
-- (instancetype)initWithMovingDirection:(ORKLegacyBodySagittal)movingDirection rotated:(BOOL)rotated NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithMovingDirection:(ORK1BodySagittal)movingDirection rotated:(BOOL)rotated NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, assign) ORKLegacyBodySagittal movingDirection;
+@property (nonatomic, assign) ORK1BodySagittal movingDirection;
 @property (nonatomic, assign) double threshold;
 @property (nonatomic, assign, getter = isRotated) BOOL rotated;
-@property (nonatomic, weak) id<ORKLegacyHolePegTestPlaceContentViewDelegate> delegate;
+@property (nonatomic, weak) id<ORK1HolePegTestPlaceContentViewDelegate> delegate;
 
 - (void)setProgress:(CGFloat)progress animated:(BOOL)animated;
 
 @end
 
 
-@protocol ORKLegacyHolePegTestPlaceContentViewDelegate <NSObject>
+@protocol ORK1HolePegTestPlaceContentViewDelegate <NSObject>
 
-- (void)holePegTestPlaceDidProgress:(ORKLegacyHolePegTestPlaceContentView *)holePegTestPlaceContentView;
-- (void)holePegTestPlaceDidSucceed:(ORKLegacyHolePegTestPlaceContentView *)holePegTestPlaceContentView withDistance:(CGFloat)distance;
-- (void)holePegTestPlaceDidFail:(ORKLegacyHolePegTestPlaceContentView *)holePegTestPlaceContentView;
+- (void)holePegTestPlaceDidProgress:(ORK1HolePegTestPlaceContentView *)holePegTestPlaceContentView;
+- (void)holePegTestPlaceDidSucceed:(ORK1HolePegTestPlaceContentView *)holePegTestPlaceContentView withDistance:(CGFloat)distance;
+- (void)holePegTestPlaceDidFail:(ORK1HolePegTestPlaceContentView *)holePegTestPlaceContentView;
 
 @end
 

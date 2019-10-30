@@ -73,21 +73,21 @@ static const GLfloat ColorConversion709[] = {
 };
 
 #if defined(DEBUG)
-    void ORKLegacyCheckForGLError()
+    void ORK1CheckForGLError()
     {
         GLenum error = glGetError();
         if (error != GL_NO_ERROR)
         {
-            ORKLegacy_Log_Error(@"glError: 0x%04X", error);
+            ORK1_Log_Error(@"glError: 0x%04X", error);
         }
     }
 #else
-    #define ORKLegacyCheckForGLError(...)
+    #define ORK1CheckForGLError(...)
 #endif
 
-#define ORKLegacyEAGLLog(...)
+#define ORK1EAGLLog(...)
 
-@interface ORKLegacyEAGLMoviePlayerView () {
+@interface ORK1EAGLMoviePlayerView () {
     // The pixel dimensions of the CAEAGLLayer.
     GLint _backingWidth;
     GLint _backingHeight;
@@ -120,7 +120,7 @@ static const GLfloat ColorConversion709[] = {
 @end
 
 
-@implementation ORKLegacyEAGLMoviePlayerView
+@implementation ORK1EAGLMoviePlayerView
 
 const GLfloat DefaultPreferredRotation = 0;
 
@@ -183,7 +183,7 @@ const GLfloat DefaultPreferredRotation = 0;
     if (!_videoTextureCache) {
         CVReturn error = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault, NULL, _context, NULL, &_videoTextureCache);
         if (error != noErr) {
-            ORKLegacy_Log_Error(@"Error at CVOpenGLESTextureCacheCreate %d", error);
+            ORK1_Log_Error(@"Error at CVOpenGLESTextureCacheCreate %d", error);
             return;
         }
     }
@@ -192,7 +192,7 @@ const GLfloat DefaultPreferredRotation = 0;
     glGenBuffers(1, &_vertexBufferHandle);
 
     [self restoreGLContext];
-    ORKLegacyEAGLLog(@"");
+    ORK1EAGLLog(@"");
 }
 
 #pragma mark - Utilities
@@ -218,14 +218,14 @@ const GLfloat DefaultPreferredRotation = 0;
     
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _colorBufferHandle);
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        ORKLegacy_Log_Error(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
+        ORK1_Log_Error(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatus(GL_FRAMEBUFFER));
     }
     
     // Set the view port to the entire view.
     glViewport(0, 0, _backingWidth, _backingHeight);
 
     [self restoreGLContext];
-    ORKLegacyEAGLLog(@"");
+    ORK1EAGLLog(@"");
 }
 
 - (void)deleteBuffers {
@@ -305,7 +305,7 @@ const GLfloat DefaultPreferredRotation = 0;
 }
 
 - (void)dealloc {
-    ORKLegacyEAGLLog(@"");
+    ORK1EAGLLog(@"");
     
     [self saveGLContext];
     
@@ -355,10 +355,10 @@ const GLfloat DefaultPreferredRotation = 0;
 
     CVReturn error;
     if (pixelBuffer != NULL) {
-        ORKLegacyEAGLLog(@"Have buffer");
+        ORK1EAGLLog(@"Have buffer");
 
         if (!_videoTextureCache) {
-            ORKLegacy_Log_Error(@"No video texture cache");
+            ORK1_Log_Error(@"No video texture cache");
             return NO;
         }
         
@@ -432,7 +432,7 @@ const GLfloat DefaultPreferredRotation = 0;
         [self restoreGLContext];
         
         if (error) {
-            ORKLegacy_Log_Error(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", error);
+            ORK1_Log_Error(@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d", error);
             return NO;
         }
         
@@ -448,7 +448,7 @@ const GLfloat DefaultPreferredRotation = 0;
 
     // Set up the quad vertices with respect to the orientation and aspect ratio of the video.
     CGRect vertexSamplingRect = AVMakeRectWithAspectRatioInsideRect(_presentationSize, self.layer.bounds);
-    ORKLegacyEAGLLog(@"%@", NSStringFromCGRect(vertexSamplingRect));
+    ORK1EAGLLog(@"%@", NSStringFromCGRect(vertexSamplingRect));
     
     // Compute normalized quad coordinates to draw the frame into.
     CGSize normalizedSamplingSize = CGSizeMake(0.0, 0.0);
@@ -543,7 +543,7 @@ const GLfloat DefaultPreferredRotation = 0;
     
     glBindRenderbuffer(GL_RENDERBUFFER, _colorBufferHandle);
     if (![_context presentRenderbuffer:GL_RENDERBUFFER]) {
-        ORKLegacy_Log_Error(@"presentRenderBuffer failed");
+        ORK1_Log_Error(@"presentRenderBuffer failed");
     }
     
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
@@ -571,14 +571,14 @@ const GLfloat DefaultPreferredRotation = 0;
     // Create and compile the vertex shader.
     vertShaderURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"MovieTintShader" withExtension:@"vsh"];
     if (![self compileShader:&vertShader type:GL_VERTEX_SHADER URL:vertShaderURL]) {
-        ORKLegacy_Log_Error(@"Failed to compile vertex shader");
+        ORK1_Log_Error(@"Failed to compile vertex shader");
         return NO;
     }
     
     // Create and compile fragment shader.
     fragShaderURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"MovieTintShader" withExtension:@"fsh"];
     if (![self compileShader:&fragShader type:GL_FRAGMENT_SHADER URL:fragShaderURL]) {
-        ORKLegacy_Log_Error(@"Failed to compile fragment shader");
+        ORK1_Log_Error(@"Failed to compile fragment shader");
         return NO;
     }
     
@@ -596,7 +596,7 @@ const GLfloat DefaultPreferredRotation = 0;
     
     // Link the program.
     if (![self linkProgram:_programHandle]) {
-        ORKLegacy_Log_Error(@"Failed to link program: %d", _programHandle);
+        ORK1_Log_Error(@"Failed to link program: %d", _programHandle);
         
         if (vertShader) {
             glDeleteShader(vertShader);
@@ -639,7 +639,7 @@ const GLfloat DefaultPreferredRotation = 0;
     NSError *error;
     NSString *sourceString = [[NSString alloc] initWithContentsOfURL:URL encoding:NSUTF8StringEncoding error:&error];
     if (sourceString == nil) {
-        ORKLegacy_Log_Error(@"Failed to load vertex shader: %@", [error localizedDescription]);
+        ORK1_Log_Error(@"Failed to load vertex shader: %@", [error localizedDescription]);
         return NO;
     }
     
@@ -659,7 +659,7 @@ const GLfloat DefaultPreferredRotation = 0;
     if (logLength > 0) {
         GLchar *log = (GLchar *)malloc(logLength);
         glGetShaderInfoLog(*shader, logLength, &logLength, log);
-        ORKLegacy_Log_Debug(@"Shader compile log:\n%s", log);
+        ORK1_Log_Debug(@"Shader compile log:\n%s", log);
         free(log);
     }
 #endif
@@ -689,7 +689,7 @@ const GLfloat DefaultPreferredRotation = 0;
     if (logLength > 0) {
         GLchar *log = (GLchar *)malloc(logLength);
         glGetProgramInfoLog(prog, logLength, &logLength, log);
-        ORKLegacy_Log_Debug(@"Program link log:\n%s", log);
+        ORK1_Log_Debug(@"Program link log:\n%s", log);
         free(log);
     }
 #endif
@@ -713,7 +713,7 @@ const GLfloat DefaultPreferredRotation = 0;
     if (logLength > 0) {
         GLchar *log = (GLchar *)malloc(logLength);
         glGetProgramInfoLog(prog, logLength, &logLength, log);
-        ORKLegacy_Log_Debug(@"Program validate log:\n%s", log);
+        ORK1_Log_Debug(@"Program validate log:\n%s", log);
         free(log);
     }
     

@@ -34,42 +34,42 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyCompletionStep, ORKLegacyStep;
+@class ORK1CompletionStep, ORK1Step;
 
 
-FOUNDATION_EXPORT NSString *const ORKLegacyInstruction0StepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyInstruction1StepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyCountdownStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyAudioStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyAudioTooLoudStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyTappingStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyConclusionStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyFitnessWalkStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyFitnessRestStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyShortWalkOutboundStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyShortWalkReturnStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyShortWalkRestStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacySpatialSpanMemoryStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyStroopStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyToneAudiometryPracticeStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyToneAudiometryStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyReactionTimeStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyHolePegTestDominantPlaceStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyHolePegTestDominantRemoveStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyHolePegTestNonDominantPlaceStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyHolePegTestNonDominantRemoveStepIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyAudioRecorderIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyAccelerometerRecorderIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyPedometerRecorderIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyDeviceMotionRecorderIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyLocationRecorderIdentifier;
-FOUNDATION_EXPORT NSString *const ORKLegacyHeartRateRecorderIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1Instruction0StepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1Instruction1StepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1CountdownStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1AudioStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1AudioTooLoudStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1TappingStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1ConclusionStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1FitnessWalkStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1FitnessRestStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1ShortWalkOutboundStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1ShortWalkReturnStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1ShortWalkRestStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1SpatialSpanMemoryStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1StroopStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1ToneAudiometryPracticeStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1ToneAudiometryStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1ReactionTimeStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1HolePegTestDominantPlaceStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1HolePegTestDominantRemoveStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1HolePegTestNonDominantPlaceStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1HolePegTestNonDominantRemoveStepIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1AudioRecorderIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1AccelerometerRecorderIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1PedometerRecorderIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1DeviceMotionRecorderIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1LocationRecorderIdentifier;
+FOUNDATION_EXPORT NSString *const ORK1HeartRateRecorderIdentifier;
 
-FOUNDATION_EXPORT void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step);
+FOUNDATION_EXPORT void ORK1StepArrayAddStep(NSMutableArray *array, ORK1Step *step);
 
-@interface ORKLegacyOrderedTask ()
+@interface ORK1OrderedTask ()
 
-+ (ORKLegacyCompletionStep *)makeCompletionStep;
++ (ORK1CompletionStep *)makeCompletionStep;
 
 @end
 

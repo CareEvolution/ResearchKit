@@ -47,14 +47,14 @@
 #import "ORKSkin.h"
 
 
-ORKLegacyDefineStringKey(ORKLegacyBasicCellReuseIdentifier);
+ORK1DefineStringKey(ORK1BasicCellReuseIdentifier);
 
 
-@implementation ORKLegacyTableStepViewController 
+@implementation ORK1TableStepViewController 
 
-- (id <ORKLegacyTableStepSource>)tableStep {
-    if ([self.step conformsToProtocol:@protocol(ORKLegacyTableStepSource)]) {
-        return (id <ORKLegacyTableStepSource>)self.step;
+- (id <ORK1TableStepSource>)tableStep {
+    if ([self.step conformsToProtocol:@protocol(ORK1TableStepSource)]) {
+        return (id <ORK1TableStepSource>)self.step;
     }
     return nil;
 }
@@ -106,8 +106,8 @@ ORKLegacyDefineStringKey(ORKLegacyBasicCellReuseIdentifier);
     _continueSkipView = nil;
     
     if (self.step) {
-        _tableContainer = [[ORKLegacyTableContainerView alloc] initWithFrame:self.view.bounds style:self.tableViewStyle];
-        if ([self conformsToProtocol:@protocol(ORKLegacyTableContainerViewDelegate)]) {
+        _tableContainer = [[ORK1TableContainerView alloc] initWithFrame:self.view.bounds style:self.tableViewStyle];
+        if ([self conformsToProtocol:@protocol(ORK1TableContainerViewDelegate)]) {
             _tableContainer.delegate = (id)self;
         }
         [self.view addSubview:_tableContainer];
@@ -118,7 +118,7 @@ ORKLegacyDefineStringKey(ORKLegacyBasicCellReuseIdentifier);
         _tableView.dataSource = self;
         _tableView.rowHeight = UITableViewAutomaticDimension;
         _tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
-        _tableView.estimatedRowHeight = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricTableCellDefaultHeight, self.view.window);
+        _tableView.estimatedRowHeight = ORK1GetMetricForWindow(ORK1ScreenMetricTableCellDefaultHeight, self.view.window);
         _tableView.estimatedSectionHeaderHeight = [self numSections] > 1 ? 30.0 : 0.0;
         _tableView.allowsSelection = NO;
         
@@ -137,7 +137,7 @@ ORKLegacyDefineStringKey(ORKLegacyBasicCellReuseIdentifier);
         if ([self.tableStep respondsToSelector:@selector(registerCellsForTableView:)]) {
             [self.tableStep registerCellsForTableView:_tableView];
         } else {
-            [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ORKLegacyBasicCellReuseIdentifier];
+            [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:ORK1BasicCellReuseIdentifier];
         }
     }
 }
@@ -169,15 +169,15 @@ ORKLegacyDefineStringKey(ORKLegacyBasicCellReuseIdentifier);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(self.tableStep);
+    ORK1ThrowInvalidArgumentExceptionIfNil(self.tableStep);
     
     NSString *reuseIdentifier;
     if ([self.tableStep respondsToSelector:@selector(reuseIdentifierForRowAtIndexPath:)]) {
         reuseIdentifier = [self.tableStep reuseIdentifierForRowAtIndexPath:indexPath];
     } else {
-        reuseIdentifier = ORKLegacyBasicCellReuseIdentifier;
+        reuseIdentifier = ORK1BasicCellReuseIdentifier;
     }
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(reuseIdentifier);
+    ORK1ThrowInvalidArgumentExceptionIfNil(reuseIdentifier);
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     [self.tableStep configureCell:cell indexPath:indexPath tableView:tableView];

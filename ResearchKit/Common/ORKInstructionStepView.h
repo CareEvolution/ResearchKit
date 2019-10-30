@@ -35,11 +35,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyInstructionStep;
+@class ORK1InstructionStep;
 
-@interface ORKLegacyInstructionStepView : ORKLegacyVerticalContainerView
+@interface ORK1InstructionStepView : ORK1VerticalContainerView
 
-@property (nonatomic, strong, nullable) ORKLegacyInstructionStep *instructionStep;
+@property (nonatomic, strong, nullable) ORK1InstructionStep *instructionStep;
 
 @property (nonatomic, strong, nullable) UIImageView *instructionImageView;
 

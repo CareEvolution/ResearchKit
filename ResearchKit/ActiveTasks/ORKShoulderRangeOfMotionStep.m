@@ -34,10 +34,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyShoulderRangeOfMotionStep
+@implementation ORK1ShoulderRangeOfMotionStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyShoulderRangeOfMotionStepViewController class];
+    return [ORK1ShoulderRangeOfMotionStepViewController class];
 }
 
 @end

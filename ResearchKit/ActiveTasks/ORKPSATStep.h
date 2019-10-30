@@ -36,10 +36,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyPSATStep : ORKLegacyActiveStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1PSATStep : ORK1ActiveStep
 
-@property (nonatomic, assign) ORKLegacyPSATPresentationMode presentationMode;
+@property (nonatomic, assign) ORK1PSATPresentationMode presentationMode;
 @property (nonatomic, assign) NSTimeInterval interStimulusInterval;
 @property (nonatomic, assign) NSTimeInterval stimulusDuration;
 @property (nonatomic, assign) NSInteger seriesLength;

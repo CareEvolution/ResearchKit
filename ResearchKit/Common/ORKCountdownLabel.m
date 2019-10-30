@@ -34,7 +34,7 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyCountdownLabel {
+@implementation ORK1CountdownLabel {
     NSInteger _currentCountDownValue;
 }
 
@@ -80,7 +80,7 @@
 
 - (CGSize)intrinsicContentSize {
     CGSize intrinsic = [super intrinsicContentSize];
-    return (CGSize){.width=intrinsic.width,ORKLegacyExpectedLabelHeight(self)};
+    return (CGSize){.width=intrinsic.width,ORK1ExpectedLabelHeight(self)};
 }
 
 @end

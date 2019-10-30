@@ -34,13 +34,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyReviewStepViewController ()
+@interface ORK1ReviewStepViewController ()
 
-@property (nonatomic, copy, nullable, readonly) NSArray<ORKLegacyStep *> *steps;
+@property (nonatomic, copy, nullable, readonly) NSArray<ORK1Step *> *steps;
 
-@property (nonatomic, nullable, readonly) id<ORKLegacyTaskResultSource> resultSource;
+@property (nonatomic, nullable, readonly) id<ORK1TaskResultSource> resultSource;
 
-@property (nonatomic, nullable, readonly) ORKLegacyReviewStep *reviewStep;
+@property (nonatomic, nullable, readonly) ORK1ReviewStep *reviewStep;
 
 @end
 

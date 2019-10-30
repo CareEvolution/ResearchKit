@@ -48,22 +48,22 @@
 #import "ORKHelpers_Internal.h"
 
 
-@interface ORKLegacyCountDownViewLabel : ORKLegacyLabel
+@interface ORK1CountDownViewLabel : ORK1Label
 
 @end
 
 
-@implementation ORKLegacyCountDownViewLabel
+@implementation ORK1CountDownViewLabel
 + (UIFont *)defaultFont {
-    return ORKLegacyThinFontWithSize(56);
+    return ORK1ThinFontWithSize(56);
 }
 @end
 
 
-@interface ORKLegacyCountdownView : ORKLegacyActiveStepCustomView
+@interface ORK1CountdownView : ORK1ActiveStepCustomView
 
-@property (nonatomic, strong) ORKLegacySubheadlineLabel *textLabel;
-@property (nonatomic, strong) ORKLegacyCountDownViewLabel *timeLabel;
+@property (nonatomic, strong) ORK1SubheadlineLabel *textLabel;
+@property (nonatomic, strong) ORK1CountDownViewLabel *timeLabel;
 @property (nonatomic, strong) UIView *progressView;
 
 - (void)startAnimateWithDuration:(NSTimeInterval)duration;
@@ -71,7 +71,7 @@
 @end
 
 
-@implementation ORKLegacyCountdownView {
+@implementation ORK1CountdownView {
     CAShapeLayer *_circleLayer;
 }
 
@@ -81,13 +81,13 @@ static const CGFloat ProgressIndicatorOuterMargin = 1.0;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _textLabel = [ORKLegacySubheadlineLabel new];
+        _textLabel = [ORK1SubheadlineLabel new];
         _textLabel.textAlignment = NSTextAlignmentCenter;
         _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _textLabel.text =  ORKLegacyLocalizedString(@"COUNTDOWN_LABEL", nil);
+        _textLabel.text =  ORK1LocalizedString(@"COUNTDOWN_LABEL", nil);
         [self addSubview:_textLabel];
         
-        _timeLabel = [ORKLegacyCountDownViewLabel new];
+        _timeLabel = [ORK1CountDownViewLabel new];
         _timeLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_timeLabel];
@@ -192,7 +192,7 @@ static const CGFloat ProgressIndicatorOuterMargin = 1.0;
 }
 
 - (NSString *)accessibilityLabel {
-    return ORKLegacyAccessibilityStringForVariables(_textLabel.accessibilityLabel, _timeLabel.accessibilityLabel);
+    return ORK1AccessibilityStringForVariables(_textLabel.accessibilityLabel, _timeLabel.accessibilityLabel);
 }
 
 - (UIAccessibilityTraits)accessibilityTraits {
@@ -202,18 +202,18 @@ static const CGFloat ProgressIndicatorOuterMargin = 1.0;
 @end
 
 
-@interface ORKLegacyCountdownStepViewController ()
+@interface ORK1CountdownStepViewController ()
 
-@property (nonatomic, strong) ORKLegacyCountdownView *countdownView;
+@property (nonatomic, strong) ORK1CountdownView *countdownView;
 
 @end
 
 
-@implementation ORKLegacyCountdownStepViewController {
+@implementation ORK1CountdownStepViewController {
     NSInteger _countDown;
 }
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {
+- (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     if (self) {
         self.suspendIfInactive = NO;
@@ -221,9 +221,9 @@ static const CGFloat ProgressIndicatorOuterMargin = 1.0;
     return self;
 }
 
-- (void)setStep:(ORKLegacyStep *)step {
+- (void)setStep:(ORK1Step *)step {
     [super setStep:step];
-    _countDown = round([(ORKLegacyActiveStep *)step stepDuration]);
+    _countDown = round([(ORK1ActiveStep *)step stepDuration]);
 }
 
 - (void)viewDidLoad {
@@ -231,7 +231,7 @@ static const CGFloat ProgressIndicatorOuterMargin = 1.0;
     
     self.learnMoreButtonItem = nil;
     
-    _countdownView = [[ORKLegacyCountdownView alloc] init];
+    _countdownView = [[ORK1CountdownView alloc] init];
     _countdownView.translatesAutoresizingMaskIntoConstraints = NO;
     self.activeStepView.activeCustomView = _countdownView;
     
@@ -242,14 +242,14 @@ static const CGFloat ProgressIndicatorOuterMargin = 1.0;
     [super viewDidAppear:animated];
     
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @(_countDown).stringValue);
-    [_countdownView startAnimateWithDuration:[(ORKLegacyActiveStep *)self.step stepDuration]];
+    [_countdownView startAnimateWithDuration:[(ORK1ActiveStep *)self.step stepDuration]];
 }
 
 - (void)updateCountdownLabel {
-    _countdownView.timeLabel.text = ORKLegacyLocalizedStringFromNumber(@(_countDown));
+    _countdownView.timeLabel.text = ORK1LocalizedStringFromNumber(@(_countDown));
 }
 
-- (void)countDownTimerFired:(ORKLegacyActiveStepTimer *)timer finished:(BOOL)finished {
+- (void)countDownTimerFired:(ORK1ActiveStepTimer *)timer finished:(BOOL)finished {
     _countDown = MAX((_countDown - 1), 0);
     [self updateCountdownLabel];
     
@@ -262,7 +262,7 @@ static const CGFloat ProgressIndicatorOuterMargin = 1.0;
                                                               [[NSNotificationCenter defaultCenter] removeObserver:self name:UIAccessibilityAnnouncementDidFinishNotification object:nil];
                                                               [super countDownTimerFired:timer finished:finished];
                                                           }];
-            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, ORKLegacyLocalizedString(@"AX_ANNOUNCE_BEGIN_TASK", nil));
+            UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, ORK1LocalizedString(@"AX_ANNOUNCE_BEGIN_TASK", nil));
         } else {
             UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, @(_countDown).stringValue);
             [super countDownTimerFired:timer finished:finished];

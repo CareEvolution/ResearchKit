@@ -34,12 +34,12 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKLegacySubheadlineLabel
+@implementation ORK1SubheadlineLabel
 
 + (UIFont *)defaultFont {
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline];
     const CGFloat defaultSize = 15;
-    return [UIFont systemFontOfSize:[[descriptor objectForKey:UIFontDescriptorSizeAttribute] doubleValue] - defaultSize + ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricFontSizeSubheadline, nil)];
+    return [UIFont systemFontOfSize:[[descriptor objectForKey:UIFontDescriptorSizeAttribute] doubleValue] - defaultSize + ORK1GetMetricForWindow(ORK1ScreenMetricFontSizeSubheadline, nil)];
 }
 
 @end

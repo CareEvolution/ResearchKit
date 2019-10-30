@@ -34,10 +34,10 @@
 #import "ORKBorderedButton.h"
 
 
-NSUInteger const ORKLegacyPSATMinimumAnswer = 3;
-NSUInteger const ORKLegacyPSATMaximumAnswer = 17;
+NSUInteger const ORK1PSATMinimumAnswer = 3;
+NSUInteger const ORK1PSATMaximumAnswer = 17;
 
-@interface ORKLegacyPSATKeyboardView ()
+@interface ORK1PSATKeyboardView ()
 
 @property (nonatomic, strong, readonly) NSArray *answerButtons;
 @property (nonatomic, strong) NSArray *constraints;
@@ -45,14 +45,14 @@ NSUInteger const ORKLegacyPSATMaximumAnswer = 17;
 @end
 
 
-@implementation ORKLegacyPSATKeyboardView
+@implementation ORK1PSATKeyboardView
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        NSMutableArray *buttonsArray = [[NSMutableArray alloc] initWithCapacity:(ORKLegacyPSATMaximumAnswer - ORKLegacyPSATMinimumAnswer) + 1];
-        ORKLegacyBorderedButton *answerButton = nil;
-        for (int i = ORKLegacyPSATMinimumAnswer; i <= ORKLegacyPSATMaximumAnswer; i++) {
+        NSMutableArray *buttonsArray = [[NSMutableArray alloc] initWithCapacity:(ORK1PSATMaximumAnswer - ORK1PSATMinimumAnswer) + 1];
+        ORK1BorderedButton *answerButton = nil;
+        for (int i = ORK1PSATMinimumAnswer; i <= ORK1PSATMaximumAnswer; i++) {
             answerButton = [self answerButtonWithTitle:[NSNumberFormatter localizedStringFromNumber:@(i)
                                                                                         numberStyle:NSNumberFormatterNoStyle]];
             [buttonsArray addObject:answerButton];
@@ -68,8 +68,8 @@ NSUInteger const ORKLegacyPSATMaximumAnswer = 17;
     return self;
 }
 
-- (ORKLegacyBorderedButton *)answerButtonWithTitle:(NSString *)title {
-    ORKLegacyBorderedButton *answerButton = [ORKLegacyBorderedButton new];
+- (ORK1BorderedButton *)answerButtonWithTitle:(NSString *)title {
+    ORK1BorderedButton *answerButton = [ORK1BorderedButton new];
     answerButton.translatesAutoresizingMaskIntoConstraints = NO;
     [answerButton setTitle:title forState:UIControlStateNormal];
     [answerButton addTarget:self action:@selector(buttonPressed:forEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -78,7 +78,7 @@ NSUInteger const ORKLegacyPSATMaximumAnswer = 17;
 }
 
 - (void)setEnabled:(BOOL)enabled {
-    for (ORKLegacyBorderedButton *answerButton in self.answerButtons) {
+    for (ORK1BorderedButton *answerButton in self.answerButtons) {
         [answerButton setEnabled:enabled];
     }
 }
@@ -88,21 +88,21 @@ NSUInteger const ORKLegacyPSATMaximumAnswer = 17;
     
     NSMutableArray *constraints = [NSMutableArray array];
     
-    ORKLegacyBorderedButton *answer3Button = self.answerButtons[0];
-    ORKLegacyBorderedButton *answer4Button = self.answerButtons[1];
-    ORKLegacyBorderedButton *answer5Button = self.answerButtons[2];
-    ORKLegacyBorderedButton *answer6Button = self.answerButtons[3];
-    ORKLegacyBorderedButton *answer7Button = self.answerButtons[4];
-    ORKLegacyBorderedButton *answer8Button = self.answerButtons[5];
-    ORKLegacyBorderedButton *answer9Button = self.answerButtons[6];
-    ORKLegacyBorderedButton *answer10Button = self.answerButtons[7];
-    ORKLegacyBorderedButton *answer11Button = self.answerButtons[8];
-    ORKLegacyBorderedButton *answer12Button = self.answerButtons[9];
-    ORKLegacyBorderedButton *answer13Button = self.answerButtons[10];
-    ORKLegacyBorderedButton *answer14Button = self.answerButtons[11];
-    ORKLegacyBorderedButton *answer15Button = self.answerButtons[12];
-    ORKLegacyBorderedButton *answer16Button = self.answerButtons[13];
-    ORKLegacyBorderedButton *answer17Button = self.answerButtons[14];
+    ORK1BorderedButton *answer3Button = self.answerButtons[0];
+    ORK1BorderedButton *answer4Button = self.answerButtons[1];
+    ORK1BorderedButton *answer5Button = self.answerButtons[2];
+    ORK1BorderedButton *answer6Button = self.answerButtons[3];
+    ORK1BorderedButton *answer7Button = self.answerButtons[4];
+    ORK1BorderedButton *answer8Button = self.answerButtons[5];
+    ORK1BorderedButton *answer9Button = self.answerButtons[6];
+    ORK1BorderedButton *answer10Button = self.answerButtons[7];
+    ORK1BorderedButton *answer11Button = self.answerButtons[8];
+    ORK1BorderedButton *answer12Button = self.answerButtons[9];
+    ORK1BorderedButton *answer13Button = self.answerButtons[10];
+    ORK1BorderedButton *answer14Button = self.answerButtons[11];
+    ORK1BorderedButton *answer15Button = self.answerButtons[12];
+    ORK1BorderedButton *answer16Button = self.answerButtons[13];
+    ORK1BorderedButton *answer17Button = self.answerButtons[14];
 
     
     NSDictionary *views = NSDictionaryOfVariableBindings(answer3Button, answer4Button, answer5Button, answer6Button, answer7Button, answer8Button, answer9Button, answer10Button, answer11Button, answer12Button, answer13Button, answer14Button, answer15Button, answer16Button, answer17Button);
@@ -138,14 +138,14 @@ NSUInteger const ORKLegacyPSATMaximumAnswer = 17;
 #pragma mark buttonAction
 
 - (IBAction)buttonPressed:(id)button forEvent:(UIEvent *)event {
-    ORKLegacyBorderedButton *tappedAnswerButton = (ORKLegacyBorderedButton *)button;
+    ORK1BorderedButton *tappedAnswerButton = (ORK1BorderedButton *)button;
     
     [self.selectedAnswerButton setSelected:NO];
     self.selectedAnswerButton = tappedAnswerButton;
     [self.selectedAnswerButton setSelected:YES];
     
     if ([self.delegate respondsToSelector:@selector(keyboardView:didSelectAnswer:)]) {
-        NSInteger answerValue = [self.answerButtons indexOfObject:tappedAnswerButton] + ORKLegacyPSATMinimumAnswer;
+        NSInteger answerValue = [self.answerButtons indexOfObject:tappedAnswerButton] + ORK1PSATMinimumAnswer;
         [self.delegate keyboardView:self didSelectAnswer:answerValue];
     }
 }

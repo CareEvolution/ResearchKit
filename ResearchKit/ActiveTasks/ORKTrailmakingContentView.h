@@ -35,11 +35,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyRoundTappingButton;
+@class ORK1RoundTappingButton;
 
-@interface ORKLegacyTrailmakingContentView : ORKLegacyActiveStepCustomView
+@interface ORK1TrailmakingContentView : ORK1ActiveStepCustomView
 
-@property (nonatomic, copy) NSArray<ORKLegacyRoundTappingButton*> *tapButtons;
+@property (nonatomic, copy) NSArray<ORK1RoundTappingButton*> *tapButtons;
 
 - (instancetype)initWithType:(NSString *)trailType;
 - (void)setLinesToDraw:(int)numLines;

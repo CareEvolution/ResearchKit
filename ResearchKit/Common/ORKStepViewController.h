@@ -35,32 +35,32 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyEditableResult;
-@class ORKLegacyRecorder;
-@class ORKLegacyResult;
-@class ORKLegacyReviewStep;
-@class ORKLegacyStep;
-@class ORKLegacyStepResult;
-@class ORKLegacyStepViewController;
-@class ORKLegacyTaskViewController;
+@class ORK1EditableResult;
+@class ORK1Recorder;
+@class ORK1Result;
+@class ORK1ReviewStep;
+@class ORK1Step;
+@class ORK1StepResult;
+@class ORK1StepViewController;
+@class ORK1TaskViewController;
 
 /**
- An enumeration of values used in `ORKLegacyStepViewControllerDelegate` to indicate the direction of navigation
+ An enumeration of values used in `ORK1StepViewControllerDelegate` to indicate the direction of navigation
  requested by the participant.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyStepViewControllerNavigationDirection) {
+typedef NS_ENUM(NSInteger, ORK1StepViewControllerNavigationDirection) {
     
     /// Forward navigation. Indicates that the user tapped the Continue or Next button.
-    ORKLegacyStepViewControllerNavigationDirectionForward,
+    ORK1StepViewControllerNavigationDirectionForward,
     
     /// Backward navigation. Indicates that the user tapped the Back button.
-    ORKLegacyStepViewControllerNavigationDirectionReverse
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1StepViewControllerNavigationDirectionReverse
+} ORK1_ENUM_AVAILABLE;
 
 
 /**
- The primary implementer of the `ORKLegacyStepViewControllerDelegate` protocol is the
- task view controller (`ORKLegacyTaskViewController`). The task view controller observes the messages 
+ The primary implementer of the `ORK1StepViewControllerDelegate` protocol is the
+ task view controller (`ORK1TaskViewController`). The task view controller observes the messages 
  of the protocol to correctly update its `result` property, and to control navigation
  through the task.
  
@@ -68,7 +68,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyStepViewControllerNavigationDirection) {
  can be helpful to implement this protocol to facilitate navigation and
  results collection.
  */
-@protocol ORKLegacyStepViewControllerDelegate <NSObject>
+@protocol ORK1StepViewControllerDelegate <NSObject>
 
 @required
 /**
@@ -79,7 +79,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyStepViewControllerNavigationDirection) {
  @param stepViewController     The step view controller providing the callback.
  @param direction              Direction of navigation requested.
  */
-- (void)stepViewController:(ORKLegacyStepViewController *)stepViewController didFinishWithNavigationDirection:(ORKLegacyStepViewControllerNavigationDirection)direction;
+- (void)stepViewController:(ORK1StepViewController *)stepViewController didFinishWithNavigationDirection:(ORK1StepViewControllerNavigationDirection)direction;
 
 /**
  Tells the delegate when a substantial change has occurred to the result.
@@ -93,19 +93,19 @@ typedef NS_ENUM(NSInteger, ORKLegacyStepViewControllerNavigationDirection) {
  
  @param stepViewController     The step view controller providing the callback.
  */
-- (void)stepViewControllerResultDidChange:(ORKLegacyStepViewController *)stepViewController;
+- (void)stepViewControllerResultDidChange:(ORK1StepViewController *)stepViewController;
 
 /**
  Tells the delegate when a step fails due to an error.
  
  A step view controller can use this method to report its failure to the task view controller.
- The task view controller sends the error to its delegate indicating that the task has failed (using `ORKLegacyTaskViewControllerFinishReasonFailed`).
- Note that recorder errors are reported by calling the `ORKLegacyStepViewControllerDelegate` method `stepViewController:recorder:didFailWithError:`.
+ The task view controller sends the error to its delegate indicating that the task has failed (using `ORK1TaskViewControllerFinishReasonFailed`).
+ Note that recorder errors are reported by calling the `ORK1StepViewControllerDelegate` method `stepViewController:recorder:didFailWithError:`.
  
  @param stepViewController     The step view controller providing the callback.
  @param error                  The error detected.
  */
-- (void)stepViewControllerDidFail:(ORKLegacyStepViewController *)stepViewController withError:(nullable NSError *)error;
+- (void)stepViewControllerDidFail:(ORK1StepViewController *)stepViewController withError:(nullable NSError *)error;
 
 /**
  Tells the delegate when a recorder error has been detected during the step.
@@ -117,7 +117,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyStepViewControllerNavigationDirection) {
  @param recorder               The recorder that detected the error.
  @param error                  The error detected.
  */
-- (void)stepViewController:(ORKLegacyStepViewController *)stepViewController recorder:(ORKLegacyRecorder *)recorder didFailWithError:(NSError *)error;
+- (void)stepViewController:(ORK1StepViewController *)stepViewController recorder:(ORK1Recorder *)recorder didFailWithError:(NSError *)error;
 
 @optional
 /**
@@ -129,7 +129,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyStepViewControllerNavigationDirection) {
  
  @param stepViewController          The step view controller providing the callback.
 */
-- (void)stepViewControllerWillAppear:(ORKLegacyStepViewController *)stepViewController;
+- (void)stepViewControllerWillAppear:(ORK1StepViewController *)stepViewController;
 
 /**
  Asks the delegate whether there is a previous step.
@@ -141,7 +141,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyStepViewControllerNavigationDirection) {
  
  @return `YES` if a Back button should be visible; otherwise, `NO`.
  */
-- (BOOL)stepViewControllerHasPreviousStep:(ORKLegacyStepViewController *)stepViewController;
+- (BOOL)stepViewControllerHasPreviousStep:(ORK1StepViewController *)stepViewController;
 
 /**
  Asks the delegate whether there is a next step.
@@ -153,35 +153,35 @@ typedef NS_ENUM(NSInteger, ORKLegacyStepViewControllerNavigationDirection) {
  
  @return `YES` if there is a step following the current one; otherwise, `NO`.
  */
-- (BOOL)stepViewControllerHasNextStep:(ORKLegacyStepViewController *)stepViewController;
+- (BOOL)stepViewControllerHasNextStep:(ORK1StepViewController *)stepViewController;
 
 @end
 
 
 /**
- The `ORKLegacyStepViewController` class is a base class for view controllers that are
- presented by an `ORKLegacyTaskViewController` object for the steps in a task.
+ The `ORK1StepViewController` class is a base class for view controllers that are
+ presented by an `ORK1TaskViewController` object for the steps in a task.
  
  In the ResearchKit framework, each step collects some information or data from the user. 
  Typically, the task view controller instantiates the step view controller 
- before presenting the next step (`ORKLegacyStep`) in the task.
+ before presenting the next step (`ORK1Step`) in the task.
  
  When you create a new type of step, you usually have to subclass
- `ORKLegacyStepViewController` to manage the step. For examples of subclasses, see 
- `ORKLegacyQuestionStepViewController` and `ORKLegacyFormStepViewController`. In contrast, the view
- controller for an active step is typically a subclass of `ORKLegacyActiveStepViewController`,
+ `ORK1StepViewController` to manage the step. For examples of subclasses, see 
+ `ORK1QuestionStepViewController` and `ORK1FormStepViewController`. In contrast, the view
+ controller for an active step is typically a subclass of `ORK1ActiveStepViewController`,
  because active steps include the concept of life cycle.
  
- If you are simply trying to change some of the runtime behaviors of `ORKLegacyStepViewController`,
+ If you are simply trying to change some of the runtime behaviors of `ORK1StepViewController`,
  it's usually not necessary to subclass it. Instead, implement the
- `[ORKLegacyTaskViewControllerDelegate taskViewController:stepViewControllerWillAppear:]` method in
- the `ORKLegacyTaskViewControllerDelegate` protocol, and modify the appropriate properties
+ `[ORK1TaskViewControllerDelegate taskViewController:stepViewControllerWillAppear:]` method in
+ the `ORK1TaskViewControllerDelegate` protocol, and modify the appropriate properties
  of the step view controller. For example, to change the title of the Learn More
  or Next buttons, set the `learnMoreButtonTitle` or `continueButtonTitle`
  properties in your implementation of this delegate method.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyStepViewController : UIViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1StepViewController : UIViewController
 
 /**
  Returns a new step view controller for the specified step.
@@ -190,7 +190,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return A newly initialized step view controller.
  */
-- (instancetype)initWithStep:(nullable ORKLegacyStep *)step;
+- (instancetype)initWithStep:(nullable ORK1Step *)step;
 
 /**
  Returns a new step view controller for the specified step.
@@ -200,7 +200,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return A newly initialized step view controller.
  */
-- (instancetype)initWithStep:(ORKLegacyStep *)step result:(ORKLegacyResult *)result;
+- (instancetype)initWithStep:(ORK1Step *)step result:(ORK1Result *)result;
 
 /**
  The step presented by the step view controller.
@@ -215,17 +215,17 @@ ORKLegacy_CLASS_AVAILABLE
  
  Subclasses that override the setter of this property must call super.
  */
-@property (nonatomic, strong, nullable) ORKLegacyStep *step;
+@property (nonatomic, strong, nullable) ORK1Step *step;
 
 /**
  The delegate of the step view controller.
  
- The delegate is usually the `ORKLegacyTaskViewController` object that presents the step view
+ The delegate is usually the `ORK1TaskViewController` object that presents the step view
  controller. If you need to intercept the delegate methods, you can
  assign an intermediary object as the delegate and forward the messages
  to the task view controller.
  */
-@property (nonatomic, weak, nullable) id<ORKLegacyStepViewControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORK1StepViewControllerDelegate> delegate;
 
 /**
  A localized string that represents the title of the Continue button.
@@ -313,10 +313,10 @@ ORKLegacy_CLASS_AVAILABLE
  result object on every call, so do not call this method unless it is
  actually necessary.
  */
-@property (nonatomic, copy, readonly, nullable) ORKLegacyStepResult *result;
+@property (nonatomic, copy, readonly, nullable) ORK1StepResult *result;
 
 /**
- Add a result to the step view controller's `ORKLegacyStepResult`. By default, the property for
+ Add a result to the step view controller's `ORK1StepResult`. By default, the property for
  the step view controller's result will instantiate a copy of the result each time it is 
  called. Therefore, the result cannot be mutated by adding a result to its result array.
  
@@ -325,7 +325,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @param result     The result to add to the step results.
  */
-- (void)addResult:(ORKLegacyResult*)result;
+- (void)addResult:(ORK1Result*)result;
 
 /**
  Returns a Boolean value indicating whether there is a previous step.
@@ -355,7 +355,7 @@ ORKLegacy_CLASS_AVAILABLE
 /**
  The presenting task view controller. (read-only)
  */
-@property (nonatomic, weak, readonly, nullable) ORKLegacyTaskViewController *taskViewController;
+@property (nonatomic, weak, readonly, nullable) ORK1TaskViewController *taskViewController;
 
 /**
  Navigates forward to the next step.

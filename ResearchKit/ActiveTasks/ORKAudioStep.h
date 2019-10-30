@@ -35,8 +35,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyAudioStep : ORKLegacyActiveStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1AudioStep : ORK1ActiveStep
 
 @end
 

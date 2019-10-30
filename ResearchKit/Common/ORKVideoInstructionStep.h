@@ -36,13 +36,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- An `ORKLegacyVideoInstructionStep` object gives the participant video-based instructions for a task.
+ An `ORK1VideoInstructionStep` object gives the participant video-based instructions for a task.
  
  You can use video instruction steps to present video content during a task.
  
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyVideoInstructionStep : ORKLegacyInstructionStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1VideoInstructionStep : ORK1InstructionStep
 
 /**
  The URL of the video to play (local or remote)

@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyEAGLMoviePlayerView : UIView
+@interface ORK1EAGLMoviePlayerView : UIView
 
 @property (nonatomic) CGSize presentationSize;
 

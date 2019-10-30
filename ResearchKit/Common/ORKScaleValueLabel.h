@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Large label shown separately from the scale slider to indicate the current value.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyScaleValueLabel : ORKLegacyLabel
+ORK1_CLASS_AVAILABLE
+@interface ORK1ScaleValueLabel : ORK1Label
 
 @end
 

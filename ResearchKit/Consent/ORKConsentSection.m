@@ -36,13 +36,13 @@
 #import "ORKHelpers_Internal.h"
 
 
-static NSString *movieNameForType(ORKLegacyConsentSectionType type, CGFloat scale) {
+static NSString *movieNameForType(ORK1ConsentSectionType type, CGFloat scale) {
     NSString *fullMovieName = [NSString stringWithFormat:@"consent_%02ld", (long)type + 1];
     fullMovieName = [NSString stringWithFormat:@"%@@%dx", fullMovieName, (int)scale];
     return fullMovieName;
 }
 
-NSURL *ORKLegacyMovieURLForConsentSectionType(ORKLegacyConsentSectionType type) {
+NSURL *ORK1MovieURLForConsentSectionType(ORK1ConsentSectionType type) {
     CGFloat scale = [UIScreen mainScreen].scale;
     
     // For iPad, use the movie for the next scale up
@@ -50,17 +50,17 @@ NSURL *ORKLegacyMovieURLForConsentSectionType(ORKLegacyConsentSectionType type) 
         scale++;
     }
     
-    NSURL *url = [ORKLegacyAssetsBundle() URLForResource:movieNameForType(type, scale) withExtension:@"m4v"];
+    NSURL *url = [ORK1AssetsBundle() URLForResource:movieNameForType(type, scale) withExtension:@"m4v"];
     if (url == nil) {
         // This can fail on 3x devices when the display is set to zoomed. Try an asset at 2x instead.
-        url = [ORKLegacyAssetsBundle() URLForResource:movieNameForType(type, 2.0) withExtension:@"m4v"];
+        url = [ORK1AssetsBundle() URLForResource:movieNameForType(type, 2.0) withExtension:@"m4v"];
     }
     return url;
 }
 
-UIImage *ORKLegacyImageForConsentSectionType(ORKLegacyConsentSectionType type) {
+UIImage *ORK1ImageForConsentSectionType(ORK1ConsentSectionType type) {
     NSString *imageName = [NSString stringWithFormat:@"consent_%02ld", (long)type];
-    return [UIImage imageNamed:imageName inBundle:ORKLegacyBundle() compatibleWithTraitCollection:nil];
+    return [UIImage imageNamed:imageName inBundle:ORK1Bundle() compatibleWithTraitCollection:nil];
 }
 
 // Copied from CFXMLParser.c in http://www.opensource.apple.com/source/CF/CF-550.13/CFXMLParser.c
@@ -119,45 +119,45 @@ static CFStringRef CFXMLCreateStringByEscapingEntities(CFAllocatorRef allocator,
 }
 
 
-@implementation ORKLegacyConsentSection {
+@implementation ORK1ConsentSection {
     NSString *_escapedContent;
 }
 
-static NSString *localizedTitleForConsentSectionType(ORKLegacyConsentSectionType sectionType) {
+static NSString *localizedTitleForConsentSectionType(ORK1ConsentSectionType sectionType) {
     NSString *str = nil;
     switch (sectionType) {
-        case ORKLegacyConsentSectionTypeOverview:
-            str = ORKLegacyLocalizedString(@"CONSENT_SECTION_WELCOME", nil);
+        case ORK1ConsentSectionTypeOverview:
+            str = ORK1LocalizedString(@"CONSENT_SECTION_WELCOME", nil);
             break;
-        case ORKLegacyConsentSectionTypeDataGathering:
-            str = ORKLegacyLocalizedString(@"CONSENT_SECTION_DATA_GATHERING", nil);
+        case ORK1ConsentSectionTypeDataGathering:
+            str = ORK1LocalizedString(@"CONSENT_SECTION_DATA_GATHERING", nil);
             break;
-        case ORKLegacyConsentSectionTypePrivacy:
-            str = ORKLegacyLocalizedString(@"CONSENT_SECTION_PRIVACY", nil);
+        case ORK1ConsentSectionTypePrivacy:
+            str = ORK1LocalizedString(@"CONSENT_SECTION_PRIVACY", nil);
             break;
-        case ORKLegacyConsentSectionTypeDataUse:
-            str = ORKLegacyLocalizedString(@"CONSENT_SECTION_DATA_USE", nil);
+        case ORK1ConsentSectionTypeDataUse:
+            str = ORK1LocalizedString(@"CONSENT_SECTION_DATA_USE", nil);
             break;
-        case ORKLegacyConsentSectionTypeTimeCommitment:
-            str = ORKLegacyLocalizedString(@"CONSENT_SECTION_TIME_COMMITMENT", nil);
+        case ORK1ConsentSectionTypeTimeCommitment:
+            str = ORK1LocalizedString(@"CONSENT_SECTION_TIME_COMMITMENT", nil);
             break;
-        case ORKLegacyConsentSectionTypeStudySurvey:
-            str = ORKLegacyLocalizedString(@"CONSENT_SECTION_STUDY_SURVEY", nil);
+        case ORK1ConsentSectionTypeStudySurvey:
+            str = ORK1LocalizedString(@"CONSENT_SECTION_STUDY_SURVEY", nil);
             break;
-        case ORKLegacyConsentSectionTypeStudyTasks:
-            str = ORKLegacyLocalizedString(@"CONSENT_SECTION_STUDY_TASKS", nil);
+        case ORK1ConsentSectionTypeStudyTasks:
+            str = ORK1LocalizedString(@"CONSENT_SECTION_STUDY_TASKS", nil);
             break;
-        case ORKLegacyConsentSectionTypeWithdrawing:
-            str = ORKLegacyLocalizedString(@"CONSENT_SECTION_WITHDRAWING", nil);
+        case ORK1ConsentSectionTypeWithdrawing:
+            str = ORK1LocalizedString(@"CONSENT_SECTION_WITHDRAWING", nil);
             break;
-        case ORKLegacyConsentSectionTypeOnlyInDocument:
-        case ORKLegacyConsentSectionTypeCustom:
+        case ORK1ConsentSectionTypeOnlyInDocument:
+        case ORK1ConsentSectionTypeCustom:
             break;
     }
     return str;
 }
 
-- (instancetype)initWithType:(ORKLegacyConsentSectionType)type {
+- (instancetype)initWithType:(ORK1ConsentSectionType)type {
     self = [super init];
     if (self) {
         _type = type;
@@ -192,10 +192,10 @@ static NSString *localizedTitleForConsentSectionType(ORKLegacyConsentSectionType
 
 - (UIImage *)image {
     UIImage *image = nil;
-    if (_type == ORKLegacyConsentSectionTypeCustom) {
+    if (_type == ORK1ConsentSectionTypeCustom) {
         image = _customImage;
     } else {
-        image = ORKLegacyImageForConsentSectionType(_type);
+        image = ORK1ImageForConsentSectionType(_type);
     }
     return image;
 }
@@ -203,33 +203,33 @@ static NSString *localizedTitleForConsentSectionType(ORKLegacyConsentSectionType
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORKLegacy_DECODE_ENUM(aDecoder, type);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, title, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, summary, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, content, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, htmlContent, NSString);
-        ORKLegacy_DECODE_URL_BOOKMARK(aDecoder, contentURL);
-        ORKLegacy_DECODE_BOOL(aDecoder, omitFromDocument);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, formalTitle, NSString);
-        ORKLegacy_DECODE_IMAGE(aDecoder, customImage);
-        ORKLegacy_DECODE_URL_BOOKMARK(aDecoder, customAnimationURL);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, customLearnMoreButtonTitle, NSString);
+        ORK1_DECODE_ENUM(aDecoder, type);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, title, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, summary, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, content, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, htmlContent, NSString);
+        ORK1_DECODE_URL_BOOKMARK(aDecoder, contentURL);
+        ORK1_DECODE_BOOL(aDecoder, omitFromDocument);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, formalTitle, NSString);
+        ORK1_DECODE_IMAGE(aDecoder, customImage);
+        ORK1_DECODE_URL_BOOKMARK(aDecoder, customAnimationURL);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, customLearnMoreButtonTitle, NSString);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORKLegacy_ENCODE_ENUM(aCoder, type);
-    ORKLegacy_ENCODE_OBJ(aCoder, title);
-    ORKLegacy_ENCODE_OBJ(aCoder, formalTitle);
-    ORKLegacy_ENCODE_OBJ(aCoder, summary);
-    ORKLegacy_ENCODE_OBJ(aCoder, content);
-    ORKLegacy_ENCODE_OBJ(aCoder, htmlContent);
-    ORKLegacy_ENCODE_URL_BOOKMARK(aCoder, contentURL);
-    ORKLegacy_ENCODE_BOOL(aCoder, omitFromDocument);
-    ORKLegacy_ENCODE_IMAGE(aCoder, customImage);
-    ORKLegacy_ENCODE_URL_BOOKMARK(aCoder, customAnimationURL);
-    ORKLegacy_ENCODE_OBJ(aCoder, customLearnMoreButtonTitle);
+    ORK1_ENCODE_ENUM(aCoder, type);
+    ORK1_ENCODE_OBJ(aCoder, title);
+    ORK1_ENCODE_OBJ(aCoder, formalTitle);
+    ORK1_ENCODE_OBJ(aCoder, summary);
+    ORK1_ENCODE_OBJ(aCoder, content);
+    ORK1_ENCODE_OBJ(aCoder, htmlContent);
+    ORK1_ENCODE_URL_BOOKMARK(aCoder, contentURL);
+    ORK1_ENCODE_BOOL(aCoder, omitFromDocument);
+    ORK1_ENCODE_IMAGE(aCoder, customImage);
+    ORK1_ENCODE_URL_BOOKMARK(aCoder, customAnimationURL);
+    ORK1_ENCODE_OBJ(aCoder, customLearnMoreButtonTitle);
 }
 
 - (BOOL)isEqual:(id)object {
@@ -238,16 +238,16 @@ static NSString *localizedTitleForConsentSectionType(ORKLegacyConsentSectionType
     }
     
     __typeof(self) castObject = object;
-    return (ORKLegacyEqualObjects(self.title, castObject.title)
-            && ORKLegacyEqualObjects(self.formalTitle, castObject.formalTitle)
-            && ORKLegacyEqualObjects(self.summary, castObject.summary)
-            && ORKLegacyEqualObjects(self.content, castObject.content)
-            && ORKLegacyEqualObjects(self.htmlContent, castObject.htmlContent)
-            && ORKLegacyEqualFileURLs(self.contentURL, castObject.contentURL)
+    return (ORK1EqualObjects(self.title, castObject.title)
+            && ORK1EqualObjects(self.formalTitle, castObject.formalTitle)
+            && ORK1EqualObjects(self.summary, castObject.summary)
+            && ORK1EqualObjects(self.content, castObject.content)
+            && ORK1EqualObjects(self.htmlContent, castObject.htmlContent)
+            && ORK1EqualFileURLs(self.contentURL, castObject.contentURL)
             && (self.omitFromDocument == castObject.omitFromDocument)
-            && ORKLegacyEqualObjects(self.customImage, castObject.customImage)
-            && ORKLegacyEqualObjects(self.customLearnMoreButtonTitle, castObject.customLearnMoreButtonTitle)
-            && ORKLegacyEqualFileURLs(self.customAnimationURL, castObject.customAnimationURL) &&
+            && ORK1EqualObjects(self.customImage, castObject.customImage)
+            && ORK1EqualObjects(self.customLearnMoreButtonTitle, castObject.customLearnMoreButtonTitle)
+            && ORK1EqualFileURLs(self.customAnimationURL, castObject.customAnimationURL) &&
             (self.type == castObject.type));
 }
 
@@ -256,7 +256,7 @@ static NSString *localizedTitleForConsentSectionType(ORKLegacyConsentSectionType
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyConsentSection *sec = [[[self class] allocWithZone:zone] init];
+    ORK1ConsentSection *sec = [[[self class] allocWithZone:zone] init];
     sec.title = _title;
     sec.formalTitle = _formalTitle;
     sec.summary = _summary;

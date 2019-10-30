@@ -47,10 +47,10 @@
 #import <MediaPlayer/MediaPlayer.h>
 
 
-@interface ORKLegacyToneAudiometryStepViewController ()
+@interface ORK1ToneAudiometryStepViewController ()
 
-@property (nonatomic, strong) ORKLegacyToneAudiometryContentView *toneAudiometryContentView;
-@property (nonatomic, strong) ORKLegacyAudioGenerator *audioGenerator;
+@property (nonatomic, strong) ORK1ToneAudiometryContentView *toneAudiometryContentView;
+@property (nonatomic, strong) ORK1AudioGenerator *audioGenerator;
 @property (nonatomic, assign) BOOL expired;
 
 @property (nonatomic) NSArray *listOfFrequencies;
@@ -59,15 +59,15 @@
 @property (nonatomic, strong) NSMutableArray *samples;
 
 - (IBAction)buttonPressed:(id)button forEvent:(UIEvent *)event;
-@property (nonatomic) ORKLegacyAudioChannel currentTestChannel;
-- (ORKLegacyToneAudiometryStep *)toneAudiometryStep;
+@property (nonatomic) ORK1AudioChannel currentTestChannel;
+- (ORK1ToneAudiometryStep *)toneAudiometryStep;
 
 @end
 
 
-@implementation ORKLegacyToneAudiometryStepViewController
+@implementation ORK1ToneAudiometryStepViewController
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {
+- (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     
     if (self) {
@@ -92,13 +92,13 @@
     self.listOfFrequencies = @[ @8000, @4000, @1000, @500, @250 ];
     
     [self generateFrequencyCombination];
-    self.toneAudiometryContentView = [[ORKLegacyToneAudiometryContentView alloc] init];
+    self.toneAudiometryContentView = [[ORK1ToneAudiometryContentView alloc] init];
     self.activeStepView.activeCustomView = self.toneAudiometryContentView;
     
     [self.toneAudiometryContentView.leftButton addTarget:self action:@selector(buttonPressed:forEvent:) forControlEvents:UIControlEventTouchDown];
     [self.toneAudiometryContentView.rightButton addTarget:self action:@selector(buttonPressed:forEvent:) forControlEvents:UIControlEventTouchDown];
     self.currentTestIndex = 0;
-    self.audioGenerator = [ORKLegacyAudioGenerator new];
+    self.audioGenerator = [ORK1AudioGenerator new];
 }
 
 - (void)generateFrequencyCombination {
@@ -126,8 +126,8 @@
     [self.audioGenerator stop];
 }
 
-- (ORKLegacyStepResult *)result {
-    ORKLegacyStepResult *sResult = [super result];
+- (ORK1StepResult *)result {
+    ORK1StepResult *sResult = [super result];
     
     // "Now" is the end time of the result, which is either actually now,
     // or the last time we were in the responder chain.
@@ -135,7 +135,7 @@
     
     NSMutableArray *results = [NSMutableArray arrayWithArray:sResult.results];
     
-    ORKLegacyToneAudiometryResult *toneResult = [[ORKLegacyToneAudiometryResult alloc] initWithIdentifier:self.step.identifier];
+    ORK1ToneAudiometryResult *toneResult = [[ORK1ToneAudiometryResult alloc] initWithIdentifier:self.step.identifier];
     toneResult.startDate = sResult.startDate;
     toneResult.endDate = now;
     toneResult.samples = [self.samples copy];
@@ -166,12 +166,12 @@
         _samples = [NSMutableArray array];
     }
     
-    ORKLegacyToneAudiometrySample *sample = [ORKLegacyToneAudiometrySample new];
+    ORK1ToneAudiometrySample *sample = [ORK1ToneAudiometrySample new];
     NSUInteger frequencyIndex = self.currentTestIndex;
     NSNumber *frequency = self.frequencies[frequencyIndex][0];
     sample.frequency = [frequency doubleValue];
     sample.channel = self.currentTestChannel;
-    sample.channelSelected = (button == self.toneAudiometryContentView.leftButton) ? ORKLegacyAudioChannelLeft : ORKLegacyAudioChannelRight;
+    sample.channelSelected = (button == self.toneAudiometryContentView.leftButton) ? ORK1AudioChannelLeft : ORK1AudioChannelRight;
     sample.amplitude = self.audioGenerator.volumeAmplitude;
     
     [self.samples addObject:sample];
@@ -186,7 +186,7 @@
         _samples = [NSMutableArray array];
     }
     
-    ORKLegacyToneAudiometrySample *sample = [ORKLegacyToneAudiometrySample new];
+    ORK1ToneAudiometrySample *sample = [ORK1ToneAudiometrySample new];
     NSUInteger frequencyIndex = self.currentTestIndex;
     NSNumber *frequency = self.frequencies[frequencyIndex][0];
     sample.frequency = [frequency doubleValue];
@@ -209,8 +209,8 @@
     }
 }
 
-- (ORKLegacyToneAudiometryStep *)toneAudiometryStep {
-    return (ORKLegacyToneAudiometryStep *)self.step;
+- (ORK1ToneAudiometryStep *)toneAudiometryStep {
+    return (ORK1ToneAudiometryStep *)self.step;
 }
 
 - (void)startCurrentTest {
@@ -222,22 +222,22 @@
     
     NSNumber *frequency = self.frequencies[frequencyIndex][0];
     
-    self.currentTestChannel = ([self.frequencies[frequencyIndex][1] intValue] == 0) ? ORKLegacyAudioChannelLeft : ORKLegacyAudioChannelRight;
+    self.currentTestChannel = ([self.frequencies[frequencyIndex][1] intValue] == 0) ? ORK1AudioChannelLeft : ORK1AudioChannelRight;
     
-    ORKLegacyAudioChannel channel = self.currentTestChannel;
+    ORK1AudioChannel channel = self.currentTestChannel;
     
     CGFloat progress = 0.001 + (CGFloat)testIndex / self.frequencies.count;
     [self.toneAudiometryContentView setProgress:progress
-                                        caption:(channel == ORKLegacyAudioChannelLeft) ? [NSString stringWithFormat:ORKLegacyLocalizedString(@"TONE_LABEL_%@_LEFT", nil), ORKLegacyLocalizedStringFromNumber(frequency)] : [NSString stringWithFormat:ORKLegacyLocalizedString(@"TONE_LABEL_%@_RIGHT", nil), ORKLegacyLocalizedStringFromNumber(frequency)]
+                                        caption:(channel == ORK1AudioChannelLeft) ? [NSString stringWithFormat:ORK1LocalizedString(@"TONE_LABEL_%@_LEFT", nil), ORK1LocalizedStringFromNumber(frequency)] : [NSString stringWithFormat:ORK1LocalizedString(@"TONE_LABEL_%@_RIGHT", nil), ORK1LocalizedStringFromNumber(frequency)]
                                        animated:YES];
     
     [self.audioGenerator playSoundAtFrequency:frequency.doubleValue
                                     onChannel:channel
                                fadeInDuration:SoundDuration];
     
-    ORKLegacyWeakTypeOf(self)weakSelf = self;
+    ORK1WeakTypeOf(self)weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(SoundDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
+        ORK1StrongTypeOf(self) strongSelf = weakSelf;
         
         if (strongSelf.currentTestIndex == testIndex) {
             [strongSelf testExpired];

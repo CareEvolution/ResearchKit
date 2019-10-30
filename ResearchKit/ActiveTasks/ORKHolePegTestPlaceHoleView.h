@@ -35,8 +35,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyHolePegTestPlaceHoleView : UIView <CAAnimationDelegate>
+ORK1_CLASS_AVAILABLE
+@interface ORK1HolePegTestPlaceHoleView : UIView <CAAnimationDelegate>
 
 @property (nonatomic, assign, getter = isRotated) BOOL rotated;
 @property (nonatomic, assign, getter = isSuccess) BOOL success;

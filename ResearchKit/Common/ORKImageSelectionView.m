@@ -39,9 +39,9 @@
 #import "ORKSkin.h"
 
 
-@interface ORKLegacyChoiceButtonView : UIView
+@interface ORK1ChoiceButtonView : UIView
 
-- (instancetype)initWithImageChoice:(ORKLegacyImageChoice *)choice;
+- (instancetype)initWithImageChoice:(ORK1ImageChoice *)choice;
 
 @property (nonatomic, strong) UIButton *button;
 @property (nonatomic, copy) NSString *labelText;
@@ -49,9 +49,9 @@
 @end
 
 
-@implementation ORKLegacyChoiceButtonView
+@implementation ORK1ChoiceButtonView
 
-- (instancetype)initWithImageChoice:(ORKLegacyImageChoice *)choice {
+- (instancetype)initWithImageChoice:(ORK1ImageChoice *)choice {
     self = [super init];
     if (self) {
         _labelText = choice.text.length > 0 ? choice.text: @" ";
@@ -68,13 +68,13 @@
         _button.imageView.contentMode = UIViewContentModeScaleAspectFit;
         
         [self addSubview:_button];
-        ORKLegacyEnableAutoLayoutForViews(@[_button, _button.imageView]);
+        ORK1EnableAutoLayoutForViews(@[_button, _button.imageView]);
         [self setUpConstraints];
         
         // Accessibility
         NSString *trimmedText = [self.labelText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if ( trimmedText.length == 0 ) {
-            self.button.accessibilityLabel = ORKLegacyLocalizedString(@"AX_UNLABELED_IMAGE", nil);
+            self.button.accessibilityLabel = ORK1LocalizedString(@"AX_UNLABELED_IMAGE", nil);
         } else {
             self.button.accessibilityLabel = self.labelText;
         }
@@ -121,7 +121,7 @@
                                                             attribute:NSLayoutAttributeWidth
                                                            multiplier:1.0
                                                              constant:0.0]];
-        ORKLegacy_Log_Warning(@"The size of imageChoice's normal image should not be zero. %@", image);
+        ORK1_Log_Warning(@"The size of imageChoice's normal image should not be zero. %@", image);
     }
     
     [NSLayoutConstraint activateConstraints:constraints];
@@ -132,30 +132,30 @@
 
 static const CGFloat SpacerWidth = 10.0;
 
-@implementation ORKLegacyImageSelectionView {
-    ORKLegacyChoiceAnswerFormatHelper *_helper;
+@implementation ORK1ImageSelectionView {
+    ORK1ChoiceAnswerFormatHelper *_helper;
     NSArray *_buttonViews;
-    ORKLegacyImageChoiceLabel *_choiceLabel;
-    ORKLegacyImageChoiceLabel *_placeHolderLabel;
+    ORK1ImageChoiceLabel *_choiceLabel;
+    ORK1ImageChoiceLabel *_placeHolderLabel;
 }
 
-- (ORKLegacyImageChoiceLabel *)makeLabel {
-    ORKLegacyImageChoiceLabel *label = [[ORKLegacyImageChoiceLabel alloc] init];
+- (ORK1ImageChoiceLabel *)makeLabel {
+    ORK1ImageChoiceLabel *label = [[ORK1ImageChoiceLabel alloc] init];
     label.textAlignment = NSTextAlignmentCenter;
     label.numberOfLines = 0;
     return label;
 }
 
-- (instancetype)initWithImageChoiceAnswerFormat:(ORKLegacyImageChoiceAnswerFormat *)answerFormat answer:(id)answer {
+- (instancetype)initWithImageChoiceAnswerFormat:(ORK1ImageChoiceAnswerFormat *)answerFormat answer:(id)answer {
     self = [self init];
     if (self) {
         
-        NSAssert([answerFormat isKindOfClass:[ORKLegacyImageChoiceAnswerFormat class]], @"answerFormat should be an instance of ORKLegacyImageChoiceAnswerFormat");
+        NSAssert([answerFormat isKindOfClass:[ORK1ImageChoiceAnswerFormat class]], @"answerFormat should be an instance of ORK1ImageChoiceAnswerFormat");
         
-        _helper = [[ORKLegacyChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        _helper = [[ORK1ChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         _placeHolderLabel = [self makeLabel];
-        _placeHolderLabel.text = [ORKLegacyLocalizedString(@"PLACEHOLDER_IMAGE_CHOICES", nil) stringByAppendingString:@""];
+        _placeHolderLabel.text = [ORK1LocalizedString(@"PLACEHOLDER_IMAGE_CHOICES", nil) stringByAppendingString:@""];
         _placeHolderLabel.textColor = [UIColor ork_midGrayTintColor];
         
         _choiceLabel = [self makeLabel];
@@ -169,12 +169,12 @@ static const CGFloat SpacerWidth = 10.0;
         NSMutableArray *labelTextArray = [NSMutableArray new];
         
         NSArray *imageChoices = answerFormat.imageChoices;
-        for (ORKLegacyImageChoice *imageChoice in imageChoices) {
+        for (ORK1ImageChoice *imageChoice in imageChoices) {
             if (imageChoice.text) {
                 [labelTextArray addObject:imageChoice.text];
             }
             
-            ORKLegacyChoiceButtonView *buttonView = [[ORKLegacyChoiceButtonView alloc] initWithImageChoice:imageChoice];
+            ORK1ChoiceButtonView *buttonView = [[ORK1ChoiceButtonView alloc] initWithImageChoice:imageChoice];
             [buttonView.button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
             [buttonViews addObject:buttonView];
             [self addSubview:buttonView];
@@ -187,8 +187,8 @@ static const CGFloat SpacerWidth = 10.0;
             label.isAccessibilityElement = NO;
         }
         
-        ORKLegacyEnableAutoLayoutForViews(@[_placeHolderLabel, _choiceLabel]);
-        ORKLegacyEnableAutoLayoutForViews(_buttonViews);
+        ORK1EnableAutoLayoutForViews(@[_placeHolderLabel, _choiceLabel]);
+        ORK1EnableAutoLayoutForViews(_buttonViews);
         [self setUpConstraints];
     }
     return self;
@@ -215,8 +215,8 @@ static const CGFloat SpacerWidth = 10.0;
                                                        multiplier:1.0
                                                          constant:0.0]];
 
-    ORKLegacyChoiceButtonView *previousView = nil;
-    for (ORKLegacyChoiceButtonView *buttonView in _buttonViews) {
+    ORK1ChoiceButtonView *previousView = nil;
+    for (ORK1ChoiceButtonView *buttonView in _buttonViews) {
         NSDictionary *views = NSDictionaryOfVariableBindings(buttonView, _choiceLabel);
         
         [constraints addObjectsFromArray:
@@ -298,7 +298,7 @@ static const CGFloat SpacerWidth = 10.0;
     
     if (button.selected) {
         [_buttonViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-             ORKLegacyChoiceButtonView *buttonView = obj;
+             ORK1ChoiceButtonView *buttonView = obj;
              if (buttonView.button != button) {
                  buttonView.button.selected = NO;
              } else {
@@ -322,7 +322,7 @@ static const CGFloat SpacerWidth = 10.0;
     NSMutableArray *array = [NSMutableArray new];
     
     [_buttonViews enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-         ORKLegacyChoiceButtonView *buttonView = obj;
+         ORK1ChoiceButtonView *buttonView = obj;
          if (buttonView.button.selected)
          {
              [array addObject:@(idx)];
@@ -339,7 +339,7 @@ static const CGFloat SpacerWidth = 10.0;
         }
         NSNumber *number = object;
         if (number.unsignedIntegerValue < _buttonViews.count) {
-            ORKLegacyChoiceButtonView *buttonView = _buttonViews[number.unsignedIntegerValue];
+            ORK1ChoiceButtonView *buttonView = _buttonViews[number.unsignedIntegerValue];
             [buttonView button].selected = YES;
             [self setLabelText:buttonView.labelText];
         }

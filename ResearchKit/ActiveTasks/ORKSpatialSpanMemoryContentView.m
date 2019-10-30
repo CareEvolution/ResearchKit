@@ -42,11 +42,11 @@
 
 // #define LAYOUT_DEBUG 1
 
-@implementation ORKLegacySpatialSpanMemoryGameView
+@implementation ORK1SpatialSpanMemoryGameView
 
 #pragma mark Primary interface
 
-- (void)setGridSize:(ORKLegacyGridSize)gridSize {
+- (void)setGridSize:(ORK1GridSize)gridSize {
     _gridSize = gridSize;
 #if LAYOUT_DEBUG
     self.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
@@ -58,8 +58,8 @@
     return _gridSize.width * _gridSize.height;
 }
 
-- (ORKLegacySpatialSpanTargetView *)makeTargetView {
-    ORKLegacySpatialSpanTargetView *targetView = [[ORKLegacySpatialSpanTargetView alloc] init];
+- (ORK1SpatialSpanTargetView *)makeTargetView {
+    ORK1SpatialSpanTargetView *targetView = [[ORK1SpatialSpanTargetView alloc] init];
     targetView.customTargetImage = _customTargetImage;
     return targetView;
 }
@@ -82,21 +82,21 @@
     }
     
     void(^resetBlock)(void) = ^(void) {
-        for (ORKLegacySpatialSpanTargetView *view in viewsToRemove) {
+        for (ORK1SpatialSpanTargetView *view in viewsToRemove) {
             view.delegate = nil;
             [view removeFromSuperview];
         }
         if (numberOfTilesNew > numberOfTilesOld) {
             NSArray *addedViews = [newViews subarrayWithRange:(NSRange){numberOfTilesOld,numberOfTilesNew-numberOfTilesOld}];
-            for (ORKLegacySpatialSpanTargetView *view in addedViews) {
+            for (ORK1SpatialSpanTargetView *view in addedViews) {
                 view.delegate = self;
                 [self addSubview:view];
             }
         }
         
         _tileViews = newViews;
-        for (ORKLegacySpatialSpanTargetView *view in _tileViews) {
-            [view setState:ORKLegacySpatialSpanTargetStateQuiescent];
+        for (ORK1SpatialSpanTargetView *view in _tileViews) {
+            [view setState:ORK1SpatialSpanTargetStateQuiescent];
         }
         
         [self layoutSubviews];
@@ -112,12 +112,12 @@
 
 - (void)setCustomTargetImage:(UIImage *)customTargetImage {
     _customTargetImage = customTargetImage;
-    for (ORKLegacySpatialSpanTargetView *view in _tileViews) {
+    for (ORK1SpatialSpanTargetView *view in _tileViews) {
         view.customTargetImage = _customTargetImage;
     }
 }
 
-- (void)targetView:(ORKLegacySpatialSpanTargetView *)targetView recognizer:(UITapGestureRecognizer *)recognizer {
+- (void)targetView:(ORK1SpatialSpanTargetView *)targetView recognizer:(UITapGestureRecognizer *)recognizer {
     [_delegate gameView:self
     didTapTileWithIndex:[_tileViews indexOfObject:targetView]
          recognizer:recognizer];
@@ -127,7 +127,7 @@
     [super layoutSubviews];
     
     CGRect bounds = self.bounds;
-    CGFloat gridItemEdgeLength =  ORKLegacyFloorToViewScale(MIN(bounds.size.width / _gridSize.width, bounds.size.height / _gridSize.height), self);
+    CGFloat gridItemEdgeLength =  ORK1FloorToViewScale(MIN(bounds.size.width / _gridSize.width, bounds.size.height / _gridSize.height), self);
     
     gridItemEdgeLength = MIN(gridItemEdgeLength, 114);
     CGSize gridItemSize = (CGSize){gridItemEdgeLength, gridItemEdgeLength};
@@ -139,10 +139,10 @@
     NSInteger tileIndex = 0;
     for (NSInteger x = 0; x < _gridSize.width; x++) {
         for (NSInteger y = 0; y < _gridSize.height; y++) {
-            ORKLegacySpatialSpanTargetView *targetView = _tileViews[tileIndex];
+            ORK1SpatialSpanTargetView *targetView = _tileViews[tileIndex];
             
-            CGPoint origin = (CGPoint){.x = ORKLegacyFloorToViewScale(centeringOffset.x + x * gridItemSize.width, self),
-                .y = ORKLegacyFloorToViewScale(centeringOffset.y + y * gridItemSize.height, self)};
+            CGPoint origin = (CGPoint){.x = ORK1FloorToViewScale(centeringOffset.x + x * gridItemSize.width, self),
+                .y = ORK1FloorToViewScale(centeringOffset.y + y * gridItemSize.height, self)};
             targetView.frame = (CGRect){.origin=origin, .size=gridItemSize};
             
             tileIndex ++;
@@ -150,13 +150,13 @@
     }
 }
 
-- (void)setState:(ORKLegacySpatialSpanTargetState)state forTileIndex:(NSInteger)tileIndex animated:(BOOL)animated {
-    ORKLegacySpatialSpanTargetView *view = _tileViews[tileIndex];
+- (void)setState:(ORK1SpatialSpanTargetState)state forTileIndex:(NSInteger)tileIndex animated:(BOOL)animated {
+    ORK1SpatialSpanTargetView *view = _tileViews[tileIndex];
     [view setState:state animated:animated];
 }
 
-- (ORKLegacySpatialSpanTargetState)stateForTileIndex:(NSInteger)tileIndex {
-    return [(ORKLegacySpatialSpanTargetView *)_tileViews[tileIndex] state];
+- (ORK1SpatialSpanTargetState)stateForTileIndex:(NSInteger)tileIndex {
+    return [(ORK1SpatialSpanTargetView *)_tileViews[tileIndex] state];
 }
 
 #pragma mark Accessibility
@@ -168,43 +168,43 @@
 @end
 
 
-@implementation ORKLegacySpatialSpanMemoryContentView {
-    ORKLegacyQuantityPairView *_quantityPairView;
-    ORKLegacyNavigationContainerView *_continueView;
+@implementation ORK1SpatialSpanMemoryContentView {
+    ORK1QuantityPairView *_quantityPairView;
+    ORK1NavigationContainerView *_continueView;
 }
 
-- (ORKLegacyActiveStepQuantityView *)countView {
+- (ORK1ActiveStepQuantityView *)countView {
     return [_quantityPairView leftView];
 }
 
-- (ORKLegacyActiveStepQuantityView *)scoreView {
+- (ORK1ActiveStepQuantityView *)scoreView {
     return [_quantityPairView rightView];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _gameView = [ORKLegacySpatialSpanMemoryGameView new];
+        _gameView = [ORK1SpatialSpanMemoryGameView new];
         _gameView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_gameView];
         
-        _quantityPairView = [ORKLegacyQuantityPairView new];
+        _quantityPairView = [ORK1QuantityPairView new];
         _quantityPairView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_quantityPairView];
         
-        _continueView = [ORKLegacyNavigationContainerView new];
+        _continueView = [ORK1NavigationContainerView new];
         _continueView.translatesAutoresizingMaskIntoConstraints = NO;
         _continueView.continueEnabled = YES;
         _continueView.bottomMargin = 20;
         [self addSubview:_continueView];
         
-        ORKLegacyActiveStepQuantityView *countView = [self countView];
-        ORKLegacyActiveStepQuantityView *scoreView = [self scoreView];
+        ORK1ActiveStepQuantityView *countView = [self countView];
+        ORK1ActiveStepQuantityView *scoreView = [self scoreView];
         
-        _capitalizedPluralItemDescription = [ORKLegacyLocalizedString(@"SPATIAL_SPAN_MEMORY_TARGET_STANDALONE", nil) capitalizedStringWithLocale:[NSLocale currentLocale]];
+        _capitalizedPluralItemDescription = [ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_TARGET_STANDALONE", nil) capitalizedStringWithLocale:[NSLocale currentLocale]];
         
-        countView.title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"MEMORY_GAME_ITEM_COUNT_TITLE_%@", nil), _capitalizedPluralItemDescription];
-        scoreView.title = ORKLegacyLocalizedString(@"MEMORY_GAME_SCORE_TITLE", nil);
+        countView.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"MEMORY_GAME_ITEM_COUNT_TITLE_%@", nil), _capitalizedPluralItemDescription];
+        scoreView.title = ORK1LocalizedString(@"MEMORY_GAME_SCORE_TITLE", nil);
         countView.enabled = YES;
         scoreView.enabled = YES;
         
@@ -229,16 +229,16 @@
 
 - (void)setCapitalizedPluralItemDescription:(NSString *)capitalizedPluralItemDescription {
     _capitalizedPluralItemDescription = capitalizedPluralItemDescription;
-    [self countView].title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"MEMORY_GAME_ITEM_COUNT_TITLE_%@", nil), _capitalizedPluralItemDescription];
+    [self countView].title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"MEMORY_GAME_ITEM_COUNT_TITLE_%@", nil), _capitalizedPluralItemDescription];
 }
 
 - (void)setNumberOfItems:(NSInteger)numberOfItems {
-    ORKLegacyActiveStepQuantityView *countView = [self countView];
+    ORK1ActiveStepQuantityView *countView = [self countView];
     countView.value = [self stringWithNumberFormatter:numberOfItems];
 }
 
 - (void)setScore:(NSInteger)score {
-    ORKLegacyActiveStepQuantityView *scoreView = [self scoreView];
+    ORK1ActiveStepQuantityView *scoreView = [self scoreView];
     scoreView.value = [self stringWithNumberFormatter:score];
 }
 
@@ -267,7 +267,7 @@
 }
 
 - (void)updateMargins {
-    CGFloat margin = ORKLegacyStandardHorizontalMarginForView(self);
+    CGFloat margin = ORK1StandardHorizontalMarginForView(self);
     self.layoutMargins = (UIEdgeInsets){.left = margin, .right = margin};
     _quantityPairView.layoutMargins = self.layoutMargins;
 }
@@ -298,7 +298,7 @@
                                                                          toItem:nil
                                                                       attribute:NSLayoutAttributeNotAnAttribute
                                                                      multiplier:1.0
-                                                                       constant:ORKLegacyScreenMetricMaxDimension];
+                                                                       constant:ORK1ScreenMetricMaxDimension];
     gameViewHeightConstraint.priority = UILayoutPriorityDefaultLow - 1;
     [constraints addObject:gameViewHeightConstraint];
     
@@ -336,7 +336,7 @@
                                                                              toItem:nil
                                                                           attribute:NSLayoutAttributeNotAnAttribute
                                                                          multiplier:1.0
-                                                                           constant:ORKLegacyScreenMetricMaxDimension];
+                                                                           constant:ORK1ScreenMetricMaxDimension];
     maxWidthConstraint.priority = UILayoutPriorityRequired - 1;
     [constraints addObject:maxWidthConstraint];
     

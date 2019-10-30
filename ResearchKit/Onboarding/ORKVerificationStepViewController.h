@@ -36,14 +36,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyVerificationStepViewController` class is the concrete `ORKLegacyStepViewController`
- implementation for `ORKLegacyVerificationStep`.
+ The `ORK1VerificationStepViewController` class is the concrete `ORK1StepViewController`
+ implementation for `ORK1VerificationStep`.
  
  You should subclass a verification step view controller and override the button action
  methods to provide your navigation logic. All override methods are required.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyVerificationStepViewController : ORKLegacyStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1VerificationStepViewController : ORK1StepViewController
 
 /**
  Action method for the resend email button.

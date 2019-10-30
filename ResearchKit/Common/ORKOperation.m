@@ -34,38 +34,38 @@
 #import "ORKHelpers_Internal.h"
 
 
-static NSString *keyPathFromOperationState(ORKLegacyOperationState state) {
+static NSString *keyPathFromOperationState(ORK1OperationState state) {
     switch (state) {
-        case ORKLegacyOperationReady:
+        case ORK1OperationReady:
             return @"isReady";
-        case ORKLegacyOperationExecuting:
+        case ORK1OperationExecuting:
             return @"isExecuting";
-        case ORKLegacyOperationFinished:
+        case ORK1OperationFinished:
             return @"isFinished";
         default:
             return @"state";
     }
 }
 
-static BOOL stateTransitionIsValid(ORKLegacyOperationState fromState, ORKLegacyOperationState toState, BOOL isCancelled) {
+static BOOL stateTransitionIsValid(ORK1OperationState fromState, ORK1OperationState toState, BOOL isCancelled) {
     switch (fromState) {
-        case ORKLegacyOperationReady:
+        case ORK1OperationReady:
             switch (toState) {
-                case ORKLegacyOperationExecuting:
+                case ORK1OperationExecuting:
                     return YES;
-                case ORKLegacyOperationFinished:
+                case ORK1OperationFinished:
                     return isCancelled;
                 default:
                     return NO;
             }
-        case ORKLegacyOperationExecuting:
+        case ORK1OperationExecuting:
             switch (toState) {
-                case ORKLegacyOperationFinished:
+                case ORK1OperationFinished:
                     return YES;
                 default:
                     return NO;
             }
-        case ORKLegacyOperationFinished:
+        case ORK1OperationFinished:
             return NO;
         default:
             return YES;
@@ -73,19 +73,19 @@ static BOOL stateTransitionIsValid(ORKLegacyOperationState fromState, ORKLegacyO
 }
 
 
-@implementation ORKLegacyOperation
+@implementation ORK1Operation
 
 - (instancetype)init {
     self = [super init];
     if (self) {
         self.lock = [[NSRecursiveLock alloc] init];
         self.lock.name = @"com.apple.ResearchKit.Operation";
-        self.state = ORKLegacyOperationReady;
+        self.state = ORK1OperationReady;
     }
     return self;
 }
 
-- (void)setState:(ORKLegacyOperationState)state {
+- (void)setState:(ORK1OperationState)state {
     [self.lock lock];
     if (stateTransitionIsValid(self.state, state, [self isCancelled])) {
         NSString *oldStateKey = keyPathFromOperationState(self.state);
@@ -105,15 +105,15 @@ static BOOL stateTransitionIsValid(ORKLegacyOperationState fromState, ORKLegacyO
 #pragma mark - NSOperation
 
 - (BOOL)isReady {
-    return self.state == ORKLegacyOperationReady && [super isReady];
+    return self.state == ORK1OperationReady && [super isReady];
 }
 
 - (BOOL)isExecuting {
-    return self.state == ORKLegacyOperationExecuting;
+    return self.state == ORK1OperationExecuting;
 }
 
 - (BOOL)isFinished {
-    return self.state == ORKLegacyOperationFinished;
+    return self.state == ORK1OperationFinished;
 }
 
 - (BOOL)isConcurrent {
@@ -126,24 +126,24 @@ static BOOL stateTransitionIsValid(ORKLegacyOperationState fromState, ORKLegacyO
     if ([self isCancelled]) {
         [self finish];
     } else if ([self isReady]) {
-        self.state = ORKLegacyOperationExecuting;
+        self.state = ORK1OperationExecuting;
         
-        ORKLegacy_Log_Debug(@"%@ start", self.class);
+        ORK1_Log_Debug(@"%@ start", self.class);
         _startBlock(self);
     }
     [self.lock unlock];
 }
 
 - (void)finish {
-    ORKLegacy_Log_Debug(@"%@ finish: %@", self, (self.error ? : @"OK"));
-    self.state = ORKLegacyOperationFinished;
+    ORK1_Log_Debug(@"%@ finish: %@", self, (self.error ? : @"OK"));
+    self.state = ORK1OperationFinished;
 }
 
 - (void)cancel {
     [self.lock lock];
     if (![self isFinished] && ![self isCancelled]) {
         if (! self.error) {
-            self.error = [NSError errorWithDomain:ORKLegacyErrorDomain code:ORKLegacyErrorException userInfo:nil];
+            self.error = [NSError errorWithDomain:ORK1ErrorDomain code:ORK1ErrorException userInfo:nil];
         }
         [self willChangeValueForKey:@"isCancelled"];
         [super cancel];
@@ -162,8 +162,8 @@ static BOOL stateTransitionIsValid(ORKLegacyOperationState fromState, ORKLegacyO
 
 - (void)doTimeout {
     [self.lock lock];
-    if (self.state == ORKLegacyOperationExecuting) {
-        self.error = [NSError errorWithDomain:ORKLegacyErrorDomain code:ORKLegacyErrorException userInfo:nil];
+    if (self.state == ORK1OperationExecuting) {
+        self.error = [NSError errorWithDomain:ORK1ErrorDomain code:ORK1ErrorException userInfo:nil];
         [self finish];
     }
     [self.lock unlock];

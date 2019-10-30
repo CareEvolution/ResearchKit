@@ -43,37 +43,37 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyAnswerTextField;
-@class ORKLegacyLocationSelectionView;
+@class ORK1AnswerTextField;
+@class ORK1LocationSelectionView;
 
-@protocol ORKLegacyLocationSelectionViewDelegate <NSObject>
+@protocol ORK1LocationSelectionViewDelegate <NSObject>
 
-- (void)locationSelectionViewDidChange:(ORKLegacyLocationSelectionView *)view;
+- (void)locationSelectionViewDidChange:(ORK1LocationSelectionView *)view;
 
 @optional
 
-- (void)locationSelectionViewDidBeginEditing:(ORKLegacyLocationSelectionView *)view;
+- (void)locationSelectionViewDidBeginEditing:(ORK1LocationSelectionView *)view;
 
-- (void)locationSelectionViewDidEndEditing:(ORKLegacyLocationSelectionView *)view;
+- (void)locationSelectionViewDidEndEditing:(ORK1LocationSelectionView *)view;
 
-- (void)locationSelectionViewNeedsResize:(ORKLegacyLocationSelectionView *)view;
+- (void)locationSelectionViewNeedsResize:(ORK1LocationSelectionView *)view;
 
 @required
 
-- (void)locationSelectionView:(ORKLegacyLocationSelectionView *)view didFailWithErrorTitle:(NSString *)title message:(NSString *)message;
+- (void)locationSelectionView:(ORK1LocationSelectionView *)view didFailWithErrorTitle:(NSString *)title message:(NSString *)message;
 
 @end
 
 
-@interface ORKLegacyLocationSelectionView : UIView
+@interface ORK1LocationSelectionView : UIView
 
-@property (nonatomic, weak, nullable) id<ORKLegacyLocationSelectionViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORK1LocationSelectionViewDelegate> delegate;
 
 @property (nonatomic, strong, nullable) id answer;
 
 @property (nonatomic, assign) BOOL useCurrentLocation;
 
-@property (nonatomic, strong, readonly) ORKLegacyAnswerTextField *textField;
+@property (nonatomic, strong, readonly) ORK1AnswerTextField *textField;
 
 - (instancetype)initWithFormMode:(BOOL)formMode
               useCurrentLocation:(BOOL)useCurrentLocation

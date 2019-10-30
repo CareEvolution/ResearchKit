@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyDateTimePicker : NSObject <ORKLegacyPicker>
+@interface ORK1DateTimePicker : NSObject <ORK1Picker>
 
 @end
 

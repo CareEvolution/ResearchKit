@@ -32,7 +32,7 @@
 #import "ORKUnitLabel.h"
 
 
-@implementation ORKLegacyUnitLabel
+@implementation ORK1UnitLabel
 
 + (UIFont *)defaultFont {
     // regular, 17

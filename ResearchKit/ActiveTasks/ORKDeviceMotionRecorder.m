@@ -41,8 +41,8 @@
 @import CoreMotion;
 
 
-@interface ORKLegacyDeviceMotionRecorder () {
-    ORKLegacyDataLogger *_logger;
+@interface ORK1DeviceMotionRecorder () {
+    ORK1DataLogger *_logger;
 }
 
 @property (nonatomic, strong) CMMotionManager *motionManager;
@@ -52,11 +52,11 @@
 @end
 
 
-@implementation ORKLegacyDeviceMotionRecorder
+@implementation ORK1DeviceMotionRecorder
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
                          frequency:(double)frequency
-                              step:(ORKLegacyStep *)step
+                              step:(ORK1Step *)step
                    outputDirectory:(NSURL *)outputDirectory {
     self = [super initWithIdentifier:identifier
                                 step:step
@@ -168,7 +168,7 @@
 @end
 
 
-@implementation ORKLegacyDeviceMotionRecorderConfiguration
+@implementation ORK1DeviceMotionRecorderConfiguration
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
@@ -185,8 +185,8 @@
 }
 #pragma clang diagnostic pop
 
-- (ORKLegacyRecorder *)recorderForStep:(ORKLegacyStep *)step outputDirectory:(NSURL *)outputDirectory {
-    return [[ORKLegacyDeviceMotionRecorder alloc] initWithIdentifier:self.identifier
+- (ORK1Recorder *)recorderForStep:(ORK1Step *)step outputDirectory:(NSURL *)outputDirectory {
+    return [[ORK1DeviceMotionRecorder alloc] initWithIdentifier:self.identifier
                                                      frequency:self.frequency
                                                           step:step
                                                outputDirectory:outputDirectory];
@@ -195,14 +195,14 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_DOUBLE(aDecoder, frequency);
+        ORK1_DECODE_DOUBLE(aDecoder, frequency);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_DOUBLE(aCoder, frequency);
+    ORK1_ENCODE_DOUBLE(aCoder, frequency);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -217,8 +217,8 @@
             (self.frequency == castObject.frequency));
 }
 
-- (ORKLegacyPermissionMask)requestedPermissionMask {
-    return ORKLegacyPermissionCoreMotionAccelerometer;
+- (ORK1PermissionMask)requestedPermissionMask {
+    return ORK1PermissionCoreMotionAccelerometer;
 }
 
 @end

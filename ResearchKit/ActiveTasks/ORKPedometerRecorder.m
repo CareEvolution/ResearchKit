@@ -39,8 +39,8 @@
 #import "CMPedometerData+ORKJSONDictionary.h"
 
 
-@interface ORKLegacyPedometerRecorder () {
-    ORKLegacyDataLogger *_logger;
+@interface ORK1PedometerRecorder () {
+    ORK1DataLogger *_logger;
     BOOL _isRecording;
 }
 
@@ -49,10 +49,10 @@
 @end
 
 
-@implementation ORKLegacyPedometerRecorder
+@implementation ORK1PedometerRecorder
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
-                              step:(ORKLegacyStep *)step
+                              step:(ORK1Step *)step
                    outputDirectory:(NSURL *)outputDirectory {
     self = [super initWithIdentifier:identifier
                                 step:step
@@ -112,20 +112,20 @@
     }
 
     _isRecording = YES;
-    ORKLegacyWeakTypeOf(self) weakSelf = self;
+    ORK1WeakTypeOf(self) weakSelf = self;
     [self.pedometer startPedometerUpdatesFromDate:[NSDate date] withHandler:^(CMPedometerData *pedometerData, NSError *error) {
         
         BOOL success = NO;
         if (pedometerData) {
             success = [_logger append:[pedometerData ork_JSONDictionary] error:&error];
             dispatch_async(dispatch_get_main_queue(), ^{
-                ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
+                ORK1StrongTypeOf(self) strongSelf = weakSelf;
                 [strongSelf updateStatisticsWithData:pedometerData];
             });
         }
         if (!success || error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
+                ORK1StrongTypeOf(self) strongSelf = weakSelf;
                 [strongSelf finishRecordingWithError:error];
             });
         }
@@ -182,14 +182,14 @@
 @end
 
 
-@implementation ORKLegacyPedometerRecorderConfiguration
+@implementation ORK1PedometerRecorderConfiguration
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     return [super initWithIdentifier:identifier];
 }
 
-- (ORKLegacyRecorder *)recorderForStep:(ORKLegacyStep *)step outputDirectory:(NSURL *)outputDirectory {
-    return [[ORKLegacyPedometerRecorder alloc] initWithIdentifier:self.identifier
+- (ORK1Recorder *)recorderForStep:(ORK1Step *)step outputDirectory:(NSURL *)outputDirectory {
+    return [[ORK1PedometerRecorder alloc] initWithIdentifier:self.identifier
                                                        step:step
                                             outputDirectory:outputDirectory];
 }
@@ -209,8 +209,8 @@
     return (isParentSame);
 }
 
-- (ORKLegacyPermissionMask)requestedPermissionMask {
-    return ORKLegacyPermissionCoreMotionActivity;
+- (ORK1PermissionMask)requestedPermissionMask {
+    return ORK1PermissionCoreMotionActivity;
 }
 
 @end

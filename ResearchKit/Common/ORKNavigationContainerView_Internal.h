@@ -37,11 +37,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyNavigationContainerView ()
+@interface ORK1NavigationContainerView ()
 
-@property (nonatomic, strong, readonly) ORKLegacyContinueButton *continueButton;
-@property (nonatomic, strong, readonly) ORKLegacyTextButton *skipButton;
-@property (nonatomic, strong, readonly) ORKLegacyFootnoteLabel *footnoteLabel;
+@property (nonatomic, strong, readonly) ORK1ContinueButton *continueButton;
+@property (nonatomic, strong, readonly) ORK1TextButton *skipButton;
+@property (nonatomic, strong, readonly) ORK1FootnoteLabel *footnoteLabel;
 
 @property (nonatomic) BOOL useNextForSkip;
 @property (nonatomic, getter=isOptional) BOOL optional;

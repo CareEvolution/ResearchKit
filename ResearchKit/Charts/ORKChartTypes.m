@@ -37,7 +37,7 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyValueRange
+@implementation ORK1ValueRange
 
 - (instancetype)initWithMinimumValue:(double)minimumValue maximumValue:(double)maximumValue {
     if (maximumValue < minimumValue) {
@@ -55,7 +55,7 @@
 }
 
 - (instancetype)init {
-    return [self initWithMinimumValue:ORKLegacyDoubleInvalidValue maximumValue:ORKLegacyDoubleInvalidValue];
+    return [self initWithMinimumValue:ORK1DoubleInvalidValue maximumValue:ORK1DoubleInvalidValue];
 }
 
 - (instancetype)initWithValue:(double)value {
@@ -63,7 +63,7 @@
 }
 
 - (BOOL)isUnset {
-    return (_minimumValue == ORKLegacyDoubleInvalidValue && _maximumValue == ORKLegacyDoubleInvalidValue);
+    return (_minimumValue == ORK1DoubleInvalidValue && _maximumValue == ORK1DoubleInvalidValue);
 }
 
 - (BOOL)isEmptyRange {
@@ -71,8 +71,8 @@
 }
 
 - (NSString *)description {
-    NSString *minimumValueString = (_minimumValue == ORKLegacyDoubleInvalidValue) ? @"ORKDoubleInvalidValue" : [NSString stringWithFormat:@"%0.0f", _minimumValue] ;
-    NSString *maximumValueString = (_maximumValue == ORKLegacyDoubleInvalidValue) ? @"ORKDoubleInvalidValue" : [NSString stringWithFormat:@"%0.0f", _maximumValue] ;
+    NSString *minimumValueString = (_minimumValue == ORK1DoubleInvalidValue) ? @"ORKDoubleInvalidValue" : [NSString stringWithFormat:@"%0.0f", _minimumValue] ;
+    NSString *maximumValueString = (_maximumValue == ORK1DoubleInvalidValue) ? @"ORKDoubleInvalidValue" : [NSString stringWithFormat:@"%0.0f", _maximumValue] ;
     return [NSString stringWithFormat:@"<%@: %p; min = %@; max = %@>", self.class.description, self, minimumValueString, maximumValueString];
 }
 
@@ -86,7 +86,7 @@
     if (self.isEmptyRange || _minimumValue == _maximumValue) {
         return @(_maximumValue).stringValue;
     } else {
-        NSString *rangeFormat = ORKLegacyLocalizedString(@"AX_GRAPH_RANGE_FORMAT_%@_%@", nil);
+        NSString *rangeFormat = ORK1LocalizedString(@"AX_GRAPH_RANGE_FORMAT_%@_%@", nil);
         return [NSString stringWithFormat:rangeFormat, @(_minimumValue).stringValue, @(_maximumValue).stringValue];
     }
 }
@@ -94,7 +94,7 @@
 @end
 
 
-@implementation ORKLegacyValueStack
+@implementation ORK1ValueStack
 
 - (instancetype)init {
     return [self initWithStackedValues:@[]];
@@ -104,7 +104,7 @@
     self = [super init];
     if (self) {
         if (stackedValues.count == 0) {
-            _totalValue = ORKLegacyDoubleInvalidValue;
+            _totalValue = ORK1DoubleInvalidValue;
         } else {
             _totalValue = 0;
             for (NSNumber *number in stackedValues) {
@@ -147,13 +147,13 @@
     }
     
     NSMutableString *mutableString = [[NSMutableString alloc] initWithFormat:@"%@ %@",
-                                      ORKLegacyLocalizedString(@"AX_GRAPH_STACK_PREFIX", nil), _stackedValues[0].stringValue];
+                                      ORK1LocalizedString(@"AX_GRAPH_STACK_PREFIX", nil), _stackedValues[0].stringValue];
     
     NSUInteger numberOfStackedValues = _stackedValues.count;
     for (NSInteger index = 1; index < numberOfStackedValues; index++) {
         [mutableString appendString:@", "];
         if (index == (numberOfStackedValues - 1)) {
-            [mutableString appendString:ORKLegacyLocalizedString(@"AX_GRAPH_AND_SEPARATOR", nil)];
+            [mutableString appendString:ORK1LocalizedString(@"AX_GRAPH_AND_SEPARATOR", nil)];
         }
         [mutableString appendFormat:@"%@", _stackedValues[index].stringValue];
     }

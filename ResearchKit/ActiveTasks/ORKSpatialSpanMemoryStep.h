@@ -40,11 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
  Spatian span memory step.
  
  This step type is used to present the interactive spatial span memory activity. You are not
- supposed to use this step on its own. Use `ORKLegacyOrderedTask`'s `+spatialSpanMemoryTaskWithIdentifier:intendedUseDescription:initialSpan:minimumSpan:maximumSpan:playSpeed:maximumTests:maximumConsecutiveFailures:customTargetImage:customTargetPluralName:requireReversal:options:` method to get a complete spatial
+ supposed to use this step on its own. Use `ORK1OrderedTask`'s `+spatialSpanMemoryTaskWithIdentifier:intendedUseDescription:initialSpan:minimumSpan:maximumSpan:playSpeed:maximumTests:maximumConsecutiveFailures:customTargetImage:customTargetPluralName:requireReversal:options:` method to get a complete spatial
  span memory activity task instead.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacySpatialSpanMemoryStep : ORKLegacyActiveStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1SpatialSpanMemoryStep : ORK1ActiveStep
 
 @property (nonatomic, assign) NSInteger initialSpan;
 @property (nonatomic, assign) NSInteger minimumSpan;

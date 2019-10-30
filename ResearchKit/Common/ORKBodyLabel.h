@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyBodyLabel : ORKLegacyLabel
+@interface ORK1BodyLabel : ORK1Label
 
 @end
 

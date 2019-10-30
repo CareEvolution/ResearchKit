@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Step's details text under title.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacySubheadlineLabel : ORKLegacyLabel
+ORK1_CLASS_AVAILABLE
+@interface ORK1SubheadlineLabel : ORK1Label
 
 @end
 

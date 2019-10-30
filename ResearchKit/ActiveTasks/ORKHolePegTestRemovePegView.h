@@ -35,8 +35,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyHolePegTestRemovePegView : UIView <CAAnimationDelegate>
+ORK1_CLASS_AVAILABLE
+@interface ORK1HolePegTestRemovePegView : UIView <CAAnimationDelegate>
 
 @property (nonatomic, assign, getter = isSuccess) BOOL success;
 

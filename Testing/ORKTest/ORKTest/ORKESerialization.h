@@ -34,13 +34,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef _Nullable id (^ORKLegacyESerializationPropertyGetter)(NSDictionary *dict, NSString *property);
-typedef _Nullable id (^ORKLegacyESerializationInitBlock)(NSDictionary *dict, ORKLegacyESerializationPropertyGetter getter);
-typedef _Nullable id (^ORKLegacyESerializationObjectToJSONBlock)(id object);
-typedef _Nullable id (^ORKLegacyESerializationJSONToObjectBlock)(id jsonObject);
+typedef _Nullable id (^ORK1ESerializationPropertyGetter)(NSDictionary *dict, NSString *property);
+typedef _Nullable id (^ORK1ESerializationInitBlock)(NSDictionary *dict, ORK1ESerializationPropertyGetter getter);
+typedef _Nullable id (^ORK1ESerializationObjectToJSONBlock)(id object);
+typedef _Nullable id (^ORK1ESerializationJSONToObjectBlock)(id jsonObject);
 
 
-@interface ORKLegacyESerializer : NSObject
+@interface ORK1ESerializer : NSObject
 
 + (nullable NSDictionary *)JSONObjectForObject:(id)object error:(NSError **)error;
 
@@ -55,18 +55,18 @@ typedef _Nullable id (^ORKLegacyESerializationJSONToObjectBlock)(id jsonObject);
 @end
 
 
-@interface ORKLegacyESerializer (Registration)
+@interface ORK1ESerializer (Registration)
 
 + (void)registerSerializableClass:(Class)serializableClass
-                        initBlock:(nullable ORKLegacyESerializationInitBlock)initBlock;
+                        initBlock:(nullable ORK1ESerializationInitBlock)initBlock;
 
 + (void)registerSerializableClassPropertyName:(NSString *)propertyName
                                      forClass:(Class)serializableClass
                                    valueClass:(Class)valueClass
                                containerClass:(nullable Class)containerClass
                                writeAfterInit:(BOOL)writeAfterInit
-                            objectToJSONBlock:(nullable ORKLegacyESerializationObjectToJSONBlock)objectToJSON
-                            jsonToObjectBlock:(nullable ORKLegacyESerializationJSONToObjectBlock)jsonToObjectBlock;
+                            objectToJSONBlock:(nullable ORK1ESerializationObjectToJSONBlock)objectToJSON
+                            jsonToObjectBlock:(nullable ORK1ESerializationJSONToObjectBlock)jsonToObjectBlock;
 
 @end
 

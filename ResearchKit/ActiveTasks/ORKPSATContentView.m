@@ -40,37 +40,37 @@
 #import "ORKSkin.h"
 
 
-@interface ORKLegacyPSATContentView ()
+@interface ORK1PSATContentView ()
 
 @property (nonatomic, assign, getter = isAuditory) BOOL auditory;
 @property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) ORKLegacyTapCountLabel *digitLabel;
+@property (nonatomic, strong) ORK1TapCountLabel *digitLabel;
 
 @end
 
 
-@implementation ORKLegacyPSATContentView
+@implementation ORK1PSATContentView
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    self = [self initWithPresentationMode:ORKLegacyPSATPresentationModeAuditory];
+    self = [self initWithPresentationMode:ORK1PSATPresentationModeAuditory];
     return self;
 }
 
-- (instancetype)initWithPresentationMode:(ORKLegacyPSATPresentationMode)presentationMode {
+- (instancetype)initWithPresentationMode:(ORK1PSATPresentationMode)presentationMode {
     self = [super initWithFrame:CGRectZero];
     
     if (self) {
         
-        _digitLabel = [ORKLegacyTapCountLabel new];
+        _digitLabel = [ORK1TapCountLabel new];
         _digitLabel.textAlignment = NSTextAlignmentCenter;
         _digitLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_digitLabel];
-        _auditory = (presentationMode & ORKLegacyPSATPresentationModeAuditory) ? YES : NO;
-        if (!(presentationMode & ORKLegacyPSATPresentationModeVisual)) {
+        _auditory = (presentationMode & ORK1PSATPresentationModeAuditory) ? YES : NO;
+        if (!(presentationMode & ORK1PSATPresentationModeVisual)) {
             _digitLabel.hidden = YES;
         }
         
@@ -80,7 +80,7 @@
         [_progressView setAlpha:0];
         [self addSubview:_progressView];
         
-        _keyboardView = [ORKLegacyPSATKeyboardView new];
+        _keyboardView = [ORK1PSATKeyboardView new];
         _keyboardView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_keyboardView];
         
@@ -99,14 +99,14 @@
 - (void)setAddition:(NSUInteger)additionIndex forTotal:(NSUInteger)totalAddition withDigit:(NSNumber *)digit {
     if (digit.integerValue == -1) {
         self.digitLabel.textColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
-        self.digitLabel.text = ORKLegacyLocalizedString(@"PSAT_NO_DIGIT", nil);
+        self.digitLabel.text = ORK1LocalizedString(@"PSAT_NO_DIGIT", nil);
     } else {
         [self.keyboardView.selectedAnswerButton setSelected:NO];
         self.digitLabel.textColor = nil;
         self.digitLabel.text = [NSNumberFormatter localizedStringFromNumber:digit
                                                                 numberStyle:NSNumberFormatterNoStyle];
         if (self.isAuditory) {
-            [[ORKLegacyVoiceEngine sharedVoiceEngine] speakInt:digit.integerValue];
+            [[ORK1VoiceEngine sharedVoiceEngine] speakInt:digit.integerValue];
         }
     }
 }
@@ -126,8 +126,8 @@
 - (void)updateConstraints {
     [NSLayoutConstraint deactivateConstraints:self.constraints];
     
-    const CGFloat ORKLegacyPSATKeyboardWidth = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricPSATKeyboardViewWidth, self.window);
-    const CGFloat ORKLegacyPSATKeyboardHeight = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricPSATKeyboardViewHeight, self.window);
+    const CGFloat ORK1PSATKeyboardWidth = ORK1GetMetricForWindow(ORK1ScreenMetricPSATKeyboardViewWidth, self.window);
+    const CGFloat ORK1PSATKeyboardHeight = ORK1GetMetricForWindow(ORK1ScreenMetricPSATKeyboardViewHeight, self.window);
     
     NSMutableArray *constraints = [NSMutableArray array];
 
@@ -142,13 +142,13 @@
     [constraints addObjectsFromArray:
      [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_keyboardView(==keyboardWidth)]-|"
                                              options:(NSLayoutFormatOptions)0
-                                             metrics:@{ @"keyboardWidth": @(ORKLegacyPSATKeyboardWidth) }
+                                             metrics:@{ @"keyboardWidth": @(ORK1PSATKeyboardWidth) }
                                                views:views]];
     
     [constraints addObjectsFromArray:
      [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_keyboardView(==keyboardHeight)]"
                                              options:(NSLayoutFormatOptions)0
-                                             metrics:@{ @"keyboardHeight": @(ORKLegacyPSATKeyboardHeight) }
+                                             metrics:@{ @"keyboardHeight": @(ORK1PSATKeyboardHeight) }
                                                views:views]];
     
     [constraints addObjectsFromArray:

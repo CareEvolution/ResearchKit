@@ -34,25 +34,25 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ORKLegacyPasscodeDelegate;
+@protocol ORK1PasscodeDelegate;
 
 static NSString *const KeychainDictionaryPasscodeKey = @"passcode";
 static NSString *const KeychainDictionaryTouchIdKey = @"touchIdEnabled";
 static NSString *const PasscodeStepIdentifier = @"passcode_step";
 static NSString *const PasscodeKey = @"ORKPasscode";
 
-typedef NS_ENUM(NSUInteger, ORKLegacyPasscodeState) {
-    ORKLegacyPasscodeStateEntry,
-    ORKLegacyPasscodeStateConfirm,
-    ORKLegacyPasscodeStateSaved,
-    ORKLegacyPasscodeStateOldEntry,
-    ORKLegacyPasscodeStateNewEntry,
-    ORKLegacyPasscodeStateConfirmNewEntry
+typedef NS_ENUM(NSUInteger, ORK1PasscodeState) {
+    ORK1PasscodeStateEntry,
+    ORK1PasscodeStateConfirm,
+    ORK1PasscodeStateSaved,
+    ORK1PasscodeStateOldEntry,
+    ORK1PasscodeStateNewEntry,
+    ORK1PasscodeStateConfirmNewEntry
 };
 
-@interface ORKLegacyPasscodeStepViewController() <UITextFieldDelegate, CAAnimationDelegate>
+@interface ORK1PasscodeStepViewController() <UITextFieldDelegate, CAAnimationDelegate>
 
-@property (nonatomic, weak) id<ORKLegacyPasscodeDelegate> passcodeDelegate;
+@property (nonatomic, weak) id<ORK1PasscodeDelegate> passcodeDelegate;
 
 /**
  Stores the given passcode as the user's unlock passcode to the keychain.

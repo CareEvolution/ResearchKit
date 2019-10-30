@@ -36,14 +36,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyPSATKeyboardView;
+@class ORK1PSATKeyboardView;
 
-@interface ORKLegacyPSATContentView : ORKLegacyActiveStepCustomView
+@interface ORK1PSATContentView : ORK1ActiveStepCustomView
 
-@property (nonatomic, strong) ORKLegacyPSATKeyboardView *keyboardView;
+@property (nonatomic, strong) ORK1PSATKeyboardView *keyboardView;
 
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
-- (instancetype)initWithPresentationMode:(ORKLegacyPSATPresentationMode)presentationMode NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithPresentationMode:(ORK1PSATPresentationMode)presentationMode NS_DESIGNATED_INITIALIZER;
 - (void)setEnabled:(BOOL)enabled;
 - (void)setAddition:(NSUInteger)additionIndex forTotal:(NSUInteger)totalAddition withDigit:(NSNumber *)digit;
 - (void)setProgress:(CGFloat)progress animated:(BOOL)animated;

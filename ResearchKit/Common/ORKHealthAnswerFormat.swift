@@ -30,15 +30,15 @@
 
 import Foundation
 
-extension ORKLegacyBiologicalSexIdentifier {
+extension ORK1BiologicalSexIdentifier {
     
     public func healthKitBiologicalSex() -> HKBiologicalSex? {
         switch (self) {
-        case ORKLegacyBiologicalSexIdentifier.female:
+        case ORK1BiologicalSexIdentifier.female:
             return HKBiologicalSex.female
-        case ORKLegacyBiologicalSexIdentifier.male:
+        case ORK1BiologicalSexIdentifier.male:
             return HKBiologicalSex.male
-        case ORKLegacyBiologicalSexIdentifier.other:
+        case ORK1BiologicalSexIdentifier.other:
             return HKBiologicalSex.other
         default:
             return nil
@@ -46,25 +46,25 @@ extension ORKLegacyBiologicalSexIdentifier {
     }
 }
 
-extension ORKLegacyBloodTypeIdentifier {
+extension ORK1BloodTypeIdentifier {
     
     public func healthKitBloodType() -> HKBloodType? {
         switch (self) {
-        case ORKLegacyBloodTypeIdentifier.abNegative:
+        case ORK1BloodTypeIdentifier.abNegative:
             return HKBloodType.abNegative
-        case ORKLegacyBloodTypeIdentifier.abPositive:
+        case ORK1BloodTypeIdentifier.abPositive:
             return HKBloodType.abPositive
-        case ORKLegacyBloodTypeIdentifier.aNegative:
+        case ORK1BloodTypeIdentifier.aNegative:
             return HKBloodType.aNegative
-        case ORKLegacyBloodTypeIdentifier.aPositive:
+        case ORK1BloodTypeIdentifier.aPositive:
             return HKBloodType.aPositive
-        case ORKLegacyBloodTypeIdentifier.bNegative:
+        case ORK1BloodTypeIdentifier.bNegative:
             return HKBloodType.bNegative
-        case ORKLegacyBloodTypeIdentifier.bPositive:
+        case ORK1BloodTypeIdentifier.bPositive:
             return HKBloodType.bPositive
-        case ORKLegacyBloodTypeIdentifier.oNegative:
+        case ORK1BloodTypeIdentifier.oNegative:
             return HKBloodType.oNegative
-        case ORKLegacyBloodTypeIdentifier.oPositive:
+        case ORK1BloodTypeIdentifier.oPositive:
             return HKBloodType.oPositive
         default:
             return nil

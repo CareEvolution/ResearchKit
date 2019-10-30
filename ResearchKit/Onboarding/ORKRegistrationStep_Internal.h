@@ -34,9 +34,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyRegistrationStep ()
+@interface ORK1RegistrationStep ()
 
-- (ORKLegacyTextAnswerFormat *)passwordAnswerFormat;
+- (ORK1TextAnswerFormat *)passwordAnswerFormat;
 
 @end
 

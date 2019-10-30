@@ -36,18 +36,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyCollector;
-@class ORKLegacyHealthCollector;
-@class ORKLegacyHealthCorrelationCollector;
-@class ORKLegacyMotionActivityCollector;
-@class ORKLegacyDataCollectionManager;
+@class ORK1Collector;
+@class ORK1HealthCollector;
+@class ORK1HealthCorrelationCollector;
+@class ORK1MotionActivityCollector;
+@class ORK1DataCollectionManager;
 
 
 /**
  The data collection manager delegate is responsible for delivering collected data objects, 
  and reporting errors during the operation.
  */
-@protocol ORKLegacyDataCollectionManagerDelegate <NSObject>
+@protocol ORK1DataCollectionManagerDelegate <NSObject>
 
 @optional
 /**
@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
  If NO is returned or this method is not implemented, the manager will stop the collection for the collector and repeat this same collection next time,
  until the data is accepted.
  */
-- (BOOL)healthCollector:(ORKLegacyHealthCollector *)collector didCollectSamples:(NSArray<HKSample *> *)samples;
+- (BOOL)healthCollector:(ORK1HealthCollector *)collector didCollectSamples:(NSArray<HKSample *> *)samples;
 
 /**
  Method for delivering the collected health correlations.
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
  If NO is returned or this method is not implemented, the manager will stop the collection for the collector and repeat this same collection next time,
  until the data is accepted.
  */
-- (BOOL)healthCorrelationCollector:(ORKLegacyHealthCorrelationCollector *)collector didCollectCorrelations:(NSArray<HKCorrelation *> *)correlations;
+- (BOOL)healthCorrelationCollector:(ORK1HealthCorrelationCollector *)collector didCollectCorrelations:(NSArray<HKCorrelation *> *)correlations;
 
 /**
  Method for delivering the collected motion activities.
@@ -84,14 +84,14 @@ NS_ASSUME_NONNULL_BEGIN
  If NO is returned or this method is not implemented, the manager will stop the collection for the collector and repeat this same collection next time,
  until the data is accepted.
  */
-- (BOOL)motionActivityCollector:(ORKLegacyMotionActivityCollector *)collector didCollectMotionActivities:(NSArray<CMMotionActivity *> *)motionActivities;
+- (BOOL)motionActivityCollector:(ORK1MotionActivityCollector *)collector didCollectMotionActivities:(NSArray<CMMotionActivity *> *)motionActivities;
 
 /**
  Indicating the collection is completed for all the collectors.
  
  @param manager   The data collection manager.
  */
-- (void)dataCollectionManagerDidCompleteCollection:(ORKLegacyDataCollectionManager *)manager;
+- (void)dataCollectionManagerDidCompleteCollection:(ORK1DataCollectionManager *)manager;
 
 /**
  Method for reporting the deteted error during collection.
@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param collector   The data collector.
  @param error       The error object.
  */
-- (void)collector:(ORKLegacyCollector *)collector didDetectError:(NSError *)error;
+- (void)collector:(ORK1Collector *)collector didDetectError:(NSError *)error;
 
 @end
 
@@ -110,8 +110,8 @@ NS_ASSUME_NONNULL_BEGIN
  Anchors are used to track progress of each types of data to avoid duplications.
  Collected data samples are returned in the delegation methods, return YES to confirm the samples has been accepted.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyDataCollectionManager : NSObject
+ORK1_CLASS_AVAILABLE
+@interface ORK1DataCollectionManager : NSObject
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -121,19 +121,19 @@ ORKLegacy_CLASS_AVAILABLE
  
  @param directoryURL    URL path for the directory.
  
- @return Initiated ORKLegacyDataCollectionManager instance.
+ @return Initiated ORK1DataCollectionManager instance.
  */
 - (instancetype)initWithPersistenceDirectoryURL:(NSURL *)directoryURL NS_DESIGNATED_INITIALIZER;
 
 /**
  An array of collectors.
  */
-@property (copy, readonly) NSArray<ORKLegacyCollector *> *collectors;
+@property (copy, readonly) NSArray<ORK1Collector *> *collectors;
 
 /**
  Implement the delegate to receive collected data objects.
  */
-@property (nonatomic, weak, nullable) id<ORKLegacyDataCollectionManagerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORK1DataCollectionManagerDelegate> delegate;
 
 /**
  Add a collector for HealthKit quantity and category samples.
@@ -145,7 +145,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return Initiated health collector.
  */
-- (ORKLegacyHealthCollector *)addHealthCollectorWithSampleType:(HKSampleType *)sampleType
+- (ORK1HealthCollector *)addHealthCollectorWithSampleType:(HKSampleType *)sampleType
                                                     unit:(HKUnit *)unit
                                                startDate:(NSDate *)startDate
                                                    error:(NSError * _Nullable *)error;
@@ -161,7 +161,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return Initiated health correlation collector.
  */
-- (ORKLegacyHealthCorrelationCollector *)addHealthCorrelationCollectorWithCorrelationType:(HKCorrelationType *)correlationType
+- (ORK1HealthCorrelationCollector *)addHealthCorrelationCollectorWithCorrelationType:(HKCorrelationType *)correlationType
                                                                         sampleTypes:(NSArray<HKSampleType *> *)sampleTypes
                                                                               units:(NSArray<HKUnit *> *)units
                                                                           startDate:(NSDate *)startDate
@@ -175,7 +175,7 @@ ORKLegacy_CLASS_AVAILABLE
 
  @return Initiated motion activity collector.
  */
-- (ORKLegacyMotionActivityCollector *)addMotionActivityCollectorWithStartDate:(NSDate *)startDate
+- (ORK1MotionActivityCollector *)addMotionActivityCollectorWithStartDate:(NSDate *)startDate
                                                                   error:(NSError * _Nullable *)error;
 
 /**
@@ -186,7 +186,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  @return If this operation is successful.
  */
-- (BOOL)removeCollector:(ORKLegacyCollector *)collector error:(NSError* _Nullable *)error;
+- (BOOL)removeCollector:(ORK1Collector *)collector error:(NSError* _Nullable *)error;
 
 /**
  Start data collection.

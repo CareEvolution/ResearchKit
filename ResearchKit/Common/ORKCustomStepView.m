@@ -39,40 +39,40 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKLegacyActiveStepCustomView
+@implementation ORK1ActiveStepCustomView
 
-- (void)resetStep:(ORKLegacyStepViewController *)viewController {
+- (void)resetStep:(ORK1StepViewController *)viewController {
 }
 
-- (void)startStep:(ORKLegacyStepViewController *)viewController {
+- (void)startStep:(ORK1StepViewController *)viewController {
 }
 
-- (void)suspendStep:(ORKLegacyStepViewController *)viewController {
+- (void)suspendStep:(ORK1StepViewController *)viewController {
 }
 
-- (void)resumeStep:(ORKLegacyStepViewController *)viewController {
+- (void)resumeStep:(ORK1StepViewController *)viewController {
 }
 
-- (void)finishStep:(ORKLegacyStepViewController *)viewController {
+- (void)finishStep:(ORK1StepViewController *)viewController {
 }
 
-- (void)updateDisplay:(ORKLegacyActiveStepViewController *)viewController {
+- (void)updateDisplay:(ORK1ActiveStepViewController *)viewController {
 }
 
 @end
 
 
-@implementation ORKLegacyQuestionStepCustomView
+@implementation ORK1QuestionStepCustomView
 
 @end
 
 
-@implementation ORKLegacyQuestionStepCellHolderView
+@implementation ORK1QuestionStepCellHolderView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.layoutMargins = ORKLegacyStandardFullScreenLayoutMarginsForView(self);
+        self.layoutMargins = ORK1StandardFullScreenLayoutMarginsForView(self);
         
         self.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -86,7 +86,7 @@
     [_cell becomeFirstResponder];
 }
 
-- (void)setCell:(ORKLegacySurveyAnswerCell *)cell {
+- (void)setCell:(ORK1SurveyAnswerCell *)cell {
     // Removing old cell from superview automatically removes its constraints
     [_cell removeFromSuperview];
     _cell = cell;
@@ -138,12 +138,12 @@
 
 - (void)setBounds:(CGRect)bounds {
     [super setBounds:bounds];
-    self.layoutMargins = ORKLegacyStandardFullScreenLayoutMarginsForView(self);
+    self.layoutMargins = ORK1StandardFullScreenLayoutMarginsForView(self);
 }
 
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
-    self.layoutMargins = ORKLegacyStandardFullScreenLayoutMarginsForView(self);
+    self.layoutMargins = ORK1StandardFullScreenLayoutMarginsForView(self);
 }
 
 @end

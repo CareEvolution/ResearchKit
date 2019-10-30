@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Title line in selection question's choice cell.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacySelectionTitleLabel : ORKLegacyLabel
+ORK1_CLASS_AVAILABLE
+@interface ORK1SelectionTitleLabel : ORK1Label
 
 @end
 

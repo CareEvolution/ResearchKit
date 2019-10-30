@@ -34,10 +34,10 @@
 #import "ORKFitnessStepViewController.h"
 
 
-@implementation ORKLegacyFitnessStep
+@implementation ORK1FitnessStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyFitnessStepViewController class];
+    return [ORK1FitnessStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
@@ -51,15 +51,15 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    NSTimeInterval const ORKLegacyFitnessStepMinimumDuration = 5.0;
+    NSTimeInterval const ORK1FitnessStepMinimumDuration = 5.0;
     
-    if (self.stepDuration < ORKLegacyFitnessStepMinimumDuration) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"rest duration cannot be shorter than %@ seconds.", @(ORKLegacyFitnessStepMinimumDuration)]  userInfo:nil];
+    if (self.stepDuration < ORK1FitnessStepMinimumDuration) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"rest duration cannot be shorter than %@ seconds.", @(ORK1FitnessStepMinimumDuration)]  userInfo:nil];
     }
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyFitnessStep *step = [super copyWithZone:zone];
+    ORK1FitnessStep *step = [super copyWithZone:zone];
     return step;
 }
 

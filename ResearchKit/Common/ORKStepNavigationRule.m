@@ -39,18 +39,18 @@
 #import "ORKHelpers_Internal.h"
 
 
-NSString *const ORKLegacyNullStepIdentifier = @"org.researchkit.step.null";
+NSString *const ORK1NullStepIdentifier = @"org.researchkit.step.null";
 
-@implementation ORKLegacyStepNavigationRule
+@implementation ORK1StepNavigationRule
 
 - (instancetype)init {
-    if ([self isMemberOfClass:[ORKLegacyStepNavigationRule class]]) {
-        ORKLegacyThrowMethodUnavailableException();
+    if ([self isMemberOfClass:[ORK1StepNavigationRule class]]) {
+        ORK1ThrowMethodUnavailableException();
     }
     return [super init];
 }
 
-- (NSString *)identifierForDestinationStepWithTaskResult:(ORKLegacyTaskResult *)taskResult {
+- (NSString *)identifierForDestinationStepWithTaskResult:(ORK1TaskResult *)taskResult {
     @throw [NSException exceptionWithName:NSGenericException reason:@"You should override this method in a subclass" userInfo:nil];
 }
 
@@ -84,7 +84,7 @@ NSString *const ORKLegacyNullStepIdentifier = @"org.researchkit.step.null";
 @end
 
 
-@interface ORKLegacyPredicateStepNavigationRule ()
+@interface ORK1PredicateStepNavigationRule ()
 
 @property (nonatomic, copy) NSArray<NSPredicate *> *resultPredicates;
 @property (nonatomic, copy) NSArray<NSString *> *destinationStepIdentifiers;
@@ -93,14 +93,14 @@ NSString *const ORKLegacyNullStepIdentifier = @"org.researchkit.step.null";
 @end
 
 
-@implementation ORKLegacyPredicateStepNavigationRule
+@implementation ORK1PredicateStepNavigationRule
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 // Internal init without array validation, for serialization support
@@ -109,8 +109,8 @@ NSString *const ORKLegacyNullStepIdentifier = @"org.researchkit.step.null";
                    defaultStepIdentifier:(NSString *)defaultStepIdentifier
                           validateArrays:(BOOL)validateArrays {
     if (validateArrays) {
-        ORKLegacyThrowInvalidArgumentExceptionIfNil(resultPredicates);
-        ORKLegacyThrowInvalidArgumentExceptionIfNil(destinationStepIdentifiers);
+        ORK1ThrowInvalidArgumentExceptionIfNil(resultPredicates);
+        ORK1ThrowInvalidArgumentExceptionIfNil(destinationStepIdentifiers);
         
         NSUInteger resultPredicatesCount = resultPredicates.count;
         NSUInteger destinationStepIdentifiersCount = destinationStepIdentifiers.count;
@@ -120,8 +120,8 @@ NSString *const ORKLegacyNullStepIdentifier = @"org.researchkit.step.null";
         if (resultPredicatesCount != destinationStepIdentifiersCount) {
             @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"Each predicate in resultPredicates must have a destination step identifier in destinationStepIdentifiers" userInfo:nil];
         }
-        ORKLegacyValidateArrayForObjectsOfClass(resultPredicates, [NSPredicate class], @"resultPredicates objects must be of a NSPredicate class kind");
-        ORKLegacyValidateArrayForObjectsOfClass(destinationStepIdentifiers, [NSString class], @"destinationStepIdentifiers objects must be of a NSString class kind");
+        ORK1ValidateArrayForObjectsOfClass(resultPredicates, [NSPredicate class], @"resultPredicates objects must be of a NSPredicate class kind");
+        ORK1ValidateArrayForObjectsOfClass(destinationStepIdentifiers, [NSString class], @"destinationStepIdentifiers objects must be of a NSString class kind");
         if (defaultStepIdentifier != nil && ![defaultStepIdentifier isKindOfClass:[NSString class]]) {
             @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"defaultStepIdentifier must be of a NSString class kind or nil" userInfo:nil];
         }
@@ -155,19 +155,19 @@ NSString *const ORKLegacyNullStepIdentifier = @"org.researchkit.step.null";
                     defaultStepIdentifier:nil];
 }
 
-static NSArray *ORKLegacyLeafQuestionResultsFromTaskResult(ORKLegacyTaskResult *ORKLegacyTaskResult) {
+static NSArray *ORK1LeafQuestionResultsFromTaskResult(ORK1TaskResult *ORK1TaskResult) {
     NSMutableArray *leafResults = [NSMutableArray new];
-    for (ORKLegacyResult *result in ORKLegacyTaskResult.results) {
-        if ([result isKindOfClass:[ORKLegacyCollectionResult class]]) {
-            [leafResults addObjectsFromArray:[(ORKLegacyCollectionResult *)result results]];
+    for (ORK1Result *result in ORK1TaskResult.results) {
+        if ([result isKindOfClass:[ORK1CollectionResult class]]) {
+            [leafResults addObjectsFromArray:[(ORK1CollectionResult *)result results]];
         }
     }
     return leafResults;
 }
 
-// the results array should only contain objects that respond to the 'identifier' method (e.g., ORKLegacyResult objects).
+// the results array should only contain objects that respond to the 'identifier' method (e.g., ORK1Result objects).
 // Usually you want all result objects to be of the same type.
-static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *exceptionReason) {
+static void ORK1ValidateIdentifiersUnique(NSArray *results, NSString *exceptionReason) {
     NSCParameterAssert(results);
     NSCParameterAssert(exceptionReason);
 
@@ -179,27 +179,27 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
 }
 
 - (void)setAdditionalTaskResults:(NSArray *)additionalTaskResults {
-    for (ORKLegacyTaskResult *taskResult in additionalTaskResults) {
-        ORKLegacyValidateIdentifiersUnique(ORKLegacyLeafQuestionResultsFromTaskResult(taskResult), @"All question results should have unique identifiers");
+    for (ORK1TaskResult *taskResult in additionalTaskResults) {
+        ORK1ValidateIdentifiersUnique(ORK1LeafQuestionResultsFromTaskResult(taskResult), @"All question results should have unique identifiers");
     }
     _additionalTaskResults = additionalTaskResults;
 }
 
-- (NSString *)identifierForDestinationStepWithTaskResult:(ORKLegacyTaskResult *)taskResult {
+- (NSString *)identifierForDestinationStepWithTaskResult:(ORK1TaskResult *)taskResult {
     NSMutableArray *allTaskResults = [[NSMutableArray alloc] initWithObjects:taskResult, nil];
     if (_additionalTaskResults) {
         [allTaskResults addObjectsFromArray:_additionalTaskResults];
     }
-    ORKLegacyValidateIdentifiersUnique(allTaskResults, @"All tasks should have unique identifiers");
+    ORK1ValidateIdentifiersUnique(allTaskResults, @"All tasks should have unique identifiers");
 
     NSString *destinationStepIdentifier = nil;
     for (NSInteger i = 0; i < _resultPredicates.count; i++) {
         NSPredicate *predicate = _resultPredicates[i];
         // The predicate can either have:
-        // - an ORKLegacyResultPredicateTaskIdentifierVariableName variable which will be substituted by the ongoing task identifier;
+        // - an ORK1ResultPredicateTaskIdentifierVariableName variable which will be substituted by the ongoing task identifier;
         // - a hardcoded task identifier set by the developer (the substitutionVariables dictionary is ignored in this case)
         if ([predicate evaluateWithObject:allTaskResults
-                    substitutionVariables:@{ORKLegacyResultPredicateTaskIdentifierVariableName: taskResult.identifier}]) {
+                    substitutionVariables:@{ORK1ResultPredicateTaskIdentifierVariableName: taskResult.identifier}]) {
             destinationStepIdentifier = _destinationStepIdentifiers[i];
             break;
         }
@@ -216,30 +216,30 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, resultPredicates, NSPredicate);
-        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, destinationStepIdentifiers, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, defaultStepIdentifier, NSString);
-        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, additionalTaskResults, ORKLegacyTaskResult);
+        ORK1_DECODE_OBJ_ARRAY(aDecoder, resultPredicates, NSPredicate);
+        ORK1_DECODE_OBJ_ARRAY(aDecoder, destinationStepIdentifiers, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, defaultStepIdentifier, NSString);
+        ORK1_DECODE_OBJ_ARRAY(aDecoder, additionalTaskResults, ORK1TaskResult);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_OBJ(aCoder, resultPredicates);
-    ORKLegacy_ENCODE_OBJ(aCoder, destinationStepIdentifiers);
-    ORKLegacy_ENCODE_OBJ(aCoder, defaultStepIdentifier);
-    ORKLegacy_ENCODE_OBJ(aCoder, additionalTaskResults);
+    ORK1_ENCODE_OBJ(aCoder, resultPredicates);
+    ORK1_ENCODE_OBJ(aCoder, destinationStepIdentifiers);
+    ORK1_ENCODE_OBJ(aCoder, defaultStepIdentifier);
+    ORK1_ENCODE_OBJ(aCoder, additionalTaskResults);
 }
 
 #pragma mark NSCopying
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    __typeof(self) rule = [[[self class] allocWithZone:zone] initWithResultPredicates:ORKLegacyArrayCopyObjects(_resultPredicates)
-                                                         destinationStepIdentifiers:ORKLegacyArrayCopyObjects(_destinationStepIdentifiers)
+    __typeof(self) rule = [[[self class] allocWithZone:zone] initWithResultPredicates:ORK1ArrayCopyObjects(_resultPredicates)
+                                                         destinationStepIdentifiers:ORK1ArrayCopyObjects(_destinationStepIdentifiers)
                                                               defaultStepIdentifier:[_defaultStepIdentifier copy]
                                                                      validateArrays:YES];
-    rule->_additionalTaskResults = ORKLegacyArrayCopyObjects(_additionalTaskResults);
+    rule->_additionalTaskResults = ORK1ArrayCopyObjects(_additionalTaskResults);
     return rule;
 }
 
@@ -247,10 +247,10 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
     BOOL isParentSame = [super isEqual:object];
     __typeof(self) castObject = object;
     return (isParentSame
-            && ORKLegacyEqualObjects(self.resultPredicates, castObject.resultPredicates)
-            && ORKLegacyEqualObjects(self.destinationStepIdentifiers, castObject.destinationStepIdentifiers)
-            && ORKLegacyEqualObjects(self.defaultStepIdentifier, castObject.defaultStepIdentifier)
-            && ORKLegacyEqualObjects(self.additionalTaskResults, castObject.additionalTaskResults));
+            && ORK1EqualObjects(self.resultPredicates, castObject.resultPredicates)
+            && ORK1EqualObjects(self.destinationStepIdentifiers, castObject.destinationStepIdentifiers)
+            && ORK1EqualObjects(self.defaultStepIdentifier, castObject.defaultStepIdentifier)
+            && ORK1EqualObjects(self.additionalTaskResults, castObject.additionalTaskResults));
 }
 
 - (NSUInteger)hash {
@@ -260,25 +260,25 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
 @end
 
 
-@interface ORKLegacyDirectStepNavigationRule ()
+@interface ORK1DirectStepNavigationRule ()
 
 @property (nonatomic, copy) NSString *destinationStepIdentifier;
 
 @end
 
 
-@implementation ORKLegacyDirectStepNavigationRule
+@implementation ORK1DirectStepNavigationRule
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithDestinationStepIdentifier:(NSString *)destinationStepIdentifier {
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(destinationStepIdentifier);
+    ORK1ThrowInvalidArgumentExceptionIfNil(destinationStepIdentifier);
     self = [super init];
     if (self) {
         _destinationStepIdentifier = destinationStepIdentifier;
@@ -287,7 +287,7 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
     return self;
 }
 
-- (NSString *)identifierForDestinationStepWithTaskResult:(ORKLegacyTaskResult *)ORKLegacyTaskResult {
+- (NSString *)identifierForDestinationStepWithTaskResult:(ORK1TaskResult *)ORK1TaskResult {
     return _destinationStepIdentifier;
 }
 
@@ -300,14 +300,14 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, destinationStepIdentifier, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, destinationStepIdentifier, NSString);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_OBJ(aCoder, destinationStepIdentifier);
+    ORK1_ENCODE_OBJ(aCoder, destinationStepIdentifier);
 }
 
 #pragma mark NSCopying
@@ -321,7 +321,7 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
     BOOL isParentSame = [super isEqual:object];
     __typeof(self) castObject = object;
     return (isParentSame
-            && ORKLegacyEqualObjects(self.destinationStepIdentifier, castObject.destinationStepIdentifier));
+            && ORK1EqualObjects(self.destinationStepIdentifier, castObject.destinationStepIdentifier));
 }
 
 - (NSUInteger)hash {
@@ -331,16 +331,16 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
 @end
 
 
-@implementation ORKLegacySkipStepNavigationRule
+@implementation ORK1SkipStepNavigationRule
 
 - (instancetype)init {
-    if ([self isMemberOfClass:[ORKLegacySkipStepNavigationRule class]]) {
-        ORKLegacyThrowMethodUnavailableException();
+    if ([self isMemberOfClass:[ORK1SkipStepNavigationRule class]]) {
+        ORK1ThrowMethodUnavailableException();
     }
     return [super init];
 }
 
-- (BOOL)stepShouldSkipWithTaskResult:(ORKLegacyTaskResult *)taskResult {
+- (BOOL)stepShouldSkipWithTaskResult:(ORK1TaskResult *)taskResult {
     @throw [NSException exceptionWithName:NSGenericException reason:@"You should override this method in a subclass" userInfo:nil];
 }
 
@@ -374,25 +374,25 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
 @end
 
 
-@interface ORKLegacyPredicateSkipStepNavigationRule()
+@interface ORK1PredicateSkipStepNavigationRule()
 
 @property (nonatomic) NSPredicate *resultPredicate;
 
 @end
 
 
-@implementation ORKLegacyPredicateSkipStepNavigationRule
+@implementation ORK1PredicateSkipStepNavigationRule
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithResultPredicate:(NSPredicate *)resultPredicate {
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(resultPredicate);
+    ORK1ThrowInvalidArgumentExceptionIfNil(resultPredicate);
     self = [super init];
     if (self) {
         _resultPredicate = resultPredicate;
@@ -402,24 +402,24 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
 }
 
 - (void)setAdditionalTaskResults:(NSArray *)additionalTaskResults {
-    for (ORKLegacyTaskResult *taskResult in additionalTaskResults) {
-        ORKLegacyValidateIdentifiersUnique(ORKLegacyLeafQuestionResultsFromTaskResult(taskResult), @"All question results should have unique identifiers");
+    for (ORK1TaskResult *taskResult in additionalTaskResults) {
+        ORK1ValidateIdentifiersUnique(ORK1LeafQuestionResultsFromTaskResult(taskResult), @"All question results should have unique identifiers");
     }
     _additionalTaskResults = additionalTaskResults;
 }
 
-- (BOOL)stepShouldSkipWithTaskResult:(ORKLegacyTaskResult *)taskResult {
+- (BOOL)stepShouldSkipWithTaskResult:(ORK1TaskResult *)taskResult {
     NSMutableArray *allTaskResults = [[NSMutableArray alloc] initWithObjects:taskResult, nil];
     if (_additionalTaskResults) {
         [allTaskResults addObjectsFromArray:_additionalTaskResults];
     }
-    ORKLegacyValidateIdentifiersUnique(allTaskResults, @"All tasks should have unique identifiers");
+    ORK1ValidateIdentifiersUnique(allTaskResults, @"All tasks should have unique identifiers");
     
     // The predicate can either have:
-    // - an ORKLegacyResultPredicateTaskIdentifierVariableName variable which will be substituted by the ongoing task identifier;
+    // - an ORK1ResultPredicateTaskIdentifierVariableName variable which will be substituted by the ongoing task identifier;
     // - a hardcoded task identifier set by the developer (the substitutionVariables dictionary is ignored in this case)
     BOOL predicateDidMatch = [_resultPredicate evaluateWithObject:allTaskResults
-                                           substitutionVariables:@{ORKLegacyResultPredicateTaskIdentifierVariableName: taskResult.identifier}];
+                                           substitutionVariables:@{ORK1ResultPredicateTaskIdentifierVariableName: taskResult.identifier}];
     return predicateDidMatch;
 }
 
@@ -432,23 +432,23 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, resultPredicate, NSPredicate);
-        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, additionalTaskResults, ORKLegacyTaskResult);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, resultPredicate, NSPredicate);
+        ORK1_DECODE_OBJ_ARRAY(aDecoder, additionalTaskResults, ORK1TaskResult);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_OBJ(aCoder, resultPredicate);
-    ORKLegacy_ENCODE_OBJ(aCoder, additionalTaskResults);
+    ORK1_ENCODE_OBJ(aCoder, resultPredicate);
+    ORK1_ENCODE_OBJ(aCoder, additionalTaskResults);
 }
 
 #pragma mark NSCopying
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     typeof(self) rule = [[[self class] allocWithZone:zone] initWithResultPredicate:_resultPredicate];
-    rule->_additionalTaskResults = ORKLegacyArrayCopyObjects(_additionalTaskResults);
+    rule->_additionalTaskResults = ORK1ArrayCopyObjects(_additionalTaskResults);
     return rule;
 }
 
@@ -456,8 +456,8 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
     BOOL isParentSame = [super isEqual:object];
     __typeof(self) castObject = object;
     return (isParentSame
-            && ORKLegacyEqualObjects(self.resultPredicate, castObject.resultPredicate)
-            && ORKLegacyEqualObjects(self.additionalTaskResults, castObject.additionalTaskResults));
+            && ORK1EqualObjects(self.resultPredicate, castObject.resultPredicate)
+            && ORK1EqualObjects(self.additionalTaskResults, castObject.additionalTaskResults));
 }
 
 - (NSUInteger)hash {
@@ -467,16 +467,16 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
 @end
 
 
-@implementation ORKLegacyStepModifier
+@implementation ORK1StepModifier
 
 - (instancetype)init {
-    if ([self isMemberOfClass:[ORKLegacyStepModifier class]]) {
-        ORKLegacyThrowMethodUnavailableException();
+    if ([self isMemberOfClass:[ORK1StepModifier class]]) {
+        ORK1ThrowMethodUnavailableException();
     }
     return [super init];
 }
 
-- (void)modifyStep:(ORKLegacyStep *)step withTaskResult:(ORKLegacyTaskResult *)taskResult {
+- (void)modifyStep:(ORK1Step *)step withTaskResult:(ORK1TaskResult *)taskResult {
     @throw [NSException exceptionWithName:NSGenericException reason:@"You should override this method in a subclass" userInfo:nil];
 }
 
@@ -513,35 +513,35 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
 @end
 
 
-@implementation ORKLegacyKeyValueStepModifier
+@implementation ORK1KeyValueStepModifier
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithResultPredicate:(NSPredicate *)resultPredicate
                            keyValueMap:(NSDictionary<NSString *, NSObject *> *)keyValueMap {
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(resultPredicate);
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(keyValueMap);
+    ORK1ThrowInvalidArgumentExceptionIfNil(resultPredicate);
+    ORK1ThrowInvalidArgumentExceptionIfNil(keyValueMap);
     self = [super init];
     if (self) {
         _resultPredicate = [resultPredicate copy];
-        _keyValueMap = ORKLegacyMutableDictionaryCopyObjects(keyValueMap);
+        _keyValueMap = ORK1MutableDictionaryCopyObjects(keyValueMap);
     }
     return self;
 }
 
-- (void)modifyStep:(ORKLegacyStep *)step withTaskResult:(ORKLegacyTaskResult *)taskResult {
+- (void)modifyStep:(ORK1Step *)step withTaskResult:(ORK1TaskResult *)taskResult {
     
     // The predicate can either have:
-    // - an ORKLegacyResultPredicateTaskIdentifierVariableName variable which will be substituted by the ongoing task identifier;
+    // - an ORK1ResultPredicateTaskIdentifierVariableName variable which will be substituted by the ongoing task identifier;
     // - a hardcoded task identifier set by the developer (the substitutionVariables dictionary is ignored in this case)
     BOOL predicateDidMatch = [_resultPredicate evaluateWithObject:@[taskResult]
-                                            substitutionVariables:@{ORKLegacyResultPredicateTaskIdentifierVariableName: taskResult.identifier}];
+                                            substitutionVariables:@{ORK1ResultPredicateTaskIdentifierVariableName: taskResult.identifier}];
     if (predicateDidMatch) {
         for (NSString *key in self.keyValueMap.allKeys) {
             @try {
@@ -562,16 +562,16 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, resultPredicate, NSPredicate);
-        ORKLegacy_DECODE_OBJ_MUTABLE_DICTIONARY(aDecoder, keyValueMap, NSString, NSObject);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, resultPredicate, NSPredicate);
+        ORK1_DECODE_OBJ_MUTABLE_DICTIONARY(aDecoder, keyValueMap, NSString, NSObject);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_OBJ(aCoder, resultPredicate);
-    ORKLegacy_ENCODE_OBJ(aCoder, keyValueMap);
+    ORK1_ENCODE_OBJ(aCoder, resultPredicate);
+    ORK1_ENCODE_OBJ(aCoder, keyValueMap);
 }
 
 #pragma mark NSCopying
@@ -585,8 +585,8 @@ static void ORKLegacyValidateIdentifiersUnique(NSArray *results, NSString *excep
     BOOL isParentSame = [super isEqual:object];
     __typeof(self) castObject = object;
     return (isParentSame
-            && ORKLegacyEqualObjects(self.resultPredicate, castObject.resultPredicate)
-            && ORKLegacyEqualObjects(self.keyValueMap, castObject.keyValueMap));
+            && ORK1EqualObjects(self.resultPredicate, castObject.resultPredicate)
+            && ORK1EqualObjects(self.keyValueMap, castObject.keyValueMap));
 }
 
 - (NSUInteger)hash {

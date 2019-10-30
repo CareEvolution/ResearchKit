@@ -34,7 +34,7 @@
 #import "ORKHelpers_Internal.h"
 
 
-static NSString *ORKLegacyKeychainWrapperDefaultService() {
+static NSString *ORK1KeychainWrapperDefaultService() {
     static NSString *defaultService;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -43,7 +43,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
     return defaultService;
 }
 
-@implementation ORKLegacyKeychainWrapper
+@implementation ORK1KeychainWrapper
 
 #pragma mark - Public Methods
 
@@ -53,7 +53,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:object];
     return [self setData:data
                   forKey:key
-                 service:ORKLegacyKeychainWrapperDefaultService()
+                 service:ORK1KeychainWrapperDefaultService()
              accessGroup:nil
                    error:error];
 }
@@ -61,7 +61,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
 + (id<NSSecureCoding>)objectForKey:(NSString *)key
              error:(NSError **)error {
     NSData *data = [self dataForKey:key
-                            service:ORKLegacyKeychainWrapperDefaultService()
+                            service:ORK1KeychainWrapperDefaultService()
                         accessGroup:nil
                               error:error];
     return data ? [NSKeyedUnarchiver unarchiveObjectWithData:data] : nil;
@@ -70,13 +70,13 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
 + (BOOL)removeObjectForKey:(NSString *)key
                      error:(NSError **)error {
     return [self removeItemForKey:key
-                          service:ORKLegacyKeychainWrapperDefaultService()
+                          service:ORK1KeychainWrapperDefaultService()
                       accessGroup:nil
                             error:error];
 }
 
 + (BOOL)resetKeychainWithError:(NSError **)error {
-    return [self removeAllItemsForService:ORKLegacyKeychainWrapperDefaultService()
+    return [self removeAllItemsForService:ORK1KeychainWrapperDefaultService()
                               accessGroup:nil
                                     error:error];
 }
@@ -90,7 +90,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
     NSData *returnValue = nil;
     if (key) {
         if (!service) {
-            service = ORKLegacyKeychainWrapperDefaultService();
+            service = ORK1KeychainWrapperDefaultService();
         }
         
         NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
@@ -111,7 +111,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
             if (error) {
                 *error = [NSError errorWithDomain:NSOSStatusErrorDomain
                                              code:status
-                                         userInfo:@{NSLocalizedDescriptionKey: ORKLegacyLocalizedString(@"KEYCHAIN_FIND_ERROR_MESSAGE", nil)}];
+                                         userInfo:@{NSLocalizedDescriptionKey: ORK1LocalizedString(@"KEYCHAIN_FIND_ERROR_MESSAGE", nil)}];
             }
         } else {
             returnValue = [NSData dataWithData:(__bridge NSData *)data];
@@ -131,7 +131,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
     BOOL returnValue = YES;
     if (key) {
         if (!service) {
-            service = ORKLegacyKeychainWrapperDefaultService();
+            service = ORK1KeychainWrapperDefaultService();
         }
         
         NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
@@ -155,7 +155,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
                     if (error) {
                         *error = [NSError errorWithDomain:NSOSStatusErrorDomain
                                                      code:status
-                                                 userInfo:@{NSLocalizedDescriptionKey: ORKLegacyLocalizedString(@"KEYCHAIN_UPDATE_ERROR_MESSAGE", nil)}];
+                                                 userInfo:@{NSLocalizedDescriptionKey: ORK1LocalizedString(@"KEYCHAIN_UPDATE_ERROR_MESSAGE", nil)}];
                     }
                     returnValue = NO;
                 }
@@ -182,7 +182,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
                 if (error) {
                     *error = [NSError errorWithDomain:NSOSStatusErrorDomain
                                                  code:status
-                                             userInfo:@{NSLocalizedDescriptionKey: ORKLegacyLocalizedString(@"KEYCHAIN_ADD_ERROR_MESSAGE", nil)}];
+                                             userInfo:@{NSLocalizedDescriptionKey: ORK1LocalizedString(@"KEYCHAIN_ADD_ERROR_MESSAGE", nil)}];
                 }
                 returnValue = NO;
             }
@@ -200,7 +200,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
     BOOL returnValue = NO;
     if (key) {
         if (!service) {
-            service = ORKLegacyKeychainWrapperDefaultService();
+            service = ORK1KeychainWrapperDefaultService();
         }
         
         NSMutableDictionary *itemToDelete = [[NSMutableDictionary alloc] init];
@@ -218,7 +218,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
             if (error) {
                 *error = [NSError errorWithDomain:NSOSStatusErrorDomain
                                              code:status
-                                         userInfo:@{NSLocalizedDescriptionKey: ORKLegacyLocalizedString(@"KEYCHAIN_DELETE_ERROR_MESSAGE", nil)}];
+                                         userInfo:@{NSLocalizedDescriptionKey: ORK1LocalizedString(@"KEYCHAIN_DELETE_ERROR_MESSAGE", nil)}];
             }
             returnValue = NO;
         } else {
@@ -242,7 +242,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
             if (error) {
                 *error = [NSError errorWithDomain:NSOSStatusErrorDomain
                                              code:status
-                                         userInfo:@{NSLocalizedDescriptionKey: ORKLegacyLocalizedString(@"KEYCHAIN_DELETE_ERROR_MESSAGE", nil)}];
+                                         userInfo:@{NSLocalizedDescriptionKey: ORK1LocalizedString(@"KEYCHAIN_DELETE_ERROR_MESSAGE", nil)}];
             }
             returnValue = NO;
         } else {
@@ -256,7 +256,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
                  accessGroup:(NSString *)accessGroup
                        error:(NSError **)error {
     if (!service) {
-        service = ORKLegacyKeychainWrapperDefaultService();
+        service = ORK1KeychainWrapperDefaultService();
     }
     
     NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
@@ -280,7 +280,7 @@ static NSString *ORKLegacyKeychainWrapperDefaultService() {
         if (error) {
             *error = [NSError errorWithDomain:NSOSStatusErrorDomain
                                          code:status
-                                     userInfo:@{NSLocalizedDescriptionKey: ORKLegacyLocalizedString(@"KEYCHAIN_FIND_ERROR_MESSAGE", nil)}];
+                                     userInfo:@{NSLocalizedDescriptionKey: ORK1LocalizedString(@"KEYCHAIN_FIND_ERROR_MESSAGE", nil)}];
         }
         returnValue = nil;
     }

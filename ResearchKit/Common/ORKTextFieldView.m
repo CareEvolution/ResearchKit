@@ -39,7 +39,7 @@
 static NSString *const EmptyBulletString = @"\u25CB";
 static NSString *const FilledBulletString = @"\u25CF";
 
-@implementation ORKLegacyCaretOptionalTextField
+@implementation ORK1CaretOptionalTextField
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     _hitClearButton = NO;
@@ -69,7 +69,7 @@ static NSString *const FilledBulletString = @"\u25CF";
 @end
 
 
-@implementation ORKLegacyPasscodeTextField
+@implementation ORK1PasscodeTextField
 
 - (instancetype)init {
     self = [super init];
@@ -119,13 +119,13 @@ static NSString *const FilledBulletString = @"\u25CF";
 #pragma mark - Accessibility
 
 - (NSString *)accessibilityLabel {
-    return ORKLegacyLocalizedString(@"PASSCODE_TEXTFIELD_ACCESSIBILITY_LABEL", nil);
+    return ORK1LocalizedString(@"PASSCODE_TEXTFIELD_ACCESSIBILITY_LABEL", nil);
 }
 
 - (NSString *)accessibilityValue {
     NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:FilledBulletString options:NSRegularExpressionCaseInsensitive error:nil];
     NSUInteger numberOfFilledBullets = [regularExpression numberOfMatchesInString:self.text options:0 range:NSMakeRange(0, [self.text length])];
-    return [NSString stringWithFormat:ORKLegacyLocalizedString(@"PASSCODE_TEXTFIELD_ACCESSIBILTIY_VALUE", nil), ORKLegacyLocalizedStringFromNumber(@(numberOfFilledBullets)), ORKLegacyLocalizedStringFromNumber(@([self.text length]))];
+    return [NSString stringWithFormat:ORK1LocalizedString(@"PASSCODE_TEXTFIELD_ACCESSIBILTIY_VALUE", nil), ORK1LocalizedStringFromNumber(@(numberOfFilledBullets)), ORK1LocalizedStringFromNumber(@([self.text length]))];
 }
 
 - (UIAccessibilityTraits)accessibilityTraits {
@@ -135,7 +135,7 @@ static NSString *const FilledBulletString = @"\u25CF";
 @end
 
 
-@implementation ORKLegacyUnitTextField {
+@implementation ORK1UnitTextField {
     NSString *_managedPlaceholder;
     
     NSString *_unitWithNumber;
@@ -393,11 +393,11 @@ static const UIEdgeInsets paddingGuess = (UIEdgeInsets){.left = 2, .right = 6};
 
 - (NSString *)accessibilityValue {
     if (self.text.length > 0) {
-        return ORKLegacyAccessibilityStringForVariables([super accessibilityValue], _unitWithNumber);
+        return ORK1AccessibilityStringForVariables([super accessibilityValue], _unitWithNumber);
     
     }
     else if ( _managedPlaceholder ) {
-        return ORKLegacyAccessibilityStringForVariables(_managedPlaceholder, _unitWithNumber);
+        return ORK1AccessibilityStringForVariables(_managedPlaceholder, _unitWithNumber);
     }
 
     return [super accessibilityValue];
@@ -406,12 +406,12 @@ static const UIEdgeInsets paddingGuess = (UIEdgeInsets){.left = 2, .right = 6};
 @end
 
 
-@implementation ORKLegacyTextFieldView
+@implementation ORK1TextFieldView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _textField = [[ORKLegacyUnitTextField alloc] init];
+        _textField = [[ORK1UnitTextField alloc] init];
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_textField];
@@ -442,7 +442,7 @@ static const UIEdgeInsets paddingGuess = (UIEdgeInsets){.left = 2, .right = 6};
                                                                           toItem:nil
                                                                        attribute:NSLayoutAttributeNotAnAttribute
                                                                       multiplier:1.0
-                                                                        constant:ORKLegacyScreenMetricMaxDimension];
+                                                                        constant:ORK1ScreenMetricMaxDimension];
     widthConstraint.priority = UILayoutPriorityDefaultLow;
     [constraints addObject:widthConstraint];
     

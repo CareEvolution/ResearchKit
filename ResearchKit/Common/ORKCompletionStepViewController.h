@@ -37,16 +37,16 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- An `ORKLegacyCompletionStepViewController` object is the step view controller for an
-`ORKLegacyCompletionStep` object.
+ An `ORK1CompletionStepViewController` object is the step view controller for an
+`ORK1CompletionStep` object.
  
  Typically, you don't need to instantiate a completion step view controller directly.
  Instead, add a completion step to a task, and present the task with a
  task view controller. The task view controller instantiates the step
  view controller for the completion step.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyCompletionStepViewController : ORKLegacyInstructionStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1CompletionStepViewController : ORK1InstructionStepViewController
 
 /**
  Optional property to allow showing the "Done/Next" button rather than moving this button 

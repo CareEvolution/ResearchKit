@@ -38,22 +38,22 @@ NS_ASSUME_NONNULL_BEGIN
 typedef struct {
     NSInteger width;
     NSInteger height;
-} ORKLegacyGridSize;
+} ORK1GridSize;
 
-@class ORKLegacySpatialSpanMemoryGameView;
+@class ORK1SpatialSpanMemoryGameView;
 
-@protocol ORKLegacySpatialSpanMemoryGameViewDelegate<NSObject>
+@protocol ORK1SpatialSpanMemoryGameViewDelegate<NSObject>
 
-- (void)gameView:(ORKLegacySpatialSpanMemoryGameView *)gameView didTapTileWithIndex:(NSInteger)tileIndex recognizer:(UITapGestureRecognizer *)recognizer;
+- (void)gameView:(ORK1SpatialSpanMemoryGameView *)gameView didTapTileWithIndex:(NSInteger)tileIndex recognizer:(UITapGestureRecognizer *)recognizer;
 
 @end
 
 
-@interface ORKLegacySpatialSpanMemoryGameView : UIView <ORKLegacySpatialSpanTargetViewDelegate>
+@interface ORK1SpatialSpanMemoryGameView : UIView <ORK1SpatialSpanTargetViewDelegate>
 
-@property (nonatomic, weak, nullable) id<ORKLegacySpatialSpanMemoryGameViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORK1SpatialSpanMemoryGameViewDelegate> delegate;
 
-@property (nonatomic, assign) ORKLegacyGridSize gridSize;
+@property (nonatomic, assign) ORK1GridSize gridSize;
 
 @property (nonatomic, readonly) NSInteger numberOfTiles;
 
@@ -63,15 +63,15 @@ typedef struct {
 
 - (void)resetTilesAnimated:(BOOL)animated;
 
-- (void)setState:(ORKLegacySpatialSpanTargetState)state forTileIndex:(NSInteger)tileIndex animated:(BOOL)animated;
-- (ORKLegacySpatialSpanTargetState)stateForTileIndex:(NSInteger)tileIndex;
+- (void)setState:(ORK1SpatialSpanTargetState)state forTileIndex:(NSInteger)tileIndex animated:(BOOL)animated;
+- (ORK1SpatialSpanTargetState)stateForTileIndex:(NSInteger)tileIndex;
 
 @end
 
 
-@interface ORKLegacySpatialSpanMemoryContentView : ORKLegacyActiveStepCustomView
+@interface ORK1SpatialSpanMemoryContentView : ORK1ActiveStepCustomView
 
-@property (nonatomic, strong, readonly) ORKLegacySpatialSpanMemoryGameView *gameView;
+@property (nonatomic, strong, readonly) ORK1SpatialSpanMemoryGameView *gameView;
 
 @property (nonatomic, assign, getter=isFooterHidden) BOOL footerHidden;
 

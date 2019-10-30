@@ -37,22 +37,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyPieChartView;
+@class ORK1PieChartView;
 
 /**
- An object that adopts the `ORKLegacyPieChartViewDataSource` protocol is responsible for providing the
- data required to populate an `ORKLegacyPieChartView` object.
+ An object that adopts the `ORK1PieChartViewDataSource` protocol is responsible for providing the
+ data required to populate an `ORK1PieChartView` object.
 
  At a minimumm, a data source object must implement the `numberOfSegmentsInPieChartView` and
  `pieChartView:valueForSegmentAtIndex:` methods. These methods are responsible for returning the
  number of segments in a pie chart view and the value for each segment. A data source object may
  provide additional information to the pie chart by implementing the optional
- `ORKLegacyPieChartViewDataSource` methods.
+ `ORK1PieChartViewDataSource` methods.
 
- When configuring an `ORKLegacyPieChartView` object, assign your data source to its `dataSource` property.
+ When configuring an `ORK1PieChartView` object, assign your data source to its `dataSource` property.
 */
-ORKLegacy_AVAILABLE_DECL
-@protocol ORKLegacyPieChartViewDataSource <NSObject>
+ORK1_AVAILABLE_DECL
+@protocol ORK1PieChartViewDataSource <NSObject>
 
 @required
 /**
@@ -62,7 +62,7 @@ ORKLegacy_AVAILABLE_DECL
  
  @return The number of segments in the pie chart view.
 */
-- (NSInteger)numberOfSegmentsInPieChartView:(ORKLegacyPieChartView *)pieChartView;
+- (NSInteger)numberOfSegmentsInPieChartView:(ORK1PieChartView *)pieChartView;
 
 /**
  Asks the data source for the value of a segment in the pie chart view.
@@ -75,7 +75,7 @@ ORKLegacy_AVAILABLE_DECL
 
  @return The value of the segment at the specified `index` in the pie chart view.
 */
-- (CGFloat)pieChartView:(ORKLegacyPieChartView *)pieChartView valueForSegmentAtIndex:(NSInteger)index;
+- (CGFloat)pieChartView:(ORK1PieChartView *)pieChartView valueForSegmentAtIndex:(NSInteger)index;
 
 @optional
 /**
@@ -89,7 +89,7 @@ ORKLegacy_AVAILABLE_DECL
 
  @return The color of the segment at the specified `index` in the pie chart view.
 */
-- (UIColor *)pieChartView:(ORKLegacyPieChartView *)pieChartView colorForSegmentAtIndex:(NSInteger)index;
+- (UIColor *)pieChartView:(ORK1PieChartView *)pieChartView colorForSegmentAtIndex:(NSInteger)index;
 
 /**
  Asks the data source for the title to appear in the legend for a segment in the pie chart view.
@@ -102,22 +102,22 @@ ORKLegacy_AVAILABLE_DECL
  @return The title of the segment at the specified index in the pie chat view's
  legend.
 */
-- (NSString *)pieChartView:(ORKLegacyPieChartView *)pieChartView titleForSegmentAtIndex:(NSInteger)index;
+- (NSString *)pieChartView:(ORK1PieChartView *)pieChartView titleForSegmentAtIndex:(NSInteger)index;
 
 @end
 
 /**
- The `ORKLegacyPieChartView` class presents data provided by an object conforming to the
- `ORKLegacyPieChartViewDataSource` protocol as a pie chart.
+ The `ORK1PieChartView` class presents data provided by an object conforming to the
+ `ORK1PieChartViewDataSource` protocol as a pie chart.
 */
-ORKLegacy_CLASS_AVAILABLE
+ORK1_CLASS_AVAILABLE
 IB_DESIGNABLE
-@interface ORKLegacyPieChartView : UIView
+@interface ORK1PieChartView : UIView
 
 /**
  The data source object responsible for populating the pie chart with data.
 */
-@property (nonatomic, weak, nullable) id <ORKLegacyPieChartViewDataSource> dataSource;
+@property (nonatomic, weak, nullable) id <ORK1PieChartViewDataSource> dataSource;
 
 /**
  The width of the line used to draw the circular sections of the pie chart.

@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyVerificationStep ()
+@interface ORK1VerificationStep ()
 
 @property (nonatomic, copy, readonly) NSString *verificationViewControllerString;
 

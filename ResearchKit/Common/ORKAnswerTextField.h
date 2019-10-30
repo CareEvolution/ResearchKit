@@ -39,8 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Answer's text field.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyAnswerTextField : UITextField <ORKLegacyDefaultFont>
+ORK1_CLASS_AVAILABLE
+@interface ORK1AnswerTextField : UITextField <ORK1DefaultFont>
 
 @end
 

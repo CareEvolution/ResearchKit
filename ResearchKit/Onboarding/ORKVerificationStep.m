@@ -39,7 +39,7 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyVerificationStep
+@implementation ORK1VerificationStep
 
 - (Class)stepViewControllerClass {
     return self.verificationViewControllerClass;
@@ -51,11 +51,11 @@
                               text:(NSString *)text
    verificationViewControllerClass:(Class)verificationViewControllerClass {
     
-    NSParameterAssert([verificationViewControllerClass isSubclassOfClass:[ORKLegacyVerificationStepViewController class]]);
+    NSParameterAssert([verificationViewControllerClass isSubclassOfClass:[ORK1VerificationStepViewController class]]);
     
     self = [super initWithIdentifier:identifier];
     if (self) {
-        self.title = ORKLegacyLocalizedString(@"VERIFICATION_STEP_TITLE", nil);
+        self.title = ORK1LocalizedString(@"VERIFICATION_STEP_TITLE", nil);
         self.text = text;
         _verificationViewControllerString = NSStringFromClass(verificationViewControllerClass);
         
@@ -73,7 +73,7 @@
     
     if (!_verificationViewControllerString || !NSClassFromString(_verificationViewControllerString)) {
         @throw [NSException exceptionWithName:NSGenericException
-                                       reason:@"Unable to find ORKLegacyVerificationStepViewController subclass."
+                                       reason:@"Unable to find ORK1VerificationStepViewController subclass."
                                      userInfo:nil];
     }
 }
@@ -93,18 +93,18 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ(aDecoder, verificationViewControllerString);
+        ORK1_DECODE_OBJ(aDecoder, verificationViewControllerString);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_OBJ(aCoder, verificationViewControllerString);
+    ORK1_ENCODE_OBJ(aCoder, verificationViewControllerString);
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyVerificationStep *step = [super copyWithZone:zone];
+    ORK1VerificationStep *step = [super copyWithZone:zone];
     step->_verificationViewControllerString = [self.verificationViewControllerString copy];
     return step;
 }
@@ -114,7 +114,7 @@
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            ORKLegacyEqualObjects(self.verificationViewControllerString, castObject.verificationViewControllerString));
+            ORK1EqualObjects(self.verificationViewControllerString, castObject.verificationViewControllerString));
 }
 
 @end

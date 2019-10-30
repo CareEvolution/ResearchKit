@@ -36,10 +36,10 @@
 @import CoreMotion;
 
 
-@implementation CMPedometerData (ORKLegacyJSONDictionary)
+@implementation CMPedometerData (ORK1JSONDictionary)
 
 - (NSDictionary *)ork_JSONDictionary {
-    NSMutableDictionary *dictionary = [@{ @"startDate": ORKLegacyStringFromDateISO8601(self.startDate), @"endDate": ORKLegacyStringFromDateISO8601(self.endDate) } mutableCopy];
+    NSMutableDictionary *dictionary = [@{ @"startDate": ORK1StringFromDateISO8601(self.startDate), @"endDate": ORK1StringFromDateISO8601(self.endDate) } mutableCopy];
     for (NSString *key in @[ @"numberOfSteps", @"distance", @"floorsAscended", @"floorsDescended" ]) {
         [dictionary setValue:[self valueForKey:key] forKey:key];
     }

@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacySurveyAnswerCellForPicker : ORKLegacySurveyAnswerCell
+@interface ORK1SurveyAnswerCellForPicker : ORK1SurveyAnswerCell
 
 // Delay creating the date picker until the view has appeared (to avoid animation stutter).
 - (void)loadPicker;

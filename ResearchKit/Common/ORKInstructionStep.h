@@ -36,16 +36,16 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- An `ORKLegacyInstructionStep` object gives the participant instructions for a task.
+ An `ORK1InstructionStep` object gives the participant instructions for a task.
  
  You can use instruction steps to present various types of content during a task, such as
  introductory content, instructions in the middle
  of a task, or a final message at the completion of a task.
  
-To indicate the completion of a task, consider using an `ORKLegacyCompletionStep` object instead.
+To indicate the completion of a task, consider using an `ORK1CompletionStep` object instead.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyInstructionStep : ORKLegacyStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1InstructionStep : ORK1Step
 
 /**
  Additional detailed explanation for the instruction.
@@ -68,7 +68,7 @@ ORKLegacy_CLASS_AVAILABLE
  
  The image is displayed with aspect fit. Depending on the device, the screen area
  available for this image can vary. For exact
- metrics, see `ORKLegacyScreenMetricIllustrationHeight`.
+ metrics, see `ORK1ScreenMetricIllustrationHeight`.
  */
 @property (nonatomic, copy, nullable) UIImage *image;
 

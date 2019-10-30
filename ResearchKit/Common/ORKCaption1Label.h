@@ -38,10 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Intro step's first piece details text.
  
- @note Used as cell's caption text: in ORKLegacyConsentDocumentCell and ORKLegacyFormItemCell
+ @note Used as cell's caption text: in ORK1ConsentDocumentCell and ORK1FormItemCell
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyCaption1Label : ORKLegacyLabel
+ORK1_CLASS_AVAILABLE
+@interface ORK1Caption1Label : ORK1Label
 
 @end
 

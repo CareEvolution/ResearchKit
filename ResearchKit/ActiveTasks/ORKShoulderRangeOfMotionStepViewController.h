@@ -36,7 +36,7 @@
  This class override its parent's result because here 
  a flex result of 0 degrees would mean the device is at a 90 degree angle.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyShoulderRangeOfMotionStepViewController : ORKLegacyRangeOfMotionStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1ShoulderRangeOfMotionStepViewController : ORK1RangeOfMotionStepViewController
 
 @end

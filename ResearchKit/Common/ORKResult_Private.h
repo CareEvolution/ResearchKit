@@ -32,18 +32,18 @@
 #import <ResearchKitLegacy/ORKResult.h>
 @import MapKit;
 
-@class ORKLegacyPageStep;
+@class ORK1PageStep;
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyDataResult` is an `ORKLegacyResult` subclass for returning raw `NSData` from a step.
+ The `ORK1DataResult` is an `ORK1Result` subclass for returning raw `NSData` from a step.
  
  This is considered private, and is not currently used by any of the pre-defined
  active tasks.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyDataResult : ORKLegacyResult
+ORK1_CLASS_AVAILABLE
+@interface ORK1DataResult : ORK1Result
 
 /**
  The MIME contentType for the result.
@@ -63,7 +63,7 @@ ORKLegacy_CLASS_AVAILABLE
 @end
 
 
-@interface ORKLegacyResult ()
+@interface ORK1Result ()
 
 /**
  A boolean value indicating whether this result can be saved in a save and
@@ -74,7 +74,7 @@ ORKLegacy_CLASS_AVAILABLE
  the purpose of deciding whether to offer a "Save" option when the user
  cancels a task in progress.
  
- `ORKLegacyResult` subclasses should return YES if they have data that the user
+ `ORK1Result` subclasses should return YES if they have data that the user
  might want to be able to restore if the task were interrupted and later
  resumed from the current state.
  */
@@ -83,7 +83,7 @@ ORKLegacy_CLASS_AVAILABLE
 @end
 
 
-@interface ORKLegacyQuestionResult ()
+@interface ORK1QuestionResult ()
 
 // Used internally for unit testing.
 + (nullable Class)answerClass;
@@ -93,7 +93,7 @@ ORKLegacy_CLASS_AVAILABLE
 
 @end
 
-@interface ORKLegacyLocation ()
+@interface ORK1Location ()
 
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate
                             region:(nullable CLCircularRegion *)region
@@ -104,7 +104,7 @@ ORKLegacy_CLASS_AVAILABLE
 
 @end
 
-@interface ORKLegacySignatureResult ()
+@interface ORK1SignatureResult ()
 
 - (instancetype)initWithSignatureImage:(UIImage *)signatureImage
                          signaturePath:(NSArray <UIBezierPath *> *)signaturePath;
@@ -113,29 +113,29 @@ ORKLegacy_CLASS_AVAILABLE
 
 
 /**
- The `ORKLegacyPageResult` is an `ORKLegacyTaskResult` subclass of a collection of `ORKLegacyStepResult`
- objects. This is considered private, and it is used internally by `ORKLegacyPageStepViewController`
+ The `ORK1PageResult` is an `ORK1TaskResult` subclass of a collection of `ORK1StepResult`
+ objects. This is considered private, and it is used internally by `ORK1PageStepViewController`
  to track the result set.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyPageResult : ORKLegacyTaskResult
+ORK1_CLASS_AVAILABLE
+@interface ORK1PageResult : ORK1TaskResult
 
-- (instancetype)initWithPageStep:(ORKLegacyPageStep *)step stepResult:(ORKLegacyStepResult*)result;
+- (instancetype)initWithPageStep:(ORK1PageStep *)step stepResult:(ORK1StepResult*)result;
 
-- (void)addStepResult:(nullable ORKLegacyStepResult *)stepResult;
+- (void)addStepResult:(nullable ORK1StepResult *)stepResult;
 
 - (void)removeStepResultWithIdentifier:(NSString *)identifier;
 
 - (void)removeStepResultsAfterStepWithIdentifier:(NSString *)identifier;
 
-- (NSArray <ORKLegacyResult *> *)flattenResults;
+- (NSArray <ORK1Result *> *)flattenResults;
 
 - (instancetype)copyWithOutputDirectory:(NSURL *)outputDirectory;
 
 @end
 
 
-@interface ORKLegacyStepResult ()
+@interface ORK1StepResult ()
 
 @property (nonatomic) BOOL isPreviousResult;
 

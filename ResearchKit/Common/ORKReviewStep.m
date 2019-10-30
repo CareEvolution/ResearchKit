@@ -39,11 +39,11 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyReviewStep
+@implementation ORK1ReviewStep
 
 - (instancetype)initWithIdentifier:(NSString *)identifier
                              steps:(NSArray *)steps
-                      resultSource:(id<ORKLegacyTaskResultSource, NSSecureCoding>)resultSource {
+                      resultSource:(id<ORK1TaskResultSource, NSSecureCoding>)resultSource {
     self = [super initWithIdentifier:identifier];
     if (self) {
         _steps = [steps copy];
@@ -55,16 +55,16 @@
 
 + (instancetype)standaloneReviewStepWithIdentifier:(NSString *)identifier
                                              steps:(NSArray *)steps
-                                      resultSource:(id<ORKLegacyTaskResultSource, NSSecureCoding>)resultSource {
-    return [[ORKLegacyReviewStep alloc] initWithIdentifier:identifier steps:steps resultSource:resultSource];
+                                      resultSource:(id<ORK1TaskResultSource, NSSecureCoding>)resultSource {
+    return [[ORK1ReviewStep alloc] initWithIdentifier:identifier steps:steps resultSource:resultSource];
 }
 
 + (instancetype)embeddedReviewStepWithIdentifier:(NSString *)identifier {
-    return [[ORKLegacyReviewStep alloc] initWithIdentifier:identifier steps:nil resultSource:nil];
+    return [[ORK1ReviewStep alloc] initWithIdentifier:identifier steps:nil resultSource:nil];
 }
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyReviewStepViewController class];
+    return [ORK1ReviewStepViewController class];
 }
 
 + (BOOL)supportsSecureCoding {
@@ -75,18 +75,18 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, steps, NSArray);
-        ORKLegacy_DECODE_OBJ(aDecoder, resultSource);
-        ORKLegacy_DECODE_BOOL(aDecoder, excludeInstructionSteps);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, steps, NSArray);
+        ORK1_DECODE_OBJ(aDecoder, resultSource);
+        ORK1_DECODE_BOOL(aDecoder, excludeInstructionSteps);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_OBJ(aCoder, steps);
-    ORKLegacy_ENCODE_OBJ(aCoder, resultSource);
-    ORKLegacy_ENCODE_BOOL(aCoder, excludeInstructionSteps);
+    ORK1_ENCODE_OBJ(aCoder, steps);
+    ORK1_ENCODE_OBJ(aCoder, resultSource);
+    ORK1_ENCODE_BOOL(aCoder, excludeInstructionSteps);
 }
 
 - (NSUInteger)hash {
@@ -97,13 +97,13 @@
 - (BOOL)isEqual:(id)object {
     __typeof(self) castObject = object;
     return [super isEqual:object] &&
-    ORKLegacyEqualObjects(self.steps, castObject.steps) &&
-    ORKLegacyEqualObjects(self.resultSource, castObject.resultSource) &&
+    ORK1EqualObjects(self.steps, castObject.steps) &&
+    ORK1EqualObjects(self.resultSource, castObject.resultSource) &&
     self.excludeInstructionSteps == castObject.excludeInstructionSteps;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyReviewStep *reviewStep = [super copyWithZone:zone];
+    ORK1ReviewStep *reviewStep = [super copyWithZone:zone];
     reviewStep->_steps = [self.steps copy];
     reviewStep->_resultSource = self.resultSource;
     reviewStep->_excludeInstructionSteps = self.excludeInstructionSteps;

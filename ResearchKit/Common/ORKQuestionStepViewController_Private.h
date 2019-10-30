@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyQuestionStepViewController () <ORKLegacyQuestionStepCustomViewDelegate>
+@interface ORK1QuestionStepViewController () <ORK1QuestionStepCustomViewDelegate>
 
 /**
  Provide a custom question view.
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  custom step view. This view should provide `-sizeThatFits:` or autolayout
  constraints which determine the vertical space required.
  */
-@property (nonatomic, strong, nullable) ORKLegacyQuestionStepCustomView *customQuestionView;
+@property (nonatomic, strong, nullable) ORK1QuestionStepCustomView *customQuestionView;
 
 @end
 

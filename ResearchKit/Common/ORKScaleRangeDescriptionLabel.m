@@ -34,7 +34,7 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKLegacyScaleRangeDescriptionLabel
+@implementation ORK1ScaleRangeDescriptionLabel
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];

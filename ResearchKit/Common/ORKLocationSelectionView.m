@@ -52,10 +52,10 @@
 
 static const NSString *FormattedAddressLines = @"FormattedAddressLines";
 
-@interface ORKLegacyLocationSelectionView () <UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate>
+@interface ORK1LocationSelectionView () <UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) NSLayoutConstraint *mapViewHeightConstraint;
-@property (nonatomic, strong, readwrite) ORKLegacyAnswerTextField *textField;
+@property (nonatomic, strong, readwrite) ORK1AnswerTextField *textField;
 @property (nonatomic, strong) MKMapView *mapView;
 
 @end
@@ -77,7 +77,7 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
 @end
 
 
-@implementation ORKLegacyLocationSelectionView {
+@implementation ORK1LocationSelectionView {
     CLLocationManager *_locationManager;
     BOOL _userLocationNeedsUpdate;
     MKCoordinateRegion _initalCoordinateRegion;
@@ -91,7 +91,7 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
 }
 
 + (CGFloat)textFieldHeight {
-    return ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricTableCellDefaultHeight, nil);
+    return ORK1GetMetricForWindow(ORK1ScreenMetricTableCellDefaultHeight, nil);
 }
 
 + (CGFloat)textFieldBottomMargin {
@@ -110,15 +110,15 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
     
     
     if (NO == formMode) {
-        self = [super initWithFrame:CGRectMake(0.0, 0.0, 200.0, [self.class textFieldHeight] + [ORKLegacyLocationSelectionView.class textFieldBottomMargin]*2 + ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLocationQuestionMapHeight, self.window))];
+        self = [super initWithFrame:CGRectMake(0.0, 0.0, 200.0, [self.class textFieldHeight] + [ORK1LocationSelectionView.class textFieldBottomMargin]*2 + ORK1GetMetricForWindow(ORK1ScreenMetricLocationQuestionMapHeight, self.window))];
     } else {
         self = [super initWithFrame:CGRectMake(0.0, 0.0, 200.0, [self.class textFieldHeight])];
     }
     
     if (self) {
-        _textField = [[ORKLegacyAnswerTextField alloc] init];
+        _textField = [[ORK1AnswerTextField alloc] init];
         _textField.delegate = self;
-        _textField.placeholder = ORKLegacyLocalizedString(@"LOCATION_QUESTION_PLACEHOLDER",nil);
+        _textField.placeholder = ORK1LocalizedString(@"LOCATION_QUESTION_PLACEHOLDER",nil);
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.returnKeyType = UIReturnKeySearch;
         _textField.adjustsFontSizeToFitWidth = YES;
@@ -176,7 +176,7 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
     annotation.coordinate = touchMapCoordinate;
     [_mapView addAnnotation:annotation];
     
-    ORKLegacyLocation *pinLocation = [[ORKLegacyLocation alloc] initWithCoordinate:touchMapCoordinate region:nil userInput:nil addressDictionary:nil];
+    ORK1Location *pinLocation = [[ORK1Location alloc] initWithCoordinate:touchMapCoordinate region:nil userInput:nil addressDictionary:nil];
     [self setAnswer:pinLocation];
 }
 
@@ -184,7 +184,7 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
     NSMutableArray *constraints = [NSMutableArray new];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_textField);
-    ORKLegacyEnableAutoLayoutForViews([views allValues]);
+    ORK1EnableAutoLayoutForViews([views allValues]);
     
     NSDictionary *metrics = @{@"horizontalMargin": @(_textFieldHorizontalMargin)};
     if (_seperator1) {
@@ -237,7 +237,7 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
 }
 
 - (CGSize)intrinsicContentSize {
-    CGFloat height = [self.class textFieldHeight] + (_mapView.superview == nil ? 0.0 : [ORKLegacyLocationSelectionView.class textFieldBottomMargin]*2 + ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLocationQuestionMapHeight, self.window));
+    CGFloat height = [self.class textFieldHeight] + (_mapView.superview == nil ? 0.0 : [ORK1LocationSelectionView.class textFieldBottomMargin]*2 + ORK1GetMetricForWindow(ORK1ScreenMetricLocationQuestionMapHeight, self.window));
     return CGSizeMake(40, height);
 }
 
@@ -247,16 +247,16 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
     }
     
     _mapView.frame = CGRectMake(0.0, 0.0, self.bounds.size.width, 0.0);
-    ORKLegacyEnableAutoLayoutForViews(@[_mapView]);
+    ORK1EnableAutoLayoutForViews(@[_mapView]);
     [self addSubview:_mapView];
     
     NSMutableArray *constraints = [NSMutableArray new];
     
     NSDictionary *metrics = @{@"horizontalMargin": @(_mapHorizontalMargin)};
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(horizontalMargin)-[_mapView]|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:metrics views:NSDictionaryOfVariableBindings(_mapView)]];
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_textField attribute:NSLayoutAttributeBottom multiplier:1.0 constant:[ORKLegacyLocationSelectionView.class textFieldBottomMargin]]];
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_textField attribute:NSLayoutAttributeBottom multiplier:1.0 constant:[ORK1LocationSelectionView.class textFieldBottomMargin]]];
     
-    _mapViewHeightConstraint = [NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLocationQuestionMapHeight, self.window)];
+    _mapViewHeightConstraint = [NSLayoutConstraint constraintWithItem:_mapView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:ORK1GetMetricForWindow(ORK1ScreenMetricLocationQuestionMapHeight, self.window)];
     [constraints addObject:_mapViewHeightConstraint];
     
     if (_seperator3) {
@@ -293,56 +293,56 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
 - (void)geocodeAndDisplay:(NSString *)string {
     
     if (string == nil || string.length == 0) {
-        [self setAnswer:ORKLegacyNullAnswerValue()];
+        [self setAnswer:ORK1NullAnswerValue()];
         return;
     }
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    ORKLegacyWeakTypeOf(self) weakSelf = self;
+    ORK1WeakTypeOf(self) weakSelf = self;
     [geocoder geocodeAddressString:string completionHandler:^(NSArray *placemarks, NSError *error) {
-        ORKLegacyStrongTypeOf(weakSelf) strongSelf = weakSelf;
+        ORK1StrongTypeOf(weakSelf) strongSelf = weakSelf;
         if (error) {
             [self notifyDelegateOfError:error];
-            [strongSelf setAnswer:ORKLegacyNullAnswerValue()];
+            [strongSelf setAnswer:ORK1NullAnswerValue()];
         } else {
             CLPlacemark *placemark = [placemarks lastObject];
-            [strongSelf setAnswer:[[ORKLegacyLocation alloc] initWithPlacemark:placemark userInput:string]];
+            [strongSelf setAnswer:[[ORK1Location alloc] initWithPlacemark:placemark userInput:string]];
         }
     }];
 }
 
-- (void)reverseGeocodeAndDisplay:(ORKLegacyLocation *)location {
+- (void)reverseGeocodeAndDisplay:(ORK1Location *)location {
     
     if (location == nil) {
-        [self setAnswer:ORKLegacyNullAnswerValue()];
+        [self setAnswer:ORK1NullAnswerValue()];
         return;
     }
     
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    ORKLegacyWeakTypeOf(self) weakSelf = self;
+    ORK1WeakTypeOf(self) weakSelf = self;
     CLLocation *cllocation = [[CLLocation alloc] initWithLatitude:location.coordinate.latitude longitude:location.coordinate.longitude];
     [geocoder reverseGeocodeLocation:cllocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        ORKLegacyStrongTypeOf(weakSelf) strongSelf = weakSelf;
+        ORK1StrongTypeOf(weakSelf) strongSelf = weakSelf;
         if (error) {
             [self notifyDelegateOfError:error];
-            [strongSelf setAnswer:ORKLegacyNullAnswerValue()];
+            [strongSelf setAnswer:ORK1NullAnswerValue()];
         } else {
             CLPlacemark *placemark = [placemarks lastObject];
-            [strongSelf setAnswer:[[ORKLegacyLocation alloc] initWithPlacemark:placemark
+            [strongSelf setAnswer:[[ORK1Location alloc] initWithPlacemark:placemark
                                                                userInput:location.userInput ? : placemark.ork_addressLine]
                         updateMap:YES];
         }
     }];
 }
 
-- (void)setAnswer:(ORKLegacyLocation *)answer {
+- (void)setAnswer:(ORK1Location *)answer {
     [self setAnswer:answer updateMap:YES];
 }
 
-- (void)setAnswer:(ORKLegacyLocation *)answer updateMap:(BOOL)updateMap {
+- (void)setAnswer:(ORK1Location *)answer updateMap:(BOOL)updateMap {
     
-    BOOL isAnswerClassORKLegacyLocation = [[answer class] isSubclassOfClass:[ORKLegacyLocation class]];
-    _answer = (isAnswerClassORKLegacyLocation || answer == ORKLegacyNullAnswerValue()) ? answer : nil;
+    BOOL isAnswerClassORK1Location = [[answer class] isSubclassOfClass:[ORK1Location class]];
+    _answer = (isAnswerClassORK1Location || answer == ORK1NullAnswerValue()) ? answer : nil;
     
     if (_answer) {
         _userLocationNeedsUpdate = NO;
@@ -350,7 +350,7 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
          [self loadCurrentLocationIfNecessary];
     }
     
-    ORKLegacyLocation *location = isAnswerClassORKLegacyLocation ? (ORKLegacyLocation *)_answer : nil;
+    ORK1Location *location = isAnswerClassORK1Location ? (ORK1Location *)_answer : nil;
     
     if (location) {
         
@@ -374,7 +374,7 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
     }
 }
 
-- (void)updateMapWithLocation:(ORKLegacyLocation *)location {
+- (void)updateMapWithLocation:(ORK1Location *)location {
     
     MKPlacemark *placemark = location ? [[MKPlacemark alloc] initWithCoordinate:location.coordinate addressDictionary:nil] : nil;
     
@@ -401,25 +401,25 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
 }
 
 - (void)notifyDelegateOfError:(NSError *)error {
-    NSString *title = ORKLegacyLocalizedString(@"LOCATION_ERROR_TITLE", @"");
+    NSString *title = ORK1LocalizedString(@"LOCATION_ERROR_TITLE", @"");
     NSString *message = nil;
     
     switch (error.code) {
         case kCLErrorLocationUnknown:
         case kCLErrorHeadingFailure:
-            message = ORKLegacyLocalizedString(@"LOCATION_ERROR_MESSAGE_LOCATION_UNKNOWN", @"");
+            message = ORK1LocalizedString(@"LOCATION_ERROR_MESSAGE_LOCATION_UNKNOWN", @"");
             break;
         case kCLErrorDenied:
         case kCLErrorRegionMonitoringDenied:
-            message = ORKLegacyLocalizedString(@"LOCATION_ERROR_MESSAGE_DENIED", @"");
+            message = ORK1LocalizedString(@"LOCATION_ERROR_MESSAGE_DENIED", @"");
             break;
         case kCLErrorNetwork:
-            message = ORKLegacyLocalizedString(@"LOCATION_ERROR_GEOCODE_NETWORKLegacy", @"");
+            message = ORK1LocalizedString(@"LOCATION_ERROR_GEOCODE_NETWORK1", @"");
             break;
         case kCLErrorGeocodeFoundNoResult:
         case kCLErrorGeocodeFoundPartialResult:
         case kCLErrorGeocodeCanceled:
-            message = ORKLegacyLocalizedString(@"LOCATION_ERROR_GEOCODE", @"");
+            message = ORK1LocalizedString(@"LOCATION_ERROR_GEOCODE", @"");
             break;
         default:
             break;
@@ -442,7 +442,7 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     if (_userLocationNeedsUpdate) {
-        [self reverseGeocodeAndDisplay:[[ORKLegacyLocation alloc] initWithCoordinate:userLocation.location.coordinate
+        [self reverseGeocodeAndDisplay:[[ORK1Location alloc] initWithCoordinate:userLocation.location.coordinate
                                                                         region:nil
                                                                      userInput:nil
                                                              addressDictionary:@{}]];
@@ -472,8 +472,8 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     // Clear answer to prevent user continue with invalid answer.
-    if ( NO == ORKLegacyIsAnswerEmpty(_answer) ) {
-        [self setAnswer:ORKLegacyNullAnswerValue() updateMap:NO];
+    if ( NO == ORK1IsAnswerEmpty(_answer) ) {
+        [self setAnswer:ORK1NullAnswerValue() updateMap:NO];
     }
     
     return YES;
@@ -487,7 +487,7 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
     [_mapView setRegion:_initalCoordinateRegion animated:YES];
-    [self setAnswer:ORKLegacyNullAnswerValue()];
+    [self setAnswer:ORK1NullAnswerValue()];
     return YES;
 }
 

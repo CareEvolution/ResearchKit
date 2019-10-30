@@ -36,7 +36,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyVideoCaptureStep` class represents a step that captures a video through the device
+ The `ORK1VideoCaptureStep` class represents a step that captures a video through the device
  camera.  A template image can optionally be laid over the camera preview to assist in properly
  capturing the video.
  
@@ -49,8 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  The recording length can be a max of 20 minutes. It defaults to 2 minutes.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyVideoCaptureStep : ORKLegacyStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1VideoCaptureStep : ORK1Step
 
 /**
  An image to be displayed over the camera preview.

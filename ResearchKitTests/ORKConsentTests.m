@@ -33,17 +33,17 @@
 @import ResearchKitLegacy.Private;
 
 
-@interface ORKLegacyConsentTests : XCTestCase
+@interface ORK1ConsentTests : XCTestCase
 
 @end
 
 
-@implementation ORKLegacyConsentTests
+@implementation ORK1ConsentTests
 
 - (void)testContentEscaping {
     NSString *content = @"<img><p>this is content</p><br><div/>";
     
-    ORKLegacyConsentSection *section = [[ORKLegacyConsentSection alloc] initWithType:ORKLegacyConsentSectionTypeOverview];
+    ORK1ConsentSection *section = [[ORK1ConsentSection alloc] initWithType:ORK1ConsentSectionTypeOverview];
     
     section.content = content;
     

@@ -37,8 +37,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyReactionTimeStep : ORKLegacyActiveStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1ReactionTimeStep : ORK1ActiveStep
 
 @property (nonatomic, assign) NSTimeInterval maximumStimulusInterval;
 

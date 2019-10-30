@@ -35,17 +35,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyActiveStep;
-@class ORKLegacyCountdownLabel;
-@class ORKLegacyTextButton;
+@class ORK1ActiveStep;
+@class ORK1CountdownLabel;
+@class ORK1TextButton;
 
-@interface ORKLegacyActiveStepTimerView : ORKLegacyActiveStepCustomView
+@interface ORK1ActiveStepTimerView : ORK1ActiveStepCustomView
 
-@property (nonatomic, strong, nullable) ORKLegacyCountdownLabel *countDownLabel;
+@property (nonatomic, strong, nullable) ORK1CountdownLabel *countDownLabel;
 
-@property (nonatomic, strong, nullable) ORKLegacyTextButton *startTimerButton;
+@property (nonatomic, strong, nullable) ORK1TextButton *startTimerButton;
 
-@property (nonatomic, strong, nullable) ORKLegacyActiveStep *step;
+@property (nonatomic, strong, nullable) ORK1ActiveStep *step;
 
 @end
 

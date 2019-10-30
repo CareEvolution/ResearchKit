@@ -36,12 +36,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyDirectionView : UIView
+ORK1_CLASS_AVAILABLE
+@interface ORK1DirectionView : UIView
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
-- (instancetype)initWithOrientation:(ORKLegacyBodySagittal)orientation NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithOrientation:(ORK1BodySagittal)orientation NS_DESIGNATED_INITIALIZER;
 
 @end
 

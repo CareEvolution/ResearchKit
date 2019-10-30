@@ -36,14 +36,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacySignatureStepViewController` class is a step view controller subclass
- used to manage a signature step (`ORKLegacySignatureStep`).
+ The `ORK1SignatureStepViewController` class is a step view controller subclass
+ used to manage a signature step (`ORK1SignatureStep`).
 
  You should not need to instantiate a signature step view controller directly. Instead, include
  a signature step in a task, and present a task view controller for that stask.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacySignatureStepViewController : ORKLegacyStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1SignatureStepViewController : ORK1StepViewController
 
 @end
 

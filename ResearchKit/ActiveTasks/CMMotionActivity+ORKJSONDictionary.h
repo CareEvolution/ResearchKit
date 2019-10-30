@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CMMotionActivity (ORKLegacyJSONDictionary)
+@interface CMMotionActivity (ORK1JSONDictionary)
 
 - (NSDictionary *)ork_JSONDictionary;
 

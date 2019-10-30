@@ -46,8 +46,8 @@
 #import <CoreMotion/CMDeviceMotion.h>
 
 
-@implementation ORKLegacyReactionTimeViewController {
-    ORKLegacyReactionTimeContentView *_reactionTimeContentView;
+@implementation ORK1ReactionTimeViewController {
+    ORK1ReactionTimeContentView *_reactionTimeContentView;
     NSMutableArray *_results;
     NSTimer *_stimulusTimer;
     NSTimer *_timeoutTimer;
@@ -66,7 +66,7 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
     // Do any additional setup after loading the view.
     [self configureTitle];
     _results = [NSMutableArray new];
-    _reactionTimeContentView = [ORKLegacyReactionTimeContentView new];
+    _reactionTimeContentView = [ORK1ReactionTimeContentView new];
     self.activeStepView.activeCustomView = _reactionTimeContentView;
     self.activeStepView.stepViewFillsAvailableSpace = YES;
     [_reactionTimeContentView setStimulusHidden:YES];
@@ -83,7 +83,7 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
     _shouldIndicateFailure = NO;
 }
 
-#pragma mark - ORKLegacyActiveStepViewController
+#pragma mark - ORK1ActiveStepViewController
 
 - (void)start {
     [super start];
@@ -95,7 +95,7 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (event.type == UIEventSubtypeMotionShake) {
         if (_validResult) {
-            ORKLegacyReactionTimeResult *reactionTimeResult = [[ORKLegacyReactionTimeResult alloc] initWithIdentifier:self.step.identifier];
+            ORK1ReactionTimeResult *reactionTimeResult = [[ORK1ReactionTimeResult alloc] initWithIdentifier:self.step.identifier];
             reactionTimeResult.timestamp = _stimulusTimestamp;
             [_results addObject:reactionTimeResult];
         }
@@ -105,8 +105,8 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
 #endif
 
 
-- (ORKLegacyStepResult *)result {
-    ORKLegacyStepResult *stepResult = [super result];
+- (ORK1StepResult *)result {
+    ORK1StepResult *stepResult = [super result];
     stepResult.results = [self.addedResults arrayByAddingObjectsFromArray:_results] ? : _results;
     return stepResult;
 }
@@ -123,19 +123,19 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
     [self resetAfterDelay:0];
 }
 
-#pragma mark - ORKLegacyRecorderDelegate
+#pragma mark - ORK1RecorderDelegate
 
-- (void)recorder:(ORKLegacyRecorder *)recorder didCompleteWithResult:(ORKLegacyResult *)result {
+- (void)recorder:(ORK1Recorder *)recorder didCompleteWithResult:(ORK1Result *)result {
     if (_validResult) {
-        ORKLegacyReactionTimeResult *reactionTimeResult = [[ORKLegacyReactionTimeResult alloc] initWithIdentifier:self.step.identifier];
+        ORK1ReactionTimeResult *reactionTimeResult = [[ORK1ReactionTimeResult alloc] initWithIdentifier:self.step.identifier];
         reactionTimeResult.timestamp = _stimulusTimestamp;
-        reactionTimeResult.fileResult = (ORKLegacyFileResult *)result;
+        reactionTimeResult.fileResult = (ORK1FileResult *)result;
         [_results addObject:reactionTimeResult];
     }
     [self attemptDidFinish];
 }
 
-#pragma mark - ORKLegacyDeviceMotionRecorderDelegate
+#pragma mark - ORK1DeviceMotionRecorderDelegate
 
 - (void)deviceMotionRecorderDidUpdateWithMotion:(CMDeviceMotion *)motion {
     CMAcceleration v = motion.userAcceleration;
@@ -145,16 +145,16 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
     }
 }
 
-#pragma mark - ORKLegacyReactionTimeStepViewController
+#pragma mark - ORK1ReactionTimeStepViewController
 
-- (ORKLegacyReactionTimeStep *)reactionTimeStep {
-    return (ORKLegacyReactionTimeStep *)self.step;
+- (ORK1ReactionTimeStep *)reactionTimeStep {
+    return (ORK1ReactionTimeStep *)self.step;
 }
 
 - (void)configureTitle {
-    NSString *format = ORKLegacyLocalizedString(@"REACTION_TIME_TASK_ATTEMPTS_FORMAT", nil);
-    NSString *text = [NSString stringWithFormat:format, ORKLegacyLocalizedStringFromNumber(@(_results.count + 1)), ORKLegacyLocalizedStringFromNumber(@([self reactionTimeStep].numberOfAttempts))];
-    [self.activeStepView updateTitle:ORKLegacyLocalizedString(@"REACTION_TIME_TASK_ACTIVE_STEP_TITLE", nil) text:text];
+    NSString *format = ORK1LocalizedString(@"REACTION_TIME_TASK_ATTEMPTS_FORMAT", nil);
+    NSString *text = [NSString stringWithFormat:format, ORK1LocalizedStringFromNumber(@(_results.count + 1)), ORK1LocalizedStringFromNumber(@([self reactionTimeStep].numberOfAttempts))];
+    [self.activeStepView updateTitle:ORK1LocalizedString(@"REACTION_TIME_TASK_ACTIVE_STEP_TITLE", nil) text:text];
 }
 
 - (void)attemptDidFinish {
@@ -191,7 +191,7 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
 }
 
 - (void)resetAfterDelay:(NSTimeInterval)delay {
-    ORKLegacyWeakTypeOf(self) weakSelf = self;
+    ORK1WeakTypeOf(self) weakSelf = self;
     [_reactionTimeContentView resetAfterDelay:delay completion:^{
         [weakSelf configureTitle];
         [weakSelf start];
@@ -228,7 +228,7 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
 }
 
 - (NSTimeInterval)stimulusInterval {
-    ORKLegacyReactionTimeStep *step = [self reactionTimeStep];
+    ORK1ReactionTimeStep *step = [self reactionTimeStep];
     NSTimeInterval range = step.maximumStimulusInterval - step.minimumStimulusInterval;
     NSTimeInterval randomFactor = ((NSTimeInterval)rand() / RAND_MAX) * range;
     return randomFactor + step.minimumStimulusInterval;

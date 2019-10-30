@@ -45,10 +45,10 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKLegacyInstructionStepViewController
+@implementation ORK1InstructionStepViewController
 
-- (ORKLegacyInstructionStep *)instructionStep {
-    return (ORKLegacyInstructionStep *)self.step;
+- (ORK1InstructionStep *)instructionStep {
+    return (ORK1InstructionStep *)self.step;
 }
 
 - (void)stepDidChange {
@@ -58,7 +58,7 @@
     self.stepView = nil;
     
     if (self.step && [self isViewLoaded]) {
-        self.stepView = [[ORKLegacyInstructionStepView alloc] initWithFrame:self.view.bounds];
+        self.stepView = [[ORK1InstructionStepView alloc] initWithFrame:self.view.bounds];
         self.stepView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         [self.view addSubview:self.stepView];
         
@@ -84,7 +84,7 @@
 }
 
 - (void)useAppropriateButtonTitleAsLastBeginningInstructionStep {
-    self.internalContinueButtonItem.title = ORKLegacyLocalizedString(@"BUTTON_GET_STARTED",nil);
+    self.internalContinueButtonItem.title = ORK1LocalizedString(@"BUTTON_GET_STARTED",nil);
 }
 
 - (void)setContinueButtonItem:(UIBarButtonItem *)continueButtonItem {

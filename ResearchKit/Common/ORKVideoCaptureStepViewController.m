@@ -38,14 +38,14 @@
 #import <AVFoundation/AVFoundation.h>
 
 
-@interface ORKLegacyVideoCaptureStepViewController () <ORKLegacyVideoCaptureViewDelegate, AVCaptureFileOutputRecordingDelegate>
+@interface ORK1VideoCaptureStepViewController () <ORK1VideoCaptureViewDelegate, AVCaptureFileOutputRecordingDelegate>
 
 @end
 
 
-@implementation ORKLegacyVideoCaptureStepViewController {
-    ORKLegacyVideoCaptureView *_videoCaptureView;
-    ORKLegacyVideoCaptureStep *_videoCaptureStep;
+@implementation ORK1VideoCaptureStepViewController {
+    ORK1VideoCaptureView *_videoCaptureView;
+    ORK1VideoCaptureStep *_videoCaptureStep;
     dispatch_queue_t _sessionQueue;
     AVCaptureSession *_captureSession;
     AVCaptureMovieFileOutput *_movieFileOutput;
@@ -53,13 +53,13 @@
     BOOL _recording;
 }
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step result:(ORKLegacyResult *)result {
+- (instancetype)initWithStep:(ORK1Step *)step result:(ORK1Result *)result {
     self = [self initWithStep:step];
     if (self) {
-        ORKLegacyStepResult *stepResult = (ORKLegacyStepResult *)result;
+        ORK1StepResult *stepResult = (ORK1StepResult *)result;
         if (stepResult && [stepResult results].count > 0) {
             
-            ORKLegacyFileResult *fileResult = ORKLegacyDynamicCast([stepResult results].firstObject, ORKLegacyFileResult);
+            ORK1FileResult *fileResult = ORK1DynamicCast([stepResult results].firstObject, ORK1FileResult);
             
             if (fileResult.fileURL) {
                 self.fileURL = fileResult.fileURL;
@@ -69,15 +69,15 @@
     return self;
 }
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {
+- (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     if (self) {
-        _videoCaptureView = [[ORKLegacyVideoCaptureView alloc] initWithFrame:CGRectZero];
-        _videoCaptureView.videoCaptureStep = (ORKLegacyVideoCaptureStep *)step;
+        _videoCaptureView = [[ORK1VideoCaptureView alloc] initWithFrame:CGRectZero];
+        _videoCaptureView.videoCaptureStep = (ORK1VideoCaptureStep *)step;
         _videoCaptureView.delegate = self;
         [self.view addSubview:_videoCaptureView];
         
-        _videoCaptureStep = (ORKLegacyVideoCaptureStep *)self.step;
+        _videoCaptureStep = (ORK1VideoCaptureStep *)self.step;
         _movieFileOutput = [AVCaptureMovieFileOutput new];
     
         self.fileURL = nil;
@@ -194,13 +194,13 @@
             _movieFileOutput = movieFileOutput;
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORKLegacyLocalizedString(@"CAPTURE_ERROR_NO_PERMISSIONS", nil)}]];
+                [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"CAPTURE_ERROR_NO_PERMISSIONS", nil)}]];
             });
             _captureSession = nil;
         }
     } else {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORKLegacyLocalizedString(@"CAPTURE_ERROR_CAMERA_NOT_FOUND", nil)}]];
+            [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"CAPTURE_ERROR_CAMERA_NOT_FOUND", nil)}]];
         });
         _captureSession = nil;
     }
@@ -214,7 +214,7 @@
 - (void)handleError:(NSError *)error {
     // Shut down the session, if running
     if (_captureSession.isRunning) {
-        ORKLegacyStrongTypeOf(_captureSession) strongCaptureSession = _captureSession;
+        ORK1StrongTypeOf(_captureSession) strongCaptureSession = _captureSession;
         dispatch_async(_sessionQueue, ^{
             [strongCaptureSession stopRunning];
         });
@@ -243,12 +243,12 @@
     _videoCaptureView.recording = recording;
 }
 
-- (ORKLegacyStepResult *)result {
-    ORKLegacyStepResult *stepResult = [super result];
+- (ORK1StepResult *)result {
+    ORK1StepResult *stepResult = [super result];
     NSDate *now = stepResult.endDate;
     
     NSMutableArray *results = [NSMutableArray arrayWithArray:stepResult.results];
-    ORKLegacyFileResult *fileResult = [[ORKLegacyFileResult alloc] initWithIdentifier:self.step.identifier];
+    ORK1FileResult *fileResult = [[ORK1FileResult alloc] initWithIdentifier:self.step.identifier];
     fileResult.startDate = stepResult.startDate;
     fileResult.endDate = now;
     fileResult.contentType = @"video/mp4";
@@ -259,7 +259,7 @@
 }
 
 
-#pragma mark - ORKLegacyVideoCaptureViewDelegate
+#pragma mark - ORK1VideoCaptureViewDelegate
 
 - (void)retakePressed:(void (^)(void))handler {
     dispatch_async(_sessionQueue, ^{
@@ -334,7 +334,7 @@
     self.fileURL = outputFileURL;
     
     if (UIAccessibilityIsVoiceOverRunning()) {
-        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, ORKLegacyLocalizedString(@"AX_VIDEO_CAPTURE_COMPLETE", nil));
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, ORK1LocalizedString(@"AX_VIDEO_CAPTURE_COMPLETE", nil));
     }
 }
 

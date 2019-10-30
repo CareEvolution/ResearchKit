@@ -35,40 +35,40 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyQuestionStepCustomView;
+@class ORK1QuestionStepCustomView;
 
 /**
- The `ORKLegacyQuestionStepCustomViewDelegate` protocol defines the methods that a question step custom view should implement.
+ The `ORK1QuestionStepCustomViewDelegate` protocol defines the methods that a question step custom view should implement.
  
- Typically, a question step view controller (`ORKLegacyQuestionStepViewController`) is the delegate of a
+ Typically, a question step view controller (`ORK1QuestionStepViewController`) is the delegate of a
  custom question step view.
  */
-@protocol ORKLegacyQuestionStepCustomViewDelegate<NSObject>
+@protocol ORK1QuestionStepCustomViewDelegate<NSObject>
 
-- (void)customQuestionStepView:(ORKLegacyQuestionStepCustomView *)customQuestionStepView didChangeAnswer:(nullable id)answer;
+- (void)customQuestionStepView:(ORK1QuestionStepCustomView *)customQuestionStepView didChangeAnswer:(nullable id)answer;
 
 @end
 
 /**
- The `ORKLegacyQuestionStepCustomView` class is a base class for views that are used to
- display question steps (`ORKLegacyQuestionStep` objects) in a question step view controller
- (an `ORKLegacyQuestionStepViewController` object).
+ The `ORK1QuestionStepCustomView` class is a base class for views that are used to
+ display question steps (`ORK1QuestionStep` objects) in a question step view controller
+ (an `ORK1QuestionStepViewController` object).
  
- Typically, you subclass `ORKLegacyQuestionStepCustomView` only when you need to implement a new
+ Typically, you subclass `ORK1QuestionStepCustomView` only when you need to implement a new
  answer format for the survey engine.
  
  To ensure that your subclass is allocated the display space it requires, you should implement 
  `sizeThatFits:`, or include internal constraints, or report an intrinsic content size.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyQuestionStepCustomView : UIView
+ORK1_CLASS_AVAILABLE
+@interface ORK1QuestionStepCustomView : UIView
 
 /** The delegate of the question step custom view.
  
  A question step custom view should report changes in its `result` property.
  
 */
-@property (nonatomic, weak, nullable) id<ORKLegacyQuestionStepCustomViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORK1QuestionStepCustomViewDelegate> delegate;
 
 /// The answer to the question, which should be represented as a JSON-serializable atomic type.
 @property (nonatomic, copy, nullable) id answer;
@@ -76,12 +76,12 @@ ORKLegacy_CLASS_AVAILABLE
 @end
 
 
-@class ORKLegacySurveyAnswerCell;
+@class ORK1SurveyAnswerCell;
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyQuestionStepCellHolderView : ORKLegacyQuestionStepCustomView
+ORK1_CLASS_AVAILABLE
+@interface ORK1QuestionStepCellHolderView : ORK1QuestionStepCustomView
 
-@property (nonatomic, strong, nullable) ORKLegacySurveyAnswerCell *cell;
+@property (nonatomic, strong, nullable) ORK1SurveyAnswerCell *cell;
 
 @end
 

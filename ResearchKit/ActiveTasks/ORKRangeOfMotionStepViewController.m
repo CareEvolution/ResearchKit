@@ -44,21 +44,21 @@
 #define radiansToDegrees(radians) ((radians) * 180.0 / M_PI)
 #define allOrientationsForPitch(x, w, y, z) (atan2(2.0 * (x*w + y*z), 1.0 - 2.0 * (x*x + z*z)))
 
-@interface ORKLegacyRangeOfMotionContentView : ORKLegacyActiveStepCustomView {
+@interface ORK1RangeOfMotionContentView : ORK1ActiveStepCustomView {
     NSLayoutConstraint *_topConstraint;
 }
 
-@property (nonatomic, strong, readonly) ORKLegacyProgressView *progressView;
+@property (nonatomic, strong, readonly) ORK1ProgressView *progressView;
 
 @end
 
 
-@implementation ORKLegacyRangeOfMotionContentView
+@implementation ORK1RangeOfMotionContentView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _progressView = [ORKLegacyProgressView new];
+        _progressView = [ORK1ProgressView new];
         _progressView.translatesAutoresizingMaskIntoConstraints = NO;
         
         [self addSubview:_progressView];
@@ -103,7 +103,7 @@
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
     const CGFloat CaptionBaselineToProgressTop = 100;
-    const CGFloat CaptionBaselineToStepViewTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLearnMoreBaselineToStepViewTop, window);
+    const CGFloat CaptionBaselineToStepViewTop = ORK1GetMetricForWindow(ORK1ScreenMetricLearnMoreBaselineToStepViewTop, window);
     _topConstraint.constant = CaptionBaselineToProgressTop - CaptionBaselineToStepViewTop;
 }
 
@@ -115,8 +115,8 @@
 @end
 
 
-@interface ORKLegacyRangeOfMotionStepViewController () <ORKLegacyDeviceMotionRecorderDelegate> {
-    ORKLegacyRangeOfMotionContentView *_contentView;
+@interface ORK1RangeOfMotionStepViewController () <ORK1DeviceMotionRecorderDelegate> {
+    ORK1RangeOfMotionContentView *_contentView;
     UITapGestureRecognizer *_gestureRecognizer;
     CMAttitude *_referenceAttitude;
     UIInterfaceOrientation _orientation;
@@ -127,11 +127,11 @@
 @end
 
 
-@implementation ORKLegacyRangeOfMotionStepViewController
+@implementation ORK1RangeOfMotionStepViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _contentView = [ORKLegacyRangeOfMotionContentView new];
+    _contentView = [ORK1RangeOfMotionContentView new];
     _contentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.activeStepView.activeCustomView = _contentView;
     _gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
@@ -154,7 +154,7 @@
     }
 }
 
-#pragma mark - ORKLegacyDeviceMotionRecorderDelegate
+#pragma mark - ORK1DeviceMotionRecorderDelegate
 
 - (void)deviceMotionRecorderDidUpdateWithMotion:(CMDeviceMotion *)motion {
     if (!_referenceAttitude) {
@@ -199,12 +199,12 @@
 }
 
 
-#pragma mark - ORKLegacyActiveTaskViewController
+#pragma mark - ORK1ActiveTaskViewController
 
-- (ORKLegacyResult *)result {
-    ORKLegacyStepResult *stepResult = [super result];
+- (ORK1Result *)result {
+    ORK1StepResult *stepResult = [super result];
     
-    ORKLegacyRangeOfMotionResult *result = [[ORKLegacyRangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
+    ORK1RangeOfMotionResult *result = [[ORK1RangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
     result.flexed = _flexedAngle;
     result.extended = result.flexed - _rangeOfMotionAngle;
     

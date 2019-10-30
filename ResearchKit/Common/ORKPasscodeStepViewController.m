@@ -52,26 +52,26 @@ static CGFloat const kForgotPasscodeVerticalPadding     = 50.0f;
 static CGFloat const kForgotPasscodeHorizontalPadding   = 30.0f;
 static CGFloat const kForgotPasscodeHeight              = 100.0f;
 
-@implementation ORKLegacyPasscodeStepViewController {
-    ORKLegacyPasscodeStepView *_passcodeStepView;
+@implementation ORK1PasscodeStepViewController {
+    ORK1PasscodeStepView *_passcodeStepView;
     CGFloat _originalForgotPasscodeY;
     UIButton* _forgotPasscodeButton;
     UITextField *_accessibilityPasscodeField;
     NSMutableString *_passcode;
     NSMutableString *_confirmPasscode;
     NSInteger _numberOfFilledBullets;
-    ORKLegacyPasscodeState _passcodeState;
+    ORK1PasscodeState _passcodeState;
     BOOL _shouldResignFirstResponder;
     BOOL _isChangingState;
     BOOL _isTouchIdAuthenticated;
     BOOL _isPasscodeSaved;
     LAContext *_touchContext;
-    ORKLegacyPasscodeType _authenticationPasscodeType;
+    ORK1PasscodeType _authenticationPasscodeType;
     BOOL _useTouchId;
 }
 
-- (ORKLegacyPasscodeStep *)passcodeStep {
-    return (ORKLegacyPasscodeStep *)self.step;
+- (ORK1PasscodeStep *)passcodeStep {
+    return (ORK1PasscodeStep *)self.step;
 }
 
 - (void)stepDidChange {
@@ -92,7 +92,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
         _accessibilityPasscodeField.keyboardType = UIKeyboardTypeNumberPad;
         [self.view addSubview:_accessibilityPasscodeField];
         
-        _passcodeStepView = [[ORKLegacyPasscodeStepView alloc] initWithFrame:self.view.bounds];
+        _passcodeStepView = [[ORK1PasscodeStepView alloc] initWithFrame:self.view.bounds];
         _passcodeStepView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
         _passcodeStepView.headerView.instructionLabel.text = [self passcodeStep].text;
         _passcodeStepView.textField.delegate = self;
@@ -116,7 +116,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
             _originalForgotPasscodeY = self.view.bounds.size.height - kForgotPasscodeVerticalPadding - kForgotPasscodeHeight;
             CGFloat width = self.view.bounds.size.width - 2 * kForgotPasscodeHorizontalPadding;
 
-            UIButton *forgotPasscodeButton = [ORKLegacyTextButton new];
+            UIButton *forgotPasscodeButton = [ORK1TextButton new];
             forgotPasscodeButton.contentEdgeInsets = (UIEdgeInsets){12, 10, 8, 10};
             forgotPasscodeButton.frame = CGRectMake(x, _originalForgotPasscodeY, width, kForgotPasscodeHeight);
             
@@ -131,36 +131,36 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
         }
         
         // Set the starting passcode state and textfield based on flow.
-        ORKLegacyPasscodeStep *passcodeStep = [self passcodeStep];
+        ORK1PasscodeStep *passcodeStep = [self passcodeStep];
         switch (passcodeStep.passcodeFlow) {
-            case ORKLegacyPasscodeFlowCreate:
+            case ORK1PasscodeFlowCreate:
                 _passcodeStepView.textField.numberOfDigits = [self numberOfDigitsForPasscodeType:passcodeStep.passcodeType];
-                [self changeStateTo:ORKLegacyPasscodeStateEntry];
+                [self changeStateTo:ORK1PasscodeStateEntry];
                 break;
                 
-            case ORKLegacyPasscodeFlowAuthenticate:
+            case ORK1PasscodeFlowAuthenticate:
                 [self setValuesFromKeychain];
                 _passcodeStepView.textField.numberOfDigits = [self numberOfDigitsForPasscodeType:_authenticationPasscodeType];
-                [self changeStateTo:ORKLegacyPasscodeStateEntry];
+                [self changeStateTo:ORK1PasscodeStateEntry];
                 break;
                 
-            case ORKLegacyPasscodeFlowEdit:
+            case ORK1PasscodeFlowEdit:
                 [self setValuesFromKeychain];
                 _passcodeStepView.textField.numberOfDigits = [self numberOfDigitsForPasscodeType:_authenticationPasscodeType];
-                [self changeStateTo:ORKLegacyPasscodeStateOldEntry];
+                [self changeStateTo:ORK1PasscodeStateOldEntry];
                 break;
         }
         
         // If Touch ID was enabled then present it for authentication flow.
         if (_useTouchId &&
-            passcodeStep.passcodeFlow == ORKLegacyPasscodeFlowAuthenticate) {
+            passcodeStep.passcodeFlow == ORK1PasscodeFlowAuthenticate) {
             [self promptTouchId];
         }
         
         // Check to see if cancel button should be set or not.
         if (self.passcodeDelegate &&
             [self.passcodeDelegate respondsToSelector:@selector(passcodeViewControllerDidCancel:)]) {
-            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORKLegacyLocalizedString(@"BUTTON_CANCEL", nil)
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"BUTTON_CANCEL", nil)
                                                                                       style:UIBarButtonItemStylePlain
                                                                                      target:self
                                                                                      action:@selector(cancelButtonAction)];
@@ -177,7 +177,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
     [super viewDidAppear:animated];
     
     // Destructive: Only clear the passcode when the step starts in creation mode
-    if ([self passcodeStep].passcodeFlow == ORKLegacyPasscodeFlowCreate) {
+    if ([self passcodeStep].passcodeFlow == ORK1PasscodeFlowCreate) {
         [self removePasscodeFromKeychain];
     }
     
@@ -200,46 +200,46 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 - (void)updatePasscodeView {
     
     switch (_passcodeState) {
-        case ORKLegacyPasscodeStateEntry:
-            _passcodeStepView.headerView.captionLabel.text = ORKLegacyLocalizedString(@"PASSCODE_PROMPT_MESSAGE", nil);
+        case ORK1PasscodeStateEntry:
+            _passcodeStepView.headerView.captionLabel.text = ORK1LocalizedString(@"PASSCODE_PROMPT_MESSAGE", nil);
             _numberOfFilledBullets = 0;
             _accessibilityPasscodeField.text = @"";
             _passcode = [NSMutableString new];
             _confirmPasscode = [NSMutableString new];
             break;
             
-        case ORKLegacyPasscodeStateConfirm:
-            _passcodeStepView.headerView.captionLabel.text = ORKLegacyLocalizedString(@"PASSCODE_CONFIRM_MESSAGE", nil);
+        case ORK1PasscodeStateConfirm:
+            _passcodeStepView.headerView.captionLabel.text = ORK1LocalizedString(@"PASSCODE_CONFIRM_MESSAGE", nil);
             _numberOfFilledBullets = 0;
             _accessibilityPasscodeField.text = @"";
             _confirmPasscode = [NSMutableString new];
             break;
             
-        case ORKLegacyPasscodeStateSaved:
-            _passcodeStepView.headerView.captionLabel.text = ORKLegacyLocalizedString(@"PASSCODE_SAVED_MESSAGE", nil);
+        case ORK1PasscodeStateSaved:
+            _passcodeStepView.headerView.captionLabel.text = ORK1LocalizedString(@"PASSCODE_SAVED_MESSAGE", nil);
             _passcodeStepView.headerView.instructionLabel.text = @"";
             _passcodeStepView.textField.hidden = YES;
             [self makePasscodeViewResignFirstResponder];
             break;
             
-        case ORKLegacyPasscodeStateOldEntry:
-            _passcodeStepView.headerView.captionLabel.text = ORKLegacyLocalizedString(@"PASSCODE_OLD_ENTRY_MESSAGE", nil);
+        case ORK1PasscodeStateOldEntry:
+            _passcodeStepView.headerView.captionLabel.text = ORK1LocalizedString(@"PASSCODE_OLD_ENTRY_MESSAGE", nil);
             _numberOfFilledBullets = 0;
             _accessibilityPasscodeField.text = @"";
             _passcode = [NSMutableString new];
             _confirmPasscode = [NSMutableString new];
             break;
             
-        case ORKLegacyPasscodeStateNewEntry:
-            _passcodeStepView.headerView.captionLabel.text = ORKLegacyLocalizedString(@"PASSCODE_NEW_ENTRY_MESSAGE", nil);
+        case ORK1PasscodeStateNewEntry:
+            _passcodeStepView.headerView.captionLabel.text = ORK1LocalizedString(@"PASSCODE_NEW_ENTRY_MESSAGE", nil);
             _numberOfFilledBullets = 0;
             _accessibilityPasscodeField.text = @"";
             _passcode = [NSMutableString new];
             _confirmPasscode = [NSMutableString new];
             break;
             
-        case ORKLegacyPasscodeStateConfirmNewEntry:
-            _passcodeStepView.headerView.captionLabel.text = ORKLegacyLocalizedString(@"PASSCODE_CONFIRM_NEW_ENTRY_MESSAGE", nil);
+        case ORK1PasscodeStateConfirmNewEntry:
+            _passcodeStepView.headerView.captionLabel.text = ORK1LocalizedString(@"PASSCODE_CONFIRM_NEW_ENTRY_MESSAGE", nil);
             _numberOfFilledBullets = 0;
             _accessibilityPasscodeField.text = @"";
             _confirmPasscode = [NSMutableString new];
@@ -262,20 +262,20 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
                                                               
 - (void)showValidityAlertWithMessage:(NSString *)text {
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:ORKLegacyLocalizedString(@"PASSCODE_INVALID_ALERT_TITLE", nil)
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:ORK1LocalizedString(@"PASSCODE_INVALID_ALERT_TITLE", nil)
                                                                    message:text
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:ORKLegacyLocalizedString(@"BUTTON_OK", nil)
+    [alert addAction:[UIAlertAction actionWithTitle:ORK1LocalizedString(@"BUTTON_OK", nil)
                                               style:UIAlertActionStyleDefault
                                             handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (ORKLegacyStepResult *)result {
-    ORKLegacyStepResult *stepResult = [super result];
+- (ORK1StepResult *)result {
+    ORK1StepResult *stepResult = [super result];
     NSDate *now = stepResult.endDate;
     
-    ORKLegacyPasscodeResult *passcodeResult = [[ORKLegacyPasscodeResult alloc] initWithIdentifier:[self passcodeStep].identifier];
+    ORK1PasscodeResult *passcodeResult = [[ORK1PasscodeResult alloc] initWithIdentifier:[self passcodeStep].identifier];
     passcodeResult.passcodeSaved = _isPasscodeSaved;
     passcodeResult.touchIdEnabled = _isTouchIdAuthenticated;
     passcodeResult.startDate = stepResult.startDate;
@@ -285,8 +285,8 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
     return stepResult;
 }
 
-- (void)addResult:(ORKLegacyResult *)result {
-    ORKLegacyThrowMethodUnavailableException();
+- (void)addResult:(ORK1Result *)result {
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (void)dealloc {
@@ -294,7 +294,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return [[ORKLegacyPasscodeStepViewController class] supportedInterfaceOrientations];
+    return [[ORK1PasscodeStepViewController class] supportedInterfaceOrientations];
 }
 
 + (UIInterfaceOrientationMask)supportedInterfaceOrientations {
@@ -303,16 +303,16 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 
 #pragma mark - Helpers
 
-- (void)changeStateTo:(ORKLegacyPasscodeState)passcodeState {
+- (void)changeStateTo:(ORK1PasscodeState)passcodeState {
     _passcodeState = passcodeState;
     [self updatePasscodeView];
 }
 
-- (NSInteger)numberOfDigitsForPasscodeType:(ORKLegacyPasscodeType)passcodeType {
+- (NSInteger)numberOfDigitsForPasscodeType:(ORK1PasscodeType)passcodeType {
     switch (passcodeType) {
-        case ORKLegacyPasscodeType4Digit:
+        case ORK1PasscodeType4Digit:
             return 4;
-        case ORKLegacyPasscodeType6Digit:
+        case ORK1PasscodeType6Digit:
             return 6;
     }
 }
@@ -350,32 +350,32 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
         // Resign the keyboard to allow the alert to be centered on the screen.
         [self makePasscodeViewResignFirstResponder];
         
-        NSString *localizedReason = ORKLegacyLocalizedString(@"PASSCODE_TOUCH_ID_MESSAGE", nil);
-        ORKLegacyWeakTypeOf(self) weakSelf = self;
+        NSString *localizedReason = ORK1LocalizedString(@"PASSCODE_TOUCH_ID_MESSAGE", nil);
+        ORK1WeakTypeOf(self) weakSelf = self;
         [_touchContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
                       localizedReason:localizedReason
                                 reply:^(BOOL success, NSError *error) {
             dispatch_sync(dispatch_get_main_queue(), ^{
                 
-                ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
+                ORK1StrongTypeOf(self) strongSelf = weakSelf;
                 
                 if (success) {
                     // Store that user passed authentication.
                     _isTouchIdAuthenticated = YES;
                     
                     // Send a delegate callback for authentication flow.
-                    if ([strongSelf passcodeStep].passcodeFlow == ORKLegacyPasscodeFlowAuthenticate) {
+                    if ([strongSelf passcodeStep].passcodeFlow == ORK1PasscodeFlowAuthenticate) {
                         [strongSelf.passcodeDelegate passcodeViewControllerDidFinishWithSuccess:strongSelf];
                     }
                 } else if (error.code != LAErrorUserCancel) {
                     // Display the error message.
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:ORKLegacyLocalizedString(@"PASSCODE_TOUCH_ID_ERROR_ALERT_TITLE", nil)
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:ORK1LocalizedString(@"PASSCODE_TOUCH_ID_ERROR_ALERT_TITLE", nil)
                                                                                    message:error.localizedDescription
                                                                             preferredStyle:UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:ORKLegacyLocalizedString(@"BUTTON_OK", nil)
+                    [alert addAction:[UIAlertAction actionWithTitle:ORK1LocalizedString(@"BUTTON_OK", nil)
                                                               style:UIAlertActionStyleDefault
                                                             handler:^(UIAlertAction * action) {
-                                                                ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
+                                                                ORK1StrongTypeOf(self) strongSelf = weakSelf;
                                                                 [strongSelf makePasscodeViewBecomeFirstResponder];
                                                             }]];
                     [strongSelf presentViewController:alert animated:YES completion:nil];
@@ -407,27 +407,27 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
     
     double delayInSeconds = 0.5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    ORKLegacyWeakTypeOf(self) weakSelf = self;
+    ORK1WeakTypeOf(self) weakSelf = self;
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
+        ORK1StrongTypeOf(self) strongSelf = weakSelf;
         [strongSelf promptTouchId];
     });
 }
 
 - (void)finishTouchId {
     // Only save to keychain if it is not in authenticate flow.
-    ORKLegacyPasscodeFlow passcodeFlow = [self passcodeStep].passcodeFlow;
-    if (passcodeFlow != ORKLegacyPasscodeFlowAuthenticate) {
+    ORK1PasscodeFlow passcodeFlow = [self passcodeStep].passcodeFlow;
+    if (passcodeFlow != ORK1PasscodeFlowAuthenticate) {
         [self savePasscodeToKeychain];
     }
     
-    if (passcodeFlow == ORKLegacyPasscodeFlowCreate) {
+    if (passcodeFlow == ORK1PasscodeFlowCreate) {
         // If it is in creation flow (consent step), go to the next step.
         [self goForward];
-    } else if (passcodeFlow == ORKLegacyPasscodeFlowAuthenticate) {
+    } else if (passcodeFlow == ORK1PasscodeFlowAuthenticate) {
         // If it is in authentication flow (any task), go to the next step.
         [self goForward];
-    } else if (passcodeFlow == ORKLegacyPasscodeFlowEdit) {
+    } else if (passcodeFlow == ORK1PasscodeFlowEdit) {
         // If it is in editing flow, send a delegate callback.
         [self.passcodeDelegate passcodeViewControllerDidFinishWithSuccess:self];
     }
@@ -439,13 +439,13 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 }
 
 + (void)savePasscode:(NSString *)passcode withTouchIdEnabled:(BOOL)touchIdEnabled {
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(passcode)
+    ORK1ThrowInvalidArgumentExceptionIfNil(passcode)
     NSDictionary *dictionary = @{
                                  KeychainDictionaryPasscodeKey: [passcode copy],
                                  KeychainDictionaryTouchIdKey: @(touchIdEnabled)
                                  };
     NSError *error;
-    [ORKLegacyKeychainWrapper setObject:dictionary forKey:PasscodeKey error:&error];
+    [ORK1KeychainWrapper setObject:dictionary forKey:PasscodeKey error:&error];
     if (error) {
         @throw [NSException exceptionWithName:NSGenericException reason:error.localizedDescription userInfo:nil];
     }
@@ -453,10 +453,10 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 
 - (void)removePasscodeFromKeychain {
     NSError *error;
-    [ORKLegacyKeychainWrapper objectForKey:PasscodeKey error:&error];
+    [ORK1KeychainWrapper objectForKey:PasscodeKey error:&error];
     
     if (!error) {
-        [ORKLegacyKeychainWrapper removeObjectForKey:PasscodeKey error:&error];
+        [ORK1KeychainWrapper removeObjectForKey:PasscodeKey error:&error];
     
         if (error) {
             @throw [NSException exceptionWithName:NSGenericException reason:error.localizedDescription userInfo:nil];
@@ -466,7 +466,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 
 - (BOOL)passcodeMatchesKeychain {
     NSError *error;
-    NSDictionary *dictionary = (NSDictionary *) [ORKLegacyKeychainWrapper objectForKey:PasscodeKey error:&error];
+    NSDictionary *dictionary = (NSDictionary *) [ORK1KeychainWrapper objectForKey:PasscodeKey error:&error];
     if (error) {
         [self throwExceptionWithKeychainError:error];
     }
@@ -477,15 +477,15 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 
 - (void)setValuesFromKeychain {
     NSError *error;
-    NSDictionary *dictionary = (NSDictionary*) [ORKLegacyKeychainWrapper objectForKey:PasscodeKey error:&error];
+    NSDictionary *dictionary = (NSDictionary*) [ORK1KeychainWrapper objectForKey:PasscodeKey error:&error];
     if (error) {
         [self throwExceptionWithKeychainError:error];
     }
     
     NSString *storedPasscode = dictionary[KeychainDictionaryPasscodeKey];
-    _authenticationPasscodeType = (storedPasscode.length == 4) ? ORKLegacyPasscodeType4Digit : ORKLegacyPasscodeType6Digit;
+    _authenticationPasscodeType = (storedPasscode.length == 4) ? ORK1PasscodeType4Digit : ORK1PasscodeType6Digit;
     
-    if ([self passcodeStep].passcodeFlow == ORKLegacyPasscodeFlowAuthenticate) {
+    if ([self passcodeStep].passcodeFlow == ORK1PasscodeFlowAuthenticate) {
         _useTouchId = [dictionary[KeychainDictionaryTouchIdKey] boolValue];
     }
 }
@@ -509,9 +509,9 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
     // Update the passcode view after the shake animation has ended.
     double delayInSeconds = 0.27;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    ORKLegacyWeakTypeOf(self) weakSelf = self;
+    ORK1WeakTypeOf(self) weakSelf = self;
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
+        ORK1StrongTypeOf(self) strongSelf = weakSelf;
         [strongSelf updatePasscodeView];
     });
 }
@@ -529,20 +529,20 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 - (void)passcodeFlowCreate {
 
     /* Passcode Flow Create
-        1) ORKLegacyPasscodeStateEntry        - User enters a passcode.
-        2) ORKLegacyPasscodeStateConfirm      - User re-enters the passcode.
-        3) ORKLegacySavedStateSaved           - User is shown a passcode saved message.
+        1) ORK1PasscodeStateEntry        - User enters a passcode.
+        2) ORK1PasscodeStateConfirm      - User re-enters the passcode.
+        3) ORK1SavedStateSaved           - User is shown a passcode saved message.
         4) TouchID                      - A Touch ID prompt is shown.
      */
     
-    if (_passcodeState == ORKLegacyPasscodeStateEntry) {
+    if (_passcodeState == ORK1PasscodeStateEntry) {
         // Move to confirm state.
-        [self changeStateTo:ORKLegacyPasscodeStateConfirm];
-    } else if (_passcodeState == ORKLegacyPasscodeStateConfirm) {
+        [self changeStateTo:ORK1PasscodeStateConfirm];
+    } else if (_passcodeState == ORK1PasscodeStateConfirm) {
         // Check to see if the input matches the first passcode.
         if ([_passcode isEqualToString:_confirmPasscode]) {
             // Move to saved state.
-            [self changeStateTo:ORKLegacyPasscodeStateSaved];
+            [self changeStateTo:ORK1PasscodeStateSaved];
             
             // Show Touch ID prompt after a short delay of showing passcode saved message.
             [self promptTouchIdWithDelay];
@@ -551,10 +551,10 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
             [self wrongAttempt];
             
             // If the input does not match, change back to entry state.
-            [self changeStateTo:ORKLegacyPasscodeStateEntry];
+            [self changeStateTo:ORK1PasscodeStateEntry];
             
             // Show an alert to the user.
-            [self showValidityAlertWithMessage:ORKLegacyLocalizedString(@"PASSCODE_INVALID_ALERT_MESSAGE", nil)];
+            [self showValidityAlertWithMessage:ORK1LocalizedString(@"PASSCODE_INVALID_ALERT_MESSAGE", nil)];
         }
     }
 }
@@ -562,19 +562,19 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 - (void)passcodeFlowEdit {
     
     /* Passcode Flow Edit
-        1) ORKLegacyPasscodeStateOldEntry                 - User enters their old passcode.
-        2) ORKLegacyPasscodeStateNewEntry                 - User enters a new passcode.
-        3) ORKLegacyPasscodeStateConfirmNewEntry          - User re-enters the new passcode.
-        4) ORKLegacyPasscodeSaved                         - User is shown a passcode saved message.
+        1) ORK1PasscodeStateOldEntry                 - User enters their old passcode.
+        2) ORK1PasscodeStateNewEntry                 - User enters a new passcode.
+        3) ORK1PasscodeStateConfirmNewEntry          - User re-enters the new passcode.
+        4) ORK1PasscodeSaved                         - User is shown a passcode saved message.
         5) TouchID                                  - A Touch ID prompt is shown.
      */
     
-    if (_passcodeState == ORKLegacyPasscodeStateOldEntry) {
+    if (_passcodeState == ORK1PasscodeStateOldEntry) {
         // Check if the inputted passcode matches the old user passcode.
         if ([self passcodeMatchesKeychain]) {
             // Move to new entry step.
             _passcodeStepView.textField.numberOfDigits = [self numberOfDigitsForPasscodeType:[self passcodeStep].passcodeType];
-            [self changeStateTo:ORKLegacyPasscodeStateNewEntry];
+            [self changeStateTo:ORK1PasscodeStateNewEntry];
         } else {
             // Failed authentication, send delegate callback.
             [self.passcodeDelegate passcodeViewControllerDidFailAuthentication:self];
@@ -582,14 +582,14 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
             // Visual cue.
             [self wrongAttempt];
         }
-    } else if (_passcodeState == ORKLegacyPasscodeStateNewEntry) {
+    } else if (_passcodeState == ORK1PasscodeStateNewEntry) {
         // Move to confirm new entry state.
-        [self changeStateTo:ORKLegacyPasscodeStateConfirmNewEntry];
-    } else if ( _passcodeState == ORKLegacyPasscodeStateConfirmNewEntry) {
+        [self changeStateTo:ORK1PasscodeStateConfirmNewEntry];
+    } else if ( _passcodeState == ORK1PasscodeStateConfirmNewEntry) {
         // Check to see if the input matches the first passcode.
         if ([_passcode isEqualToString:_confirmPasscode]) {
             // Move to saved state.
-            [self changeStateTo:ORKLegacyPasscodeStateSaved];
+            [self changeStateTo:ORK1PasscodeStateSaved];
             
             // Show Touch ID prompt after a short delay of showing passcode saved message.
             [self promptTouchIdWithDelay];
@@ -598,10 +598,10 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
             [self wrongAttempt];
             
             // If the input does not match, change back to entry state.
-            [self changeStateTo:ORKLegacyPasscodeStateNewEntry];
+            [self changeStateTo:ORK1PasscodeStateNewEntry];
             
             // Show an alert to the user.
-            [self showValidityAlertWithMessage:ORKLegacyLocalizedString(@"PASSCODE_INVALID_ALERT_MESSAGE", nil)];
+            [self showValidityAlertWithMessage:ORK1LocalizedString(@"PASSCODE_INVALID_ALERT_MESSAGE", nil)];
         }
     }
     
@@ -611,10 +611,10 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
     
     /* Passcode Flow Authenticate
         1) TouchID                                  - A Touch ID prompt is shown.
-        1) ORKLegacyPasscodeStateEntry                    - User enters their passcode.
+        1) ORK1PasscodeStateEntry                    - User enters their passcode.
      */
     
-    if (_passcodeState == ORKLegacyPasscodeStateEntry) {
+    if (_passcodeState == ORK1PasscodeStateEntry) {
         if ([self passcodeMatchesKeychain]) {
             // Passed authentication, send delegate callback.
             [self.passcodeDelegate passcodeViewControllerDidFinishWithSuccess:self];
@@ -635,7 +635,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    ORKLegacyPasscodeTextField *passcodeTextField = _passcodeStepView.textField;
+    ORK1PasscodeTextField *passcodeTextField = _passcodeStepView.textField;
     [passcodeTextField insertText:string];
 
     // Disable input while changing states.
@@ -652,29 +652,29 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
             _numberOfFilledBullets--;
             
             // Remove last character
-            if (_passcodeState == ORKLegacyPasscodeStateEntry ||
-                _passcodeState == ORKLegacyPasscodeStateOldEntry ||
-                _passcodeState == ORKLegacyPasscodeStateNewEntry) {
+            if (_passcodeState == ORK1PasscodeStateEntry ||
+                _passcodeState == ORK1PasscodeStateOldEntry ||
+                _passcodeState == ORK1PasscodeStateNewEntry) {
                 [_passcode deleteCharactersInRange:NSMakeRange([_passcode length]-1, 1)];
-            } else if (_passcodeState == ORKLegacyPasscodeStateConfirm ||
-                       _passcodeState == ORKLegacyPasscodeStateConfirmNewEntry) {
+            } else if (_passcodeState == ORK1PasscodeStateConfirm ||
+                       _passcodeState == ORK1PasscodeStateConfirmNewEntry) {
                 [_confirmPasscode deleteCharactersInRange:NSMakeRange([_confirmPasscode length]-1, 1)];
             }
         }
     } else if (_numberOfFilledBullets < passcodeTextField.numberOfDigits) {
         // Only allow numeric characters besides backspace (covered by the previous if statement).
         if (![[NSScanner scannerWithString:string] scanFloat:NULL]) {
-            [self showValidityAlertWithMessage:ORKLegacyLocalizedString(@"PASSCODE_TEXTFIELD_INVALID_INPUT_MESSAGE", nil)];
+            [self showValidityAlertWithMessage:ORK1LocalizedString(@"PASSCODE_TEXTFIELD_INVALID_INPUT_MESSAGE", nil)];
             return NO;
         }
         
         // Store the typed input.
-        if (_passcodeState == ORKLegacyPasscodeStateEntry ||
-            _passcodeState == ORKLegacyPasscodeStateOldEntry ||
-            _passcodeState == ORKLegacyPasscodeStateNewEntry) {
+        if (_passcodeState == ORK1PasscodeStateEntry ||
+            _passcodeState == ORK1PasscodeStateOldEntry ||
+            _passcodeState == ORK1PasscodeStateNewEntry) {
             [_passcode appendString:string];
-        } else if (_passcodeState == ORKLegacyPasscodeStateConfirm ||
-                   _passcodeState == ORKLegacyPasscodeStateConfirmNewEntry) {
+        } else if (_passcodeState == ORK1PasscodeStateConfirm ||
+                   _passcodeState == ORK1PasscodeStateConfirmNewEntry) {
             [_confirmPasscode appendString:string];
         }
         
@@ -691,20 +691,20 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
         // Show the user the last digit was entered before continuing.
         double delayInSeconds = 0.25;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        ORKLegacyWeakTypeOf(self) weakSelf = self;
+        ORK1WeakTypeOf(self) weakSelf = self;
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
+            ORK1StrongTypeOf(self) strongSelf = weakSelf;
             
             switch ([strongSelf passcodeStep].passcodeFlow) {
-                case ORKLegacyPasscodeFlowCreate:
+                case ORK1PasscodeFlowCreate:
                     [strongSelf passcodeFlowCreate];
                     break;
                     
-                case ORKLegacyPasscodeFlowAuthenticate:
+                case ORK1PasscodeFlowAuthenticate:
                     [strongSelf passcodeFlowAuthenticate];
                     break;
                     
-                case ORKLegacyPasscodeFlowEdit:
+                case ORK1PasscodeFlowEdit:
                     [strongSelf passcodeFlowEdit];
                     break;
             }
@@ -725,7 +725,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 }
 
 - (BOOL)hasForgotPasscode {
-    if (([self passcodeStep].passcodeFlow == ORKLegacyPasscodeFlowAuthenticate) &&
+    if (([self passcodeStep].passcodeFlow == ORK1PasscodeFlowAuthenticate) &&
         [self.passcodeDelegate respondsToSelector:@selector(passcodeViewControllerForgotPasscodeTapped:)]) {
         return YES;
     }
@@ -736,7 +736,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
     if ([self.passcodeDelegate respondsToSelector:@selector(passcodeViewControllerTextForForgotPasscode:)]) {
         return [self.passcodeDelegate passcodeViewControllerTextForForgotPasscode: self];
     }
-    return ORKLegacyLocalizedString(@"PASSCODE_FORGOT_BUTTON_TITLE", @"Prompt for user forgetting their passcode");
+    return ORK1LocalizedString(@"PASSCODE_FORGOT_BUTTON_TITLE", @"Prompt for user forgetting their passcode");
 }
 
 #pragma mark - Keyboard Notifications

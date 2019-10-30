@@ -30,44 +30,44 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import ResearchKitLegacy
 
-class DiscreteGraphDataSource: NSObject, ORKLegacyValueRangeGraphChartViewDataSource {
+class DiscreteGraphDataSource: NSObject, ORK1ValueRangeGraphChartViewDataSource {
     // MARK: Properties
     
     var plotPoints =
     [
         [
-            ORKLegacyValueRange(minimumValue: 0, maximumValue: 2),
-            ORKLegacyValueRange(minimumValue: 1, maximumValue: 4),
-            ORKLegacyValueRange(minimumValue: 2, maximumValue: 6),
-            ORKLegacyValueRange(minimumValue: 3, maximumValue: 8),
-            ORKLegacyValueRange(minimumValue: 5, maximumValue: 10),
-            ORKLegacyValueRange(minimumValue: 8, maximumValue: 13),
+            ORK1ValueRange(minimumValue: 0, maximumValue: 2),
+            ORK1ValueRange(minimumValue: 1, maximumValue: 4),
+            ORK1ValueRange(minimumValue: 2, maximumValue: 6),
+            ORK1ValueRange(minimumValue: 3, maximumValue: 8),
+            ORK1ValueRange(minimumValue: 5, maximumValue: 10),
+            ORK1ValueRange(minimumValue: 8, maximumValue: 13),
         ],
         [
-            ORKLegacyValueRange(value: 1),
-            ORKLegacyValueRange(minimumValue: 2, maximumValue: 6),
-            ORKLegacyValueRange(minimumValue: 3, maximumValue: 10),
-            ORKLegacyValueRange(minimumValue: 5, maximumValue: 11),
-            ORKLegacyValueRange(minimumValue: 7, maximumValue: 13),
-            ORKLegacyValueRange(minimumValue: 10, maximumValue: 13),
+            ORK1ValueRange(value: 1),
+            ORK1ValueRange(minimumValue: 2, maximumValue: 6),
+            ORK1ValueRange(minimumValue: 3, maximumValue: 10),
+            ORK1ValueRange(minimumValue: 5, maximumValue: 11),
+            ORK1ValueRange(minimumValue: 7, maximumValue: 13),
+            ORK1ValueRange(minimumValue: 10, maximumValue: 13),
         ]
     ]
     
-    // MARK: ORKLegacyGraphChartViewDataSource
+    // MARK: ORK1GraphChartViewDataSource
     
-    func numberOfPlots(in graphChartView: ORKLegacyGraphChartView) -> Int {
+    func numberOfPlots(in graphChartView: ORK1GraphChartView) -> Int {
         return plotPoints.count
     }
     
-    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, dataPointForPointIndex pointIndex: Int, plotIndex: Int) -> ORKLegacyValueRange {
+    func graphChartView(_ graphChartView: ORK1GraphChartView, dataPointForPointIndex pointIndex: Int, plotIndex: Int) -> ORK1ValueRange {
         return plotPoints[plotIndex][pointIndex]
     }
     
-    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, numberOfDataPointsForPlotIndex plotIndex: Int) -> Int {
+    func graphChartView(_ graphChartView: ORK1GraphChartView, numberOfDataPointsForPlotIndex plotIndex: Int) -> Int {
         return plotPoints[plotIndex].count
     }
     
-    func graphChartView(_ graphChartView: ORKLegacyGraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String? {
+    func graphChartView(_ graphChartView: ORK1GraphChartView, titleForXAxisAtPointIndex pointIndex: Int) -> String? {
         return "\(pointIndex + 1)"
     }
 }

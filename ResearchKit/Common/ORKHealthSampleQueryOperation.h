@@ -33,17 +33,17 @@
 #import "ORKOperation.h"
 
 
-@class ORKLegacyDataCollectionManager;
-@class ORKLegacyCollector;
-@protocol ORKLegacyHealthCollectable;
+@class ORK1DataCollectionManager;
+@class ORK1Collector;
+@protocol ORK1HealthCollectable;
 
 /**
  Operation for extracting and preparing HK data for upload. This operation
  runs on the specified study / data type combo until there is no more HK data available,
  or until file protection kicks in, stopping further preparation.
  */
-@interface ORKLegacyHealthSampleQueryOperation : ORKLegacyOperation
+@interface ORK1HealthSampleQueryOperation : ORK1Operation
 
-- (instancetype)initWithCollector:(ORKLegacyCollector<ORKLegacyHealthCollectable> *)collector mananger:(ORKLegacyDataCollectionManager *)manager;
+- (instancetype)initWithCollector:(ORK1Collector<ORK1HealthCollectable> *)collector mananger:(ORK1DataCollectionManager *)manager;
 
 @end

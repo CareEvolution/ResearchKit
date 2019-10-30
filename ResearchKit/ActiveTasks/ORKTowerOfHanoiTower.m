@@ -32,17 +32,17 @@
 #import "ORKTowerOfHanoiTower.h"
 
 
-@interface ORKLegacyTowerOfHanoiTower ()
+@interface ORK1TowerOfHanoiTower ()
 
 @property (nonatomic, copy, readwrite) NSArray *disks;
 
 @end
 
 
-@implementation ORKLegacyTowerOfHanoiTower
+@implementation ORK1TowerOfHanoiTower
 
 + (instancetype)emptyTower {
-    return [[ORKLegacyTowerOfHanoiTower alloc]initWithDisks:@[]];
+    return [[ORK1TowerOfHanoiTower alloc]initWithDisks:@[]];
 }
 
 - (instancetype)initWithDisks:(NSArray *)disks {
@@ -57,7 +57,7 @@
     return _disks.count == 0 || ((NSNumber *)_disks.lastObject).integerValue > disk.integerValue;
 }
 
-- (BOOL)recieveDiskFrom:(ORKLegacyTowerOfHanoiTower*)donorTower {
+- (BOOL)recieveDiskFrom:(ORK1TowerOfHanoiTower*)donorTower {
     if (donorTower.disks.count == 0  || ![self canRecieveDisk:donorTower.disks.lastObject]) {
         return NO;
     }

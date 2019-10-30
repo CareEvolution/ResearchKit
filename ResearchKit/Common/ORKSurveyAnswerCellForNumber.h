@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacySurveyAnswerCellForNumber : ORKLegacySurveyAnswerCell <UITextFieldDelegate>
+@interface ORK1SurveyAnswerCellForNumber : ORK1SurveyAnswerCell <UITextFieldDelegate>
 
 @end
 

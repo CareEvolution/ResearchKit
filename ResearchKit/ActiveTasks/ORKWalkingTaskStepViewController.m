@@ -47,21 +47,21 @@
 #import "ORKSkin.h"
 
 
-@interface ORKLegacyWalkingContentView : ORKLegacyActiveStepCustomView {
+@interface ORK1WalkingContentView : ORK1ActiveStepCustomView {
     NSLayoutConstraint *_topConstraint;
 }
 
-@property (nonatomic, strong, readonly) ORKLegacyProgressView *progressView;
+@property (nonatomic, strong, readonly) ORK1ProgressView *progressView;
 
 @end
 
 
-@implementation ORKLegacyWalkingContentView
+@implementation ORK1WalkingContentView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _progressView = [ORKLegacyProgressView new];
+        _progressView = [ORK1ProgressView new];
         _progressView.translatesAutoresizingMaskIntoConstraints = NO;
         
 #if LAYOUT_DEBUG
@@ -83,7 +83,7 @@
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
     const CGFloat CaptionBaselineToProgressTop = 100;
-    const CGFloat CaptionBaselineToStepViewTop = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricLearnMoreBaselineToStepViewTop, window);
+    const CGFloat CaptionBaselineToStepViewTop = ORK1GetMetricForWindow(ORK1ScreenMetricLearnMoreBaselineToStepViewTop, window);
     _topConstraint.constant = CaptionBaselineToProgressTop - CaptionBaselineToStepViewTop;
 }
 
@@ -124,17 +124,17 @@
 @end
 
 
-@interface ORKLegacyWalkingTaskStepViewController () <ORKLegacyPedometerRecorderDelegate> {
+@interface ORK1WalkingTaskStepViewController () <ORK1PedometerRecorderDelegate> {
     NSInteger _intendedSteps;
-    ORKLegacyWalkingContentView *_contentView;
+    ORK1WalkingContentView *_contentView;
 }
 
 @end
 
 
-@implementation ORKLegacyWalkingTaskStepViewController
+@implementation ORK1WalkingTaskStepViewController
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {
+- (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     if (self) {
         self.suspendIfInactive = NO;
@@ -142,15 +142,15 @@
     return self;
 }
 
-- (ORKLegacyWalkingTaskStep *)walkingTaskStep {
-    NSAssert(self.step == nil || [self.step isKindOfClass:[ORKLegacyWalkingTaskStep class]], @"Expected step subclass of ORKLegacyWalkingTaskStep");
-    return (ORKLegacyWalkingTaskStep *)self.step;
+- (ORK1WalkingTaskStep *)walkingTaskStep {
+    NSAssert(self.step == nil || [self.step isKindOfClass:[ORK1WalkingTaskStep class]], @"Expected step subclass of ORK1WalkingTaskStep");
+    return (ORK1WalkingTaskStep *)self.step;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _contentView = [ORKLegacyWalkingContentView new];
+    _contentView = [ORK1WalkingContentView new];
     _contentView.translatesAutoresizingMaskIntoConstraints = NO;
     self.activeStepView.activeCustomView = _contentView;
 }
@@ -161,9 +161,9 @@
     _intendedSteps = [[self walkingTaskStep] numberOfStepsPerLeg];
 }
 
-- (void)pedometerRecorderDidUpdate:(ORKLegacyPedometerRecorder *)pedometerRecorder {
+- (void)pedometerRecorderDidUpdate:(ORK1PedometerRecorder *)pedometerRecorder {
     NSInteger numberOfSteps = [pedometerRecorder totalNumberOfSteps];
-    ORKLegacy_Log_Debug(@"Steps: %lld", (long long)numberOfSteps);
+    ORK1_Log_Debug(@"Steps: %lld", (long long)numberOfSteps);
     if (_intendedSteps > 0 && numberOfSteps >= _intendedSteps) {
         [self finish];
     }

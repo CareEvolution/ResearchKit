@@ -39,17 +39,17 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyQuestionStep
+@implementation ORK1QuestionStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyQuestionStepViewController class];
+    return [ORK1QuestionStepViewController class];
 }
 
 + (instancetype)questionStepWithIdentifier:(NSString *)identifier
                                   title:(NSString *)title
-                                    answer:(ORKLegacyAnswerFormat *)answer {
+                                    answer:(ORK1AnswerFormat *)answer {
     
-    ORKLegacyQuestionStep *step = [[ORKLegacyQuestionStep alloc] initWithIdentifier:identifier];
+    ORK1QuestionStep *step = [[ORK1QuestionStep alloc] initWithIdentifier:identifier];
     step.title = title;
     step.answerFormat = answer;
     return step;
@@ -58,9 +58,9 @@
 + (instancetype)questionStepWithIdentifier:(NSString *)identifier
                                      title:(nullable NSString *)title
                                       text:(nullable NSString *)text
-                                    answer:(nullable ORKLegacyAnswerFormat *)answerFormat {
+                                    answer:(nullable ORK1AnswerFormat *)answerFormat {
 
-    ORKLegacyQuestionStep *step = [[ORKLegacyQuestionStep alloc] initWithIdentifier:identifier];
+    ORK1QuestionStep *step = [[ORK1QuestionStep alloc] initWithIdentifier:identifier];
     step.title = title;
     step.text = text;
     step.answerFormat = answerFormat;
@@ -89,9 +89,9 @@
 - (void)validateParameters {
     [super validateParameters];
     
-    if([self.answerFormat isKindOfClass:[ORKLegacyConfirmTextAnswerFormat class]]) {
+    if([self.answerFormat isKindOfClass:[ORK1ConfirmTextAnswerFormat class]]) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:@"ORKConfirmTextAnswerFormat can only be used with an ORKLegacyFormStep."
+                                       reason:@"ORKConfirmTextAnswerFormat can only be used with an ORK1FormStep."
                                      userInfo:nil];
     }
     
@@ -99,7 +99,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyQuestionStep *questionStep = [super copyWithZone:zone];
+    ORK1QuestionStep *questionStep = [super copyWithZone:zone];
     questionStep.answerFormat = [self.answerFormat copy];
     questionStep.placeholder = [self.placeholder copy];
     return questionStep;
@@ -110,28 +110,28 @@
     
     __typeof(self) castObject = object;
     return isParentSame &&
-    ORKLegacyEqualObjects(self.answerFormat, castObject.answerFormat) &&
-    ORKLegacyEqualObjects(self.placeholder, castObject.placeholder);
+    ORK1EqualObjects(self.answerFormat, castObject.answerFormat) &&
+    ORK1EqualObjects(self.placeholder, castObject.placeholder);
 }
 
 - (NSUInteger)hash {
     return super.hash ^ self.answerFormat.hash;
 }
 
-- (ORKLegacyQuestionType)questionType {
-    ORKLegacyAnswerFormat *impliedFormat = [self impliedAnswerFormat];
+- (ORK1QuestionType)questionType {
+    ORK1AnswerFormat *impliedFormat = [self impliedAnswerFormat];
     return impliedFormat.questionType;
 }
 
-- (ORKLegacyAnswerFormat *)impliedAnswerFormat {
+- (ORK1AnswerFormat *)impliedAnswerFormat {
     return [self.answerFormat impliedAnswerFormat];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, answerFormat, ORKLegacyAnswerFormat);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, placeholder, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, answerFormat, ORK1AnswerFormat);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, placeholder, NSString);
     }
     return self;
 }
@@ -139,8 +139,8 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     
-    ORKLegacy_ENCODE_OBJ(aCoder, answerFormat);
-    ORKLegacy_ENCODE_OBJ(aCoder, placeholder);
+    ORK1_ENCODE_OBJ(aCoder, answerFormat);
+    ORK1_ENCODE_OBJ(aCoder, placeholder);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -148,27 +148,27 @@
 }
 
 - (BOOL)isFormatImmediateNavigation {
-    ORKLegacyQuestionType questionType = self.questionType;
-    return (self.optional == NO) && ((questionType == ORKLegacyQuestionTypeBoolean) || (questionType == ORKLegacyQuestionTypeSingleChoice));
+    ORK1QuestionType questionType = self.questionType;
+    return (self.optional == NO) && ((questionType == ORK1QuestionTypeBoolean) || (questionType == ORK1QuestionTypeSingleChoice));
 }
 
 - (BOOL)isFormatChoiceWithImageOptions {
-    return [[self impliedAnswerFormat] isKindOfClass:[ORKLegacyImageChoiceAnswerFormat class]];
+    return [[self impliedAnswerFormat] isKindOfClass:[ORK1ImageChoiceAnswerFormat class]];
 }
 
 - (BOOL)isFormatChoiceValuePicker {
-    return [[self impliedAnswerFormat] isKindOfClass:[ORKLegacyValuePickerAnswerFormat class]];
+    return [[self impliedAnswerFormat] isKindOfClass:[ORK1ValuePickerAnswerFormat class]];
 }
 
 - (BOOL)isFormatTextfield {
-    ORKLegacyAnswerFormat *impliedAnswerFormat = [self impliedAnswerFormat];
-    return [impliedAnswerFormat isKindOfClass:[ORKLegacyTextAnswerFormat class]] && ![(ORKLegacyTextAnswerFormat *)impliedAnswerFormat multipleLines];
+    ORK1AnswerFormat *impliedAnswerFormat = [self impliedAnswerFormat];
+    return [impliedAnswerFormat isKindOfClass:[ORK1TextAnswerFormat class]] && ![(ORK1TextAnswerFormat *)impliedAnswerFormat multipleLines];
 }
 
 - (BOOL)isFormatFitsChoiceCells {
-    return ((self.questionType == ORKLegacyQuestionTypeSingleChoice && ![self isFormatChoiceWithImageOptions] && ![self isFormatChoiceValuePicker]) ||
-            (self.questionType == ORKLegacyQuestionTypeMultipleChoice && ![self isFormatChoiceWithImageOptions]) ||
-            self.questionType == ORKLegacyQuestionTypeBoolean);
+    return ((self.questionType == ORK1QuestionTypeSingleChoice && ![self isFormatChoiceWithImageOptions] && ![self isFormatChoiceValuePicker]) ||
+            (self.questionType == ORK1QuestionTypeMultipleChoice && ![self isFormatChoiceWithImageOptions]) ||
+            self.questionType == ORK1QuestionTypeBoolean);
 }
 
 - (BOOL)formatRequiresTableView {

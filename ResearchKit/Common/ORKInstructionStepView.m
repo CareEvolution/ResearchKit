@@ -45,9 +45,9 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKLegacyInstructionStepView {
-    ORKLegacyTintedImageView *_auxiliaryInstructionImageView;
-    ORKLegacyTintedImageView *_instructionImageView;
+@implementation ORK1InstructionStepView {
+    ORK1TintedImageView *_auxiliaryInstructionImageView;
+    ORK1TintedImageView *_instructionImageView;
     UIView *_imageContainerView;
     BOOL _isCompletionStep;
     NSLayoutConstraint *_imageContainerHeightConstraint;
@@ -56,14 +56,14 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _instructionImageView = [ORKLegacyTintedImageView new];
+        _instructionImageView = [ORK1TintedImageView new];
         _instructionImageView.translatesAutoresizingMaskIntoConstraints = NO;
         _instructionImageView.contentMode = UIViewContentModeScaleAspectFit;
         
-        _auxiliaryInstructionImageView = [ORKLegacyTintedImageView new];
+        _auxiliaryInstructionImageView = [ORK1TintedImageView new];
         _auxiliaryInstructionImageView.translatesAutoresizingMaskIntoConstraints = NO;
         _auxiliaryInstructionImageView.contentMode = UIViewContentModeScaleAspectFit;
-        _auxiliaryInstructionImageView.tintColor = ORKLegacyColor(ORKLegacyAuxiliaryImageTintColorKey);
+        _auxiliaryInstructionImageView.tintColor = ORK1Color(ORK1AuxiliaryImageTintColorKey);
         
         _imageContainerView = [[UIView alloc] initWithFrame:frame];
         _imageContainerView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -75,14 +75,14 @@
     return self;
 }
 
-- (void)setInstructionStep:(ORKLegacyInstructionStep *)instructionStep {
+- (void)setInstructionStep:(ORK1InstructionStep *)instructionStep {
     _instructionStep = instructionStep;
     UIImage *image = _instructionStep.image;
     UIImage *auxiliaryImage = _instructionStep.auxiliaryImage;
     BOOL hasImage = (image != nil);
     BOOL hasFootnote = _instructionStep.footnote.length > 0;
     
-    _isCompletionStep = [_instructionStep isKindOfClass:[ORKLegacyCompletionStep class]];
+    _isCompletionStep = [_instructionStep isKindOfClass:[ORK1CompletionStep class]];
     
     self.verticalCenteringEnabled = !hasImage;
     self.continueHugsContent = !hasImage && !hasFootnote;
@@ -136,7 +136,7 @@
         [NSLayoutConstraint activateConstraints:constraints];
         
         _instructionImageView.isAccessibilityElement = YES;
-        _instructionImageView.accessibilityLabel = [NSString stringWithFormat:ORKLegacyLocalizedString(@"AX_IMAGE_ILLUSTRATION", nil), _instructionStep.title];
+        _instructionImageView.accessibilityLabel = [NSString stringWithFormat:ORK1LocalizedString(@"AX_IMAGE_ILLUSTRATION", nil), _instructionStep.title];
     } else {
         _instructionImageView.isAccessibilityElement = NO;
     }
@@ -178,7 +178,7 @@
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
     [super updateConstraintConstantsForWindow:window];
     
-    const CGFloat IllustrationHeight = ORKLegacyGetMetricForWindow(ORKLegacyScreenMetricInstructionImageHeight, window);
+    const CGFloat IllustrationHeight = ORK1GetMetricForWindow(ORK1ScreenMetricInstructionImageHeight, window);
     _imageContainerHeightConstraint.constant = (_instructionImageView.image ? IllustrationHeight : 0);
 }
 

@@ -10,19 +10,19 @@
 
 #import "ORKDefines.h"
 
-extern NSNotificationName _Nonnull const CEVORKLegacyStepViewControllerViewWillAppearNotification;
+extern NSNotificationName _Nonnull const CEVORK1StepViewControllerViewWillAppearNotification;
 extern NSString * _Nonnull const CEVRKThemeKey;
 
 typedef NS_ENUM(NSInteger, CEVRKThemeType) {
     CEVRKThemeTypeDefault,
     CEVRKThemeTypeAllOfUs
-} ORKLegacy_ENUM_AVAILABLE;
+} ORK1_ENUM_AVAILABLE;
 
 
-@class ORKLegacyBorderedButton;
-@class ORKLegacyContinueButton;
+@class ORK1BorderedButton;
+@class ORK1ContinueButton;
 
-ORKLegacy_CLASS_AVAILABLE
+ORK1_CLASS_AVAILABLE
 @interface CEVRKTheme : NSObject
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
@@ -37,8 +37,8 @@ ORKLegacy_CLASS_AVAILABLE
 - (nullable NSNumber *)continueButtonHeightForTextSize:(CGSize)textSize;
 - (nullable NSNumber *)continueButtonWidthForWindowWidth:(CGFloat)windowWidth;
 - (nullable UIColor *)disabledTintColor;
-- (void)updateAppearanceForContinueButton:(nonnull ORKLegacyContinueButton *)continueButton;
-- (void)updateTextForContinueButton:(nonnull ORKLegacyContinueButton *)continueButton;
+- (void)updateAppearanceForContinueButton:(nonnull ORK1ContinueButton *)continueButton;
+- (void)updateTextForContinueButton:(nonnull ORK1ContinueButton *)continueButton;
 
 @end
 

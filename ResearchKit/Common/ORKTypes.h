@@ -39,147 +39,147 @@ NS_ASSUME_NONNULL_BEGIN
  An enumeration of values that identify the different types of questions that the ResearchKit
  framework supports.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyQuestionType) {
+typedef NS_ENUM(NSInteger, ORK1QuestionType) {
     /**
      No question.
      */
-    ORKLegacyQuestionTypeNone,
+    ORK1QuestionTypeNone,
     
     /**
      The scale question type asks participants to place a mark at an appropriate position on a
      continuous or discrete line.
      */
-    ORKLegacyQuestionTypeScale,
+    ORK1QuestionTypeScale,
     
     /**
      In a single choice question, the participant can pick only one predefined option.
      */
-    ORKLegacyQuestionTypeSingleChoice,
+    ORK1QuestionTypeSingleChoice,
     
     /**
      In a multiple choice question, the participant can pick one or more predefined options.
      */
-    ORKLegacyQuestionTypeMultipleChoice,
+    ORK1QuestionTypeMultipleChoice,
     
     /**
      In a multiple component choice picker, the participant can pick one choice from each component.
      */
-    ORKLegacyQuestionTypeMultiplePicker,
+    ORK1QuestionTypeMultiplePicker,
     
     /**
      The decimal question type asks the participant to enter a decimal number.
      */
-    ORKLegacyQuestionTypeDecimal,
+    ORK1QuestionTypeDecimal,
     
     /**
      The integer question type asks the participant to enter an integer number.
      */
-    ORKLegacyQuestionTypeInteger,
+    ORK1QuestionTypeInteger,
     
     /**
      The Boolean question type asks the participant to enter Yes or No (or the appropriate
      equivalents).
      */
-    ORKLegacyQuestionTypeBoolean,
+    ORK1QuestionTypeBoolean,
     
     /**
      In a text question, the participant can enter multiple lines of text.
      */
-    ORKLegacyQuestionTypeText,
+    ORK1QuestionTypeText,
     
     /**
      In a time of day question, the participant can enter a time of day by using a picker.
      */
-    ORKLegacyQuestionTypeTimeOfDay,
+    ORK1QuestionTypeTimeOfDay,
     
     /**
      In a date and time question, the participant can enter a combination of date and time by using
      a picker.
      */
-    ORKLegacyQuestionTypeDateAndTime,
+    ORK1QuestionTypeDateAndTime,
     
     /**
      In a date question, the participant can enter a date by using a picker.
      */
-    ORKLegacyQuestionTypeDate,
+    ORK1QuestionTypeDate,
     
     /**
      In a time interval question, the participant can enter a time span by using a picker.
      */
-    ORKLegacyQuestionTypeTimeInterval,
+    ORK1QuestionTypeTimeInterval,
     
     /**
      In a height question, the participant can enter a height by using a height picker.
      */
-    ORKLegacyQuestionTypeHeight,
+    ORK1QuestionTypeHeight,
 
     /**
      In a weight question, the participant can enter a weight by using a weight picker.
      */
-    ORKLegacyQuestionTypeWeight,
+    ORK1QuestionTypeWeight,
     
     /**
      In a location question, the participant can enter a location using a map view.
      */
-    ORKLegacyQuestionTypeLocation
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1QuestionTypeLocation
+} ORK1_ENUM_AVAILABLE;
 
 
 /**
  An enumeration of the types of answer choices available.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyChoiceAnswerStyle) {
+typedef NS_ENUM(NSInteger, ORK1ChoiceAnswerStyle) {
     /**
      A single choice question lets the participant pick a single predefined answer option.
      */
-    ORKLegacyChoiceAnswerStyleSingleChoice,
+    ORK1ChoiceAnswerStyleSingleChoice,
     
     /**
      A multiple choice question lets the participant pick one or more predefined answer options.
      */
-    ORKLegacyChoiceAnswerStyleMultipleChoice
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1ChoiceAnswerStyleMultipleChoice
+} ORK1_ENUM_AVAILABLE;
 
 
 /**
  An enumeration of the format styles available for scale answers.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyNumberFormattingStyle) {
+typedef NS_ENUM(NSInteger, ORK1NumberFormattingStyle) {
     /**
      The default decimal style.
      */
-    ORKLegacyNumberFormattingStyleDefault,
+    ORK1NumberFormattingStyleDefault,
     
     /**
      Percent style.
      */
-    ORKLegacyNumberFormattingStylePercent
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1NumberFormattingStylePercent
+} ORK1_ENUM_AVAILABLE;
 
 
 /**
  You can use a permission mask to specify a set of permissions to acquire or
  that have been acquired for a task or step.
  */
-typedef NS_OPTIONS(NSInteger, ORKLegacyPermissionMask) {
+typedef NS_OPTIONS(NSInteger, ORK1PermissionMask) {
     /// No permissions.
-    ORKLegacyPermissionNone                     = 0,
+    ORK1PermissionNone                     = 0,
     
     /// Access to CoreMotion activity is required.
-    ORKLegacyPermissionCoreMotionActivity       = (1 << 1),
+    ORK1PermissionCoreMotionActivity       = (1 << 1),
     
     /// Access to CoreMotion accelerometer data.
-    ORKLegacyPermissionCoreMotionAccelerometer  = (1 << 2),
+    ORK1PermissionCoreMotionAccelerometer  = (1 << 2),
     
     /// Access for audio recording.
-    ORKLegacyPermissionAudioRecording           = (1 << 3),
+    ORK1PermissionAudioRecording           = (1 << 3),
     
     /// Access to location.
-    ORKLegacyPermissionCoreLocation             = (1 << 4),
+    ORK1PermissionCoreLocation             = (1 << 4),
     
     /// Access to camera.
-    ORKLegacyPermissionCamera                   = (1 << 5),
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1PermissionCamera                   = (1 << 5),
+} ORK1_ENUM_AVAILABLE;
 
 
 /**
@@ -190,115 +190,115 @@ typedef NS_OPTIONS(NSInteger, ORKLegacyPermissionMask) {
  highly recommended for files containing personal data that will be kept
  persistently.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyFileProtectionMode) {
+typedef NS_ENUM(NSInteger, ORK1FileProtectionMode) {
     /// No file protection.
-    ORKLegacyFileProtectionNone = 0,
+    ORK1FileProtectionNone = 0,
     
     /// Complete file protection until first user authentication.
-    ORKLegacyFileProtectionCompleteUntilFirstUserAuthentication,
+    ORK1FileProtectionCompleteUntilFirstUserAuthentication,
     
     /// Complete file protection unless there was an open file handle before lock.
-    ORKLegacyFileProtectionCompleteUnlessOpen,
+    ORK1FileProtectionCompleteUnlessOpen,
     
     /// Complete file protection while the device is locked.
-    ORKLegacyFileProtectionComplete
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1FileProtectionComplete
+} ORK1_ENUM_AVAILABLE;
 
 
 /**
  Audio channel constants.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyAudioChannel) {
+typedef NS_ENUM(NSInteger, ORK1AudioChannel) {
     /// The left audio channel.
-    ORKLegacyAudioChannelLeft,
+    ORK1AudioChannelLeft,
     
     /// The right audio channel.
-    ORKLegacyAudioChannelRight
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1AudioChannelRight
+} ORK1_ENUM_AVAILABLE;
 
 
 /**
  Body side constants.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyBodySagittal) {
+typedef NS_ENUM(NSInteger, ORK1BodySagittal) {
     /// The left side.
-    ORKLegacyBodySagittalLeft,
+    ORK1BodySagittalLeft,
     
     /// The right side.
-    ORKLegacyBodySagittalRight
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1BodySagittalRight
+} ORK1_ENUM_AVAILABLE;
 
 /**
  Values that identify the presentation mode of paced serial addition tests that are auditory and/or visual (PSAT).
  */
-typedef NS_OPTIONS(NSInteger, ORKLegacyPSATPresentationMode) {
+typedef NS_OPTIONS(NSInteger, ORK1PSATPresentationMode) {
     /// The PASAT (Paced Auditory Serial Addition Test).
-    ORKLegacyPSATPresentationModeAuditory = 1 << 0,
+    ORK1PSATPresentationModeAuditory = 1 << 0,
     
     /// The PVSAT (Paced Visual Serial Addition Test).
-    ORKLegacyPSATPresentationModeVisual = 1 << 1
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1PSATPresentationModeVisual = 1 << 1
+} ORK1_ENUM_AVAILABLE;
 
 
 /**
- Identify the type of passcode authentication for `ORKLegacyPasscodeStepViewController`.
+ Identify the type of passcode authentication for `ORK1PasscodeStepViewController`.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyPasscodeType) {
+typedef NS_ENUM(NSInteger, ORK1PasscodeType) {
     /// 4 digit pin entry
-    ORKLegacyPasscodeType4Digit,
+    ORK1PasscodeType4Digit,
     
     /// 6 digit pin entry
-    ORKLegacyPasscodeType6Digit
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1PasscodeType6Digit
+} ORK1_ENUM_AVAILABLE;
 
 
 /**
- Progress indicator type for `ORKLegacyWaitStep`.
+ Progress indicator type for `ORK1WaitStep`.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyProgressIndicatorType) {
+typedef NS_ENUM(NSInteger, ORK1ProgressIndicatorType) {
     /// Spinner animation.
-    ORKLegacyProgressIndicatorTypeIndeterminate = 0,
+    ORK1ProgressIndicatorTypeIndeterminate = 0,
     
     /// Progressbar animation.
-    ORKLegacyProgressIndicatorTypeProgressBar,
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1ProgressIndicatorTypeProgressBar,
+} ORK1_ENUM_AVAILABLE;
 
 
 /**
  Measurement system.
  
- Used by ORKLegacyHeightAnswerFormat and ORKLegacyWeightAnswerFormat.
+ Used by ORK1HeightAnswerFormat and ORK1WeightAnswerFormat.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyMeasurementSystem) {
+typedef NS_ENUM(NSInteger, ORK1MeasurementSystem) {
     /// Measurement system in use by the current locale.
-    ORKLegacyMeasurementSystemLocal = 0,
+    ORK1MeasurementSystemLocal = 0,
     
     /// Metric measurement system.
-    ORKLegacyMeasurementSystemMetric,
+    ORK1MeasurementSystemMetric,
 
     /// United States customary system.
-    ORKLegacyMeasurementSystemUSC,
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1MeasurementSystemUSC,
+} ORK1_ENUM_AVAILABLE;
 
 
 /**
  Numeric precision.
  
- Used by ORKLegacyWeightAnswerFormat.
+ Used by ORK1WeightAnswerFormat.
  */
-typedef NS_ENUM(NSInteger, ORKLegacyNumericPrecision) {
+typedef NS_ENUM(NSInteger, ORK1NumericPrecision) {
     /// Default numeric precision.
-    ORKLegacyNumericPrecisionDefault = 0,
+    ORK1NumericPrecisionDefault = 0,
     
     /// Low numeric precision.
-    ORKLegacyNumericPrecisionLow,
+    ORK1NumericPrecisionLow,
     
     /// High numeric preicision.
-    ORKLegacyNumericPrecisionHigh,
-} ORKLegacy_ENUM_AVAILABLE;
+    ORK1NumericPrecisionHigh,
+} ORK1_ENUM_AVAILABLE;
 
 
-extern const double ORKLegacyDoubleDefaultValue ORKLegacy_AVAILABLE_DECL;
+extern const double ORK1DoubleDefaultValue ORK1_AVAILABLE_DECL;
 
 
 NS_ASSUME_NONNULL_END

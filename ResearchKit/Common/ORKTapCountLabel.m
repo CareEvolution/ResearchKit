@@ -34,12 +34,12 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyTapCountLabel
+@implementation ORK1TapCountLabel
 
 + (UIFont *)defaultFont {
     // Thin, 56
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
-    return ORKLegacyThinFontWithSize([[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue]+ 39.0);
+    return ORK1ThinFontWithSize([[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue]+ 39.0);
 }
 
 @end

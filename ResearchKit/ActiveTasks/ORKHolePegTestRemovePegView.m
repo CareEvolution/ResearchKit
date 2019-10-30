@@ -32,14 +32,14 @@
 #import "ORKHolePegTestRemovePegView.h"
 
 
-@interface ORKLegacyHolePegTestRemovePegView ()
+@interface ORK1HolePegTestRemovePegView ()
 
 @property (nonatomic, strong) CAShapeLayer *checkLayer;
 
 @end
 
 
-@implementation ORKLegacyHolePegTestRemovePegView
+@implementation ORK1HolePegTestRemovePegView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

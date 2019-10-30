@@ -46,15 +46,15 @@
 #import "ORKHelpers_Internal.h"
 
 
-@interface ORKLegacyTappingIntervalStepViewController () <UIGestureRecognizerDelegate>
+@interface ORK1TappingIntervalStepViewController () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *samples;
 
 @end
 
 
-@implementation ORKLegacyTappingIntervalStepViewController {
-    ORKLegacyTappingContentView *_tappingContentView;
+@implementation ORK1TappingIntervalStepViewController {
+    ORK1TappingContentView *_tappingContentView;
     NSTimeInterval _tappingStart;
     BOOL _expired;
     
@@ -67,7 +67,7 @@
     UIGestureRecognizer *_touchDownRecognizer;
 }
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step {
+- (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     if (self) {
         self.suspendIfInactive = YES;
@@ -81,7 +81,7 @@
     // Don't show next button
     self.internalContinueButtonItem = nil;
     self.internalDoneButtonItem = nil;
-    self.internalSkipButtonItem.title = ORKLegacyLocalizedString(@"TAPPING_SKIP_TITLE", nil);
+    self.internalSkipButtonItem.title = ORK1LocalizedString(@"TAPPING_SKIP_TITLE", nil);
 }
 
 - (void)viewDidLoad {
@@ -99,7 +99,7 @@
     
     _expired = NO;
     
-    _tappingContentView = [[ORKLegacyTappingContentView alloc] init];
+    _tappingContentView = [[ORK1TappingContentView alloc] init];
     _tappingContentView.hasSkipButton = self.step.optional;
     self.activeStepView.activeCustomView = _tappingContentView;
     
@@ -117,8 +117,8 @@
     _viewSize = self.view.frame.size;
 }
 
-- (ORKLegacyStepResult *)result {
-    ORKLegacyStepResult *sResult = [super result];
+- (ORK1StepResult *)result {
+    ORK1StepResult *sResult = [super result];
     
     // "Now" is the end time of the result, which is either actually now,
     // or the last time we were in the responder chain.
@@ -126,7 +126,7 @@
     
     NSMutableArray *results = [NSMutableArray arrayWithArray:sResult.results];
     
-    ORKLegacyTappingIntervalResult *tappingResult = [[ORKLegacyTappingIntervalResult alloc] initWithIdentifier:self.step.identifier];
+    ORK1TappingIntervalResult *tappingResult = [[ORK1TappingIntervalResult alloc] initWithIdentifier:self.step.identifier];
     tappingResult.startDate = sResult.startDate;
     tappingResult.endDate = now;
     tappingResult.buttonRect1 = _buttonRect1;
@@ -141,7 +141,7 @@
     return sResult;
 }
 
-- (void)receiveTouch:(UITouch *)touch onButton:(ORKLegacyTappingButtonIdentifier)buttonIdentifier {
+- (void)receiveTouch:(UITouch *)touch onButton:(ORK1TappingButtonIdentifier)buttonIdentifier {
     if (_expired || self.samples == nil) {
         return;
     }
@@ -157,7 +157,7 @@
     // Add new sample
     mediaTime = mediaTime-_tappingStart;
     
-    ORKLegacyTappingSample *sample = [[ORKLegacyTappingSample alloc] init];
+    ORK1TappingSample *sample = [[ORK1TappingSample alloc] init];
     sample.buttonIdentifier = buttonIdentifier;
     sample.location = location;
     sample.duration = 0;
@@ -165,27 +165,27 @@
 
     [self.samples addObject:sample];
     
-    if (buttonIdentifier == ORKLegacyTappingButtonIdentifierLeft || buttonIdentifier == ORKLegacyTappingButtonIdentifierRight) {
+    if (buttonIdentifier == ORK1TappingButtonIdentifierLeft || buttonIdentifier == ORK1TappingButtonIdentifierRight) {
         _hitButtonCount++;
     }
     // Update label
     [_tappingContentView setTapCount:_hitButtonCount];
 }
 
-- (void)releaseTouch:(UITouch *)touch onButton:(ORKLegacyTappingButtonIdentifier)buttonIdentifier {
+- (void)releaseTouch:(UITouch *)touch onButton:(ORK1TappingButtonIdentifier)buttonIdentifier {
     if (self.samples == nil) {
         return;
     }
     NSTimeInterval mediaTime = touch.timestamp;
     
     // Take last sample for buttonIdentifier, and fill duration
-    ORKLegacyTappingSample *sample = [self lastSampleWithEmptyDurationForButton:buttonIdentifier];
+    ORK1TappingSample *sample = [self lastSampleWithEmptyDurationForButton:buttonIdentifier];
     sample.duration = mediaTime - sample.timestamp - _tappingStart;
 }
 
-- (ORKLegacyTappingSample *)lastSampleWithEmptyDurationForButton:(ORKLegacyTappingButtonIdentifier)buttonIdentifier{
+- (ORK1TappingSample *)lastSampleWithEmptyDurationForButton:(ORK1TappingButtonIdentifier)buttonIdentifier{
     NSEnumerator *enumerator = [self.samples reverseObjectEnumerator];
-    for (ORKLegacyTappingSample *sample in enumerator) {
+    for (ORK1TappingSample *sample in enumerator) {
         if (sample.buttonIdentifier == buttonIdentifier && sample.duration == 0) {
             return sample;
         }
@@ -202,12 +202,12 @@
      */
     NSTimeInterval mediaTime = [[NSProcessInfo processInfo] systemUptime];
     
-    ORKLegacyTappingSample *tapButton1LastSample = [self lastSampleWithEmptyDurationForButton:ORKLegacyTappingButtonIdentifierLeft];
+    ORK1TappingSample *tapButton1LastSample = [self lastSampleWithEmptyDurationForButton:ORK1TappingButtonIdentifierLeft];
     if (tapButton1LastSample) {
         tapButton1LastSample.duration = mediaTime - tapButton1LastSample.timestamp - _tappingStart;
     }
     
-    ORKLegacyTappingSample *tapButton2LastSample = [self lastSampleWithEmptyDurationForButton:ORKLegacyTappingButtonIdentifierRight];
+    ORK1TappingSample *tapButton2LastSample = [self lastSampleWithEmptyDurationForButton:ORK1TappingButtonIdentifierRight];
     if (tapButton2LastSample) {
         tapButton2LastSample.duration = mediaTime - tapButton2LastSample.timestamp - _tappingStart;
     }
@@ -224,7 +224,7 @@
     [self goForward];
 }
 
-- (void)countDownTimerFired:(ORKLegacyActiveStepTimer *)timer finished:(BOOL)finished {
+- (void)countDownTimerFired:(ORK1ActiveStepTimer *)timer finished:(BOOL)finished {
     CGFloat progress = finished ? 1 : (timer.runtime / timer.duration);
     [_tappingContentView setProgress:progress animated:YES];
     [super countDownTimerFired:timer finished:finished];
@@ -247,10 +247,10 @@
         [self start];
     }
     
-    NSInteger index = (button == _tappingContentView.tapButton1) ? ORKLegacyTappingButtonIdentifierLeft : ORKLegacyTappingButtonIdentifierRight;
+    NSInteger index = (button == _tappingContentView.tapButton1) ? ORK1TappingButtonIdentifierLeft : ORK1TappingButtonIdentifierRight;
     
     if ( _tappingContentView.lastTappedButton == index ) {
-        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, ORKLegacyLocalizedString(@"TAP_BUTTON_TITLE", nil));
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, ORK1LocalizedString(@"TAP_BUTTON_TITLE", nil));
     }
     _tappingContentView.lastTappedButton = index;
     
@@ -258,7 +258,7 @@
 }
 
 - (IBAction)buttonReleased:(id)button forEvent:(UIEvent *)event {
-    ORKLegacyTappingButtonIdentifier index = (button == _tappingContentView.tapButton1) ? ORKLegacyTappingButtonIdentifierLeft : ORKLegacyTappingButtonIdentifierRight;
+    ORK1TappingButtonIdentifier index = (button == _tappingContentView.tapButton1) ? ORK1TappingButtonIdentifierLeft : ORK1TappingButtonIdentifierRight;
     
     [self releaseTouch:[[event touchesForView:button] anyObject] onButton:index];
 }
@@ -271,7 +271,7 @@
     BOOL shouldReceive = !(CGRectContainsPoint(_buttonRect1, location) || CGRectContainsPoint(_buttonRect2, location));
     
     if (shouldReceive && touch.phase == UITouchPhaseBegan) {
-        [self receiveTouch:touch onButton:ORKLegacyTappingButtonIdentifierNone];
+        [self receiveTouch:touch onButton:ORK1TappingButtonIdentifierNone];
     }
     
     return NO;

@@ -35,7 +35,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyTimedWalkContentView : ORKLegacyActiveStepCustomView
+@interface ORK1TimedWalkContentView : ORK1ActiveStepCustomView
 
 @property (nonatomic, strong, nullable) UIImage *image;
 

@@ -36,9 +36,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyPieChartView;
+@class ORK1PieChartView;
 
-@interface ORKLegacyPieChartLegendView : UICollectionView <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface ORK1PieChartLegendView : UICollectionView <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic) UIFont *labelFont;
 @property (nonatomic, readonly) NSMutableArray<NSValue *> *cellSizes;
@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithFrame:(CGRect)frame
          collectionViewLayout:(UICollectionViewLayout *)collectionViewLayout NS_UNAVAILABLE;
 
-- (instancetype)initWithParentPieChartView:(ORKLegacyPieChartView *)parentPieChartView NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithParentPieChartView:(ORK1PieChartView *)parentPieChartView NS_DESIGNATED_INITIALIZER;
 
 - (void)animateWithDuration:(NSTimeInterval)animationDuration;
 

@@ -41,14 +41,14 @@
 
 #if TARGET_INTERFACE_BUILDER
 
-@interface ORKLegacyIBLineGraphChartViewDataSource : ORKLegacyIBValueRangeGraphChartViewDataSource
+@interface ORK1IBLineGraphChartViewDataSource : ORK1IBValueRangeGraphChartViewDataSource
 
 + (instancetype)sharedInstance;
 
 @end
 
 
-@implementation ORKLegacyIBLineGraphChartViewDataSource
+@implementation ORK1IBLineGraphChartViewDataSource
 
 + (instancetype)sharedInstance {
     static id sharedInstance;
@@ -64,31 +64,31 @@
     if (self) {
         self.plotPoints = @[
                             @[
-                                [[ORKLegacyValueRange alloc] initWithValue:10],
-                                [[ORKLegacyValueRange alloc] initWithValue:20],
-                                [[ORKLegacyValueRange alloc] initWithValue:25],
-                                [[ORKLegacyValueRange alloc] init],
-                                [[ORKLegacyValueRange alloc] initWithValue:30],
-                                [[ORKLegacyValueRange alloc] initWithValue:40]
+                                [[ORK1ValueRange alloc] initWithValue:10],
+                                [[ORK1ValueRange alloc] initWithValue:20],
+                                [[ORK1ValueRange alloc] initWithValue:25],
+                                [[ORK1ValueRange alloc] init],
+                                [[ORK1ValueRange alloc] initWithValue:30],
+                                [[ORK1ValueRange alloc] initWithValue:40]
                               ],
                             @[
-                                [[ORKLegacyValueRange alloc] initWithValue:2],
-                                [[ORKLegacyValueRange alloc] initWithValue:4],
-                                [[ORKLegacyValueRange alloc] initWithValue:8],
-                                [[ORKLegacyValueRange alloc] initWithValue:16],
-                                [[ORKLegacyValueRange alloc] initWithValue:32],
-                                [[ORKLegacyValueRange alloc] initWithValue:64]
+                                [[ORK1ValueRange alloc] initWithValue:2],
+                                [[ORK1ValueRange alloc] initWithValue:4],
+                                [[ORK1ValueRange alloc] initWithValue:8],
+                                [[ORK1ValueRange alloc] initWithValue:16],
+                                [[ORK1ValueRange alloc] initWithValue:32],
+                                [[ORK1ValueRange alloc] initWithValue:64]
                                 ]
                             ];
     }
     return self;
 }
 
-- (CGFloat)minimumValueForGraphChartView:(ORKLegacyGraphChartView *)graphChartView {
+- (CGFloat)minimumValueForGraphChartView:(ORK1GraphChartView *)graphChartView {
     return 0;
 }
 
-- (CGFloat)maximumValueForGraphChartView:(ORKLegacyGraphChartView *)graphChartView {
+- (CGFloat)maximumValueForGraphChartView:(ORK1GraphChartView *)graphChartView {
     return 70;
 }
 
@@ -99,7 +99,7 @@
 
 const CGFloat FillColorAlpha = 0.4;
 
-@implementation ORKLegacyLineGraphChartView {
+@implementation ORK1LineGraphChartView {
     NSMutableDictionary *_fillLayers;
 }
 
@@ -189,8 +189,8 @@ const CGFloat FillColorAlpha = 0.4;
     }
     
     UIBezierPath *fillPath = [UIBezierPath bezierPath];
-    CGFloat positionOnXAxis = ORKLegacyCGFloatInvalidValue;
-    ORKLegacyValueRange *positionOnYAxis = nil;
+    CGFloat positionOnXAxis = ORK1CGFloatInvalidValue;
+    ORK1ValueRange *positionOnYAxis = nil;
     BOOL previousPointExists = NO;
     NSUInteger numberOfPoints = self.lineLayers[plotIndex].count;
     for (NSUInteger pointIndex = 0; pointIndex < numberOfPoints; pointIndex++) {
@@ -199,7 +199,7 @@ const CGFloat FillColorAlpha = 0.4;
         }
         UIBezierPath *linePath = [UIBezierPath bezierPath];
         
-        if (positionOnXAxis != ORKLegacyCGFloatInvalidValue) {
+        if (positionOnXAxis != ORK1CGFloatInvalidValue) {
             [linePath moveToPoint:CGPointMake(positionOnXAxis, positionOnYAxis.minimumValue)];
             if ([fillPath isEmpty]) {
                 // Substract scalePixelAdjustment() to the first horizontal position of the fillPath so if fully covers the start of the x axis
@@ -216,7 +216,7 @@ const CGFloat FillColorAlpha = 0.4;
         positionOnYAxis = self.yAxisPoints[plotIndex][pointIndex];
         
         if (!previousPointExists) {
-            if (positionOnXAxis != ORKLegacyCGFloatInvalidValue) {
+            if (positionOnXAxis != ORK1CGFloatInvalidValue) {
                 previousPointExists = YES;
             }
             continue;
@@ -242,7 +242,7 @@ const CGFloat FillColorAlpha = 0.4;
 - (double)scrubbingLabelValueForCanvasXPosition:(CGFloat)xPosition plotIndex:(NSInteger)plotIndex {
     double value = [super scrubbingLabelValueForCanvasXPosition:xPosition plotIndex:plotIndex];
     
-    if (value == ORKLegacyDoubleInvalidValue) {
+    if (value == ORK1DoubleInvalidValue) {
     CGFloat viewWidth = self.plotView.bounds.size.width;
     NSInteger numberOfXAxisPoints = self.numberOfXAxisPoints;
         NSInteger pointIndex = 0;
@@ -262,8 +262,8 @@ const CGFloat FillColorAlpha = 0.4;
         double y1 = self.dataPoints[plotIndex][previousValidIndex].minimumValue;
         double y2 = self.dataPoints[plotIndex][nextValidIndex].minimumValue;
         
-        if (y1 == ORKLegacyDoubleInvalidValue || y2 == ORKLegacyDoubleInvalidValue) {
-            return ORKLegacyDoubleInvalidValue;
+        if (y1 == ORK1DoubleInvalidValue || y2 == ORK1DoubleInvalidValue) {
+            return ORK1DoubleInvalidValue;
         }
 
         double slope = (y2 - y1)/(x2 - x1);
@@ -305,7 +305,7 @@ const CGFloat FillColorAlpha = 0.4;
     
     NSUInteger pointCountMinusOne = (self.dataPoints[plotIndex].count - 1);
     while (validPosition < pointCountMinusOne) {
-        if (self.dataPoints[plotIndex][validPosition].minimumValue != ORKLegacyDoubleInvalidValue) {
+        if (self.dataPoints[plotIndex][validPosition].minimumValue != ORK1DoubleInvalidValue) {
             break;
         }
         validPosition++;
@@ -320,7 +320,7 @@ const CGFloat FillColorAlpha = 0.4;
         validPosition = 0;
     }
     while (validPosition > 0) {
-        if (self.dataPoints[plotIndex][validPosition].minimumValue != ORKLegacyDoubleInvalidValue) {
+        if (self.dataPoints[plotIndex][validPosition].minimumValue != ORK1DoubleInvalidValue) {
             break;
         }
         validPosition--;
@@ -360,7 +360,7 @@ const CGFloat FillColorAlpha = 0.4;
 - (void)prepareForInterfaceBuilder {
     [super prepareForInterfaceBuilder];
 #if TARGET_INTERFACE_BUILDER
-    self.dataSource = [ORKLegacyIBLineGraphChartViewDataSource sharedInstance];
+    self.dataSource = [ORK1IBLineGraphChartViewDataSource sharedInstance];
 #endif
 }
 

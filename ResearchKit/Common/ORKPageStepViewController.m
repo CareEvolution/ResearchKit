@@ -38,55 +38,55 @@
 #import "ORKResult_Private.h"
 #import "ORKStep_Private.h"
 
-typedef NS_ENUM(NSInteger, ORKLegacyPageNavigationDirection) {
-    ORKLegacyPageNavigationDirectionNone = 0,
-    ORKLegacyPageNavigationDirectionForward = 1,
-    ORKLegacyPageNavigationDirectionReverse = -1
-} ORKLegacy_ENUM_AVAILABLE;
+typedef NS_ENUM(NSInteger, ORK1PageNavigationDirection) {
+    ORK1PageNavigationDirectionNone = 0,
+    ORK1PageNavigationDirectionForward = 1,
+    ORK1PageNavigationDirectionReverse = -1
+} ORK1_ENUM_AVAILABLE;
 
-@interface ORKLegacyPageStepViewController () <UIPageViewControllerDelegate, ORKLegacyStepViewControllerDelegate>
+@interface ORK1PageStepViewController () <UIPageViewControllerDelegate, ORK1StepViewControllerDelegate>
 
-@property (nonatomic, readonly) ORKLegacyPageResult *initialResult;
-@property (nonatomic, readonly) ORKLegacyPageResult *pageResult;
+@property (nonatomic, readonly) ORK1PageResult *initialResult;
+@property (nonatomic, readonly) ORK1PageResult *pageResult;
 @property (nonatomic, readonly) UIPageViewController *pageViewController;
 @property (nonatomic, copy, readonly, nullable) NSString *currentStepIdentifier;
-@property (nonatomic, readonly) ORKLegacyStepViewController *currentStepViewController;
+@property (nonatomic, readonly) ORK1StepViewController *currentStepViewController;
 
 @end
 
 
-@implementation ORKLegacyPageStepViewController
+@implementation ORK1PageStepViewController
 
-- (instancetype)initWithStep:(ORKLegacyStep *)step result:(ORKLegacyResult *)result {
+- (instancetype)initWithStep:(ORK1Step *)step result:(ORK1Result *)result {
     self = [super initWithStep:step result:result];
-    if (self && [step isKindOfClass:[ORKLegacyPageStep class]] && [result isKindOfClass:[ORKLegacyStepResult class]]) {
-        _pageResult = [[ORKLegacyPageResult alloc] initWithPageStep:(ORKLegacyPageStep *)step stepResult:(ORKLegacyStepResult *)result];
+    if (self && [step isKindOfClass:[ORK1PageStep class]] && [result isKindOfClass:[ORK1StepResult class]]) {
+        _pageResult = [[ORK1PageResult alloc] initWithPageStep:(ORK1PageStep *)step stepResult:(ORK1StepResult *)result];
         _initialResult = [_pageResult copy];
     }
     return self;
 }
 
-- (ORKLegacyPageStep *)pageStep {
-    if ([self.step isKindOfClass:[ORKLegacyPageStep class]]) {
-        return (ORKLegacyPageStep *)self.step;
+- (ORK1PageStep *)pageStep {
+    if ([self.step isKindOfClass:[ORK1PageStep class]]) {
+        return (ORK1PageStep *)self.step;
     }
     return nil;
 }
 
-- (ORKLegacyStepViewController *)currentStepViewController {
+- (ORK1StepViewController *)currentStepViewController {
     UIViewController *viewController = [self.pageViewController.viewControllers firstObject];
-    if ([viewController isKindOfClass:[ORKLegacyStepViewController class]]) {
-        return (ORKLegacyStepViewController *)viewController;
+    if ([viewController isKindOfClass:[ORK1StepViewController class]]) {
+        return (ORK1StepViewController *)viewController;
     }
     return nil;
 }
 
 @synthesize pageResult = _pageResult;
-- (ORKLegacyPageResult *)pageResult {
+- (ORK1PageResult *)pageResult {
     if (_pageResult == nil) {
-        _pageResult = [[ORKLegacyPageResult alloc] initWithIdentifier:self.step.identifier];
+        _pageResult = [[ORK1PageResult alloc] initWithIdentifier:self.step.identifier];
     }
-    if (!ORKLegacyEqualObjects(_pageResult.outputDirectory, self.outputDirectory)) {
+    if (!ORK1EqualObjects(_pageResult.outputDirectory, self.outputDirectory)) {
         _pageResult = [_pageResult copyWithOutputDirectory:self.outputDirectory];
     }
     return _pageResult;
@@ -99,7 +99,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyPageNavigationDirection) {
     
     _currentStepIdentifier = nil;
     _pageResult = nil;
-    [self navigateInDirection:ORKLegacyPageNavigationDirectionNone animated:NO];
+    [self navigateInDirection:ORK1PageNavigationDirectionNone animated:NO];
 }
 
 - (void)viewDidLoad {
@@ -121,11 +121,11 @@ typedef NS_ENUM(NSInteger, ORKLegacyPageNavigationDirection) {
     [self addChildViewController:_pageViewController];
     [_pageViewController didMoveToParentViewController:self];
     
-    [self navigateInDirection:ORKLegacyPageNavigationDirectionNone animated:NO];
+    [self navigateInDirection:ORK1PageNavigationDirectionNone animated:NO];
 }
 
 - (void)updateNavLeftBarButtonItem {
-    if ((self.currentStepIdentifier == nil) || ([self stepInDirection:ORKLegacyPageNavigationDirectionReverse] == nil)) {
+    if ((self.currentStepIdentifier == nil) || ([self stepInDirection:ORK1PageNavigationDirectionReverse] == nil)) {
         [super updateNavLeftBarButtonItem];
     } else {
         self.navigationItem.leftBarButtonItem = [self goToPreviousPageButtonItem];
@@ -138,18 +138,18 @@ typedef NS_ENUM(NSInteger, ORKLegacyPageNavigationDirection) {
         return nil;
     }
     UIBarButtonItem *button = [UIBarButtonItem ork_backBarButtonItemWithTarget:self action:@selector(goToPreviousPage)];
-    button.accessibilityLabel = ORKLegacyLocalizedString(@"AX_BUTTON_BACK", nil);
+    button.accessibilityLabel = ORK1LocalizedString(@"AX_BUTTON_BACK", nil);
     return button;
 }
 
 - (void)goToPreviousPage {
-    [self navigateInDirection:ORKLegacyPageNavigationDirectionReverse animated:YES];
+    [self navigateInDirection:ORK1PageNavigationDirectionReverse animated:YES];
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
 }
 
-- (void)willNavigateDirection:(ORKLegacyStepViewControllerNavigationDirection)direction {
+- (void)willNavigateDirection:(ORK1StepViewControllerNavigationDirection)direction {
     // update the current step based on the direction of navigation
-    if (direction == ORKLegacyStepViewControllerNavigationDirectionForward) {
+    if (direction == ORK1StepViewControllerNavigationDirectionForward) {
         _currentStepIdentifier = nil;
     }
     else {
@@ -163,52 +163,52 @@ typedef NS_ENUM(NSInteger, ORKLegacyPageNavigationDirection) {
 
 #pragma mark - result handling
 
-- (id <ORKLegacyTaskResultSource>)resultSource {
+- (id <ORK1TaskResultSource>)resultSource {
     return self.pageResult;
 }
 
-- (ORKLegacyStepResult *)result {
-    ORKLegacyStepResult *result = [super result];
+- (ORK1StepResult *)result {
+    ORK1StepResult *result = [super result];
     NSArray *pageResults = [self.pageResult flattenResults];
     result.results = [result.results arrayByAddingObjectsFromArray:pageResults] ? : pageResults;
     return result;
 }
 
 
-#pragma mark ORKLegacyStepViewControllerDelegate
+#pragma mark ORK1StepViewControllerDelegate
 
-- (void)stepViewController:(ORKLegacyStepViewController *)stepViewController didFinishWithNavigationDirection:(ORKLegacyStepViewControllerNavigationDirection)direction {
-    NSInteger delta = (direction == ORKLegacyStepViewControllerNavigationDirectionForward) ? 1 : -1;
-    if (direction == ORKLegacyStepViewControllerNavigationDirectionForward) {
+- (void)stepViewController:(ORK1StepViewController *)stepViewController didFinishWithNavigationDirection:(ORK1StepViewControllerNavigationDirection)direction {
+    NSInteger delta = (direction == ORK1StepViewControllerNavigationDirectionForward) ? 1 : -1;
+    if (direction == ORK1StepViewControllerNavigationDirectionForward) {
         // If going forward, update the page result with the final stepResult
-        ORKLegacyStepResult *stepResult = stepViewController.result;
+        ORK1StepResult *stepResult = stepViewController.result;
         [self.pageResult addStepResult:stepResult];
     }
     [self navigateInDirection:delta animated:YES];
 }
 
-- (void)stepViewControllerResultDidChange:(ORKLegacyStepViewController *)stepViewController {
+- (void)stepViewControllerResultDidChange:(ORK1StepViewController *)stepViewController {
     [self.pageResult addStepResult:stepViewController.result];
     [self notifyDelegateOnResultChange];
 }
 
-- (void)stepViewControllerDidFail:(ORKLegacyStepViewController *)stepViewController withError:(NSError *)error {
-    ORKLegacyStrongTypeOf(self.delegate) delegate = self.delegate;
+- (void)stepViewControllerDidFail:(ORK1StepViewController *)stepViewController withError:(NSError *)error {
+    ORK1StrongTypeOf(self.delegate) delegate = self.delegate;
     if ([delegate respondsToSelector:@selector(stepViewControllerDidFail:withError:)]) {
         [delegate stepViewControllerDidFail:self withError:error];
     }
 }
 
-- (BOOL)stepViewControllerHasNextStep:(ORKLegacyStepViewController *)stepViewController {
-    return [self hasNextStep] || ([self stepInDirection:ORKLegacyPageNavigationDirectionForward] != nil);
+- (BOOL)stepViewControllerHasNextStep:(ORK1StepViewController *)stepViewController {
+    return [self hasNextStep] || ([self stepInDirection:ORK1PageNavigationDirectionForward] != nil);
 }
 
-- (BOOL)stepViewControllerHasPreviousStep:(ORKLegacyStepViewController *)stepViewController {
-    return [self hasPreviousStep] || ([self stepInDirection:ORKLegacyPageNavigationDirectionReverse] != nil);
+- (BOOL)stepViewControllerHasPreviousStep:(ORK1StepViewController *)stepViewController {
+    return [self hasPreviousStep] || ([self stepInDirection:ORK1PageNavigationDirectionReverse] != nil);
 }
 
-- (void)stepViewController:(ORKLegacyStepViewController *)stepViewController recorder:(ORKLegacyRecorder *)recorder didFailWithError:(NSError *)error {
-    ORKLegacyStrongTypeOf(self.delegate) delegate = self.delegate;
+- (void)stepViewController:(ORK1StepViewController *)stepViewController recorder:(ORK1Recorder *)recorder didFailWithError:(NSError *)error {
+    ORK1StrongTypeOf(self.delegate) delegate = self.delegate;
     if ([delegate respondsToSelector:@selector(stepViewController:recorder:didFailWithError:)]) {
         [delegate stepViewController:self recorder:recorder didFailWithError:error];
     }
@@ -216,8 +216,8 @@ typedef NS_ENUM(NSInteger, ORKLegacyPageNavigationDirection) {
 
 #pragma mark Navigation
 
-- (ORKLegacyStep *)stepInDirection:(ORKLegacyPageNavigationDirection)delta {
-    if ((delta == ORKLegacyPageNavigationDirectionNone) && (self.currentStepIdentifier != nil)) {
+- (ORK1Step *)stepInDirection:(ORK1PageNavigationDirection)delta {
+    if ((delta == ORK1PageNavigationDirectionNone) && (self.currentStepIdentifier != nil)) {
         return [self.pageStep stepWithIdentifier:self.currentStepIdentifier];
     } else if ((delta >= 0) || (self.currentStepIdentifier == nil)) {
         return [self.pageStep stepAfterStepWithIdentifier:self.currentStepIdentifier withResult:self.pageResult];
@@ -227,8 +227,8 @@ typedef NS_ENUM(NSInteger, ORKLegacyPageNavigationDirection) {
     }
 }
 
-- (void)navigateInDirection:(ORKLegacyPageNavigationDirection)delta animated:(BOOL)animated {
-    ORKLegacyStep *step = [self stepInDirection:delta];
+- (void)navigateInDirection:(ORK1PageNavigationDirection)delta animated:(BOOL)animated {
+    ORK1Step *step = [self stepInDirection:delta];
     if (step == nil) {
         if (delta < 0) {
             [self goBackward];
@@ -242,21 +242,21 @@ typedef NS_ENUM(NSInteger, ORKLegacyPageNavigationDirection) {
     }
 }
 
-- (ORKLegacyStepViewController *)stepViewControllerForStep:(ORKLegacyStep *)step {
-    ORKLegacyStepResult *stepResult = [self.pageResult stepResultForStepIdentifier:step.identifier];
+- (ORK1StepViewController *)stepViewControllerForStep:(ORK1Step *)step {
+    ORK1StepResult *stepResult = [self.pageResult stepResultForStepIdentifier:step.identifier];
     if (stepResult == nil) {
         // If the pageResult does not carry a step result, then check the initial result
         stepResult = [self.initialResult stepResultForStepIdentifier:step.identifier];
     }
-    ORKLegacyStepViewController *viewController = [step instantiateStepViewControllerWithResult:stepResult];
+    ORK1StepViewController *viewController = [step instantiateStepViewControllerWithResult:stepResult];
     return viewController;
 }
 
-- (void)goToStep:(ORKLegacyStep *)step direction:(UIPageViewControllerNavigationDirection)direction animated:(BOOL)animated {
-    ORKLegacyStepViewController *stepViewController = [self stepViewControllerForStep:step];
+- (void)goToStep:(ORK1Step *)step direction:(UIPageViewControllerNavigationDirection)direction animated:(BOOL)animated {
+    ORK1StepViewController *stepViewController = [self stepViewControllerForStep:step];
     
     if (!stepViewController) {
-        ORKLegacy_Log_Debug(@"No view controller!");
+        ORK1_Log_Debug(@"No view controller!");
         [self goForward];
         return;
     }
@@ -269,7 +269,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyPageNavigationDirection) {
     stepViewController.outputDirectory = self.outputDirectory;
     
     // Setup page direction
-    ORKLegacyAdjustPageViewControllerNavigationDirectionForRTL(&direction);
+    ORK1AdjustPageViewControllerNavigationDirectionForRTL(&direction);
     
     _currentStepIdentifier = step.identifier;
     __weak typeof(self) weakSelf = self;
@@ -279,7 +279,7 @@ typedef NS_ENUM(NSInteger, ORKLegacyPageNavigationDirection) {
     
     [self.pageViewController setViewControllers:@[stepViewController] direction:direction animated:animated completion:^(BOOL finished) {
         if (finished) {
-            ORKLegacyStrongTypeOf(weakSelf) strongSelf = weakSelf;
+            ORK1StrongTypeOf(weakSelf) strongSelf = weakSelf;
             [strongSelf updateNavLeftBarButtonItem];
             UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, strongSelf.navigationItem.leftBarButtonItem);
         }
@@ -288,20 +288,20 @@ typedef NS_ENUM(NSInteger, ORKLegacyPageNavigationDirection) {
 
 #pragma mark - UIStateRestoring
 
-static NSString *const _ORKLegacyCurrentStepIdentifierRestoreKey = @"currentStepIdentifier";
-static NSString *const _ORKLegacyPageResultRestoreKey = @"pageResult";
+static NSString *const _ORK1CurrentStepIdentifierRestoreKey = @"currentStepIdentifier";
+static NSString *const _ORK1PageResultRestoreKey = @"pageResult";
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeObject:_currentStepIdentifier forKey:_ORKLegacyCurrentStepIdentifierRestoreKey];
-    [coder encodeObject:_pageResult forKey:_ORKLegacyPageResultRestoreKey];
+    [coder encodeObject:_currentStepIdentifier forKey:_ORK1CurrentStepIdentifierRestoreKey];
+    [coder encodeObject:_pageResult forKey:_ORK1PageResultRestoreKey];
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     
-    _currentStepIdentifier = [coder decodeObjectOfClass:[NSString class] forKey:_ORKLegacyCurrentStepIdentifierRestoreKey];
-    _pageResult = [coder decodeObjectOfClass:[ORKLegacyPageResult class] forKey:_ORKLegacyPageResultRestoreKey];
+    _currentStepIdentifier = [coder decodeObjectOfClass:[NSString class] forKey:_ORK1CurrentStepIdentifierRestoreKey];
+    _pageResult = [coder decodeObjectOfClass:[ORK1PageResult class] forKey:_ORK1PageResultRestoreKey];
 }
 
 @end

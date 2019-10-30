@@ -32,7 +32,7 @@
 #import "ORKFormTextView.h"
 
 
-@implementation ORKLegacyFormTextView
+@implementation ORK1FormTextView
 
 + (UIFont *)defaultFont {
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline];

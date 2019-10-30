@@ -39,17 +39,17 @@
 #import "ORKSkin.h"
 
 
-static const CGFloat ORKLegacyOrientationThreshold = 12.0f;
-static const CGFloat ORKLegacyHolePegViewDiameter = 88.0f;
+static const CGFloat ORK1OrientationThreshold = 12.0f;
+static const CGFloat ORK1HolePegViewDiameter = 88.0f;
 #define degreesToRadians(degrees) ((degrees) / 180.0 * M_PI)
 
 
-@interface ORKLegacyHolePegTestPlaceContentView () <UIGestureRecognizerDelegate>
+@interface ORK1HolePegTestPlaceContentView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) ORKLegacyHolePegTestPlacePegView *pegView;
-@property (nonatomic, strong) ORKLegacyHolePegTestPlaceHoleView *holeView;
-@property (nonatomic, strong) ORKLegacyDirectionView *directionView;
+@property (nonatomic, strong) ORK1HolePegTestPlacePegView *pegView;
+@property (nonatomic, strong) ORK1HolePegTestPlaceHoleView *holeView;
+@property (nonatomic, strong) ORK1DirectionView *directionView;
 @property (nonatomic, copy) NSArray *constraints;
 
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchRecognizer;
@@ -66,17 +66,17 @@ static const CGFloat ORKLegacyHolePegViewDiameter = 88.0f;
 @end
 
 
-@implementation ORKLegacyHolePegTestPlaceContentView
+@implementation ORK1HolePegTestPlaceContentView
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
-- (instancetype)initWithMovingDirection:(ORKLegacyBodySagittal)movingDirection rotated:(BOOL)rotated {
+- (instancetype)initWithMovingDirection:(ORK1BodySagittal)movingDirection rotated:(BOOL)rotated {
     self = [super initWithFrame:CGRectZero];
     if (self) {
         self.movingDirection = movingDirection;
@@ -88,17 +88,17 @@ static const CGFloat ORKLegacyHolePegViewDiameter = 88.0f;
         [self.progressView setAlpha:0];
         [self addSubview:self.progressView];
         
-        self.holeView = [[ORKLegacyHolePegTestPlaceHoleView alloc] initWithFrame:CGRectMake(0, 0, ORKLegacyHolePegViewDiameter, ORKLegacyHolePegViewDiameter)];
+        self.holeView = [[ORK1HolePegTestPlaceHoleView alloc] initWithFrame:CGRectMake(0, 0, ORK1HolePegViewDiameter, ORK1HolePegViewDiameter)];
         self.holeView.rotated = self.isRotated;
         [self.holeView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self addSubview:self.holeView];
         
-        self.pegView = [[ORKLegacyHolePegTestPlacePegView alloc] initWithFrame:CGRectMake(0, 0, ORKLegacyHolePegViewDiameter, ORKLegacyHolePegViewDiameter)];
+        self.pegView = [[ORK1HolePegTestPlacePegView alloc] initWithFrame:CGRectMake(0, 0, ORK1HolePegViewDiameter, ORK1HolePegViewDiameter)];
         self.pegView.rotated = self.isRotated;
         [self.pegView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self addSubview:self.pegView];
         
-        self.directionView = [[ORKLegacyDirectionView alloc] initWithOrientation:(self.movingDirection == ORKLegacyBodySagittalLeft) ? ORKLegacyBodySagittalRight : ORKLegacyBodySagittalLeft];
+        self.directionView = [[ORK1DirectionView alloc] initWithOrientation:(self.movingDirection == ORK1BodySagittalLeft) ? ORK1BodySagittalRight : ORK1BodySagittalLeft];
         [self.directionView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self addSubview:self.directionView];
         
@@ -142,7 +142,7 @@ static const CGFloat ORKLegacyHolePegViewDiameter = 88.0f;
 }
 
 - (void)updateLayoutMargins {
-    CGFloat margin = ORKLegacyStandardHorizontalMarginForView(self);
+    CGFloat margin = ORK1StandardHorizontalMarginForView(self);
     self.layoutMargins = (UIEdgeInsets){.left = margin * 2, .right = margin * 2};
 }
 
@@ -165,7 +165,7 @@ static const CGFloat ORKLegacyHolePegViewDiameter = 88.0f;
     NSMutableArray *constraintsArray = [NSMutableArray array];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(_progressView, _pegView, _holeView, _directionView);
-    NSDictionary *metrics = @{@"diameter": @(ORKLegacyHolePegViewDiameter)};
+    NSDictionary *metrics = @{@"diameter": @(ORK1HolePegViewDiameter)};
     
     [constraintsArray addObjectsFromArray:
      [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_progressView]-|"
@@ -173,7 +173,7 @@ static const CGFloat ORKLegacyHolePegViewDiameter = 88.0f;
                                              metrics:nil views:views]];
     
     [constraintsArray addObjectsFromArray:
-     [NSLayoutConstraint constraintsWithVisualFormat:(self.movingDirection == ORKLegacyBodySagittalLeft) ? @"H:|-[_pegView]->=0-[_holeView]-|" : @"H:|-[_holeView]->=0-[_pegView]-|"
+     [NSLayoutConstraint constraintsWithVisualFormat:(self.movingDirection == ORK1BodySagittalLeft) ? @"H:|-[_pegView]->=0-[_holeView]-|" : @"H:|-[_holeView]->=0-[_pegView]-|"
                                              options:NSLayoutFormatAlignAllCenterY
                                              metrics:nil views:views]];
     
@@ -384,8 +384,8 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
         if (self.isRotated) {
             double rotation = atan2(self.pegView.transform.b, self.pegView.transform.a);
             double angle = fmod(fabs(rotation), M_PI_2);
-            if (angle > M_PI_4 - degreesToRadians(ORKLegacyOrientationThreshold) &&
-                angle < M_PI_4 + degreesToRadians(ORKLegacyOrientationThreshold)) {
+            if (angle > M_PI_4 - degreesToRadians(ORK1OrientationThreshold) &&
+                angle < M_PI_4 + degreesToRadians(ORK1OrientationThreshold)) {
                 return YES;
             }
         } else {

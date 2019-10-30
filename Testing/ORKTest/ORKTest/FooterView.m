@@ -53,7 +53,7 @@
 - (void)commonInit {
     
     // Add continue button and constraints
-    _continueButton = [[ORKLegacyContinueButton alloc] initWithTitle:NSLocalizedString(@"Done", @"") isDoneButton:NO];
+    _continueButton = [[ORK1ContinueButton alloc] initWithTitle:NSLocalizedString(@"Done", @"") isDoneButton:NO];
     _continueButton.exclusiveTouch = YES;
     _continueButton.translatesAutoresizingMaskIntoConstraints = NO;
     

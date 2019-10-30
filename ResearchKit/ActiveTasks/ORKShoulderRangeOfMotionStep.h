@@ -33,10 +33,10 @@
 
 
 /**
- The `ORKLegacyShoulderRangeOfMotionStep` class represents a step that takes a range of motion measurement
+ The `ORK1ShoulderRangeOfMotionStep` class represents a step that takes a range of motion measurement
  for either a left or right shoulder.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyShoulderRangeOfMotionStep : ORKLegacyRangeOfMotionStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1ShoulderRangeOfMotionStep : ORK1RangeOfMotionStep
 
 @end

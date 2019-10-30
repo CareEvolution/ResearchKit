@@ -45,16 +45,16 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyWaitStep
+@implementation ORK1WaitStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyWaitStepViewController class];
+    return [ORK1WaitStepViewController class];
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     self = [super initWithIdentifier:identifier];
     if (self) {
-        self.indicatorType = ORKLegacyProgressIndicatorTypeIndeterminate;
+        self.indicatorType = ORK1ProgressIndicatorTypeIndeterminate;
     }
     return self;
 }
@@ -62,14 +62,14 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_ENUM(aDecoder, indicatorType);
+        ORK1_DECODE_ENUM(aDecoder, indicatorType);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_ENUM(aCoder, indicatorType);
+    ORK1_ENCODE_ENUM(aCoder, indicatorType);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -81,7 +81,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyWaitStep *step = [super copyWithZone:zone];
+    ORK1WaitStep *step = [super copyWithZone:zone];
     step.indicatorType = self.indicatorType;
     return step;
 }

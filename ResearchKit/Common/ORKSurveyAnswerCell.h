@@ -35,33 +35,33 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyQuestionStep;
-@class ORKLegacySurveyAnswerCell;
+@class ORK1QuestionStep;
+@class ORK1SurveyAnswerCell;
 
-@protocol ORKLegacySurveyAnswerCellDelegate
+@protocol ORK1SurveyAnswerCellDelegate
 
 @required
-- (void)answerCell:(ORKLegacySurveyAnswerCell *)cell answerDidChangeTo:(id)answer dueUserAction:(BOOL)dueUserAction;
-- (void)answerCell:(ORKLegacySurveyAnswerCell *)cell invalidInputAlertWithMessage:(NSString *)input;
-- (void)answerCell:(ORKLegacySurveyAnswerCell *)cell invalidInputAlertWithTitle:(NSString *)title message:(NSString *)message;
+- (void)answerCell:(ORK1SurveyAnswerCell *)cell answerDidChangeTo:(id)answer dueUserAction:(BOOL)dueUserAction;
+- (void)answerCell:(ORK1SurveyAnswerCell *)cell invalidInputAlertWithMessage:(NSString *)input;
+- (void)answerCell:(ORK1SurveyAnswerCell *)cell invalidInputAlertWithTitle:(NSString *)title message:(NSString *)message;
 
 @end
 
 
-@interface ORKLegacySurveyAnswerCell : ORKLegacyTableViewCell {
+@interface ORK1SurveyAnswerCell : ORK1TableViewCell {
 @protected
     id _answer;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
               reuseIdentifier:(NSString *)reuseIdentifier
-                         step:(ORKLegacyQuestionStep *)step
+                         step:(ORK1QuestionStep *)step
                        answer:(id)answer
-                     delegate:(id<ORKLegacySurveyAnswerCellDelegate>)delegate;
+                     delegate:(id<ORK1SurveyAnswerCellDelegate>)delegate;
 
-@property (nonatomic, weak, nullable) ORKLegacyQuestionStep *step;
+@property (nonatomic, weak, nullable) ORK1QuestionStep *step;
 
-@property (nonatomic, weak, nullable) id<ORKLegacySurveyAnswerCellDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ORK1SurveyAnswerCellDelegate> delegate;
 
 @property (nonatomic, copy, nullable) id answer;
 
@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface ORKLegacySurveyAnswerCell (ORKLegacySurveyAnswerCellInternal)
+@interface ORK1SurveyAnswerCell (ORK1SurveyAnswerCellInternal)
 
 - (void)prepareView;
 

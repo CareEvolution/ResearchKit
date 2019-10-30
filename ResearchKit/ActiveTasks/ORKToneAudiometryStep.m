@@ -36,19 +36,19 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyToneAudiometryStep
+@implementation ORK1ToneAudiometryStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyToneAudiometryStepViewController class];
+    return [ORK1ToneAudiometryStepViewController class];
 }
 
 - (void)validateParameters {
     [super validateParameters];
 
-    NSTimeInterval const ORKLegacyToneAudiometryTaskToneMinimumDuration = 5.0;
+    NSTimeInterval const ORK1ToneAudiometryTaskToneMinimumDuration = 5.0;
 
-    if (self.toneDuration < ORKLegacyToneAudiometryTaskToneMinimumDuration) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"tone duration cannot be shorter than %@ seconds.", @(ORKLegacyToneAudiometryTaskToneMinimumDuration)]  userInfo:nil];
+    if (self.toneDuration < ORK1ToneAudiometryTaskToneMinimumDuration) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"tone duration cannot be shorter than %@ seconds.", @(ORK1ToneAudiometryTaskToneMinimumDuration)]  userInfo:nil];
     }
 }
 
@@ -57,7 +57,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyToneAudiometryStep *step = [super copyWithZone:zone];
+    ORK1ToneAudiometryStep *step = [super copyWithZone:zone];
     step.toneDuration = self.toneDuration;
     return step;
 }
@@ -65,14 +65,14 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORKLegacy_DECODE_DOUBLE(aDecoder, toneDuration);
+        ORK1_DECODE_DOUBLE(aDecoder, toneDuration);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_DOUBLE(aCoder, toneDuration);
+    ORK1_ENCODE_DOUBLE(aCoder, toneDuration);
 }
 
 + (BOOL)supportsSecureCoding {

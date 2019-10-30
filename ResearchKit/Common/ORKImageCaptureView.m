@@ -41,10 +41,10 @@
 #import "ORKSkin.h"
 
 
-@implementation ORKLegacyImageCaptureView {
-    ORKLegacyStepHeaderView *_headerView;
-    ORKLegacyImageCaptureCameraPreviewView *_previewView;
-    ORKLegacyNavigationContainerView *_continueSkipContainer;
+@implementation ORK1ImageCaptureView {
+    ORK1StepHeaderView *_headerView;
+    ORK1ImageCaptureCameraPreviewView *_previewView;
+    ORK1NavigationContainerView *_continueSkipContainer;
     UIBarButtonItem *_captureButtonItem;
     UIBarButtonItem *_recaptureButtonItem;
     NSMutableArray *_variableConstraints;
@@ -57,26 +57,26 @@
 - (instancetype)initWithFrame:(CGRect)aRect {
     self = [super initWithFrame:aRect];
     if (self) {
-        _previewView = [[ORKLegacyImageCaptureCameraPreviewView alloc] init];
+        _previewView = [[ORK1ImageCaptureCameraPreviewView alloc] init];
         [self addSubview:_previewView];
         
-        _headerView = [[ORKLegacyStepHeaderView alloc] init];
+        _headerView = [[ORK1StepHeaderView alloc] init];
         _headerView.instructionLabel.text = @" "; // Need error placeholder string for constraints.
         [self addSubview:_headerView];
         
-        _captureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORKLegacyLocalizedString(@"CAPTURE_BUTTON_CAPTURE_IMAGE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(capturePressed)];
-        _recaptureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORKLegacyLocalizedString(@"CAPTURE_BUTTON_RECAPTURE_IMAGE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(retakePressed)];
+        _captureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"CAPTURE_BUTTON_CAPTURE_IMAGE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(capturePressed)];
+        _recaptureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"CAPTURE_BUTTON_RECAPTURE_IMAGE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(retakePressed)];
         
-        _continueSkipContainer = [ORKLegacyNavigationContainerView new];
+        _continueSkipContainer = [ORK1NavigationContainerView new];
         _continueSkipContainer.continueEnabled = YES;
         _continueSkipContainer.topMargin = 5;
         _continueSkipContainer.bottomMargin = 15;
         _continueSkipContainer.optional = YES;
-        _continueSkipContainer.backgroundColor = ORKLegacyColor(ORKLegacyBackgroundColorKey);
+        _continueSkipContainer.backgroundColor = ORK1Color(ORK1BackgroundColorKey);
         [self addSubview:_continueSkipContainer];
         
         NSDictionary *dictionary = NSDictionaryOfVariableBindings(self, _previewView, _continueSkipContainer, _headerView);
-        ORKLegacyEnableAutoLayoutForViews(dictionary.allValues);
+        ORK1EnableAutoLayoutForViews(dictionary.allValues);
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationDidChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queue_sessionRunning) name:AVCaptureSessionDidStartRunningNotification object:nil];
@@ -125,7 +125,7 @@
     });
 }
 
-- (void)setImageCaptureStep:(ORKLegacyImageCaptureStep *)imageCaptureStep {
+- (void)setImageCaptureStep:(ORK1ImageCaptureStep *)imageCaptureStep {
     _imageCaptureStep = imageCaptureStep;
     
     _previewView.templateImage = imageCaptureStep.templateImage;
@@ -201,7 +201,7 @@
     }
     
     NSDictionary *views = NSDictionaryOfVariableBindings(self, _previewView, _continueSkipContainer, _headerView);
-    ORKLegacyEnableAutoLayoutForViews(views.allValues);
+    ORK1EnableAutoLayoutForViews(views.allValues);
     
     [_variableConstraints addObjectsFromArray:
      [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_headerView]|"
@@ -307,7 +307,7 @@
 - (void)sessionWasInterrupted:(NSNotification *)notification {
     AVCaptureSessionInterruptionReason reason = [notification.userInfo[AVCaptureSessionInterruptionReasonKey] integerValue];
     if (reason == AVCaptureSessionInterruptionReasonVideoDeviceNotAvailableWithMultipleForegroundApps) {
-        [self setError:[[NSError alloc] initWithDomain:@"" code:0 userInfo:@{NSLocalizedDescriptionKey: ORKLegacyLocalizedString(@"CAMERA_UNAVAILABLE_MESSAGE", nil)}]];
+        [self setError:[[NSError alloc] initWithDomain:@"" code:0 userInfo:@{NSLocalizedDescriptionKey: ORK1LocalizedString(@"CAMERA_UNAVAILABLE_MESSAGE", nil)}]];
     }
 }
 

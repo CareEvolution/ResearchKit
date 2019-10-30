@@ -40,37 +40,37 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyStep
+@implementation ORK1Step
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier {
     self = [super init];
     if (self) {
-        ORKLegacyThrowInvalidArgumentExceptionIfNil(identifier);
+        ORK1ThrowInvalidArgumentExceptionIfNil(identifier);
         _identifier = [identifier copy];
     }
     return self;
 }
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyStepViewController class];
+    return [ORK1StepViewController class];
 }
 
 - (Class)stepViewControllerClass {
     return [[self class] stepViewControllerClass];
 }
 
-- (ORKLegacyStepViewController *)instantiateStepViewControllerWithResult:(ORKLegacyResult *)result {
+- (ORK1StepViewController *)instantiateStepViewControllerWithResult:(ORK1Result *)result {
     Class stepViewControllerClass = [self stepViewControllerClass];
     
-    ORKLegacyStepViewController *stepViewController = [[stepViewControllerClass alloc] initWithStep:self result:result];
+    ORK1StepViewController *stepViewController = [[stepViewControllerClass alloc] initWithStep:self result:result];
     
     // Set the restoration info using the given class
     stepViewController.restorationIdentifier = self.identifier;
@@ -80,14 +80,14 @@
 }
 
 - (instancetype)copyWithIdentifier:(NSString *)identifier {
-    ORKLegacyThrowInvalidArgumentExceptionIfNil(identifier)
-    ORKLegacyStep *step = [self copy];
+    ORK1ThrowInvalidArgumentExceptionIfNil(identifier)
+    ORK1Step *step = [self copy];
     step->_identifier = [identifier copy];
     return step;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyStep *step = [[[self class] allocWithZone:zone] initWithIdentifier:[_identifier copy]];
+    ORK1Step *step = [[[self class] allocWithZone:zone] initWithIdentifier:[_identifier copy]];
     step.title = _title;
     step.optional = _optional;
     step.text = _text;
@@ -103,9 +103,9 @@
     
     // Ignore the task reference - it's not part of the content of the step.
     __typeof(self) castObject = object;
-    return (ORKLegacyEqualObjects(self.identifier, castObject.identifier)
-            && ORKLegacyEqualObjects(self.title, castObject.title)
-            && ORKLegacyEqualObjects(self.text, castObject.text)
+    return (ORK1EqualObjects(self.identifier, castObject.identifier)
+            && ORK1EqualObjects(self.title, castObject.title)
+            && ORK1EqualObjects(self.text, castObject.text)
             && (self.optional == castObject.optional)
             && (self.shouldTintImages == castObject.shouldTintImages)
             && (self.useSurveyMode == castObject.useSurveyMode));
@@ -123,26 +123,26 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, title, NSString);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, text, NSString);
-        ORKLegacy_DECODE_BOOL(aDecoder, optional);
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, task, ORKLegacyOrderedTask);
-        ORKLegacy_DECODE_BOOL(aDecoder, shouldTintImages);
-        ORKLegacy_DECODE_BOOL(aDecoder, useSurveyMode);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, title, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, text, NSString);
+        ORK1_DECODE_BOOL(aDecoder, optional);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, task, ORK1OrderedTask);
+        ORK1_DECODE_BOOL(aDecoder, shouldTintImages);
+        ORK1_DECODE_BOOL(aDecoder, useSurveyMode);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORKLegacy_ENCODE_OBJ(aCoder, identifier);
-    ORKLegacy_ENCODE_OBJ(aCoder, title);
-    ORKLegacy_ENCODE_OBJ(aCoder, text);
-    ORKLegacy_ENCODE_BOOL(aCoder, optional);
-    ORKLegacy_ENCODE_BOOL(aCoder, shouldTintImages);
-    ORKLegacy_ENCODE_BOOL(aCoder, useSurveyMode);
-    if ([_task isKindOfClass:[ORKLegacyOrderedTask class]]) {
-        ORKLegacy_ENCODE_OBJ(aCoder, task);
+    ORK1_ENCODE_OBJ(aCoder, identifier);
+    ORK1_ENCODE_OBJ(aCoder, title);
+    ORK1_ENCODE_OBJ(aCoder, text);
+    ORK1_ENCODE_BOOL(aCoder, optional);
+    ORK1_ENCODE_BOOL(aCoder, shouldTintImages);
+    ORK1_ENCODE_BOOL(aCoder, useSurveyMode);
+    if ([_task isKindOfClass:[ORK1OrderedTask class]]) {
+        ORK1_ENCODE_OBJ(aCoder, task);
     }
 }
 
@@ -166,8 +166,8 @@
     
 }
 
-- (ORKLegacyPermissionMask)requestedPermissions {
-    return ORKLegacyPermissionNone;
+- (ORK1PermissionMask)requestedPermissions {
+    return ORK1PermissionNone;
 }
 
 - (NSSet<HKObjectType *> *)requestedHealthKitTypesForReading {

@@ -76,33 +76,33 @@
 #import "UIImage+ResearchKit.h"
 #import <limits.h>
 
-ORKLegacyTrailMakingTypeIdentifier const ORKLegacyTrailMakingTypeIdentifierA = @"A";
-ORKLegacyTrailMakingTypeIdentifier const ORKLegacyTrailMakingTypeIdentifierB = @"B";
+ORK1TrailMakingTypeIdentifier const ORK1TrailMakingTypeIdentifierA = @"A";
+ORK1TrailMakingTypeIdentifier const ORK1TrailMakingTypeIdentifierB = @"B";
 
 
-ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger total) {
-    return (ORKLegacyTaskProgress){.current=current, .total=total};
+ORK1TaskProgress ORK1TaskProgressMake(NSUInteger current, NSUInteger total) {
+    return (ORK1TaskProgress){.current=current, .total=total};
 }
 
 
-@implementation ORKLegacyOrderedTask {
+@implementation ORK1OrderedTask {
     NSString *_identifier;
 }
 
 @synthesize cev_theme = _cev_theme;
 
 + (instancetype)new {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
 - (instancetype)init {
-    ORKLegacyThrowMethodUnavailableException();
+    ORK1ThrowMethodUnavailableException();
 }
 
-- (instancetype)initWithIdentifier:(NSString *)identifier steps:(NSArray<ORKLegacyStep *> *)steps {
+- (instancetype)initWithIdentifier:(NSString *)identifier steps:(NSArray<ORK1Step *> *)steps {
     self = [super init];
     if (self) {
-        ORKLegacyThrowInvalidArgumentExceptionIfNil(identifier);
+        ORK1ThrowInvalidArgumentExceptionIfNil(identifier);
         
         _identifier = [identifier copy];
         _steps = steps;
@@ -112,15 +112,15 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
     return self;
 }
 
-- (instancetype)copyWithSteps:(NSArray <ORKLegacyStep *> *)steps {
-    ORKLegacyOrderedTask *task = [self copyWithZone:nil];
-    task->_steps = ORKLegacyArrayCopyObjects(steps);
+- (instancetype)copyWithSteps:(NSArray <ORK1Step *> *)steps {
+    ORK1OrderedTask *task = [self copyWithZone:nil];
+    task->_steps = ORK1ArrayCopyObjects(steps);
     return task;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyOrderedTask *task = [[[self class] allocWithZone:zone] initWithIdentifier:[_identifier copy]
-                                                                           steps:ORKLegacyArrayCopyObjects(_steps)];
+    ORK1OrderedTask *task = [[[self class] allocWithZone:zone] initWithIdentifier:[_identifier copy]
+                                                                           steps:ORK1ArrayCopyObjects(_steps)];
     return task;
 }
 
@@ -130,15 +130,15 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
     }
     
     __typeof(self) castObject = object;
-    return (ORKLegacyEqualObjects(self.identifier, castObject.identifier)
-            && ORKLegacyEqualObjects(self.steps, castObject.steps));
+    return (ORK1EqualObjects(self.identifier, castObject.identifier)
+            && ORK1EqualObjects(self.steps, castObject.steps));
 }
 
 - (NSUInteger)hash {
     return _identifier.hash ^ _steps.hash;
 }
 
-#pragma mark - ORKLegacyTask
+#pragma mark - ORK1Task
 
 - (void)validateParameters {
     NSArray *uniqueIdentifiers = [self.steps valueForKeyPath:@"@distinctUnionOfObjects.identifier"];
@@ -153,7 +153,7 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
     return _identifier;
 }
 
-- (NSUInteger)indexOfStep:(ORKLegacyStep *)step {
+- (NSUInteger)indexOfStep:(ORK1Step *)step {
     NSUInteger index = [_steps indexOfObject:step];
     if (index == NSNotFound) {
         NSArray *identifiers = [_steps valueForKey:@"identifier"];
@@ -162,15 +162,15 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
     return index;
 }
 
-- (ORKLegacyStep *)stepAfterStep:(ORKLegacyStep *)step withResult:(ORKLegacyTaskResult *)result {
+- (ORK1Step *)stepAfterStep:(ORK1Step *)step withResult:(ORK1TaskResult *)result {
     NSArray *steps = _steps;
     
     if (steps.count <= 0) {
         return nil;
     }
     
-    ORKLegacyStep *currentStep = step;
-    ORKLegacyStep *nextStep = nil;
+    ORK1Step *currentStep = step;
+    ORK1Step *nextStep = nil;
     
     if (currentStep == nil) {
         nextStep = steps[0];
@@ -184,15 +184,15 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
     return nextStep;
 }
 
-- (ORKLegacyStep *)stepBeforeStep:(ORKLegacyStep *)step withResult:(ORKLegacyTaskResult *)result {
+- (ORK1Step *)stepBeforeStep:(ORK1Step *)step withResult:(ORK1TaskResult *)result {
     NSArray *steps = _steps;
     
     if (steps.count <= 0) {
         return nil;
     }
     
-    ORKLegacyStep *currentStep = step;
-    ORKLegacyStep *nextStep = nil;
+    ORK1Step *currentStep = step;
+    ORK1Step *nextStep = nil;
     
     if (currentStep == nil) {
         nextStep = nil;
@@ -207,9 +207,9 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
     return nextStep;
 }
 
-- (ORKLegacyStep *)stepWithIdentifier:(NSString *)identifier {
-    __block ORKLegacyStep *step = nil;
-    [_steps enumerateObjectsUsingBlock:^(ORKLegacyStep *obj, NSUInteger idx, BOOL *stop) {
+- (ORK1Step *)stepWithIdentifier:(NSString *)identifier {
+    __block ORK1Step *step = nil;
+    [_steps enumerateObjectsUsingBlock:^(ORK1Step *obj, NSUInteger idx, BOOL *stop) {
         if ([obj.identifier isEqualToString:identifier]) {
             step = obj;
             *stop = YES;
@@ -218,8 +218,8 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
     return step;
 }
 
-- (ORKLegacyTaskProgress)progressOfCurrentStep:(ORKLegacyStep *)step withResult:(ORKLegacyTaskResult *)taskResult {
-    ORKLegacyTaskProgress progress;
+- (ORK1TaskProgress)progressOfCurrentStep:(ORK1Step *)step withResult:(ORK1TaskResult *)taskResult {
+    ORK1TaskProgress progress;
     progress.current = [self indexOfStep:step];
     progress.total = _steps.count;
     
@@ -231,7 +231,7 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
 
 - (NSSet *)requestedHealthKitTypesForReading {
     NSMutableSet *healthTypes = [NSMutableSet set];
-    for (ORKLegacyStep *step in self.steps) {
+    for (ORK1Step *step in self.steps) {
         NSSet *stepSet = [step requestedHealthKitTypesForReading];
         if (stepSet) {
             [healthTypes unionSet:stepSet];
@@ -244,9 +244,9 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
     return nil;
 }
 
-- (ORKLegacyPermissionMask)requestedPermissions {
-    ORKLegacyPermissionMask mask = ORKLegacyPermissionNone;
-    for (ORKLegacyStep *step in self.steps) {
+- (ORK1PermissionMask)requestedPermissions {
+    ORK1PermissionMask mask = ORK1PermissionNone;
+    for (ORK1Step *step in self.steps) {
         mask |= [step requestedPermissions];
     }
     return mask;
@@ -254,9 +254,9 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
 
 - (BOOL)providesBackgroundAudioPrompts {
     BOOL providesAudioPrompts = NO;
-    for (ORKLegacyStep *step in self.steps) {
-        if ([step isKindOfClass:[ORKLegacyActiveStep class]]) {
-            ORKLegacyActiveStep *activeStep = (ORKLegacyActiveStep *)step;
+    for (ORK1Step *step in self.steps) {
+        if ([step isKindOfClass:[ORK1ActiveStep class]]) {
+            ORK1ActiveStep *activeStep = (ORK1ActiveStep *)step;
             if ([activeStep hasVoice] || [activeStep hasCountDown]) {
                 providesAudioPrompts = YES;
                 break;
@@ -273,18 +273,18 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
-    ORKLegacy_ENCODE_OBJ(aCoder, identifier);
-    ORKLegacy_ENCODE_OBJ(aCoder, steps);
+    ORK1_ENCODE_OBJ(aCoder, identifier);
+    ORK1_ENCODE_OBJ(aCoder, steps);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        ORKLegacy_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
-        ORKLegacy_DECODE_OBJ_ARRAY(aDecoder, steps, ORKLegacyStep);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, identifier, NSString);
+        ORK1_DECODE_OBJ_ARRAY(aDecoder, steps, ORK1Step);
         
-        for (ORKLegacyStep *step in _steps) {
-            if ([step isKindOfClass:[ORKLegacyStep class]]) {
+        for (ORK1Step *step in _steps) {
+            if ([step isKindOfClass:[ORK1Step class]]) {
                 [step setTask:self];
             }
         }
@@ -294,79 +294,79 @@ ORKLegacyTaskProgress ORKLegacyTaskProgressMake(NSUInteger current, NSUInteger t
 
 #pragma mark - Predefined
 
-NSString *const ORKLegacyInstruction0StepIdentifier = @"instruction";
-NSString *const ORKLegacyInstruction1StepIdentifier = @"instruction1";
-NSString *const ORKLegacyInstruction2StepIdentifier = @"instruction2";
-NSString *const ORKLegacyInstruction3StepIdentifier = @"instruction3";
-NSString *const ORKLegacyInstruction4StepIdentifier = @"instruction4";
-NSString *const ORKLegacyInstruction5StepIdentifier = @"instruction5";
-NSString *const ORKLegacyInstruction6StepIdentifier = @"instruction6";
-NSString *const ORKLegacyInstruction7StepIdentifier = @"instruction7";
-NSString *const ORKLegacyCountdownStepIdentifier = @"countdown";
-NSString *const ORKLegacyCountdown1StepIdentifier = @"countdown1";
-NSString *const ORKLegacyCountdown2StepIdentifier = @"countdown2";
-NSString *const ORKLegacyCountdown3StepIdentifier = @"countdown3";
-NSString *const ORKLegacyCountdown4StepIdentifier = @"countdown4";
-NSString *const ORKLegacyCountdown5StepIdentifier = @"countdown5";
-NSString *const ORKLegacyTouchAnywhereStepIdentifier = @"touch.anywhere";
-NSString *const ORKLegacyAudioStepIdentifier = @"audio";
-NSString *const ORKLegacyAudioTooLoudStepIdentifier = @"audio.tooloud";
-NSString *const ORKLegacyTappingStepIdentifier = @"tapping";
-NSString *const ORKLegacyActiveTaskLeftHandIdentifier = @"left";
-NSString *const ORKLegacyActiveTaskRightHandIdentifier = @"right";
-NSString *const ORKLegacyActiveTaskSkipHandStepIdentifier = @"skipHand";
-NSString *const ORKLegacyConclusionStepIdentifier = @"conclusion";
-NSString *const ORKLegacyFitnessWalkStepIdentifier = @"fitness.walk";
-NSString *const ORKLegacyFitnessRestStepIdentifier = @"fitness.rest";
-NSString *const ORKLegacyKneeRangeOfMotionStepIdentifier = @"knee.range.of.motion";
-NSString *const ORKLegacyShoulderRangeOfMotionStepIdentifier = @"shoulder.range.of.motion";
-NSString *const ORKLegacyShortWalkOutboundStepIdentifier = @"walking.outbound";
-NSString *const ORKLegacyShortWalkReturnStepIdentifier = @"walking.return";
-NSString *const ORKLegacyShortWalkRestStepIdentifier = @"walking.rest";
-NSString *const ORKLegacySpatialSpanMemoryStepIdentifier = @"cognitive.memory.spatialspan";
-NSString *const ORKLegacyStroopStepIdentifier = @"stroop";
-NSString *const ORKLegacyToneAudiometryPracticeStepIdentifier = @"tone.audiometry.practice";
-NSString *const ORKLegacyToneAudiometryStepIdentifier = @"tone.audiometry";
-NSString *const ORKLegacyReactionTimeStepIdentifier = @"reactionTime";
-NSString *const ORKLegacyTowerOfHanoiStepIdentifier = @"towerOfHanoi";
-NSString *const ORKLegacyTimedWalkFormStepIdentifier = @"timed.walk.form";
-NSString *const ORKLegacyTimedWalkFormAFOStepIdentifier = @"timed.walk.form.afo";
-NSString *const ORKLegacyTimedWalkFormAssistanceStepIdentifier = @"timed.walk.form.assistance";
-NSString *const ORKLegacyTimedWalkTrial1StepIdentifier = @"timed.walk.trial1";
-NSString *const ORKLegacyTimedWalkTurnAroundStepIdentifier = @"timed.walk.turn.around";
-NSString *const ORKLegacyTimedWalkTrial2StepIdentifier = @"timed.walk.trial2";
-NSString *const ORKLegacyTremorTestInLapStepIdentifier = @"tremor.handInLap";
-NSString *const ORKLegacyTremorTestExtendArmStepIdentifier = @"tremor.handAtShoulderLength";
-NSString *const ORKLegacyTremorTestBendArmStepIdentifier = @"tremor.handAtShoulderLengthWithElbowBent";
-NSString *const ORKLegacyTremorTestTouchNoseStepIdentifier = @"tremor.handToNose";
-NSString *const ORKLegacyTremorTestTurnWristStepIdentifier = @"tremor.handQueenWave";
-NSString *const ORKLegacyTrailmakingStepIdentifier = @"trailmaking";
-NSString *const ORKLegacyActiveTaskMostAffectedHandIdentifier = @"mostAffected";
-NSString *const ORKLegacyPSATStepIdentifier = @"psat";
-NSString *const ORKLegacyAudioRecorderIdentifier = @"audio";
-NSString *const ORKLegacyAccelerometerRecorderIdentifier = @"accelerometer";
-NSString *const ORKLegacyPedometerRecorderIdentifier = @"pedometer";
-NSString *const ORKLegacyDeviceMotionRecorderIdentifier = @"deviceMotion";
-NSString *const ORKLegacyLocationRecorderIdentifier = @"location";
-NSString *const ORKLegacyHeartRateRecorderIdentifier = @"heartRate";
+NSString *const ORK1Instruction0StepIdentifier = @"instruction";
+NSString *const ORK1Instruction1StepIdentifier = @"instruction1";
+NSString *const ORK1Instruction2StepIdentifier = @"instruction2";
+NSString *const ORK1Instruction3StepIdentifier = @"instruction3";
+NSString *const ORK1Instruction4StepIdentifier = @"instruction4";
+NSString *const ORK1Instruction5StepIdentifier = @"instruction5";
+NSString *const ORK1Instruction6StepIdentifier = @"instruction6";
+NSString *const ORK1Instruction7StepIdentifier = @"instruction7";
+NSString *const ORK1CountdownStepIdentifier = @"countdown";
+NSString *const ORK1Countdown1StepIdentifier = @"countdown1";
+NSString *const ORK1Countdown2StepIdentifier = @"countdown2";
+NSString *const ORK1Countdown3StepIdentifier = @"countdown3";
+NSString *const ORK1Countdown4StepIdentifier = @"countdown4";
+NSString *const ORK1Countdown5StepIdentifier = @"countdown5";
+NSString *const ORK1TouchAnywhereStepIdentifier = @"touch.anywhere";
+NSString *const ORK1AudioStepIdentifier = @"audio";
+NSString *const ORK1AudioTooLoudStepIdentifier = @"audio.tooloud";
+NSString *const ORK1TappingStepIdentifier = @"tapping";
+NSString *const ORK1ActiveTaskLeftHandIdentifier = @"left";
+NSString *const ORK1ActiveTaskRightHandIdentifier = @"right";
+NSString *const ORK1ActiveTaskSkipHandStepIdentifier = @"skipHand";
+NSString *const ORK1ConclusionStepIdentifier = @"conclusion";
+NSString *const ORK1FitnessWalkStepIdentifier = @"fitness.walk";
+NSString *const ORK1FitnessRestStepIdentifier = @"fitness.rest";
+NSString *const ORK1KneeRangeOfMotionStepIdentifier = @"knee.range.of.motion";
+NSString *const ORK1ShoulderRangeOfMotionStepIdentifier = @"shoulder.range.of.motion";
+NSString *const ORK1ShortWalkOutboundStepIdentifier = @"walking.outbound";
+NSString *const ORK1ShortWalkReturnStepIdentifier = @"walking.return";
+NSString *const ORK1ShortWalkRestStepIdentifier = @"walking.rest";
+NSString *const ORK1SpatialSpanMemoryStepIdentifier = @"cognitive.memory.spatialspan";
+NSString *const ORK1StroopStepIdentifier = @"stroop";
+NSString *const ORK1ToneAudiometryPracticeStepIdentifier = @"tone.audiometry.practice";
+NSString *const ORK1ToneAudiometryStepIdentifier = @"tone.audiometry";
+NSString *const ORK1ReactionTimeStepIdentifier = @"reactionTime";
+NSString *const ORK1TowerOfHanoiStepIdentifier = @"towerOfHanoi";
+NSString *const ORK1TimedWalkFormStepIdentifier = @"timed.walk.form";
+NSString *const ORK1TimedWalkFormAFOStepIdentifier = @"timed.walk.form.afo";
+NSString *const ORK1TimedWalkFormAssistanceStepIdentifier = @"timed.walk.form.assistance";
+NSString *const ORK1TimedWalkTrial1StepIdentifier = @"timed.walk.trial1";
+NSString *const ORK1TimedWalkTurnAroundStepIdentifier = @"timed.walk.turn.around";
+NSString *const ORK1TimedWalkTrial2StepIdentifier = @"timed.walk.trial2";
+NSString *const ORK1TremorTestInLapStepIdentifier = @"tremor.handInLap";
+NSString *const ORK1TremorTestExtendArmStepIdentifier = @"tremor.handAtShoulderLength";
+NSString *const ORK1TremorTestBendArmStepIdentifier = @"tremor.handAtShoulderLengthWithElbowBent";
+NSString *const ORK1TremorTestTouchNoseStepIdentifier = @"tremor.handToNose";
+NSString *const ORK1TremorTestTurnWristStepIdentifier = @"tremor.handQueenWave";
+NSString *const ORK1TrailmakingStepIdentifier = @"trailmaking";
+NSString *const ORK1ActiveTaskMostAffectedHandIdentifier = @"mostAffected";
+NSString *const ORK1PSATStepIdentifier = @"psat";
+NSString *const ORK1AudioRecorderIdentifier = @"audio";
+NSString *const ORK1AccelerometerRecorderIdentifier = @"accelerometer";
+NSString *const ORK1PedometerRecorderIdentifier = @"pedometer";
+NSString *const ORK1DeviceMotionRecorderIdentifier = @"deviceMotion";
+NSString *const ORK1LocationRecorderIdentifier = @"location";
+NSString *const ORK1HeartRateRecorderIdentifier = @"heartRate";
 
-+ (ORKLegacyCompletionStep *)makeCompletionStep {
-    ORKLegacyCompletionStep *step = [[ORKLegacyCompletionStep alloc] initWithIdentifier:ORKLegacyConclusionStepIdentifier];
-    step.title = ORKLegacyLocalizedString(@"TASK_COMPLETE_TITLE", nil);
-    step.text = ORKLegacyLocalizedString(@"TASK_COMPLETE_TEXT", nil);
++ (ORK1CompletionStep *)makeCompletionStep {
+    ORK1CompletionStep *step = [[ORK1CompletionStep alloc] initWithIdentifier:ORK1ConclusionStepIdentifier];
+    step.title = ORK1LocalizedString(@"TASK_COMPLETE_TITLE", nil);
+    step.text = ORK1LocalizedString(@"TASK_COMPLETE_TEXT", nil);
     step.shouldTintImages = YES;
     return step;
 }
 
-void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
+void ORK1StepArrayAddStep(NSMutableArray *array, ORK1Step *step) {
     [step validateParameters];
     [array addObject:step];
 }
 
-+ (ORKLegacyOrderedTask *)twoFingerTappingIntervalTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)twoFingerTappingIntervalTaskWithIdentifier:(NSString *)identifier
                                        intendedUseDescription:(NSString *)intendedUseDescription
                                                      duration:(NSTimeInterval)duration
-                                                      options:(ORKLegacyPredefinedTaskOption)options {
+                                                      options:(ORK1PredefinedTaskOption)options {
     return [self twoFingerTappingIntervalTaskWithIdentifier:identifier
                                      intendedUseDescription:intendedUseDescription
                                                    duration:duration
@@ -374,22 +374,22 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
                                                     options:options];
 }
     
-+ (ORKLegacyOrderedTask *)twoFingerTappingIntervalTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)twoFingerTappingIntervalTaskWithIdentifier:(NSString *)identifier
                                         intendedUseDescription:(NSString *)intendedUseDescription
                                                       duration:(NSTimeInterval)duration
-                                                   handOptions:(ORKLegacyPredefinedTaskHandOption)handOptions
-                                                       options:(ORKLegacyPredefinedTaskOption)options {
+                                                   handOptions:(ORK1PredefinedTaskHandOption)handOptions
+                                                       options:(ORK1PredefinedTaskOption)options {
     
-    NSString *durationString = [ORKLegacyDurationStringFormatter() stringFromTimeInterval:duration];
+    NSString *durationString = [ORK1DurationStringFormatter() stringFromTimeInterval:duration];
     
     NSMutableArray *steps = [NSMutableArray array];
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TAPPING_TASK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"TAPPING_TASK_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"TAPPING_INTRO_TEXT", nil);
+            step.detailText = ORK1LocalizedString(@"TAPPING_INTRO_TEXT", nil);
             
             NSString *imageName = @"phonetapping";
             if (![[NSLocale preferredLanguages].firstObject hasPrefix:@"en"]) {
@@ -398,20 +398,20 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             step.image = [UIImage imageNamed:imageName inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
     // Setup which hand to start with and how many hands to add based on the handOptions parameter
     // Hand order is randomly determined.
-    NSUInteger handCount = ((handOptions & ORKLegacyPredefinedTaskHandOptionBoth) == ORKLegacyPredefinedTaskHandOptionBoth) ? 2 : 1;
+    NSUInteger handCount = ((handOptions & ORK1PredefinedTaskHandOptionBoth) == ORK1PredefinedTaskHandOptionBoth) ? 2 : 1;
     BOOL undefinedHand = (handOptions == 0);
     BOOL rightHand;
     switch (handOptions) {
-        case ORKLegacyPredefinedTaskHandOptionLeft:
+        case ORK1PredefinedTaskHandOptionLeft:
             rightHand = NO; break;
-        case ORKLegacyPredefinedTaskHandOptionRight:
-        case ORKLegacyPredefinedTaskHandOptionUnspecified:
+        case ORK1PredefinedTaskHandOptionRight:
+        case ORK1PredefinedTaskHandOptionUnspecified:
             rightHand = YES; break;
         default:
             rightHand = (arc4random()%2 == 0); break;
@@ -423,42 +423,42 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             if (undefinedHand) {
                 return identifier;
             } else {
-                NSString *handIdentifier = rightHand ? ORKLegacyActiveTaskRightHandIdentifier : ORKLegacyActiveTaskLeftHandIdentifier;
+                NSString *handIdentifier = rightHand ? ORK1ActiveTaskRightHandIdentifier : ORK1ActiveTaskLeftHandIdentifier;
                 return [NSString stringWithFormat:@"%@.%@", identifier, handIdentifier];
             }
         };
         
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:appendIdentifier(ORKLegacyInstruction1StepIdentifier)];
+        if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:appendIdentifier(ORK1Instruction1StepIdentifier)];
             
             // Set the title based on the hand
             if (undefinedHand) {
-                step.title = ORKLegacyLocalizedString(@"TAPPING_TASK_TITLE", nil);
+                step.title = ORK1LocalizedString(@"TAPPING_TASK_TITLE", nil);
             } else if (rightHand) {
-                step.title = ORKLegacyLocalizedString(@"TAPPING_TASK_TITLE_RIGHT", nil);
+                step.title = ORK1LocalizedString(@"TAPPING_TASK_TITLE_RIGHT", nil);
             } else {
-                step.title = ORKLegacyLocalizedString(@"TAPPING_TASK_TITLE_LEFT", nil);
+                step.title = ORK1LocalizedString(@"TAPPING_TASK_TITLE_LEFT", nil);
             }
             
             // Set the instructions for the tapping test screen that is displayed prior to each hand test
-            NSString *restText = ORKLegacyLocalizedString(@"TAPPING_INTRO_TEXT_2_REST_PHONE", nil);
-            NSString *tappingTextFormat = ORKLegacyLocalizedString(@"TAPPING_INTRO_TEXT_2_FORMAT", nil);
+            NSString *restText = ORK1LocalizedString(@"TAPPING_INTRO_TEXT_2_REST_PHONE", nil);
+            NSString *tappingTextFormat = ORK1LocalizedString(@"TAPPING_INTRO_TEXT_2_FORMAT", nil);
             NSString *tappingText = [NSString localizedStringWithFormat:tappingTextFormat, durationString];
             NSString *handText = nil;
             
             if (hand == 1) {
                 if (undefinedHand) {
-                    handText = ORKLegacyLocalizedString(@"TAPPING_INTRO_TEXT_2_MOST_AFFECTED", nil);
+                    handText = ORK1LocalizedString(@"TAPPING_INTRO_TEXT_2_MOST_AFFECTED", nil);
                 } else if (rightHand) {
-                    handText = ORKLegacyLocalizedString(@"TAPPING_INTRO_TEXT_2_RIGHT_FIRST", nil);
+                    handText = ORK1LocalizedString(@"TAPPING_INTRO_TEXT_2_RIGHT_FIRST", nil);
                 } else {
-                    handText = ORKLegacyLocalizedString(@"TAPPING_INTRO_TEXT_2_LEFT_FIRST", nil);
+                    handText = ORK1LocalizedString(@"TAPPING_INTRO_TEXT_2_LEFT_FIRST", nil);
                 }
             } else {
                 if (rightHand) {
-                    handText = ORKLegacyLocalizedString(@"TAPPING_INTRO_TEXT_2_RIGHT_SECOND", nil);
+                    handText = ORK1LocalizedString(@"TAPPING_INTRO_TEXT_2_RIGHT_SECOND", nil);
                 } else {
-                    handText = ORKLegacyLocalizedString(@"TAPPING_INTRO_TEXT_2_LEFT_SECOND", nil);
+                    handText = ORK1LocalizedString(@"TAPPING_INTRO_TEXT_2_LEFT_SECOND", nil);
                 }
             }
             
@@ -466,9 +466,9 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             
             // Continue button will be different from first hand and second hand
             if (hand == 1) {
-                step.detailText = ORKLegacyLocalizedString(@"TAPPING_CALL_TO_ACTION", nil);
+                step.detailText = ORK1LocalizedString(@"TAPPING_CALL_TO_ACTION", nil);
             } else {
-                step.detailText = ORKLegacyLocalizedString(@"TAPPING_CALL_TO_ACTION_NEXT", nil);
+                step.detailText = ORK1LocalizedString(@"TAPPING_CALL_TO_ACTION_NEXT", nil);
             }
             
             // Set the image
@@ -483,55 +483,55 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             }
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     
         // TAPPING STEP
     {
         NSMutableArray *recorderConfigurations = [NSMutableArray arrayWithCapacity:5];
-        if (!(ORKLegacyPredefinedTaskOptionExcludeAccelerometer & options)) {
-            [recorderConfigurations addObject:[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAccelerometerRecorderIdentifier
+        if (!(ORK1PredefinedTaskOptionExcludeAccelerometer & options)) {
+            [recorderConfigurations addObject:[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:ORK1AccelerometerRecorderIdentifier
                                                                                                       frequency:100]];
         }
         
-            ORKLegacyTappingIntervalStep *step = [[ORKLegacyTappingIntervalStep alloc] initWithIdentifier:appendIdentifier(ORKLegacyTappingStepIdentifier)];
+            ORK1TappingIntervalStep *step = [[ORK1TappingIntervalStep alloc] initWithIdentifier:appendIdentifier(ORK1TappingStepIdentifier)];
             if (undefinedHand) {
-                step.title = ORKLegacyLocalizedString(@"TAPPING_INSTRUCTION", nil);
+                step.title = ORK1LocalizedString(@"TAPPING_INSTRUCTION", nil);
             } else if (rightHand) {
-                step.title = ORKLegacyLocalizedString(@"TAPPING_INSTRUCTION_RIGHT", nil);
+                step.title = ORK1LocalizedString(@"TAPPING_INSTRUCTION_RIGHT", nil);
             } else {
-                step.title = ORKLegacyLocalizedString(@"TAPPING_INSTRUCTION_LEFT", nil);
+                step.title = ORK1LocalizedString(@"TAPPING_INSTRUCTION_LEFT", nil);
             }
             step.stepDuration = duration;
             step.shouldContinueOnFinish = YES;
             step.recorderConfigurations = recorderConfigurations;
             step.optional = (handCount == 2);
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         // Flip to the other hand (ignored if handCount == 1)
         rightHand = !rightHand;
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:[steps copy]];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:[steps copy]];
     
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)audioTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)audioTaskWithIdentifier:(NSString *)identifier
                      intendedUseDescription:(NSString *)intendedUseDescription
                           speechInstruction:(NSString *)speechInstruction
                      shortSpeechInstruction:(NSString *)shortSpeechInstruction
                                    duration:(NSTimeInterval)duration
                           recordingSettings:(NSDictionary *)recordingSettings
-                                    options:(ORKLegacyPredefinedTaskOption)options {
+                                    options:(ORK1PredefinedTaskOption)options {
     
     return [self audioTaskWithIdentifier:identifier
                   intendedUseDescription:intendedUseDescription
@@ -543,99 +543,99 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
                                  options:options];
 }
 
-+ (ORKLegacyNavigableOrderedTask *)audioTaskWithIdentifier:(NSString *)identifier
++ (ORK1NavigableOrderedTask *)audioTaskWithIdentifier:(NSString *)identifier
                               intendedUseDescription:(nullable NSString *)intendedUseDescription
                                    speechInstruction:(nullable NSString *)speechInstruction
                               shortSpeechInstruction:(nullable NSString *)shortSpeechInstruction
                                             duration:(NSTimeInterval)duration
                                    recordingSettings:(nullable NSDictionary *)recordingSettings
                                      checkAudioLevel:(BOOL)checkAudioLevel
-                                             options:(ORKLegacyPredefinedTaskOption)options {
+                                             options:(ORK1PredefinedTaskOption)options {
 
     recordingSettings = recordingSettings ? : @{ AVFormatIDKey : @(kAudioFormatAppleLossless),
                                                  AVNumberOfChannelsKey : @(2),
                                                 AVSampleRateKey: @(44100.0) };
     
-    if (options & ORKLegacyPredefinedTaskOptionExcludeAudio) {
+    if (options & ORK1PredefinedTaskOptionExcludeAudio) {
         @throw [NSException exceptionWithName:NSGenericException reason:@"Audio collection cannot be excluded from audio task" userInfo:nil];
     }
     
     NSMutableArray *steps = [NSMutableArray array];
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"AUDIO_TASK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"AUDIO_TASK_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"AUDIO_INTENDED_USE", nil);
+            step.detailText = ORK1LocalizedString(@"AUDIO_INTENDED_USE", nil);
             step.image = [UIImage imageNamed:@"phonewaves" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"AUDIO_TASK_TITLE", nil);
-            step.text = speechInstruction ? : ORKLegacyLocalizedString(@"AUDIO_INTRO_TEXT",nil);
-            step.detailText = ORKLegacyLocalizedString(@"AUDIO_CALL_TO_ACTION", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"AUDIO_TASK_TITLE", nil);
+            step.text = speechInstruction ? : ORK1LocalizedString(@"AUDIO_INTRO_TEXT",nil);
+            step.detailText = ORK1LocalizedString(@"AUDIO_CALL_TO_ACTION", nil);
             step.image = [UIImage imageNamed:@"phonesoundwaves" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
 
     {
-        ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:ORKLegacyCountdownStepIdentifier];
+        ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:ORK1CountdownStepIdentifier];
         step.stepDuration = 5.0;
         
         // Collect audio during the countdown step too, to provide a baseline.
-        step.recorderConfigurations = @[[[ORKLegacyAudioRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAudioRecorderIdentifier
+        step.recorderConfigurations = @[[[ORK1AudioRecorderConfiguration alloc] initWithIdentifier:ORK1AudioRecorderIdentifier
                                                                                  recorderSettings:recordingSettings]];
         
         // If checking the sound level then add text indicating that's what is happening
         if (checkAudioLevel) {
-            step.text = ORKLegacyLocalizedString(@"AUDIO_LEVEL_CHECK_LABEL", nil);
+            step.text = ORK1LocalizedString(@"AUDIO_LEVEL_CHECK_LABEL", nil);
         }
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
     if (checkAudioLevel) {
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyAudioTooLoudStepIdentifier];
-        step.text = ORKLegacyLocalizedString(@"AUDIO_TOO_LOUD_MESSAGE", nil);
-        step.detailText = ORKLegacyLocalizedString(@"AUDIO_TOO_LOUD_ACTION_NEXT", nil);
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1AudioTooLoudStepIdentifier];
+        step.text = ORK1LocalizedString(@"AUDIO_TOO_LOUD_MESSAGE", nil);
+        step.detailText = ORK1LocalizedString(@"AUDIO_TOO_LOUD_ACTION_NEXT", nil);
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
     {
-        ORKLegacyAudioStep *step = [[ORKLegacyAudioStep alloc] initWithIdentifier:ORKLegacyAudioStepIdentifier];
-        step.title = shortSpeechInstruction ? : ORKLegacyLocalizedString(@"AUDIO_INSTRUCTION", nil);
-        step.recorderConfigurations = @[[[ORKLegacyAudioRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAudioRecorderIdentifier
+        ORK1AudioStep *step = [[ORK1AudioStep alloc] initWithIdentifier:ORK1AudioStepIdentifier];
+        step.title = shortSpeechInstruction ? : ORK1LocalizedString(@"AUDIO_INSTRUCTION", nil);
+        step.recorderConfigurations = @[[[ORK1AudioRecorderConfiguration alloc] initWithIdentifier:ORK1AudioRecorderIdentifier
                                                                                  recorderSettings:recordingSettings]];
         step.stepDuration = duration;
         step.shouldContinueOnFinish = YES;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
-    ORKLegacyNavigableOrderedTask *task = [[ORKLegacyNavigableOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1NavigableOrderedTask *task = [[ORK1NavigableOrderedTask alloc] initWithIdentifier:identifier steps:steps];
     
     if (checkAudioLevel) {
     
         // Add rules to check for audio and fail, looping back to the countdown step if required
-        ORKLegacyAudioLevelNavigationRule *audioRule = [[ORKLegacyAudioLevelNavigationRule alloc] initWithAudioLevelStepIdentifier:ORKLegacyCountdownStepIdentifier destinationStepIdentifier:ORKLegacyAudioStepIdentifier recordingSettings:recordingSettings];
-        ORKLegacyDirectStepNavigationRule *loopRule = [[ORKLegacyDirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORKLegacyCountdownStepIdentifier];
+        ORK1AudioLevelNavigationRule *audioRule = [[ORK1AudioLevelNavigationRule alloc] initWithAudioLevelStepIdentifier:ORK1CountdownStepIdentifier destinationStepIdentifier:ORK1AudioStepIdentifier recordingSettings:recordingSettings];
+        ORK1DirectStepNavigationRule *loopRule = [[ORK1DirectStepNavigationRule alloc] initWithDestinationStepIdentifier:ORK1CountdownStepIdentifier];
     
-        [task setNavigationRule:audioRule forTriggerStepIdentifier:ORKLegacyCountdownStepIdentifier];
-        [task setNavigationRule:loopRule forTriggerStepIdentifier:ORKLegacyAudioTooLoudStepIdentifier];
+        [task setNavigationRule:audioRule forTriggerStepIdentifier:ORK1CountdownStepIdentifier];
+        [task setNavigationRule:loopRule forTriggerStepIdentifier:ORK1AudioTooLoudStepIdentifier];
     }
     
     return task;
@@ -658,42 +658,42 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
     return formatter;
 }
 
-+ (ORKLegacyOrderedTask *)fitnessCheckTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)fitnessCheckTaskWithIdentifier:(NSString *)identifier
                            intendedUseDescription:(NSString *)intendedUseDescription
                                      walkDuration:(NSTimeInterval)walkDuration
                                      restDuration:(NSTimeInterval)restDuration
-                                          options:(ORKLegacyPredefinedTaskOption)options {
+                                          options:(ORK1PredefinedTaskOption)options {
     
     NSDateComponentsFormatter *formatter = [self textTimeFormatter];
     
     NSMutableArray *steps = [NSMutableArray array];
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"FITNESS_TASK_TITLE", nil);
-            step.text = intendedUseDescription ? : [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"FITNESS_INTRO_TEXT_FORMAT", nil), [formatter stringFromTimeInterval:walkDuration]];
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"FITNESS_TASK_TITLE", nil);
+            step.text = intendedUseDescription ? : [NSString localizedStringWithFormat:ORK1LocalizedString(@"FITNESS_INTRO_TEXT_FORMAT", nil), [formatter stringFromTimeInterval:walkDuration]];
             step.image = [UIImage imageNamed:@"heartbeat" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"FITNESS_TASK_TITLE", nil);
-            step.text = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"FITNESS_INTRO_2_TEXT_FORMAT", nil), [formatter stringFromTimeInterval:walkDuration], [formatter stringFromTimeInterval:restDuration]];
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"FITNESS_TASK_TITLE", nil);
+            step.text = [NSString localizedStringWithFormat:ORK1LocalizedString(@"FITNESS_INTRO_2_TEXT_FORMAT", nil), [formatter stringFromTimeInterval:walkDuration], [formatter stringFromTimeInterval:restDuration]];
             step.image = [UIImage imageNamed:@"walkingman" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
     {
-        ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:ORKLegacyCountdownStepIdentifier];
+        ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:ORK1CountdownStepIdentifier];
         step.stepDuration = 5.0;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
     HKUnit *bpmUnit = [[HKUnit countUnit] unitDividedByUnit:[HKUnit minuteUnit]];
@@ -701,27 +701,27 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
     {
         if (walkDuration > 0) {
             NSMutableArray *recorderConfigurations = [NSMutableArray arrayWithCapacity:5];
-            if (!(ORKLegacyPredefinedTaskOptionExcludePedometer & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyPedometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyPedometerRecorderIdentifier]];
+            if (!(ORK1PredefinedTaskOptionExcludePedometer & options)) {
+                [recorderConfigurations addObject:[[ORK1PedometerRecorderConfiguration alloc] initWithIdentifier:ORK1PedometerRecorderIdentifier]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeAccelerometer & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAccelerometerRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeAccelerometer & options)) {
+                [recorderConfigurations addObject:[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:ORK1AccelerometerRecorderIdentifier
                                                                                                           frequency:100]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeDeviceMotion & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeDeviceMotion & options)) {
+                [recorderConfigurations addObject:[[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier
                                                                                                          frequency:100]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeLocation & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyLocationRecorderConfiguration alloc] initWithIdentifier:ORKLegacyLocationRecorderIdentifier]];
+            if (!(ORK1PredefinedTaskOptionExcludeLocation & options)) {
+                [recorderConfigurations addObject:[[ORK1LocationRecorderConfiguration alloc] initWithIdentifier:ORK1LocationRecorderIdentifier]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeHeartRate & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyHealthQuantityTypeRecorderConfiguration alloc] initWithIdentifier:ORKLegacyHeartRateRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeHeartRate & options)) {
+                [recorderConfigurations addObject:[[ORK1HealthQuantityTypeRecorderConfiguration alloc] initWithIdentifier:ORK1HeartRateRecorderIdentifier
                                                                                                       healthQuantityType:heartRateType unit:bpmUnit]];
             }
-            ORKLegacyFitnessStep *fitnessStep = [[ORKLegacyFitnessStep alloc] initWithIdentifier:ORKLegacyFitnessWalkStepIdentifier];
+            ORK1FitnessStep *fitnessStep = [[ORK1FitnessStep alloc] initWithIdentifier:ORK1FitnessWalkStepIdentifier];
             fitnessStep.stepDuration = walkDuration;
-            fitnessStep.title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"FITNESS_WALK_INSTRUCTION_FORMAT", nil), [formatter stringFromTimeInterval:walkDuration]];
+            fitnessStep.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"FITNESS_WALK_INSTRUCTION_FORMAT", nil), [formatter stringFromTimeInterval:walkDuration]];
             fitnessStep.spokenInstruction = fitnessStep.title;
             fitnessStep.recorderConfigurations = recorderConfigurations;
             fitnessStep.shouldContinueOnFinish = YES;
@@ -732,27 +732,27 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             fitnessStep.shouldVibrateOnStart = YES;
             fitnessStep.shouldPlaySoundOnStart = YES;
             
-            ORKLegacyStepArrayAddStep(steps, fitnessStep);
+            ORK1StepArrayAddStep(steps, fitnessStep);
         }
         
         if (restDuration > 0) {
             NSMutableArray *recorderConfigurations = [NSMutableArray arrayWithCapacity:5];
-            if (!(ORKLegacyPredefinedTaskOptionExcludeAccelerometer & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAccelerometerRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeAccelerometer & options)) {
+                [recorderConfigurations addObject:[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:ORK1AccelerometerRecorderIdentifier
                                                                                                           frequency:100]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeDeviceMotion & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeDeviceMotion & options)) {
+                [recorderConfigurations addObject:[[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier
                                                                                                          frequency:100]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeHeartRate & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyHealthQuantityTypeRecorderConfiguration alloc] initWithIdentifier:ORKLegacyHeartRateRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeHeartRate & options)) {
+                [recorderConfigurations addObject:[[ORK1HealthQuantityTypeRecorderConfiguration alloc] initWithIdentifier:ORK1HeartRateRecorderIdentifier
                                                                                                       healthQuantityType:heartRateType unit:bpmUnit]];
             }
             
-            ORKLegacyFitnessStep *stillStep = [[ORKLegacyFitnessStep alloc] initWithIdentifier:ORKLegacyFitnessRestStepIdentifier];
+            ORK1FitnessStep *stillStep = [[ORK1FitnessStep alloc] initWithIdentifier:ORK1FitnessRestStepIdentifier];
             stillStep.stepDuration = restDuration;
-            stillStep.title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"FITNESS_SIT_INSTRUCTION_FORMAT", nil), [formatter stringFromTimeInterval:restDuration]];
+            stillStep.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"FITNESS_SIT_INSTRUCTION_FORMAT", nil), [formatter stringFromTimeInterval:restDuration]];
             stillStep.spokenInstruction = stillStep.title;
             stillStep.recorderConfigurations = recorderConfigurations;
             stillStep.shouldContinueOnFinish = YES;
@@ -765,75 +765,75 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             stillStep.shouldPlaySoundOnFinish = YES;
             stillStep.shouldVibrateOnFinish = YES;
             
-            ORKLegacyStepArrayAddStep(steps, stillStep);
+            ORK1StepArrayAddStep(steps, stillStep);
         }
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
-        ORKLegacyStepArrayAddStep(steps, step);
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
     
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)shortWalkTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)shortWalkTaskWithIdentifier:(NSString *)identifier
                          intendedUseDescription:(NSString *)intendedUseDescription
                             numberOfStepsPerLeg:(NSInteger)numberOfStepsPerLeg
                                    restDuration:(NSTimeInterval)restDuration
-                                        options:(ORKLegacyPredefinedTaskOption)options {
+                                        options:(ORK1PredefinedTaskOption)options {
     
     NSDateComponentsFormatter *formatter = [self textTimeFormatter];
     
     NSMutableArray *steps = [NSMutableArray array];
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"WALK_TASK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"WALK_TASK_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"WALK_INTRO_TEXT", nil);
+            step.detailText = ORK1LocalizedString(@"WALK_INTRO_TEXT", nil);
             step.shouldTintImages = YES;
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"WALK_TASK_TITLE", nil);
-            step.text = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"WALK_INTRO_2_TEXT_%ld", nil),numberOfStepsPerLeg];
-            step.detailText = ORKLegacyLocalizedString(@"WALK_INTRO_2_DETAIL", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"WALK_TASK_TITLE", nil);
+            step.text = [NSString localizedStringWithFormat:ORK1LocalizedString(@"WALK_INTRO_2_TEXT_%ld", nil),numberOfStepsPerLeg];
+            step.detailText = ORK1LocalizedString(@"WALK_INTRO_2_DETAIL", nil);
             step.image = [UIImage imageNamed:@"pocket" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
     {
-        ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:ORKLegacyCountdownStepIdentifier];
+        ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:ORK1CountdownStepIdentifier];
         step.stepDuration = 5.0;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
     {
         {
             NSMutableArray *recorderConfigurations = [NSMutableArray array];
-            if (!(ORKLegacyPredefinedTaskOptionExcludePedometer & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyPedometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyPedometerRecorderIdentifier]];
+            if (!(ORK1PredefinedTaskOptionExcludePedometer & options)) {
+                [recorderConfigurations addObject:[[ORK1PedometerRecorderConfiguration alloc] initWithIdentifier:ORK1PedometerRecorderIdentifier]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeAccelerometer & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAccelerometerRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeAccelerometer & options)) {
+                [recorderConfigurations addObject:[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:ORK1AccelerometerRecorderIdentifier
                                                                                                           frequency:100]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeDeviceMotion & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeDeviceMotion & options)) {
+                [recorderConfigurations addObject:[[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier
                                                                                                          frequency:100]];
             }
 
-            ORKLegacyWalkingTaskStep *walkingStep = [[ORKLegacyWalkingTaskStep alloc] initWithIdentifier:ORKLegacyShortWalkOutboundStepIdentifier];
+            ORK1WalkingTaskStep *walkingStep = [[ORK1WalkingTaskStep alloc] initWithIdentifier:ORK1ShortWalkOutboundStepIdentifier];
             walkingStep.numberOfStepsPerLeg = numberOfStepsPerLeg;
-            walkingStep.title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"WALK_OUTBOUND_INSTRUCTION_FORMAT", nil), (long long)numberOfStepsPerLeg];
+            walkingStep.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"WALK_OUTBOUND_INSTRUCTION_FORMAT", nil), (long long)numberOfStepsPerLeg];
             walkingStep.spokenInstruction = walkingStep.title;
             walkingStep.recorderConfigurations = recorderConfigurations;
             walkingStep.shouldContinueOnFinish = YES;
@@ -843,26 +843,26 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             walkingStep.shouldVibrateOnStart = YES;
             walkingStep.shouldPlaySoundOnStart = YES;
             
-            ORKLegacyStepArrayAddStep(steps, walkingStep);
+            ORK1StepArrayAddStep(steps, walkingStep);
         }
         
         {
             NSMutableArray *recorderConfigurations = [NSMutableArray array];
-            if (!(ORKLegacyPredefinedTaskOptionExcludePedometer & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyPedometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyPedometerRecorderIdentifier]];
+            if (!(ORK1PredefinedTaskOptionExcludePedometer & options)) {
+                [recorderConfigurations addObject:[[ORK1PedometerRecorderConfiguration alloc] initWithIdentifier:ORK1PedometerRecorderIdentifier]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeAccelerometer & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAccelerometerRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeAccelerometer & options)) {
+                [recorderConfigurations addObject:[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:ORK1AccelerometerRecorderIdentifier
                                                                                                           frequency:100]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeDeviceMotion & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeDeviceMotion & options)) {
+                [recorderConfigurations addObject:[[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier
                                                                                                          frequency:100]];
             }
 
-            ORKLegacyWalkingTaskStep *walkingStep = [[ORKLegacyWalkingTaskStep alloc] initWithIdentifier:ORKLegacyShortWalkReturnStepIdentifier];
+            ORK1WalkingTaskStep *walkingStep = [[ORK1WalkingTaskStep alloc] initWithIdentifier:ORK1ShortWalkReturnStepIdentifier];
             walkingStep.numberOfStepsPerLeg = numberOfStepsPerLeg;
-            walkingStep.title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"WALK_RETURN_INSTRUCTION_FORMAT", nil), (long long)numberOfStepsPerLeg];
+            walkingStep.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"WALK_RETURN_INSTRUCTION_FORMAT", nil), (long long)numberOfStepsPerLeg];
             walkingStep.spokenInstruction = walkingStep.title;
             walkingStep.recorderConfigurations = recorderConfigurations;
             walkingStep.shouldContinueOnFinish = YES;
@@ -872,25 +872,25 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             walkingStep.shouldVibrateOnStart = YES;
             walkingStep.shouldPlaySoundOnStart = YES;
             
-            ORKLegacyStepArrayAddStep(steps, walkingStep);
+            ORK1StepArrayAddStep(steps, walkingStep);
         }
         
         if (restDuration > 0) {
             NSMutableArray *recorderConfigurations = [NSMutableArray array];
-            if (!(ORKLegacyPredefinedTaskOptionExcludeAccelerometer & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAccelerometerRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeAccelerometer & options)) {
+                [recorderConfigurations addObject:[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:ORK1AccelerometerRecorderIdentifier
                                                                                                           frequency:100]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeDeviceMotion & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeDeviceMotion & options)) {
+                [recorderConfigurations addObject:[[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier
                                                                                                          frequency:100]];
             }
 
-            ORKLegacyFitnessStep *activeStep = [[ORKLegacyFitnessStep alloc] initWithIdentifier:ORKLegacyShortWalkRestStepIdentifier];
+            ORK1FitnessStep *activeStep = [[ORK1FitnessStep alloc] initWithIdentifier:ORK1ShortWalkRestStepIdentifier];
             activeStep.recorderConfigurations = recorderConfigurations;
             NSString *durationString = [formatter stringFromTimeInterval:restDuration];
-            activeStep.title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"WALK_STAND_INSTRUCTION_FORMAT", nil), durationString];
-            activeStep.spokenInstruction = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"WALK_STAND_VOICE_INSTRUCTION_FORMAT", nil), durationString];
+            activeStep.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"WALK_STAND_INSTRUCTION_FORMAT", nil), durationString];
+            activeStep.spokenInstruction = [NSString localizedStringWithFormat:ORK1LocalizedString(@"WALK_STAND_VOICE_INSTRUCTION_FORMAT", nil), durationString];
             activeStep.shouldStartTimerAutomatically = YES;
             activeStep.stepDuration = restDuration;
             activeStep.shouldContinueOnFinish = YES;
@@ -900,78 +900,78 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             activeStep.shouldVibrateOnFinish = YES;
             activeStep.shouldPlaySoundOnFinish = YES;
             
-            ORKLegacyStepArrayAddStep(steps, activeStep);
+            ORK1StepArrayAddStep(steps, activeStep);
         }
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
     return task;
 }
 
 
-+ (ORKLegacyOrderedTask *)walkBackAndForthTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)walkBackAndForthTaskWithIdentifier:(NSString *)identifier
                                 intendedUseDescription:(NSString *)intendedUseDescription
                                           walkDuration:(NSTimeInterval)walkDuration
                                           restDuration:(NSTimeInterval)restDuration
-                                               options:(ORKLegacyPredefinedTaskOption)options {
+                                               options:(ORK1PredefinedTaskOption)options {
     
     NSDateComponentsFormatter *formatter = [self textTimeFormatter];
     formatter.unitsStyle = NSDateComponentsFormatterUnitsStyleFull;
     
     NSMutableArray *steps = [NSMutableArray array];
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"WALK_TASK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"WALK_TASK_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"WALK_INTRO_TEXT", nil);
+            step.detailText = ORK1LocalizedString(@"WALK_INTRO_TEXT", nil);
             step.shouldTintImages = YES;
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"WALK_TASK_TITLE", nil);
-            step.text = ORKLegacyLocalizedString(@"WALK_INTRO_2_TEXT_BACK_AND_FORTH_INSTRUCTION", nil);
-            step.detailText = ORKLegacyLocalizedString(@"WALK_INTRO_2_DETAIL_BACK_AND_FORTH_INSTRUCTION", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"WALK_TASK_TITLE", nil);
+            step.text = ORK1LocalizedString(@"WALK_INTRO_2_TEXT_BACK_AND_FORTH_INSTRUCTION", nil);
+            step.detailText = ORK1LocalizedString(@"WALK_INTRO_2_DETAIL_BACK_AND_FORTH_INSTRUCTION", nil);
             step.image = [UIImage imageNamed:@"pocket" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
     {
-        ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:ORKLegacyCountdownStepIdentifier];
+        ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:ORK1CountdownStepIdentifier];
         step.stepDuration = 5.0;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
     {
         {
             NSMutableArray *recorderConfigurations = [NSMutableArray array];
-            if (!(ORKLegacyPredefinedTaskOptionExcludePedometer & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyPedometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyPedometerRecorderIdentifier]];
+            if (!(ORK1PredefinedTaskOptionExcludePedometer & options)) {
+                [recorderConfigurations addObject:[[ORK1PedometerRecorderConfiguration alloc] initWithIdentifier:ORK1PedometerRecorderIdentifier]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeAccelerometer & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAccelerometerRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeAccelerometer & options)) {
+                [recorderConfigurations addObject:[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:ORK1AccelerometerRecorderIdentifier
                                                                                                           frequency:100]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeDeviceMotion & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeDeviceMotion & options)) {
+                [recorderConfigurations addObject:[[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier
                                                                                                          frequency:100]];
             }
             
-            ORKLegacyWalkingTaskStep *walkingStep = [[ORKLegacyWalkingTaskStep alloc] initWithIdentifier:ORKLegacyShortWalkOutboundStepIdentifier];
+            ORK1WalkingTaskStep *walkingStep = [[ORK1WalkingTaskStep alloc] initWithIdentifier:ORK1ShortWalkOutboundStepIdentifier];
             walkingStep.numberOfStepsPerLeg = 1000; // Set the number of steps very high so it is ignored
             NSString *walkingDurationString = [formatter stringFromTimeInterval:walkDuration];
-            walkingStep.title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"WALK_BACK_AND_FORTH_INSTRUCTION_FORMAT", nil), walkingDurationString];
+            walkingStep.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"WALK_BACK_AND_FORTH_INSTRUCTION_FORMAT", nil), walkingDurationString];
             walkingStep.spokenInstruction = walkingStep.title;
             walkingStep.recorderConfigurations = recorderConfigurations;
             walkingStep.shouldContinueOnFinish = YES;
@@ -982,24 +982,24 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             walkingStep.shouldPlaySoundOnStart = YES;
             walkingStep.shouldSpeakRemainingTimeAtHalfway = (walkDuration > 20);
             
-            ORKLegacyStepArrayAddStep(steps, walkingStep);
+            ORK1StepArrayAddStep(steps, walkingStep);
         }
         
         if (restDuration > 0) {
             NSMutableArray *recorderConfigurations = [NSMutableArray array];
-            if (!(ORKLegacyPredefinedTaskOptionExcludeAccelerometer & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAccelerometerRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeAccelerometer & options)) {
+                [recorderConfigurations addObject:[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:ORK1AccelerometerRecorderIdentifier
                                                                                                           frequency:100]];
             }
-            if (!(ORKLegacyPredefinedTaskOptionExcludeDeviceMotion & options)) {
-                [recorderConfigurations addObject:[[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier
+            if (!(ORK1PredefinedTaskOptionExcludeDeviceMotion & options)) {
+                [recorderConfigurations addObject:[[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier
                                                                                                          frequency:100]];
             }
             
-            ORKLegacyFitnessStep *activeStep = [[ORKLegacyFitnessStep alloc] initWithIdentifier:ORKLegacyShortWalkRestStepIdentifier];
+            ORK1FitnessStep *activeStep = [[ORK1FitnessStep alloc] initWithIdentifier:ORK1ShortWalkRestStepIdentifier];
             activeStep.recorderConfigurations = recorderConfigurations;
             NSString *durationString = [formatter stringFromTimeInterval:restDuration];
-            activeStep.title = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"WALK_BACK_AND_FORTH_STAND_INSTRUCTION_FORMAT", nil), durationString];
+            activeStep.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"WALK_BACK_AND_FORTH_STAND_INSTRUCTION_FORMAT", nil), durationString];
             activeStep.spokenInstruction = activeStep.title;
             activeStep.shouldStartTimerAutomatically = YES;
             activeStep.stepDuration = restDuration;
@@ -1009,167 +1009,167 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             activeStep.shouldPlaySoundOnStart = YES;
             activeStep.shouldVibrateOnFinish = YES;
             activeStep.shouldPlaySoundOnFinish = YES;
-            activeStep.finishedSpokenInstruction = ORKLegacyLocalizedString(@"WALK_BACK_AND_FORTH_FINISHED_VOICE", nil);
+            activeStep.finishedSpokenInstruction = ORK1LocalizedString(@"WALK_BACK_AND_FORTH_FINISHED_VOICE", nil);
             activeStep.shouldSpeakRemainingTimeAtHalfway = (restDuration > 20);
             
-            ORKLegacyStepArrayAddStep(steps, activeStep);
+            ORK1StepArrayAddStep(steps, activeStep);
         }
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)kneeRangeOfMotionTaskWithIdentifier:(NSString *)identifier
-                                             limbOption:(ORKLegacyPredefinedTaskLimbOption)limbOption
++ (ORK1OrderedTask *)kneeRangeOfMotionTaskWithIdentifier:(NSString *)identifier
+                                             limbOption:(ORK1PredefinedTaskLimbOption)limbOption
                                  intendedUseDescription:(NSString *)intendedUseDescription
-                                                options:(ORKLegacyPredefinedTaskOption)options {
+                                                options:(ORK1PredefinedTaskOption)options {
     NSMutableArray *steps = [NSMutableArray array];
-    NSString *limbType = ORKLegacyLocalizedString(@"LIMB_RIGHT", nil);
+    NSString *limbType = ORK1LocalizedString(@"LIMB_RIGHT", nil);
     UIImage *kneeFlexedImage = [UIImage imageNamed:@"knee_flexed_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
     UIImage *kneeExtendedImage = [UIImage imageNamed:@"knee_extended_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
 
-    if (limbOption == ORKLegacyPredefinedTaskLimbOptionLeft) {
-        limbType = ORKLegacyLocalizedString(@"LIMB_LEFT", nil);
+    if (limbOption == ORK1PredefinedTaskLimbOptionLeft) {
+        limbType = ORK1LocalizedString(@"LIMB_LEFT", nil);
     
         kneeFlexedImage = [UIImage imageNamed:@"knee_flexed_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
         kneeExtendedImage = [UIImage imageNamed:@"knee_extended_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
-        ORKLegacyInstructionStep *instructionStep0 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-        instructionStep0.title = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
+        ORK1InstructionStep *instructionStep0 = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+        instructionStep0.title = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_RIGHT", nil);
         instructionStep0.text = intendedUseDescription;
-        instructionStep0.detailText = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT", nil) : ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT", nil);
+        instructionStep0.detailText = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT", nil) : ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT", nil);
         instructionStep0.shouldTintImages = YES;
-        ORKLegacyStepArrayAddStep(steps, instructionStep0);
+        ORK1StepArrayAddStep(steps, instructionStep0);
  
-        ORKLegacyInstructionStep *instructionStep1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-        instructionStep1.title = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+        ORK1InstructionStep *instructionStep1 = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+        instructionStep1.title = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_RIGHT", nil);
         
-        instructionStep1.detailText = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT", nil) : ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_RIGHT", nil);
-        ORKLegacyStepArrayAddStep(steps, instructionStep1);
+        instructionStep1.detailText = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT", nil) : ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_RIGHT", nil);
+        ORK1StepArrayAddStep(steps, instructionStep1);
         
-        ORKLegacyInstructionStep *instructionStep2 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction2StepIdentifier];
-        instructionStep2.title = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+        ORK1InstructionStep *instructionStep2 = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction2StepIdentifier];
+        instructionStep2.title = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_RIGHT", nil);
         
-        instructionStep2.detailText = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_LEFT", nil) : ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_RIGHT", nil);
+        instructionStep2.detailText = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_LEFT", nil) : ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_RIGHT", nil);
         instructionStep2.image = kneeFlexedImage;
         instructionStep2.shouldTintImages = YES;
-        ORKLegacyStepArrayAddStep(steps, instructionStep2);
+        ORK1StepArrayAddStep(steps, instructionStep2);
         
-        ORKLegacyInstructionStep *instructionStep3 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction3StepIdentifier];
-        instructionStep3.title = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_RIGHT", nil);
-        instructionStep3.detailText = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT", nil) : ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT", nil);
+        ORK1InstructionStep *instructionStep3 = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction3StepIdentifier];
+        instructionStep3.title = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+        instructionStep3.detailText = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT", nil) : ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT", nil);
 
         instructionStep3.image = kneeExtendedImage;
         instructionStep3.shouldTintImages = YES;
-        ORKLegacyStepArrayAddStep(steps, instructionStep3);
+        ORK1StepArrayAddStep(steps, instructionStep3);
     }
-    NSString *instructionText = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_LEFT", nil) : ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_RIGHT", nil);
-    ORKLegacyTouchAnywhereStep *touchAnywhereStep = [[ORKLegacyTouchAnywhereStep alloc] initWithIdentifier:ORKLegacyTouchAnywhereStepIdentifier instructionText:instructionText];
-    ORKLegacyStepArrayAddStep(steps, touchAnywhereStep);
+    NSString *instructionText = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_LEFT", nil) : ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_RIGHT", nil);
+    ORK1TouchAnywhereStep *touchAnywhereStep = [[ORK1TouchAnywhereStep alloc] initWithIdentifier:ORK1TouchAnywhereStepIdentifier instructionText:instructionText];
+    ORK1StepArrayAddStep(steps, touchAnywhereStep);
     
-    ORKLegacyDeviceMotionRecorderConfiguration *deviceMotionRecorderConfig = [[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier frequency:100];
+    ORK1DeviceMotionRecorderConfiguration *deviceMotionRecorderConfig = [[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier frequency:100];
     
-    ORKLegacyRangeOfMotionStep *kneeRangeOfMotionStep = [[ORKLegacyRangeOfMotionStep alloc] initWithIdentifier:ORKLegacyKneeRangeOfMotionStepIdentifier limbOption:limbOption];
-    kneeRangeOfMotionStep.title = ([limbType isEqualToString: ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_LEFT", nil) :
-    ORKLegacyLocalizedString(@"KNEE_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_RIGHT", nil);
+    ORK1RangeOfMotionStep *kneeRangeOfMotionStep = [[ORK1RangeOfMotionStep alloc] initWithIdentifier:ORK1KneeRangeOfMotionStepIdentifier limbOption:limbOption];
+    kneeRangeOfMotionStep.title = ([limbType isEqualToString: ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_LEFT", nil) :
+    ORK1LocalizedString(@"KNEE_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_RIGHT", nil);
     
     kneeRangeOfMotionStep.spokenInstruction = kneeRangeOfMotionStep.title;
     kneeRangeOfMotionStep.recorderConfigurations = @[deviceMotionRecorderConfig];
     kneeRangeOfMotionStep.optional = NO;
 
-    ORKLegacyStepArrayAddStep(steps, kneeRangeOfMotionStep);
+    ORK1StepArrayAddStep(steps, kneeRangeOfMotionStep);
 
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyCompletionStep *completionStep = [self makeCompletionStep];
-        ORKLegacyStepArrayAddStep(steps, completionStep);
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1CompletionStep *completionStep = [self makeCompletionStep];
+        ORK1StepArrayAddStep(steps, completionStep);
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)shoulderRangeOfMotionTaskWithIdentifier:(NSString *)identifier
-                                                 limbOption:(ORKLegacyPredefinedTaskLimbOption)limbOption
++ (ORK1OrderedTask *)shoulderRangeOfMotionTaskWithIdentifier:(NSString *)identifier
+                                                 limbOption:(ORK1PredefinedTaskLimbOption)limbOption
                                      intendedUseDescription:(NSString *)intendedUseDescription
-                                                    options:(ORKLegacyPredefinedTaskOption)options {
+                                                    options:(ORK1PredefinedTaskOption)options {
     NSMutableArray *steps = [NSMutableArray array];
-    NSString *limbType = ORKLegacyLocalizedString(@"LIMB_RIGHT", nil);
+    NSString *limbType = ORK1LocalizedString(@"LIMB_RIGHT", nil);
     UIImage *shoulderFlexedImage = [UIImage imageNamed:@"shoulder_flexed_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
     UIImage *shoulderExtendedImage = [UIImage imageNamed:@"shoulder_extended_right" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
 
-    if (limbOption == ORKLegacyPredefinedTaskLimbOptionLeft) {
-        limbType = ORKLegacyLocalizedString(@"LIMB_LEFT", nil);
+    if (limbOption == ORK1PredefinedTaskLimbOptionLeft) {
+        limbType = ORK1LocalizedString(@"LIMB_LEFT", nil);
         shoulderFlexedImage = [UIImage imageNamed:@"shoulder_flexed_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
         shoulderExtendedImage = [UIImage imageNamed:@"shoulder_extended_left" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
-        ORKLegacyInstructionStep *instructionStep0 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-        instructionStep0.title = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
+        ORK1InstructionStep *instructionStep0 = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+        instructionStep0.title = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_RIGHT", nil);
         instructionStep0.text = intendedUseDescription;
-        instructionStep0.detailText = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT", nil) : ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT", nil);
+        instructionStep0.detailText = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_LEFT", nil) : ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_0_RIGHT", nil);
         instructionStep0.shouldTintImages = YES;
-        ORKLegacyStepArrayAddStep(steps, instructionStep0);
+        ORK1StepArrayAddStep(steps, instructionStep0);
         
-        ORKLegacyInstructionStep *instructionStep1 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-        instructionStep1.title = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+        ORK1InstructionStep *instructionStep1 = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+        instructionStep1.title = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_RIGHT", nil);
         
-        instructionStep1.detailText = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT", nil) : ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_RIGHT", nil);
-        ORKLegacyStepArrayAddStep(steps, instructionStep1);
+        instructionStep1.detailText = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_LEFT", nil) : ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_1_RIGHT", nil);
+        ORK1StepArrayAddStep(steps, instructionStep1);
         
-        ORKLegacyInstructionStep *instructionStep2 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction2StepIdentifier];
-        instructionStep2.title = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+        ORK1InstructionStep *instructionStep2 = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction2StepIdentifier];
+        instructionStep2.title = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_RIGHT", nil);
         
-        instructionStep2.detailText = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_LEFT", nil) : ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_RIGHT", nil);
+        instructionStep2.detailText = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_LEFT", nil) : ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_2_RIGHT", nil);
         instructionStep2.image = shoulderFlexedImage;
         instructionStep2.shouldTintImages = YES;
-        ORKLegacyStepArrayAddStep(steps, instructionStep2);
+        ORK1StepArrayAddStep(steps, instructionStep2);
         
-        ORKLegacyInstructionStep *instructionStep3 = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction3StepIdentifier];
-        instructionStep3.title = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_RIGHT", nil);
+        ORK1InstructionStep *instructionStep3 = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction3StepIdentifier];
+        instructionStep3.title = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_LEFT", nil) : ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TITLE_RIGHT", nil);
         
-        instructionStep3.detailText = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT", nil) : ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT", nil);
+        instructionStep3.detailText = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_LEFT", nil) : ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TEXT_INSTRUCTION_3_RIGHT", nil);
         instructionStep3.image = shoulderExtendedImage;
         instructionStep3.shouldTintImages = YES;
-        ORKLegacyStepArrayAddStep(steps, instructionStep3);
+        ORK1StepArrayAddStep(steps, instructionStep3);
     }
     
-    NSString *instructionText = ([limbType isEqualToString:ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_LEFT", nil) : ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_RIGHT", nil);
-    ORKLegacyTouchAnywhereStep *touchAnywhereStep = [[ORKLegacyTouchAnywhereStep alloc] initWithIdentifier:ORKLegacyTouchAnywhereStepIdentifier instructionText:instructionText];
-    ORKLegacyStepArrayAddStep(steps, touchAnywhereStep);
+    NSString *instructionText = ([limbType isEqualToString:ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_LEFT", nil) : ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_TOUCH_ANYWHERE_STEP_INSTRUCTION_RIGHT", nil);
+    ORK1TouchAnywhereStep *touchAnywhereStep = [[ORK1TouchAnywhereStep alloc] initWithIdentifier:ORK1TouchAnywhereStepIdentifier instructionText:instructionText];
+    ORK1StepArrayAddStep(steps, touchAnywhereStep);
     
-    ORKLegacyDeviceMotionRecorderConfiguration *deviceMotionRecorderConfig = [[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier frequency:100];
+    ORK1DeviceMotionRecorderConfiguration *deviceMotionRecorderConfig = [[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier frequency:100];
     
-    ORKLegacyShoulderRangeOfMotionStep *shoulderRangeOfMotionStep = [[ORKLegacyShoulderRangeOfMotionStep alloc] initWithIdentifier:ORKLegacyShoulderRangeOfMotionStepIdentifier limbOption:limbOption];
-    shoulderRangeOfMotionStep.title = ([limbType isEqualToString: ORKLegacyLocalizedString(@"LIMB_LEFT", nil)])? ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_LEFT", nil) :
-    ORKLegacyLocalizedString(@"SHOULDER_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_RIGHT", nil);
+    ORK1ShoulderRangeOfMotionStep *shoulderRangeOfMotionStep = [[ORK1ShoulderRangeOfMotionStep alloc] initWithIdentifier:ORK1ShoulderRangeOfMotionStepIdentifier limbOption:limbOption];
+    shoulderRangeOfMotionStep.title = ([limbType isEqualToString: ORK1LocalizedString(@"LIMB_LEFT", nil)])? ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_LEFT", nil) :
+    ORK1LocalizedString(@"SHOULDER_RANGE_OF_MOTION_SPOKEN_INSTRUCTION_RIGHT", nil);
 
     shoulderRangeOfMotionStep.spokenInstruction = shoulderRangeOfMotionStep.title;
     
     shoulderRangeOfMotionStep.recorderConfigurations = @[deviceMotionRecorderConfig];
     shoulderRangeOfMotionStep.optional = NO;
     
-    ORKLegacyStepArrayAddStep(steps, shoulderRangeOfMotionStep);
+    ORK1StepArrayAddStep(steps, shoulderRangeOfMotionStep);
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyCompletionStep *completionStep = [self makeCompletionStep];
-        ORKLegacyStepArrayAddStep(steps, completionStep);
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1CompletionStep *completionStep = [self makeCompletionStep];
+        ORK1StepArrayAddStep(steps, completionStep);
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)spatialSpanMemoryTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)spatialSpanMemoryTaskWithIdentifier:(NSString *)identifier
                                  intendedUseDescription:(NSString *)intendedUseDescription
                                             initialSpan:(NSInteger)initialSpan
                                             minimumSpan:(NSInteger)minimumSpan
@@ -1180,29 +1180,29 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
                                       customTargetImage:(UIImage *)customTargetImage
                                  customTargetPluralName:(NSString *)customTargetPluralName
                                         requireReversal:(BOOL)requireReversal
-                                                options:(ORKLegacyPredefinedTaskOption)options {
+                                                options:(ORK1PredefinedTaskOption)options {
     
-    NSString *targetPluralName = customTargetPluralName ? : ORKLegacyLocalizedString(@"SPATIAL_SPAN_MEMORY_TARGET_PLURAL", nil);
+    NSString *targetPluralName = customTargetPluralName ? : ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_TARGET_PLURAL", nil);
     
     NSMutableArray *steps = [NSMutableArray array];
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"SPATIAL_SPAN_MEMORY_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"SPATIAL_SPAN_MEMORY_INTRO_TEXT_%@", nil),targetPluralName];
+            step.detailText = [NSString localizedStringWithFormat:ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_INTRO_TEXT_%@", nil),targetPluralName];
             
             step.image = [UIImage imageNamed:@"phone-memory" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"SPATIAL_SPAN_MEMORY_TITLE", nil);
-            step.text = [NSString localizedStringWithFormat:requireReversal ? ORKLegacyLocalizedString(@"SPATIAL_SPAN_MEMORY_INTRO_2_TEXT_REVERSE_%@", nil) : ORKLegacyLocalizedString(@"SPATIAL_SPAN_MEMORY_INTRO_2_TEXT_%@", nil), targetPluralName, targetPluralName];
-            step.detailText = ORKLegacyLocalizedString(@"SPATIAL_SPAN_MEMORY_CALL_TO_ACTION", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_TITLE", nil);
+            step.text = [NSString localizedStringWithFormat:requireReversal ? ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_INTRO_2_TEXT_REVERSE_%@", nil) : ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_INTRO_2_TEXT_%@", nil), targetPluralName, targetPluralName];
+            step.detailText = ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_CALL_TO_ACTION", nil);
             
             if (!customTargetImage) {
                 step.image = [UIImage imageNamed:@"memory-second-screen" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
@@ -1211,12 +1211,12 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             }
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
     {
-        ORKLegacySpatialSpanMemoryStep *step = [[ORKLegacySpatialSpanMemoryStep alloc] initWithIdentifier:ORKLegacySpatialSpanMemoryStepIdentifier];
+        ORK1SpatialSpanMemoryStep *step = [[ORK1SpatialSpanMemoryStep alloc] initWithIdentifier:ORK1SpatialSpanMemoryStepIdentifier];
         step.title = nil;
         step.text = nil;
         
@@ -1230,194 +1230,194 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
         step.customTargetPluralName = customTargetPluralName;
         step.requireReversal = requireReversal;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
-        ORKLegacyStepArrayAddStep(steps, step);
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)stroopTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)stroopTaskWithIdentifier:(NSString *)identifier
                       intendedUseDescription:(nullable NSString *)intendedUseDescription
                             numberOfAttempts:(NSInteger)numberOfAttempts
-                                     options:(ORKLegacyPredefinedTaskOption)options {
+                                     options:(ORK1PredefinedTaskOption)options {
     NSMutableArray *steps = [NSMutableArray array];
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"STROOP_TASK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"STROOP_TASK_TITLE", nil);
             step.text = intendedUseDescription;
             step.image = [UIImage imageNamed:@"phonestrooplabel" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"STROOP_TASK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"STROOP_TASK_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"STROOP_TASK_INTRO1_DETAIL_TEXT", nil);
+            step.detailText = ORK1LocalizedString(@"STROOP_TASK_INTRO1_DETAIL_TEXT", nil);
             step.image = [UIImage imageNamed:@"phonestroopbutton" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction2StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"STROOP_TASK_TITLE", nil);
-            step.detailText = ORKLegacyLocalizedString(@"STROOP_TASK_INTRO2_DETAIL_TEXT", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction2StepIdentifier];
+            step.title = ORK1LocalizedString(@"STROOP_TASK_TITLE", nil);
+            step.detailText = ORK1LocalizedString(@"STROOP_TASK_INTRO2_DETAIL_TEXT", nil);
             step.image = [UIImage imageNamed:@"phonestroopbutton" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     {
-        ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:ORKLegacyCountdownStepIdentifier];
+        ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:ORK1CountdownStepIdentifier];
         step.stepDuration = 5.0;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     {
-        ORKLegacyStroopStep *step = [[ORKLegacyStroopStep alloc] initWithIdentifier:ORKLegacyStroopStepIdentifier];
-        step.text = ORKLegacyLocalizedString(@"STROOP_TASK_STEP_TEXT", nil);
+        ORK1StroopStep *step = [[ORK1StroopStep alloc] initWithIdentifier:ORK1StroopStepIdentifier];
+        step.text = ORK1LocalizedString(@"STROOP_TASK_STEP_TEXT", nil);
         step.numberOfAttempts = numberOfAttempts;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)toneAudiometryTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)toneAudiometryTaskWithIdentifier:(NSString *)identifier
                               intendedUseDescription:(nullable NSString *)intendedUseDescription
                                    speechInstruction:(nullable NSString *)speechInstruction
                               shortSpeechInstruction:(nullable NSString *)shortSpeechInstruction
                                         toneDuration:(NSTimeInterval)toneDuration
-                                             options:(ORKLegacyPredefinedTaskOption)options {
+                                             options:(ORK1PredefinedTaskOption)options {
 
-    if (options & ORKLegacyPredefinedTaskOptionExcludeAudio) {
+    if (options & ORK1PredefinedTaskOptionExcludeAudio) {
         @throw [NSException exceptionWithName:NSGenericException reason:@"Audio collection cannot be excluded from audio task" userInfo:nil];
     }
 
     NSMutableArray *steps = [NSMutableArray array];
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TONE_AUDIOMETRY_TASK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"TONE_AUDIOMETRY_TASK_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"TONE_AUDIOMETRY_INTENDED_USE", nil);
+            step.detailText = ORK1LocalizedString(@"TONE_AUDIOMETRY_INTENDED_USE", nil);
             step.image = [UIImage imageNamed:@"phonewaves_inverted" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
 
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TONE_AUDIOMETRY_TASK_TITLE", nil);
-            step.text = speechInstruction ? : ORKLegacyLocalizedString(@"TONE_AUDIOMETRY_INTRO_TEXT", nil);
-            step.detailText = ORKLegacyLocalizedString(@"TONE_AUDIOMETRY_CALL_TO_ACTION", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"TONE_AUDIOMETRY_TASK_TITLE", nil);
+            step.text = speechInstruction ? : ORK1LocalizedString(@"TONE_AUDIOMETRY_INTRO_TEXT", nil);
+            step.detailText = ORK1LocalizedString(@"TONE_AUDIOMETRY_CALL_TO_ACTION", nil);
             step.image = [UIImage imageNamed:@"phonewaves_tapping" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
 
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
 
     {
-        ORKLegacyToneAudiometryPracticeStep *step = [[ORKLegacyToneAudiometryPracticeStep alloc] initWithIdentifier:ORKLegacyToneAudiometryPracticeStepIdentifier];
-        step.title = ORKLegacyLocalizedString(@"TONE_AUDIOMETRY_TASK_TITLE", nil);
-        step.text = speechInstruction ? : ORKLegacyLocalizedString(@"TONE_AUDIOMETRY_PREP_TEXT", nil);
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1ToneAudiometryPracticeStep *step = [[ORK1ToneAudiometryPracticeStep alloc] initWithIdentifier:ORK1ToneAudiometryPracticeStepIdentifier];
+        step.title = ORK1LocalizedString(@"TONE_AUDIOMETRY_TASK_TITLE", nil);
+        step.text = speechInstruction ? : ORK1LocalizedString(@"TONE_AUDIOMETRY_PREP_TEXT", nil);
+        ORK1StepArrayAddStep(steps, step);
         
     }
     
     {
-        ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:ORKLegacyCountdownStepIdentifier];
+        ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:ORK1CountdownStepIdentifier];
         step.stepDuration = 5.0;
 
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
     {
-        ORKLegacyToneAudiometryStep *step = [[ORKLegacyToneAudiometryStep alloc] initWithIdentifier:ORKLegacyToneAudiometryStepIdentifier];
-        step.title = shortSpeechInstruction ? : ORKLegacyLocalizedString(@"TONE_AUDIOMETRY_INSTRUCTION", nil);
+        ORK1ToneAudiometryStep *step = [[ORK1ToneAudiometryStep alloc] initWithIdentifier:ORK1ToneAudiometryStepIdentifier];
+        step.title = shortSpeechInstruction ? : ORK1LocalizedString(@"TONE_AUDIOMETRY_INSTRUCTION", nil);
         step.toneDuration = toneDuration;
 
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
 
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
 
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)towerOfHanoiTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)towerOfHanoiTaskWithIdentifier:(NSString *)identifier
                             intendedUseDescription:(nullable NSString *)intendedUseDescription
                                      numberOfDisks:(NSUInteger)numberOfDisks
-                                           options:(ORKLegacyPredefinedTaskOption)options {
+                                           options:(ORK1PredefinedTaskOption)options {
     
     NSMutableArray *steps = [NSMutableArray array];
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TOWER_OF_HANOI_TASK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"TOWER_OF_HANOI_TASK_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"TOWER_OF_HANOI_TASK_INTENDED_USE", nil);
+            step.detailText = ORK1LocalizedString(@"TOWER_OF_HANOI_TASK_INTENDED_USE", nil);
             step.image = [UIImage imageNamed:@"phone-tower-of-hanoi" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TOWER_OF_HANOI_TASK_TITLE", nil);
-            step.text = ORKLegacyLocalizedString(@"TOWER_OF_HANOI_TASK_INTRO_TEXT", nil);
-            step.detailText = ORKLegacyLocalizedString(@"TOWER_OF_HANOI_TASK_TASK_CALL_TO_ACTION", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"TOWER_OF_HANOI_TASK_TITLE", nil);
+            step.text = ORK1LocalizedString(@"TOWER_OF_HANOI_TASK_INTRO_TEXT", nil);
+            step.detailText = ORK1LocalizedString(@"TOWER_OF_HANOI_TASK_TASK_CALL_TO_ACTION", nil);
             step.image = [UIImage imageNamed:@"tower-of-hanoi-second-screen" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
-    ORKLegacyTowerOfHanoiStep *towerOfHanoiStep = [[ORKLegacyTowerOfHanoiStep alloc]initWithIdentifier:ORKLegacyTowerOfHanoiStepIdentifier];
+    ORK1TowerOfHanoiStep *towerOfHanoiStep = [[ORK1TowerOfHanoiStep alloc]initWithIdentifier:ORK1TowerOfHanoiStepIdentifier];
     towerOfHanoiStep.numberOfDisks = numberOfDisks;
-    ORKLegacyStepArrayAddStep(steps, towerOfHanoiStep);
+    ORK1StepArrayAddStep(steps, towerOfHanoiStep);
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc]initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc]initWithIdentifier:identifier steps:steps];
     
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)reactionTimeTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)reactionTimeTaskWithIdentifier:(NSString *)identifier
                             intendedUseDescription:(nullable NSString *)intendedUseDescription
                            maximumStimulusInterval:(NSTimeInterval)maximumStimulusInterval
                            minimumStimulusInterval:(NSTimeInterval)minimumStimulusInterval
@@ -1427,35 +1427,35 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
                                       successSound:(UInt32)successSoundID
                                       timeoutSound:(UInt32)timeoutSoundID
                                       failureSound:(UInt32)failureSoundID
-                                           options:(ORKLegacyPredefinedTaskOption)options {
+                                           options:(ORK1PredefinedTaskOption)options {
     
     NSMutableArray *steps = [NSMutableArray array];
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"REACTION_TIME_TASK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"REACTION_TIME_TASK_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"REACTION_TIME_TASK_INTENDED_USE", nil);
+            step.detailText = ORK1LocalizedString(@"REACTION_TIME_TASK_INTENDED_USE", nil);
             step.image = [UIImage imageNamed:@"phoneshake" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"REACTION_TIME_TASK_TITLE", nil);
-            step.text = [NSString localizedStringWithFormat: ORKLegacyLocalizedString(@"REACTION_TIME_TASK_INTRO_TEXT_FORMAT", nil), numberOfAttempts];
-            step.detailText = ORKLegacyLocalizedString(@"REACTION_TIME_TASK_CALL_TO_ACTION", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"REACTION_TIME_TASK_TITLE", nil);
+            step.text = [NSString localizedStringWithFormat: ORK1LocalizedString(@"REACTION_TIME_TASK_INTRO_TEXT_FORMAT", nil), numberOfAttempts];
+            step.detailText = ORK1LocalizedString(@"REACTION_TIME_TASK_CALL_TO_ACTION", nil);
             step.image = [UIImage imageNamed:@"phoneshakecircle" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
-    ORKLegacyReactionTimeStep *step = [[ORKLegacyReactionTimeStep alloc] initWithIdentifier:ORKLegacyReactionTimeStepIdentifier];
+    ORK1ReactionTimeStep *step = [[ORK1ReactionTimeStep alloc] initWithIdentifier:ORK1ReactionTimeStepIdentifier];
     step.maximumStimulusInterval = maximumStimulusInterval;
     step.minimumStimulusInterval = minimumStimulusInterval;
     step.thresholdAcceleration = thresholdAcceleration;
@@ -1464,26 +1464,26 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
     step.successSound = successSoundID;
     step.timeoutSound = timeoutSoundID;
     step.failureSound = failureSoundID;
-    step.recorderConfigurations = @[ [[ORKLegacyDeviceMotionRecorderConfiguration  alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier frequency: 100]];
+    step.recorderConfigurations = @[ [[ORK1DeviceMotionRecorderConfiguration  alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier frequency: 100]];
 
-    ORKLegacyStepArrayAddStep(steps, step);
+    ORK1StepArrayAddStep(steps, step);
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
-        ORKLegacyStepArrayAddStep(steps, step);
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
     
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)timedWalkTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)timedWalkTaskWithIdentifier:(NSString *)identifier
                          intendedUseDescription:(nullable NSString *)intendedUseDescription
                                distanceInMeters:(double)distanceInMeters
                                       timeLimit:(NSTimeInterval)timeLimit
                      includeAssistiveDeviceForm:(BOOL)includeAssistiveDeviceForm
-                                        options:(ORKLegacyPredefinedTaskOption)options {
+                                        options:(ORK1PredefinedTaskOption)options {
 
     NSMutableArray *steps = [NSMutableArray array];
 
@@ -1492,89 +1492,89 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
     lengthFormatter.numberFormatter.maximumSignificantDigits = 3;
     NSString *formattedLength = [lengthFormatter stringFromMeters:distanceInMeters];
 
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TIMED_WALK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"TIMED_WALK_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"TIMED_WALK_INTRO_DETAIL", nil);
+            step.detailText = ORK1LocalizedString(@"TIMED_WALK_INTRO_DETAIL", nil);
             step.shouldTintImages = YES;
 
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
 
     if (includeAssistiveDeviceForm) {
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:ORKLegacyTimedWalkFormStepIdentifier
-                                                              title:ORKLegacyLocalizedString(@"TIMED_WALK_FORM_TITLE", nil)
-                                                               text:ORKLegacyLocalizedString(@"TIMED_WALK_FORM_TEXT", nil)];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:ORK1TimedWalkFormStepIdentifier
+                                                              title:ORK1LocalizedString(@"TIMED_WALK_FORM_TITLE", nil)
+                                                               text:ORK1LocalizedString(@"TIMED_WALK_FORM_TEXT", nil)];
 
-        ORKLegacyAnswerFormat *answerFormat1 = [ORKLegacyAnswerFormat booleanAnswerFormat];
-        ORKLegacyFormItem *formItem1 = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyTimedWalkFormAFOStepIdentifier
-                                                                    text:ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_TEXT", nil)
+        ORK1AnswerFormat *answerFormat1 = [ORK1AnswerFormat booleanAnswerFormat];
+        ORK1FormItem *formItem1 = [[ORK1FormItem alloc] initWithIdentifier:ORK1TimedWalkFormAFOStepIdentifier
+                                                                    text:ORK1LocalizedString(@"TIMED_WALK_QUESTION_TEXT", nil)
                                                             answerFormat:answerFormat1];
         formItem1.optional = NO;
 
-        NSArray *textChoices = @[ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE", nil),
-                                 ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_2", nil),
-                                 ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_3", nil),
-                                 ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_4", nil),
-                                 ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_5", nil),
-                                 ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_6", nil)];
-        ORKLegacyAnswerFormat *answerFormat2 = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
-        ORKLegacyFormItem *formItem2 = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyTimedWalkFormAssistanceStepIdentifier
-                                                                    text:ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_TITLE", nil)
+        NSArray *textChoices = @[ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE", nil),
+                                 ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_2", nil),
+                                 ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_3", nil),
+                                 ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_4", nil),
+                                 ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_5", nil),
+                                 ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_6", nil)];
+        ORK1AnswerFormat *answerFormat2 = [ORK1AnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
+        ORK1FormItem *formItem2 = [[ORK1FormItem alloc] initWithIdentifier:ORK1TimedWalkFormAssistanceStepIdentifier
+                                                                    text:ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_TITLE", nil)
                                                             answerFormat:answerFormat2];
-        formItem2.placeholder = ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_TEXT", nil);
+        formItem2.placeholder = ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_TEXT", nil);
         formItem2.optional = NO;
 
         step.formItems = @[formItem1, formItem2];
         step.optional = NO;
 
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TIMED_WALK_TITLE", nil);
-            step.text = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"TIMED_WALK_INTRO_2_TEXT_%@", nil), formattedLength];
-            step.detailText = ORKLegacyLocalizedString(@"TIMED_WALK_INTRO_2_DETAIL", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"TIMED_WALK_TITLE", nil);
+            step.text = [NSString localizedStringWithFormat:ORK1LocalizedString(@"TIMED_WALK_INTRO_2_TEXT_%@", nil), formattedLength];
+            step.detailText = ORK1LocalizedString(@"TIMED_WALK_INTRO_2_DETAIL", nil);
             step.image = [UIImage imageNamed:@"timer" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
 
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
 
     {
-        ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:ORKLegacyCountdownStepIdentifier];
+        ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:ORK1CountdownStepIdentifier];
         step.stepDuration = 5.0;
 
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
     {
         NSMutableArray *recorderConfigurations = [NSMutableArray array];
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludePedometer)) {
-            [recorderConfigurations addObject:[[ORKLegacyPedometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyPedometerRecorderIdentifier]];
+        if (!(options & ORK1PredefinedTaskOptionExcludePedometer)) {
+            [recorderConfigurations addObject:[[ORK1PedometerRecorderConfiguration alloc] initWithIdentifier:ORK1PedometerRecorderIdentifier]];
         }
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludeAccelerometer)) {
-            [recorderConfigurations addObject:[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAccelerometerRecorderIdentifier
+        if (!(options & ORK1PredefinedTaskOptionExcludeAccelerometer)) {
+            [recorderConfigurations addObject:[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:ORK1AccelerometerRecorderIdentifier
                                                                                                       frequency:100]];
         }
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludeDeviceMotion)) {
-            [recorderConfigurations addObject:[[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier
+        if (!(options & ORK1PredefinedTaskOptionExcludeDeviceMotion)) {
+            [recorderConfigurations addObject:[[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier
                                                                                                      frequency:100]];
         }
-        if (! (options & ORKLegacyPredefinedTaskOptionExcludeLocation)) {
-            [recorderConfigurations addObject:[[ORKLegacyLocationRecorderConfiguration alloc] initWithIdentifier:ORKLegacyLocationRecorderIdentifier]];
+        if (! (options & ORK1PredefinedTaskOptionExcludeLocation)) {
+            [recorderConfigurations addObject:[[ORK1LocationRecorderConfiguration alloc] initWithIdentifier:ORK1LocationRecorderIdentifier]];
         }
 
         {
-            ORKLegacyTimedWalkStep *step = [[ORKLegacyTimedWalkStep alloc] initWithIdentifier:ORKLegacyTimedWalkTrial1StepIdentifier];
-            step.title = [[NSString alloc] initWithFormat:ORKLegacyLocalizedString(@"TIMED_WALK_INSTRUCTION_%@", nil), formattedLength];
-            step.text = ORKLegacyLocalizedString(@"TIMED_WALK_INSTRUCTION_TEXT", nil);
+            ORK1TimedWalkStep *step = [[ORK1TimedWalkStep alloc] initWithIdentifier:ORK1TimedWalkTrial1StepIdentifier];
+            step.title = [[NSString alloc] initWithFormat:ORK1LocalizedString(@"TIMED_WALK_INSTRUCTION_%@", nil), formattedLength];
+            step.text = ORK1LocalizedString(@"TIMED_WALK_INSTRUCTION_TEXT", nil);
             step.spokenInstruction = step.title;
             step.recorderConfigurations = recorderConfigurations;
             step.distanceInMeters = distanceInMeters;
@@ -1582,13 +1582,13 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             step.image = [UIImage imageNamed:@"timed-walkingman-outbound" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.stepDuration = timeLimit == 0 ? CGFLOAT_MAX : timeLimit;
 
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
 
         {
-            ORKLegacyTimedWalkStep *step = [[ORKLegacyTimedWalkStep alloc] initWithIdentifier:ORKLegacyTimedWalkTrial2StepIdentifier];
-            step.title = [[NSString alloc] initWithFormat:ORKLegacyLocalizedString(@"TIMED_WALK_INSTRUCTION_2", nil), formattedLength];
-            step.text = ORKLegacyLocalizedString(@"TIMED_WALK_INSTRUCTION_TEXT", nil);
+            ORK1TimedWalkStep *step = [[ORK1TimedWalkStep alloc] initWithIdentifier:ORK1TimedWalkTrial2StepIdentifier];
+            step.title = [[NSString alloc] initWithFormat:ORK1LocalizedString(@"TIMED_WALK_INSTRUCTION_2", nil), formattedLength];
+            step.text = ORK1LocalizedString(@"TIMED_WALK_INSTRUCTION_TEXT", nil);
             step.spokenInstruction = step.title;
             step.recorderConfigurations = recorderConfigurations;
             step.distanceInMeters = distanceInMeters;
@@ -1596,27 +1596,27 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             step.image = [UIImage imageNamed:@"timed-walkingman-return" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.stepDuration = timeLimit == 0 ? CGFLOAT_MAX : timeLimit;
 
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
 
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
 
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)timedWalkTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)timedWalkTaskWithIdentifier:(NSString *)identifier
                          intendedUseDescription:(nullable NSString *)intendedUseDescription
                                distanceInMeters:(double)distanceInMeters
                                       timeLimit:(NSTimeInterval)timeLimit
                             turnAroundTimeLimit:(NSTimeInterval)turnAroundTimeLimit
                      includeAssistiveDeviceForm:(BOOL)includeAssistiveDeviceForm
-                                        options:(ORKLegacyPredefinedTaskOption)options {
+                                        options:(ORK1PredefinedTaskOption)options {
 
     NSMutableArray *steps = [NSMutableArray array];
 
@@ -1625,89 +1625,89 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
     lengthFormatter.numberFormatter.maximumSignificantDigits = 3;
     NSString *formattedLength = [lengthFormatter stringFromMeters:distanceInMeters];
 
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TIMED_WALK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"TIMED_WALK_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"TIMED_WALK_INTRO_DETAIL", nil);
+            step.detailText = ORK1LocalizedString(@"TIMED_WALK_INTRO_DETAIL", nil);
             step.shouldTintImages = YES;
 
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
 
     if (includeAssistiveDeviceForm) {
-        ORKLegacyFormStep *step = [[ORKLegacyFormStep alloc] initWithIdentifier:ORKLegacyTimedWalkFormStepIdentifier
-                                                              title:ORKLegacyLocalizedString(@"TIMED_WALK_FORM_TITLE", nil)
-                                                               text:ORKLegacyLocalizedString(@"TIMED_WALK_FORM_TEXT", nil)];
+        ORK1FormStep *step = [[ORK1FormStep alloc] initWithIdentifier:ORK1TimedWalkFormStepIdentifier
+                                                              title:ORK1LocalizedString(@"TIMED_WALK_FORM_TITLE", nil)
+                                                               text:ORK1LocalizedString(@"TIMED_WALK_FORM_TEXT", nil)];
 
-        ORKLegacyAnswerFormat *answerFormat1 = [ORKLegacyAnswerFormat booleanAnswerFormat];
-        ORKLegacyFormItem *formItem1 = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyTimedWalkFormAFOStepIdentifier
-                                                                    text:ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_TEXT", nil)
+        ORK1AnswerFormat *answerFormat1 = [ORK1AnswerFormat booleanAnswerFormat];
+        ORK1FormItem *formItem1 = [[ORK1FormItem alloc] initWithIdentifier:ORK1TimedWalkFormAFOStepIdentifier
+                                                                    text:ORK1LocalizedString(@"TIMED_WALK_QUESTION_TEXT", nil)
                                                             answerFormat:answerFormat1];
         formItem1.optional = NO;
 
-        NSArray *textChoices = @[ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE", nil),
-                                 ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_2", nil),
-                                 ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_3", nil),
-                                 ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_4", nil),
-                                 ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_5", nil),
-                                 ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_6", nil)];
-        ORKLegacyAnswerFormat *answerFormat2 = [ORKLegacyAnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
-        ORKLegacyFormItem *formItem2 = [[ORKLegacyFormItem alloc] initWithIdentifier:ORKLegacyTimedWalkFormAssistanceStepIdentifier
-                                                                    text:ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_TITLE", nil)
+        NSArray *textChoices = @[ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE", nil),
+                                 ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_2", nil),
+                                 ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_3", nil),
+                                 ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_4", nil),
+                                 ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_5", nil),
+                                 ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_CHOICE_6", nil)];
+        ORK1AnswerFormat *answerFormat2 = [ORK1AnswerFormat valuePickerAnswerFormatWithTextChoices:textChoices];
+        ORK1FormItem *formItem2 = [[ORK1FormItem alloc] initWithIdentifier:ORK1TimedWalkFormAssistanceStepIdentifier
+                                                                    text:ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_TITLE", nil)
                                                             answerFormat:answerFormat2];
-        formItem2.placeholder = ORKLegacyLocalizedString(@"TIMED_WALK_QUESTION_2_TEXT", nil);
+        formItem2.placeholder = ORK1LocalizedString(@"TIMED_WALK_QUESTION_2_TEXT", nil);
         formItem2.optional = NO;
 
         step.formItems = @[formItem1, formItem2];
         step.optional = NO;
 
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TIMED_WALK_TITLE", nil);
-            step.text = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"TIMED_WALK_INTRO_2_TEXT_%@", nil), formattedLength];
-            step.detailText = ORKLegacyLocalizedString(@"TIMED_WALK_INTRO_2_DETAIL", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"TIMED_WALK_TITLE", nil);
+            step.text = [NSString localizedStringWithFormat:ORK1LocalizedString(@"TIMED_WALK_INTRO_2_TEXT_%@", nil), formattedLength];
+            step.detailText = ORK1LocalizedString(@"TIMED_WALK_INTRO_2_DETAIL", nil);
             step.image = [UIImage imageNamed:@"timer" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
 
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
 
     {
-        ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:ORKLegacyCountdownStepIdentifier];
+        ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:ORK1CountdownStepIdentifier];
         step.stepDuration = 5.0;
 
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
     {
         NSMutableArray *recorderConfigurations = [NSMutableArray array];
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludePedometer)) {
-            [recorderConfigurations addObject:[[ORKLegacyPedometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyPedometerRecorderIdentifier]];
+        if (!(options & ORK1PredefinedTaskOptionExcludePedometer)) {
+            [recorderConfigurations addObject:[[ORK1PedometerRecorderConfiguration alloc] initWithIdentifier:ORK1PedometerRecorderIdentifier]];
         }
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludeAccelerometer)) {
-            [recorderConfigurations addObject:[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:ORKLegacyAccelerometerRecorderIdentifier
+        if (!(options & ORK1PredefinedTaskOptionExcludeAccelerometer)) {
+            [recorderConfigurations addObject:[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:ORK1AccelerometerRecorderIdentifier
                                                                                                       frequency:100]];
         }
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludeDeviceMotion)) {
-            [recorderConfigurations addObject:[[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORKLegacyDeviceMotionRecorderIdentifier
+        if (!(options & ORK1PredefinedTaskOptionExcludeDeviceMotion)) {
+            [recorderConfigurations addObject:[[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:ORK1DeviceMotionRecorderIdentifier
                                                                                                      frequency:100]];
         }
-        if (! (options & ORKLegacyPredefinedTaskOptionExcludeLocation)) {
-            [recorderConfigurations addObject:[[ORKLegacyLocationRecorderConfiguration alloc] initWithIdentifier:ORKLegacyLocationRecorderIdentifier]];
+        if (! (options & ORK1PredefinedTaskOptionExcludeLocation)) {
+            [recorderConfigurations addObject:[[ORK1LocationRecorderConfiguration alloc] initWithIdentifier:ORK1LocationRecorderIdentifier]];
         }
 
         {
-            ORKLegacyTimedWalkStep *step = [[ORKLegacyTimedWalkStep alloc] initWithIdentifier:ORKLegacyTimedWalkTrial1StepIdentifier];
-            step.title = [[NSString alloc] initWithFormat:ORKLegacyLocalizedString(@"TIMED_WALK_INSTRUCTION_%@", nil), formattedLength];
-            step.text = ORKLegacyLocalizedString(@"TIMED_WALK_INSTRUCTION_TEXT", nil);
+            ORK1TimedWalkStep *step = [[ORK1TimedWalkStep alloc] initWithIdentifier:ORK1TimedWalkTrial1StepIdentifier];
+            step.title = [[NSString alloc] initWithFormat:ORK1LocalizedString(@"TIMED_WALK_INSTRUCTION_%@", nil), formattedLength];
+            step.text = ORK1LocalizedString(@"TIMED_WALK_INSTRUCTION_TEXT", nil);
             step.spokenInstruction = step.title;
             step.recorderConfigurations = recorderConfigurations;
             step.distanceInMeters = distanceInMeters;
@@ -1715,13 +1715,13 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             step.image = [UIImage imageNamed:@"timed-walkingman-outbound" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.stepDuration = timeLimit == 0 ? CGFLOAT_MAX : timeLimit;
 
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
 
         {
-            ORKLegacyTimedWalkStep *step = [[ORKLegacyTimedWalkStep alloc] initWithIdentifier:ORKLegacyTimedWalkTurnAroundStepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TIMED_WALK_INSTRUCTION_TURN", nil);
-            step.text = ORKLegacyLocalizedString(@"TIMED_WALK_INSTRUCTION_TEXT", nil);
+            ORK1TimedWalkStep *step = [[ORK1TimedWalkStep alloc] initWithIdentifier:ORK1TimedWalkTurnAroundStepIdentifier];
+            step.title = ORK1LocalizedString(@"TIMED_WALK_INSTRUCTION_TURN", nil);
+            step.text = ORK1LocalizedString(@"TIMED_WALK_INSTRUCTION_TEXT", nil);
             step.spokenInstruction = step.title;
             step.recorderConfigurations = recorderConfigurations;
             step.distanceInMeters = 1;
@@ -1729,13 +1729,13 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             step.image = [UIImage imageNamed:@"turnaround" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.stepDuration = turnAroundTimeLimit == 0 ? CGFLOAT_MAX : turnAroundTimeLimit;
 
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
 
         {
-            ORKLegacyTimedWalkStep *step = [[ORKLegacyTimedWalkStep alloc] initWithIdentifier:ORKLegacyTimedWalkTrial2StepIdentifier];
-            step.title = [[NSString alloc] initWithFormat:ORKLegacyLocalizedString(@"TIMED_WALK_INSTRUCTION_2", nil), formattedLength];
-            step.text = ORKLegacyLocalizedString(@"TIMED_WALK_INSTRUCTION_TEXT", nil);
+            ORK1TimedWalkStep *step = [[ORK1TimedWalkStep alloc] initWithIdentifier:ORK1TimedWalkTrial2StepIdentifier];
+            step.title = [[NSString alloc] initWithFormat:ORK1LocalizedString(@"TIMED_WALK_INSTRUCTION_2", nil), formattedLength];
+            step.text = ORK1LocalizedString(@"TIMED_WALK_INSTRUCTION_TEXT", nil);
             step.spokenInstruction = step.title;
             step.recorderConfigurations = recorderConfigurations;
             step.distanceInMeters = distanceInMeters;
@@ -1743,90 +1743,90 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             step.image = [UIImage imageNamed:@"timed-walkingman-return" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.stepDuration = timeLimit == 0 ? CGFLOAT_MAX : timeLimit;
 
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
 
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
 
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)PSATTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)PSATTaskWithIdentifier:(NSString *)identifier
                     intendedUseDescription:(nullable NSString *)intendedUseDescription
-                          presentationMode:(ORKLegacyPSATPresentationMode)presentationMode
+                          presentationMode:(ORK1PSATPresentationMode)presentationMode
                      interStimulusInterval:(NSTimeInterval)interStimulusInterval
                           stimulusDuration:(NSTimeInterval)stimulusDuration
                               seriesLength:(NSInteger)seriesLength
-                                   options:(ORKLegacyPredefinedTaskOption)options {
+                                   options:(ORK1PredefinedTaskOption)options {
     
     NSMutableArray *steps = [NSMutableArray array];
     NSString *versionTitle = @"";
     NSString *versionDetailText = @"";
     
-    if (presentationMode == ORKLegacyPSATPresentationModeAuditory) {
-        versionTitle = ORKLegacyLocalizedString(@"PASAT_TITLE", nil);
-        versionDetailText = ORKLegacyLocalizedString(@"PASAT_INTRO_TEXT", nil);
-    } else if (presentationMode == ORKLegacyPSATPresentationModeVisual) {
-        versionTitle = ORKLegacyLocalizedString(@"PVSAT_TITLE", nil);
-        versionDetailText = ORKLegacyLocalizedString(@"PVSAT_INTRO_TEXT", nil);
+    if (presentationMode == ORK1PSATPresentationModeAuditory) {
+        versionTitle = ORK1LocalizedString(@"PASAT_TITLE", nil);
+        versionDetailText = ORK1LocalizedString(@"PASAT_INTRO_TEXT", nil);
+    } else if (presentationMode == ORK1PSATPresentationModeVisual) {
+        versionTitle = ORK1LocalizedString(@"PVSAT_TITLE", nil);
+        versionDetailText = ORK1LocalizedString(@"PVSAT_INTRO_TEXT", nil);
     } else {
-        versionTitle = ORKLegacyLocalizedString(@"PAVSAT_TITLE", nil);
-        versionDetailText = ORKLegacyLocalizedString(@"PAVSAT_INTRO_TEXT", nil);
+        versionTitle = ORK1LocalizedString(@"PAVSAT_TITLE", nil);
+        versionDetailText = ORK1LocalizedString(@"PAVSAT_INTRO_TEXT", nil);
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
             step.title = versionTitle;
             step.detailText = versionDetailText;
             step.text = intendedUseDescription;
             step.image = [UIImage imageNamed:@"phonepsat" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
             step.title = versionTitle;
-            step.text = [NSString localizedStringWithFormat:ORKLegacyLocalizedString(@"PSAT_INTRO_TEXT_2_%@", nil), [NSNumberFormatter localizedStringFromNumber:@(interStimulusInterval) numberStyle:NSNumberFormatterDecimalStyle]];
-            step.detailText = ORKLegacyLocalizedString(@"PSAT_CALL_TO_ACTION", nil);
+            step.text = [NSString localizedStringWithFormat:ORK1LocalizedString(@"PSAT_INTRO_TEXT_2_%@", nil), [NSNumberFormatter localizedStringFromNumber:@(interStimulusInterval) numberStyle:NSNumberFormatterDecimalStyle]];
+            step.detailText = ORK1LocalizedString(@"PSAT_CALL_TO_ACTION", nil);
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
     {
-        ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:ORKLegacyCountdownStepIdentifier];
+        ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:ORK1CountdownStepIdentifier];
         step.stepDuration = 5.0;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
     {
-        ORKLegacyPSATStep *step = [[ORKLegacyPSATStep alloc] initWithIdentifier:ORKLegacyPSATStepIdentifier];
-        step.title = ORKLegacyLocalizedString(@"PSAT_INITIAL_INSTRUCTION", nil);
+        ORK1PSATStep *step = [[ORK1PSATStep alloc] initWithIdentifier:ORK1PSATStepIdentifier];
+        step.title = ORK1LocalizedString(@"PSAT_INITIAL_INSTRUCTION", nil);
         step.stepDuration = (seriesLength + 1) * interStimulusInterval;
         step.presentationMode = presentationMode;
         step.interStimulusInterval = interStimulusInterval;
         step.stimulusDuration = stimulusDuration;
         step.seriesLength = seriesLength;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:[steps copy]];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:[steps copy]];
     
     return task;
 }
@@ -1837,29 +1837,29 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
 
 + (NSMutableArray *)stepsForOneHandTremorTestTaskWithIdentifier:(NSString *)identifier
                                              activeStepDuration:(NSTimeInterval)activeStepDuration
-                                              activeTaskOptions:(ORKLegacyTremorActiveTaskOption)activeTaskOptions
+                                              activeTaskOptions:(ORK1TremorActiveTaskOption)activeTaskOptions
                                                        lastHand:(BOOL)lastHand
                                                        leftHand:(BOOL)leftHand
                                                  handIdentifier:(NSString *)handIdentifier
                                                 introDetailText:(NSString *)detailText
-                                                        options:(ORKLegacyPredefinedTaskOption)options {
-    NSMutableArray<ORKLegacyActiveStep *> *steps = [NSMutableArray array];
-    NSString *stepFinishedInstruction = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_FINISHED_INSTRUCTION", nil);
-    BOOL rightHand = !leftHand && ![handIdentifier isEqualToString:ORKLegacyActiveTaskMostAffectedHandIdentifier];
+                                                        options:(ORK1PredefinedTaskOption)options {
+    NSMutableArray<ORK1ActiveStep *> *steps = [NSMutableArray array];
+    NSString *stepFinishedInstruction = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_FINISHED_INSTRUCTION", nil);
+    BOOL rightHand = !leftHand && ![handIdentifier isEqualToString:ORK1ActiveTaskMostAffectedHandIdentifier];
     
     {
-        NSString *stepIdentifier = [self stepIdentifier:ORKLegacyInstruction1StepIdentifier withHandIdentifier:handIdentifier];
-        ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
-        step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_TITLE", nil);
+        NSString *stepIdentifier = [self stepIdentifier:ORK1Instruction1StepIdentifier withHandIdentifier:handIdentifier];
+        ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
+        step.title = ORK1LocalizedString(@"TREMOR_TEST_TITLE", nil);
         
-        if ([identifier isEqualToString:ORKLegacyActiveTaskMostAffectedHandIdentifier]) {
-            step.text = ORKLegacyLocalizedString(@"TREMOR_TEST_INTRO_2_DEFAULT_TEXT", nil);
+        if ([identifier isEqualToString:ORK1ActiveTaskMostAffectedHandIdentifier]) {
+            step.text = ORK1LocalizedString(@"TREMOR_TEST_INTRO_2_DEFAULT_TEXT", nil);
             step.detailText = detailText;
         } else {
             if (leftHand) {
-                step.text = ORKLegacyLocalizedString(@"TREMOR_TEST_INTRO_2_LEFT_HAND_TEXT", nil);
+                step.text = ORK1LocalizedString(@"TREMOR_TEST_INTRO_2_LEFT_HAND_TEXT", nil);
             } else {
-                step.text = ORKLegacyLocalizedString(@"TREMOR_TEST_INTRO_2_RIGHT_HAND_TEXT", nil);
+                step.text = ORK1LocalizedString(@"TREMOR_TEST_INTRO_2_RIGHT_HAND_TEXT", nil);
             }
         }
         
@@ -1867,41 +1867,41 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
         step.image = [UIImage imageNamed:imageName inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
         step.shouldTintImages = YES;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
-    if (!(activeTaskOptions & ORKLegacyTremorActiveTaskOptionExcludeHandInLap)) {
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyInstruction2StepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_IN_LAP_INTRO", nil);
-            step.text = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_INTRO_TEXT", nil);
+    if (!(activeTaskOptions & ORK1TremorActiveTaskOptionExcludeHandInLap)) {
+        if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
+            NSString *stepIdentifier = [self stepIdentifier:ORK1Instruction2StepIdentifier withHandIdentifier:handIdentifier];
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
+            step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_IN_LAP_INTRO", nil);
+            step.text = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_INTRO_TEXT", nil);
             step.image = [UIImage imageNamed:@"tremortest3a" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.auxiliaryImage = [UIImage imageNamed:@"tremortest3b" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             if (leftHand) {
-                step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_IN_LAP_INTRO_LEFT", nil);
+                step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_IN_LAP_INTRO_LEFT", nil);
                 step.image = [step.image ork_flippedImage:UIImageOrientationUpMirrored];
                 step.auxiliaryImage = [step.auxiliaryImage ork_flippedImage:UIImageOrientationUpMirrored];
             } else if (rightHand) {
-                step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_IN_LAP_INTRO_RIGHT", nil);
+                step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_IN_LAP_INTRO_RIGHT", nil);
             }
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyCountdown1StepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:stepIdentifier];
+            NSString *stepIdentifier = [self stepIdentifier:ORK1Countdown1StepIdentifier withHandIdentifier:handIdentifier];
+            ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:stepIdentifier];
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            NSString *titleFormat = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_IN_LAP_INSTRUCTION_%ld", nil);
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyTremorTestInLapStepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyActiveStep *step = [[ORKLegacyActiveStep alloc] initWithIdentifier:stepIdentifier];
-            step.recorderConfigurations = @[[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:@"ac1_acc" frequency:100.0], [[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"ac1_motion" frequency:100.0]];
+            NSString *titleFormat = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_IN_LAP_INSTRUCTION_%ld", nil);
+            NSString *stepIdentifier = [self stepIdentifier:ORK1TremorTestInLapStepIdentifier withHandIdentifier:handIdentifier];
+            ORK1ActiveStep *step = [[ORK1ActiveStep alloc] initWithIdentifier:stepIdentifier];
+            step.recorderConfigurations = @[[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:@"ac1_acc" frequency:100.0], [[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"ac1_motion" frequency:100.0]];
             step.title = [NSString localizedStringWithFormat:titleFormat, (long)activeStepDuration];
             step.spokenInstruction = step.title;
             step.finishedSpokenInstruction = stepFinishedInstruction;
@@ -1913,42 +1913,42 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             step.shouldContinueOnFinish = NO;
             step.shouldStartTimerAutomatically = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
-    if (!(activeTaskOptions & ORKLegacyTremorActiveTaskOptionExcludeHandAtShoulderHeight)) {
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyInstruction4StepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_EXTEND_ARM_INTRO", nil);
-            step.text = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_INTRO_TEXT", nil);
+    if (!(activeTaskOptions & ORK1TremorActiveTaskOptionExcludeHandAtShoulderHeight)) {
+        if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
+            NSString *stepIdentifier = [self stepIdentifier:ORK1Instruction4StepIdentifier withHandIdentifier:handIdentifier];
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
+            step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_EXTEND_ARM_INTRO", nil);
+            step.text = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_INTRO_TEXT", nil);
             step.image = [UIImage imageNamed:@"tremortest4a" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.auxiliaryImage = [UIImage imageNamed:@"tremortest4b" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             if (leftHand) {
-                step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_EXTEND_ARM_INTRO_LEFT", nil);
+                step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_EXTEND_ARM_INTRO_LEFT", nil);
                 step.image = [step.image ork_flippedImage:UIImageOrientationUpMirrored];
                 step.auxiliaryImage = [step.auxiliaryImage ork_flippedImage:UIImageOrientationUpMirrored];
             } else if (rightHand) {
-                step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_EXTEND_ARM_INTRO_RIGHT", nil);
+                step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_EXTEND_ARM_INTRO_RIGHT", nil);
             }
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyCountdown2StepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:stepIdentifier];
+            NSString *stepIdentifier = [self stepIdentifier:ORK1Countdown2StepIdentifier withHandIdentifier:handIdentifier];
+            ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:stepIdentifier];
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            NSString *titleFormat = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_EXTEND_ARM_INSTRUCTION_%ld", nil);
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyTremorTestExtendArmStepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyActiveStep *step = [[ORKLegacyActiveStep alloc] initWithIdentifier:stepIdentifier];
-            step.recorderConfigurations = @[[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:@"ac2_acc" frequency:100.0], [[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"ac2_motion" frequency:100.0]];
+            NSString *titleFormat = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_EXTEND_ARM_INSTRUCTION_%ld", nil);
+            NSString *stepIdentifier = [self stepIdentifier:ORK1TremorTestExtendArmStepIdentifier withHandIdentifier:handIdentifier];
+            ORK1ActiveStep *step = [[ORK1ActiveStep alloc] initWithIdentifier:stepIdentifier];
+            step.recorderConfigurations = @[[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:@"ac2_acc" frequency:100.0], [[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"ac2_motion" frequency:100.0]];
             step.title = [NSString localizedStringWithFormat:titleFormat, (long)activeStepDuration];
             step.spokenInstruction = step.title;
             step.finishedSpokenInstruction = stepFinishedInstruction;
@@ -1964,42 +1964,42 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             step.shouldContinueOnFinish = NO;
             step.shouldStartTimerAutomatically = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
-    if (!(activeTaskOptions & ORKLegacyTremorActiveTaskOptionExcludeHandAtShoulderHeightElbowBent)) {
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyInstruction5StepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_BEND_ARM_INTRO", nil);
-            step.text = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_INTRO_TEXT", nil);
+    if (!(activeTaskOptions & ORK1TremorActiveTaskOptionExcludeHandAtShoulderHeightElbowBent)) {
+        if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
+            NSString *stepIdentifier = [self stepIdentifier:ORK1Instruction5StepIdentifier withHandIdentifier:handIdentifier];
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
+            step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_BEND_ARM_INTRO", nil);
+            step.text = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_INTRO_TEXT", nil);
             step.image = [UIImage imageNamed:@"tremortest5a" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.auxiliaryImage = [UIImage imageNamed:@"tremortest5b" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             if (leftHand) {
-                step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_BEND_ARM_INTRO_LEFT", nil);
+                step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_BEND_ARM_INTRO_LEFT", nil);
                 step.image = [step.image ork_flippedImage:UIImageOrientationUpMirrored];
                 step.auxiliaryImage = [step.auxiliaryImage ork_flippedImage:UIImageOrientationUpMirrored];
             } else if (rightHand) {
-                step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_BEND_ARM_INTRO_RIGHT", nil);
+                step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_BEND_ARM_INTRO_RIGHT", nil);
             }
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyCountdown3StepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:stepIdentifier];
+            NSString *stepIdentifier = [self stepIdentifier:ORK1Countdown3StepIdentifier withHandIdentifier:handIdentifier];
+            ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:stepIdentifier];
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            NSString *titleFormat = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_BEND_ARM_INSTRUCTION_%ld", nil);
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyTremorTestBendArmStepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyActiveStep *step = [[ORKLegacyActiveStep alloc] initWithIdentifier:stepIdentifier];
-            step.recorderConfigurations = @[[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:@"ac3_acc" frequency:100.0], [[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"ac3_motion" frequency:100.0]];
+            NSString *titleFormat = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_BEND_ARM_INSTRUCTION_%ld", nil);
+            NSString *stepIdentifier = [self stepIdentifier:ORK1TremorTestBendArmStepIdentifier withHandIdentifier:handIdentifier];
+            ORK1ActiveStep *step = [[ORK1ActiveStep alloc] initWithIdentifier:stepIdentifier];
+            step.recorderConfigurations = @[[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:@"ac3_acc" frequency:100.0], [[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"ac3_motion" frequency:100.0]];
             step.title = [NSString localizedStringWithFormat:titleFormat, (long)activeStepDuration];
             step.spokenInstruction = step.title;
             step.finishedSpokenInstruction = stepFinishedInstruction;
@@ -2011,42 +2011,42 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             step.shouldContinueOnFinish = NO;
             step.shouldStartTimerAutomatically = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
-    if (!(activeTaskOptions & ORKLegacyTremorActiveTaskOptionExcludeHandToNose)) {
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyInstruction6StepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TOUCH_NOSE_INTRO", nil);
-            step.text = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_INTRO_TEXT", nil);
+    if (!(activeTaskOptions & ORK1TremorActiveTaskOptionExcludeHandToNose)) {
+        if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
+            NSString *stepIdentifier = [self stepIdentifier:ORK1Instruction6StepIdentifier withHandIdentifier:handIdentifier];
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
+            step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TOUCH_NOSE_INTRO", nil);
+            step.text = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_INTRO_TEXT", nil);
             step.image = [UIImage imageNamed:@"tremortest6a" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.auxiliaryImage = [UIImage imageNamed:@"tremortest6b" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             if (leftHand) {
-                step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TOUCH_NOSE_INTRO_LEFT", nil);
+                step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TOUCH_NOSE_INTRO_LEFT", nil);
                 step.image = [step.image ork_flippedImage:UIImageOrientationUpMirrored];
                 step.auxiliaryImage = [step.auxiliaryImage ork_flippedImage:UIImageOrientationUpMirrored];
             } else if (rightHand) {
-                step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TOUCH_NOSE_INTRO_RIGHT", nil);
+                step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TOUCH_NOSE_INTRO_RIGHT", nil);
             }
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyCountdown4StepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:stepIdentifier];
+            NSString *stepIdentifier = [self stepIdentifier:ORK1Countdown4StepIdentifier withHandIdentifier:handIdentifier];
+            ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:stepIdentifier];
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            NSString *titleFormat = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TOUCH_NOSE_INSTRUCTION_%ld", nil);
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyTremorTestTouchNoseStepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyActiveStep *step = [[ORKLegacyActiveStep alloc] initWithIdentifier:stepIdentifier];
-            step.recorderConfigurations = @[[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:@"ac4_acc" frequency:100.0], [[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"ac4_motion" frequency:100.0]];
+            NSString *titleFormat = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TOUCH_NOSE_INSTRUCTION_%ld", nil);
+            NSString *stepIdentifier = [self stepIdentifier:ORK1TremorTestTouchNoseStepIdentifier withHandIdentifier:handIdentifier];
+            ORK1ActiveStep *step = [[ORK1ActiveStep alloc] initWithIdentifier:stepIdentifier];
+            step.recorderConfigurations = @[[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:@"ac4_acc" frequency:100.0], [[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"ac4_motion" frequency:100.0]];
             step.title = [NSString localizedStringWithFormat:titleFormat, (long)activeStepDuration];
             step.spokenInstruction = step.title;
             step.finishedSpokenInstruction = stepFinishedInstruction;
@@ -2058,40 +2058,40 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             step.shouldContinueOnFinish = NO;
             step.shouldStartTimerAutomatically = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
-    if (!(activeTaskOptions & ORKLegacyTremorActiveTaskOptionExcludeQueenWave)) {
-        if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyInstruction7StepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:stepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TURN_WRIST_INTRO", nil);
-            step.text = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_INTRO_TEXT", nil);
+    if (!(activeTaskOptions & ORK1TremorActiveTaskOptionExcludeQueenWave)) {
+        if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
+            NSString *stepIdentifier = [self stepIdentifier:ORK1Instruction7StepIdentifier withHandIdentifier:handIdentifier];
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:stepIdentifier];
+            step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TURN_WRIST_INTRO", nil);
+            step.text = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_INTRO_TEXT", nil);
             step.image = [UIImage imageNamed:@"tremortest7" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             if (leftHand) {
-                step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TURN_WRIST_INTRO_LEFT", nil);
+                step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TURN_WRIST_INTRO_LEFT", nil);
                 step.image = [step.image ork_flippedImage:UIImageOrientationUpMirrored];
             } else if (rightHand) {
-                step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TURN_WRIST_INTRO_RIGHT", nil);
+                step.title = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TURN_WRIST_INTRO_RIGHT", nil);
             }
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyCountdown5StepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:stepIdentifier];
+            NSString *stepIdentifier = [self stepIdentifier:ORK1Countdown5StepIdentifier withHandIdentifier:handIdentifier];
+            ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:stepIdentifier];
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            NSString *titleFormat = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TURN_WRIST_INSTRUCTION_%ld", nil);
-            NSString *stepIdentifier = [self stepIdentifier:ORKLegacyTremorTestTurnWristStepIdentifier withHandIdentifier:handIdentifier];
-            ORKLegacyActiveStep *step = [[ORKLegacyActiveStep alloc] initWithIdentifier:stepIdentifier];
-            step.recorderConfigurations = @[[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:@"ac5_acc" frequency:100.0], [[ORKLegacyDeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"ac5_motion" frequency:100.0]];
+            NSString *titleFormat = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_TURN_WRIST_INSTRUCTION_%ld", nil);
+            NSString *stepIdentifier = [self stepIdentifier:ORK1TremorTestTurnWristStepIdentifier withHandIdentifier:handIdentifier];
+            ORK1ActiveStep *step = [[ORK1ActiveStep alloc] initWithIdentifier:stepIdentifier];
+            step.recorderConfigurations = @[[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:@"ac5_acc" frequency:100.0], [[ORK1DeviceMotionRecorderConfiguration alloc] initWithIdentifier:@"ac5_motion" frequency:100.0]];
             step.title = [NSString localizedStringWithFormat:titleFormat, (long)activeStepDuration];
             step.spokenInstruction = step.title;
             step.finishedSpokenInstruction = stepFinishedInstruction;
@@ -2103,59 +2103,59 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
             step.shouldContinueOnFinish = NO;
             step.shouldStartTimerAutomatically = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
     // fix the spoken instruction on the last included step, depending on which hand we're on
-    ORKLegacyActiveStep *lastStep = (ORKLegacyActiveStep *)[steps lastObject];
+    ORK1ActiveStep *lastStep = (ORK1ActiveStep *)[steps lastObject];
     if (lastHand) {
-        lastStep.finishedSpokenInstruction = ORKLegacyLocalizedString(@"TREMOR_TEST_COMPLETED_INSTRUCTION", nil);
+        lastStep.finishedSpokenInstruction = ORK1LocalizedString(@"TREMOR_TEST_COMPLETED_INSTRUCTION", nil);
     } else if (leftHand) {
-        lastStep.finishedSpokenInstruction = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_SWITCH_HANDS_RIGHT_INSTRUCTION", nil);
+        lastStep.finishedSpokenInstruction = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_SWITCH_HANDS_RIGHT_INSTRUCTION", nil);
     } else {
-        lastStep.finishedSpokenInstruction = ORKLegacyLocalizedString(@"TREMOR_TEST_ACTIVE_STEP_SWITCH_HANDS_LEFT_INSTRUCTION", nil);
+        lastStep.finishedSpokenInstruction = ORK1LocalizedString(@"TREMOR_TEST_ACTIVE_STEP_SWITCH_HANDS_LEFT_INSTRUCTION", nil);
     }
     
     return steps;
 }
 
-+ (ORKLegacyNavigableOrderedTask *)tremorTestTaskWithIdentifier:(NSString *)identifier
++ (ORK1NavigableOrderedTask *)tremorTestTaskWithIdentifier:(NSString *)identifier
                                    intendedUseDescription:(nullable NSString *)intendedUseDescription
                                        activeStepDuration:(NSTimeInterval)activeStepDuration
-                                        activeTaskOptions:(ORKLegacyTremorActiveTaskOption)activeTaskOptions
-                                              handOptions:(ORKLegacyPredefinedTaskHandOption)handOptions
-                                                  options:(ORKLegacyPredefinedTaskOption)options {
+                                        activeTaskOptions:(ORK1TremorActiveTaskOption)activeTaskOptions
+                                              handOptions:(ORK1PredefinedTaskHandOption)handOptions
+                                                  options:(ORK1PredefinedTaskOption)options {
     
-    NSMutableArray<__kindof ORKLegacyStep *> *steps = [NSMutableArray array];
+    NSMutableArray<__kindof ORK1Step *> *steps = [NSMutableArray array];
     // coin toss for which hand first (in case we're doing both)
     BOOL leftFirstIfDoingBoth = arc4random_uniform(2) == 1;
-    BOOL doingBoth = ((handOptions & ORKLegacyPredefinedTaskHandOptionLeft) && (handOptions & ORKLegacyPredefinedTaskHandOptionRight));
-    BOOL firstIsLeft = (leftFirstIfDoingBoth && doingBoth) || (!doingBoth && (handOptions & ORKLegacyPredefinedTaskHandOptionLeft));
+    BOOL doingBoth = ((handOptions & ORK1PredefinedTaskHandOptionLeft) && (handOptions & ORK1PredefinedTaskHandOptionRight));
+    BOOL firstIsLeft = (leftFirstIfDoingBoth && doingBoth) || (!doingBoth && (handOptions & ORK1PredefinedTaskHandOptionLeft));
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TREMOR_TEST_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"TREMOR_TEST_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"TREMOR_TEST_INTRO_1_DETAIL", nil);
+            step.detailText = ORK1LocalizedString(@"TREMOR_TEST_INTRO_1_DETAIL", nil);
             step.image = [UIImage imageNamed:@"tremortest1" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             if (firstIsLeft) {
                 step.image = [step.image ork_flippedImage:UIImageOrientationUpMirrored];
             }
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
     // Build the string for the detail texts
     NSArray<NSString *>*detailStringForNumberOfTasks = @[
-                                                         ORKLegacyLocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_1_TASK", nil),
-                                                         ORKLegacyLocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_2_TASK", nil),
-                                                         ORKLegacyLocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_3_TASK", nil),
-                                                         ORKLegacyLocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_4_TASK", nil),
-                                                         ORKLegacyLocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_5_TASK", nil)
+                                                         ORK1LocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_1_TASK", nil),
+                                                         ORK1LocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_2_TASK", nil),
+                                                         ORK1LocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_3_TASK", nil),
+                                                         ORK1LocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_4_TASK", nil),
+                                                         ORK1LocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_5_TASK", nil)
                                                          ];
     
     // start with the count for all the tasks, then subtract one for each excluded task flag
@@ -2167,60 +2167,60 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
         }
     }
     
-    NSString *detailFormat = doingBoth ? ORKLegacyLocalizedString(@"TREMOR_TEST_SKIP_QUESTION_BOTH_HANDS_%@", nil) : ORKLegacyLocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_DEFAULT_%@", nil);
+    NSString *detailFormat = doingBoth ? ORK1LocalizedString(@"TREMOR_TEST_SKIP_QUESTION_BOTH_HANDS_%@", nil) : ORK1LocalizedString(@"TREMOR_TEST_INTRO_2_DETAIL_DEFAULT_%@", nil);
     NSString *detailText = [NSString localizedStringWithFormat:detailFormat, detailStringForNumberOfTasks[actualTasksIndex]];
     
     if (doingBoth) {
         // If doing both hands then ask the user if they need to skip one of the hands
-        ORKLegacyTextChoice *skipRight = [ORKLegacyTextChoice choiceWithText:ORKLegacyLocalizedString(@"TREMOR_SKIP_RIGHT_HAND", nil)
-                                                          value:ORKLegacyActiveTaskRightHandIdentifier];
-        ORKLegacyTextChoice *skipLeft = [ORKLegacyTextChoice choiceWithText:ORKLegacyLocalizedString(@"TREMOR_SKIP_LEFT_HAND", nil)
-                                                          value:ORKLegacyActiveTaskLeftHandIdentifier];
-        ORKLegacyTextChoice *skipNeither = [ORKLegacyTextChoice choiceWithText:ORKLegacyLocalizedString(@"TREMOR_SKIP_NEITHER", nil)
+        ORK1TextChoice *skipRight = [ORK1TextChoice choiceWithText:ORK1LocalizedString(@"TREMOR_SKIP_RIGHT_HAND", nil)
+                                                          value:ORK1ActiveTaskRightHandIdentifier];
+        ORK1TextChoice *skipLeft = [ORK1TextChoice choiceWithText:ORK1LocalizedString(@"TREMOR_SKIP_LEFT_HAND", nil)
+                                                          value:ORK1ActiveTaskLeftHandIdentifier];
+        ORK1TextChoice *skipNeither = [ORK1TextChoice choiceWithText:ORK1LocalizedString(@"TREMOR_SKIP_NEITHER", nil)
                                                              value:@""];
 
-        ORKLegacyAnswerFormat *answerFormat = [ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleSingleChoice
+        ORK1AnswerFormat *answerFormat = [ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleSingleChoice
                                                                          textChoices:@[skipRight, skipLeft, skipNeither]];
-        ORKLegacyQuestionStep *step = [ORKLegacyQuestionStep questionStepWithIdentifier:ORKLegacyActiveTaskSkipHandStepIdentifier
-                                                                      title:ORKLegacyLocalizedString(@"TREMOR_TEST_TITLE", nil)
+        ORK1QuestionStep *step = [ORK1QuestionStep questionStepWithIdentifier:ORK1ActiveTaskSkipHandStepIdentifier
+                                                                      title:ORK1LocalizedString(@"TREMOR_TEST_TITLE", nil)
                                                                        text:detailText
                                                                      answer:answerFormat];
         step.optional = NO;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
     // right or most-affected hand
-    NSArray<__kindof ORKLegacyStep *> *rightSteps = nil;
-    if (handOptions == ORKLegacyPredefinedTaskHandOptionUnspecified) {
+    NSArray<__kindof ORK1Step *> *rightSteps = nil;
+    if (handOptions == ORK1PredefinedTaskHandOptionUnspecified) {
         rightSteps = [self stepsForOneHandTremorTestTaskWithIdentifier:identifier
                                                     activeStepDuration:activeStepDuration
                                                      activeTaskOptions:activeTaskOptions
                                                               lastHand:YES
                                                               leftHand:NO
-                                                        handIdentifier:ORKLegacyActiveTaskMostAffectedHandIdentifier
+                                                        handIdentifier:ORK1ActiveTaskMostAffectedHandIdentifier
                                                        introDetailText:detailText
                                                                options:options];
-    } else if (handOptions & ORKLegacyPredefinedTaskHandOptionRight) {
+    } else if (handOptions & ORK1PredefinedTaskHandOptionRight) {
         rightSteps = [self stepsForOneHandTremorTestTaskWithIdentifier:identifier
                                                     activeStepDuration:activeStepDuration
                                                      activeTaskOptions:activeTaskOptions
                                                               lastHand:firstIsLeft
                                                               leftHand:NO
-                                                        handIdentifier:ORKLegacyActiveTaskRightHandIdentifier
+                                                        handIdentifier:ORK1ActiveTaskRightHandIdentifier
                                                        introDetailText:nil
                                                                options:options];
     }
     
     // left hand
-    NSArray<__kindof ORKLegacyStep *> *leftSteps = nil;
-    if (handOptions & ORKLegacyPredefinedTaskHandOptionLeft) {
+    NSArray<__kindof ORK1Step *> *leftSteps = nil;
+    if (handOptions & ORK1PredefinedTaskHandOptionLeft) {
         leftSteps = [self stepsForOneHandTremorTestTaskWithIdentifier:identifier
                                                    activeStepDuration:activeStepDuration
                                                     activeTaskOptions:activeTaskOptions
-                                                             lastHand:!firstIsLeft || !(handOptions & ORKLegacyPredefinedTaskHandOptionRight)
+                                                             lastHand:!firstIsLeft || !(handOptions & ORK1PredefinedTaskHandOptionRight)
                                                              leftHand:YES
-                                                       handIdentifier:ORKLegacyActiveTaskLeftHandIdentifier
+                                                       handIdentifier:ORK1ActiveTaskLeftHandIdentifier
                                                       introDetailText:nil
                                                               options:options];
     }
@@ -2238,41 +2238,41 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
     }
     
     BOOL hasCompletionStep = NO;
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
         hasCompletionStep = YES;
-        ORKLegacyCompletionStep *step = [self makeCompletionStep];
+        ORK1CompletionStep *step = [self makeCompletionStep];
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
-    ORKLegacyNavigableOrderedTask *task = [[ORKLegacyNavigableOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1NavigableOrderedTask *task = [[ORK1NavigableOrderedTask alloc] initWithIdentifier:identifier steps:steps];
     
     if (doingBoth) {
         // Setup rules for skipping all the steps in either the left or right hand if called upon to do so.
-        ORKLegacyResultSelector *resultSelector = [ORKLegacyResultSelector selectorWithStepIdentifier:ORKLegacyActiveTaskSkipHandStepIdentifier
-                                                                         resultIdentifier:ORKLegacyActiveTaskSkipHandStepIdentifier];
-        NSPredicate *predicateRight = [ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValue:ORKLegacyActiveTaskRightHandIdentifier];
-        NSPredicate *predicateLeft = [ORKLegacyResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValue:ORKLegacyActiveTaskLeftHandIdentifier];
+        ORK1ResultSelector *resultSelector = [ORK1ResultSelector selectorWithStepIdentifier:ORK1ActiveTaskSkipHandStepIdentifier
+                                                                         resultIdentifier:ORK1ActiveTaskSkipHandStepIdentifier];
+        NSPredicate *predicateRight = [ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValue:ORK1ActiveTaskRightHandIdentifier];
+        NSPredicate *predicateLeft = [ORK1ResultPredicate predicateForChoiceQuestionResultWithResultSelector:resultSelector expectedAnswerValue:ORK1ActiveTaskLeftHandIdentifier];
         
         // Setup rule for skipping first hand
         NSString *secondHandIdentifier = firstIsLeft ? [[rightSteps firstObject] identifier] : [[leftSteps firstObject] identifier];
         NSPredicate *firstPredicate = firstIsLeft ? predicateLeft : predicateRight;
-        ORKLegacyStepNavigationRule *skipFirst = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[firstPredicate]
+        ORK1StepNavigationRule *skipFirst = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[firstPredicate]
                                                                                  destinationStepIdentifiers:@[secondHandIdentifier]];
-        [task setNavigationRule:skipFirst forTriggerStepIdentifier:ORKLegacyActiveTaskSkipHandStepIdentifier];
+        [task setNavigationRule:skipFirst forTriggerStepIdentifier:ORK1ActiveTaskSkipHandStepIdentifier];
         
         // Setup rule for skipping the second hand
         NSString *triggerIdentifier = firstIsLeft ? [[leftSteps lastObject] identifier] : [[rightSteps lastObject] identifier];
-        NSString *conclusionIdentifier = hasCompletionStep ? [[steps lastObject] identifier] : ORKLegacyNullStepIdentifier;
+        NSString *conclusionIdentifier = hasCompletionStep ? [[steps lastObject] identifier] : ORK1NullStepIdentifier;
         NSPredicate *secondPredicate = firstIsLeft ? predicateRight : predicateLeft;
-        ORKLegacyStepNavigationRule *skipSecond = [[ORKLegacyPredicateStepNavigationRule alloc] initWithResultPredicates:@[secondPredicate]
+        ORK1StepNavigationRule *skipSecond = [[ORK1PredicateStepNavigationRule alloc] initWithResultPredicates:@[secondPredicate]
                                                                                   destinationStepIdentifiers:@[conclusionIdentifier]];
         [task setNavigationRule:skipSecond forTriggerStepIdentifier:triggerIdentifier];
         
         // Setup step modifier to change the finished spoken step if skipping the second hand
         NSString *key = NSStringFromSelector(@selector(finishedSpokenInstruction));
-        NSString *value = ORKLegacyLocalizedString(@"TREMOR_TEST_COMPLETED_INSTRUCTION", nil);
-        ORKLegacyStepModifier *stepModifier = [[ORKLegacyKeyValueStepModifier alloc] initWithResultPredicate:secondPredicate
+        NSString *value = ORK1LocalizedString(@"TREMOR_TEST_COMPLETED_INSTRUCTION", nil);
+        ORK1StepModifier *stepModifier = [[ORK1KeyValueStepModifier alloc] initWithResultPredicate:secondPredicate
                                                                                      keyValueMap:@{key: value}];
         [task setStepModifier:stepModifier forStepIdentifier:triggerIdentifier];
     }
@@ -2280,78 +2280,78 @@ void ORKLegacyStepArrayAddStep(NSMutableArray *array, ORKLegacyStep *step) {
     return task;
 }
 
-+ (ORKLegacyOrderedTask *)trailmakingTaskWithIdentifier:(NSString *)identifier
++ (ORK1OrderedTask *)trailmakingTaskWithIdentifier:(NSString *)identifier
                            intendedUseDescription:(nullable NSString *)intendedUseDescription
                            trailmakingInstruction:(nullable NSString *)trailmakingInstruction
-                                        trailType:(ORKLegacyTrailMakingTypeIdentifier)trailType
-                                          options:(ORKLegacyPredefinedTaskOption)options {
+                                        trailType:(ORK1TrailMakingTypeIdentifier)trailType
+                                          options:(ORK1PredefinedTaskOption)options {
     
-    NSArray *supportedTypes = @[ORKLegacyTrailMakingTypeIdentifierA, ORKLegacyTrailMakingTypeIdentifierB];
+    NSArray *supportedTypes = @[ORK1TrailMakingTypeIdentifierA, ORK1TrailMakingTypeIdentifierB];
     NSAssert1([supportedTypes containsObject:trailType], @"Trail type %@ is not supported.", trailType);
     
-    NSMutableArray<__kindof ORKLegacyStep *> *steps = [NSMutableArray array];
+    NSMutableArray<__kindof ORK1Step *> *steps = [NSMutableArray array];
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeInstructions)) {
+    if (!(options & ORK1PredefinedTaskOptionExcludeInstructions)) {
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction0StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TRAILMAKING_TASK_TITLE", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction0StepIdentifier];
+            step.title = ORK1LocalizedString(@"TRAILMAKING_TASK_TITLE", nil);
             step.text = intendedUseDescription;
-            step.detailText = ORKLegacyLocalizedString(@"TRAILMAKING_INTENDED_USE", nil);
+            step.detailText = ORK1LocalizedString(@"TRAILMAKING_INTENDED_USE", nil);
             step.image = [UIImage imageNamed:@"trailmaking" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction1StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TRAILMAKING_TASK_TITLE", nil);
-            if ([trailType isEqualToString:ORKLegacyTrailMakingTypeIdentifierA]) {
-                step.detailText = ORKLegacyLocalizedString(@"TRAILMAKING_INTENDED_USE2_A", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
+            step.title = ORK1LocalizedString(@"TRAILMAKING_TASK_TITLE", nil);
+            if ([trailType isEqualToString:ORK1TrailMakingTypeIdentifierA]) {
+                step.detailText = ORK1LocalizedString(@"TRAILMAKING_INTENDED_USE2_A", nil);
             } else {
-                step.detailText = ORKLegacyLocalizedString(@"TRAILMAKING_INTENDED_USE2_B", nil);
+                step.detailText = ORK1LocalizedString(@"TRAILMAKING_INTENDED_USE2_B", nil);
             }
             step.image = [UIImage imageNamed:@"trailmaking" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
         
         
         {
-            ORKLegacyInstructionStep *step = [[ORKLegacyInstructionStep alloc] initWithIdentifier:ORKLegacyInstruction2StepIdentifier];
-            step.title = ORKLegacyLocalizedString(@"TRAILMAKING_TASK_TITLE", nil);
-            step.text = trailmakingInstruction ? : ORKLegacyLocalizedString(@"TRAILMAKING_INTRO_TEXT",nil);
-            step.detailText = ORKLegacyLocalizedString(@"TRAILMAKING_CALL_TO_ACTION", nil);
+            ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction2StepIdentifier];
+            step.title = ORK1LocalizedString(@"TRAILMAKING_TASK_TITLE", nil);
+            step.text = trailmakingInstruction ? : ORK1LocalizedString(@"TRAILMAKING_INTRO_TEXT",nil);
+            step.detailText = ORK1LocalizedString(@"TRAILMAKING_CALL_TO_ACTION", nil);
             step.image = [UIImage imageNamed:@"trailmaking" inBundle:[NSBundle bundleForClass:[self class]] compatibleWithTraitCollection:nil];
             step.shouldTintImages = YES;
             
-            ORKLegacyStepArrayAddStep(steps, step);
+            ORK1StepArrayAddStep(steps, step);
         }
     }
     
     {
-        ORKLegacyCountdownStep *step = [[ORKLegacyCountdownStep alloc] initWithIdentifier:ORKLegacyCountdownStepIdentifier];
+        ORK1CountdownStep *step = [[ORK1CountdownStep alloc] initWithIdentifier:ORK1CountdownStepIdentifier];
         step.stepDuration = 3.0;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
     {
-        ORKLegacyTrailmakingStep *step = [[ORKLegacyTrailmakingStep alloc] initWithIdentifier:ORKLegacyTrailmakingStepIdentifier];
+        ORK1TrailmakingStep *step = [[ORK1TrailmakingStep alloc] initWithIdentifier:ORK1TrailmakingStepIdentifier];
         step.trailType = trailType;
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
     
-    if (!(options & ORKLegacyPredefinedTaskOptionExcludeConclusion)) {
-        ORKLegacyInstructionStep *step = [self makeCompletionStep];
+    if (!(options & ORK1PredefinedTaskOptionExcludeConclusion)) {
+        ORK1InstructionStep *step = [self makeCompletionStep];
         
-        ORKLegacyStepArrayAddStep(steps, step);
+        ORK1StepArrayAddStep(steps, step);
     }
 
     
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:identifier steps:steps];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:identifier steps:steps];
     
     return task;
 }

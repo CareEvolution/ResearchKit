@@ -32,31 +32,31 @@ import ResearchKitLegacy
 
 struct StudyTasks {
     
-    static let microphoneTask: ORKLegacyOrderedTask = {
+    static let microphoneTask: ORK1OrderedTask = {
         let intendedUseDescription = "Everyone's voice has unique characteristics."
         let speechInstruction = "After the countdown, say Aaaaaaaaaaah for as long as you can. You'll have 10 seconds."
         let shortSpeechInstruction = "Say Aaaaaaaaaaah for as long as you can."
         
-        return ORKLegacyOrderedTask.audioTask(withIdentifier: "AudioTask", intendedUseDescription: intendedUseDescription, speechInstruction: speechInstruction, shortSpeechInstruction: shortSpeechInstruction, duration: 10, recordingSettings: nil, checkAudioLevel: false, options: ORKLegacyPredefinedTaskOption.excludeAccelerometer)
+        return ORK1OrderedTask.audioTask(withIdentifier: "AudioTask", intendedUseDescription: intendedUseDescription, speechInstruction: speechInstruction, shortSpeechInstruction: shortSpeechInstruction, duration: 10, recordingSettings: nil, checkAudioLevel: false, options: ORK1PredefinedTaskOption.excludeAccelerometer)
     }()
     
-    static let tappingTask: ORKLegacyOrderedTask = {
+    static let tappingTask: ORK1OrderedTask = {
         let intendedUseDescription = "Finger tapping is a universal way to communicate."
         
-        return ORKLegacyOrderedTask.twoFingerTappingIntervalTask(withIdentifier: "TappingTask", intendedUseDescription: intendedUseDescription, duration: 10, handOptions: .both, options: ORKLegacyPredefinedTaskOption())
+        return ORK1OrderedTask.twoFingerTappingIntervalTask(withIdentifier: "TappingTask", intendedUseDescription: intendedUseDescription, duration: 10, handOptions: .both, options: ORK1PredefinedTaskOption())
     }()
     
-    static let trailmakingTask: ORKLegacyOrderedTask = {
+    static let trailmakingTask: ORK1OrderedTask = {
         let intendedUseDescription = "Tests visual attention and task switching"
         
-        return ORKLegacyOrderedTask.trailmakingTask(withIdentifier: "TrailmakingTask", intendedUseDescription: intendedUseDescription, trailmakingInstruction: nil, trailType: .B, options: ORKLegacyPredefinedTaskOption())
+        return ORK1OrderedTask.trailmakingTask(withIdentifier: "TrailmakingTask", intendedUseDescription: intendedUseDescription, trailmakingInstruction: nil, trailType: .B, options: ORK1PredefinedTaskOption())
     }()
     
-    static let surveyTask: ORKLegacyOrderedTask = {
-        var steps = [ORKLegacyStep]()
+    static let surveyTask: ORK1OrderedTask = {
+        var steps = [ORK1Step]()
         
         // Instruction step
-        let instructionStep = ORKLegacyInstructionStep(identifier: "IntroStep")
+        let instructionStep = ORK1InstructionStep(identifier: "IntroStep")
         instructionStep.title = "Knoweledge of the Universe Survey"
         instructionStep.text = "Please answer these 6 questions to the best of your ability. It's okay to skip a question if you don't know the answer."
         
@@ -65,21 +65,21 @@ struct StudyTasks {
         // Quest question using text choice
         let questQuestionStepTitle = "Which of the following is not a planet?"
         let textChoices = [
-            ORKLegacyTextChoice(text: "Saturn", value: 0 as NSCoding & NSCopying & NSObjectProtocol),
-            ORKLegacyTextChoice(text: "Uranus", value: 1 as NSCoding & NSCopying & NSObjectProtocol),
-            ORKLegacyTextChoice(text: "Pluto", value: 2 as NSCoding & NSCopying & NSObjectProtocol),
-            ORKLegacyTextChoice(text: "Mars", value: 3 as NSCoding & NSCopying & NSObjectProtocol)
+            ORK1TextChoice(text: "Saturn", value: 0 as NSCoding & NSCopying & NSObjectProtocol),
+            ORK1TextChoice(text: "Uranus", value: 1 as NSCoding & NSCopying & NSObjectProtocol),
+            ORK1TextChoice(text: "Pluto", value: 2 as NSCoding & NSCopying & NSObjectProtocol),
+            ORK1TextChoice(text: "Mars", value: 3 as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let questAnswerFormat: ORKLegacyTextChoiceAnswerFormat = ORKLegacyAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices)
-        let questQuestionStep = ORKLegacyQuestionStep(identifier: "TextChoiceQuestionStep", title: questQuestionStepTitle, answer: questAnswerFormat)
+        let questAnswerFormat: ORK1TextChoiceAnswerFormat = ORK1AnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices)
+        let questQuestionStep = ORK1QuestionStep(identifier: "TextChoiceQuestionStep", title: questQuestionStepTitle, answer: questAnswerFormat)
         
         steps += [questQuestionStep]
         
         // Name question using text input
-        let nameAnswerFormat = ORKLegacyTextAnswerFormat(maximumLength: 25)
+        let nameAnswerFormat = ORK1TextAnswerFormat(maximumLength: 25)
         nameAnswerFormat.multipleLines = false
         let nameQuestionStepTitle = "What do you think the next comet that's discovered should be named?"
-        let nameQuestionStep = ORKLegacyQuestionStep(identifier: "NameQuestionStep", title: nameQuestionStepTitle, answer: nameAnswerFormat)
+        let nameQuestionStep = ORK1QuestionStep(identifier: "NameQuestionStep", title: nameQuestionStepTitle, answer: nameAnswerFormat)
         
         steps += [nameQuestionStep]
         
@@ -90,44 +90,44 @@ struct StudyTasks {
             (UIImage(named: "pentagon")!, "Pentagon"),
             (UIImage(named: "circle")!, "Circle")
         ]
-        let imageChoices : [ORKLegacyImageChoice] = shapeTuples.map {
-            return ORKLegacyImageChoice(normalImage: $0.0, selectedImage: nil, text: $0.1, value: $0.1 as NSCoding & NSCopying & NSObjectProtocol)
+        let imageChoices : [ORK1ImageChoice] = shapeTuples.map {
+            return ORK1ImageChoice(normalImage: $0.0, selectedImage: nil, text: $0.1, value: $0.1 as NSCoding & NSCopying & NSObjectProtocol)
         }
-        let shapeAnswerFormat: ORKLegacyImageChoiceAnswerFormat = ORKLegacyAnswerFormat.choiceAnswerFormat(with: imageChoices)
-        let shapeQuestionStep = ORKLegacyQuestionStep(identifier: "ImageChoiceQuestionStep", title: shapeQuestionStepTitle, answer: shapeAnswerFormat)
+        let shapeAnswerFormat: ORK1ImageChoiceAnswerFormat = ORK1AnswerFormat.choiceAnswerFormat(with: imageChoices)
+        let shapeQuestionStep = ORK1QuestionStep(identifier: "ImageChoiceQuestionStep", title: shapeQuestionStepTitle, answer: shapeAnswerFormat)
         
         steps += [shapeQuestionStep]
         
         // Date question
         let today = NSDate()
-        let dateAnswerFormat =  ORKLegacyAnswerFormat.dateAnswerFormat(withDefaultDate: nil, minimumDate: today as Date, maximumDate: nil, calendar: nil)
+        let dateAnswerFormat =  ORK1AnswerFormat.dateAnswerFormat(withDefaultDate: nil, minimumDate: today as Date, maximumDate: nil, calendar: nil)
         let dateQuestionStepTitle = "When is the next solar eclipse?"
-        let dateQuestionStep = ORKLegacyQuestionStep(identifier: "DateQuestionStep", title: dateQuestionStepTitle, answer: dateAnswerFormat)
+        let dateQuestionStep = ORK1QuestionStep(identifier: "DateQuestionStep", title: dateQuestionStepTitle, answer: dateAnswerFormat)
         
         steps += [dateQuestionStep]
         
         // Boolean question
-        let booleanAnswerFormat = ORKLegacyBooleanAnswerFormat()
+        let booleanAnswerFormat = ORK1BooleanAnswerFormat()
         let booleanQuestionStepTitle = "Is Venus larger than Saturn?"
-        let booleanQuestionStep = ORKLegacyQuestionStep(identifier: "BooleanQuestionStep", title: booleanQuestionStepTitle, answer: booleanAnswerFormat)
+        let booleanQuestionStep = ORK1QuestionStep(identifier: "BooleanQuestionStep", title: booleanQuestionStepTitle, answer: booleanAnswerFormat)
         
         steps += [booleanQuestionStep]
         
         // Continuous question
-        let continuousAnswerFormat = ORKLegacyAnswerFormat.scale(withMaximumValue: 150, minimumValue: 30, defaultValue: 20, step: 10, vertical: false, maximumValueDescription: "Objects", minimumValueDescription: " ")
+        let continuousAnswerFormat = ORK1AnswerFormat.scale(withMaximumValue: 150, minimumValue: 30, defaultValue: 20, step: 10, vertical: false, maximumValueDescription: "Objects", minimumValueDescription: " ")
         let continuousQuestionStepTitle = "How many objects are in Messier's catalog?"
-        let continuousQuestionStep = ORKLegacyQuestionStep(identifier: "ContinuousQuestionStep", title: continuousQuestionStepTitle, answer: continuousAnswerFormat)
+        let continuousQuestionStep = ORK1QuestionStep(identifier: "ContinuousQuestionStep", title: continuousQuestionStepTitle, answer: continuousAnswerFormat)
         
         steps += [continuousQuestionStep]
         
         // Summary step
         
-        let summaryStep = ORKLegacyCompletionStep(identifier: "SummaryStep")
+        let summaryStep = ORK1CompletionStep(identifier: "SummaryStep")
         summaryStep.title = "Thank you."
         summaryStep.text = "We appreciate your time."
         
         steps += [summaryStep]
         
-        return ORKLegacyOrderedTask(identifier: "SurveyTask", steps: steps)
+        return ORK1OrderedTask(identifier: "SurveyTask", steps: steps)
     }()
 }

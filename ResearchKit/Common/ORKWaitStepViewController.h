@@ -45,14 +45,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORKLegacyWaitStepViewController` class represents the step view controller that corresponds to an `ORKLegacyWaitStep`.
+ The `ORK1WaitStepViewController` class represents the step view controller that corresponds to an `ORK1WaitStep`.
  
  It is not usually necessary to instantiate this view controller directly.
  Instead, add a wait step to a task, and present the task in a task
  view controller.
  */
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyWaitStepViewController: ORKLegacyStepViewController
+ORK1_CLASS_AVAILABLE
+@interface ORK1WaitStepViewController: ORK1StepViewController
 
 /**
  Updates the amount of progress displayed in the progress bar if the current indicator mask is set to progress bar.

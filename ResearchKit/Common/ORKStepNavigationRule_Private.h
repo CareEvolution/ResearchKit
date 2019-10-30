@@ -32,11 +32,11 @@
 #import <ResearchKitLegacy/ORKStepNavigationRule.h>
 
 
-// This 'Private' header is needed because ORKLegacyESerialization uses ORKLegacyPredicateStepNavigationRule's
+// This 'Private' header is needed because ORK1ESerialization uses ORK1PredicateStepNavigationRule's
 // internal initializer in order to avoid argument array validation.
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyPredicateStepNavigationRule ()
+@interface ORK1PredicateStepNavigationRule ()
 
 /**
  Returns an initialized predicate step navigation rule using the specified result predicates,

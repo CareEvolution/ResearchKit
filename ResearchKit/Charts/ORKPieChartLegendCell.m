@@ -38,7 +38,7 @@
 const CGFloat DotViewSize = 10.0;
 const CGFloat DotToLabelPadding = 6.0;
 
-@implementation ORKLegacyPieChartLegendCell
+@implementation ORK1PieChartLegendCell
 
 #pragma mark - Init
 
@@ -58,7 +58,7 @@ const CGFloat DotToLabelPadding = 6.0;
 
 - (void)sharedInit {
     _titleLabel = [UILabel new];
-    _titleLabel.textColor = ORKLegacyColor(ORKLegacyChartDefaultTextColorKey);
+    _titleLabel.textColor = ORK1Color(ORK1ChartDefaultTextColorKey);
     _titleLabel.textAlignment = NSTextAlignmentCenter;
     _titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     _titleLabel.isAccessibilityElement = NO;

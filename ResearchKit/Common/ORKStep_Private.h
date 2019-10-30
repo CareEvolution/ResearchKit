@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKLegacyStep ()
+@interface ORK1Step ()
 
 /**
  Returns the class that the task view controller should instantiate to display

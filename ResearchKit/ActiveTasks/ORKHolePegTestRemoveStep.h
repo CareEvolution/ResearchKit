@@ -36,10 +36,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyHolePegTestRemoveStep : ORKLegacyActiveStep
+ORK1_CLASS_AVAILABLE
+@interface ORK1HolePegTestRemoveStep : ORK1ActiveStep
 
-@property (nonatomic, assign) ORKLegacyBodySagittal movingDirection;
+@property (nonatomic, assign) ORK1BodySagittal movingDirection;
 @property (nonatomic, assign, getter = isDominantHandTested) BOOL dominantHandTested;
 @property (nonatomic, assign) NSInteger numberOfPegs;
 @property (nonatomic, assign) double threshold;

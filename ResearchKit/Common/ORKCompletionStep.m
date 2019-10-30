@@ -34,10 +34,10 @@
 #import "ORKCompletionStepViewController.h"
 
 
-@implementation ORKLegacyCompletionStep
+@implementation ORK1CompletionStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyCompletionStepViewController class];
+    return [ORK1CompletionStepViewController class];
 }
 
 + (BOOL)supportsSecureCoding {

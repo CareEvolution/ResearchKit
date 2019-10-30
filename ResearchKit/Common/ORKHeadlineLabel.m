@@ -36,13 +36,13 @@
 
 #import "CEVRKTheme.h"
 
-@interface ORKLegacyHeadlineLabel()
+@interface ORK1HeadlineLabel()
 
 @property (nonatomic, strong, nullable) CEVRKTheme *cev_theme;
 
 @end
 
-@implementation ORKLegacyHeadlineLabel
+@implementation ORK1HeadlineLabel
 
 @synthesize cev_theme = _cev_theme;
 
@@ -50,10 +50,10 @@
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
     const CGFloat defaultHeadlineSize = 17;
     
-    CGFloat fontSize = [[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] - defaultHeadlineSize + ORKLegacyGetMetricForWindow(surveyMode ? ORKLegacyScreenMetricFontSizeSurveyHeadline : ORKLegacyScreenMetricFontSizeHeadline, nil);
-    CGFloat maxFontSize = ORKLegacyGetMetricForWindow(surveyMode ? ORKLegacyScreenMetricMaxFontSizeSurveyHeadline : ORKLegacyScreenMetricMaxFontSizeHeadline, nil);
+    CGFloat fontSize = [[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] - defaultHeadlineSize + ORK1GetMetricForWindow(surveyMode ? ORK1ScreenMetricFontSizeSurveyHeadline : ORK1ScreenMetricFontSizeHeadline, nil);
+    CGFloat maxFontSize = ORK1GetMetricForWindow(surveyMode ? ORK1ScreenMetricMaxFontSizeSurveyHeadline : ORK1ScreenMetricMaxFontSizeHeadline, nil);
     
-    return ORKLegacyLightFontWithSize(MIN(maxFontSize, fontSize));
+    return ORK1LightFontWithSize(MIN(maxFontSize, fontSize));
 }
 
 + (UIFont *)defaultFont {
@@ -64,7 +64,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         __weak __typeof__(self) weakSelf = self;
-        [NSNotificationCenter.defaultCenter addObserverForName:CEVORKLegacyStepViewControllerViewWillAppearNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+        [NSNotificationCenter.defaultCenter addObserverForName:CEVORK1StepViewControllerViewWillAppearNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
             CEVRKTheme *theme = note.userInfo[CEVRKThemeKey];
             if ([theme isKindOfClass:[CEVRKTheme class]]) {
                 weakSelf.cev_theme = theme;

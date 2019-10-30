@@ -35,8 +35,8 @@
 #import "ORKReactionTimeStimulusView.h"
 
 
-@implementation ORKLegacyReactionTimeContentView {
-    ORKLegacyReactionTimeStimulusView *_stimulusView;
+@implementation ORK1ReactionTimeContentView {
+    ORK1ReactionTimeStimulusView *_stimulusView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -67,7 +67,7 @@
 
 - (void)addStimulusView {
     if (!_stimulusView) {
-        _stimulusView = [ORKLegacyReactionTimeStimulusView new];
+        _stimulusView = [ORK1ReactionTimeStimulusView new];
         _stimulusView.translatesAutoresizingMaskIntoConstraints = NO;
         _stimulusView.backgroundColor = self.tintColor;
         [self addSubview:_stimulusView];

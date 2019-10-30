@@ -34,10 +34,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-@implementation ORKLegacyStroopStep
+@implementation ORK1StroopStep
 
 + (Class)stepViewControllerClass {
-    return [ORKLegacyStroopStepViewController class];
+    return [ORK1StroopStepViewController class];
 }
 
 + (BOOL)supportsSecureCoding {
@@ -72,7 +72,7 @@
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
-    ORKLegacyStroopStep *step = [super copyWithZone:zone];
+    ORK1StroopStep *step = [super copyWithZone:zone];
     step.numberOfAttempts = self.numberOfAttempts;
     return step;
 }
@@ -80,14 +80,14 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self ) {
-        ORKLegacy_DECODE_INTEGER(aDecoder, numberOfAttempts);
+        ORK1_DECODE_INTEGER(aDecoder, numberOfAttempts);
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORKLegacy_ENCODE_INTEGER(aCoder, numberOfAttempts);
+    ORK1_ENCODE_INTEGER(aCoder, numberOfAttempts);
 }
 
 - (BOOL)isEqual:(id)object {

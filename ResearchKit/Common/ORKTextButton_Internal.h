@@ -33,8 +33,8 @@
 #import "ORKDefaultFont.h"
 
 
-@interface ORKLegacyTextButton ()  <ORKLegacyDefaultFont>
+@interface ORK1TextButton ()  <ORK1DefaultFont>
 
-- (void)init_ORKLegacyTextButton;
+- (void)init_ORK1TextButton;
 
 @end

@@ -168,12 +168,12 @@
 
 @end
 
-#define ORKLegacy_MAKE_TEST_INIT(class, block) \
-@interface class (ORKLegacyTest) \
+#define ORK1_MAKE_TEST_INIT(class, block) \
+@interface class (ORK1Test) \
 - (instancetype)orktest_init; \
 @end \
 \
-@implementation class (ORKLegacyTest) \
+@implementation class (ORK1Test) \
 - (instancetype)orktest_init { \
     return block(); \
 } \
@@ -184,70 +184,70 @@
  Add an orktest_init method to all the classes which make init unavailable. This
  allows us to write very short code to instantiate valid objects during these tests.
  */
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyStepNavigationRule, ^{return [super init];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacySkipStepNavigationRule, ^{return [super init];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyStepModifier, ^{return [super init];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyKeyValueStepModifier, ^{return [super init];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyAnswerFormat, ^{return [super init];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyLoginStep, ^{return [self initWithIdentifier:[NSUUID UUID].UUIDString title:@"title" text:@"text" loginViewControllerClass:NSClassFromString(@"ORKLoginStepViewController") ];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyVerificationStep, ^{return [self initWithIdentifier:[NSUUID UUID].UUIDString text:@"text" verificationViewControllerClass:NSClassFromString(@"ORKVerificationStepViewController") ];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyStep, ^{return [self initWithIdentifier:[NSUUID UUID].UUIDString];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyReviewStep, ^{return [[self class] standaloneReviewStepWithIdentifier:[NSUUID UUID].UUIDString steps:@[] resultSource:[ORKLegacyTaskResult new]];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyOrderedTask, ^{return [self initWithIdentifier:@"test1" steps:nil];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyImageChoice, ^{return [super init];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyTextChoice, ^{return [super init];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyPredicateStepNavigationRule, ^{return [self initWithResultPredicates:@[[ORKLegacyResultPredicate predicateForBooleanQuestionResultWithResultSelector:[ORKLegacyResultSelector selectorWithResultIdentifier:@"test"] expectedAnswer:YES]] destinationStepIdentifiers:@[@"test2"]];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyResultSelector, ^{return [self initWithResultIdentifier:@"resultIdentifier"];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyRecorderConfiguration, ^{return [self initWithIdentifier:@"testRecorder"];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyAccelerometerRecorderConfiguration, ^{return [super initWithIdentifier:@"testRecorder"];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyHealthQuantityTypeRecorderConfiguration, ^{ return [super initWithIdentifier:@"testRecorder"];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyAudioRecorderConfiguration, ^{ return [super initWithIdentifier:@"testRecorder"];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyDeviceMotionRecorderConfiguration, ^{ return [super initWithIdentifier:@"testRecorder"];});
-ORKLegacy_MAKE_TEST_INIT(ORKLegacyLocation, (^{
-    ORKLegacyLocation *location = [self initWithCoordinate:CLLocationCoordinate2DMake(2.0, 3.0) region:[[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake(2.0, 3.0) radius:100.0 identifier:@"identifier"] userInput:@"addressString" addressDictionary:@{@"city":@"city", @"street":@"street"}];
+ORK1_MAKE_TEST_INIT(ORK1StepNavigationRule, ^{return [super init];});
+ORK1_MAKE_TEST_INIT(ORK1SkipStepNavigationRule, ^{return [super init];});
+ORK1_MAKE_TEST_INIT(ORK1StepModifier, ^{return [super init];});
+ORK1_MAKE_TEST_INIT(ORK1KeyValueStepModifier, ^{return [super init];});
+ORK1_MAKE_TEST_INIT(ORK1AnswerFormat, ^{return [super init];});
+ORK1_MAKE_TEST_INIT(ORK1LoginStep, ^{return [self initWithIdentifier:[NSUUID UUID].UUIDString title:@"title" text:@"text" loginViewControllerClass:NSClassFromString(@"ORKLoginStepViewController") ];});
+ORK1_MAKE_TEST_INIT(ORK1VerificationStep, ^{return [self initWithIdentifier:[NSUUID UUID].UUIDString text:@"text" verificationViewControllerClass:NSClassFromString(@"ORKVerificationStepViewController") ];});
+ORK1_MAKE_TEST_INIT(ORK1Step, ^{return [self initWithIdentifier:[NSUUID UUID].UUIDString];});
+ORK1_MAKE_TEST_INIT(ORK1ReviewStep, ^{return [[self class] standaloneReviewStepWithIdentifier:[NSUUID UUID].UUIDString steps:@[] resultSource:[ORK1TaskResult new]];});
+ORK1_MAKE_TEST_INIT(ORK1OrderedTask, ^{return [self initWithIdentifier:@"test1" steps:nil];});
+ORK1_MAKE_TEST_INIT(ORK1ImageChoice, ^{return [super init];});
+ORK1_MAKE_TEST_INIT(ORK1TextChoice, ^{return [super init];});
+ORK1_MAKE_TEST_INIT(ORK1PredicateStepNavigationRule, ^{return [self initWithResultPredicates:@[[ORK1ResultPredicate predicateForBooleanQuestionResultWithResultSelector:[ORK1ResultSelector selectorWithResultIdentifier:@"test"] expectedAnswer:YES]] destinationStepIdentifiers:@[@"test2"]];});
+ORK1_MAKE_TEST_INIT(ORK1ResultSelector, ^{return [self initWithResultIdentifier:@"resultIdentifier"];});
+ORK1_MAKE_TEST_INIT(ORK1RecorderConfiguration, ^{return [self initWithIdentifier:@"testRecorder"];});
+ORK1_MAKE_TEST_INIT(ORK1AccelerometerRecorderConfiguration, ^{return [super initWithIdentifier:@"testRecorder"];});
+ORK1_MAKE_TEST_INIT(ORK1HealthQuantityTypeRecorderConfiguration, ^{ return [super initWithIdentifier:@"testRecorder"];});
+ORK1_MAKE_TEST_INIT(ORK1AudioRecorderConfiguration, ^{ return [super initWithIdentifier:@"testRecorder"];});
+ORK1_MAKE_TEST_INIT(ORK1DeviceMotionRecorderConfiguration, ^{ return [super initWithIdentifier:@"testRecorder"];});
+ORK1_MAKE_TEST_INIT(ORK1Location, (^{
+    ORK1Location *location = [self initWithCoordinate:CLLocationCoordinate2DMake(2.0, 3.0) region:[[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake(2.0, 3.0) radius:100.0 identifier:@"identifier"] userInput:@"addressString" addressDictionary:@{@"city":@"city", @"street":@"street"}];
     return location;
 }));
-ORKLegacy_MAKE_TEST_INIT(HKSampleType, (^{
+ORK1_MAKE_TEST_INIT(HKSampleType, (^{
     return [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
 }))
-ORKLegacy_MAKE_TEST_INIT(HKQuantityType, (^{
+ORK1_MAKE_TEST_INIT(HKQuantityType, (^{
     return [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
 }))
-ORKLegacy_MAKE_TEST_INIT(HKCorrelationType, (^{
+ORK1_MAKE_TEST_INIT(HKCorrelationType, (^{
     return [HKCorrelationType correlationTypeForIdentifier:HKCorrelationTypeIdentifierBloodPressure];
 }))
-ORKLegacy_MAKE_TEST_INIT(HKCharacteristicType, (^{
+ORK1_MAKE_TEST_INIT(HKCharacteristicType, (^{
     return [HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBloodType];
 }))
-ORKLegacy_MAKE_TEST_INIT(CLCircularRegion, (^{
+ORK1_MAKE_TEST_INIT(CLCircularRegion, (^{
     return [self initWithCenter:CLLocationCoordinate2DMake(2.0, 3.0) radius:100.0 identifier:@"identifier"];
 }))
-ORKLegacy_MAKE_TEST_INIT(NSNumber, (^{
+ORK1_MAKE_TEST_INIT(NSNumber, (^{
     return [self initWithInt:123];
 }))
-ORKLegacy_MAKE_TEST_INIT(HKUnit, (^{
+ORK1_MAKE_TEST_INIT(HKUnit, (^{
     return [HKUnit unitFromString:@"kg"];
 }))
-ORKLegacy_MAKE_TEST_INIT(NSURL, (^{
+ORK1_MAKE_TEST_INIT(NSURL, (^{
     return [self initFileURLWithPath:@"/usr"];
 }))
-ORKLegacy_MAKE_TEST_INIT(NSTimeZone, (^{
+ORK1_MAKE_TEST_INIT(NSTimeZone, (^{
     return [NSTimeZone timeZoneForSecondsFromGMT:60*60];
 }))
-ORKLegacy_MAKE_TEST_INIT(NSCalendar, (^{
+ORK1_MAKE_TEST_INIT(NSCalendar, (^{
     return [self initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
 }))
-ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
+ORK1_MAKE_TEST_INIT(NSRegularExpression, (^{
     return [self initWithPattern:@"." options:0 error:nil];
 }))
 
 
-@interface ORKLegacyJSONSerializationTests : XCTestCase <NSKeyedUnarchiverDelegate>
+@interface ORK1JSONSerializationTests : XCTestCase <NSKeyedUnarchiverDelegate>
 
 @end
 
 
-@implementation ORKLegacyJSONSerializationTests
+@implementation ORK1JSONSerializationTests
 
 - (Class)unarchiver:(NSKeyedUnarchiver *)unarchiver cannotDecodeObjectOfClassName:(NSString *)name originalClasses:(NSArray *)classNames {
     NSLog(@"Cannot decode object with class: %@ (original classes: %@)", name, classNames);
@@ -266,48 +266,48 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
 
 - (void)testTaskResult {
     
-    //ORKLegacyTaskResult *result = [[ORKLegacyTaskResult alloc] initWithTaskIdentifier:@"a000012" taskRunUUID:[NSUUID UUID] outputDirectory:[NSURL fileURLWithPath:NSTemporaryDirectory()]];
+    //ORK1TaskResult *result = [[ORK1TaskResult alloc] initWithTaskIdentifier:@"a000012" taskRunUUID:[NSUUID UUID] outputDirectory:[NSURL fileURLWithPath:NSTemporaryDirectory()]];
     
-    ORKLegacyQuestionResult *qr = [[ORKLegacyQuestionResult alloc] init];
+    ORK1QuestionResult *qr = [[ORK1QuestionResult alloc] init];
     qr.answer = @(1010);
-    qr.questionType = ORKLegacyQuestionTypeInteger;
+    qr.questionType = ORK1QuestionTypeInteger;
     qr.identifier = @"a000012.s05";
     
-    ORKLegacyStepResult *stepResult = [[ORKLegacyStepResult alloc] initWithStepIdentifier:@"stepIdentifier" results:@[qr]];
+    ORK1StepResult *stepResult = [[ORK1StepResult alloc] initWithStepIdentifier:@"stepIdentifier" results:@[qr]];
     stepResult.results = @[qr];
 }
 
 - (void)testTaskModel {
     
-    ORKLegacyActiveStep *activeStep = [[ORKLegacyActiveStep alloc] initWithIdentifier:@"id"];
+    ORK1ActiveStep *activeStep = [[ORK1ActiveStep alloc] initWithIdentifier:@"id"];
     activeStep.shouldPlaySoundOnStart = YES;
     activeStep.shouldVibrateOnStart = YES;
     activeStep.stepDuration = 100.0;
     activeStep.recorderConfigurations =
-    @[[[ORKLegacyAccelerometerRecorderConfiguration alloc] initWithIdentifier:@"id.accelerometer" frequency:11.0],
-      [[ORKLegacyTouchRecorderConfiguration alloc] initWithIdentifier:@"id.touch"],
-      [[ORKLegacyAudioRecorderConfiguration alloc] initWithIdentifier:@"id.audio" recorderSettings:@{}]];
+    @[[[ORK1AccelerometerRecorderConfiguration alloc] initWithIdentifier:@"id.accelerometer" frequency:11.0],
+      [[ORK1TouchRecorderConfiguration alloc] initWithIdentifier:@"id.touch"],
+      [[ORK1AudioRecorderConfiguration alloc] initWithIdentifier:@"id.audio" recorderSettings:@{}]];
     
-    ORKLegacyQuestionStep *questionStep = [ORKLegacyQuestionStep questionStepWithIdentifier:@"id1" title:@"question" answer:[ORKLegacyAnswerFormat choiceAnswerFormatWithStyle:ORKLegacyChoiceAnswerStyleMultipleChoice textChoices:@[[[ORKLegacyTextChoice alloc] initWithText:@"test1" detailText:nil value:@(1) exclusive:NO]  ]]];
+    ORK1QuestionStep *questionStep = [ORK1QuestionStep questionStepWithIdentifier:@"id1" title:@"question" answer:[ORK1AnswerFormat choiceAnswerFormatWithStyle:ORK1ChoiceAnswerStyleMultipleChoice textChoices:@[[[ORK1TextChoice alloc] initWithText:@"test1" detailText:nil value:@(1) exclusive:NO]  ]]];
     
-    ORKLegacyQuestionStep *questionStep2 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"id2"
-                                                                     title:@"question" answer:[ORKLegacyNumericAnswerFormat decimalAnswerFormatWithUnit:@"kg"]];
+    ORK1QuestionStep *questionStep2 = [ORK1QuestionStep questionStepWithIdentifier:@"id2"
+                                                                     title:@"question" answer:[ORK1NumericAnswerFormat decimalAnswerFormatWithUnit:@"kg"]];
 
-    ORKLegacyQuestionStep *questionStep3 = [ORKLegacyQuestionStep questionStepWithIdentifier:@"id3"
-                                                                           title:@"question" answer:[ORKLegacyScaleAnswerFormat scaleAnswerFormatWithMaximumValue:10.0 minimumValue:1.0 defaultValue:5.0 step:1.0 vertical:YES maximumValueDescription:@"High value" minimumValueDescription:@"Low value"]];
+    ORK1QuestionStep *questionStep3 = [ORK1QuestionStep questionStepWithIdentifier:@"id3"
+                                                                           title:@"question" answer:[ORK1ScaleAnswerFormat scaleAnswerFormatWithMaximumValue:10.0 minimumValue:1.0 defaultValue:5.0 step:1.0 vertical:YES maximumValueDescription:@"High value" minimumValueDescription:@"Low value"]];
 
-    ORKLegacyOrderedTask *task = [[ORKLegacyOrderedTask alloc] initWithIdentifier:@"id" steps:@[activeStep, questionStep, questionStep2, questionStep3]];
+    ORK1OrderedTask *task = [[ORK1OrderedTask alloc] initWithIdentifier:@"id" steps:@[activeStep, questionStep, questionStep2, questionStep3]];
     
-    NSDictionary *dict1 = [ORKLegacyESerializer JSONObjectForObject:task error:nil];
+    NSDictionary *dict1 = [ORK1ESerializer JSONObjectForObject:task error:nil];
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:dict1 options:NSJSONWritingPrettyPrinted error:nil];
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSUUID UUID].UUIDString stringByAppendingPathExtension:@"json"]];
     [data writeToFile:tempPath atomically:YES];
     NSLog(@"JSON file at %@", tempPath);
     
-    ORKLegacyOrderedTask *task2 = [ORKLegacyESerializer objectFromJSONObject:dict1 error:nil];
+    ORK1OrderedTask *task2 = [ORK1ESerializer objectFromJSONObject:dict1 error:nil];
     
-    NSDictionary *dict2 = [ORKLegacyESerializer JSONObjectForObject:task2 error:nil];
+    NSDictionary *dict2 = [ORK1ESerializer JSONObjectForObject:task2 error:nil];
     
     XCTAssertTrue([dict1 isEqualToDictionary:dict2], @"Should be equal");
     
@@ -342,31 +342,31 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
 }
 
 // JSON Serialization
-- (void)testORKLegacySerialization {
+- (void)testORK1Serialization {
     
     // Find all classes that are serializable this way
-    NSArray *classesWithORKLegacySerialization = [ORKLegacyESerializer serializableClasses];
+    NSArray *classesWithORK1Serialization = [ORK1ESerializer serializableClasses];
     
-    // All classes that conform to NSSecureCoding should also support ORKLegacyESerialization
+    // All classes that conform to NSSecureCoding should also support ORK1ESerialization
     NSArray *classesWithSecureCoding = [self classesWithSecureCoding];
     
-    NSArray *classesExcludedForORKLegacyESerialization = @[
-                                                     [ORKLegacyStepNavigationRule class],     // abstract base class
-                                                     [ORKLegacySkipStepNavigationRule class],     // abstract base class
-                                                     [ORKLegacyStepModifier class],     // abstract base class
-                                                     [ORKLegacyPredicateSkipStepNavigationRule class],     // NSPredicate doesn't yet support JSON serialzation
-                                                     [ORKLegacyKeyValueStepModifier class],     // NSPredicate doesn't yet support JSON serialzation
-                                                     [ORKLegacyCollector class], // ORKLegacyCollector doesn't support JSON serialzation
-                                                     [ORKLegacyHealthCollector class],
-                                                     [ORKLegacyHealthCorrelationCollector class],
-                                                     [ORKLegacyMotionActivityCollector class]
+    NSArray *classesExcludedForORK1ESerialization = @[
+                                                     [ORK1StepNavigationRule class],     // abstract base class
+                                                     [ORK1SkipStepNavigationRule class],     // abstract base class
+                                                     [ORK1StepModifier class],     // abstract base class
+                                                     [ORK1PredicateSkipStepNavigationRule class],     // NSPredicate doesn't yet support JSON serialzation
+                                                     [ORK1KeyValueStepModifier class],     // NSPredicate doesn't yet support JSON serialzation
+                                                     [ORK1Collector class], // ORK1Collector doesn't support JSON serialzation
+                                                     [ORK1HealthCollector class],
+                                                     [ORK1HealthCorrelationCollector class],
+                                                     [ORK1MotionActivityCollector class]
                                                      ];
     
-    if ((classesExcludedForORKLegacyESerialization.count + classesWithORKLegacySerialization.count) != classesWithSecureCoding.count) {
+    if ((classesExcludedForORK1ESerialization.count + classesWithORK1Serialization.count) != classesWithSecureCoding.count) {
         NSMutableArray *unregisteredList = [classesWithSecureCoding mutableCopy];
-        [unregisteredList removeObjectsInArray:classesWithORKLegacySerialization];
-        [unregisteredList removeObjectsInArray:classesExcludedForORKLegacyESerialization];
-        XCTAssertEqual(unregisteredList.count, 0, @"Classes didn't implement ORKLegacySerialization %@", unregisteredList);
+        [unregisteredList removeObjectsInArray:classesWithORK1Serialization];
+        [unregisteredList removeObjectsInArray:classesExcludedForORK1ESerialization];
+        XCTAssertEqual(unregisteredList.count, 0, @"Classes didn't implement ORK1Serialization %@", unregisteredList);
     }
     
     // Predefined exception
@@ -446,7 +446,7 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
     NSArray *allowedUnTouchedKeys = @[@"_class"];
     
     // Test Each class
-    for (Class aClass in classesWithORKLegacySerialization) {
+    for (Class aClass in classesWithORK1Serialization) {
         
         id instance = [self instanceForClass:aClass];
         
@@ -458,7 +458,7 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
         // Walk superclasses of this class, looking at all properties.
         // Otherwise we don't catch failures to base-call in initWithDictionary (etc)
         Class currentClass = aClass;
-        while ([classesWithORKLegacySerialization containsObject:currentClass]) {
+        while ([classesWithORK1Serialization containsObject:currentClass]) {
             
             objc_property_t *props = class_copyPropertyList(currentClass, &count);
             for (int i = 0; i < count; i++) {
@@ -470,7 +470,7 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
                     [propertyExclusionList containsObject: dottedPropertyName] == NO) {
                     if (p.isPrimitiveType == NO) {
                         // Assign value to object type property
-                        if (p.propertyClass == [NSObject class] && (aClass == [ORKLegacyTextChoice class] || aClass == [ORKLegacyImageChoice class]))
+                        if (p.propertyClass == [NSObject class] && (aClass == [ORK1TextChoice class] || aClass == [ORK1ImageChoice class]))
                         {
                             // Map NSObject to string, since it's used where either a string or a number is acceptable
                             [instance setValue:@"test" forKey:p.propertyName];
@@ -487,34 +487,34 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
 
         }
         
-        if ([aClass isSubclassOfClass:[ORKLegacyTextScaleAnswerFormat class]]) {
-            [instance setValue:@[[ORKLegacyTextChoice choiceWithText:@"Poor" value:@1], [ORKLegacyTextChoice choiceWithText:@"Excellent" value:@2]] forKey:@"textChoices"];
+        if ([aClass isSubclassOfClass:[ORK1TextScaleAnswerFormat class]]) {
+            [instance setValue:@[[ORK1TextChoice choiceWithText:@"Poor" value:@1], [ORK1TextChoice choiceWithText:@"Excellent" value:@2]] forKey:@"textChoices"];
         }
-        if ([aClass isSubclassOfClass:[ORKLegacyContinuousScaleAnswerFormat class]]) {
+        if ([aClass isSubclassOfClass:[ORK1ContinuousScaleAnswerFormat class]]) {
             [instance setValue:@(100) forKey:@"maximum"];
-            [instance setValue:@(ORKLegacyNumberFormattingStylePercent) forKey:@"numberStyle"];
-        } else if ([aClass isSubclassOfClass:[ORKLegacyScaleAnswerFormat class]]) {
+            [instance setValue:@(ORK1NumberFormattingStylePercent) forKey:@"numberStyle"];
+        } else if ([aClass isSubclassOfClass:[ORK1ScaleAnswerFormat class]]) {
             [instance setValue:@(0) forKey:@"minimum"];
             [instance setValue:@(100) forKey:@"maximum"];
             [instance setValue:@(10) forKey:@"step"];
-        } else if ([aClass isSubclassOfClass:[ORKLegacyImageChoice class]] || [aClass isSubclassOfClass:[ORKLegacyTextChoice class]]) {
+        } else if ([aClass isSubclassOfClass:[ORK1ImageChoice class]] || [aClass isSubclassOfClass:[ORK1TextChoice class]]) {
             [instance setValue:@"blah" forKey:@"value"];
-        } else if ([aClass isSubclassOfClass:[ORKLegacyConsentSection class]]) {
+        } else if ([aClass isSubclassOfClass:[ORK1ConsentSection class]]) {
             [instance setValue:[NSURL URLWithString:@"http://www.apple.com/"] forKey:@"customAnimationURL"];
-        } else if ([aClass isSubclassOfClass:[ORKLegacyImageCaptureStep class]] || [aClass isSubclassOfClass:[ORKLegacyVideoCaptureStep class]]) {
+        } else if ([aClass isSubclassOfClass:[ORK1ImageCaptureStep class]] || [aClass isSubclassOfClass:[ORK1VideoCaptureStep class]]) {
             [instance setValue:[NSValue valueWithUIEdgeInsets:(UIEdgeInsets){1,1,1,1}] forKey:@"templateImageInsets"];
-        } else if ([aClass isSubclassOfClass:[ORKLegacyTimeIntervalAnswerFormat class]]) {
+        } else if ([aClass isSubclassOfClass:[ORK1TimeIntervalAnswerFormat class]]) {
             [instance setValue:@(1) forKey:@"step"];
-        } else if ([aClass isSubclassOfClass:[ORKLegacyLoginStep class]]) {
-            [instance setValue:NSStringFromClass([ORKLegacyLoginStepViewController class]) forKey:@"loginViewControllerString"];
-        } else if ([aClass isSubclassOfClass:[ORKLegacyVerificationStep class]]) {
-            [instance setValue:NSStringFromClass([ORKLegacyVerificationStepViewController class]) forKey:@"verificationViewControllerString"];
-        } else if ([aClass isSubclassOfClass:[ORKLegacyReviewStep class]]) {
-            [instance setValue:[ORKLegacyTaskResult new] forKey:@"resultSource"]; // Manually add here because it's a protocol and hence property doesn't have a class
+        } else if ([aClass isSubclassOfClass:[ORK1LoginStep class]]) {
+            [instance setValue:NSStringFromClass([ORK1LoginStepViewController class]) forKey:@"loginViewControllerString"];
+        } else if ([aClass isSubclassOfClass:[ORK1VerificationStep class]]) {
+            [instance setValue:NSStringFromClass([ORK1VerificationStepViewController class]) forKey:@"verificationViewControllerString"];
+        } else if ([aClass isSubclassOfClass:[ORK1ReviewStep class]]) {
+            [instance setValue:[ORK1TaskResult new] forKey:@"resultSource"]; // Manually add here because it's a protocol and hence property doesn't have a class
         }
         
         // Serialization
-        id mockDictionary = [[MockCountingDictionary alloc] initWithDictionary:[ORKLegacyESerializer JSONObjectForObject:instance error:NULL]];
+        id mockDictionary = [[MockCountingDictionary alloc] initWithDictionary:[ORK1ESerializer JSONObjectForObject:instance error:NULL]];
         
         // Must contain corrected _class field
         XCTAssertTrue([NSStringFromClass(aClass) isEqualToString:mockDictionary[@"_class"]]);
@@ -532,7 +532,7 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
         
         [mockDictionary startObserving];
        
-        id instance2 = [ORKLegacyESerializer objectFromJSONObject:mockDictionary error:NULL];
+        id instance2 = [ORK1ESerializer objectFromJSONObject:mockDictionary error:NULL];
        
         NSArray *unTouchedKeys = [mockDictionary unTouchedKeys];
         
@@ -544,7 +544,7 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
         [mockDictionary stopObserving];
         
         // Serialize again, the output ought to be equal
-        NSDictionary *dictionary2 = [ORKLegacyESerializer JSONObjectForObject:instance2 error:NULL];
+        NSDictionary *dictionary2 = [ORK1ESerializer JSONObjectForObject:instance2 error:NULL];
         BOOL isMatch = [mockDictionary isEqualToDictionary:dictionary2];
         if (!isMatch) {
             XCTAssertTrue(isMatch, @"Should be equal for class: %@", NSStringFromClass(aClass));
@@ -571,7 +571,7 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
     
     Class aClass = [instance class];
     // Assign value to object type property
-    if (p.propertyClass == [NSObject class] && (aClass == [ORKLegacyTextChoice class]|| aClass == [ORKLegacyImageChoice class] || (aClass == [ORKLegacyQuestionResult class])))
+    if (p.propertyClass == [NSObject class] && (aClass == [ORK1TextChoice class]|| aClass == [ORK1ImageChoice class] || (aClass == [ORK1QuestionResult class])))
     {
         // Map NSObject to string, since it's used where either a string or a number is acceptable
         [instance setValue:index?@"blah":@"test" forKey:p.propertyName];
@@ -591,8 +591,8 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
         [instance setValue:index?[NSCalendar calendarWithIdentifier:NSCalendarIdentifierChinese]:[NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian] forKey:p.propertyName];
     } else if (p.propertyClass == [NSTimeZone class]) {
         [instance setValue:index?[NSTimeZone timeZoneWithName:[NSTimeZone knownTimeZoneNames][0]]:[NSTimeZone timeZoneForSecondsFromGMT:1000] forKey:p.propertyName];
-    } else if (p.propertyClass == [ORKLegacyLocation class]) {
-        [instance setValue:[[ORKLegacyLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(index? 2.0 : 3.0, 3.0) region:[[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake(2.0, 3.0) radius:100.0 identifier:@"identifier"] userInput:@"addressString" addressDictionary:@{@"city":@"city", @"street":@"street"}] forKey:p.propertyName];
+    } else if (p.propertyClass == [ORK1Location class]) {
+        [instance setValue:[[ORK1Location alloc] initWithCoordinate:CLLocationCoordinate2DMake(index? 2.0 : 3.0, 3.0) region:[[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake(2.0, 3.0) radius:100.0 identifier:@"identifier"] userInput:@"addressString" addressDictionary:@{@"city":@"city", @"street":@"street"}] forKey:p.propertyName];
     } else if (p.propertyClass == [CLCircularRegion class]) {
         [instance setValue:[[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake(index? 2.0 : 3.0, 3.0) radius:100.0 identifier:@"identifier"] forKey:p.propertyName];
     } else if (p.propertyClass == [NSPredicate class]) {
@@ -604,8 +604,8 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
     } else if (equality && (p.propertyClass == [UIImage class])) {
         // do nothing - meaningless for the equality check
         return NO;
-    } else if (aClass == [ORKLegacyReviewStep class] && [p.propertyName isEqualToString:@"resultSource"]) {
-        [instance setValue:[[ORKLegacyTaskResult alloc] initWithIdentifier:@"blah"] forKey:p.propertyName];
+    } else if (aClass == [ORK1ReviewStep class] && [p.propertyName isEqualToString:@"resultSource"]) {
+        [instance setValue:[[ORK1TaskResult alloc] initWithIdentifier:@"blah"] forKey:p.propertyName];
         return NO;
     } else {
         id instanceForChild = [self instanceForClass:p.propertyClass];
@@ -741,7 +741,7 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
     
         // NSData and NSDateComponents in your properties mess up the following test.
         // NSDateComponents - seems to be due to serializing and then deserializing introducing a leap month:no flag.
-        if (aClass == [NSDateComponents class] || aClass == [ORKLegacyDateQuestionResult class] || aClass == [ORKLegacyDateAnswerFormat class] || aClass == [ORKLegacyDataResult class]) {
+        if (aClass == [NSDateComponents class] || aClass == [ORK1DateQuestionResult class] || aClass == [ORK1DateAnswerFormat class] || aClass == [ORK1DataResult class]) {
             continue;
         }
         
@@ -754,14 +754,14 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
         NSData *data3 = [NSKeyedArchiver archivedDataWithRootObject:newInstance2];
         
         if (![data isEqualToData:data2]) { // allow breakpointing
-            if (![aClass isSubclassOfClass:[ORKLegacyConsentSection class]]
-                // ORKLegacyConsentSection mis-matches, but it is still "equal" because
+            if (![aClass isSubclassOfClass:[ORK1ConsentSection class]]
+                // ORK1ConsentSection mis-matches, but it is still "equal" because
                 // the net custom animation URL is a match.
-                && ![aClass isSubclassOfClass:[ORKLegacyNavigableOrderedTask class]]
-                // ORKLegacyNavigableOrderedTask contains ORKLegacyStepModifiers which is an abstract class
+                && ![aClass isSubclassOfClass:[ORK1NavigableOrderedTask class]]
+                // ORK1NavigableOrderedTask contains ORK1StepModifiers which is an abstract class
                 // with no encoded properties, but encoded/decoded objects are still equal.
-                && ![aClass isSubclassOfClass:[ORKLegacyKeyValueStepModifier class]]
-                // ORKLegacyKeyValueStepModifier si a subclass of ORKLegacyStepModifier which is an abstract class
+                && ![aClass isSubclassOfClass:[ORK1KeyValueStepModifier class]]
+                // ORK1KeyValueStepModifier si a subclass of ORK1StepModifier which is an abstract class
                 // with no encoded properties, but encoded/decoded objects are still equal.
                 ) {
                 XCTAssertEqualObjects(data, data2, @"data mismatch for %@", NSStringFromClass(aClass));
@@ -797,14 +797,14 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
 
 - (void)testEquality {
     NSArray *classesExcluded = @[
-                                 [ORKLegacyStepNavigationRule class],     // abstract base class
-                                 [ORKLegacySkipStepNavigationRule class],     // abstract base class
-                                 [ORKLegacyStepModifier class],     // abstract base class
+                                 [ORK1StepNavigationRule class],     // abstract base class
+                                 [ORK1SkipStepNavigationRule class],     // abstract base class
+                                 [ORK1StepModifier class],     // abstract base class
                                  ];
     
     
-    // Each time ORKLegacyRegistrationStep returns a new date in its answer fromat, cannot be tested.
-    NSMutableArray *stringsForClassesExcluded = [NSMutableArray arrayWithObjects:NSStringFromClass([ORKLegacyRegistrationStep class]), nil];
+    // Each time ORK1RegistrationStep returns a new date in its answer fromat, cannot be tested.
+    NSMutableArray *stringsForClassesExcluded = [NSMutableArray arrayWithObjects:NSStringFromClass([ORK1RegistrationStep class]), nil];
     for (Class c in classesExcluded) {
         [stringsForClassesExcluded addObject:NSStringFromClass(c)];
     }
@@ -990,7 +990,7 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
                                                                    @"ORKPSATStep" : @{@"interStimulusInterval" : @1.0,
                                                                                       @"seriesLength" : @10,
                                                                                       @"stepDuration" : @11.0f,
-                                                                                      @"presentationMode" : @(ORKLegacyPSATPresentationModeAuditory)},
+                                                                                      @"presentationMode" : @(ORK1PSATPresentationModeAuditory)},
                                                                    @"ORKSpatialSpanMemoryStep" : @{@"initialSpan" : @2,
                                                                                                    @"maximumSpan" : @5,
                                                                                                    @"playSpeed" : @1.0,
@@ -1002,7 +1002,7 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
                                                                    @"ORKWalkingTaskStep" : @{@"numberOfStepsPerLeg" : @2},
     };
     
-    // Find all classes that subclass from ORKLegacyStepViewController
+    // Find all classes that subclass from ORK1StepViewController
     NSMutableArray *stepViewControllerClassses = [NSMutableArray new];
     int numClasses = objc_getClassList(NULL, 0);
     Class classes[numClasses];
@@ -1014,7 +1014,7 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
         }
         
         if ([NSStringFromClass(aClass) hasPrefix:@"ORK"] &&
-            [aClass isSubclassOfClass:[ORKLegacyStepViewController class]]) {
+            [aClass isSubclassOfClass:[ORK1StepViewController class]]) {
             
             [stepViewControllerClassses addObject:aClass];
         }
@@ -1032,16 +1032,16 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
                 }
             }
         }
-        Class stepClass = stepClassName ? NSClassFromString(stepClassName) : [ORKLegacyStep class];
-        ORKLegacyStep *step = [self instanceForClass:stepClass];
+        Class stepClass = stepClassName ? NSClassFromString(stepClassName) : [ORK1Step class];
+        ORK1Step *step = [self instanceForClass:stepClass];
         NSDictionary *kv = nil;
         if (stepClassName && (kv = kvMapForStep[stepClassName])) {
             [step setValuesForKeysWithDictionary:kv];
         }
-        ORKLegacyStepViewController *stepViewController = [[aClass alloc] initWithStep:step];
+        ORK1StepViewController *stepViewController = [[aClass alloc] initWithStep:step];
         
         // Create a result
-        ORKLegacyBooleanQuestionResult *result = [[ORKLegacyBooleanQuestionResult alloc] initWithIdentifier:@"test"];
+        ORK1BooleanQuestionResult *result = [[ORK1BooleanQuestionResult alloc] initWithIdentifier:@"test"];
         result.booleanAnswer = @YES;
         
         // -- Call method under test
@@ -1052,10 +1052,10 @@ ORKLegacy_MAKE_TEST_INIT(NSRegularExpression, (^{
             XCTAssertNoThrow([stepViewController addResult:result]);
         }
         
-        ORKLegacyStepResult *stepResult = stepViewController.result;
+        ORK1StepResult *stepResult = stepViewController.result;
         XCTAssertNotNil(stepResult, @"Step result is nil for %@", NSStringFromClass([stepViewController class]));
-        XCTAssertTrue([stepResult isKindOfClass:[ORKLegacyStepResult class]], @"Step result is not subclass of ORKLegacyStepResult for %@", NSStringFromClass([stepViewController class]));
-        if ([stepResult isKindOfClass:[ORKLegacyStepResult class]]) {
+        XCTAssertTrue([stepResult isKindOfClass:[ORK1StepResult class]], @"Step result is not subclass of ORK1StepResult for %@", NSStringFromClass([stepViewController class]));
+        if ([stepResult isKindOfClass:[ORK1StepResult class]]) {
             XCTAssertNotNil(stepResult.results, @"Step result.results is nil for %@", NSStringFromClass([stepViewController class]));
             XCTAssertTrue([stepResult.results containsObject:result], @"Step result does not contain added result for %@", NSStringFromClass([stepViewController class]));
         }

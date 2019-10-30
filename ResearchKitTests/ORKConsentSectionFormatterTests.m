@@ -35,20 +35,20 @@
 #import "ORKConsentSectionFormatter.h"
 
 
-@interface ORKLegacyConsentSectionFormatterTests : XCTestCase
+@interface ORK1ConsentSectionFormatterTests : XCTestCase
 
-@property (nonatomic, strong) ORKLegacyConsentSectionFormatter *formatter;
-@property (nonatomic, strong) ORKLegacyConsentSection *section;
+@property (nonatomic, strong) ORK1ConsentSectionFormatter *formatter;
+@property (nonatomic, strong) ORK1ConsentSection *section;
 
 @end
 
 
-@implementation ORKLegacyConsentSectionFormatterTests
+@implementation ORK1ConsentSectionFormatterTests
 
 - (void)setUp {
     [super setUp];
-    self.formatter = [[ORKLegacyConsentSectionFormatter alloc] init];
-    self.section = [[ORKLegacyConsentSection alloc] init];
+    self.formatter = [[ORK1ConsentSectionFormatter alloc] init];
+    self.section = [[ORK1ConsentSection alloc] init];
 }
 
 - (void)tearDown {

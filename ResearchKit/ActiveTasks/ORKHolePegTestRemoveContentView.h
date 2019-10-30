@@ -36,29 +36,29 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ORKLegacyHolePegTestRemoveContentViewDelegate;
+@protocol ORK1HolePegTestRemoveContentViewDelegate;
 
-ORKLegacy_CLASS_AVAILABLE
-@interface ORKLegacyHolePegTestRemoveContentView : ORKLegacyActiveStepCustomView
+ORK1_CLASS_AVAILABLE
+@interface ORK1HolePegTestRemoveContentView : ORK1ActiveStepCustomView
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
-- (instancetype)initWithMovingDirection:(ORKLegacyBodySagittal)movingDirection NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithMovingDirection:(ORK1BodySagittal)movingDirection NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, assign) ORKLegacyBodySagittal movingDirection;
+@property (nonatomic, assign) ORK1BodySagittal movingDirection;
 @property (nonatomic, assign) double threshold;
-@property (nonatomic, weak) id<ORKLegacyHolePegTestRemoveContentViewDelegate> delegate;
+@property (nonatomic, weak) id<ORK1HolePegTestRemoveContentViewDelegate> delegate;
 
 - (void)setProgress:(CGFloat)progress animated:(BOOL)animated;
 
 @end
 
 
-@protocol ORKLegacyHolePegTestRemoveContentViewDelegate <NSObject>
+@protocol ORK1HolePegTestRemoveContentViewDelegate <NSObject>
 
-- (void)holePegTestRemoveDidProgress:(ORKLegacyHolePegTestRemoveContentView *)holePegTestRemoveContentView;
-- (void)holePegTestRemoveDidSucceed:(ORKLegacyHolePegTestRemoveContentView *)holePegTestRemoveContentView withDistance:(CGFloat)distance;
-- (void)holePegTestRemoveDidFail:(ORKLegacyHolePegTestRemoveContentView *)holePegTestRemoveContentView;
+- (void)holePegTestRemoveDidProgress:(ORK1HolePegTestRemoveContentView *)holePegTestRemoveContentView;
+- (void)holePegTestRemoveDidSucceed:(ORK1HolePegTestRemoveContentView *)holePegTestRemoveContentView withDistance:(CGFloat)distance;
+- (void)holePegTestRemoveDidFail:(ORK1HolePegTestRemoveContentView *)holePegTestRemoveContentView;
 
 @end
 

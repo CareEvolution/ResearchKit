@@ -34,11 +34,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKLegacyPasscodeTextField;
+@class ORK1PasscodeTextField;
 
-@interface ORKLegacyPasscodeStepView : ORKLegacyVerticalContainerView
+@interface ORK1PasscodeStepView : ORK1VerticalContainerView
 
-@property (nonatomic, strong, readonly) ORKLegacyPasscodeTextField *textField;
+@property (nonatomic, strong, readonly) ORK1PasscodeTextField *textField;
 
 @end
 

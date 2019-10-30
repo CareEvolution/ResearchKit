@@ -34,10 +34,10 @@
 #import "ORKHelpers_Internal.h"
 
 
-static const CGFloat ORKLegacyPlaceHoleViewRotation = 45.0f;
+static const CGFloat ORK1PlaceHoleViewRotation = 45.0f;
 
 
-@interface ORKLegacyHolePegTestPlaceHoleView ()
+@interface ORK1HolePegTestPlaceHoleView ()
 
 @property (nonatomic, strong) CAShapeLayer *checkLayer;
 @property (nonatomic, strong) CAShapeLayer *crossLayer;
@@ -45,7 +45,7 @@ static const CGFloat ORKLegacyPlaceHoleViewRotation = 45.0f;
 @end
 
 
-@implementation ORKLegacyHolePegTestPlaceHoleView
+@implementation ORK1HolePegTestPlaceHoleView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -151,7 +151,7 @@ static const CGFloat ORKLegacyPlaceHoleViewRotation = 45.0f;
         crossLayer.fillColor = self.tintColor.CGColor;
         
         CATransform3D transform = CATransform3DMakeTranslation(CGRectGetMidX(bounds), CGRectGetMidY(bounds), 1);
-        transform = CATransform3DRotate(transform, ORKLegacyPlaceHoleViewRotation * (M_PI / 180), 0, 0, 1);
+        transform = CATransform3DRotate(transform, ORK1PlaceHoleViewRotation * (M_PI / 180), 0, 0, 1);
         crossLayer.transform = transform;
         
         self.crossLayer = crossLayer;
@@ -163,9 +163,9 @@ static const CGFloat ORKLegacyPlaceHoleViewRotation = 45.0f;
 }
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
-    ORKLegacyWeakTypeOf(self) weakSelf = self;
+    ORK1WeakTypeOf(self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        ORKLegacyStrongTypeOf(self) strongSelf = weakSelf;
+        ORK1StrongTypeOf(self) strongSelf = weakSelf;
         strongSelf.success = NO;
     });
 }
