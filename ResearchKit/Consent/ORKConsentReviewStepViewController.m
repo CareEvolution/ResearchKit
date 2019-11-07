@@ -92,7 +92,7 @@
     _currentPageIndex = NSNotFound;
     ORKConsentReviewStep *step = [self consentReviewStep];
     NSMutableArray *indices = [NSMutableArray array];
-    if (step.consentDocument) {
+    if (step.consentDocument && !step.autoAgree) {
         [indices addObject:@(ORKConsentReviewPhaseReviewDocument)];
     }
     if (step.signature.requiresName) {
