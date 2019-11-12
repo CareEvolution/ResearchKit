@@ -2033,6 +2033,7 @@
 		86B623AF19520B770074CD3C /* ResearchKit */ = {
 			isa = PBXGroup;
 			children = (
+				DA2604EB237A4A0F00D0D643 /* ORK1 */,
 				B1C1DE4F196F541F00F75544 /* ResearchKit.h */,
 				B1B894391A00345200C5CF2D /* ResearchKit_Private.h */,
 				BC94EF2F1E962F7400143081 /* ORKDeprecated.h */,
@@ -3044,6 +3045,13 @@
 				D42FEFB71AF7557000A124F8 /* ORKImageCaptureView.m */,
 			);
 			name = "Image Capture Step";
+			sourceTree = "<group>";
+		};
+		DA2604EB237A4A0F00D0D643 /* ORK1 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ORK1;
 			sourceTree = "<group>";
 		};
 		FA7A9D2C1B083D90005A2BEA /* Formatters */ = {
