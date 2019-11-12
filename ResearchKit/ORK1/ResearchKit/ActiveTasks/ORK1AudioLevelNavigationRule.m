@@ -42,7 +42,7 @@
 
 
 Float32 const ORK1VolumeThreshold = 0.45;
-UInt16  const LinearPCMBitDepth = 16;
+UInt16  const ORK1LinearPCMBitDepth = 16;
 Float32 const ORK1MaxAmplitude = 32767.0;
 Float32 const ORK1VolumeClamp = 60.0;
 
@@ -155,7 +155,7 @@ Float32 const ORK1VolumeClamp = 60.0;
     AVAssetReader *reader = [[AVAssetReader alloc] initWithAsset:urlAsset error:&error];
     AVAssetTrack *track = [urlAsset.tracks objectAtIndex:0];
     NSDictionary *outputSettings = @{AVFormatIDKey: @(kAudioFormatLinearPCM),
-                                     AVLinearPCMBitDepthKey: @(LinearPCMBitDepth),
+                                     AVLinearPCMBitDepthKey: @(ORK1LinearPCMBitDepth),
                                      AVLinearPCMIsBigEndianKey: @(NO),
                                      AVLinearPCMIsFloatKey: @(NO),
                                      AVLinearPCMIsNonInterleaved: @(NO)};

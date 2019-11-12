@@ -30,7 +30,7 @@
 
 
 #import "ORK1BorderedButton.h"
-#import "ORK1TextButton_Internal.h"
+//#import "ORK1TextButton_Internal.h"
 
 
 @implementation ORK1BorderedButton {

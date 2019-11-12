@@ -47,7 +47,7 @@ enum {
     UNIFORM_TINT_COLOR,
     NUM_UNIFORMS
 };
-GLint uniforms[NUM_UNIFORMS];
+GLint ork1Uniforms[NUM_UNIFORMS];
 
 // Attribute index.
 enum {
@@ -170,14 +170,14 @@ const GLfloat ORK1DefaultPreferredRotation = 0;
     glUseProgram(_programHandle);
     
     // 0 and 1 are the texture IDs of _lumaTexture and _chromaTexture respectively.
-    glUniform1i(uniforms[UNIFORM_Y], 0);
-    glUniform1i(uniforms[UNIFORM_UV], 1);
+    glUniform1i(ork1Uniforms[UNIFORM_Y], 0);
+    glUniform1i(ork1Uniforms[UNIFORM_UV], 1);
     [self updateTintColorUniform];
-    glUniform1f(uniforms[UNIFORM_ROTATION_ANGLE], ORK1DefaultPreferredRotation);
+    glUniform1f(ork1Uniforms[UNIFORM_ROTATION_ANGLE], ORK1DefaultPreferredRotation);
     // Set the default conversion to BT.709, which is the standard for HDTV.
     _preferredConversion = ColorConversion709;
     [self updatePreferredConversionUniform];
-    glUniformMatrix3fv(uniforms[UNIFORM_COLOR_CONVERSION_MATRIX], 1, GL_FALSE, _preferredConversion);
+    glUniformMatrix3fv(ork1Uniforms[UNIFORM_COLOR_CONVERSION_MATRIX], 1, GL_FALSE, _preferredConversion);
     
     // Create CVOpenGLESTextureCacheRef for optimal CVPixelBufferRef to GLES texture conversion.
     if (!_videoTextureCache) {
@@ -509,7 +509,7 @@ const GLfloat ORK1DefaultPreferredRotation = 0;
     
     CGFloat tintColorCG[4];
     [self.tintColor getRed:&tintColorCG[0] green:&tintColorCG[1] blue:&tintColorCG[2] alpha:&tintColorCG[3]];
-    glUniform3f(uniforms[UNIFORM_TINT_COLOR], tintColorCG[0], tintColorCG[1], tintColorCG[2]);
+    glUniform3f(ork1Uniforms[UNIFORM_TINT_COLOR], tintColorCG[0], tintColorCG[1], tintColorCG[2]);
     
     [self restoreGLContext];
 }
@@ -519,7 +519,7 @@ const GLfloat ORK1DefaultPreferredRotation = 0;
         return;
     }
     [self saveGLContext];
-    glUniformMatrix3fv(uniforms[UNIFORM_COLOR_CONVERSION_MATRIX], 1, GL_FALSE, _preferredConversion);
+    glUniformMatrix3fv(ork1Uniforms[UNIFORM_COLOR_CONVERSION_MATRIX], 1, GL_FALSE, _preferredConversion);
     [self restoreGLContext];
 }
 
@@ -615,11 +615,11 @@ const GLfloat ORK1DefaultPreferredRotation = 0;
     }
     
     // Get uniform locations.
-    uniforms[UNIFORM_Y] = glGetUniformLocation(_programHandle, "SamplerY");
-    uniforms[UNIFORM_UV] = glGetUniformLocation(_programHandle, "SamplerUV");
-    uniforms[UNIFORM_ROTATION_ANGLE] = glGetUniformLocation(_programHandle, "preferredRotation");
-    uniforms[UNIFORM_COLOR_CONVERSION_MATRIX] = glGetUniformLocation(_programHandle, "colorConversionMatrix");
-    uniforms[UNIFORM_TINT_COLOR] = glGetUniformLocation(_programHandle, "tintColor");
+    ork1Uniforms[UNIFORM_Y] = glGetUniformLocation(_programHandle, "SamplerY");
+    ork1Uniforms[UNIFORM_UV] = glGetUniformLocation(_programHandle, "SamplerUV");
+    ork1Uniforms[UNIFORM_ROTATION_ANGLE] = glGetUniformLocation(_programHandle, "preferredRotation");
+    ork1Uniforms[UNIFORM_COLOR_CONVERSION_MATRIX] = glGetUniformLocation(_programHandle, "colorConversionMatrix");
+    ork1Uniforms[UNIFORM_TINT_COLOR] = glGetUniformLocation(_programHandle, "tintColor");
     
     // Release vertex and fragment shaders.
     if (vertShader) {

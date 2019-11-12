@@ -28,7 +28,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORK1TextButton_Internal.h"
+//#import "ORK1TextButton_Internal.h"
 #import "ORK1RoundTappingButton.h"
 
 
