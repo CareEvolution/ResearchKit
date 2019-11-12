@@ -117,3 +117,77 @@
 
 // For custom steps
 #import <ResearchKit/ORKCustomStepView.h>
+
+
+// RK1 Additions
+#import <ResearchKit/ORK1Helpers_Private.h>
+
+// Active step support
+#import <ResearchKit/ORK1DataLogger.h>
+#import <ResearchKit/ORK1Errors.h>
+
+#import <ResearchKit/ORK1AnswerFormat_Private.h>
+#import <ResearchKit/ORK1ConsentSection_Private.h>
+#import <ResearchKit/ORK1OrderedTask_Private.h>
+#import <ResearchKit/ORK1PageStep_Private.h>
+#import <ResearchKit/ORK1Recorder_Private.h>
+#import <ResearchKit/ORK1Result_Private.h>
+#import <ResearchKit/ORK1StepNavigationRule_Private.h>
+#import <ResearchKit/ORK1AudioLevelNavigationRule.h>
+
+#import <ResearchKit/ORK1AudioStep.h>
+#import <ResearchKit/ORK1CompletionStep.h>
+#import <ResearchKit/ORK1CountdownStep.h>
+#import <ResearchKit/ORK1FitnessStep.h>
+#import <ResearchKit/ORK1HolePegTestPlaceStep.h>
+#import <ResearchKit/ORK1HolePegTestRemoveStep.h>
+#import <ResearchKit/ORK1PSATStep.h>
+#import <ResearchKit/ORK1RangeOfMotionStep.h>
+#import <ResearchKit/ORK1ReactionTimeStep.h>
+#import <ResearchKit/ORK1ShoulderRangeOfMotionStep.h>
+#import <ResearchKit/ORK1SpatialSpanMemoryStep.h>
+#import <ResearchKit/ORK1StroopStep.h>
+#import <ResearchKit/ORK1TappingIntervalStep.h>
+#import <ResearchKit/ORK1TimedWalkStep.h>
+#import <ResearchKit/ORK1ToneAudiometryPracticeStep.h>
+#import <ResearchKit/ORK1ToneAudiometryStep.h>
+#import <ResearchKit/ORK1TowerOfHanoiStep.h>
+#import <ResearchKit/ORK1TrailmakingStep.h>
+#import <ResearchKit/ORK1WalkingTaskStep.h>
+
+#import <ResearchKit/ORK1TaskViewController_Private.h>
+#import <ResearchKit/ORK1QuestionStepViewController_Private.h>
+
+#import <ResearchKit/ORK1AudioStepViewController.h>
+#import <ResearchKit/ORK1ConsentReviewStepViewController.h>
+#import <ResearchKit/ORK1ConsentSharingStepViewController.h>
+#import <ResearchKit/ORK1CountdownStepViewController.h>
+#import <ResearchKit/ORK1FitnessStepViewController.h>
+#import <ResearchKit/ORK1HolePegTestPlaceStepViewController.h>
+#import <ResearchKit/ORK1HolePegTestRemoveStepViewController.h>
+#import <ResearchKit/ORK1ImageCaptureStepViewController.h>
+#import <ResearchKit/ORK1PasscodeStepViewController.h>
+#import <ResearchKit/ORK1PSATStepViewController.h>
+#import <ResearchKit/ORK1QuestionStepViewController.h>
+#import <ResearchKit/ORK1ReviewStepViewController.h>
+#import <ResearchKit/ORK1SignatureStepViewController.h>
+#import <ResearchKit/ORK1SpatialSpanMemoryStepViewController.h>
+#import <ResearchKit/ORK1StroopStepViewController.h>
+#import <ResearchKit/ORK1TappingIntervalStepViewController.h>
+#import <ResearchKit/ORK1ToneAudiometryPracticeStepViewController.h>
+#import <ResearchKit/ORK1ToneAudiometryStepViewController.h>
+#import <ResearchKit/ORK1TimedWalkStepViewController.h>
+#import <ResearchKit/ORK1VisualConsentStepViewController.h>
+#import <ResearchKit/ORK1WalkingTaskStepViewController.h>
+#import <ResearchKit/ORK1VideoInstructionStepViewController.h>
+
+#import <ResearchKit/ORK1AccelerometerRecorder.h>
+#import <ResearchKit/ORK1AudioRecorder.h>
+#import <ResearchKit/ORK1DeviceMotionRecorder.h>
+#import <ResearchKit/ORK1HealthQuantityTypeRecorder.h>
+#import <ResearchKit/ORK1LocationRecorder.h>
+#import <ResearchKit/ORK1PedometerRecorder.h>
+#import <ResearchKit/ORK1TouchRecorder.h>
+
+// For custom steps
+#import <ResearchKit/ORK1CustomStepView.h>
