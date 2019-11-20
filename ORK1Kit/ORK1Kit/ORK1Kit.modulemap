@@ -1,0 +1,11 @@
+framework module ORK1Kit {
+    umbrella header "ORK1Kit.h"
+    
+    module Private {
+        umbrella header "ORK1Kit_Private.h"
+        export *
+    }
+    
+    export *
+    module * { export * }
+}
