@@ -60,7 +60,7 @@
 @import CoreMotion;
 #import <CoreLocation/CoreLocation.h>
 
-#import "CEVRKTheme.h"
+#import "CEVRK1Theme.h"
 
 typedef void (^_ORK1LocationAuthorizationRequestHandler)(BOOL success);
 
@@ -636,7 +636,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    UIColor *overrideTintColor = [[CEVRKTheme themeForElement:self.view] taskViewControllerTintColor];
+    UIColor *overrideTintColor = [[CEVRK1Theme themeForElement:self.view] taskViewControllerTintColor];
     if (overrideTintColor) {
         self.view.tintColor = overrideTintColor;
     }

@@ -34,7 +34,7 @@
 #import "ORK1Helpers_Internal.h"
 #import "ORK1Skin.h"
 
-#import "CEVRKTheme.h"
+#import "CEVRK1Theme.h"
 
 
 @implementation ORK1NavigationContainerView {
@@ -326,7 +326,7 @@
     }
     
     {
-        NSNumber *distanceFromBottom = [[CEVRKTheme themeForElement:self] navigationContrainerViewButtonConstraintFromContinueButton] ?: @(0);
+        NSNumber *distanceFromBottom = [[CEVRK1Theme themeForElement:self] navigationContrainerViewButtonConstraintFromContinueButton] ?: @(0);
         
         NSLayoutConstraint *bottomConstraint = [NSLayoutConstraint constraintWithItem:_continueButton
                                                                             attribute:NSLayoutAttributeBottom

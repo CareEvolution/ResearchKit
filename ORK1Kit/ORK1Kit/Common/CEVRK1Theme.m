@@ -1,5 +1,5 @@
 //
-//  CEVRKTheme.m
+//  CEVRK1Theme.m
 //  ORK1Kit
 //
 //  Created by Eric Schramm on 7/10/19.
@@ -8,24 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
-#import "CEVRKTheme.h"
+#import "CEVRK1Theme.h"
 #import "ORK1Helpers_Internal.h"
 #import "ORK1ContinueButton.h"
 #import "ORK1TaskViewController.h"
 #import "ORK1Task.h"
 
 NSNotificationName const CEVORK1StepViewControllerViewWillAppearNotification = @"CEVORK1StepViewControllerViewWillAppearNotification";
-NSString *const CEVRKThemeKey = @"cev_theme";
+NSString *const CEVRK1ThemeKey = @"cev_theme";
 
-@interface CEVRKTheme()
-@property (nonatomic, assign) CEVRKThemeType themeType;
+@interface CEVRK1Theme()
+@property (nonatomic, assign) CEVRK1ThemeType themeType;
 @end
 
-@implementation CEVRKTheme
+@implementation CEVRK1Theme
 
 @synthesize themeType = _themeType;
 
-- (instancetype)initWithType:(CEVRKThemeType)type {
+- (instancetype)initWithType:(CEVRK1ThemeType)type {
     if (self = [super init]) {
         self.themeType = type;
         return self;
@@ -34,39 +34,39 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 }
 
 + (instancetype)defaultTheme {
-    CEVRKTheme *defaultTheme = [[self alloc] init];
-    defaultTheme.themeType = CEVRKThemeTypeDefault;
+    CEVRK1Theme *defaultTheme = [[self alloc] init];
+    defaultTheme.themeType = CEVRK1ThemeTypeDefault;
     return defaultTheme;
 }
 
 + (instancetype)themeForElement:(id)element {
     if ([element respondsToSelector:@selector(cev_theme)]) {                                                      // has theme
-        id <CEVRKThemedUIElement> themedElement = element;
-        CEVRKTheme *theme = [themedElement cev_theme];
+        id <CEVRK1ThemedUIElement> themedElement = element;
+        CEVRK1Theme *theme = [themedElement cev_theme];
         if (theme) {                                                                                              // if theme is null, keep searching
             return theme;
         }
     }
     if ([element isKindOfClass:[ORK1StepViewController class]]) {                                                  // is stepViewController, jump to task for theme
         id <ORK1Task> task = [(ORK1StepViewController *)element taskViewController].task;
-        return [CEVRKTheme themeForElement:task];
+        return [CEVRK1Theme themeForElement:task];
     } else if ([element respondsToSelector:@selector(nextResponder)] && [element nextResponder]) {                // continue up responder chain
         id nextResponder = [element nextResponder];
-        return [CEVRKTheme themeForElement:nextResponder];
+        return [CEVRK1Theme themeForElement:nextResponder];
     } else if ([element respondsToSelector:@selector(parentViewController)] && [element parentViewController]) {  // if has parentViewController, try that route
         UIViewController *parentViewController = [element parentViewController];
-        return [CEVRKTheme themeForElement:parentViewController];
+        return [CEVRK1Theme themeForElement:parentViewController];
     } else {                                                                                                      // has reached end of chain or not in chain
-        return [CEVRKTheme defaultTheme];
+        return [CEVRK1Theme defaultTheme];
     }
 }
 
-+ (NSString *)themeTitleForType:(CEVRKThemeType)type {
++ (NSString *)themeTitleForType:(CEVRK1ThemeType)type {
     switch (type) {
-        case CEVRKThemeTypeDefault:
+        case CEVRK1ThemeTypeDefault:
             return @"Default Theme";
             break;
-        case CEVRKThemeTypeAllOfUs:
+        case CEVRK1ThemeTypeAllOfUs:
             return @"All of Us Theme";
             break;
         default:
@@ -75,12 +75,12 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<CEVRKTheme: %p : %@>", self, [CEVRKTheme themeTitleForType:_themeType]];
+    return [NSString stringWithFormat:@"<CEVRK1Theme: %p : %@>", self, [CEVRK1Theme themeTitleForType:_themeType]];
 }
 
 - (UIFont *)headlineLabelFontWithSize:(CGFloat)fontSize {
     switch (self.themeType) {
-        case CEVRKThemeTypeAllOfUs:
+        case CEVRK1ThemeTypeAllOfUs:
             return [UIFont boldSystemFontOfSize:fontSize];
         default:
             return nil;
@@ -89,7 +89,7 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 
 - (UIColor *)headlineLabelFontColor {
     switch (self.themeType) {
-        case CEVRKThemeTypeAllOfUs:
+        case CEVRK1ThemeTypeAllOfUs:
             return ORK1RGB(0x262262);
         default:
             return nil;
@@ -98,7 +98,7 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 
 - (UIColor *)taskViewControllerTintColor {
     switch (self.themeType) {
-        case CEVRKThemeTypeAllOfUs:
+        case CEVRK1ThemeTypeAllOfUs:
             return ORK1RGB(0x216fb4);
         default:
             return nil;
@@ -107,7 +107,7 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 
 - (NSNumber *)navigationContrainerViewButtonConstraintFromContinueButton {
     switch (self.themeType) {
-    case CEVRKThemeTypeAllOfUs:
+    case CEVRK1ThemeTypeAllOfUs:
         // extends the difference between the standard and custom button size since
         // we need to allow for room for the skip button to show below the continue button
         return @(44 - 52);
@@ -118,7 +118,7 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 
 - (NSNumber *)continueButtonHeightForTextSize:(CGSize)textSize {
     switch (self.themeType) {
-        case CEVRKThemeTypeAllOfUs:
+        case CEVRK1ThemeTypeAllOfUs:
             return @(textSize.height + (16 * 2));  // padding of 16
         default:
             return nil;
@@ -127,7 +127,7 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 
 - (NSNumber *)continueButtonWidthForWindowWidth:(CGFloat)windowWidth {
     switch (self.themeType) {
-        case CEVRKThemeTypeAllOfUs:
+        case CEVRK1ThemeTypeAllOfUs:
             return @(windowWidth - (20 * 2));  // width 100 % minus system padding
         default:
             return nil;
@@ -136,7 +136,7 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 
 - (UIColor *)disabledTintColor {
     switch (self.themeType) {
-        case CEVRKThemeTypeAllOfUs:
+        case CEVRK1ThemeTypeAllOfUs:
             return [[UIColor blackColor] colorWithAlphaComponent:0.3f];  // same as super class setting
         default:
             return nil;
@@ -145,7 +145,7 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 
 - (void)updateAppearanceForContinueButton:(ORK1ContinueButton *)continueButton {
     switch (self.themeType) {
-        case CEVRKThemeTypeAllOfUs: {
+        case CEVRK1ThemeTypeAllOfUs: {
             // remove any previous gradient layers if button resizes due to state changes
             for (NSInteger layerIndex = continueButton.layer.sublayers.count - 1; layerIndex >= 0; layerIndex --) {
                 CALayer *layer = continueButton.layer.sublayers[layerIndex];
@@ -186,7 +186,7 @@ NSString *const CEVRKThemeKey = @"cev_theme";
 
 - (void)updateTextForContinueButton:(ORK1ContinueButton *)continueButton {
     switch (self.themeType) {
-        case CEVRKThemeTypeAllOfUs: {
+        case CEVRK1ThemeTypeAllOfUs: {
             if (!continueButton.titleLabel.text) {
                 return;
             }

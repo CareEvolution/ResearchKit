@@ -33,7 +33,7 @@
 
 #import "ORK1Skin.h"
 
-#import "CEVRKTheme.h"
+#import "CEVRK1Theme.h"
 
 
 static const CGFloat ContinueButtonTouchMargin = 10;
@@ -67,7 +67,7 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     }
     
     if (self.traitCollection.preferredContentSizeCategory != previousTraitCollection.preferredContentSizeCategory) {
-        [[CEVRKTheme themeForElement:self] updateTextForContinueButton:self];
+        [[CEVRK1Theme themeForElement:self] updateTextForContinueButton:self];
     }
 }
 
@@ -77,7 +77,7 @@ static const CGFloat ContinueButtonTouchMargin = 10;
 }
 
 - (CGFloat)buttonWidthForWindow:(UIWindow *)window {
-    NSNumber *overrideWidth = [[CEVRKTheme themeForElement:self] continueButtonWidthForWindowWidth:window.frame.size.width];
+    NSNumber *overrideWidth = [[CEVRK1Theme themeForElement:self] continueButtonWidthForWindowWidth:window.frame.size.width];
     
     if (overrideWidth) {
         return overrideWidth.floatValue;
@@ -92,7 +92,7 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonHeightRegular, window);
     
     CGSize textSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [ORK1ContinueButton defaultFont]}];
-    return ([[CEVRKTheme themeForElement:self] continueButtonHeightForTextSize:textSize] ?: @(height)).floatValue;
+    return ([[CEVRK1Theme themeForElement:self] continueButtonHeightForTextSize:textSize] ?: @(height)).floatValue;
 }
     
 - (void)setUpConstraints {
@@ -138,7 +138,7 @@ static const CGFloat ContinueButtonTouchMargin = 10;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [[CEVRKTheme themeForElement:self] updateAppearanceForContinueButton:self];
+    [[CEVRK1Theme themeForElement:self] updateAppearanceForContinueButton:self];
 }
 
 @end

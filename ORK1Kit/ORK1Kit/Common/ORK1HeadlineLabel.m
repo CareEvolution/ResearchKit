@@ -34,11 +34,11 @@
 #import "ORK1Helpers_Internal.h"
 #import "ORK1Skin.h"
 
-#import "CEVRKTheme.h"
+#import "CEVRK1Theme.h"
 
 @interface ORK1HeadlineLabel()
 
-@property (nonatomic, strong, nullable) CEVRKTheme *cev_theme;
+@property (nonatomic, strong, nullable) CEVRK1Theme *cev_theme;
 
 @end
 
@@ -65,8 +65,8 @@
     if (self) {
         __weak __typeof__(self) weakSelf = self;
         [NSNotificationCenter.defaultCenter addObserverForName:CEVORK1StepViewControllerViewWillAppearNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
-            CEVRKTheme *theme = note.userInfo[CEVRKThemeKey];
-            if ([theme isKindOfClass:[CEVRKTheme class]]) {
+            CEVRK1Theme *theme = note.userInfo[CEVRK1ThemeKey];
+            if ([theme isKindOfClass:[CEVRK1Theme class]]) {
                 weakSelf.cev_theme = theme;
                 [weakSelf updateAppearance];
             }
@@ -77,7 +77,7 @@
 
 - (UIFont *)defaultFont {
     UIFont *defaultFontForSurveyMode = [[self class] defaultFontInSurveyMode:_useSurveyMode];
-    return [[CEVRKTheme themeForElement:self] headlineLabelFontWithSize:defaultFontForSurveyMode.pointSize] ?: defaultFontForSurveyMode;
+    return [[CEVRK1Theme themeForElement:self] headlineLabelFontWithSize:defaultFontForSurveyMode.pointSize] ?: defaultFontForSurveyMode;
 }
 
 - (void)setUseSurveyMode:(BOOL)useSurveyMode {
@@ -87,7 +87,7 @@
 
 // Nasty override (hack)
 - (void)updateAppearance {
-    UIColor *overrideColor = [[CEVRKTheme themeForElement:self] headlineLabelFontColor];
+    UIColor *overrideColor = [[CEVRK1Theme themeForElement:self] headlineLabelFontColor];
     if (overrideColor) {
         self.textColor = overrideColor;
     }

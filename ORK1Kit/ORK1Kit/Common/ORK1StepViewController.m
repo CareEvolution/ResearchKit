@@ -42,7 +42,7 @@
 #import "ORK1Helpers_Internal.h"
 #import "ORK1Skin.h"
 
-#import "CEVRKTheme.h"
+#import "CEVRK1Theme.h"
 
 @interface ORK1StepViewController () {
     BOOL _hasBeenPresented;
@@ -173,7 +173,7 @@
     // unintended animation of state change as the view animates into view. Posting this notification and handling theme application upon
     // receipt can ensure a redraw cycle of the receiving element can "see" the theme prior to being inside the responder chain so the first
     // displayed draw is the expected theme.
-    NSDictionary *userInfo = @{CEVRKThemeKey : [CEVRKTheme themeForElement:self]};
+    NSDictionary *userInfo = @{CEVRK1ThemeKey : [CEVRK1Theme themeForElement:self]};
     NSNotification *notification = [NSNotification notificationWithName:CEVORK1StepViewControllerViewWillAppearNotification object:nil userInfo:userInfo];
     [NSNotificationCenter.defaultCenter postNotification:notification];
 }

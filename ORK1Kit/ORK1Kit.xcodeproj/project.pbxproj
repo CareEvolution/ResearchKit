@@ -570,8 +570,8 @@
 		D442397E1AF17F7600559D96 /* ORK1ImageCaptureStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D442397C1AF17F7600559D96 /* ORK1ImageCaptureStepViewController.m */; };
 		D458520A1AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = D45852081AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.h */; };
 		D458520B1AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D45852091AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m */; };
-		DAF84CC922D682BC0028DE8F /* CEVRKTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF84CC822D682BC0028DE8F /* CEVRKTheme.m */; };
-		DAF84CCA22D683E10028DE8F /* CEVRKTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = DAF84CC722D6824E0028DE8F /* CEVRKTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DAF84CC922D682BC0028DE8F /* CEVRK1Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */; };
+		DAF84CCA22D683E10028DE8F /* CEVRK1Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7A9D2B1B082688005A2BEA /* ORK1ConsentDocumentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */; };
 		FA7A9D2F1B083DD3005A2BEA /* ORK1ConsentSectionFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A9D2D1B083DD3005A2BEA /* ORK1ConsentSectionFormatter.h */; };
 		FA7A9D301B083DD3005A2BEA /* ORK1ConsentSectionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2E1B083DD3005A2BEA /* ORK1ConsentSectionFormatter.m */; };
@@ -1212,8 +1212,8 @@
 		D442397C1AF17F7600559D96 /* ORK1ImageCaptureStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ImageCaptureStepViewController.m; sourceTree = "<group>"; };
 		D45852081AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ImageCaptureCameraPreviewView.h; sourceTree = "<group>"; };
 		D45852091AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ImageCaptureCameraPreviewView.m; sourceTree = "<group>"; };
-		DAF84CC722D6824E0028DE8F /* CEVRKTheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRKTheme.h; sourceTree = "<group>"; };
-		DAF84CC822D682BC0028DE8F /* CEVRKTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRKTheme.m; sourceTree = "<group>"; };
+		DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1Theme.h; sourceTree = "<group>"; };
+		DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1Theme.m; sourceTree = "<group>"; };
 		FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ConsentDocumentTests.m; sourceTree = "<group>"; };
 		FA7A9D2D1B083DD3005A2BEA /* ORK1ConsentSectionFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ConsentSectionFormatter.h; sourceTree = "<group>"; };
 		FA7A9D2E1B083DD3005A2BEA /* ORK1ConsentSectionFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ConsentSectionFormatter.m; sourceTree = "<group>"; };
@@ -1430,8 +1430,8 @@
 				86C40B8C1A8D7C5C00081FAC /* ORK1Helpers_Internal.h */,
 				86C40B7C1A8D7C5C00081FAC /* ORK1Helpers_Private.h */,
 				86C40B8D1A8D7C5C00081FAC /* ORK1Helpers.m */,
-				DAF84CC722D6824E0028DE8F /* CEVRKTheme.h */,
-				DAF84CC822D682BC0028DE8F /* CEVRKTheme.m */,
+				DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */,
+				DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -2843,7 +2843,7 @@
 				959A2BFC1D68B98700841B04 /* ORK1RangeOfMotionStep.h in Headers */,
 				86C40D561A8D7C5C00081FAC /* ORK1OrderedTask.h in Headers */,
 				86C40C4E1A8D7C5C00081FAC /* ORK1TappingContentView.h in Headers */,
-				DAF84CCA22D683E10028DE8F /* CEVRKTheme.h in Headers */,
+				DAF84CCA22D683E10028DE8F /* CEVRK1Theme.h in Headers */,
 				FF5051F01D66908C0065E677 /* ORK1NavigablePageStep.h in Headers */,
 				86C40CA01A8D7C5C00081FAC /* ORK1HealthQuantityTypeRecorder.h in Headers */,
 				24850E191BCDA9C7006E91FB /* ORK1LoginStepViewController.h in Headers */,
@@ -3292,7 +3292,7 @@
 				86C40C641A8D7C5C00081FAC /* CLLocation+ORK1JSONDictionary.m in Sources */,
 				86C40D041A8D7C5C00081FAC /* ORK1ContinueButton.m in Sources */,
 				24A4DA151B8D1115009C797A /* ORK1PasscodeStep.m in Sources */,
-				DAF84CC922D682BC0028DE8F /* CEVRKTheme.m in Sources */,
+				DAF84CC922D682BC0028DE8F /* CEVRK1Theme.m in Sources */,
 				86C40DEC1A8D7C5C00081FAC /* UIBarButtonItem+ORK1BarButtonItem.m in Sources */,
 				106FF2AF1B6FACA8004EACF2 /* ORK1DirectionView.m in Sources */,
 				BF1D438A1D4905FC007EE90B /* ORK1VideoInstructionStepViewController.m in Sources */,

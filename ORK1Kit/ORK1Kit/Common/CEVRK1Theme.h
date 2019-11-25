@@ -1,5 +1,5 @@
 //
-//  CEVRKTheme.h
+//  CEVRK1Theme.h
 //  ORK1Kit
 //
 //  Created by Eric Schramm on 7/10/19.
@@ -11,11 +11,11 @@
 #import "ORK1Defines.h"
 
 extern NSNotificationName _Nonnull const CEVORK1StepViewControllerViewWillAppearNotification;
-extern NSString * _Nonnull const CEVRKThemeKey;
+extern NSString * _Nonnull const CEVRK1ThemeKey;
 
-typedef NS_ENUM(NSInteger, CEVRKThemeType) {
-    CEVRKThemeTypeDefault,
-    CEVRKThemeTypeAllOfUs
+typedef NS_ENUM(NSInteger, CEVRK1ThemeType) {
+    CEVRK1ThemeTypeDefault,
+    CEVRK1ThemeTypeAllOfUs
 } ORK1_ENUM_AVAILABLE;
 
 
@@ -23,10 +23,10 @@ typedef NS_ENUM(NSInteger, CEVRKThemeType) {
 @class ORK1ContinueButton;
 
 ORK1_CLASS_AVAILABLE
-@interface CEVRKTheme : NSObject
+@interface CEVRK1Theme : NSObject
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
-- (nonnull instancetype)initWithType:(CEVRKThemeType)type;
+- (nonnull instancetype)initWithType:(CEVRK1ThemeType)type;
 + (nonnull instancetype)defaultTheme;
 + (nonnull instancetype)themeForElement:(nonnull id)element;
 
@@ -43,7 +43,7 @@ ORK1_CLASS_AVAILABLE
 @end
 
 
-@protocol CEVRKThemedUIElement <NSObject>
+@protocol CEVRK1ThemedUIElement <NSObject>
 
 /**
  Stores a theme for UI styling.
@@ -54,6 +54,6 @@ ORK1_CLASS_AVAILABLE
  ORK1Kit view hieararchy.
  */
 
-@property (nonatomic, retain, nullable) CEVRKTheme *cev_theme;
+@property (nonatomic, retain, nullable) CEVRK1Theme *cev_theme;
 
 @end
