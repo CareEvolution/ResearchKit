@@ -95,7 +95,7 @@
     self = [super initWithStep:step];
     if (self) {
         _webView = [[ORK1WebViewPreloader shared] webViewForKey:step.identifier];
-        [_webView.configuration.userContentController addScriptMessageHandler:self name:@"ORK1Kit"];
+        [_webView.configuration.userContentController addScriptMessageHandler:self name:@"ResearchKit"];
         _webView.frame = self.view.bounds;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _webView.navigationDelegate = self;
