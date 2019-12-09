@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
  In order to proceed to the next step from inside the webviewstep, you must execute this
  line of javascript when the user should proceed:
  
- window.webkit.messageHandlers.ORK1Kit.postMessage(answer);
+ window.webkit.messageHandlers.ResearchKit.postMessage(answer);
  
  Where "answer" is the string answer that will be captured in the WebViewStepResult.
  A string answer is required or the user will be unable to proceed.
