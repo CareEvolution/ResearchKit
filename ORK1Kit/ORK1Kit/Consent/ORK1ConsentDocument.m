@@ -215,7 +215,7 @@
         ORK1_DECODE_OBJ_CLASS(aDecoder, signaturePageTitle, NSString);
         ORK1_DECODE_OBJ_CLASS(aDecoder, signaturePageContent, NSString);
         ORK1_DECODE_OBJ_CLASS(aDecoder, htmlReviewContent, NSString);
-        NSArray *signatures = (NSArray *)[aDecoder decodeObjectOfClass:[NSArray class] forKey:@"signatures"];
+        NSArray *signatures = (NSArray *)[aDecoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [ORK1ConsentSignature class], nil] forKey:@"signatures"];
         _signatures = [signatures mutableCopy];
         ORK1_DECODE_OBJ_ARRAY(aDecoder, sections, ORK1ConsentSection);
     }
