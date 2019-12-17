@@ -31,6 +31,12 @@
 #import "ORKWebViewStepViewController.h"
 #import "ORKStepViewController_Internal.h"
 #import "ORKWebViewStep.h"
+
+#import "ORKResult_Private.h"
+#import "ORKCollectionResult_Private.h"
+#import "ORKWebViewStepResult.h"
+#import "ORKNavigationContainerView_Internal.h"
+
 #import <ResearchKit/ORKResult.h>
 @import SafariServices;
 
@@ -90,6 +96,18 @@
 @implementation ORKWebViewStepViewController {
     WKWebView *_webView;
     NSString *_result;
+    ORKNavigationContainerView *_navigationFooterView;
+    NSArray<NSLayoutConstraint *> *_constraints;
+
+}
+
+- (ORKWebViewStep *)webViewStep {
+    return (ORKWebViewStep *)self.step;
+}
+
+- (void)stepDidChange {
+    _result = nil;
+    [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
 }
 
 - (instancetype)initWithStep:(ORKStep *)step {
@@ -116,15 +134,6 @@
     _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
     _navigationFooterView.neverHasContinueButton = YES;
     [self.view addSubview:_navigationFooterView];
-}
-
-- (ORKWebViewStep *)webViewStep {
-    return (ORKWebViewStep *)self.step;
-}
-
-- (void)stepDidChange {
-    _result = nil;
-    [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
 }
 
 - (void)setupConstraints {
