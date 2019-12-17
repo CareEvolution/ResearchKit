@@ -1322,23 +1322,4 @@ static NSString *const _ORKOriginalAnswersRestoreKey = @"originalAnswers";
     [_tableView reloadData];
 }
 
-#pragma mark - ORKChoiceOtherViewCellDelegate
-
-- (void)textChoiceOtherCellDidBecomeFirstResponder:(ORKChoiceOtherViewCell *)choiceOtherViewCell {
-    _currentFirstResponderCell = choiceOtherViewCell;
-    NSIndexPath *path = [_tableView indexPathForCell:choiceOtherViewCell];
-    if (path) {
-        [_tableContainer scrollCellVisible:choiceOtherViewCell animated:YES];
-    }
-}
-
-- (void)textChoiceOtherCellDidResignFirstResponder:(ORKChoiceOtherViewCell *)choiceOtherViewCell {
-    if (_currentFirstResponderCell == choiceOtherViewCell) {
-        _currentFirstResponderCell = nil;
-    }
-    NSIndexPath *indexPath = [_tableView indexPathForCell:choiceOtherViewCell];
-    ORKTableSection *section = _sections[indexPath.section];
-    [section.textChoiceCellGroup textViewDidResignResponderForCellAtIndexPath:indexPath];
-}
-
 @end

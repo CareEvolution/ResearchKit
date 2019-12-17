@@ -116,5 +116,3 @@
 #import <ResearchKit/ORKCollector.h>
 
 #import <ResearchKit/ORKDeprecated.h>
-
-#import <ResearchKit/CEVRKTheme.h>
