@@ -34,6 +34,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface ORKWebViewPreloader: NSObject
++ (instancetype)shared;
+- (void)preload:(NSString *)htmlString forKey:(NSString *)key;
+- (WKWebView *)webViewForKey:(NSString *)key;
+@end
+
 /**
  The `ORKWebViewStepViewController` class is a step view controller subclass
  used to manage a web view step (`ORKWebViewStep`).
