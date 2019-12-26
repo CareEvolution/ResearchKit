@@ -215,6 +215,7 @@
 }
 
 - (void)stepDidFinish {
+    [_timeoutTimer invalidate];
     [super stepDidFinish];
     [self.stroopContentView finishStep:self];
     [self goForward];
