@@ -67,9 +67,9 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, copy, nullable) NSString *colorSelected;
 
 /**
- The Stroop style displayed - "box" or "text"
+ The Stroop style displayed - (ORKStroopStyleText or ORKStroopStyleBox)
  */
-@property (nonatomic, copy, nullable) NSString *stroopStyle;
+@property (nonatomic, assign) ORKStroopStyle stroopStyle;
 
 @end
 

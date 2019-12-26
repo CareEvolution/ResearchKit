@@ -71,7 +71,7 @@
     NSTimeInterval _endTime;
     
     NSString *_correctColorString;
-    NSString *_stroopStyle;
+    ORKStroopStyle _singleTestStroopStyle;
 }
 
 - (instancetype)initWithStep:(ORKStep *)step {
@@ -152,7 +152,6 @@
     if (![self.stroopContentView.colorLabelText isEqualToString:@" "]) {
         [self setButtonsDisabled];
         if (sender == self.stroopContentView.RButton) {
-            
             [self createResult:self.stroopContentView.colorLabelText withColorSelected:_redString];
         }
         else if (sender == self.stroopContentView.GButton) {
@@ -244,7 +243,7 @@
     stroopResult.color = _correctColorString;
     stroopResult.text = text;
     stroopResult.colorSelected = colorSelected;
-    stroopResult.stroopStyle = _stroopStyle;
+    stroopResult.stroopStyle = _singleTestStroopStyle;
     [_results addObject:stroopResult];
 }
 
@@ -269,10 +268,10 @@
             isText = YES;
             textColor = [UIColor blackColor];
             break;
-        case ORKStroopStyleBoxes:
+        case ORKStroopStyleBox:
             isText = NO;
             break;
-        case ORKStroopStyleRandomizeTextOrBoxes: {
+        case ORKStroopStyleRandomizeTextOrBox: {
             int textOrBox = arc4random() % 2;
             isText = textOrBox;
             if (isText) {
@@ -313,7 +312,7 @@
         UIColor *color = textColor ?: [self.colors valueForKey:text];
         [self.stroopContentView setColor:color isText:isText];
     }
-    _stroopStyle = isText ? @"text" : @"box";
+    _singleTestStroopStyle = isText ? ORKStroopStyleText : ORKStroopStyleBox;
     [self setButtonsEnabled];
     _startTime = [NSProcessInfo processInfo].systemUptime;
 }

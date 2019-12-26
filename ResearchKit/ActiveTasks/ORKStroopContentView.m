@@ -40,13 +40,13 @@ CGFloat minimumButtonHeight = 60;
 UILayoutConstraintAxis alignment = UILayoutConstraintAxisHorizontal;
 CGFloat labelHeight = 250.0;
 CGFloat labelWidth = 250.0;
-NSArray <NSLayoutConstraint *> *boxConstraints;
 static const CGFloat buttonStackViewSpacing = 20.0;
 
 
 @implementation ORKStroopContentView {
     UILabel *_colorLabel;
     UIStackView *_buttonStackView;
+    NSArray <NSLayoutConstraint *> *boxConstraints;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -177,14 +177,6 @@ static const CGFloat buttonStackViewSpacing = 20.0;
 
 - (NSString *)colorLabelText {
     return _colorLabel.text;
-}
-
-- (UIColor *)colorLabelColor {
-    if ([_colorLabel.textColor isEqual:[UIColor blackColor]]) {
-        return _colorLabel.text;
-    } else {
-        return _colorLabel.textColor;
-    }
 }
 
 - (void)setColor:(UIColor *)color isText:(BOOL)isText {
