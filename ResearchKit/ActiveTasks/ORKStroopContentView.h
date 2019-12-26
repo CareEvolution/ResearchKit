@@ -32,7 +32,6 @@
 @import UIKit;
 
 #import "ORKCustomStepView_Internal.h"
-#import "ORKStroopStep.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
