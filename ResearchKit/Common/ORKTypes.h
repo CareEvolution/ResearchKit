@@ -372,6 +372,35 @@ ORK_EXTERN ORKTrailMakingTypeIdentifier const ORKTrailMakingTypeIdentifierB;
 
 
 /**
+Stroop Style.
+
+Used by ORKStroopStep.
+*/
+typedef NS_ENUM(NSInteger, ORKStroopStyle) {
+
+    /**
+     Display colored boxes.
+     */
+    ORKStroopStyleBoxes,
+    
+    /**
+     Display large text with a color word, text color depends upon randomizeVisualAndColorAlignment setting.
+     */
+    ORKStroopStyleText,
+    
+    /**
+     Display large text with a color word - text color is always black.
+     */
+    ORKStroopStyleTextAlwaysBlack,
+    
+    /**
+     Randomly display colored boxes or large text with a color word.
+     */
+    ORKStroopStyleRandomizeTextOrBoxes
+    
+} ORK_ENUM_AVAILABLE;
+
+/**
  The `ORKTremorActiveTaskOption` flags let you exclude particular steps from the predefined active
  tasks in the predefined Tremor `ORKOrderedTask`.
  

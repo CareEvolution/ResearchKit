@@ -32,6 +32,7 @@
 @import UIKit;
 
 #import "ORKCustomStepView_Internal.h"
+#import "ORKStroopStep.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,11 +46,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) ORKBorderedButton * GButton;
 @property (nonatomic) ORKBorderedButton * BButton;
 @property (nonatomic) ORKBorderedButton * YButton;
-@property (nonatomic) BOOL useTextForStimuli;
 @property (nonatomic) BOOL useGridLayoutForButtons;
 
 - (void)setUseGridLayoutForButtons:(bool)useGridLayoutForButtons;
-- (void)setUseTextForStimuli:(bool)useTextForStimuli;
+- (void)setColor:(UIColor *)color isText:(BOOL)isText;
 
 @end
 NS_ASSUME_NONNULL_END
