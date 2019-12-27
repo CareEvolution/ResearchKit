@@ -46,7 +46,7 @@ static const CGFloat buttonStackViewSpacing = 20.0;
 @implementation ORKStroopContentView {
     UILabel *_colorLabel;
     UIStackView *_buttonStackView;
-    NSArray <NSLayoutConstraint *> *boxConstraints;
+    NSArray <NSLayoutConstraint *> *_boxConstraints;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -182,10 +182,10 @@ static const CGFloat buttonStackViewSpacing = 20.0;
 - (void)setColor:(UIColor *)color isText:(BOOL)isText {
     [_colorLabel setTextColor:color];
     if (isText) {
-        [NSLayoutConstraint deactivateConstraints:boxConstraints];
+        [NSLayoutConstraint deactivateConstraints:_boxConstraints];
         [_colorLabel setBackgroundColor:[UIColor clearColor]];
     } else {
-        [NSLayoutConstraint activateConstraints:boxConstraints];
+        [NSLayoutConstraint activateConstraints:_boxConstraints];
         [_colorLabel setBackgroundColor:color];
     }
     [self setNeedsLayout];
@@ -221,7 +221,7 @@ static const CGFloat buttonStackViewSpacing = 20.0;
 
     [constraints addObjectsFromArray:baseLayouts];
 
-    boxConstraints = @[[NSLayoutConstraint constraintWithItem:_colorLabel
+    _boxConstraints = @[[NSLayoutConstraint constraintWithItem:_colorLabel
                                  attribute:NSLayoutAttributeWidth
                                  relatedBy:NSLayoutRelationEqual
                                     toItem:nil
