@@ -49,8 +49,6 @@ ORK_CLASS_AVAILABLE
 
 @property (nonatomic, assign) NSInteger numberOfAttempts;
 
-@property (nonatomic, assign) double thresholdAcceleration;
-
 @property (nonatomic, assign) SystemSoundID successSound;
 
 @property (nonatomic, assign) SystemSoundID timeoutSound;

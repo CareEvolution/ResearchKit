@@ -53,7 +53,6 @@
     ORKNormalizedReactionTimeStep *step = [super copyWithZone:zone];
     step.maximumStimulusInterval = self.maximumStimulusInterval;
     step.minimumStimulusInterval = self.minimumStimulusInterval;
-    step.thresholdAcceleration = self.thresholdAcceleration;
     step.timeout = self.timeout;
     step.numberOfAttempts = self.numberOfAttempts;
     step.successSound = self.successSound;
@@ -76,11 +75,6 @@
                                        reason:@"maximumStimulusInterval cannot be less than minimumStimulusInterval"
                                      userInfo:nil];
     }
-    if (self.thresholdAcceleration <= 0) {
-        @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:@"thresholdAcceleration must be greater than zero"
-                                     userInfo:nil];
-    }
     if (self.timeout <= 0) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
                                        reason:@"timeout must be greater than zero"
@@ -98,7 +92,6 @@
     if (self) {
         ORK_DECODE_DOUBLE(aDecoder, maximumStimulusInterval);
         ORK_DECODE_DOUBLE(aDecoder, minimumStimulusInterval);
-        ORK_DECODE_DOUBLE(aDecoder, thresholdAcceleration);
         ORK_DECODE_DOUBLE(aDecoder, timeout);
         ORK_DECODE_UINT32(aDecoder, successSound);
         ORK_DECODE_UINT32(aDecoder, timeoutSound);
@@ -113,7 +106,6 @@
     [super encodeWithCoder:aCoder];
         ORK_ENCODE_DOUBLE(aCoder, maximumStimulusInterval);
         ORK_ENCODE_DOUBLE(aCoder, minimumStimulusInterval);
-        ORK_ENCODE_DOUBLE(aCoder, thresholdAcceleration);
         ORK_ENCODE_DOUBLE(aCoder, timeout);
         ORK_ENCODE_UINT32(aCoder, successSound);
         ORK_ENCODE_UINT32(aCoder, timeoutSound);
@@ -133,7 +125,6 @@
     return (isParentSame &&
             (self.maximumStimulusInterval == castObject.maximumStimulusInterval) &&
             (self.minimumStimulusInterval == castObject.minimumStimulusInterval) &&
-            (self.thresholdAcceleration == castObject.thresholdAcceleration) &&
             (self.timeout == castObject.timeout) &&
             (self.successSound == castObject.successSound) &&
             (self.timeoutSound == castObject.timeoutSound) &&
