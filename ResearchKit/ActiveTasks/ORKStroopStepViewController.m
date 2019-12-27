@@ -71,7 +71,7 @@
     NSTimeInterval _endTime;
     
     NSString *_correctColorString;
-    ORKStroopStyle _singleTestStroopStyle;
+    NSString *_singleTestStroopStyle;
 }
 
 - (instancetype)initWithStep:(ORKStep *)step {
@@ -312,7 +312,7 @@
         UIColor *color = textColor ?: [self.colors valueForKey:text];
         [self.stroopContentView setColor:color isText:isText];
     }
-    _singleTestStroopStyle = isText ? ORKStroopStyleText : ORKStroopStyleBox;
+    _singleTestStroopStyle = isText ? @"text" : @"box";
     [self setButtonsEnabled];
     _startTime = [NSProcessInfo processInfo].systemUptime;
 }

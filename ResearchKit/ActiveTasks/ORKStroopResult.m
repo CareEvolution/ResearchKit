@@ -41,7 +41,7 @@
     ORK_ENCODE_OBJ(aCoder, color);
     ORK_ENCODE_OBJ(aCoder, text);
     ORK_ENCODE_OBJ(aCoder, colorSelected);
-    ORK_ENCODE_INTEGER(aCoder, stroopStyle);
+    ORK_ENCODE_OBJ(aCoder, stroopStyle);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -52,7 +52,7 @@
         ORK_DECODE_OBJ_CLASS(aDecoder, color, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, text, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, colorSelected, NSString);
-        ORK_DECODE_INTEGER(aDecoder, stroopStyle);
+        ORK_DECODE_OBJ_CLASS(aDecoder, stroopStyle, NSString);
     }
     return self;
 }
@@ -71,7 +71,7 @@
             ORKEqualObjects(self.color, castObject.color) &&
             ORKEqualObjects(self.text, castObject.text) &&
             ORKEqualObjects(self.colorSelected, castObject.colorSelected) &&
-            (self.stroopStyle == castObject.stroopStyle));
+            ORKEqualObjects(self.stroopStyle, castObject.stroopStyle));
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
@@ -81,24 +81,12 @@
     result -> _color = [self.color copy];
     result -> _text = [self.text copy];
     result -> _colorSelected = [self.colorSelected copy];
-    result.stroopStyle = self.stroopStyle;
+    result -> _stroopStyle = [self.stroopStyle copy];
     return result;
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    NSString *stroopStyleText;
-    switch (self.stroopStyle) {
-        case ORKStroopStyleText:
-            stroopStyleText = @"text";
-            break;
-        case ORKStroopStyleBox:
-            stroopStyleText = @"box";
-            break;
-        default:
-            stroopStyleText = @"(undefined)";
-            break;
-    }
-    return [NSString stringWithFormat:@"%@; color: %@; text: %@; colorselected: %@; stroopStyle: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.color, self.text, self.colorSelected, stroopStyleText, self.descriptionSuffix];
+    return [NSString stringWithFormat:@"%@; color: %@; text: %@; colorselected: %@; stroopStyle: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.color, self.text, self.colorSelected, self.stroopStyle, self.descriptionSuffix];
 }
 
 @end
