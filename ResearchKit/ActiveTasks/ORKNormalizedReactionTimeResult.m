@@ -40,10 +40,10 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    ORK_ENCODE_OBJ(aCoder, timerStartDate);
-    ORK_ENCODE_OBJ(aCoder, timerEndDate);
-    ORK_ENCODE_OBJ(aCoder, stimulusStartDate);
-    ORK_ENCODE_OBJ(aCoder, reactionDate);
+    ORK_ENCODE_DOUBLE(aCoder, timerStartDate);
+    ORK_ENCODE_DOUBLE(aCoder, timerEndDate);
+    ORK_ENCODE_DOUBLE(aCoder, stimulusStartDate);
+    ORK_ENCODE_DOUBLE(aCoder, reactionDate);
     ORK_ENCODE_OBJ(aCoder, currentInterval);
     
 }
@@ -51,10 +51,10 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_CLASS(aDecoder, timerStartDate, NSDate);
-        ORK_DECODE_OBJ_CLASS(aDecoder, timerEndDate, NSDate);
-        ORK_DECODE_OBJ_CLASS(aDecoder, stimulusStartDate, NSDate);
-        ORK_DECODE_OBJ_CLASS(aDecoder, reactionDate, NSDate);
+        ORK_DECODE_DOUBLE(aDecoder, timerStartDate);
+        ORK_DECODE_DOUBLE(aDecoder, timerEndDate);
+        ORK_DECODE_DOUBLE(aDecoder, stimulusStartDate);
+        ORK_DECODE_DOUBLE(aDecoder, reactionDate);
         ORK_DECODE_OBJ_CLASS(aDecoder, currentInterval, NSNumber);
     }
     return self;
@@ -69,24 +69,24 @@
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-                        ORKEqualObjects(self.timerStartDate, castObject.timerStartDate) &&
-                ORKEqualObjects(self.timerEndDate, castObject.timerEndDate) &&
-                ORKEqualObjects(self.stimulusStartDate, castObject.stimulusStartDate) &&
-                ORKEqualObjects(self.reactionDate, castObject.reactionDate) &&
+                (self.timerStartDate == castObject.timerStartDate) &&
+                (self.timerEndDate == castObject.timerEndDate) &&
+                (self.stimulusStartDate == castObject.stimulusStartDate) &&
+                (self.reactionDate == castObject.reactionDate) &&
                 ORKEqualObjects(self.currentInterval, castObject.currentInterval)) ;
     
 }
 
 - (NSUInteger)hash {
-    return super.hash ^ _timerStartDate.hash ^ _timerEndDate.hash ^ _stimulusStartDate.hash ^ _reactionDate.hash;
+    return super.hash ^ @(_timerStartDate).unsignedIntValue ^ @(_timerEndDate).unsignedIntValue ^ @(_stimulusStartDate).unsignedIntValue ^ @(_reactionDate).unsignedIntValue;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKNormalizedReactionTimeResult *result = [super copyWithZone:zone];
-    result.timerStartDate = [self.timerStartDate copy];
-    result.timerEndDate = [self.timerEndDate copy];
-    result.stimulusStartDate = [self.stimulusStartDate copy];
-    result.reactionDate = [self.reactionDate copy];
+    result.timerStartDate = self.timerStartDate;
+    result.timerEndDate = self.timerEndDate;
+    result.stimulusStartDate = self.stimulusStartDate;
+    result.reactionDate = self.reactionDate;
     result.currentInterval = [self.currentInterval copy];
     return result;
 }

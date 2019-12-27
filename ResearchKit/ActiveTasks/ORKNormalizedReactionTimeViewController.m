@@ -64,9 +64,9 @@
     UIView *_backgroundView;
     ORKNormalizedReactionTimeStimulusView *_stimulusView;
 
-    NSDate *_timerStartDate;
-    NSDate *_stimulusStartDate;
-    NSDate *_reactionDate;
+    NSTimeInterval _timerStartDate;
+    NSTimeInterval _stimulusStartDate;
+    NSTimeInterval _reactionDate;
 }
 
 static const NSTimeInterval OutcomeAnimationDuration = 0.3;
@@ -99,19 +99,20 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
     if (_stimulusView.hidden) {
             _validResult = NO;
             _timedOut = YES;
+            _timerStartDate = 0;
             [self addReactionTimeResult];
         #if TARGET_IPHONE_SIMULATOR
             // Device motion recorder won't work, so manually trigger didfinish
             [self attemptDidFinish];
         #endif
     } else {
-        _timerStartDate = [NSDate date];
+        _timerStartDate = [NSProcessInfo processInfo].systemUptime;
     }
 }
 
 - (void)tapDetected {
     if ([_stimulusTimer isValid] || [_timeoutTimer isValid]) {
-        _reactionDate = [NSDate date];
+        _reactionDate = [NSProcessInfo processInfo].systemUptime;
         [self addReactionTimeResult];
     }
 }
@@ -157,14 +158,14 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
 - (void)addReactionTimeResult {
     ORKNormalizedReactionTimeResult *reactionTimeResult = [[ORKNormalizedReactionTimeResult alloc] initWithIdentifier:self.step.identifier];
     reactionTimeResult.timerStartDate = _timerStartDate;
-    reactionTimeResult.timerEndDate = [NSDate date];
+    reactionTimeResult.timerEndDate = [NSProcessInfo processInfo].systemUptime;
     reactionTimeResult.reactionDate = _reactionDate;
     reactionTimeResult.stimulusStartDate = _stimulusStartDate;
     reactionTimeResult.currentInterval = [self reactionTimeStep].currentInterval;
     [_results addObject:reactionTimeResult];
-    _timerStartDate = nil;
-    _reactionDate = nil;
-    _stimulusStartDate = nil;
+    _timerStartDate = 0;
+    _reactionDate = 0;
+    _stimulusStartDate = 0;
     [self reactionTimeStep].currentInterval = 0;
     
     [self attemptDidFinish];
@@ -228,7 +229,7 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
 }
 
 - (void)stimulusTimerDidFire {
-    _stimulusStartDate = [NSDate date];
+    _stimulusStartDate = [NSProcessInfo processInfo].systemUptime;;
     
     _stimulusTimestamp = [NSProcessInfo processInfo].systemUptime;
     [_reactionTimeContentView setStimulusHidden:NO];

@@ -52,10 +52,29 @@ NS_ASSUME_NONNULL_BEGIN
 ORK_CLASS_AVAILABLE
 @interface ORKNormalizedReactionTimeResult: ORKResult
 
-@property (nonatomic, copy) NSDate * timerStartDate;
-@property (nonatomic, copy) NSDate * timerEndDate;
-@property (nonatomic, copy, nullable) NSDate * stimulusStartDate;
-@property (nonatomic, copy, nullable) NSDate * reactionDate;
+/**
+ The `timerStartDate` property is equal to the start time when the user lifts the finger off the "hold" button after the stimulus appears. This value is zero if the finger is lifted before the stimulus appears, or if the finger is not lifted after the stimulus appears and the timeout interval is reached.
+ */
+@property (nonatomic, assign) NSTimeInterval timerStartDate;
+
+/**
+ The `timerEndtDate` property is equal to the start time when the stimulus (circle in the box) is tapped or the timeout is reached
+ */
+@property (nonatomic, assign) NSTimeInterval timerEndDate;
+
+/**
+ The `stimulusStartDate` property is equal to the start time when the stimulus appears (circle in the box). This value is zero if the finger is lifted before the stimulus appears.
+ */
+@property (nonatomic, assign) NSTimeInterval stimulusStartDate;
+
+/**
+ The `reactionDate` property is equal to the start time when the stimulus (circle in the box) is tapped
+ */
+@property (nonatomic, assign) NSTimeInterval reactionDate;
+
+/**
+The `currentInterval` property is equal to the randomized delay in seconds from when the timer starts to the stimulus appears
+*/
 @property (nonatomic) NSNumber *currentInterval;
 
 
