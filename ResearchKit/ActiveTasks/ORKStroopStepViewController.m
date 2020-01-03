@@ -261,17 +261,17 @@
     UIColor *textColor = nil;
     ORKStroopStep *stroopStep = (ORKStroopStep *)self.step;
     switch (stroopStep.stroopStyle) {
-        case ORKStroopStyleText:
+        case ORKStroopStyleColoredText:
             isText = YES;
             break;
-        case ORKStroopStyleTextAlwaysBlack:
+        case ORKStroopStyleBlackText:
             isText = YES;
             textColor = [UIColor blackColor];
             break;
         case ORKStroopStyleBox:
             isText = NO;
             break;
-        case ORKStroopStyleRandomizeTextOrBox: {
+        case ORKStroopStyleRandomizeColoredTextOrBox: {
             int textOrBox = arc4random() % 2;
             isText = textOrBox;
             if (isText) {

@@ -386,17 +386,17 @@ typedef NS_ENUM(NSInteger, ORKStroopStyle) {
     /**
      Display large text with a color word, text color depends upon randomizeVisualAndColorAlignment setting.
      */
-    ORKStroopStyleText,
+    ORKStroopStyleColoredText,
     
     /**
      Display large text with a color word - text color is always black.
      */
-    ORKStroopStyleTextAlwaysBlack,
+    ORKStroopStyleBlackText,
     
     /**
      Randomly display colored boxes or large text with a color word.
      */
-    ORKStroopStyleRandomizeTextOrBox
+    ORKStroopStyleRandomizeColoredTextOrBox
     
 } ORK_ENUM_AVAILABLE;
 
