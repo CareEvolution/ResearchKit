@@ -41,6 +41,7 @@
     ORK_ENCODE_OBJ(aCoder, color);
     ORK_ENCODE_OBJ(aCoder, text);
     ORK_ENCODE_OBJ(aCoder, colorSelected);
+    ORK_ENCODE_OBJ(aCoder, stroopStyle);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -51,6 +52,7 @@
         ORK_DECODE_OBJ_CLASS(aDecoder, color, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, text, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, colorSelected, NSString);
+        ORK_DECODE_OBJ_CLASS(aDecoder, stroopStyle, NSString);
     }
     return self;
 }
@@ -68,7 +70,8 @@
             (self.endTime == castObject.endTime) &&
             ORKEqualObjects(self.color, castObject.color) &&
             ORKEqualObjects(self.text, castObject.text) &&
-            ORKEqualObjects(self.colorSelected, castObject.colorSelected));
+            ORKEqualObjects(self.colorSelected, castObject.colorSelected) &&
+            ORKEqualObjects(self.stroopStyle, castObject.stroopStyle));
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
@@ -78,11 +81,12 @@
     result -> _color = [self.color copy];
     result -> _text = [self.text copy];
     result -> _colorSelected = [self.colorSelected copy];
+    result -> _stroopStyle = [self.stroopStyle copy];
     return result;
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"%@; color: %@; text: %@; colorselected: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.color, self.text, self.colorSelected, self.descriptionSuffix];
+    return [NSString stringWithFormat:@"%@; color: %@; text: %@; colorselected: %@; stroopStyle: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.color, self.text, self.colorSelected, self.stroopStyle, self.descriptionSuffix];
 }
 
 @end

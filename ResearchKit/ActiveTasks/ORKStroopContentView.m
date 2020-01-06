@@ -37,7 +37,7 @@
 
 
 CGFloat minimumButtonHeight = 60;
-UIStackViewAlignment alignment = UILayoutConstraintAxisHorizontal;
+UILayoutConstraintAxis alignment = UILayoutConstraintAxisHorizontal;
 CGFloat labelHeight = 250.0;
 CGFloat labelWidth = 250.0;
 static const CGFloat buttonStackViewSpacing = 20.0;
@@ -46,6 +46,7 @@ static const CGFloat buttonStackViewSpacing = 20.0;
 @implementation ORKStroopContentView {
     UILabel *_colorLabel;
     UIStackView *_buttonStackView;
+    NSArray <NSLayoutConstraint *> *_boxConstraints;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -169,23 +170,8 @@ static const CGFloat buttonStackViewSpacing = 20.0;
 
 }
 
--(void)setUseTextForStimuli:(bool)useTextForStimuli{
-    _useTextForStimuli = useTextForStimuli;
-    if (!_useTextForStimuli) {
-        [_colorLabel setFont:[UIFont boldSystemFontOfSize:60]];
-    }
-}
-
 - (void)setColorLabelText:(NSString *)colorLabelText {
     [_colorLabel setText:colorLabelText];
-    [self setNeedsDisplay];
-}
-
-- (void)setColorLabelColor:(UIColor *)colorLabelColor {
-    [_colorLabel setTextColor:colorLabelColor];
-    if (!_useTextForStimuli) {
-        [_colorLabel setBackgroundColor:colorLabelColor];
-    }
     [self setNeedsDisplay];
 }
 
@@ -193,8 +179,16 @@ static const CGFloat buttonStackViewSpacing = 20.0;
     return _colorLabel.text;
 }
 
-- (UIColor *)colorLabelColor {
-    return _colorLabel.textColor;
+- (void)setColor:(UIColor *)color isText:(BOOL)isText {
+    [_colorLabel setTextColor:color];
+    if (isText) {
+        [NSLayoutConstraint deactivateConstraints:_boxConstraints];
+        [_colorLabel setBackgroundColor:[UIColor clearColor]];
+    } else {
+        [NSLayoutConstraint activateConstraints:_boxConstraints];
+        [_colorLabel setBackgroundColor:color];
+    }
+    [self setNeedsLayout];
 }
 
 - (void)setUpConstraints {
@@ -227,30 +221,27 @@ static const CGFloat buttonStackViewSpacing = 20.0;
 
     [constraints addObjectsFromArray:baseLayouts];
 
-    if (!_useTextForStimuli) {
-
-        [constraints addObjectsFromArray: @[[NSLayoutConstraint constraintWithItem:_colorLabel
-                                                                        attribute:NSLayoutAttributeWidth
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:nil
-                                                                        attribute:NSLayoutAttributeNotAnAttribute
-                                                                       multiplier:1.0
-                                                                         constant:labelWidth],
-                                           [NSLayoutConstraint constraintWithItem:_colorLabel
-                                                                        attribute:NSLayoutAttributeHeight
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:nil
-                                                                        attribute:NSLayoutAttributeNotAnAttribute
-                                                                       multiplier:1.0
-                                                                         constant: labelHeight],
-                                           [NSLayoutConstraint constraintWithItem:_buttonStackView
-                                                                        attribute:NSLayoutAttributeHeight
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:nil
-                                                                        attribute:NSLayoutAttributeNotAnAttribute
-                                                                       multiplier:1.0
-                                                                         constant:minimumButtonHeight]]];
-    }
+    _boxConstraints = @[[NSLayoutConstraint constraintWithItem:_colorLabel
+                                 attribute:NSLayoutAttributeWidth
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:nil
+                                 attribute:NSLayoutAttributeNotAnAttribute
+                                multiplier:1.0
+                                  constant:labelWidth],
+    [NSLayoutConstraint constraintWithItem:_colorLabel
+                                 attribute:NSLayoutAttributeHeight
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:nil
+                                 attribute:NSLayoutAttributeNotAnAttribute
+                                multiplier:1.0
+                                  constant: labelHeight],
+    [NSLayoutConstraint constraintWithItem:_buttonStackView
+                                 attribute:NSLayoutAttributeHeight
+                                 relatedBy:NSLayoutRelationEqual
+                                    toItem:nil
+                                 attribute:NSLayoutAttributeNotAnAttribute
+                                multiplier:1.0
+                                  constant:minimumButtonHeight]];
 
     for (ORKBorderedButton *button in @[_RButton, _GButton, _BButton, _YButton]) {
         [constraints addObject:[NSLayoutConstraint constraintWithItem:button

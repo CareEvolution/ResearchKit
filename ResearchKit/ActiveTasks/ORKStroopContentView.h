@@ -40,16 +40,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ORKStroopContentView : ORKActiveStepCustomView
 
 @property (nonatomic) NSString * colorLabelText;
-@property (nonatomic) UIColor * colorLabelColor;
 @property (nonatomic) ORKBorderedButton * RButton;
 @property (nonatomic) ORKBorderedButton * GButton;
 @property (nonatomic) ORKBorderedButton * BButton;
 @property (nonatomic) ORKBorderedButton * YButton;
-@property (nonatomic) BOOL useTextForStimuli;
 @property (nonatomic) BOOL useGridLayoutForButtons;
 
 - (void)setUseGridLayoutForButtons:(bool)useGridLayoutForButtons;
-- (void)setUseTextForStimuli:(bool)useTextForStimuli;
+- (void)setColor:(UIColor *)color isText:(BOOL)isText;
 
 @end
 NS_ASSUME_NONNULL_END

@@ -52,7 +52,7 @@
         self.shouldContinueOnFinish = YES;
         self.stepDuration = NSIntegerMax;
         self.randomizeVisualAndColorAlignment = YES;
-        self.useTextForStimuli = YES;
+        self.stroopStyle = ORKStroopStyleColoredText;
         self.useGridLayoutForButtons = NO;
     }
     return self;
