@@ -112,10 +112,12 @@
             
             _leftRangeDescriptionLabel = [[ORK1ScaleRangeDescriptionLabel alloc] initWithFrame:CGRectZero];
             _leftRangeDescriptionLabel.numberOfLines = -1;
+            _leftRangeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
             [self addSubview:_leftRangeDescriptionLabel];
             
             _rightRangeLabel = [[ORK1ScaleRangeLabel alloc] initWithFrame:CGRectZero];
             _rightRangeLabel.textAlignment = NSTextAlignmentCenter;
+            _rightRangeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
             [self addSubview:_rightRangeLabel];
             
             _rightRangeDescriptionLabel = [[ORK1ScaleRangeDescriptionLabel alloc] initWithFrame:CGRectZero];
@@ -174,8 +176,6 @@
             _rightRangeView.translatesAutoresizingMaskIntoConstraints = NO;
             _leftRangeLabel.translatesAutoresizingMaskIntoConstraints = NO;
             _rightRangeLabel.translatesAutoresizingMaskIntoConstraints = NO;
-            _leftRangeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-            _rightRangeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
         }
         
         self.translatesAutoresizingMaskIntoConstraints = NO;
