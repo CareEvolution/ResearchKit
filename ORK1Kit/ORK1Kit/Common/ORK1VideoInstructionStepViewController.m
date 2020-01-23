@@ -110,8 +110,20 @@
     CMTime duration = [asset duration];
     duration.value = MIN([self videoInstructionStep].thumbnailTime, duration.value / duration.timescale) * duration.timescale;
     AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:asset];
-    CGImageRef thumbnailImageRef = [imageGenerator copyCGImageAtTime:duration actualTime:NULL error:NULL];
-    UIImage *thumbnailImage = [UIImage imageWithCGImage:thumbnailImageRef];
+    NSError *error;
+    CGImageRef thumbnailImageRef = [imageGenerator copyCGImageAtTime:duration actualTime:NULL error:&error];
+    UIImage *thumbnailImage;
+    if (error == nil) {
+        thumbnailImage = [UIImage imageWithCGImage:thumbnailImageRef];
+    } else {
+        CGRect rect = CGRectMake(0, 0, 1920, 1080);
+        UIGraphicsBeginImageContext(rect.size);
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
+        CGContextFillRect(context, rect);
+        thumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
     CGImageRelease(thumbnailImageRef);
     [self videoInstructionStep].image = thumbnailImage;
 }
