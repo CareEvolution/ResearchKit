@@ -35,9 +35,9 @@
 @implementation ORK1FormSectionTitleLabel
 
 + (UIFont *)defaultFont {
-    // regular, 14
+    // bold, 17
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
-    return [UIFont systemFontOfSize:[[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] - 3.0];
+    return [UIFont systemFontOfSize:[[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] - 0.0 weight: UIFontWeightBold];
 }
 
 @end
