@@ -156,7 +156,7 @@
 }
 
 - (void)setTitle:(NSString *)title {
-    _title = [[title uppercaseStringWithLocale:[NSLocale currentLocale]] copy];
+    _title = title;
 }
 
 - (void)addFormItem:(ORK1FormItem *)item {
