@@ -34,7 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ORKWebViewPreloader: NSObject
+@interface ORKWebViewPreloader : NSObject
 + (instancetype)shared;
 - (void)preload:(NSString *)htmlString forKey:(NSString *)key;
 - (WKWebView *)webViewForKey:(NSString *)key;
@@ -48,7 +48,8 @@ NS_ASSUME_NONNULL_BEGIN
  a web view step in a task, and present a task view controller for that task.
  */
 @interface ORKWebViewStepViewController : ORKStepViewController<WKScriptMessageHandler, WKNavigationDelegate>
-
+@property (nonatomic, strong, readonly) WKWebView *webView;
+@property (nonatomic, strong) id<WKScriptMessageHandler> scriptMessageHandler;
 @end
 
 NS_ASSUME_NONNULL_END
