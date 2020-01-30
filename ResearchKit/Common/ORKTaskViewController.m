@@ -756,6 +756,20 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     _dismissedDate = nil;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    /*
+       CEV HACK: due to a strange constraint hack in ORKVerticalContainerView, the _registeredScrollView content size will
+       always be 0.3 points larger than its size if ORKVerticalContainerView.scrollContainerShouldCollapseNavbar is NO. This
+       then enables the scrollView "bouncing" which can be disruptive if it's not needed.
+    */
+    if ((_registeredScrollView.contentSize.height - _registeredScrollView.frame.size.height) < 1) {
+        _registeredScrollView.scrollEnabled = NO;
+    } else {
+        _registeredScrollView.scrollEnabled = YES;
+    }
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
