@@ -117,11 +117,11 @@
             
             _rightRangeLabel = [[ORK1ScaleRangeLabel alloc] initWithFrame:CGRectZero];
             _rightRangeLabel.textAlignment = NSTextAlignmentCenter;
-            _rightRangeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
             [self addSubview:_rightRangeLabel];
             
             _rightRangeDescriptionLabel = [[ORK1ScaleRangeDescriptionLabel alloc] initWithFrame:CGRectZero];
             _rightRangeDescriptionLabel.numberOfLines = -1;
+            _rightRangeDescriptionLabel.translatesAutoresizingMaskIntoConstraints = NO;
             [self addSubview:_rightRangeDescriptionLabel];
             
             if (textChoices) {
