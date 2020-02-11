@@ -94,7 +94,6 @@
 @end
 
 @implementation ORKWebViewStepViewController {
-    WKWebView *_webView;
     NSString *_result;
     ORKNavigationContainerView *_navigationFooterView;
     NSArray<NSLayoutConstraint *> *_constraints;

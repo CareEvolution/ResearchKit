@@ -87,7 +87,6 @@
 @end
 
 @implementation ORK1WebViewStepViewController {
-    WKWebView *_webView;
     NSString *_result;
 }
 
