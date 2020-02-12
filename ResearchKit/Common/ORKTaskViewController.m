@@ -758,16 +758,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    /*
-       CEV HACK: due to a strange constraint hack in ORKVerticalContainerView, the _registeredScrollView content size will
-       always be 0.3 points larger than its size if ORKVerticalContainerView.scrollContainerShouldCollapseNavbar is NO. This
-       then enables the scrollView "bouncing" which can be disruptive if it's not needed.
-    */
-    if ((_registeredScrollView.contentSize.height - _registeredScrollView.frame.size.height) < 1) {
-        _registeredScrollView.scrollEnabled = NO;
-    } else {
-        _registeredScrollView.scrollEnabled = YES;
-    }
+    [self fixScrollable];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -777,6 +768,19 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     // because nextResponder is not nil when current TaskVC is covered by another modal view
     if (self.nextResponder == nil) {
         _dismissedDate = [NSDate date];
+    }
+}
+
+- (void)fixScrollable {
+    /*
+       CEV HACK: due to a strange constraint hack in ORKVerticalContainerView, the _registeredScrollView content size will
+       always be 0.3 points larger than its size if ORKVerticalContainerView.scrollContainerShouldCollapseNavbar is NO. This
+       then enables the scrollView "bouncing" which can be disruptive if it's not needed.
+    */
+    if ((_registeredScrollView.contentSize.height - _registeredScrollView.frame.size.height) < 1) {
+        _registeredScrollView.scrollEnabled = NO;
+    } else {
+        _registeredScrollView.scrollEnabled = YES;
     }
 }
 
@@ -1086,6 +1090,8 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         
         // Collect toolbarItems
         [strongSelf collectToolbarItemsFromViewController:viewController];
+        
+        [strongSelf fixScrollable];
     }];
 }
 
@@ -1447,7 +1453,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         [self setManagedResult:[stepViewController result] forKey:stepViewController.step.identifier];
     }
     
-    // Alert the delegate that the step is finished 
+    // Alert the delegate that the step is finished
     ORKStrongTypeOf(self.delegate) strongDelegate = self.delegate;
     if ([strongDelegate respondsToSelector:@selector(taskViewController:stepViewControllerWillDisappear:navigationDirection:)]) {
         [strongDelegate taskViewController:self stepViewControllerWillDisappear:stepViewController navigationDirection:direction];
