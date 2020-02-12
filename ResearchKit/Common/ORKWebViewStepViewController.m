@@ -94,7 +94,6 @@
 @end
 
 @implementation ORKWebViewStepViewController {
-    WKWebView *_webView;
     NSString *_result;
     ORKNavigationContainerView *_navigationFooterView;
     NSArray<NSLayoutConstraint *> *_constraints;
@@ -115,6 +114,7 @@
     if (self) {
         _webView = [[ORKWebViewPreloader shared] webViewForKey:step.identifier];
         [_webView.configuration.userContentController addScriptMessageHandler:self name:@"ResearchKit"];
+        [_webView.configuration.userContentController addScriptMessageHandler:self name:@"GetAccessToken"];
         _webView.frame = self.view.bounds;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _webView.navigationDelegate = self;
@@ -219,6 +219,10 @@
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {
+    if ([message.name isEqual: @"GetAccessToken"]) {
+        [self.scriptMessageHandler userContentController:userContentController didReceiveScriptMessage:message];
+        return;
+    }
     if ([message.body isKindOfClass:[NSString class]]){
         _result = (NSString *)message.body;
         [self goForward];
