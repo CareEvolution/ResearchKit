@@ -489,6 +489,11 @@ ORK_CLASS_AVAILABLE
  */
 @property (nonatomic, readonly) UINavigationBar *navigationBar;
 
+/**
+ The default cancel button item.
+ */
+- (UIBarButtonItem *)defaultCancelButtonItem;
+
 @end
 
 NS_ASSUME_NONNULL_END
