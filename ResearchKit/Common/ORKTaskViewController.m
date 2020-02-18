@@ -775,9 +775,10 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     /*
        CEV HACK: due to a strange constraint hack in ORKVerticalContainerView, the _registeredScrollView content size will
        always be 0.3 points larger than its size if ORKVerticalContainerView.scrollContainerShouldCollapseNavbar is NO. This
-       then enables the scrollView "bouncing" which can be disruptive if it's not needed.
+       then enables the scrollView "bouncing" which can be disruptive if it's not needed. But let's not do this for Form
+       Steps since those should behave like a normal UITableView
     */
-    if ((_registeredScrollView.contentSize.height - _registeredScrollView.frame.size.height) < 1) {
+    if ((_registeredScrollView.contentSize.height - _registeredScrollView.frame.size.height) < 1 && ![_registeredScrollView isKindOfClass:[UITableView class]]) {
         _registeredScrollView.scrollEnabled = NO;
     } else {
         _registeredScrollView.scrollEnabled = YES;
