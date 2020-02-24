@@ -132,7 +132,7 @@ body, p, h1, h2, h3 { font-family: Helvetica; }\n\
 - (void)testMakePDFWithCompletionHandler_withHTMLReviewContent_callsWriterWithCorrectHTML {
     self.document.htmlReviewContent = @"some content";
     [self.document makePDFWithCompletionHandler:^(NSData *data, NSError *error) {}];
-    XCTAssertEqualObjects(self.mockWriter.html, [self htmlWithContent:@"some content" mobile:YES]);
+    XCTAssertEqualObjects(self.mockWriter.html, [self htmlWithContent:@"some content" mobile:NO]);
 }
 
 - (void)testMakePDFWithCompletionHandler_withoutHTMLReviewContent_callsWriterWithCorrectHTML {
