@@ -610,6 +610,8 @@ ORK1DefineStringKey(TimeOfDayStepIdentifier);
 ORK1DefineStringKey(TimeIntervalStepIdentifier);
 ORK1DefineStringKey(DateStepIdentifier);
 
+ORK1DefineStringKey(WebViewStepIdentifier);
+
 ORK1DefineStringKey(FormStepIdentifier);
 
 ORK1DefineStringKey(TextFormItemIdentifier);
@@ -652,6 +654,13 @@ static ORK1StepResult *(^getStepResult)(NSString *, Class, ORK1QuestionType, id)
     return stepResult;
 };
 
+static ORK1StepResult *(^getWebViewStepResult)(NSString *, NSString *) = ^ORK1StepResult *(NSString *stepIdentifier, NSString *resultText) {
+    ORK1WebViewStepResult *childResult = [[ORK1WebViewStepResult alloc] initWithIdentifier:stepIdentifier];
+    childResult.result = resultText;
+    ORK1StepResult *stepResult = [[ORK1StepResult alloc] initWithStepIdentifier:stepIdentifier results:@[childResult]];
+    return stepResult;
+};
+
 static ORK1StepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL) = ^ORK1StepResult *(NSString *stepIdentifier, NSString *signatureIdentifier, BOOL consented) {
     ORK1ConsentSignatureResult *consentSignatureResult = [[ORK1ConsentSignatureResult alloc] initWithIdentifier:signatureIdentifier];
     consentSignatureResult.consented = consented;
@@ -680,6 +689,8 @@ static ORK1StepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL) = ^
     [stepResults addObject:getStepResult(TimeIntervalStepIdentifier, [ORK1TimeIntervalQuestionResult class], ORK1QuestionTypeTimeInterval, @(IntegerValue))];
     
     [stepResults addObject:getStepResult(TimeOfDayStepIdentifier, [ORK1TimeOfDayQuestionResult class], ORK1QuestionTypeTimeOfDay, DateComponents())];
+    
+    [stepResults addObject:getWebViewStepResult(WebViewStepIdentifier, TextValue)];
     
     // Nil result (simulate skipped step)
     [stepResults addObject:getStepResult(NilTextStepIdentifier, [ORK1TextQuestionResult class], ORK1QuestionTypeText, nil)];
@@ -1215,6 +1226,19 @@ static ORK1StepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL) = ^
                                                                         matchingPattern:@"...tValue"] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     XCTAssertFalse([[ORK1ResultPredicate predicateForTextQuestionResultWithResultSelector:resultSelector
                                                                          matchingPattern:@"...TextValue"] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
+    
+    // ORK1WebViewStepResult (strings)
+    resultSelector.resultIdentifier = WebViewStepIdentifier;
+    XCTAssertTrue([[ORK1ResultPredicate predicateForWebViewStepResultWithResultSelector:resultSelector
+                                                                        expectedString:TextValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
+    XCTAssertFalse([[ORK1ResultPredicate predicateForWebViewStepResultWithResultSelector:resultSelector
+                                                                         expectedString:OtherTextValue] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
+    
+    // ORK1WebViewStepResult (regular expressions)
+    XCTAssertTrue([[ORK1ResultPredicate predicateForWebViewStepResultWithResultSelector:resultSelector
+                                                                       matchingPattern:@"...tValue"] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
+    XCTAssertFalse([[ORK1ResultPredicate predicateForWebViewStepResultWithResultSelector:resultSelector
+                                                                        matchingPattern:@"...TextValue"] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
     // ORK1NumericQuestionResult
     resultSelector.resultIdentifier = IntegerNumericStepIdentifier;

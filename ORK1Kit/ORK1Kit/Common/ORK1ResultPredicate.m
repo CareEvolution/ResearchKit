@@ -352,6 +352,22 @@ NSString *const ORK1ResultPredicateTaskIdentifierVariableName = @"ORK1_TASK_IDEN
                  subPredicateFormatArgumentArray:@[ pattern ]];
 }
 
++ (NSPredicate *)predicateForWebViewStepResultWithResultSelector:(ORK1ResultSelector *)resultSelector
+                                                  expectedString:(NSString *)expectedString {
+    ORK1ThrowInvalidArgumentExceptionIfNil(expectedString);
+    return [self predicateMatchingResultSelector:resultSelector
+                         subPredicateFormatArray:@[ @"result == %@" ]
+                 subPredicateFormatArgumentArray:@[ expectedString ]];
+}
+
++ (NSPredicate *)predicateForWebViewStepResultWithResultSelector:(ORK1ResultSelector *)resultSelector
+                                                 matchingPattern:(NSString *)pattern {
+    ORK1ThrowInvalidArgumentExceptionIfNil(pattern);
+    return [self predicateMatchingResultSelector:resultSelector
+                         subPredicateFormatArray:@[ @"result matches %@" ]
+                 subPredicateFormatArgumentArray:@[ pattern ]];
+}
+
 + (NSPredicate *)predicateForNumericQuestionResultWithResultSelector:(ORK1ResultSelector *)resultSelector
                                                       expectedAnswer:(NSInteger)expectedAnswer {
     return [self predicateMatchingResultSelector:resultSelector
