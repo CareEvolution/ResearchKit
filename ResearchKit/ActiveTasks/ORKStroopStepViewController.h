@@ -39,6 +39,9 @@ NS_ASSUME_NONNULL_BEGIN
 ORK_CLASS_AVAILABLE
 @interface ORKStroopStepViewController : ORKActiveStepViewController
 
+// public for testing
+- (BOOL)randomBoolWithTrueProbability:(NSNumber * __nonnull)trueProbability;
+
 @end
 
 NS_ASSUME_NONNULL_END

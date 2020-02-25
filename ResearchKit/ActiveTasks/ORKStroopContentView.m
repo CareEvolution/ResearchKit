@@ -63,7 +63,7 @@ static const CGFloat buttonStackViewSpacing = 20.0;
         
         ORKScreenType screenType = ORKGetVerticalScreenTypeForWindow([[[UIApplication sharedApplication] delegate] window]);
         
-        if (screenType == ORKScreenTypeiPhone5 ) {
+        if (screenType == ORKScreenTypeiPhone5) {
             labelWidth = 200.0;
             labelHeight = 200.0;
         } else {
@@ -170,8 +170,9 @@ static const CGFloat buttonStackViewSpacing = 20.0;
 
 }
 
-- (void)setColorLabelText:(NSString *)colorLabelText {
-    [_colorLabel setText:colorLabelText];
+- (void)setColorLabelAttributedText:(NSAttributedString *)colorLabelAttributedText {
+    _colorLabelAttributedText = colorLabelAttributedText;
+    [_colorLabel setAttributedText:colorLabelAttributedText];
     [self setNeedsDisplay];
 }
 

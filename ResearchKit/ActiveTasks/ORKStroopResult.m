@@ -86,7 +86,7 @@
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"%@; color: %@; text: %@; colorselected: %@; stroopStyle: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.color, self.text, self.colorSelected, self.stroopStyle, self.descriptionSuffix];
+    return [NSString stringWithFormat:@"%@; color: %@; text: %@; colorSelected: %@; stroopStyle: %@ %@", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces], self.color, self.text, self.colorSelected, self.stroopStyle, self.descriptionSuffix];
 }
 
 @end

@@ -394,9 +394,9 @@ typedef NS_ENUM(NSInteger, ORKStroopStyle) {
     ORKStroopStyleBlackText,
     
     /**
-     Randomly display colored boxes or large text with a color word.
-     */
-    ORKStroopStyleRandomizeColoredTextOrBox
+     Display large text with a color word - text is colored, 50 % of the time, the word is underlined.
+    */
+    ORKStroopStyleColoredTextRandomlyUnderlined
     
 } ORK_ENUM_AVAILABLE;
 

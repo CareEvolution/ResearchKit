@@ -33,6 +33,46 @@
 #import "ORKStroopStepViewController.h"
 #import "ORKHelpers_Internal.h"
 
+NSString *const ORKStroopColorIdentifierRed = @"RED";
+NSString *const ORKStroopColorIdentifierGreen = @"GREEN";
+NSString *const ORKStroopColorIdentifierBlue = @"BLUE";
+NSString *const ORKStroopColorIdentifierYellow = @"YELLOW";
+NSString *const ORKStroopColorIdentifierBlack = @"BLACK";
+
+@implementation ORKStroopColor
+
+- (instancetype)init {
+    ORKThrowMethodUnavailableException();
+}
+
+- (instancetype __nullable)initWithIdentifier:(NSString *)identifier {
+    if (self = [super init]) {
+        if ([identifier isEqualToString:ORKStroopColorIdentifierRed]) {
+            _color = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
+            _title = ORKLocalizedString(@"STROOP_COLOR_RED", nil);
+        } else if ([identifier isEqualToString:ORKStroopColorIdentifierGreen]) {
+            _color = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0];
+            _title = ORKLocalizedString(@"STROOP_COLOR_GREEN", nil);
+        } else if ([identifier isEqualToString:ORKStroopColorIdentifierBlue]) {
+            _color = [UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:1.0];
+            _title = ORKLocalizedString(@"STROOP_COLOR_BLUE", nil);
+        } else if ([identifier isEqualToString:ORKStroopColorIdentifierYellow]) {
+            _color = [UIColor colorWithRed:245.0/225.0 green:221.0/225.0 blue:66.0/255.0 alpha:1.0];
+            _title = ORKLocalizedString(@"STROOP_COLOR_YELLOW", nil);
+        } else if ([identifier isEqualToString:ORKStroopColorIdentifierBlack]) {
+            _color = [UIColor blackColor];
+            _title = ORKLocalizedString(@"STROOP_COLOR_BLACK", nil);
+        } else {
+            return nil;
+        }
+        return self;
+    }
+    return nil;
+}
+@end
+
+@implementation ORKStroopTest
+@end
 
 @implementation ORKStroopStep
 
@@ -51,7 +91,7 @@
         self.shouldShowDefaultTimer = NO;
         self.shouldContinueOnFinish = YES;
         self.stepDuration = NSIntegerMax;
-        self.randomizeVisualAndColorAlignment = YES;
+        self.probabilityOfVisualAndColorAlignment = @(0.5);
         self.stroopStyle = ORKStroopStyleColoredText;
         self.useGridLayoutForButtons = NO;
     }
@@ -64,6 +104,10 @@
     if (self.numberOfAttempts < minimumAttempts) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"number of attempts should be greater or equal to %ld.", (long)minimumAttempts]  userInfo:nil];
     }
+    float probabilityOfVisualAndColorAlignment = [self.probabilityOfVisualAndColorAlignment floatValue];
+    if (probabilityOfVisualAndColorAlignment < 0 || probabilityOfVisualAndColorAlignment > 1) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"probability of visual and color alignment must be a number between 0 and 1" userInfo:nil];
+    }
 }
 
 - (BOOL)startsFinished {
@@ -73,6 +117,10 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKStroopStep *step = [super copyWithZone:zone];
     step.numberOfAttempts = self.numberOfAttempts;
+    step.probabilityOfVisualAndColorAlignment = self.probabilityOfVisualAndColorAlignment;
+    step.stroopStyle = self.stroopStyle;
+    step.useGridLayoutForButtons = self.useGridLayoutForButtons;
+    step.nonRandomizedTests = self.nonRandomizedTests;
     return step;
 }
 
@@ -80,6 +128,10 @@
     self = [super initWithCoder:aDecoder];
     if (self ) {
         ORK_DECODE_INTEGER(aDecoder, numberOfAttempts);
+        ORK_DECODE_OBJ(aDecoder, probabilityOfVisualAndColorAlignment);
+        ORK_DECODE_ENUM(aDecoder, stroopStyle);
+        ORK_DECODE_BOOL(aDecoder, useGridLayoutForButtons);
+        ORK_DECODE_OBJ_ARRAY(aDecoder, nonRandomizedTests, [ORKStroopTest class]);
     }
     return self;
 }
@@ -87,13 +139,21 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_INTEGER(aCoder, numberOfAttempts);
+    ORK_ENCODE_OBJ(aCoder, probabilityOfVisualAndColorAlignment);
+    ORK_ENCODE_ENUM(aCoder, stroopStyle);
+    ORK_ENCODE_BOOL(aCoder, useGridLayoutForButtons);
+    ORK_ENCODE_OBJ(aCoder, nonRandomizedTests);
 }
 
 - (BOOL)isEqual:(id)object {
     BOOL isParentSame = [super isEqual:object];
     
     __typeof(self) castObject = object;
-    return (isParentSame && (self.numberOfAttempts == castObject.numberOfAttempts));
+    return (isParentSame && (self.numberOfAttempts == castObject.numberOfAttempts)
+            && [self.probabilityOfVisualAndColorAlignment isEqual:castObject.probabilityOfVisualAndColorAlignment]
+            && (self.stroopStyle == castObject.stroopStyle)
+            && (self.useGridLayoutForButtons == castObject.useGridLayoutForButtons)
+            && [self.nonRandomizedTests isEqual:castObject.nonRandomizedTests]);
 }
 
 @end
