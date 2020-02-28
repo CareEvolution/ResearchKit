@@ -264,6 +264,7 @@
             randomizedTest.stroopStyle = ORKStroopStyleBlackText;
             randomizedTest.color = [[ORKStroopColor alloc] initWithIdentifier:ORKStroopColorIdentifierBlack];
             randomizedTest.text = _allColors[arc4random_uniform((uint32_t)_allColors.count)];
+            break;
         case ORKStroopStyleColoredText:
             randomizedTest.stroopStyle = ORKStroopStyleColoredText;
             randomizedTest.color = _allColors[arc4random_uniform((uint32_t)_allColors.count)];
@@ -274,6 +275,7 @@
                 [colorsLeft removeObject:randomizedTest.color];
                 randomizedTest.text = colorsLeft[arc4random_uniform((uint32_t)colorsLeft.count)];
             }
+            break;
         case ORKStroopStyleColoredTextRandomlyUnderlined:
             if ([self randomBoolWithTrueProbability:@(0.5)]) {
                 randomizedTest.stroopStyle = ORKStroopStyleColoredTextRandomlyUnderlined;
@@ -288,6 +290,7 @@
                 [colorsLeft removeObject:randomizedTest.color];
                 randomizedTest.text = colorsLeft[arc4random_uniform((uint32_t)colorsLeft.count)];
             }
+            break;
         default:
             break;
     }
