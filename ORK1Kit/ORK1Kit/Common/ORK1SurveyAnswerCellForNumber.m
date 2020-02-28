@@ -180,6 +180,10 @@
     self.textField.text = displayValue;
 }
 
+- (void)stepIsNavigatingForward {
+    [_textFieldView.textField resignFirstResponder];
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (void)valueFieldDidChange:(UITextField *)textField {

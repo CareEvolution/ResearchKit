@@ -279,6 +279,10 @@
     [self ork_setAnswer:text.length ? text : ORK1NullAnswerValue()];
 }
 
+- (void)stepIsNavigatingForward {
+    [_textField resignFirstResponder];
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
