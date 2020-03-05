@@ -836,6 +836,18 @@
     [super skipForward];
 }
 
+- (void)goForward {
+    /*
+    CEV HACK - Cell should resign any firstResponder text fields to prevent a race condition where
+    navigation writes result data to internal cache (_managedResults on ORK1TaskViewController)
+    first, then during tear down the firstResponder is resigned to a text field rewriting the
+    answer marking the original answer as isPreviousResult == YES which breaks skip navigation rules
+    in certain scenarios (answer on Q1 to skip Q3 doesn't skip Q3).
+    */
+    [_currentFirstResponderCell resignFirstResponder];
+    [super goForward];
+}
+
 - (void)goBackward {
     if (self.isBeingReviewed) {
         self.savedAnswers = [[NSMutableDictionary alloc] initWithDictionary:self.originalAnswers];

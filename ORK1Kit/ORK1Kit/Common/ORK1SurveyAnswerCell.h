@@ -90,6 +90,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showValidityAlertWithTitle:(NSString *)title message:(NSString *)message;
 
+/*
+ CEV HACK - Cell should resign any firstResponder text fields to prevent a race condition where
+ navigation writes result data to internal cache (_managedResults on ORK1TaskViewController)
+ first, then during tear down the firstResponder is resigned to a text field rewriting the
+ answer marking the original answer as isPreviousResult == YES which breaks skip navigation rules
+ in certain scenarios (answer on Q1 to skip Q3 doesn't skip Q3).
+ */
+- (void)stepIsNavigatingForward;
+
 // Get full width layout for some subclass cells 
 + (NSLayoutConstraint *)fullWidthLayoutConstraint:(UIView *)view;
 

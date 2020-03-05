@@ -652,7 +652,7 @@ typedef NS_ENUM(NSInteger, ORK1QuestionSection) {
     if (![self shouldContinue]) {
         return;
     }
-    
+    [[self answerCell] stepIsNavigatingForward];
     [self notifyDelegateOnResultChange];
     [super goForward];
 }
