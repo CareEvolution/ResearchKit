@@ -63,6 +63,12 @@ ORK_INLINE NSArray *ORKArrayCopyObjects(NSArray *a) {
     return [b copy];
 }
 
+ORK_INLINE BOOL randomBoolWithTrueProbability(NSNumber * __nonnull trueProbability) {
+    const UInt32 precision = 1000;
+    UInt32 random = arc4random_uniform(precision);
+    return (double)random < ((double)precision * trueProbability.doubleValue);
+}
+
 ORK_EXTERN NSString *ORKStringFromDateISO8601(NSDate *date) ORK_AVAILABLE_DECL;
 ORK_EXTERN NSDate *ORKDateFromStringISO8601(NSString *string) ORK_AVAILABLE_DECL;
 

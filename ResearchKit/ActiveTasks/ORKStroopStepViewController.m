@@ -43,32 +43,18 @@
 #import "ORKNavigationContainerView.h"
 #import "ORKTaskViewController_Private.h"
 
-typedef NS_ENUM(NSInteger, ORKStroopTextStyle) {
-    ORKStroopTextStyleAlwaysBlack,
-    ORKStroopTextStyleMatchingColor,
-    ORKStroopTextStyleDiscordantColor
-};
-
 @interface ORKStroopStepViewController ()
 
 @property (nonatomic, strong) ORKStroopContentView *stroopContentView;
-@property (nonatomic, copy) NSMutableDictionary *colors;
-@property (nonatomic, copy) NSMutableDictionary *differentColorLabels;
 @property (nonatomic) NSUInteger questionNumber;
+@property (nonatomic, strong) ORKStroopTest *currentTest;
 
 @end
 
 
 @implementation ORKStroopStepViewController {
-    UIColor *_red;
-    UIColor *_green;
-    UIColor *_blue;
-    UIColor *_yellow;
-    NSString *_redString;
-    NSString *_greenString;
-    NSString *_blueString;
-    NSString *_yellowString;
-    NSString *_blackString;
+    NSArray<ORKStroopColor *> *_allColors;
+    
     NSTimer *_nextQuestionTimer;
     
     NSTimer *_timeoutTimer;
@@ -76,9 +62,6 @@ typedef NS_ENUM(NSInteger, ORKStroopTextStyle) {
     NSMutableArray *_results;
     NSTimeInterval _startTime;
     NSTimeInterval _endTime;
-    
-    NSString *_textOrBoxColorString;
-    NSString *_singleTestStroopStyle;
 }
 
 - (instancetype)initWithStep:(ORKStep *)step {
@@ -98,30 +81,10 @@ typedef NS_ENUM(NSInteger, ORKStroopTextStyle) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     _results = [NSMutableArray new];
-    _redString = ORKLocalizedString(@"STROOP_COLOR_RED", nil);
-    _greenString = ORKLocalizedString(@"STROOP_COLOR_GREEN", nil);
-    _blueString = ORKLocalizedString(@"STROOP_COLOR_BLUE", nil);
-    _yellowString = ORKLocalizedString(@"STROOP_COLOR_YELLOW", nil);
-    _blackString = ORKLocalizedString(@"STROOP_COLOR_BLACK", nil);
-    _red = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
-    _green = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0];
-    _blue = [UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:1.0];
-    _yellow = [UIColor colorWithRed:245.0/225.0 green:221.0/225.0 blue:66.0/255.0 alpha:1.0];
-    
-    self.colors = [[NSMutableDictionary alloc] initWithObjectsAndKeys: _red, _redString, _blue, _blueString, _yellow, _yellowString, _green, _greenString, nil];
-    
-    self.differentColorLabels = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSArray arrayWithObjects:_blueString,
-                                                                                     _greenString,
-                                                                                     _yellowString, nil], _redString,
-                                 [NSArray arrayWithObjects:_redString,
-                                  _greenString,
-                                  _yellowString, nil], _blueString,
-                                 [NSArray arrayWithObjects:_redString,
-                                  _blueString,
-                                  _greenString, nil], _yellowString,
-                                 [NSArray arrayWithObjects:_redString,
-                                  _blueString,
-                                  _yellowString, nil], _greenString, nil];
+    _allColors = @[[[ORKStroopColor alloc] initWithIdentifier:ORKStroopColorIdentifierRed],
+                   [[ORKStroopColor alloc] initWithIdentifier:ORKStroopColorIdentifierGreen],
+                   [[ORKStroopColor alloc] initWithIdentifier:ORKStroopColorIdentifierBlue],
+                   [[ORKStroopColor alloc] initWithIdentifier:ORKStroopColorIdentifierYellow]];
 
     self.questionNumber = 0;
     _stroopContentView = [ORKStroopContentView new];
@@ -136,8 +99,6 @@ typedef NS_ENUM(NSInteger, ORKStroopTextStyle) {
           userInfo:nil
            repeats:NO];
     }
-    
-
     
     self.activeStepView.activeCustomView = _stroopContentView;
     self.activeStepView.stepViewFillsAvailableSpace = YES;
@@ -157,21 +118,22 @@ typedef NS_ENUM(NSInteger, ORKStroopTextStyle) {
 }
 
 - (void)buttonPressed:(id)sender {
-    if (![self.stroopContentView.colorLabelText isEqualToString:@" "]) {
+    NSString *colorLabelText = self.stroopContentView.colorLabelAttributedText.string;
+    if (![colorLabelText isEqualToString:@" "]) {
         [self setButtonsDisabled];
         if (sender == self.stroopContentView.RButton) {
-            [self createResult:self.stroopContentView.colorLabelText withColorSelected:_redString];
+            [self createResultWithSelectedColorIdentifier:ORKStroopColorIdentifierRed];
         }
         else if (sender == self.stroopContentView.GButton) {
-            [self createResult:self.stroopContentView.colorLabelText withColorSelected:_greenString];
+            [self createResultWithSelectedColorIdentifier:ORKStroopColorIdentifierGreen];
         }
         else if (sender == self.stroopContentView.BButton) {
-            [self createResult:self.stroopContentView.colorLabelText withColorSelected:_blueString];
+            [self createResultWithSelectedColorIdentifier:ORKStroopColorIdentifierBlue];
         }
         else if (sender == self.stroopContentView.YButton) {
-            [self createResult:self.stroopContentView.colorLabelText withColorSelected:_yellowString];
+            [self createResultWithSelectedColorIdentifier:ORKStroopColorIdentifierYellow];
         }
-        self.stroopContentView.colorLabelText = @" ";
+        self.stroopContentView.colorLabelAttributedText = [[NSAttributedString alloc] initWithString:@" "];
         _nextQuestionTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
                                                              target:self
                                                            selector:@selector(startNextQuestionOrFinish)
@@ -244,20 +206,34 @@ typedef NS_ENUM(NSInteger, ORKStroopTextStyle) {
 
 #pragma mark - ORKResult
 
-- (void)createResult:(NSString *)text withColorSelected:(NSString *)colorSelected {
+- (void)createResultWithSelectedColorIdentifier:(NSString *)colorIdentifier {
     ORKStroopResult *stroopResult = [[ORKStroopResult alloc] initWithIdentifier:self.step.identifier];
     stroopResult.startTime = _startTime;
     stroopResult.endTime =  [NSProcessInfo processInfo].systemUptime;
-    stroopResult.color = _textOrBoxColorString;
-    stroopResult.text = text;
-    stroopResult.colorSelected = colorSelected;
-    stroopResult.stroopStyle = _singleTestStroopStyle;
+    stroopResult.color = self.currentTest.color.title;
+    stroopResult.text = self.currentTest.text.title;
+    stroopResult.colorSelected = colorIdentifier;
+    switch (self.currentTest.stroopStyle) {
+        case ORKStroopStyleBox:
+            stroopResult.stroopStyle = @"box";
+            break;
+        case ORKStroopStyleBlackText:
+        case ORKStroopStyleColoredText:
+            stroopResult.stroopStyle = @"text";
+            break;
+        case ORKStroopStyleColoredTextRandomlyUnderlined:
+            stroopResult.stroopStyle = @"text-underlined";
+            break;
+        default:
+            break;
+    }
     [_results addObject:stroopResult];
 }
 
 - (void)startNextQuestionOrFinish {
     self.questionNumber = self.questionNumber + 1;
-    if (self.questionNumber == ([self stroopStep].numberOfAttempts)) {
+    NSInteger numberOfAttempts = ([self stroopStep].stroopTests.count > 0) ? [self stroopStep].stroopTests.count : [self stroopStep].numberOfAttempts;
+    if (self.questionNumber == numberOfAttempts) {
         [self finish];
     } else {
         [self startQuestion];
@@ -265,75 +241,73 @@ typedef NS_ENUM(NSInteger, ORKStroopTextStyle) {
 }
 
 - (void)startQuestion {
-    ORKStroopStep *stroopStep = (ORKStroopStep *)self.step;
-    switch (stroopStep.stroopStyle) {
-        case ORKStroopStyleColoredText: {
-            if ([self stroopStep].randomizeVisualAndColorAlignment && (arc4random() % 2 == 0)) {
-                [self configureText:ORKStroopTextStyleDiscordantColor];
-            } else {
-                [self configureText:ORKStroopTextStyleMatchingColor];
-            }
-            break;
-        }
-        case ORKStroopStyleBlackText:
-            [self configureText:ORKStroopTextStyleAlwaysBlack];
-            break;
-        case ORKStroopStyleBox:
-            [self configureBox];
-            break;
-        case ORKStroopStyleRandomizeColoredTextOrBox: {
-            int textOrBox = arc4random() % 2;
-            if (textOrBox == 0) {
-                [self configureBox];
-            } else {
-                if ([self stroopStep].randomizeVisualAndColorAlignment && (arc4random() % 2 == 0)) {
-                    [self configureText:ORKStroopTextStyleDiscordantColor];
-                } else {
-                    [self configureText:ORKStroopTextStyleMatchingColor];
-                }
-            }
-        }
-        default:
-            break;
+    if ([self stroopStep].stroopTests.count > 0) {
+        self.currentTest = [self stroopStep].stroopTests[self.questionNumber];
+    } else {
+        self.currentTest = [self randomizeTest];
     }
+    [self drawTest:self.currentTest];
     [self setButtonsEnabled];
     _startTime = [NSProcessInfo processInfo].systemUptime;
 }
 
-- (void)configureBox {
-    int randomIndex = arc4random() % [self.colors.allKeys count];
-    _textOrBoxColorString = [self.colors.allKeys objectAtIndex:randomIndex];
-    _singleTestStroopStyle = @"box";
-    self.stroopContentView.colorLabelText = _textOrBoxColorString;
-    [self.stroopContentView setColor:self.colors[_textOrBoxColorString] isText:NO];
-}
-
-- (void)configureText:(ORKStroopTextStyle)textStyle {
-    int randomColorIndex = arc4random() % [self.colors.allKeys count];
-    _textOrBoxColorString = [self.colors.allKeys objectAtIndex:randomColorIndex];
-    
-    switch (textStyle) {
-        case ORKStroopTextStyleAlwaysBlack:
-            self.stroopContentView.colorLabelText = _textOrBoxColorString;
-            [self.stroopContentView setColor:[UIColor blackColor] isText:YES];
-            _textOrBoxColorString = _blackString;
+- (ORKStroopTest *)randomizeTest {
+    ORKStroopTest *randomizedTest = [[ORKStroopTest alloc] init];
+    ORKStroopStep *stroopStep = [self stroopStep];
+    switch (stroopStep.stroopStyle) {
+        case ORKStroopStyleBox:
+            randomizedTest.stroopStyle = ORKStroopStyleBox;
+            randomizedTest.color = _allColors[arc4random_uniform((uint32_t)_allColors.count)];
+            randomizedTest.text = randomizedTest.color;
             break;
-        case ORKStroopTextStyleMatchingColor:
-            self.stroopContentView.colorLabelText = _textOrBoxColorString;
-            [self.stroopContentView setColor:self.colors[_textOrBoxColorString] isText:YES];
+        case ORKStroopStyleBlackText:
+            randomizedTest.stroopStyle = ORKStroopStyleBlackText;
+            randomizedTest.color = [[ORKStroopColor alloc] initWithIdentifier:ORKStroopColorIdentifierBlack];
+            randomizedTest.text = _allColors[arc4random_uniform((uint32_t)_allColors.count)];
             break;
-        case ORKStroopTextStyleDiscordantColor: {
-            int alternateColorTextIndex = arc4random() % [self.differentColorLabels[_textOrBoxColorString] count];
-            self.stroopContentView.colorLabelText = [self.differentColorLabels[_textOrBoxColorString] objectAtIndex:alternateColorTextIndex];
-            [self.stroopContentView setColor:self.colors[_textOrBoxColorString] isText:YES];
+        case ORKStroopStyleColoredText:
+            randomizedTest.stroopStyle = ORKStroopStyleColoredText;
+            randomizedTest.color = _allColors[arc4random_uniform((uint32_t)_allColors.count)];
+            if (randomBoolWithTrueProbability(stroopStep.probabilityOfVisualAndColorAlignment)) {
+                randomizedTest.text = randomizedTest.color;
+            } else {
+                NSMutableArray<ORKStroopColor *> *colorsLeft = [_allColors mutableCopy];
+                [colorsLeft removeObject:randomizedTest.color];
+                randomizedTest.text = colorsLeft[arc4random_uniform((uint32_t)colorsLeft.count)];
+            }
             break;
-        }
+        case ORKStroopStyleColoredTextRandomlyUnderlined:
+            if (randomBoolWithTrueProbability(@(0.5))) {
+                randomizedTest.stroopStyle = ORKStroopStyleColoredTextRandomlyUnderlined;
+            } else {
+                randomizedTest.stroopStyle = ORKStroopStyleColoredText;
+            }
+            randomizedTest.color = _allColors[arc4random_uniform((uint32_t)_allColors.count)];
+            if (randomBoolWithTrueProbability(stroopStep.probabilityOfVisualAndColorAlignment)) {
+                randomizedTest.text = randomizedTest.color;
+            } else {
+                NSMutableArray<ORKStroopColor *> *colorsLeft = [_allColors mutableCopy];
+                [colorsLeft removeObject:randomizedTest.color];
+                randomizedTest.text = colorsLeft[arc4random_uniform((uint32_t)colorsLeft.count)];
+            }
+            break;
         default:
             break;
     }
-    _singleTestStroopStyle = @"text";
+    return randomizedTest;
 }
 
+- (void)drawTest:(ORKStroopTest *)test {
+    self.stroopContentView.colorLabelAttributedText = [self attributedText:test.text.title isUnderlined:(test.stroopStyle == ORKStroopStyleColoredTextRandomlyUnderlined)];
+    [self.stroopContentView setColor:test.color.color isText:(test.stroopStyle != ORKStroopStyleBox)];
+}
+
+- (NSAttributedString *)attributedText:(NSString *)text isUnderlined:(BOOL)isUnderlined {
+    NSDictionary *attributes = isUnderlined
+        ? @{NSFontAttributeName : [UIFont systemFontOfSize:60], NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)}
+        : @{NSFontAttributeName : [UIFont systemFontOfSize:60]};
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
 
 - (void)setButtonsDisabled {
     [self.stroopContentView.RButton setEnabled: NO];

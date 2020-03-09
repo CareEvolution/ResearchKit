@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ORKStroopContentView : ORKActiveStepCustomView
 
-@property (nonatomic) NSString * colorLabelText;
+@property (nonatomic) NSAttributedString * colorLabelAttributedText;
 @property (nonatomic) ORKBorderedButton * RButton;
 @property (nonatomic) ORKBorderedButton * GButton;
 @property (nonatomic) ORKBorderedButton * BButton;
