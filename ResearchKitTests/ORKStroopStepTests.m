@@ -22,7 +22,7 @@
     NSInteger trueCount = 0;
     ORKStroopStep *stroopStep = (ORKStroopStep *)stroopVC.step;
     for (NSInteger trialIdx = 0; trialIdx < trialCount; trialIdx++) {
-        if ([stroopVC randomBoolWithTrueProbability:stroopStep.probabilityOfVisualAndColorAlignment]) {
+        if (randomBoolWithTrueProbability(stroopStep.probabilityOfVisualAndColorAlignment)) {
             trueCount++;
         }
     }

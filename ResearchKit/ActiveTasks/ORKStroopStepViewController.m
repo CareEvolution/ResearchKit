@@ -232,7 +232,7 @@
 
 - (void)startNextQuestionOrFinish {
     self.questionNumber = self.questionNumber + 1;
-    NSInteger numberOfAttempts = ([self stroopStep].nonRandomizedTests.count > 0) ? [self stroopStep].nonRandomizedTests.count : [self stroopStep].numberOfAttempts;
+    NSInteger numberOfAttempts = ([self stroopStep].stroopTests.count > 0) ? [self stroopStep].stroopTests.count : [self stroopStep].numberOfAttempts;
     if (self.questionNumber == numberOfAttempts) {
         [self finish];
     } else {
@@ -241,8 +241,8 @@
 }
 
 - (void)startQuestion {
-    if ([self stroopStep].nonRandomizedTests.count > 0) {
-        self.currentTest = [self stroopStep].nonRandomizedTests[self.questionNumber];
+    if ([self stroopStep].stroopTests.count > 0) {
+        self.currentTest = [self stroopStep].stroopTests[self.questionNumber];
     } else {
         self.currentTest = [self randomizeTest];
     }
@@ -268,7 +268,7 @@
         case ORKStroopStyleColoredText:
             randomizedTest.stroopStyle = ORKStroopStyleColoredText;
             randomizedTest.color = _allColors[arc4random_uniform((uint32_t)_allColors.count)];
-            if ([self randomBoolWithTrueProbability:stroopStep.probabilityOfVisualAndColorAlignment]) {
+            if (randomBoolWithTrueProbability(stroopStep.probabilityOfVisualAndColorAlignment)) {
                 randomizedTest.text = randomizedTest.color;
             } else {
                 NSMutableArray<ORKStroopColor *> *colorsLeft = [_allColors mutableCopy];
@@ -277,13 +277,13 @@
             }
             break;
         case ORKStroopStyleColoredTextRandomlyUnderlined:
-            if ([self randomBoolWithTrueProbability:@(0.5)]) {
+            if (randomBoolWithTrueProbability(@(0.5))) {
                 randomizedTest.stroopStyle = ORKStroopStyleColoredTextRandomlyUnderlined;
             } else {
                 randomizedTest.stroopStyle = ORKStroopStyleColoredText;
             }
             randomizedTest.color = _allColors[arc4random_uniform((uint32_t)_allColors.count)];
-            if ([self randomBoolWithTrueProbability:stroopStep.probabilityOfVisualAndColorAlignment]) {
+            if (randomBoolWithTrueProbability(stroopStep.probabilityOfVisualAndColorAlignment)) {
                 randomizedTest.text = randomizedTest.color;
             } else {
                 NSMutableArray<ORKStroopColor *> *colorsLeft = [_allColors mutableCopy];
@@ -300,12 +300,6 @@
 - (void)drawTest:(ORKStroopTest *)test {
     self.stroopContentView.colorLabelAttributedText = [self attributedText:test.text.title isUnderlined:(test.stroopStyle == ORKStroopStyleColoredTextRandomlyUnderlined)];
     [self.stroopContentView setColor:test.color.color isText:(test.stroopStyle != ORKStroopStyleBox)];
-}
-
-- (BOOL)randomBoolWithTrueProbability:(NSNumber * __nonnull)trueProbability {
-    const UInt32 precision = 1000;
-    UInt32 random = arc4random_uniform(precision);
-    return (double)random < ((double)precision * trueProbability.doubleValue);
 }
 
 - (NSAttributedString *)attributedText:(NSString *)text isUnderlined:(BOOL)isUnderlined {

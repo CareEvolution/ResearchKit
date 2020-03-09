@@ -42,7 +42,7 @@ ORK_EXTERN NSString *const ORKStroopColorIdentifierYellow ORK_AVAILABLE_DECL;
 ORK_EXTERN NSString *const ORKStroopColorIdentifierBlack ORK_AVAILABLE_DECL;
 
 ORK_CLASS_AVAILABLE
-@interface ORKStroopColor : NSObject
+@interface ORKStroopColor : NSObject <NSSecureCoding, NSCopying>
 
 - (instancetype __nullable)initWithIdentifier:(NSString *)identifier;
 
@@ -53,7 +53,7 @@ ORK_CLASS_AVAILABLE
 
 
 ORK_CLASS_AVAILABLE
-@interface ORKStroopTest : NSObject
+@interface ORKStroopTest : NSObject <NSSecureCoding, NSCopying>
 /**
  The `color` property is the color of the question string.
  */
@@ -105,7 +105,7 @@ ORK_CLASS_AVAILABLE
  to provide a specific practice example set. If set, this overrides the randomizeVisualAndColorAlignment,
  stroopStyle and numberOfAttempts properties.
  */
-@property (nonatomic, strong, nullable) NSArray<ORKStroopTest *> *nonRandomizedTests;
+@property (nonatomic, strong, nullable) NSArray<ORKStroopTest *> *stroopTests;
 
 @end
 

@@ -69,10 +69,82 @@ NSString *const ORKStroopColorIdentifierBlack = @"BLACK";
     }
     return nil;
 }
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([self class] != [object class]) {
+        return NO;
+    }
+    
+    __typeof(self) castObject = object;
+    return ORKEqualObjects(self.color, castObject.color)
+            && ORKEqualObjects(self.title, castObject.title);
+}
+
+- (NSUInteger)hash {
+    // Ignore the task reference - it's not part of the content of the step
+        return _color.hash ^ _title.hash;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        ORK_DECODE_OBJ_CLASS(aDecoder, color, UIColor);
+        ORK_DECODE_OBJ_CLASS(aDecoder, title, NSString);    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    ORK_ENCODE_OBJ(aCoder, color);
+    ORK_ENCODE_OBJ(aCoder, title);
+}
+ 
 @end
+            
 
 @implementation ORKStroopTest
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([self class] != [object class]) {
+        return NO;
+    }
+    
+    __typeof(self) castObject = object;
+    return ORKEqualObjects(self.color, castObject.color)
+            && ORKEqualObjects(self.text, castObject.text)
+            && self.stroopStyle == castObject.stroopStyle;
+}
+
+- (NSUInteger)hash {
+    // Ignore the task reference - it's not part of the content of the step
+        return _color.hash ^ _text.hash ^ _stroopStyle;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        ORK_DECODE_OBJ_CLASS(aDecoder, color, ORKStroopColor);
+        ORK_DECODE_OBJ_CLASS(aDecoder, text, ORKStroopColor);
+        ORK_DECODE_ENUM(aDecoder, stroopStyle);
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    ORK_ENCODE_OBJ(aCoder, color);
+    ORK_ENCODE_OBJ(aCoder, text);
+    ORK_ENCODE_ENUM(aCoder, stroopStyle);
+}
+
 @end
+
 
 @implementation ORKStroopStep
 
@@ -120,7 +192,7 @@ NSString *const ORKStroopColorIdentifierBlack = @"BLACK";
     step.probabilityOfVisualAndColorAlignment = self.probabilityOfVisualAndColorAlignment;
     step.stroopStyle = self.stroopStyle;
     step.useGridLayoutForButtons = self.useGridLayoutForButtons;
-    step.nonRandomizedTests = self.nonRandomizedTests;
+    step.stroopTests = self.stroopTests;
     return step;
 }
 
@@ -131,7 +203,7 @@ NSString *const ORKStroopColorIdentifierBlack = @"BLACK";
         ORK_DECODE_OBJ(aDecoder, probabilityOfVisualAndColorAlignment);
         ORK_DECODE_ENUM(aDecoder, stroopStyle);
         ORK_DECODE_BOOL(aDecoder, useGridLayoutForButtons);
-        ORK_DECODE_OBJ_ARRAY(aDecoder, nonRandomizedTests, [ORKStroopTest class]);
+        ORK_DECODE_OBJ_ARRAY(aDecoder, stroopTests, [ORKStroopTest class]);
     }
     return self;
 }
@@ -142,7 +214,7 @@ NSString *const ORKStroopColorIdentifierBlack = @"BLACK";
     ORK_ENCODE_OBJ(aCoder, probabilityOfVisualAndColorAlignment);
     ORK_ENCODE_ENUM(aCoder, stroopStyle);
     ORK_ENCODE_BOOL(aCoder, useGridLayoutForButtons);
-    ORK_ENCODE_OBJ(aCoder, nonRandomizedTests);
+    ORK_ENCODE_OBJ(aCoder, stroopTests);
 }
 
 - (BOOL)isEqual:(id)object {
@@ -153,7 +225,7 @@ NSString *const ORKStroopColorIdentifierBlack = @"BLACK";
             && [self.probabilityOfVisualAndColorAlignment isEqual:castObject.probabilityOfVisualAndColorAlignment]
             && (self.stroopStyle == castObject.stroopStyle)
             && (self.useGridLayoutForButtons == castObject.useGridLayoutForButtons)
-            && [self.nonRandomizedTests isEqual:castObject.nonRandomizedTests]);
+            && [self.stroopTests isEqual:castObject.stroopTests]);
 }
 
 @end
