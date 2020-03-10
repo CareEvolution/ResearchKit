@@ -94,6 +94,8 @@
     return NO;
 }
 
+- (void)stepIsNavigatingForward { };
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
