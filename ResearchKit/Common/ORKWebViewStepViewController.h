@@ -34,6 +34,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+ORK_CLASS_AVAILABLE
 @interface ORKWebViewPreloader : NSObject
 + (instancetype)shared;
 - (void)preload:(NSString *)htmlString forKey:(NSString *)key;
@@ -47,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
  You should not need to instantiate a web view step view controller directly. Instead, include
  a web view step in a task, and present a task view controller for that task.
  */
+ORK_CLASS_AVAILABLE
 @interface ORKWebViewStepViewController : ORKStepViewController<WKScriptMessageHandler, WKNavigationDelegate>
 @property (nonatomic, strong, readonly) WKWebView *webView;
 @property (nonatomic, strong) id<WKScriptMessageHandler> scriptMessageHandler;
