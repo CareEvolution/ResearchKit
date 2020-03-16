@@ -179,7 +179,8 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
 
 - (void)configureTitle {
     NSString *format = ORKLocalizedString(@"REACTION_TIME_TASK_ATTEMPTS_FORMAT", nil);
-    NSString *text = [[NSString stringWithFormat: @"%@\n",ORKLocalizedString(@"REACTION_TIME_NORMALIZED_TASK_ACTIVE_STEP_TITLE", nil)] stringByAppendingString: [NSString stringWithFormat:format, ORKLocalizedStringFromNumber(@(_results.count + 1)), ORKLocalizedStringFromNumber(@([self reactionTimeStep].numberOfAttempts))]];
+    NSString *prefix = self.step.text ?: ORKLocalizedString(@"REACTION_TIME_NORMALIZED_TASK_ACTIVE_STEP_TITLE", nil);
+    NSString *text = [[NSString stringWithFormat: @"%@\n", prefix] stringByAppendingString: [NSString stringWithFormat:format, ORKLocalizedStringFromNumber(@(_results.count + 1)), ORKLocalizedStringFromNumber(@([self reactionTimeStep].numberOfAttempts))]];
                       [self.activeStepView updateTitle:nil text:text];
 }
 
