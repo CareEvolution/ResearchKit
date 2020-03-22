@@ -381,12 +381,33 @@
     
     // Reset skipped flag - result can now be non-empty
     _skipped = NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:ORKUpdateChoiceCell object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+        UITableViewCell *cell = (UITableViewCell *)note.userInfo[ORKUpdateChoiceCellKeyCell];
+        if ([cell isKindOfClass:[UITableViewCell class]]) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            [self adjustUIforChangesToDetailTextAtIndexPath:indexPath];
+        }
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
 }
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ORKUpdateChoiceCell object:nil];
+}
+
+- (void)adjustUIforChangesToDetailTextAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView beginUpdates];
+    ORKTableSection *section = _sections[indexPath.section];
+    [section.textChoiceCellGroup updateLabelsForCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]] atIndex:indexPath.row];
+    [self.tableView endUpdates];
+}
+
 
 - (void)updateDefaults:(NSMutableDictionary *)defaults {
     _savedDefaults = defaults;
@@ -1179,7 +1200,9 @@
 
     if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ORKChoiceViewCell class]]) {
     ORKTableCellItem *cellItem = ([_sections[indexPath.section] items][indexPath.row]);
-        return [ORKChoiceViewCell suggestedCellHeightForShortText:cellItem.choice.text LongText:cellItem.choice.detailText inTableView:_tableView];
+        return [ORKChoiceViewCell suggestedCellHeightForShortText:cellItem.choice.text
+                                                         LongText:(cellItem.choice.detailTextShouldDisplay) ? cellItem.choice.detailText : nil
+                                                      inTableView:_tableView];
     }
     return UITableViewAutomaticDimension;
 }

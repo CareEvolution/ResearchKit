@@ -36,16 +36,22 @@
 
 #import "ORK1Accessibility.h"
 #import "ORK1Helpers_Internal.h"
+#import "ORK1AnswerFormat_Internal.h"
 #import "ORK1Skin.h"
 
+NSNotificationName const ORK1UpdateChoiceCell = @"ORK1UpdateChoiceCell";
+NSString const *ORK1UpdateChoiceCellKeyCell = @"ORK1UpdateChoiceCellKeyCell";
 
 static const CGFloat LabelRightMargin = 44.0;
+static const CGFloat DetailTextIndicatorWidth = 15.0;
+static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
 
 
 @implementation ORK1ChoiceViewCell {
     UIImageView *_checkView;
     ORK1SelectionTitleLabel *_shortLabel;
     ORK1SelectionSubTitleLabel *_longLabel;
+    UIButton *_detailTextIndicator;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -54,6 +60,7 @@ static const CGFloat LabelRightMargin = 44.0;
         self.clipsToBounds = YES;
         _checkView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"checkmark" inBundle:ORK1Bundle() compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         self.accessoryView = _checkView;
+        self.showDetailTextIndicator = NO;
     }
     return self;
 }
@@ -67,13 +74,19 @@ static const CGFloat LabelRightMargin = 44.0;
     CGFloat cellLeftMargin = self.separatorInset.left;
 
     CGFloat labelWidth =  self.bounds.size.width - (cellLeftMargin + LabelRightMargin);
+    CGFloat shortLabelTextWidth = [self.shortLabel.text sizeWithAttributes:@{NSFontAttributeName : ORK1SelectionTitleLabel.defaultFont}].width;
+    shortLabelTextWidth = (shortLabelTextWidth > labelWidth) ? labelWidth - (DetailTextIndicatorWidth + DetailTextIndicatorPaddingFromLabel) : shortLabelTextWidth;  // word wrapping will have occurred
+    
     CGFloat cellHeight = self.bounds.size.height;
+    
+    [self detailTextIndicator].hidden = !self.showDetailTextIndicator;
     
     if (self.longLabel.text.length == 0 && self.shortLabel.text.length == 0) {
         self.shortLabel.frame = CGRectZero;
         self.longLabel.frame = CGRectZero;
     } else if (self.longLabel.text.length == 0) {
         self.shortLabel.frame = CGRectMake(cellLeftMargin, 0, labelWidth, cellHeight);
+        self.detailTextIndicator.frame = CGRectMake(cellLeftMargin + shortLabelTextWidth + DetailTextIndicatorPaddingFromLabel, self.shortLabel.frame.size.height / 2 - DetailTextIndicatorWidth / 2, DetailTextIndicatorWidth, DetailTextIndicatorWidth);
         self.longLabel.frame = CGRectZero;
     } else if (self.shortLabel.text.length == 0) {
         self.longLabel.frame = CGRectMake(cellLeftMargin, 0, labelWidth, cellHeight);
@@ -91,6 +104,7 @@ static const CGFloat LabelRightMargin = 44.0;
             
             rect.origin.y = firstBaselineOffsetFromTop - shortLabelFirstBaselineApproximateOffsetFromTop;
             self.shortLabel.frame = rect;
+            self.detailTextIndicator.frame = CGRectMake(cellLeftMargin + shortLabelTextWidth + 10, self.shortLabel.frame.size.height / 2 + 13, DetailTextIndicatorWidth, DetailTextIndicatorWidth);
         }
         
         {
@@ -130,6 +144,21 @@ static const CGFloat LabelRightMargin = 44.0;
         [self.contentView addSubview:_longLabel];
     }
     return _longLabel;
+}
+
+- (UIButton *)detailTextIndicator {
+    if (_detailTextIndicator == nil) {
+        _detailTextIndicator = [UIButton buttonWithType:UIButtonTypeInfoDark];
+        [self.contentView addSubview:_detailTextIndicator];
+        [_detailTextIndicator addTarget:self action:@selector(toggleDetailText) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _detailTextIndicator;
+}
+
+- (void)toggleDetailText {
+    self.choice.detailTextShouldDisplay = !self.choice.detailTextShouldDisplay;
+    NSNotification *notification = [NSNotification notificationWithName:ORK1UpdateChoiceCell object:nil userInfo:@{ORK1UpdateChoiceCellKeyCell : self}];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (void)tintColorDidChange {

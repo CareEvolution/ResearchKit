@@ -35,6 +35,7 @@
 #import "ORK1StepHeaderView.h"
 #import "ORK1VerticalContainerView_Internal.h"
 
+#import "ORK1ChoiceViewCell.h"
 #import "ORK1Helpers_Internal.h"
 #import "ORK1Skin.h"
 
@@ -56,6 +57,8 @@
     BOOL _keyboardIsUp;
     
     UIScrollView *_scrollView;
+    
+    CGFloat _lastScrollViewContentHeight;
     
     UITapGestureRecognizer *_tapOffGestureRecognizer;
 }
@@ -157,6 +160,8 @@
         _realFooterView.frame = footerBounds;
         _tableView.tableFooterView = _realFooterView;
     }
+    
+    _lastScrollViewContentHeight = _scrollView.contentSize.height;
 }
 
 - (void)updateBottomConstraintConstant {
@@ -255,6 +260,30 @@
         [nfc removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
     }
     
+}
+
+- (void)adjustBottomConstraintWithExpectedOffset:(CGFloat)offset {
+    _continueSkipContainerView.alpha = 0;
+    _bottomConstraint.constant -= offset;
+    [self performSelector:@selector(showButton) withObject:nil afterDelay:0.3];
+}
+
+- (void)showButton {
+    [UIView animateWithDuration:0.2 animations:^{
+        _continueSkipContainerView.alpha = 1;
+    }];
+}
+
+- (void)adjustBottomConstraintBasedOnLastContentSize {
+    _continueSkipContainerView.alpha = 0;
+    double delayInSeconds = 0.3;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        CGFloat diff = _scrollView.contentSize.height - _lastScrollViewContentHeight;
+        _bottomConstraint.constant -= diff;
+        _lastScrollViewContentHeight = _scrollView.contentSize.height;
+        [self showButton];
+    });
 }
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {

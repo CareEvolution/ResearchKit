@@ -176,6 +176,12 @@ ORK1_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORK1WeightAnswerFormat)
 
 @interface ORK1TextChoice () <ORK1AnswerOption>
 
+/**
+ Used to store state when ORK1ChoiceDescriptionStyle == ORK1ChoiceDescriptionStyleDisplayWhenExpanded
+ */
+
+@property (nonatomic) BOOL detailTextShouldDisplay;
+
 @end
 
 @interface ORK1ValuePickerAnswerFormat ()

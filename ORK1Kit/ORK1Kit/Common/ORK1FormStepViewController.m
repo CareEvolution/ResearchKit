@@ -382,6 +382,51 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:ORK1UpdateChoiceCell object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+        UITableViewCell *cell = (UITableViewCell *)note.userInfo[ORK1UpdateChoiceCellKeyCell];
+        if ([cell isKindOfClass:[UITableViewCell class]]) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            [self adjustUIforChangesToDetailTextAtIndexPath:indexPath];
+        }
+       }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ORK1UpdateChoiceCell object:nil];
+}
+
+- (void)adjustUIforChangesToDetailTextAtIndexPath:(NSIndexPath *)indexPath {
+    
+    /*
+     Due to the complexity of the layout, animating the expansion and contaction of the textDetail will
+     move the continue button up or down out of ideal position. To prevent this, we calculate the expected
+     difference in tableView size and pass this to the ORK1TableContainerView which will hide the continue
+     button, adjust the constraint and then animate the button alpha to 1.
+     */
+    
+    [self.tableView beginUpdates];
+    
+    ORK1TableSection *section = _sections[indexPath.section];
+    ORK1FormItem *formItem = section.formItems[0];
+    ORK1TextChoiceAnswerFormat *format = (ORK1TextChoiceAnswerFormat *) formItem.answerFormat;
+    if (![format isKindOfClass:[ORK1TextChoiceAnswerFormat class]]) {
+        [self.tableView endUpdates];
+        return;
+    }
+    ORK1TextChoice *choice = format.textChoices[indexPath.row];
+    
+    NSString *longText = !choice.detailTextShouldDisplay ? choice.detailText : nil;
+    CGFloat sizeBeforeResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text LongText:longText inTableView:self.tableView];
+    
+    [section.textChoiceCellGroup updateLabelsForCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]] atIndex:indexPath.row];
+    
+    longText = choice.detailTextShouldDisplay ? choice.detailText : nil;
+    CGFloat sizeAfterResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text LongText:longText inTableView:self.tableView];
+    
+    [_tableContainer adjustBottomConstraintWithExpectedOffset:(sizeAfterResize - sizeBeforeResize)];
+    [self.tableView endUpdates];
 }
 
 - (void)updateDefaults:(NSMutableDictionary *)defaults {
@@ -723,6 +768,8 @@
             [_tableView reloadSections:sectionsToUpdateCells withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
+    
+    [_tableContainer adjustBottomConstraintBasedOnLastContentSize];
 }
 
 - (NSIndexPath *)unhiddenIndexPathForIndexPath:(NSIndexPath *)hiddenIndexPath {
@@ -1031,7 +1078,9 @@
     ORK1TableCellItem *cellItem = ([_sections[indexPath.section] items][indexPath.row]);
     CGFloat cellHeight = [_hiddenCellItems containsObject:cellItem] ? 0 : UITableViewAutomaticDimension;
     if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ORK1ChoiceViewCell class]]) {
-        return [ORK1ChoiceViewCell suggestedCellHeightForShortText:cellItem.choice.text LongText:cellItem.choice.detailText inTableView:_tableView];
+        return [ORK1ChoiceViewCell suggestedCellHeightForShortText:cellItem.choice.text
+                                                          LongText:(cellItem.choice.detailTextShouldDisplay) ? cellItem.choice.detailText : nil
+                                                       inTableView:_tableView];
     }
     return cellHeight;
 }

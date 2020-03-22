@@ -1006,6 +1006,7 @@ static NSArray *ork_processTextChoices(NSArray<ORKTextChoice *> *textChoices) {
 
 + (instancetype)choiceWithText:(NSString *)text detailText:(NSString *)detailText value:(id<NSCopying, NSCoding, NSObject>)value exclusive:(BOOL)exclusive {
     ORKTextChoice *option = [[ORKTextChoice alloc] initWithText:text detailText:detailText value:value exclusive:exclusive];
+    option.detailTextShouldDisplay = YES;
     return option;
 }
 
@@ -1020,6 +1021,7 @@ static NSArray *ork_processTextChoices(NSArray<ORKTextChoice *> *textChoices) {
         _detailText = [detailText copy];
         _value = value;
         _exclusive = exclusive;
+        _detailTextShouldDisplay = YES;
     }
     return self;
 }
@@ -1042,7 +1044,8 @@ static NSArray *ork_processTextChoices(NSArray<ORKTextChoice *> *textChoices) {
     return (ORKEqualObjects(self.text, castObject.text)
             && ORKEqualObjects(self.detailText, castObject.detailText)
             && ORKEqualObjects(self.value, castObject.value)
-            && self.exclusive == castObject.exclusive);
+            && self.exclusive == castObject.exclusive
+            && self.detailTextShouldDisplay == castObject.detailTextShouldDisplay);
 }
 
 - (NSUInteger)hash {
@@ -1057,6 +1060,7 @@ static NSArray *ork_processTextChoices(NSArray<ORKTextChoice *> *textChoices) {
         ORK_DECODE_OBJ_CLASS(aDecoder, detailText, NSString);
         ORK_DECODE_OBJ(aDecoder, value);
         ORK_DECODE_BOOL(aDecoder, exclusive);
+        ORK_DECODE_BOOL(aDecoder, detailTextShouldDisplay);
     }
     return self;
 }
@@ -1066,6 +1070,7 @@ static NSArray *ork_processTextChoices(NSArray<ORKTextChoice *> *textChoices) {
     ORK_ENCODE_OBJ(aCoder, value);
     ORK_ENCODE_OBJ(aCoder, detailText);
     ORK_ENCODE_BOOL(aCoder, exclusive);
+    ORK_ENCODE_BOOL(aCoder, detailTextShouldDisplay);
 }
 
 @end

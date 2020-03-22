@@ -140,6 +140,25 @@ typedef NS_ENUM(NSInteger, ORK1ChoiceAnswerStyle) {
     ORK1ChoiceAnswerStyleMultipleChoice
 } ORK1_ENUM_AVAILABLE;
 
+/**
+ An enumeration of how to display detailText/description
+ */
+typedef NS_ENUM(NSInteger, ORK1ChoiceDescriptionStyle) {
+    /**
+     No detailText/description appears
+     */
+    ORK1ChoiceDescriptionStyleNone,
+    
+    /**
+     The detailText/description always appears under the answer choice
+     */
+    ORK1ChoiceDescriptionStyleDisplayAlways,
+    
+    /**
+     The detailText/description only shows when it is expanded
+     */
+    ORK1ChoiceDescriptionStyleDisplayWhenExpanded
+} ORK1_ENUM_AVAILABLE;
 
 /**
  An enumeration of the format styles available for scale answers.

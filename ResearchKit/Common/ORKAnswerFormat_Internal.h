@@ -176,6 +176,12 @@ ORK_DESIGNATE_CODING_AND_SERIALIZATION_INITIALIZERS(ORKWeightAnswerFormat)
 
 @interface ORKTextChoice () <ORKAnswerOption>
 
+/**
+ Used to store state when ORKChoiceDescriptionStyle == ORKChoiceDescriptionStyleDisplayWhenExpanded
+ */
+
+@property BOOL detailTextShouldDisplay;
+
 @end
 
 @interface ORKValuePickerAnswerFormat ()
