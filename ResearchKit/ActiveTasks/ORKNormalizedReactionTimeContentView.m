@@ -51,9 +51,9 @@ CGFloat BackgroundViewSpaceMultiplier = 2.0;
     if (self) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         [self resizeConstraints];
+        [self addButton];
         [self addStimulusView];
         [self addBackgroundView];
-        [self addButton];
     }
     return self;
 }
@@ -98,17 +98,24 @@ CGFloat BackgroundViewSpaceMultiplier = 2.0;
         [NSLayoutConstraint constraintWithItem:_button
                                      attribute:NSLayoutAttributeCenterX
                                      relatedBy:NSLayoutRelationEqual
-                                        toItem:self                                     attribute:NSLayoutAttributeCenterX
+                                        toItem:self
+                                     attribute:NSLayoutAttributeCenterX
                                     multiplier:1.0
                                       constant:0.0],
         [NSLayoutConstraint constraintWithItem:_button
-                                     attribute:NSLayoutAttributeTop
+                                     attribute:NSLayoutAttributeBottom
                                      relatedBy:NSLayoutRelationEqual
-                                        toItem:_backgroundView
+                                        toItem:self
                                      attribute:NSLayoutAttributeBottom
                                     multiplier:1.0
-                                      constant:1.0],
-
+                                      constant:20],
+        [NSLayoutConstraint constraintWithItem:self
+                                     attribute:NSLayoutAttributeHeight
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:nil
+                                     attribute:NSLayoutAttributeNotAnAttribute
+                                    multiplier:1
+                                      constant:NormalizeButtonSize * 3]
     ]];
 
 }
@@ -158,18 +165,13 @@ CGFloat BackgroundViewSpaceMultiplier = 2.0;
                                                        multiplier:1.0
                                                          constant:0.0]];
     
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:_stimulusView
-                                                        attribute:NSLayoutAttributeCenterY
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:_button
+                                                        attribute:NSLayoutAttributeTop
                                                         relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeCenterY
+                                                           toItem:_stimulusView
+                                                        attribute:NSLayoutAttributeBottom
                                                        multiplier:1.0
-                                                         constant:0.0]];
-    
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_stimulusView]-(>=0)-|"
-                                                                             options:NSLayoutFormatAlignAllCenterX
-                                                                             metrics:nil
-                                                                               views:NSDictionaryOfVariableBindings(_stimulusView)]];
+                                                         constant:NormalizeButtonSize * 0.5 + 7.0]];
     
     [NSLayoutConstraint activateConstraints:constraints];
 }
@@ -185,12 +187,12 @@ CGFloat BackgroundViewSpaceMultiplier = 2.0;
                                                                    multiplier:1.0
                                                                      constant:0.0],
                                        [NSLayoutConstraint constraintWithItem:_backgroundView
-                                                                    attribute:NSLayoutAttributeCenterY
+                                                                    attribute:NSLayoutAttributeBottom
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:_stimulusView
-                                                                    attribute:NSLayoutAttributeCenterY
+                                                                       toItem:_button
+                                                                    attribute:NSLayoutAttributeTop
                                                                    multiplier:1.0
-                                                                     constant:0.0],
+                                                                     constant:-2.0],
                                        [NSLayoutConstraint constraintWithItem:_backgroundView
                                                                     attribute:NSLayoutAttributeWidth
                                                                     relatedBy:NSLayoutRelationEqual
