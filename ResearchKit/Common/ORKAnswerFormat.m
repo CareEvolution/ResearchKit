@@ -1006,7 +1006,7 @@ static NSArray *ork_processTextChoices(NSArray<ORKTextChoice *> *textChoices) {
 
 + (instancetype)choiceWithText:(NSString *)text detailText:(NSString *)detailText value:(id<NSCopying, NSCoding, NSObject>)value exclusive:(BOOL)exclusive {
     ORKTextChoice *option = [[ORKTextChoice alloc] initWithText:text detailText:detailText value:value exclusive:exclusive];
-    option.detailTextShouldDisplay = YES;
+    option.detailTextShouldDisplay = NO;
     return option;
 }
 
@@ -1021,7 +1021,7 @@ static NSArray *ork_processTextChoices(NSArray<ORKTextChoice *> *textChoices) {
         _detailText = [detailText copy];
         _value = value;
         _exclusive = exclusive;
-        _detailTextShouldDisplay = YES;
+        _detailTextShouldDisplay = NO;
     }
     return self;
 }
