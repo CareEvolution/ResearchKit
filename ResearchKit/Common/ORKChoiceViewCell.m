@@ -44,7 +44,8 @@ NSString const *ORKUpdateChoiceCellKeyCell = @"ORKUpdateChoiceCellKeyCell";
 
 static const CGFloat LabelRightMargin = 44.0;
 static const CGFloat cardTopBottomMargin = 2.0;
-static const CGFloat DetailTextIndicatorWidth = 15.0;
+static const CGFloat DetailTextIndicatorTouchTargetWidth = 30.0;
+static const CGFloat DetailTextIndicatorImageWidth = 15.0;
 static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
 
 @interface ORKChoiceViewCell()
@@ -189,7 +190,7 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
 
     CGFloat labelWidth =  self.bounds.size.width - (cellLeftMargin + LabelRightMargin);
     CGFloat shortLabelTextWidth = [self.shortLabel.text sizeWithAttributes:@{NSFontAttributeName : ORKSelectionTitleLabel.defaultFont}].width;
-    shortLabelTextWidth = (shortLabelTextWidth > labelWidth) ? labelWidth - (DetailTextIndicatorWidth + DetailTextIndicatorPaddingFromLabel) : shortLabelTextWidth;  // word wrapping will have occurred
+    shortLabelTextWidth = (shortLabelTextWidth > labelWidth) ? labelWidth - (DetailTextIndicatorTouchTargetWidth + DetailTextIndicatorPaddingFromLabel) : shortLabelTextWidth;  // word wrapping will have occurred
     
     CGFloat cellHeight = self.bounds.size.height;
     
@@ -200,7 +201,12 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
         self.longLabel.frame = CGRectZero;
     } else if (self.longLabel.text.length == 0) {
         self.shortLabel.frame = CGRectMake(cellLeftMargin, 0, labelWidth, cellHeight);
-        self.detailTextIndicator.frame = CGRectMake(cellLeftMargin + shortLabelTextWidth + DetailTextIndicatorPaddingFromLabel, self.shortLabel.frame.size.height / 2 - DetailTextIndicatorWidth / 2, DetailTextIndicatorWidth, DetailTextIndicatorWidth);
+        self.detailTextIndicator.frame =
+        CGRectMake(
+                   cellLeftMargin + shortLabelTextWidth + DetailTextIndicatorPaddingFromLabel,
+                   self.shortLabel.frame.size.height / 2 - DetailTextIndicatorTouchTargetWidth / 2,
+                   DetailTextIndicatorTouchTargetWidth,
+                   DetailTextIndicatorTouchTargetWidth);
         self.longLabel.frame = CGRectZero;
     } else if (self.shortLabel.text.length == 0) {
         self.longLabel.frame = CGRectMake(cellLeftMargin, 0, labelWidth, cellHeight);
@@ -218,7 +224,12 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
             
             rect.origin.y = firstBaselineOffsetFromTop - shortLabelFirstBaselineApproximateOffsetFromTop;
             self.shortLabel.frame = rect;
-            self.detailTextIndicator.frame = CGRectMake(cellLeftMargin + shortLabelTextWidth + 10, self.shortLabel.frame.size.height / 2 + 13, DetailTextIndicatorWidth, DetailTextIndicatorWidth);
+            self.detailTextIndicator.frame =
+            CGRectMake(
+                       cellLeftMargin + shortLabelTextWidth + 10,
+                       self.shortLabel.frame.size.height / 2 - DetailTextIndicatorTouchTargetWidth / 2 + self.shortLabel.frame.origin.y,
+                       DetailTextIndicatorTouchTargetWidth,
+                       DetailTextIndicatorTouchTargetWidth);
         }
         
         {
@@ -274,6 +285,8 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
 - (UIButton *)detailTextIndicator {
     if (_detailTextIndicator == nil) {
         _detailTextIndicator = [UIButton buttonWithType:UIButtonTypeInfoDark];
+        CGFloat inset = (DetailTextIndicatorTouchTargetWidth - DetailTextIndicatorImageWidth) / 2;
+        _detailTextIndicator.imageEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset);
         [self.contentView addSubview:_detailTextIndicator];
         [_detailTextIndicator addTarget:self action:@selector(toggleDetailText) forControlEvents:UIControlEventTouchUpInside];
     }

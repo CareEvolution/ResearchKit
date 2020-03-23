@@ -1041,8 +1041,7 @@ static NSArray *ork_processTextChoices(NSArray<ORK1TextChoice *> *textChoices) {
     return (ORK1EqualObjects(self.text, castObject.text)
             && ORK1EqualObjects(self.detailText, castObject.detailText)
             && ORK1EqualObjects(self.value, castObject.value)
-            && self.exclusive == castObject.exclusive
-            && self.detailTextShouldDisplay == castObject.detailTextShouldDisplay);
+            && self.exclusive == castObject.exclusive);
 }
 
 - (NSUInteger)hash {
@@ -1057,7 +1056,7 @@ static NSArray *ork_processTextChoices(NSArray<ORK1TextChoice *> *textChoices) {
         ORK1_DECODE_OBJ_CLASS(aDecoder, detailText, NSString);
         ORK1_DECODE_OBJ(aDecoder, value);
         ORK1_DECODE_BOOL(aDecoder, exclusive);
-        ORK1_DECODE_BOOL(aDecoder, detailTextShouldDisplay);
+        _detailTextShouldDisplay = NO;
     }
     return self;
 }
@@ -1067,7 +1066,6 @@ static NSArray *ork_processTextChoices(NSArray<ORK1TextChoice *> *textChoices) {
     ORK1_ENCODE_OBJ(aCoder, value);
     ORK1_ENCODE_OBJ(aCoder, detailText);
     ORK1_ENCODE_BOOL(aCoder, exclusive);
-    ORK1_ENCODE_BOOL(aCoder, detailTextShouldDisplay);
 }
 
 @end

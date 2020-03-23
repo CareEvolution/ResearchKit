@@ -145,14 +145,14 @@ typedef NS_ENUM(NSInteger, ORK1ChoiceAnswerStyle) {
  */
 typedef NS_ENUM(NSInteger, ORK1ChoiceDescriptionStyle) {
     /**
-     No detailText/description appears
-     */
-    ORK1ChoiceDescriptionStyleNone,
-    
-    /**
      The detailText/description always appears under the answer choice
      */
     ORK1ChoiceDescriptionStyleDisplayAlways,
+    
+    /**
+     No detailText/description appears
+     */
+    ORK1ChoiceDescriptionStyleNone,
     
     /**
      The detailText/description only shows when it is expanded
