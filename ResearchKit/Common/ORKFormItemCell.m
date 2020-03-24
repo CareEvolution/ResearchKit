@@ -698,6 +698,9 @@ static const CGFloat HorizontalMargin = 15.0;
     self.textField.spellCheckingType = answerFormat.spellCheckingType;
     self.textField.keyboardType = answerFormat.keyboardType;
     self.textField.secureTextEntry = answerFormat.secureTextEntry;
+    if (answerFormat.secureTextEntry) {
+        ORKDisablePasswordAutofill(self.textField);
+    }
     
     [self answerDidChange];
 }
@@ -948,6 +951,9 @@ static const CGFloat HorizontalMargin = 15.0;
         _textView.spellCheckingType = textAnswerFormat.spellCheckingType;
         _textView.keyboardType = textAnswerFormat.keyboardType;
         _textView.secureTextEntry = textAnswerFormat.secureTextEntry;
+        if (textAnswerFormat.secureTextEntry) {
+            ORKDisablePasswordAutofill(_textView);
+        }
     } else {
         _maxLength = 0;
     }

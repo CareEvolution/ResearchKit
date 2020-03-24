@@ -65,6 +65,9 @@
         self.textView.spellCheckingType = textAnswerFormat.spellCheckingType;
         self.textView.keyboardType = textAnswerFormat.keyboardType;
         self.textView.secureTextEntry = textAnswerFormat.secureTextEntry;
+        if (textAnswerFormat.secureTextEntry) {
+            ORKDisablePasswordAutofill(self.textView);
+        }
     } else {
         _maxLength = 0;
     }
@@ -284,6 +287,9 @@
         self.textField.spellCheckingType = textFormat.spellCheckingType;
         self.textField.keyboardType = textFormat.keyboardType;
         self.textField.secureTextEntry = textFormat.secureTextEntry;
+        if (textFormat.secureTextEntry) {
+            ORKDisablePasswordAutofill(self.textField);
+        }
     }
     NSString *displayValue = (answer && answer != ORKNullAnswerValue()) ? answer : nil;
     

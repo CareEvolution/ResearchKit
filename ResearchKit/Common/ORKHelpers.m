@@ -553,3 +553,22 @@ NSNumberFormatter *ORKDecimalNumberFormatter() {
     numberFormatter.usesGroupingSeparator = NO;
     return numberFormatter;
 }
+
+void ORKDisablePasswordAutofill(id<UITextInputTraits> input) {
+    if (@available(iOS 12.0, *)) {
+        input.textContentType = UITextContentTypeOneTimeCode;
+    } else {
+        input.textContentType = @"";
+    }
+    
+    // iOS displays the keychain autofill interface for secureTextEntry fields and the one previous to it.
+    // Inject an invisble text field above the current one, so no other textfields inadvertantly show keychain autofill.
+    UIView *superview = [((UIView *)input) superview];
+    if (![superview viewWithTag:999]) {
+        UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+        textField.userInteractionEnabled = false;
+        textField.enabled = false;
+        textField.tag = 999;
+        [superview insertSubview:textField atIndex:0];
+    }
+}

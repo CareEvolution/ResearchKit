@@ -365,6 +365,8 @@ ORK1_INLINE UIColor *ORK1OpaqueColorWithReducedAlphaFromBaseColor(UIColor *baseC
     return color;
 }
 
+void ORK1DisablePasswordAutofill(id<UITextInputTraits> input);
+
 // Localization
 ORK1_EXTERN NSBundle *ORK1Bundle(void) ORK1_AVAILABLE_DECL;
 ORK1_EXTERN NSBundle *ORK1DefaultLocaleBundle(void);
