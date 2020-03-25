@@ -134,8 +134,6 @@
         [self setDate:[(ORKTimeOfDayAnswerFormat *)answerFormat pickerDefaultDate]];
     } else {
         ORKDateAnswerFormat *dateAnswerFormat = (ORKDateAnswerFormat *)answerFormat;
-        [self setDate:[dateAnswerFormat pickerDefaultDate]];
-        
         _pickerView.calendar = [dateAnswerFormat currentCalendar];
         _pickerView.timeZone = _pickerView.calendar.timeZone;
         
@@ -143,12 +141,23 @@
         
         [_pickerView setMinimumDate:[dateAnswerFormat pickerMinimumDate]];
         [_pickerView setMaximumDate:[dateAnswerFormat pickerMaximumDate]];
+        
+        [self setDate:[dateAnswerFormat pickerDefaultDate]];
     }
     
     _labelFormatter = nil;
 }
 
 - (void)setDate:(NSDate *)date {
+    if ([self.answerFormat isKindOfClass:[ORKDateAnswerFormat class]]) {
+        ORKDateAnswerFormat *format = (ORKDateAnswerFormat *)self.answerFormat;
+        if (format.minimumDate && [date compare:format.minimumDate] == NSOrderedAscending) {
+            date = format.minimumDate;
+        }
+        if (format.maximumDate && [date compare:format.maximumDate] == NSOrderedDescending) {
+            date = format.maximumDate;
+        }
+    }
     _date = date;
     _pickerView.date = date;
 }

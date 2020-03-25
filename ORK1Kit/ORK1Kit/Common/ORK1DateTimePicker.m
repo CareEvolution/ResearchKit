@@ -134,18 +134,28 @@
         [self setDate:[(ORK1TimeOfDayAnswerFormat *)answerFormat pickerDefaultDate]];
     } else {
         ORK1DateAnswerFormat *dateAnswerFormat = (ORK1DateAnswerFormat *)answerFormat;
-        [self setDate:[dateAnswerFormat pickerDefaultDate]];
         _pickerView.calendar = [dateAnswerFormat currentCalendar];
         _calendar = [dateAnswerFormat currentCalendar];
         
         [_pickerView setMinimumDate:[dateAnswerFormat pickerMinimumDate]];
         [_pickerView setMaximumDate:[dateAnswerFormat pickerMaximumDate]];
+        
+        [self setDate:[dateAnswerFormat pickerDefaultDate]];
     }
     
     _labelFormatter = nil;
 }
 
 - (void)setDate:(NSDate *)date {
+    if ([self.answerFormat isKindOfClass:[ORK1DateAnswerFormat class]]) {
+        ORK1DateAnswerFormat *format = (ORK1DateAnswerFormat *)self.answerFormat;
+        if (format.minimumDate && [date compare:format.minimumDate] == NSOrderedAscending) {
+            date = format.minimumDate;
+        }
+        if (format.maximumDate && [date compare:format.maximumDate] == NSOrderedDescending) {
+            date = format.maximumDate;
+        }
+    }
     _date = date;
     _pickerView.date = date;
 }
