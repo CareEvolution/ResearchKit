@@ -1415,6 +1415,12 @@ static NSArray *ork_processTextChoices(NSArray<ORK1TextChoice *> *textChoices) {
     return self.maximumDate;
 }
 
+- (void)validateParameters {
+    if (self.minimumDate && self.maximumDate && [self.minimumDate compare:self.maximumDate] == NSOrderedDescending) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"Expect maximumDate later than minimumDate"] userInfo:nil];
+    }
+}
+
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
