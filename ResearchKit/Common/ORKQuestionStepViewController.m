@@ -452,6 +452,14 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
         [cell loadPicker];
     }
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:ORKUpdateChoiceCell object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+        UITableViewCell *cell = (UITableViewCell *)note.userInfo[ORKUpdateChoiceCellKeyCell];
+        if ([cell isKindOfClass:[UITableViewCell class]]) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            [self adjustUIforChangesToDetailTextAtIndexPath:indexPath];
+        }
+    }];
+    
     _visible = YES;
     
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
@@ -462,6 +470,18 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     
     _visible = NO;
 }
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ORKUpdateChoiceCell object:nil];
+}
+
+- (void)adjustUIforChangesToDetailTextAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView beginUpdates];
+    [_choiceCellGroup updateLabelsForCell:[self.tableView cellForRowAtIndexPath:indexPath] atIndex:indexPath.row];
+    [self.tableView endUpdates];
+}
+
 
 - (void)setCustomQuestionView:(ORKQuestionStepCustomView *)customQuestionView {
     [_customQuestionView removeFromSuperview];
@@ -877,8 +897,9 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
 
 - (CGFloat)heightForChoiceItemOptionAtIndex:(NSInteger)index {
     ORKTextChoice *option = [(ORKTextChoiceAnswerFormat *)_answerFormat textChoices][index];
-    CGFloat height = [ORKChoiceViewCell suggestedCellHeightForShortText:option.text LongText:option.detailText inTableView:_tableView];
-    return height;
+    return [ORKChoiceViewCell suggestedCellHeightForShortText:option.text
+                                                     LongText:(option.detailTextShouldDisplay) ? option.detailText : nil
+                                                  inTableView:_tableView];
 }
 
 #pragma mark - ORKSurveyAnswerCellDelegate

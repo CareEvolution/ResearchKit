@@ -34,13 +34,19 @@
 #import "ORKSelectionTitleLabel.h"
 #import "ORKSelectionSubTitleLabel.h"
 
+#import "ORKAnswerFormat_Internal.h"
 #import "ORKAccessibility.h"
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
 
+NSNotificationName const ORKUpdateChoiceCell = @"ORKUpdateChoiceCell";
+NSString const *ORKUpdateChoiceCellKeyCell = @"ORKUpdateChoiceCellKeyCell";
 
 static const CGFloat LabelRightMargin = 44.0;
 static const CGFloat cardTopBottomMargin = 2.0;
+static const CGFloat DetailTextIndicatorTouchTargetWidth = 30.0;
+static const CGFloat DetailTextIndicatorImageWidth = 15.0;
+static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
 
 @interface ORKChoiceViewCell()
 
@@ -57,6 +63,7 @@ static const CGFloat cardTopBottomMargin = 2.0;
     UIImageView *_checkView;
     ORKSelectionTitleLabel *_shortLabel;
     ORKSelectionSubTitleLabel *_longLabel;
+    UIButton *_detailTextIndicator;
     NSArray<NSLayoutConstraint *> *_containerConstraints;
 }
 
@@ -68,6 +75,7 @@ static const CGFloat cardTopBottomMargin = 2.0;
         _topBottomMargin = 0.0;
         _checkView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"checkmark" inBundle:ORKBundle() compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
         self.accessoryView = _checkView;
+        self.showDetailTextIndicator = NO;
         [self setupContainerView];
         [self setupConstraints];
     }
@@ -181,13 +189,24 @@ static const CGFloat cardTopBottomMargin = 2.0;
     CGFloat cellLeftMargin = self.separatorInset.left;
 
     CGFloat labelWidth =  self.bounds.size.width - (cellLeftMargin + LabelRightMargin);
+    CGFloat shortLabelTextWidth = [self.shortLabel.text sizeWithAttributes:@{NSFontAttributeName : ORKSelectionTitleLabel.defaultFont}].width;
+    shortLabelTextWidth = (shortLabelTextWidth > labelWidth) ? labelWidth - (DetailTextIndicatorTouchTargetWidth + DetailTextIndicatorPaddingFromLabel) : shortLabelTextWidth;  // word wrapping will have occurred
+    
     CGFloat cellHeight = self.bounds.size.height;
+    
+    [self detailTextIndicator].hidden = !self.showDetailTextIndicator;
     
     if (self.longLabel.text.length == 0 && self.shortLabel.text.length == 0) {
         self.shortLabel.frame = CGRectZero;
         self.longLabel.frame = CGRectZero;
     } else if (self.longLabel.text.length == 0) {
         self.shortLabel.frame = CGRectMake(cellLeftMargin, 0, labelWidth, cellHeight);
+        self.detailTextIndicator.frame =
+        CGRectMake(
+                   cellLeftMargin + shortLabelTextWidth + DetailTextIndicatorPaddingFromLabel,
+                   self.shortLabel.frame.size.height / 2 - DetailTextIndicatorTouchTargetWidth / 2,
+                   DetailTextIndicatorTouchTargetWidth,
+                   DetailTextIndicatorTouchTargetWidth);
         self.longLabel.frame = CGRectZero;
     } else if (self.shortLabel.text.length == 0) {
         self.longLabel.frame = CGRectMake(cellLeftMargin, 0, labelWidth, cellHeight);
@@ -205,6 +224,12 @@ static const CGFloat cardTopBottomMargin = 2.0;
             
             rect.origin.y = firstBaselineOffsetFromTop - shortLabelFirstBaselineApproximateOffsetFromTop;
             self.shortLabel.frame = rect;
+            self.detailTextIndicator.frame =
+            CGRectMake(
+                       cellLeftMargin + shortLabelTextWidth + 10,
+                       self.shortLabel.frame.size.height / 2 - DetailTextIndicatorTouchTargetWidth / 2 + self.shortLabel.frame.origin.y,
+                       DetailTextIndicatorTouchTargetWidth,
+                       DetailTextIndicatorTouchTargetWidth);
         }
         
         {
@@ -255,6 +280,23 @@ static const CGFloat cardTopBottomMargin = 2.0;
         [self.containerView addSubview:_longLabel];
     }
     return _longLabel;
+}
+
+- (UIButton *)detailTextIndicator {
+    if (_detailTextIndicator == nil) {
+        _detailTextIndicator = [UIButton buttonWithType:UIButtonTypeInfoDark];
+        CGFloat inset = (DetailTextIndicatorTouchTargetWidth - DetailTextIndicatorImageWidth) / 2;
+        _detailTextIndicator.imageEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset);
+        [self.contentView addSubview:_detailTextIndicator];
+        [_detailTextIndicator addTarget:self action:@selector(toggleDetailText) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _detailTextIndicator;
+}
+
+- (void)toggleDetailText {
+    self.choice.detailTextShouldDisplay = !self.choice.detailTextShouldDisplay;
+    NSNotification *notification = [NSNotification notificationWithName:ORKUpdateChoiceCell object:nil userInfo:@{ORKUpdateChoiceCellKeyCell : self}];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (void)tintColorDidChange {

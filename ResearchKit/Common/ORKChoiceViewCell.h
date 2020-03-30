@@ -36,11 +36,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class ORKSelectionTitleLabel;
 @class ORKSelectionSubTitleLabel;
+@class ORKTextChoice;
+
+/// This is used when the size of the cell might change and forcing a reload will make the tableview appropriately resize the cell.
+extern NSNotificationName const ORKUpdateChoiceCell;
+extern NSString const *ORKUpdateChoiceCellKeyCell;
 
 @interface ORKChoiceViewCell : UITableViewCell
 
 @property (nonatomic, strong, readonly) ORKSelectionTitleLabel *shortLabel;
 @property (nonatomic, strong, readonly) ORKSelectionSubTitleLabel *longLabel;
+@property (nonatomic, weak) ORKTextChoice *choice;
 
 + (CGFloat)suggestedCellHeightForShortText:(nullable NSString *)shortText LongText:(nullable NSString *)longText inTableView:(nullable UITableView *)tableView;
 
@@ -53,6 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) bool isLastItem;
 
 @property (nonatomic) BOOL isFirstItemInSectionWithoutTitle;
+
+@property (nonatomic, assign) BOOL showDetailTextIndicator;
 
 @end
 

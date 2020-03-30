@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)didSelectCellAtIndexPath:(NSIndexPath *)indexPath;
 
+- (void)updateLabelsForCell:(ORKChoiceViewCell *)cell atIndex:(NSUInteger)index;
+
 - (nullable id)answerForBoolean;
 
 - (NSUInteger)size;

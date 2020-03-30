@@ -65,6 +65,10 @@ NS_ASSUME_NONNULL_BEGIN
     
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style;
 
+- (void)adjustBottomConstraintWithExpectedOffset:(CGFloat)offset;
+
+- (void)adjustBottomConstraintBasedOnLastContentSize;
+
 @end
 
 NS_ASSUME_NONNULL_END

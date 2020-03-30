@@ -340,6 +340,14 @@ typedef NS_ENUM(NSInteger, ORK1QuestionSection) {
         [cell loadPicker];
     }
     
+    [[NSNotificationCenter defaultCenter] addObserverForName:ORK1UpdateChoiceCell object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+        UITableViewCell *cell = (UITableViewCell *)note.userInfo[ORK1UpdateChoiceCellKeyCell];
+        if ([cell isKindOfClass:[UITableViewCell class]]) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+            [self adjustUIforChangesToDetailTextAtIndex:indexPath.row];
+        }
+    }];
+    
     _visible = YES;
     
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
@@ -349,6 +357,41 @@ typedef NS_ENUM(NSInteger, ORK1QuestionSection) {
     [super viewWillDisappear:animated];
     
     _visible = NO;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ORK1UpdateChoiceCell object:nil];
+}
+
+- (void)adjustUIforChangesToDetailTextAtIndex:(NSUInteger)index {
+    
+    /*
+     Due to the complexity of the layout, animating the expansion and contraction of the textDetail will
+     move the continue button up or down out of ideal position. To prevent this, we calculate the expected
+     difference in tableView size and pass this to the ORK1TableContainerView which will hide the continue
+     button, adjust the constraint and then animate the button alpha to 1.
+     */
+    
+    [self.tableView beginUpdates];
+    
+    ORK1QuestionStep *questionStep = (ORK1QuestionStep *)self.step;
+    ORK1TextChoiceAnswerFormat *format = (ORK1TextChoiceAnswerFormat *) questionStep.answerFormat;
+    if (![format isKindOfClass:[ORK1TextChoiceAnswerFormat class]]) {
+        [self.tableView endUpdates];
+        return;
+    }
+    ORK1TextChoice *choice = format.textChoices[index];
+    NSString *longText = !choice.detailTextShouldDisplay ? choice.detailText : nil;
+    CGFloat sizeBeforeResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text LongText:longText inTableView:self.tableView];
+    
+    [_choiceCellGroup updateLabelsForCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]] atIndex:index];
+    
+    longText = choice.detailTextShouldDisplay ? choice.detailText : nil;
+    CGFloat sizeAfterResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text LongText:longText inTableView:self.tableView];
+    
+    [_tableContainer adjustBottomConstraintWithExpectedOffset:(sizeAfterResize - sizeBeforeResize)];
+    [self.tableView endUpdates];
 }
 
 - (void)setCustomQuestionView:(ORK1QuestionStepCustomView *)customQuestionView {
@@ -751,8 +794,9 @@ typedef NS_ENUM(NSInteger, ORK1QuestionSection) {
 
 - (CGFloat)heightForChoiceItemOptionAtIndex:(NSInteger)index {
     ORK1TextChoice *option = [(ORK1TextChoiceAnswerFormat *)_answerFormat textChoices][index];
-    CGFloat height = [ORK1ChoiceViewCell suggestedCellHeightForShortText:option.text LongText:option.detailText inTableView:_tableView];
-    return height;
+    return [ORK1ChoiceViewCell suggestedCellHeightForShortText:option.text
+                                                      LongText:(option.detailTextShouldDisplay) ? option.detailText : nil
+                                                   inTableView:_tableView];
 }
 
 #pragma mark - ORK1SurveyAnswerCellDelegate

@@ -41,10 +41,6 @@ NSString *const ORKStroopColorIdentifierBlack = @"BLACK";
 
 @implementation ORKStroopColor
 
-- (instancetype)init {
-    ORKThrowMethodUnavailableException();
-}
-
 - (instancetype __nullable)initWithIdentifier:(NSString *)identifier {
     if (self = [super init]) {
         if ([identifier isEqualToString:ORKStroopColorIdentifierRed]) {
@@ -102,6 +98,13 @@ NSString *const ORKStroopColorIdentifierBlack = @"BLACK";
     ORK_ENCODE_OBJ(aCoder, title);
 }
  
+- (nonnull id)copyWithZone:(nullable NSZone *)zone {
+    ORKStroopColor *stroopColor = [[[self class] allocWithZone:zone] init];
+    stroopColor.color = self.color;
+    stroopColor.title = self.title;
+    return stroopColor;
+}
+
 @end
             
 
@@ -141,6 +144,14 @@ NSString *const ORKStroopColorIdentifierBlack = @"BLACK";
     ORK_ENCODE_OBJ(aCoder, color);
     ORK_ENCODE_OBJ(aCoder, text);
     ORK_ENCODE_ENUM(aCoder, stroopStyle);
+}
+
+- (nonnull id)copyWithZone:(nullable NSZone *)zone {
+    ORKStroopTest *test = [[[self class] allocWithZone:zone] init];
+    test.color = self.color;
+    test.text = self.text;
+    test.stroopStyle = self.stroopStyle;
+    return test;
 }
 
 @end

@@ -45,6 +45,7 @@
     BOOL _singleChoice;
     BOOL _immediateNavigation;
     NSIndexPath *_beginningIndexPath;
+    ORK1ChoiceDescriptionStyle _descriptionStyle;
     
     NSMutableDictionary *_cells;
 }
@@ -60,6 +61,7 @@
         _singleChoice = answerFormat.style == ORK1ChoiceAnswerStyleSingleChoice;
         _immediateNavigation = immediateNavigation;
         _cells = [NSMutableDictionary new];
+        _descriptionStyle = answerFormat.descriptionStyle;
         [self setAnswer:answer];
     }
     return self;
@@ -89,16 +91,37 @@
     if (cell == nil) {
         cell = [[ORK1ChoiceViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         cell.immediateNavigation = _immediateNavigation;
-        ORK1TextChoice *textChoice = [_helper textChoiceAtIndex:index];
-        cell.shortLabel.text = textChoice.text;
-        cell.longLabel.text = textChoice.detailText;
-        
         _cells[@(index)] = cell;
         
         [self setSelectedIndexes:[_helper selectedIndexesForAnswer:_answer]];
     }
     
+    [self updateLabelsForCell:cell atIndex:index];
+    
     return cell;
+}
+
+- (void)updateLabelsForCell:(ORK1ChoiceViewCell *)cell atIndex:(NSUInteger)index {
+    ORK1TextChoice *textChoice = [_helper textChoiceAtIndex:index];
+    cell.shortLabel.text = textChoice.text;
+    cell.choice = textChoice;
+    switch (_descriptionStyle) {
+        case ORK1ChoiceDescriptionStyleNone:
+            cell.longLabel.text = nil;
+            cell.showDetailTextIndicator = NO;
+            textChoice.detailTextShouldDisplay = NO;
+            break;
+        case ORK1ChoiceDescriptionStyleDisplayAlways:
+            cell.longLabel.text = textChoice.detailText;
+            cell.showDetailTextIndicator = NO;
+            textChoice.detailTextShouldDisplay = YES;
+            break;
+        case ORK1ChoiceDescriptionStyleDisplayWhenExpanded: {
+            cell.showDetailTextIndicator = textChoice.detailText.length > 0;
+            cell.longLabel.text = textChoice.detailTextShouldDisplay ? textChoice.detailText : nil;
+            break;
+        }
+    }
 }
 
 - (void)didSelectCellAtIndex:(NSUInteger)index {

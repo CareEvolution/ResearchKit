@@ -797,6 +797,11 @@ ORK1_CLASS_AVAILABLE
  */
 @property (copy, readonly) NSArray<ORK1TextChoice *> *textChoices;
 
+/**
+The description style of the question (that is, none, display always or display when expanded).
+*/
+@property ORK1ChoiceDescriptionStyle descriptionStyle;
+
 @end
 
 
