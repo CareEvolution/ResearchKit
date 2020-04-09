@@ -40,9 +40,13 @@
 
 @import UIKit;
 #import <ORK1Kit/ORK1StepViewController.h>
-
+#import "ORK1Defines.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+ORK1_EXTERN NSString *const ORK1WaitStepViewControllerUpdateText;
+ORK1_EXTERN NSString *const ORK1WaitStepUpdatedTitleKey;
+ORK1_EXTERN NSString *const ORK1WaitStepUpdatedText;
 
 /**
  The `ORK1WaitStepViewController` class represents the step view controller that corresponds to an `ORK1WaitStep`.

@@ -49,6 +49,9 @@
 
 #import "ORK1Helpers_Internal.h"
 
+NSString *const ORK1WaitStepViewControllerUpdateText = @"ORK1WaitStepViewControllerUpdateText";
+NSString *const ORK1WaitStepUpdatedTitleKey = @"ORK1WaitStepUpdatedTitleKey";
+NSString *const ORK1WaitStepUpdatedTextKey = @"ORK1WaitStepUpdatedTextKey";
 
 @implementation ORK1WaitStepViewController {
     ORK1WaitStepView *_waitStepView;
@@ -84,10 +87,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self stepDidChange];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTitleFromNotification:) name:ORK1WaitStepViewControllerUpdateText object:nil];
+}
+
+- (void)updateTitleFromNotification:(NSNotification *)notification {
+    id updatedTitle = notification.userInfo[ORK1WaitStepUpdatedTitleKey];
+    if ([updatedTitle isKindOfClass:[NSString class]]) {
+        [self updateTitle:updatedTitle];
+    }
+    id updatedText = notification.userInfo[ORK1WaitStepUpdatedTextKey];
+    if ([updatedText isKindOfClass:[NSString class]]) {
+        [self updateText:updatedText];
+    }
 }
 
 - (void)setProgress:(CGFloat)progress animated:(BOOL)animated {
     [_waitStepView.progressView setProgress:progress animated:animated];
+}
+
+- (void)updateTitle:(NSString *)title {
+    _waitStepView.headerView.captionLabel.text = title;
 }
 
 - (void)updateText:(NSString *)text {

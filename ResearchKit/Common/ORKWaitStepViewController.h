@@ -40,9 +40,13 @@
 
 @import UIKit;
 #import <ResearchKit/ORKStepViewController.h>
-
+#import "ORKDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+ORK_EXTERN NSString *const ORKWaitStepViewControllerUpdateText;
+ORK_EXTERN NSString *const ORKWaitStepUpdatedTitleKey;
+ORK_EXTERN NSString *const ORKWaitStepUpdatedText;
 
 /**
  The `ORKWaitStepViewController` class represents the step view controller that corresponds to an `ORKWaitStep`.
