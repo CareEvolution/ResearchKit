@@ -114,4 +114,8 @@ NSString *const ORK1WaitStepUpdatedTextKey = @"ORK1WaitStepUpdatedTextKey";
     [self stepDidChange];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end

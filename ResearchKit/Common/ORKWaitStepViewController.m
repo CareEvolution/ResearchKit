@@ -191,4 +191,8 @@ NSString *const ORKWaitStepUpdatedTextKey = @"ORKWaitStepUpdatedTextKey";
     [self stepDidChange];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 @end
