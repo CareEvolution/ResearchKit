@@ -53,6 +53,7 @@ static const CGFloat iPadStepTitleLabelFontSize = 50.0;
     UILabel *_iPadStepTitleLabel;
     NSString *_iPadStepTitle;
     UIBarButtonItem *_agreeButton;
+    BOOL _webViewFinishedLoading;
 }
 
 - (instancetype)initWithHTML:(NSString *)html delegate:(id<ORKConsentReviewControllerDelegate>)delegate requiresScrollToBottom:(BOOL)requiresScrollToBottom {
@@ -60,6 +61,7 @@ static const CGFloat iPadStepTitleLabelFontSize = 50.0;
     if (self) {
         _htmlString = html;
         _delegate = delegate;
+        _webViewFinishedLoading = NO;
         
         _agreeButton = [[UIBarButtonItem alloc] initWithTitle:ORKLocalizedString(@"BUTTON_AGREE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(ack)];
         if (requiresScrollToBottom) {
@@ -232,6 +234,7 @@ static const CGFloat iPadStepTitleLabelFontSize = 50.0;
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *) __unused navigation {
     //need a delay here because of a race condition where the webview may not have fully rendered by the time this is called in which case scrolledToBottom returns YES because everything == 0
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _webViewFinishedLoading = YES;
         if (!_agreeButton.isEnabled && [self scrolledToBottom:_webView.scrollView]) {
             [_agreeButton setEnabled:YES];
             _agreeButton.accessibilityHint = nil;
@@ -240,7 +243,8 @@ static const CGFloat iPadStepTitleLabelFontSize = 50.0;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (!_agreeButton.isEnabled && [self scrolledToBottom:scrollView]) {
+    BOOL scrolledToBottom = [self scrolledToBottom:scrollView];
+    if (!_agreeButton.isEnabled && scrolledToBottom && _webViewFinishedLoading) {
         _agreeButton.enabled = YES;
         _agreeButton.accessibilityHint = nil;
     }
