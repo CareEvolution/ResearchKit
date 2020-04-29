@@ -117,21 +117,11 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
 }
 
 - (NSNumber *)continueButtonHeightForTextSize:(CGSize)textSize {
-    switch (self.themeType) {
-        case CEVRK1ThemeTypeAllOfUs:
-            return @(textSize.height + (16 * 2));  // padding of 16
-        default:
-            return nil;
-    }
+    return @(textSize.height + (16 * 2));  // padding of 16
 }
 
 - (NSNumber *)continueButtonWidthForWindowWidth:(CGFloat)windowWidth {
-    switch (self.themeType) {
-        case CEVRK1ThemeTypeAllOfUs:
-            return @(windowWidth - (20 * 2));  // width 100 % minus system padding
-        default:
-            return nil;
-    }
+    return @(windowWidth - (20 * 2));  // width 100 % minus system padding
 }
 
 - (UIColor *)disabledTintColor {
@@ -178,9 +168,28 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
             [continueButton.layer insertSublayer:gradient atIndex:0];
             
             continueButton.layer.borderWidth = 0;
-        }
-        default:
             break;
+        }
+        default: {
+            if (continueButton.enabled && (continueButton.highlighted || continueButton.selected)) {
+                // Highlighted
+                UIColor *color = [UIColor colorWithRed:68/255.0 green:131/255.0 blue:200/255.0 alpha:0.5];
+                continueButton.backgroundColor = color;
+                continueButton.layer.borderColor = [color CGColor];
+            } else if(continueButton.enabled && !(continueButton.highlighted || continueButton.selected)) {
+                // Normal
+                UIColor *color = [UIColor colorWithRed:68/255.0 green:131/255.0 blue:200/255.0 alpha:1.0];
+                continueButton.backgroundColor = color;
+                continueButton.layer.borderColor = [color CGColor];
+            } else {
+                // Disabled
+                UIColor *color = [UIColor colorWithRed:221/255.0 green:221/255.0 blue:221/255.0 alpha:1.0];
+                continueButton.backgroundColor = [UIColor whiteColor];
+                continueButton.layer.borderColor = [color CGColor];
+            }
+            [self updateTextForContinueButton:continueButton];
+            break;
+        }
     }
 }
 
@@ -199,9 +208,17 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
                                                     NSKernAttributeName            : @(3)};  // 3 pts = 0.25 em
             NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[continueButton.titleLabel.text uppercaseString] attributes:attributes];
             [continueButton setAttributedTitle:attributedString forState:UIControlStateNormal];
-        }
-        default:
             break;
+        }
+        default: {
+            UIFont *fontToMakeBold = [ORK1ContinueButton defaultFont];
+            continueButton.titleLabel.font = [UIFont boldSystemFontOfSize:fontToMakeBold.pointSize];
+            [continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+            [continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+            [continueButton setTitleColor:[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0] forState:UIControlStateDisabled];
+            break;
+        }
     }
 }
 
