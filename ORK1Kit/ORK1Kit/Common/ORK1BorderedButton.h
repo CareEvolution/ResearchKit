@@ -40,6 +40,7 @@ ORK1_CLASS_AVAILABLE
 
 @property (nonatomic, assign) NSTimeInterval fadeDelay;
 
+- (void)updateBorderColor;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -141,4 +141,9 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     [[CEVRK1Theme themeForElement:self] updateAppearanceForContinueButton:self];
 }
 
+- (void)updateBorderColor {
+    [super updateBorderColor];
+    [[CEVRK1Theme themeForElement:self] updateAppearanceForContinueButton:self];
+}
+
 @end
