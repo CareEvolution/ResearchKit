@@ -42,6 +42,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 ORK1_EXTERN NSString *const ORK1NullStepIdentifier ORK1_AVAILABLE_DECL;
 
+NSString *const ORK1CancelStepIndentifier = @"FinishStep.Cancel";
+NSString *const ORK1CancelAndSaveStepIdentifier = @"FinishStep.CancelAndSave";
+NSString *const ORK1CancelAndDiscardStepIdentifier = @"FinishStep.CancelAndDiscard";
+NSString *const ORK1CompleteStepIdentifier = @"FinishStep.Complete";
+
 @class ORK1Step;
 @class ORK1Result;
 @class ORK1TaskResult;
