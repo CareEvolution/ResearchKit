@@ -42,6 +42,12 @@
 
 NSString *const ORKNullStepIdentifier = @"org.researchkit.step.null";
 
+NSString *const ORKCancelStepIdentifier = @"FinishStep.Cancel";
+NSString *const ORKCancelAndSaveStepIdentifier = @"FinishStep.CancelAndSave";
+NSString *const ORKCancelAndDiscardStepIdentifier = @"FinishStep.CancelAndDiscard";
+NSString *const ORKCompleteStepIdentifier = @"FinishStep.Complete";
+
+
 @implementation ORKStepNavigationRule
 
 - (instancetype)init {
