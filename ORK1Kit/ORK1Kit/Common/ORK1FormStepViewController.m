@@ -20,7 +20,7 @@
  AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIALd
  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
@@ -517,6 +517,13 @@
     _savedAnswerDates[identifier] = [NSDate date];
     _savedSystemCalendars[identifier] = [NSCalendar currentCalendar];
     _savedSystemTimeZones[identifier] = [NSTimeZone systemTimeZone];
+    
+    if (self.hasNextStep == NO) {
+        self.continueButtonItem = self.internalDoneButtonItem;
+    } else {
+        self.continueButtonItem = self.internalContinueButtonItem;
+    }
+    //check if next step and update buttons?
 }
 
 // Override to monitor button title change
