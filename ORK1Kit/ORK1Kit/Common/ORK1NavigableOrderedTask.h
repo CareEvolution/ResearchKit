@@ -184,6 +184,13 @@ ORK1_CLASS_AVAILABLE
  */
 @property (nonatomic) BOOL shouldReportProgress;
 
+/**
+ Allows for survey termination with options based on ORK1StepNavigationRule logic. If
+ task returns nil, the ORK1TaskViewController should check this property to determine
+ handling for task cancellation or completion.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString* specialEndSurveyStepIdentifier;
+
 @end
 
 
