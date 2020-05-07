@@ -1277,6 +1277,8 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
             } else {  // includes ORK1CompleteStepIdentifier
                 [self finishWithReason:ORK1TaskViewControllerFinishReasonCompleted error:nil];
             }
+        } else {
+            [self finishWithReason:ORK1TaskViewControllerFinishReasonCompleted error:nil];
         }
     } else if ([self shouldPresentStep:step]) {
         ORK1StepViewController *stepViewController = [self viewControllerForStep:step];
