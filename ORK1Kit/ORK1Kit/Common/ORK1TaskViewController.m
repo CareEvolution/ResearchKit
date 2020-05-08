@@ -61,6 +61,8 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "CEVRK1Theme.h"
+#import "ORK1NavigableOrderedTask.h"
+#import "ORK1StepNavigationRule.h"
 
 typedef void (^_ORK1LocationAuthorizationRequestHandler)(BOOL success);
 
@@ -1261,8 +1263,23 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         if ([self.delegate respondsToSelector:@selector(taskViewController:didChangeResult:)]) {
             [self.delegate taskViewController:self didChangeResult:[self result]];
         }
+        
         [self finishAudioPromptSession];
-        [self finishWithReason:ORK1TaskViewControllerFinishReasonCompleted error:nil];
+        
+        if ([self.task isKindOfClass:[ORK1NavigableOrderedTask class]]) {
+            ORK1NavigableOrderedTask *orderedTask = (ORK1NavigableOrderedTask *)self.task;
+            if ([orderedTask.specialEndSurveyStepIdentifier isEqualToString:ORK1CancelStepIdentifier]) {
+                [self cancelAction:nil];
+            } else if ([orderedTask.specialEndSurveyStepIdentifier isEqualToString:ORK1CancelAndSaveStepIdentifier]) {
+                [self finishWithReason:ORK1TaskViewControllerFinishReasonSaved error:nil];
+            } else if ([orderedTask.specialEndSurveyStepIdentifier isEqualToString:ORK1CancelAndDiscardStepIdentifier]) {
+                [self finishWithReason:ORK1TaskViewControllerFinishReasonDiscarded error:nil];
+            } else {  // includes ORK1CompleteStepIdentifier
+                [self finishWithReason:ORK1TaskViewControllerFinishReasonCompleted error:nil];
+            }
+        } else {
+            [self finishWithReason:ORK1TaskViewControllerFinishReasonCompleted error:nil];
+        }
     } else if ([self shouldPresentStep:step]) {
         ORK1StepViewController *stepViewController = [self viewControllerForStep:step];
         NSAssert(stepViewController != nil, @"A non-nil step should always generate a step view controller");

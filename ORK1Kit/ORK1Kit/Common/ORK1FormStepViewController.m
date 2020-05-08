@@ -517,6 +517,13 @@
     _savedAnswerDates[identifier] = [NSDate date];
     _savedSystemCalendars[identifier] = [NSCalendar currentCalendar];
     _savedSystemTimeZones[identifier] = [NSTimeZone systemTimeZone];
+    
+    if (self.hasNextStep == NO) {
+        self.continueButtonItem = self.internalDoneButtonItem;
+    } else {
+        self.continueButtonItem = self.internalContinueButtonItem;
+    }
+    //check if next step and update buttons?
 }
 
 // Override to monitor button title change

@@ -42,6 +42,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 ORK_EXTERN NSString *const ORKNullStepIdentifier ORK_AVAILABLE_DECL;
 
+ORK_EXTERN NSString *const ORKCancelStepIdentifier ORK_AVAILABLE_DECL;
+ORK_EXTERN NSString *const ORKCancelAndSaveStepIdentifier ORK_AVAILABLE_DECL;
+ORK_EXTERN NSString *const ORKCancelAndDiscardStepIdentifier ORK_AVAILABLE_DECL;
+ORK_EXTERN NSString *const ORKCompleteStepIdentifier ORK_AVAILABLE_DECL;
+
 @class ORKStep;
 @class ORKResult;
 @class ORKTaskResult;

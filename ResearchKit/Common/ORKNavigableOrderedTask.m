@@ -44,6 +44,7 @@
     NSMutableDictionary<NSString *, ORKStepNavigationRule *> *_stepNavigationRules;
     NSMutableDictionary<NSString *, ORKSkipStepNavigationRule *> *_skipStepNavigationRules;
     NSMutableDictionary<NSString *, ORKStepModifier *> *_stepModifiers;
+    NSSet<NSString *> *_specialEndSurveyStepIdentifiers;
 }
 
 - (instancetype)initWithIdentifier:(NSString *)identifier steps:(NSArray<ORKStep *> *)steps {
@@ -52,6 +53,7 @@
         _stepNavigationRules = nil;
         _skipStepNavigationRules = nil;
         _shouldReportProgress = NO;
+        _specialEndSurveyStepIdentifiers = [[NSSet alloc] initWithObjects:ORKCancelStepIdentifier, ORKCancelAndSaveStepIdentifier, ORKCancelAndDiscardStepIdentifier, ORKCompleteStepIdentifier, nil];
     }
     return self;
 }
@@ -146,6 +148,12 @@
     ORKStep *nextStep = nil;
     ORKStepNavigationRule *navigationRule = _stepNavigationRules[step.identifier];
     NSString *nextStepIdentifier = [navigationRule identifierForDestinationStepWithTaskResult:result];
+    
+    if ([_specialEndSurveyStepIdentifiers containsObject:nextStepIdentifier]) {
+        _specialEndSurveyStepIdentifier = nextStepIdentifier;
+        nextStepIdentifier = ORKNullStepIdentifier;
+    }
+    
     if (![nextStepIdentifier isEqualToString:ORKNullStepIdentifier]) { // If ORKNullStepIdentifier, return nil to end task
         if (nextStepIdentifier) {
             nextStep = [self stepWithIdentifier:nextStepIdentifier];
