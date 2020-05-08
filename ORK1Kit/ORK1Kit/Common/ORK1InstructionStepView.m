@@ -43,6 +43,7 @@
 
 #import "ORK1Helpers_Internal.h"
 #import "ORK1Skin.h"
+#import "CEVRK1Theme.h"
 
 
 @implementation ORK1InstructionStepView {
@@ -151,14 +152,18 @@
     text = text.length ? text : nil;
     
     if (detail && text) {
-        [attributedInstruction appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", text] attributes:nil]];
+        NSMutableDictionary *textAttributes = [NSMutableDictionary dictionary];
+        [[CEVRK1Theme themeForElement:self] updateAttributesForText:textAttributes];
+        [attributedInstruction appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", text] attributes:textAttributes]];
 
         NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
         [style setParagraphSpacingBefore:self.headerView.instructionLabel.font.lineHeight * 0.5];
         [style setAlignment:NSTextAlignmentCenter];
         
+        NSMutableDictionary *detailAttributes = [@{NSParagraphStyleAttributeName: style} mutableCopy];
+        [[CEVRK1Theme themeForElement:self] updateAttributesForDetailText:detailAttributes];
         NSAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:detail
-                                                                               attributes:@{NSParagraphStyleAttributeName: style}];
+                                                                               attributes:detailAttributes];
         [attributedInstruction appendAttributedString:attString];
         
     } else if (detail || text) {

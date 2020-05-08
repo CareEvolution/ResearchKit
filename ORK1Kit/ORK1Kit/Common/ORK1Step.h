@@ -32,6 +32,7 @@
 @import Foundation;
 @import HealthKit;
 #import <ORK1Kit/ORK1Types.h>
+#import "CEVRK1Theme.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -62,7 +63,7 @@ ORK1_EXTERN NSString *const ORK1NullStepIdentifier ORK1_AVAILABLE_DECL;
  instead.
  */
 ORK1_CLASS_AVAILABLE
-@interface ORK1Step : NSObject <NSSecureCoding, NSCopying>
+@interface ORK1Step : NSObject <NSSecureCoding, NSCopying, CEVRK1ThemedUIElement>
 
 + (instancetype)new NS_UNAVAILABLE;
 - (instancetype)init NS_UNAVAILABLE;
@@ -217,6 +218,13 @@ ORK1_CLASS_AVAILABLE
  @return A newly initialized step view controller.
  */
 - (ORK1StepViewController *)instantiateStepViewControllerWithResult:(ORK1Result *)result;
+
+/**
+ The theme for the step.
+ 
+ Various UI elements may check the theme and use it to apply modifications.
+ */
+@property (nonatomic, retain, nullable) CEVRK1Theme *cev_theme;
 
 @end
 

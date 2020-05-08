@@ -32,6 +32,7 @@
 #import "ORK1SubheadlineLabel.h"
 
 #import "ORK1Skin.h"
+#import "CEVRK1Theme.h"
 
 
 @implementation ORK1SubheadlineLabel
@@ -40,6 +41,11 @@
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleSubheadline];
     const CGFloat defaultSize = 15;
     return [UIFont systemFontOfSize:[[descriptor objectForKey:UIFontDescriptorSizeAttribute] doubleValue] - defaultSize + ORK1GetMetricForWindow(ORK1ScreenMetricFontSizeSubheadline, nil)];
+}
+
+- (void)updateAppearance {
+    [super updateAppearance];
+    [[CEVRK1Theme themeForElement:self] updateAppearanceForTextLabel:self];
 }
 
 @end
