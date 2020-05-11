@@ -40,11 +40,11 @@ ORK1_CLASS_AVAILABLE
 @end
 
 ORK1_CLASS_AVAILABLE
-@interface CEVRK1Theme : NSObject
+@interface CEVRK1Theme : NSObject <NSCopying>
++ (nonnull CEVRK1Theme *)themeByMergingTheme:(nullable CEVRK1Theme *)theme1 withTheme:(nullable CEVRK1Theme *)theme2; // properties from theme take priority over theme2
 + (nonnull instancetype)themeForElement:(nonnull id)element;
 - (nonnull instancetype)initWithType:(CEVRK1ThemeType)type;
 
-@property (nonatomic, assign) CEVRK1ThemeType themeType;
 @property (nonatomic, strong) UIColor * _Nullable tintColor;
 
 @property (nonatomic, strong) NSNumber * _Nullable titleFontSize;

@@ -41,7 +41,6 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
 
 + (CEVRK1Theme *)themeByMergingTheme:(nullable CEVRK1Theme *)theme withTheme:(nullable CEVRK1Theme *)theme2 {
     CEVRK1Theme *merged = [[CEVRK1Theme alloc] init];
-    merged.themeType = theme.themeType ?: theme2.themeType;
     merged.tintColor = theme.tintColor ?: theme2.tintColor;
 
     merged.titleFontSize = theme.titleFontSize ?: theme2.titleFontSize;
@@ -101,8 +100,6 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
 
 - (instancetype)initWithType:(CEVRK1ThemeType)type {
     if (self = [super init]) {
-        self.themeType = type;
-        
         if (type == CEVRK1ThemeTypeAllOfUs) {
             self.tintColor = ORK1RGB(0x216fb4);
             self.titleColor = ORK1RGB(0x262262);
