@@ -273,7 +273,7 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
         attributes[NSKernAttributeName] = self.nextButtonLetterSpacing;
     }
     
-    NSString *text = continueButton.titleLabel.text;
+    NSString *text = [continueButton titleForState:UIControlStateNormal];
     if (self.nextButtonTextTransform != nil) {
         switch ((CEVRK1TextTransform)self.nextButtonTextTransform.integerValue) {
         case CEVRK1TextTransformUppercase:
