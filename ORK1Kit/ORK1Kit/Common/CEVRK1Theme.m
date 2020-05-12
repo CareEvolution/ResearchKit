@@ -20,7 +20,6 @@
 - (UIColor *)darkerColor;
 @end
 
-NSNotificationName const CEVORK1StepViewControllerViewWillAppearNotification = @"CEVORK1StepViewControllerViewWillAppearNotification";
 NSString *const CEVThemeAttributeName = @"CEVThemeAttributeName";
 NSString *const CEVRK1ThemeKey = @"cev_theme";
 
@@ -39,31 +38,31 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
 
 @implementation CEVRK1Theme
 
-+ (CEVRK1Theme *)themeByMergingTheme:(nullable CEVRK1Theme *)theme withTheme:(nullable CEVRK1Theme *)theme2 {
++ (CEVRK1Theme *)themeByOverridingTheme:(nullable CEVRK1Theme *)theme withTheme:(nullable CEVRK1Theme *)theme2 {
     CEVRK1Theme *merged = [[CEVRK1Theme alloc] init];
-    merged.tintColor = theme.tintColor ?: theme2.tintColor;
+    merged.tintColor = theme2.tintColor ?: theme.tintColor;
 
-    merged.titleFontSize = theme.titleFontSize ?: theme2.titleFontSize;
-    merged.titleFontWeight = theme.titleFontWeight ?: theme2.titleFontWeight;
-    merged.titleColor = theme.titleColor ?: theme2.titleColor;
-    merged.titleAlignment = theme.titleAlignment ?: theme2.titleAlignment;
+    merged.titleFontSize = theme2.titleFontSize ?: theme.titleFontSize;
+    merged.titleFontWeight = theme2.titleFontWeight ?: theme.titleFontWeight;
+    merged.titleColor = theme2.titleColor ?: theme.titleColor;
+    merged.titleAlignment = theme2.titleAlignment ?: theme.titleAlignment;
 
-    merged.textFontSize = theme.textFontSize ?: theme2.textFontSize;
-    merged.textFontWeight = theme.textFontWeight ?: theme2.textFontWeight;
-    merged.textColor = theme.textColor ?: theme2.textColor;
-    merged.textAlignment = theme.textAlignment ?: theme2.textAlignment;
+    merged.textFontSize = theme2.textFontSize ?: theme.textFontSize;
+    merged.textFontWeight = theme2.textFontWeight ?: theme.textFontWeight;
+    merged.textColor = theme2.textColor ?: theme.textColor;
+    merged.textAlignment = theme2.textAlignment ?: theme.textAlignment;
 
-    merged.detailTextFontSize = theme.detailTextFontSize ?: theme2.detailTextFontSize;
-    merged.detailTextFontWeight = theme.detailTextFontWeight ?: theme2.detailTextFontWeight;
-    merged.detailTextColor = theme.detailTextColor ?: theme2.detailTextColor;
-    merged.detailTextAlignment = theme.detailTextAlignment ?: theme2.detailTextAlignment;
+    merged.detailTextFontSize = theme2.detailTextFontSize ?: theme.detailTextFontSize;
+    merged.detailTextFontWeight = theme2.detailTextFontWeight ?: theme.detailTextFontWeight;
+    merged.detailTextColor = theme2.detailTextColor ?: theme.detailTextColor;
+    merged.detailTextAlignment = theme2.detailTextAlignment ?: theme.detailTextAlignment;
 
-    merged.nextButtonBackgroundColor = theme.nextButtonBackgroundColor ?: theme2.nextButtonBackgroundColor;
-    merged.nextButtonBackgroundGradient = theme.nextButtonBackgroundGradient ?: theme2.nextButtonBackgroundGradient;
-    merged.nextButtonFontWeight = theme.nextButtonFontWeight ?: theme2.nextButtonFontWeight;
-    merged.nextButtonTextTransform = theme.nextButtonTextTransform ?: theme2.nextButtonTextTransform;
-    merged.nextButtonLetterSpacing = theme.nextButtonLetterSpacing ?: theme2.nextButtonLetterSpacing;
-    merged.nextButtonTextColor = theme.nextButtonTextColor ?: theme2.nextButtonTextColor;
+    merged.nextButtonBackgroundColor = theme2.nextButtonBackgroundColor ?: theme.nextButtonBackgroundColor;
+    merged.nextButtonBackgroundGradient = theme2.nextButtonBackgroundGradient ?: theme.nextButtonBackgroundGradient;
+    merged.nextButtonFontWeight = theme2.nextButtonFontWeight ?: theme.nextButtonFontWeight;
+    merged.nextButtonTextTransform = theme2.nextButtonTextTransform ?: theme.nextButtonTextTransform;
+    merged.nextButtonLetterSpacing = theme2.nextButtonLetterSpacing ?: theme.nextButtonLetterSpacing;
+    merged.nextButtonTextColor = theme2.nextButtonTextColor ?: theme.nextButtonTextColor;
     return merged;
 }
 
@@ -79,7 +78,7 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
         id <ORK1Task> task = [(ORK1StepViewController *)element taskViewController].task;
         CEVRK1Theme *taskTheme = task.cev_theme;
         CEVRK1Theme *stepTheme = ((ORK1StepViewController *)element).step.cev_theme;
-        return [CEVRK1Theme themeByMergingTheme:stepTheme withTheme:taskTheme];
+        return [CEVRK1Theme themeByOverridingTheme:taskTheme withTheme:stepTheme];
     } else if ([element respondsToSelector:@selector(nextResponder)] && [element nextResponder]) {                // continue up responder chain
         id nextResponder = [element nextResponder];
         return [CEVRK1Theme themeForElement:nextResponder];
@@ -87,15 +86,21 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
         UIViewController *parentViewController = [element parentViewController];
         return [CEVRK1Theme themeForElement:parentViewController];
     } else {                                                                                                      // has reached end of chain or not in chain
-        UIViewController *viewController = [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentedViewController];
-        if ([viewController isKindOfClass:[ORK1TaskViewController class]]) {
-            ORK1TaskViewController *taskViewController = (ORK1TaskViewController *)viewController;
-            CEVRK1Theme *taskTheme = taskViewController.task.cev_theme;
-            CEVRK1Theme *stepTheme = taskViewController.currentStepViewController.step.cev_theme;
-            return [CEVRK1Theme themeByMergingTheme:stepTheme withTheme:taskTheme];
-        }
-        return [[CEVRK1Theme alloc] initWithType:CEVRK1ThemeTypeDefault];
+        return [CEVRK1Theme fallbackTheme];
     }
+}
+
+static CEVRK1Theme *sFallbackTheme = nil;
+
++ (nonnull CEVRK1Theme *)fallbackTheme {
+    if (sFallbackTheme != nil) {
+        return sFallbackTheme;
+    }
+    return [[CEVRK1Theme alloc] initWithType:CEVRK1ThemeTypeDefault];
+}
+
++ (void)setFallbackTheme:(nonnull CEVRK1Theme *)theme {
+    sFallbackTheme = theme;
 }
 
 - (instancetype)initWithType:(CEVRK1ThemeType)type {

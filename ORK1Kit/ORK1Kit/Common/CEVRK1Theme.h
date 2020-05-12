@@ -10,7 +10,6 @@
 
 #import "ORK1Defines.h"
 
-extern NSNotificationName _Nonnull const CEVORK1StepViewControllerViewWillAppearNotification;
 extern NSString * _Nonnull const CEVRK1ThemeKey;
 extern NSString * _Nonnull const CEVThemeAttributeName;
 
@@ -40,9 +39,11 @@ ORK1_CLASS_AVAILABLE
 @end
 
 ORK1_CLASS_AVAILABLE
-@interface CEVRK1Theme : NSObject <NSCopying>
-+ (nonnull CEVRK1Theme *)themeByMergingTheme:(nullable CEVRK1Theme *)theme1 withTheme:(nullable CEVRK1Theme *)theme2; // properties from theme take priority over theme2
+@interface CEVRK1Theme : NSObject
++ (nonnull CEVRK1Theme *)themeByOverridingTheme:(nullable CEVRK1Theme *)theme1 withTheme:(nullable CEVRK1Theme *)theme2; // properties from theme2 take priority over theme1
 + (nonnull instancetype)themeForElement:(nonnull id)element;
++ (nonnull CEVRK1Theme *)fallbackTheme;
++ (void)setFallbackTheme:(nonnull CEVRK1Theme *)theme;
 - (nonnull instancetype)initWithType:(CEVRK1ThemeType)type;
 
 @property (nonatomic, strong) UIColor * _Nullable tintColor;

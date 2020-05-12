@@ -170,12 +170,9 @@
     self.dismissedDate = nil;
     
     // Certain nested UI Elements (e.g., ORK1HeadlineLabel) are attached to view hierarchy late in the lifecycle. This can cause a noticable,
-    // unintended animation of state change as the view animates into view. Posting this notification and handling theme application upon
-    // receipt can ensure a redraw cycle of the receiving element can "see" the theme prior to being inside the responder chain so the first
-    // displayed draw is the expected theme.
-    NSDictionary *userInfo = @{CEVRK1ThemeKey : [CEVRK1Theme themeForElement:self]};
-    NSNotification *notification = [NSNotification notificationWithName:CEVORK1StepViewControllerViewWillAppearNotification object:nil userInfo:userInfo];
-    [NSNotificationCenter.defaultCenter postNotification:notification];
+    // unintended animation of state change as the view animates into view. Setting the fallback theme can ensure a redraw cycle of the 
+    // receiving element can "see" the theme prior to being inside the responder chain so the first displayed draw is the expected theme.
+    [CEVRK1Theme setFallbackTheme:[CEVRK1Theme themeForElement:self]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
