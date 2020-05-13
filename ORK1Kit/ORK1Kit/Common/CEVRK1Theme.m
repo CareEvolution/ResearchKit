@@ -196,7 +196,7 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
 - (void)updateTextForContinueButton:(ORK1ContinueButton *)continueButton {
     switch (self.themeType) {
         case CEVRK1ThemeTypeAllOfUs: {
-            if (!continueButton.titleLabel.text) {
+            if (![continueButton titleForState:UIControlStateNormal]) {
                 return;
             }
             
@@ -206,7 +206,7 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
             NSDictionary *attributes = @{           NSFontAttributeName            : [UIFont boldSystemFontOfSize:fontToMakeBold.pointSize],
                                                     NSForegroundColorAttributeName : textColor,
                                                     NSKernAttributeName            : @(3)};  // 3 pts = 0.25 em
-            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[continueButton.titleLabel.text uppercaseString] attributes:attributes];
+            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[[continueButton titleForState:UIControlStateNormal] uppercaseString] attributes:attributes];
             [continueButton setAttributedTitle:attributedString forState:UIControlStateNormal];
             break;
         }
