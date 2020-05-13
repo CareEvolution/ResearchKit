@@ -497,12 +497,6 @@
     _savedAnswerDates[identifier] = [NSDate date];
     _savedSystemCalendars[identifier] = [NSCalendar currentCalendar];
     _savedSystemTimeZones[identifier] = [NSTimeZone systemTimeZone];
-    
-    if (self.hasNextStep == YES) {
-        self.continueButtonItem = self.internalContinueButtonItem;
-    } else {
-        self.continueButtonItem = self.internalDoneButtonItem;
-    }
 }
 
 // Override to monitor button title change
@@ -1190,6 +1184,11 @@
         NSString *formItemIdentifier = cellItem.formItem.identifier;
         if (answer && formItemIdentifier) {
             [self setAnswer:answer forIdentifier:formItemIdentifier];
+            if (self.hasNextStep == NO) {
+                self.continueButtonItem = self.internalDoneButtonItem;
+            } else {
+                self.continueButtonItem = self.internalContinueButtonItem;
+            }
         } else if (answer == nil && formItemIdentifier) {
             [self removeAnswerForIdentifier:formItemIdentifier];
         }
