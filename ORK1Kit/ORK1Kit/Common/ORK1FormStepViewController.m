@@ -1062,6 +1062,11 @@
         NSString *formItemIdentifier = cellItem.formItem.identifier;
         if (answer && formItemIdentifier) {
             [self setAnswer:answer forIdentifier:formItemIdentifier];
+            if (self.hasNextStep == NO) {
+                self.continueButtonItem = self.internalDoneButtonItem;
+            } else {
+                self.continueButtonItem = self.internalContinueButtonItem;
+            }
         } else if (answer == nil && formItemIdentifier) {
             [self removeAnswerForIdentifier:formItemIdentifier];
         }
