@@ -15,9 +15,13 @@
 #import "ORK1Task.h"
 #import "ORK1Step.h"
 
+@interface UIFont (Scalable)
++ (NSDictionary *)cevrk1_textStyleToPointSize;
++ (UIFont *)cevrk1_preferredFontOfSize:(CGFloat)size weight:(UIFontWeight)weight;
+@end
+
 @interface UIColor (LightAndDark)
-- (UIColor *)lighterColor;
-- (UIColor *)darkerColor;
+- (UIColor *)cevrk1_darkerColor;
 @end
 
 NSString *const CEVThemeAttributeName = @"CEVThemeAttributeName";
@@ -136,10 +140,10 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
         label.textAlignment = self.titleAlignment.intValue;
     }
     if (self.titleFontSize != nil) {
-        label.font = [UIFont systemFontOfSize:self.titleFontSize.floatValue weight:UIFontWeightRegular];
+        label.font = [UIFont cevrk1_preferredFontOfSize:self.titleFontSize.floatValue weight:UIFontWeightRegular];
     }
     if (self.titleFontWeight != nil) {
-        label.font = [UIFont systemFontOfSize:label.font.pointSize weight:self.titleFontWeight.floatValue];
+        label.font = [UIFont cevrk1_preferredFontOfSize:label.font.pointSize weight:self.titleFontWeight.floatValue];
     }
 }
 
@@ -155,10 +159,10 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
         label.textAlignment = self.textAlignment.intValue;
     }
     if (self.textFontSize != nil) {
-        label.font = [UIFont systemFontOfSize:self.textFontSize.floatValue weight:UIFontWeightRegular];
+        label.font = [UIFont cevrk1_preferredFontOfSize:self.textFontSize.floatValue weight:UIFontWeightRegular];
     }
     if (self.textFontWeight != nil) {
-        label.font = [UIFont systemFontOfSize:label.font.pointSize weight:self.textFontWeight.floatValue];
+        label.font = [UIFont cevrk1_preferredFontOfSize:label.font.pointSize weight:self.textFontWeight.floatValue];
     }
 }
 
@@ -175,11 +179,11 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
         attributes[NSParagraphStyleAttributeName] = paragraphStyle;
     }
     if (self.textFontSize != nil && self.textFontWeight != nil) {
-        attributes[NSFontAttributeName] = [UIFont systemFontOfSize:self.textFontSize.floatValue weight: self.textFontWeight.floatValue];
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.textFontSize.floatValue weight: self.textFontWeight.floatValue];
     } else if (self.textFontSize != nil) {
-        attributes[NSFontAttributeName] = [UIFont systemFontOfSize:self.textFontSize.floatValue weight:UIFontWeightRegular];
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.textFontSize.floatValue weight:UIFontWeightRegular];
     } else if (self.textFontWeight != nil) {
-        attributes[NSFontAttributeName] = [UIFont systemFontOfSize:15 weight:self.textFontWeight.floatValue];
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:15 weight:self.textFontWeight.floatValue];
     }
     attributes[CEVThemeAttributeName] = @0; // Flag that we have styled this string.
 }
@@ -197,11 +201,11 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
         attributes[NSParagraphStyleAttributeName] = paragraphStyle;
     }
     if (self.detailTextFontSize != nil && self.detailTextFontWeight != nil) {
-        attributes[NSFontAttributeName] = [UIFont systemFontOfSize:self.detailTextFontSize.floatValue weight: self.detailTextFontWeight.floatValue];
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.detailTextFontSize.floatValue weight: self.detailTextFontWeight.floatValue];
     } else if (self.detailTextFontSize != nil) {
-        attributes[NSFontAttributeName] = [UIFont systemFontOfSize:self.detailTextFontSize.floatValue weight:UIFontWeightRegular];
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.detailTextFontSize.floatValue weight:UIFontWeightRegular];
     } else if (self.detailTextFontWeight != nil) {
-        attributes[NSFontAttributeName] = [UIFont systemFontOfSize:15 weight:self.detailTextFontWeight.floatValue];
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:15 weight:self.detailTextFontWeight.floatValue];
     }
     attributes[CEVThemeAttributeName] = @0; // Flag that we have styled this string.
 }
@@ -239,7 +243,7 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
         borderWidth = 1;
         borderColor = [UIColor colorWithWhite:0.7 alpha:1.0];
     } else if (continueButton.highlighted || continueButton.selected) {
-        gradient.colors = @[(id)startColor.darkerColor.CGColor, (id)endColor.darkerColor.CGColor];
+        gradient.colors = @[(id)startColor.cevrk1_darkerColor.CGColor, (id)endColor.cevrk1_darkerColor.CGColor];
     } else {
         gradient.colors = @[(id)startColor.CGColor, (id)endColor.CGColor];
     }
@@ -260,9 +264,10 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
-    UIFont *font = [UIFont systemFontOfSize:[[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] weight:UIFontWeightSemibold];
+    CGFloat fontSize = [[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue];
+    UIFont *font = [UIFont cevrk1_preferredFontOfSize:fontSize weight:UIFontWeightSemibold];
     if (self.nextButtonFontWeight != nil) {
-        font = [UIFont systemFontOfSize:font.pointSize weight:self.nextButtonFontWeight.floatValue];
+        font = [UIFont cevrk1_preferredFontOfSize:fontSize weight:self.nextButtonFontWeight.floatValue];
     }
     attributes[NSFontAttributeName] = font;
     
@@ -314,18 +319,7 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
 // https://stackoverflow.com/a/11598127
 @implementation UIColor (LightAndDark)
 
-- (UIColor *)lighterColor
-{
-    CGFloat h, s, b, a;
-    if ([self getHue:&h saturation:&s brightness:&b alpha:&a])
-        return [UIColor colorWithHue:h
-                          saturation:s
-                          brightness:MIN(b * 1.3, 1.0)
-                               alpha:a];
-    return nil;
-}
-
-- (UIColor *)darkerColor
+- (UIColor *)cevrk1_darkerColor
 {
     CGFloat h, s, b, a;
     if ([self getHue:&h saturation:&s brightness:&b alpha:&a])
@@ -335,4 +329,49 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
                                alpha:a];
     return nil;
 }
+@end
+
+@implementation UIFont (Scalable)
+
++ (NSDictionary *)cevrk1_textStyleToPointSize {
+    NSMutableDictionary *dict = [@{
+        UIFontTextStyleTitle1: @28,
+        UIFontTextStyleTitle2: @22,
+        UIFontTextStyleTitle3: @20,
+        UIFontTextStyleHeadline: @17,
+        UIFontTextStyleBody: @17,
+        UIFontTextStyleCallout: @16,
+        UIFontTextStyleSubheadline: @15,
+        UIFontTextStyleFootnote: @13,
+        UIFontTextStyleCaption1: @12,
+        UIFontTextStyleCaption2: @11,
+    } mutableCopy];
+    if (@available(iOS 11.0, *)) {
+        dict[UIFontTextStyleLargeTitle] = @34;
+    }
+    return dict;
+}
+
++ (UIFont *)cevrk1_preferredFontOfSize:(CGFloat)size weight:(UIFontWeight)weight {
+    if (@available(iOS 11.0, *)) {
+        // Find closest style to the given size
+        NSString *style = UIFontTextStyleBody;
+        CGFloat diff = fabs(size - 17);
+        for (NSString *i in [UIFont cevrk1_textStyleToPointSize].allKeys) {
+            NSString *currStyle = i;
+            CGFloat currSize = ((NSNumber *)[UIFont cevrk1_textStyleToPointSize][i]).floatValue;
+            CGFloat currDiff = fabs(currSize - size);
+            if (currDiff < diff) {
+                diff = currDiff;
+                style = currStyle;
+            }
+        }
+
+        UIFont *font = [UIFont systemFontOfSize:size weight:weight];
+        return [[UIFontMetrics metricsForTextStyle:style] scaledFontForFont:font];
+    } else {
+        return [UIFont systemFontOfSize:size weight:weight];
+    }
+}
+
 @end
