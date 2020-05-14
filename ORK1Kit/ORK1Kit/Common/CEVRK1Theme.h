@@ -7,6 +7,7 @@
 //
 
 @import UIKit;
+@class ORK1TaskViewController;
 
 #import "ORK1Defines.h"
 
@@ -42,8 +43,8 @@ ORK1_CLASS_AVAILABLE
 @interface CEVRK1Theme : NSObject
 + (nonnull CEVRK1Theme *)themeByOverridingTheme:(nullable CEVRK1Theme *)theme1 withTheme:(nullable CEVRK1Theme *)theme2; // properties from theme2 take priority over theme1
 + (nonnull instancetype)themeForElement:(nonnull id)element;
-+ (nonnull CEVRK1Theme *)fallbackTheme;
-+ (void)setFallbackTheme:(nonnull CEVRK1Theme *)theme;
++ (nullable ORK1TaskViewController *)fallbackTaskViewController;
++ (void)setFallbackTaskViewController:(nullable ORK1TaskViewController *)taskViewController;
 - (nonnull instancetype)initWithType:(CEVRK1ThemeType)type;
 
 @property (nonatomic, strong) UIColor * _Nullable tintColor;

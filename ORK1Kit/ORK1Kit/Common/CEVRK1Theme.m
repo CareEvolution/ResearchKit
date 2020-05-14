@@ -85,22 +85,23 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
     } else if ([element respondsToSelector:@selector(parentViewController)] && [element parentViewController]) {  // if has parentViewController, try that route
         UIViewController *parentViewController = [element parentViewController];
         return [CEVRK1Theme themeForElement:parentViewController];
+    } else if (sFallbackTaskViewController != nil) {                                                              // if has fallback, try fallback
+        CEVRK1Theme *taskTheme = sFallbackTaskViewController.task.cev_theme;
+        CEVRK1Theme *stepTheme = sFallbackTaskViewController.currentStepViewController.step.cev_theme;
+        return [CEVRK1Theme themeByOverridingTheme:taskTheme withTheme:stepTheme];
     } else {                                                                                                      // has reached end of chain or not in chain
-        return [CEVRK1Theme fallbackTheme];
+        return [[CEVRK1Theme alloc] init];
     }
 }
 
-static CEVRK1Theme *sFallbackTheme = nil;
+__weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
 
-+ (nonnull CEVRK1Theme *)fallbackTheme {
-    if (sFallbackTheme != nil) {
-        return sFallbackTheme;
-    }
-    return [[CEVRK1Theme alloc] initWithType:CEVRK1ThemeTypeDefault];
++ (nullable ORK1TaskViewController *)fallbackTaskViewController {
+    return sFallbackTaskViewController;
 }
 
-+ (void)setFallbackTheme:(nonnull CEVRK1Theme *)theme {
-    sFallbackTheme = theme;
++ (void)setFallbackTaskViewController:(nullable ORK1TaskViewController *)taskViewController {
+    sFallbackTaskViewController = taskViewController;
 }
 
 - (instancetype)initWithType:(CEVRK1ThemeType)type {
