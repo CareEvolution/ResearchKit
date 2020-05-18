@@ -638,6 +638,11 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    // Certain nested UI Elements (e.g., ORK1HeadlineLabel) are attached to view hierarchy late in the lifecycle. This can cause a noticable,
+    // unintended animation of state change as the view animates into view. Setting the fallback task can ensure a redraw cycle of the
+    // receiving element can "see" the theme prior to being inside the responder chain so the first displayed draw is the expected theme.
+    [CEVRK1Theme setFallbackTaskViewController:self];
+    
     UIColor *overrideTintColor = [[CEVRK1Theme themeForElement:self.view] taskViewControllerTintColor];
     if (overrideTintColor) {
         self.view.tintColor = overrideTintColor;

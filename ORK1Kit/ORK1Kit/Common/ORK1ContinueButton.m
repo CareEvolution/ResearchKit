@@ -65,34 +65,17 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     if (self.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass) {
         [self updateConstraintConstantsForWindow:self.window];
     }
-    
-    if (self.traitCollection.preferredContentSizeCategory != previousTraitCollection.preferredContentSizeCategory) {
-        [[CEVRK1Theme themeForElement:self] updateTextForContinueButton:self];
-    }
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {
-    _heightConstraint.constant = [self buttonHeightForWindow:window];
-    _widthConstraint.constant = [self buttonWidthForWindow:window];
-}
-
-- (CGFloat)buttonWidthForWindow:(UIWindow *)window {
-    NSNumber *overrideWidth = [[CEVRK1Theme themeForElement:self] continueButtonWidthForWindowWidth:window.frame.size.width];
-    
-    if (overrideWidth) {
-        return overrideWidth.floatValue;
-    } else {
-        return ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonWidth, self.window);
-    }
-}
-
-- (CGFloat)buttonHeightForWindow:(UIWindow *)window {
     CGFloat height = (self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact) ?
-    ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonHeightCompact, window) :
-    ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonHeightRegular, window);
+        ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonHeightCompact, window) :
+        ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonHeightRegular, window);
+    _heightConstraint.constant = height;
     
-    CGSize textSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [ORK1ContinueButton defaultFont]}];
-    return ([[CEVRK1Theme themeForElement:self] continueButtonHeightForTextSize:textSize] ?: @(height)).floatValue;
+    _widthConstraint.constant = ORK1GetMetricForWindow(ORK1ScreenMetricContinueButtonWidth, self.window);
+    
+    [[CEVRK1Theme themeForElement:self] updateAppearanceForContinueButton:self];
 }
     
 - (void)setUpConstraints {
@@ -119,11 +102,6 @@ static const CGFloat ContinueButtonTouchMargin = 10;
 - (void)updateConstraints {
     [self updateConstraintConstantsForWindow:self.window];
     [super updateConstraints];
-}
-
-+ (UIFont *)defaultFont {
-    UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
-    return [UIFont systemFontOfSize:[[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue]];
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {

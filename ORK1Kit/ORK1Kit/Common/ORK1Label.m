@@ -32,6 +32,7 @@
 #import "ORK1Label.h"
 
 #import "ORK1Helpers_Internal.h"
+#import "CEVRK1Theme.h"
 
 
 @implementation ORK1Label
@@ -66,7 +67,10 @@
 }
 
 - (void)updateAppearance {
-    self.font = [[self class] defaultFont];
+    // If we have styled this, don't override
+    if (self.attributedText.length > 0 && [self.attributedText attribute:CEVThemeAttributeName atIndex:0 effectiveRange:nil] == nil) {
+        self.font = [[self class] defaultFont];
+    }
     [self invalidateIntrinsicContentSize];
 }
 

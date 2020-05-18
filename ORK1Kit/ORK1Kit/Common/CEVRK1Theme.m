@@ -13,30 +13,61 @@
 #import "ORK1ContinueButton.h"
 #import "ORK1TaskViewController.h"
 #import "ORK1Task.h"
+#import "ORK1Step.h"
 
-NSNotificationName const CEVORK1StepViewControllerViewWillAppearNotification = @"CEVORK1StepViewControllerViewWillAppearNotification";
+@interface UIFont (Scalable)
++ (NSDictionary *)cevrk1_textStyleToPointSize;
++ (UIFont *)cevrk1_preferredFontOfSize:(CGFloat)size weight:(UIFontWeight)weight;
+@end
+
+@interface UIColor (LightAndDark)
+- (UIColor *)cevrk1_darkerColor;
+@end
+
+NSString *const CEVThemeAttributeName = @"CEVThemeAttributeName";
 NSString *const CEVRK1ThemeKey = @"cev_theme";
 
-@interface CEVRK1Theme()
-@property (nonatomic, assign) CEVRK1ThemeType themeType;
+@implementation CEVRK1Gradient
+
+- (instancetype)init {
+    if ((self = [super init])) {
+        self.direction = CEVRK1GradientDirectionTopToBottom;
+        self.startColor = [UIColor clearColor];
+        self.endColor = [UIColor clearColor];
+    }
+    return self;
+}
+
 @end
 
 @implementation CEVRK1Theme
 
-@synthesize themeType = _themeType;
++ (CEVRK1Theme *)themeByOverridingTheme:(nullable CEVRK1Theme *)theme withTheme:(nullable CEVRK1Theme *)theme2 {
+    CEVRK1Theme *merged = [[CEVRK1Theme alloc] init];
+    merged.tintColor = theme2.tintColor ?: theme.tintColor;
 
-- (instancetype)initWithType:(CEVRK1ThemeType)type {
-    if (self = [super init]) {
-        self.themeType = type;
-        return self;
-    }
-    return nil;
-}
+    merged.titleFontSize = theme2.titleFontSize ?: theme.titleFontSize;
+    merged.titleFontWeight = theme2.titleFontWeight ?: theme.titleFontWeight;
+    merged.titleColor = theme2.titleColor ?: theme.titleColor;
+    merged.titleAlignment = theme2.titleAlignment ?: theme.titleAlignment;
 
-+ (instancetype)defaultTheme {
-    CEVRK1Theme *defaultTheme = [[self alloc] init];
-    defaultTheme.themeType = CEVRK1ThemeTypeDefault;
-    return defaultTheme;
+    merged.textFontSize = theme2.textFontSize ?: theme.textFontSize;
+    merged.textFontWeight = theme2.textFontWeight ?: theme.textFontWeight;
+    merged.textColor = theme2.textColor ?: theme.textColor;
+    merged.textAlignment = theme2.textAlignment ?: theme.textAlignment;
+
+    merged.detailTextFontSize = theme2.detailTextFontSize ?: theme.detailTextFontSize;
+    merged.detailTextFontWeight = theme2.detailTextFontWeight ?: theme.detailTextFontWeight;
+    merged.detailTextColor = theme2.detailTextColor ?: theme.detailTextColor;
+    merged.detailTextAlignment = theme2.detailTextAlignment ?: theme.detailTextAlignment;
+
+    merged.nextButtonBackgroundColor = theme2.nextButtonBackgroundColor ?: theme.nextButtonBackgroundColor;
+    merged.nextButtonBackgroundGradient = theme2.nextButtonBackgroundGradient ?: theme.nextButtonBackgroundGradient;
+    merged.nextButtonFontWeight = theme2.nextButtonFontWeight ?: theme.nextButtonFontWeight;
+    merged.nextButtonTextTransform = theme2.nextButtonTextTransform ?: theme.nextButtonTextTransform;
+    merged.nextButtonLetterSpacing = theme2.nextButtonLetterSpacing ?: theme.nextButtonLetterSpacing;
+    merged.nextButtonTextColor = theme2.nextButtonTextColor ?: theme.nextButtonTextColor;
+    return merged;
 }
 
 + (instancetype)themeForElement:(id)element {
@@ -49,176 +80,297 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
     }
     if ([element isKindOfClass:[ORK1StepViewController class]]) {                                                  // is stepViewController, jump to task for theme
         id <ORK1Task> task = [(ORK1StepViewController *)element taskViewController].task;
-        return [CEVRK1Theme themeForElement:task];
+        CEVRK1Theme *taskTheme = task.cev_theme;
+        CEVRK1Theme *stepTheme = ((ORK1StepViewController *)element).step.cev_theme;
+        return [CEVRK1Theme themeByOverridingTheme:taskTheme withTheme:stepTheme];
     } else if ([element respondsToSelector:@selector(nextResponder)] && [element nextResponder]) {                // continue up responder chain
         id nextResponder = [element nextResponder];
         return [CEVRK1Theme themeForElement:nextResponder];
     } else if ([element respondsToSelector:@selector(parentViewController)] && [element parentViewController]) {  // if has parentViewController, try that route
         UIViewController *parentViewController = [element parentViewController];
         return [CEVRK1Theme themeForElement:parentViewController];
+    } else if (sFallbackTaskViewController != nil) {                                                              // if has fallback, try fallback
+        CEVRK1Theme *taskTheme = sFallbackTaskViewController.task.cev_theme;
+        CEVRK1Theme *stepTheme = sFallbackTaskViewController.currentStepViewController.step.cev_theme;
+        return [CEVRK1Theme themeByOverridingTheme:taskTheme withTheme:stepTheme];
     } else {                                                                                                      // has reached end of chain or not in chain
-        return [CEVRK1Theme defaultTheme];
+        return [[CEVRK1Theme alloc] init];
     }
 }
 
-+ (NSString *)themeTitleForType:(CEVRK1ThemeType)type {
-    switch (type) {
-        case CEVRK1ThemeTypeDefault:
-            return @"Default Theme";
-            break;
-        case CEVRK1ThemeTypeAllOfUs:
-            return @"All of Us Theme";
-            break;
-        default:
-            return @"No theme - undefined";
+__weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
+
++ (nullable ORK1TaskViewController *)fallbackTaskViewController {
+    return sFallbackTaskViewController;
+}
+
++ (void)setFallbackTaskViewController:(nullable ORK1TaskViewController *)taskViewController {
+    sFallbackTaskViewController = taskViewController;
+}
+
+- (instancetype)initWithType:(CEVRK1ThemeType)type {
+    if (self = [super init]) {
+        if (type == CEVRK1ThemeTypeAllOfUs) {
+            self.tintColor = ORK1RGB(0x216fb4);
+            self.titleColor = ORK1RGB(0x262262);
+            self.titleFontWeight = @(UIFontWeightSemibold);
+            self.nextButtonTextColor = ORK1RGB(0x262262);
+            self.nextButtonFontWeight = @(UIFontWeightSemibold);
+            self.nextButtonLetterSpacing = @3;
+            self.nextButtonTextTransform = @(CEVRK1TextTransformUppercase);
+            self.nextButtonBackgroundGradient = [[CEVRK1Gradient alloc] init];
+            self.nextButtonBackgroundGradient.direction = CEVRK1GradientDirectionLeftToRight;
+            self.nextButtonBackgroundGradient.startColor = ORK1RGB(0xf38d7a);
+            self.nextButtonBackgroundGradient.endColor = ORK1RGB(0xf8c954);
+        }        
+        return self;
+    }
+    return nil;
+}
+
+- (void)updateAppearanceForTitleLabel:(nonnull UILabel *)label {
+    // If we have styled this, don't override
+    if (label.attributedText.length > 0 && [label.attributedText attribute:CEVThemeAttributeName atIndex:0 effectiveRange:0] != nil) {
+        return;
+    }
+    if (self.titleColor != nil) {
+        label.textColor = self.titleColor;
+    }
+    if (self.titleAlignment != nil) {
+        label.textAlignment = self.titleAlignment.intValue;
+    }
+    if (self.titleFontSize != nil) {
+        label.font = [UIFont cevrk1_preferredFontOfSize:self.titleFontSize.floatValue weight:UIFontWeightRegular];
+    }
+    if (self.titleFontWeight != nil) {
+        label.font = [UIFont cevrk1_preferredFontOfSize:label.font.pointSize weight:self.titleFontWeight.floatValue];
     }
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<CEVRK1Theme: %p : %@>", self, [CEVRK1Theme themeTitleForType:_themeType]];
-}
-
-- (UIFont *)headlineLabelFontWithSize:(CGFloat)fontSize {
-    switch (self.themeType) {
-        case CEVRK1ThemeTypeAllOfUs:
-            return [UIFont boldSystemFontOfSize:fontSize];
-        default:
-            return nil;
+- (void)updateAppearanceForTextLabel:(nonnull UILabel *)label {
+    // If we have styled this, don't override
+    if (label.attributedText.length > 0 && [label.attributedText attribute:CEVThemeAttributeName atIndex:0 effectiveRange:0] != nil) {
+        return;
+    }
+    if (self.textColor != nil) {
+        label.textColor = self.textColor;
+    }
+    if (self.textAlignment != nil) {
+        label.textAlignment = self.textAlignment.intValue;
+    }
+    if (self.textFontSize != nil) {
+        label.font = [UIFont cevrk1_preferredFontOfSize:self.textFontSize.floatValue weight:UIFontWeightRegular];
+    }
+    if (self.textFontWeight != nil) {
+        label.font = [UIFont cevrk1_preferredFontOfSize:label.font.pointSize weight:self.textFontWeight.floatValue];
     }
 }
 
-- (UIColor *)headlineLabelFontColor {
-    switch (self.themeType) {
-        case CEVRK1ThemeTypeAllOfUs:
-            return ORK1RGB(0x262262);
-        default:
-            return nil;
+- (void)updateAttributesForText:(NSMutableDictionary *)attributes {
+    if (self.textColor != nil) {
+        attributes[NSForegroundColorAttributeName] = self.textColor;
     }
-}
-
-- (UIColor *)taskViewControllerTintColor {
-    switch (self.themeType) {
-        case CEVRK1ThemeTypeAllOfUs:
-            return ORK1RGB(0x216fb4);
-        default:
-            return nil;
+    if (self.textAlignment != nil) {
+        NSMutableParagraphStyle *paragraphStyle = [attributes[NSParagraphStyleAttributeName] mutableCopy];
+        if (paragraphStyle == nil) {
+            paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        }
+        paragraphStyle.alignment = self.textAlignment.intValue;
+        attributes[NSParagraphStyleAttributeName] = paragraphStyle;
     }
-}
-
-- (NSNumber *)navigationContrainerViewButtonConstraintFromContinueButton {
-    switch (self.themeType) {
-    case CEVRK1ThemeTypeAllOfUs:
-        // extends the difference between the standard and custom button size since
-        // we need to allow for room for the skip button to show below the continue button
-        return @(44 - 52);
-    default:
-        return nil;
+    if (self.textFontSize != nil && self.textFontWeight != nil) {
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.textFontSize.floatValue weight: self.textFontWeight.floatValue];
+    } else if (self.textFontSize != nil) {
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.textFontSize.floatValue weight:UIFontWeightRegular];
+    } else if (self.textFontWeight != nil) {
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:15 weight:self.textFontWeight.floatValue];
     }
+    attributes[CEVThemeAttributeName] = @0; // Flag that we have styled this string.
 }
 
-- (NSNumber *)continueButtonHeightForTextSize:(CGSize)textSize {
-    return @(textSize.height + (16 * 2));  // padding of 16
-}
-
-- (NSNumber *)continueButtonWidthForWindowWidth:(CGFloat)windowWidth {
-    return @(windowWidth - (20 * 2));  // width 100 % minus system padding
-}
-
-- (UIColor *)disabledTintColor {
-    switch (self.themeType) {
-        case CEVRK1ThemeTypeAllOfUs:
-            return [[UIColor blackColor] colorWithAlphaComponent:0.3f];  // same as super class setting
-        default:
-            return nil;
+- (void)updateAttributesForDetailText:(NSMutableDictionary *)attributes {
+    if (self.detailTextColor != nil) {
+        attributes[NSForegroundColorAttributeName] = self.detailTextColor;
     }
+    if (self.detailTextAlignment != nil) {
+        NSMutableParagraphStyle *paragraphStyle = [attributes[NSParagraphStyleAttributeName] mutableCopy];
+        if (paragraphStyle == nil) {
+            paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        }
+        paragraphStyle.alignment = self.detailTextAlignment.intValue;
+        attributes[NSParagraphStyleAttributeName] = paragraphStyle;
+    }
+    if (self.detailTextFontSize != nil && self.detailTextFontWeight != nil) {
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.detailTextFontSize.floatValue weight: self.detailTextFontWeight.floatValue];
+    } else if (self.detailTextFontSize != nil) {
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.detailTextFontSize.floatValue weight:UIFontWeightRegular];
+    } else if (self.detailTextFontWeight != nil) {
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:15 weight:self.detailTextFontWeight.floatValue];
+    }
+    attributes[CEVThemeAttributeName] = @0; // Flag that we have styled this string.
 }
 
 - (void)updateAppearanceForContinueButton:(ORK1ContinueButton *)continueButton {
-    switch (self.themeType) {
-        case CEVRK1ThemeTypeAllOfUs: {
-            // remove any previous gradient layers if button resizes due to state changes
-            for (NSInteger layerIndex = continueButton.layer.sublayers.count - 1; layerIndex >= 0; layerIndex --) {
-                CALayer *layer = continueButton.layer.sublayers[layerIndex];
-                if ([layer isKindOfClass:[CAGradientLayer class]]) {
-                    [layer removeFromSuperlayer];
-                }
-            }
-            
-            [self updateTextForContinueButton:continueButton];
-            
-            UIColor *disableTintColor = [self disabledTintColor];
-            if (!continueButton.isEnabled && disableTintColor) {
-                continueButton.layer.borderColor = disableTintColor.CGColor;
-                continueButton.layer.cornerRadius = 5.0f;
-                continueButton.layer.borderWidth = 1.0f;
-                return;
-            }
-            
-            CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
-            gradient.frame = continueButton.bounds;
-            if (continueButton.highlighted || continueButton.selected) {
-                gradient.colors = @[(id)ORK1RGB(0xcd6754).CGColor, (id)ORK1RGB(0xd2a32e).CGColor];
-            } else {
-                gradient.colors = @[(id)ORK1RGB(0xf38d7a).CGColor, (id)ORK1RGB(0xf8c954).CGColor];
-            }
-            gradient.startPoint = CGPointMake(0, 0);
-            gradient.endPoint = CGPointMake(1, 0);
-            gradient.cornerRadius = 5.0f;
-            
-            [continueButton.layer insertSublayer:gradient atIndex:0];
-            
-            continueButton.layer.borderWidth = 0;
-            break;
+    // remove any previous gradient layers if button resizes due to state changes
+    for (NSInteger layerIndex = continueButton.layer.sublayers.count - 1; layerIndex >= 0; layerIndex --) {
+        CALayer *layer = continueButton.layer.sublayers[layerIndex];
+        if ([layer isKindOfClass:[CAGradientLayer class]]) {
+            [layer removeFromSuperlayer];
         }
-        default: {
-            if (continueButton.enabled && (continueButton.highlighted || continueButton.selected)) {
-                // Highlighted
-                UIColor *color = [UIColor colorWithRed:68/255.0 green:131/255.0 blue:200/255.0 alpha:0.5];
-                continueButton.backgroundColor = color;
-                continueButton.layer.borderColor = [color CGColor];
-            } else if(continueButton.enabled && !(continueButton.highlighted || continueButton.selected)) {
-                // Normal
-                UIColor *color = [UIColor colorWithRed:68/255.0 green:131/255.0 blue:200/255.0 alpha:1.0];
-                continueButton.backgroundColor = color;
-                continueButton.layer.borderColor = [color CGColor];
-            } else {
-                // Disabled
-                UIColor *color = [UIColor colorWithRed:221/255.0 green:221/255.0 blue:221/255.0 alpha:1.0];
-                continueButton.backgroundColor = [UIColor whiteColor];
-                continueButton.layer.borderColor = [color CGColor];
-            }
-            [self updateTextForContinueButton:continueButton];
+    }
+    
+    // Configure gradient
+    CEVRK1GradientDirection gradientDirection = CEVRK1GradientDirectionLeftToRight;
+    UIColor *startColor = [UIColor colorWithRed:68/255.0 green:131/255.0 blue:200/255.0 alpha:1.0];
+    UIColor *endColor = startColor;
+    if (self.nextButtonBackgroundColor != nil) {
+        startColor = self.nextButtonBackgroundColor;
+        endColor = self.nextButtonBackgroundColor;
+    }
+    if (self.nextButtonBackgroundGradient != nil) {
+        gradientDirection = self.nextButtonBackgroundGradient.direction;
+        startColor = self.nextButtonBackgroundGradient.startColor;
+        endColor = self.nextButtonBackgroundGradient.endColor;
+    }
+    
+    UIColor *borderColor = nil;
+    CGFloat borderWidth = 0;
+    CAGradientLayer *gradient = [[CAGradientLayer alloc] init];
+    gradient.frame = continueButton.bounds;
+    if (!continueButton.enabled) {
+        UIColor *disabledColor = [UIColor whiteColor];
+        gradient.colors = @[(id)disabledColor.CGColor, (id)disabledColor.CGColor];
+        borderWidth = 1;
+        borderColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+    } else if (continueButton.highlighted || continueButton.selected) {
+        gradient.colors = @[(id)startColor.cevrk1_darkerColor.CGColor, (id)endColor.cevrk1_darkerColor.CGColor];
+    } else {
+        gradient.colors = @[(id)startColor.CGColor, (id)endColor.CGColor];
+    }
+    if (gradientDirection == CEVRK1GradientDirectionLeftToRight) {
+        gradient.startPoint = CGPointMake(0, 0);
+        gradient.endPoint = CGPointMake(1, 0);
+    } else {
+        gradient.startPoint = CGPointMake(0, 0);
+        gradient.endPoint = CGPointMake(0, 1);
+    }
+    gradient.cornerRadius = 5.0f;
+    gradient.borderWidth = borderWidth;
+    gradient.borderColor = borderColor.CGColor;
+    [continueButton.layer insertSublayer:gradient atIndex:0];
+    continueButton.layer.borderWidth = 0;
+
+    // Configure title
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    
+    UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
+    CGFloat fontSize = [[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue];
+    UIFont *font = [UIFont cevrk1_preferredFontOfSize:fontSize weight:UIFontWeightSemibold];
+    if (self.nextButtonFontWeight != nil) {
+        font = [UIFont cevrk1_preferredFontOfSize:fontSize weight:self.nextButtonFontWeight.floatValue];
+    }
+    attributes[NSFontAttributeName] = font;
+    
+    UIColor *textColor = [UIColor whiteColor];
+    if (self.nextButtonTextColor != nil) {
+        textColor = self.nextButtonTextColor;
+    }
+    if (!continueButton.isEnabled) {
+        textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
+    }
+    attributes[NSForegroundColorAttributeName] = textColor;
+    
+    if (self.nextButtonLetterSpacing != nil) {
+        attributes[NSKernAttributeName] = self.nextButtonLetterSpacing;
+    }
+    
+    NSString *text = [continueButton titleForState:UIControlStateNormal];
+    if (self.nextButtonTextTransform != nil) {
+        switch ((CEVRK1TextTransform)self.nextButtonTextTransform.integerValue) {
+        case CEVRK1TextTransformUppercase:
+            text = text.uppercaseString;
+            break;
+        case CEVRK1TextTransformLowercase:
+            text = text.lowercaseString;
             break;
         }
     }
+    if (text != nil) {
+        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:text attributes:attributes];
+        [continueButton setAttributedTitle:attributedString forState:UIControlStateNormal];
+    }
+    
+    continueButton.heightConstraint.constant = font.pointSize + (16 * 2);  // padding of 16
+    continueButton.widthConstraint.constant = continueButton.window.frame.size.width - (20 * 2); // width 100 % minus system padding
 }
 
-- (void)updateTextForContinueButton:(ORK1ContinueButton *)continueButton {
-    switch (self.themeType) {
-        case CEVRK1ThemeTypeAllOfUs: {
-            if (![continueButton titleForState:UIControlStateNormal]) {
-                return;
+- (UIColor *)taskViewControllerTintColor {
+    return self.tintColor;
+}
+
+- (NSNumber *)navigationContrainerViewButtonConstraintFromContinueButton {
+    // extends the difference between the standard and custom button size since
+    // we need to allow for room for the skip button to show below the continue button
+    return @(44 - 52);
+}
+
+@end
+
+// https://stackoverflow.com/a/11598127
+@implementation UIColor (LightAndDark)
+
+- (UIColor *)cevrk1_darkerColor
+{
+    CGFloat h, s, b, a;
+    if ([self getHue:&h saturation:&s brightness:&b alpha:&a])
+        return [UIColor colorWithHue:h
+                          saturation:s
+                          brightness:b * 0.75
+                               alpha:a];
+    return nil;
+}
+@end
+
+@implementation UIFont (Scalable)
+
++ (NSDictionary *)cevrk1_textStyleToPointSize {
+    NSMutableDictionary *dict = [@{
+        UIFontTextStyleTitle1: @28,
+        UIFontTextStyleTitle2: @22,
+        UIFontTextStyleTitle3: @20,
+        UIFontTextStyleHeadline: @17,
+        UIFontTextStyleBody: @17,
+        UIFontTextStyleCallout: @16,
+        UIFontTextStyleSubheadline: @15,
+        UIFontTextStyleFootnote: @13,
+        UIFontTextStyleCaption1: @12,
+        UIFontTextStyleCaption2: @11,
+    } mutableCopy];
+    if (@available(iOS 11.0, *)) {
+        dict[UIFontTextStyleLargeTitle] = @34;
+    }
+    return dict;
+}
+
++ (UIFont *)cevrk1_preferredFontOfSize:(CGFloat)size weight:(UIFontWeight)weight {
+    if (@available(iOS 11.0, *)) {
+        // Find closest style to the given size
+        NSString *style = UIFontTextStyleBody;
+        CGFloat diff = fabs(size - 17);
+        for (NSString *i in [UIFont cevrk1_textStyleToPointSize].allKeys) {
+            NSString *currStyle = i;
+            CGFloat currSize = ((NSNumber *)[UIFont cevrk1_textStyleToPointSize][i]).floatValue;
+            CGFloat currDiff = fabs(currSize - size);
+            if (currDiff < diff) {
+                diff = currDiff;
+                style = currStyle;
             }
-            
-            UIColor *textColor = continueButton.isEnabled ? ORK1RGB(0x262262) : [self disabledTintColor];
-            
-            UIFont *fontToMakeBold = [ORK1ContinueButton defaultFont];
-            NSDictionary *attributes = @{           NSFontAttributeName            : [UIFont boldSystemFontOfSize:fontToMakeBold.pointSize],
-                                                    NSForegroundColorAttributeName : textColor,
-                                                    NSKernAttributeName            : @(3)};  // 3 pts = 0.25 em
-            NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[[continueButton titleForState:UIControlStateNormal] uppercaseString] attributes:attributes];
-            [continueButton setAttributedTitle:attributedString forState:UIControlStateNormal];
-            break;
         }
-        default: {
-            UIFont *fontToMakeBold = [ORK1ContinueButton defaultFont];
-            continueButton.titleLabel.font = [UIFont boldSystemFontOfSize:fontToMakeBold.pointSize];
-            [continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-            [continueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-            [continueButton setTitleColor:[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0] forState:UIControlStateDisabled];
-            break;
-        }
+
+        UIFont *font = [UIFont systemFontOfSize:size weight:weight];
+        return [[UIFontMetrics metricsForTextStyle:style] scaledFontForFont:font];
+    } else {
+        return [UIFont systemFontOfSize:size weight:weight];
     }
 }
 

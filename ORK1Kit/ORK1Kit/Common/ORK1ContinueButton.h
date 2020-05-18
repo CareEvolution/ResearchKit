@@ -39,9 +39,9 @@ ORK1_CLASS_AVAILABLE
 @interface ORK1ContinueButton : ORK1BorderedButton
 
 - (instancetype)initWithTitle:(NSString *)title isDoneButton:(BOOL)isDoneButton;
-+ (UIFont *)defaultFont;
-- (CGFloat)buttonWidthForWindow:(UIWindow *)window;
-- (CGFloat)buttonHeightForWindow:(UIWindow *)window;
+
+@property (nonatomic, readonly) NSLayoutConstraint *widthConstraint;
+@property (nonatomic, readonly) NSLayoutConstraint *heightConstraint;
 
 @property (nonatomic) BOOL isDoneButton;
 
