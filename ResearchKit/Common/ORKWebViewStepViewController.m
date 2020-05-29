@@ -93,11 +93,23 @@
 
 @end
 
+@interface ORKScriptMessageHandlerImpl: NSObject <WKScriptMessageHandler>
+@property (nonatomic, copy, nullable) void (^didReceiveScriptMessageFunc)(WKUserContentController *, WKScriptMessage *);
+@end
+
+@implementation ORKScriptMessageHandlerImpl
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    if (self.didReceiveScriptMessageFunc != nil) {
+        self.didReceiveScriptMessageFunc(userContentController, message);
+    }
+}
+@end
+
 @implementation ORKWebViewStepViewController {
     NSString *_result;
     ORKNavigationContainerView *_navigationFooterView;
     NSArray<NSLayoutConstraint *> *_constraints;
-
+    ORKScriptMessageHandlerImpl *_scriptMessageHandler;
 }
 
 - (ORKWebViewStep *)webViewStep {
@@ -112,9 +124,15 @@
 - (instancetype)initWithStep:(ORKStep *)step {
     self = [super initWithStep:step];
     if (self) {
+        __weak typeof(self) weakSelf = self;
+        _scriptMessageHandler = [[ORKScriptMessageHandlerImpl alloc] init];
+        _scriptMessageHandler.didReceiveScriptMessageFunc = ^(WKUserContentController *userContentController, WKScriptMessage *scriptMessage) {
+            [weakSelf userContentController:userContentController didReceiveScriptMessage:scriptMessage];
+        };
+        
         _webView = [[ORKWebViewPreloader shared] webViewForKey:step.identifier];
-        [_webView.configuration.userContentController addScriptMessageHandler:self name:@"ResearchKit"];
-        [_webView.configuration.userContentController addScriptMessageHandler:self name:@"GetAccessToken"];
+        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandler name:@"ResearchKit"];
+        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandler name:@"GetAccessToken"];
         _webView.frame = self.view.bounds;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _webView.navigationDelegate = self;
