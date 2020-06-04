@@ -100,7 +100,6 @@ static const CGFloat AssumedStatusBarHeight = 20;
         
         {
             _headerView = [ORK1StepHeaderView new];
-            _headerView.layoutMargins = UIEdgeInsetsZero;
             _headerView.translatesAutoresizingMaskIntoConstraints = NO;
             [_container addSubview:_headerView];
         }
@@ -373,7 +372,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
     UIEdgeInsets layoutMargins = (UIEdgeInsets){.left = margin, .right = margin};
     self.layoutMargins = layoutMargins;
     _scrollContainer.layoutMargins = layoutMargins;
-    _container.layoutMargins = layoutMargins;
+    _container.layoutMargins = UIEdgeInsetsZero;
 }
 
 - (void)updateConstraintConstantsForWindow:(UIWindow *)window {

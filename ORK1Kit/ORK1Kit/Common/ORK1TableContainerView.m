@@ -150,7 +150,7 @@
         CGSize footerSize = [_continueSkipContainerView systemLayoutSizeFittingSize:(CGSize){_tableView.bounds.size.width,0} withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
         CGRect footerBounds = (CGRect){{0,0},footerSize};
         
-        CGFloat boundsHeightUnused = _tableView.bounds.size.height - _tableView.contentSize.height;
+        CGFloat boundsHeightUnused = _tableView.bounds.size.height - _tableView.contentSize.height - _tableView.adjustedContentInset.bottom - _tableView.adjustedContentInset.top;
         if (boundsHeightUnused > footerBounds.size.height) {
             _tableView.scrollEnabled = YES;
             footerBounds.size.height = boundsHeightUnused;

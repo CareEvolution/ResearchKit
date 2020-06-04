@@ -132,6 +132,7 @@
 #endif
         [self setUpConstraints];
         [self setNeedsUpdateConstraints];
+        self.layoutMargins = UIEdgeInsetsMake(8, 15, 8, 15);
     }
     return self;
 }
