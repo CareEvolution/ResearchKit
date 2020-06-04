@@ -248,7 +248,7 @@ CGFloat ORK1GetMetricForWindow(ORK1ScreenMetric metric, UIWindow *window) {
 }
 
 const CGFloat ORK1LayoutMarginWidthRegularBezel = 15.0;
-const CGFloat ORK1LayoutMarginWidthThinBezelRegular = 20.0;
+const CGFloat ORK1LayoutMarginWidthThinBezelRegular = 15.0;
 const CGFloat ORK1LayoutMarginWidthiPad = 115.0;
 
 CGFloat ORK1StandardLeftTableViewCellMarginForWindow(UIWindow *window) {
