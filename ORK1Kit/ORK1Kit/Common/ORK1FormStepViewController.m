@@ -277,7 +277,15 @@
 
 - (void)updateConstraints {
     [super updateConstraints];
-    self.leftMarginConstraint.constant = _tableView.layoutMargins.left;
+    
+    // This is a hacky way to align the section header leading margin to that of the ORK1FormCell's leading margin,
+    CGFloat marginOffset;
+    if ([[[UIDevice currentDevice] model] isEqualToString:@"iPad"]) {
+        marginOffset = 10.0;
+    } else {
+        marginOffset = 13.0;
+    }
+    self.leftMarginConstraint.constant = _tableView.layoutMargins.left + marginOffset;
 }
 
 @end
