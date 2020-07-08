@@ -1140,8 +1140,10 @@
 - (void)formItemCell:(ORK1FormItemCell *)cell answerDidChangeTo:(id)answer {
     if (answer && cell.formItem.identifier) {
         [self setAnswer:answer forIdentifier:cell.formItem.identifier];
+        [self hideSections];
     } else if (answer == nil && cell.formItem.identifier) {
         [self removeAnswerForIdentifier:cell.formItem.identifier];
+        [self hideSections];
     }
     
     _skipped = NO;
