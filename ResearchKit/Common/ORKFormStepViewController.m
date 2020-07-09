@@ -794,6 +794,7 @@
     
     for (ORKTableSection *section in _allSections) {
         BOOL hideSection = YES;
+        BOOL sectionHasChanges = NO;
         NSUInteger currentSectionIndex = [_sections indexOfObject:section];
         NSMutableArray *pendingRowInsertions = [NSMutableArray new];
         NSMutableArray *pendingRowDeletions = [NSMutableArray new];
@@ -811,6 +812,9 @@
                 [_hiddenFormItems addObject:formItem];
                 if (cellItem) {
                     [newHiddenCellItems addObject:cellItem];
+                    if (![_hiddenCellItems containsObject:cellItem]) {
+                        sectionHasChanges = YES;
+                    }
                 }
             } else {
                 if (cellItem && currentRowIndex == NSNotFound) {
@@ -818,10 +822,18 @@
                 }
                 if (cellItem) {
                     [newRows addObject:cellItem];
+                    if ([_hiddenCellItems containsObject:cellItem]) {
+                        sectionHasChanges = YES;
+                    }
                 }
                 hideSection = NO;
             }
         }
+        
+        /*
+         Due to cell re-creation to fix rounded corners with changes, the tableview resigns any first responder so if in the middle of
+         editing a text field, we need to capture and re
+         */
         
         if (hideSection) {
             if (currentSectionIndex != NSNotFound) {
@@ -835,7 +847,7 @@
                 [insertSections addIndex:newSections.count - 1];
                 [deleteRows addObjectsFromArray:pendingRowDeletions];
                 [insertRows addObjectsFromArray:pendingRowInsertions];
-            } else if (section.formItems.count > 1) {
+            } else if (section.formItems.count > 1 && sectionHasChanges) {
                 [sectionsToReload addIndex:newSections.count - 1];
             }
         }
@@ -1274,8 +1286,10 @@
 - (void)formItemCell:(ORKFormItemCell *)cell answerDidChangeTo:(id)answer {
     if (answer && cell.formItem.identifier) {
         [self setAnswer:answer forIdentifier:cell.formItem.identifier];
+        [self hideSections];
     } else if (answer == nil && cell.formItem.identifier) {
         [self removeAnswerForIdentifier:cell.formItem.identifier];
+        [self hideSections];
     }
     
     _skipped = NO;
