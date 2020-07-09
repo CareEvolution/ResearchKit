@@ -286,7 +286,7 @@
     } else {
         marginOffset = 13.0;
     }
-    self.leftMarginConstraint.constant = _tableView.layoutMargins.left + marginOffset;
+    self.leftMarginConstraint.constant = marginOffset; //_tableView.layoutMargins.left + marginOffset;
 }
 
 @end
