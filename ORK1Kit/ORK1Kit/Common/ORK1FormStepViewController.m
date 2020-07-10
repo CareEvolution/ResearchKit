@@ -282,11 +282,11 @@
     // This is a hacky way to align the section header leading margin to that of the ORK1FormCell's leading margin,
     CGFloat marginOffset;
     if ([[[UIDevice currentDevice] model] isEqualToString:@"iPad"]) {
-        marginOffset = 10.0;
-    } else {
         marginOffset = 13.0;
+    } else {
+        marginOffset = 18.0;
     }
-    self.leftMarginConstraint.constant = marginOffset; //_tableView.layoutMargins.left + marginOffset;
+    self.leftMarginConstraint.constant = marginOffset;
 }
 
 @end
