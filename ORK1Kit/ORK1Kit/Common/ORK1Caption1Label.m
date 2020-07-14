@@ -37,10 +37,9 @@
 @implementation ORK1Caption1Label
 
 + (UIFont *)defaultFont {
-    // medium , 17
-    UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleCaption1];
-    const CGFloat defaultSize = 12;
-    return ORK1MediumFontWithSize([[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] + 17.0 - defaultSize);
+    // bold, 17
+    UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
+    return [UIFont systemFontOfSize:[[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] - 0.0 weight: UIFontWeightBold];
 }
 
 @end

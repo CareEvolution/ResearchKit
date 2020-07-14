@@ -174,6 +174,7 @@
         [textChoiceAnswerFormat.textChoices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             ORKTableCellItem *cellItem = [[ORKTableCellItem alloc] initWithFormItem:item choiceIndex:idx];
             [(NSMutableArray *)self.items addObject:cellItem];
+            _cellItemForFormItem[item] = cellItem;
         }];
         
     } else {
@@ -794,6 +795,7 @@
     
     for (ORKTableSection *section in _allSections) {
         BOOL hideSection = YES;
+        BOOL sectionHasChanges = NO;
         NSUInteger currentSectionIndex = [_sections indexOfObject:section];
         NSMutableArray *pendingRowInsertions = [NSMutableArray new];
         NSMutableArray *pendingRowDeletions = [NSMutableArray new];
@@ -811,6 +813,9 @@
                 [_hiddenFormItems addObject:formItem];
                 if (cellItem) {
                     [newHiddenCellItems addObject:cellItem];
+                    if (![_hiddenCellItems containsObject:cellItem]) {
+                        sectionHasChanges = YES;
+                    }
                 }
             } else {
                 if (cellItem && currentRowIndex == NSNotFound) {
@@ -818,6 +823,9 @@
                 }
                 if (cellItem) {
                     [newRows addObject:cellItem];
+                    if ([_hiddenCellItems containsObject:cellItem]) {
+                        sectionHasChanges = YES;
+                    }
                 }
                 hideSection = NO;
             }
@@ -835,7 +843,7 @@
                 [insertSections addIndex:newSections.count - 1];
                 [deleteRows addObjectsFromArray:pendingRowDeletions];
                 [insertRows addObjectsFromArray:pendingRowInsertions];
-            } else if (section.formItems.count > 1) {
+            } else if (section.formItems.count > 1 && sectionHasChanges) {
                 [sectionsToReload addIndex:newSections.count - 1];
             }
         }
@@ -1274,8 +1282,10 @@
 - (void)formItemCell:(ORKFormItemCell *)cell answerDidChangeTo:(id)answer {
     if (answer && cell.formItem.identifier) {
         [self setAnswer:answer forIdentifier:cell.formItem.identifier];
+        [self hideSections];
     } else if (answer == nil && cell.formItem.identifier) {
         [self removeAnswerForIdentifier:cell.formItem.identifier];
+        [self hideSections];
     }
     
     _skipped = NO;

@@ -171,6 +171,7 @@
         
         [textChoiceAnswerFormat.textChoices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             ORK1TableCellItem *cellItem = [[ORK1TableCellItem alloc] initWithFormItem:item choiceIndex:idx];
+            _cellItemForFormItem[item] = cellItem;
             [(NSMutableArray *)self.items addObject:cellItem];
         }];
         
@@ -277,7 +278,15 @@
 
 - (void)updateConstraints {
     [super updateConstraints];
-    self.leftMarginConstraint.constant = _tableView.layoutMargins.left;
+    
+    // This is a hacky way to align the section header leading margin to that of the ORK1FormCell's leading margin,
+    CGFloat marginOffset;
+    if ([[[UIDevice currentDevice] model] isEqualToString:@"iPad"]) {
+        marginOffset = 13.0;
+    } else {
+        marginOffset = 18.0;
+    }
+    self.leftMarginConstraint.constant = marginOffset;
 }
 
 @end
@@ -726,6 +735,7 @@
     
     for (ORK1TableSection *section in _allSections) {
         BOOL hideSection = YES;
+        BOOL sectionHasChanges = NO;
         for (ORK1FormItem *formItem in section.formItems) {
             BOOL formItemIsHidden = [formItem.hidePredicate evaluateWithObject:@[taskResult]
                                                          substitutionVariables:@{ORK1ResultPredicateTaskIdentifierVariableName : taskResult.identifier}];
@@ -733,9 +743,15 @@
             if (formItemIsHidden) {
                 if (cellItem) {
                     [_hiddenCellItems addObject:cellItem];
+                    if (![oldHiddenCellItems containsObject:cellItem]) {
+                        sectionHasChanges = YES;
+                    }
                 }
                 [_hiddenFormItems addObject:formItem];
             } else {
+                if (cellItem && [oldHiddenCellItems containsObject:cellItem]) {
+                    sectionHasChanges = YES;
+                }
                 hideSection = NO;
             }
         }
@@ -744,7 +760,7 @@
             if (![oldSections containsObject:section]) {
                 [sectionsToInsert addIndex:_sections.count - 1];
             }
-            if (section.formItems.count > 1 && ![oldHiddenCellItems isEqualToArray:_hiddenCellItems]) {
+            if (section.formItems.count > 1 && sectionHasChanges) {
                 [sectionsToUpdateCells addIndex:_sections.count - 1];
             }
         } else {
@@ -1140,8 +1156,10 @@
 - (void)formItemCell:(ORK1FormItemCell *)cell answerDidChangeTo:(id)answer {
     if (answer && cell.formItem.identifier) {
         [self setAnswer:answer forIdentifier:cell.formItem.identifier];
+        [self hideSections];
     } else if (answer == nil && cell.formItem.identifier) {
         [self removeAnswerForIdentifier:cell.formItem.identifier];
+        [self hideSections];
     }
     
     _skipped = NO;
