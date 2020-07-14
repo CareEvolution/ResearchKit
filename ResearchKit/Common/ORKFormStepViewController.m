@@ -174,6 +174,7 @@
         [textChoiceAnswerFormat.textChoices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             ORKTableCellItem *cellItem = [[ORKTableCellItem alloc] initWithFormItem:item choiceIndex:idx];
             [(NSMutableArray *)self.items addObject:cellItem];
+            _cellItemForFormItem[item] = cellItem;
         }];
         
     } else {
@@ -829,11 +830,6 @@
                 hideSection = NO;
             }
         }
-        
-        /*
-         Due to cell re-creation to fix rounded corners with changes, the tableview resigns any first responder so if in the middle of
-         editing a text field, we need to capture and re
-         */
         
         if (hideSection) {
             if (currentSectionIndex != NSNotFound) {
