@@ -429,8 +429,7 @@ return [self predicateMatchingResultSelector:resultSelector
                                                 @(minimumExpectedMinute),
                                                 @(maximumExpectedHour),
                                                 @(maximumExpectedHour),
-                                                @(maximumExpectedMinute) ]
-              areSubPredicateFormatsSubquery: NO];
+                                                @(maximumExpectedMinute) ]];
 }
 
 + (NSPredicate *)predicateForTimeIntervalQuestionResultWithResultSelector:(ORK1ResultSelector *)resultSelector
