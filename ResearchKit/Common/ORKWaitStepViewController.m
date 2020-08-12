@@ -91,6 +91,7 @@
     }
     _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
     _navigationFooterView.neverHasContinueButton = YES;
+    self.navigationContainerView = _navigationFooterView;
     [self.view addSubview:_navigationFooterView];
 }
 

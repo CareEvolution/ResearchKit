@@ -131,6 +131,7 @@
     }
     _navigationFooterView.skipButtonItem = self.skipButtonItem;
     _navigationFooterView.continueEnabled = _finished;
+    self.navigationContainerView = _navigationFooterView;
     
     ORKActiveStep *step = [self activeStep];
     _navigationFooterView.useNextForSkip = step.shouldUseNextAsSkipButton;

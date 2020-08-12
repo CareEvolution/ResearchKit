@@ -110,6 +110,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
         _navigationFooterView.neverHasContinueButton = YES;
         _navigationFooterView.skipEnabled = NO;
         _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
+        self.navigationContainerView = _navigationFooterView;
         [_navigationFooterView updateContinueAndSkipEnabled];
         [self.view addSubview:_navigationFooterView];
         

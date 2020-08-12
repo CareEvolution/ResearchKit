@@ -73,6 +73,7 @@
         _navigationFooterView.bottomMargin = 15;
         _navigationFooterView.optional = YES;
         _navigationFooterView.backgroundColor = ORKColor(ORKNavigationContainerColorKey);
+        self.navigationContainerView = _navigationFooterView;
         [self addSubview:_navigationFooterView];
         
         NSDictionary *dictionary = NSDictionaryOfVariableBindings(self, _previewView, _navigationFooterView, _headerView);

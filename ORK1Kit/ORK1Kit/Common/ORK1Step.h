@@ -226,6 +226,13 @@ ORK1_CLASS_AVAILABLE
  */
 @property (nonatomic, retain, nullable) CEVRK1Theme *cev_theme;
 
+/**
+A Boolean value indicating whether this step should count in progress calculations.
+
+The default value of this property is 'NO'.
+*/
+@property (nonatomic, assign) BOOL excludeFromProgressCalculation;
+
 @end
 
 NS_ASSUME_NONNULL_END

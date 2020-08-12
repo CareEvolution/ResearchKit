@@ -33,6 +33,18 @@
 #import <ORK1Kit/ORK1Task.h>
 
 
+typedef NS_ENUM(NSInteger, CEVRK1TaskProgressIndicatorStyle) {
+    CEVRK1TaskProgressIndicatorStyleNone,
+    CEVRK1TaskProgressIndicatorStyleText,
+    CEVRK1TaskProgressIndicatorStyleBar
+} ORK1_ENUM_AVAILABLE;
+
+typedef NS_ENUM(NSInteger, CEVRK1TaskProgressBarProgressionMetric) {
+    CEVRK1TaskProgressBarProgressionMetricLinear,
+    CEVRK1TaskProgressBarProgressionMetricFastToSlow
+} ORK1_ENUM_AVAILABLE;
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class ORK1NavigableOrderedTask;
@@ -98,6 +110,23 @@ ORK1_CLASS_AVAILABLE
  Various UI elements may check the theme and use it to apply modifications.
  */
 @property (nonatomic, retain, nullable) CEVRK1Theme *cev_theme;
+
+/**
+ For steps that will show progress, this determines how progress is displayed in the top navigation bar.
+ Choices are .none (hides any progress), .text (e.g., "Step 5 of 20"), or .bar (progress bar)
+ 
+ Default is .text
+*/
+@property (nonatomic, assign) CEVRK1TaskProgressIndicatorStyle progressIndicatorStyle;
+
+/**
+ If taskProgressIndicatorStyle is .bar, this detemines how quickly the bar fills.
+ Choices are .linear (e.g., step 1 of 10 should be 10 % filled, step 2 of 10 should be 20 %),
+ and .fastToSlow (progress bar grows quickly at beginning and then slows down).
+ 
+ Default is .linear
+*/
+@property (nonatomic, assign) CEVRK1TaskProgressBarProgressionMetric progressBarProgressionMetric;
 
 /**
  Return a mutated copy of self with the steps included in the given array.

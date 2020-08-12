@@ -92,6 +92,7 @@
     _navigationFooterView.continueEnabled = YES;
     _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
     _navigationFooterView.hidden = self.isBeingReviewed;
+    self.navigationContainerView = _navigationFooterView;
     [_navigationFooterView updateContinueAndSkipEnabled];
     [self.view addSubview:_navigationFooterView];
 }

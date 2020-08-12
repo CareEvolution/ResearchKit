@@ -33,6 +33,9 @@
 @import AVFoundation;
 
 
+@class ORKNavigationContainerView;
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ORKImageCaptureViewDelegate <NSObject>
@@ -55,6 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) UIBarButtonItem *cancelButtonItem;
 @property (nonatomic, strong, nullable) UIImage *capturedImage;
 @property (nonatomic, strong, nullable) NSError *error;
+@property (nonatomic, strong, nullable) ORKNavigationContainerView *navigationContainerView;
 
 @end
 

@@ -584,6 +584,7 @@
         _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
         _navigationFooterView.optional = self.step.optional;
         _navigationFooterView.footnoteLabel.text = [self formStep].footnote;
+        self.navigationContainerView = _navigationFooterView;
         [self.view addSubview:_navigationFooterView];
         if (self.readOnlyMode) {
             _navigationFooterView.optional = YES;

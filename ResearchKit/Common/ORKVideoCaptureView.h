@@ -60,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL recording;
 @property (nonatomic, strong, nullable) ORKVideoCaptureCameraPreviewView *previewView;
 @property (nonatomic, strong, readonly) AVPlayerViewController *playerViewController;
+@property (nonatomic, strong, nullable) ORKNavigationContainerView *navigationContainerView;
 
 @end
 

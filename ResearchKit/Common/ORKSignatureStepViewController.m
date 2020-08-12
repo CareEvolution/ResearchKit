@@ -302,6 +302,7 @@
     _navigationFooterView.skipButtonItem = self.skipButtonItem;
     _navigationFooterView.continueButtonItem = self.continueButtonItem;
     _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
+    self.navigationContainerView = _navigationFooterView;
     [self.view addSubview:_navigationFooterView];
     
     _navigationFooterView.optional = NO;

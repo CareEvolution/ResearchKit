@@ -97,6 +97,7 @@
         _navigationFooterView.footnoteLabel.textAlignment = NSTextAlignmentCenter;
         _navigationFooterView.footnoteLabel.text = @" ";
         _navigationFooterView.backgroundColor = ORKColor(ORKNavigationContainerColorKey);
+        self.navigationContainerView = _navigationFooterView;
         [_navigationFooterView setAlpha:0.8];
         [self addSubview:_navigationFooterView];
         

@@ -80,6 +80,7 @@
     _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
     _navigationFooterView.hidden = self.isBeingReviewed;
     _navigationFooterView.footnoteLabel.text = [self instructionStep].footnote;
+    self.navigationContainerView = _navigationFooterView;
     [_navigationFooterView updateContinueAndSkipEnabled];
     [self.view addSubview:_navigationFooterView];
 }

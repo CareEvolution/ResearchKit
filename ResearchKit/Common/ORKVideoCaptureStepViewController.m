@@ -144,6 +144,7 @@
         _videoCaptureView.videoCaptureStep = (ORKVideoCaptureStep *)self.step;
         _videoCaptureView.delegate = self;
         _videoCaptureView.cancelButtonItem = self.cancelButtonItem;
+        self.navigationContainerView = _videoCaptureView.navigationContainerView;
         [self.view addSubview:_videoCaptureView];
         
         

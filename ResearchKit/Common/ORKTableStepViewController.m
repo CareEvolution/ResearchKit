@@ -148,6 +148,7 @@ ORKDefineStringKey(ORKBasicCellReuseIdentifier);
         _navigationFooterView.continueButtonItem = self.continueButtonItem;
         _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
         _navigationFooterView.optional = self.step.optional;
+        self.navigationContainerView = _navigationFooterView;
         [self.view addSubview:_navigationFooterView];
         
         [self setupConstraints];

@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ORKStepResult;
 @class ORKStepViewController;
 @class ORKTaskViewController;
+@class ORKNavigationContainerView;
 
 /**
  An enumeration of values used in `ORKStepViewControllerDelegate` to indicate the direction of navigation
@@ -356,6 +357,8 @@ ORK_CLASS_AVAILABLE
  The presenting task view controller. (read-only)
  */
 @property (nonatomic, weak, readonly, nullable) ORKTaskViewController *taskViewController;
+
+@property (nonatomic, weak, nullable) ORKNavigationContainerView *navigationContainerView;
 
 /**
  Navigates forward to the next step.

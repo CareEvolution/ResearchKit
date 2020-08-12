@@ -33,6 +33,8 @@
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
 
+#import "CEVRKNavigationBarProgressView.h"
+
 static const CGFloat ORKStackViewSpacing = 10.0;
 static const CGFloat shadowHeight = 0.75;
 
@@ -263,6 +265,12 @@ static const CGFloat shadowHeight = 0.75;
     _parentStackView.distribution = UIStackViewDistributionFill;
     
     [self addSubview:_parentStackView];
+    
+    CEVRKNavigationBarProgressView *progressView = [[CEVRKNavigationBarProgressView alloc] initWithFrame:CGRectZero];
+    self.taskProgressView = progressView;
+    [_parentStackView addArrangedSubview:progressView];
+    [progressView.topAnchor constraintEqualToAnchor:_parentStackView.topAnchor constant:10].active = YES;
+    [_parentStackView setCustomSpacing:20 afterView:progressView];
 }
 
 - (void)setSkipButtonStyle:(ORKNavigationContainerButtonStyle)skipButtonStyle {
