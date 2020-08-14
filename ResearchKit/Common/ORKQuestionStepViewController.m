@@ -158,12 +158,11 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
         [_questionView removeFromSuperview];
         _questionView = nil;
         
-        _navigationFooterView = [ORKNavigationContainerView new];
+        _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:self];
         _navigationFooterView.skipButtonItem = self.skipButtonItem;
         _navigationFooterView.continueEnabled = [self continueButtonEnabled];
         _navigationFooterView.continueButtonItem = self.continueButtonItem;
         _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
-        self.navigationContainerView = _navigationFooterView;
 
         [self.view addSubview:_navigationFooterView];
         if ([self.questionStep formatRequiresTableView] && !_customQuestionView) {

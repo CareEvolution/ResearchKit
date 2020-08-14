@@ -82,10 +82,9 @@
     self = [super initWithStep:step];
     if (self) {
         NSParameterAssert([step isKindOfClass:[ORKImageCaptureStep class]]);
-        _imageCaptureView = [[ORKImageCaptureView alloc] initWithFrame:CGRectZero];
+        _imageCaptureView = [[ORKImageCaptureView alloc] initWithFrame:CGRectZero fromStepViewController:self];
         _imageCaptureView.imageCaptureStep = (ORKImageCaptureStep *)step;
         _imageCaptureView.delegate = self;
-        self.navigationContainerView = _imageCaptureView.navigationContainerView;
         [self.view addSubview:_imageCaptureView];
         
         _imageCaptureView.translatesAutoresizingMaskIntoConstraints = NO;

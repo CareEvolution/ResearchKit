@@ -34,13 +34,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class ORKBorderedButton;
-@class CEVRKNavigationBarProgressView;
+@class ORKStepViewController;
 @interface ORKNavigationContainerView : UIView
 
 @property (nonatomic, strong, nullable) UIBarButtonItem *continueButtonItem;
 @property (nonatomic, strong, nullable) UIBarButtonItem *skipButtonItem;
 @property (nonatomic, strong, nullable) UIBarButtonItem *cancelButtonItem;
-@property (nonatomic, strong, nullable) CEVRKNavigationBarProgressView *taskProgressView;
+@property (nonatomic, strong, nullable) UIProgressView *taskProgressView;
 
 @property (nonatomic, assign) BOOL continueEnabled;
 @property (nonatomic, assign) BOOL neverHasContinueButton;
@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat topMargin;
 @property (nonatomic, assign) CGFloat bottomMargin;
 
+- (instancetype)initFromStepViewController:(ORKStepViewController *)stepViewController;
 - (BOOL)hasContinueOrSkip;
 
 @end

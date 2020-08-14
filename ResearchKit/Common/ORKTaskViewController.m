@@ -64,7 +64,6 @@
 
 #import "ORKNavigableOrderedTask.h"
 #import "ORKStepNavigationRule.h"
-#import "CEVRKNavigationBarProgressView.h"
 #import "ORKNavigationContainerView.h"
 
 typedef void (^_ORKLocationAuthorizationRequestHandler)(BOOL success);
@@ -354,6 +353,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     // Ensure taskRunUUID has non-nil valuetaskRunUUID
     (void)[self taskRunUUID];
     self.restorationClass = [ORKTaskViewController class];
+    self.lastStepHadProgressBarHidden = YES;
     
     return self;
 }
@@ -1058,6 +1058,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         }
     } else {
         self.currentStepViewController.navigationContainerView.taskProgressView.hidden = YES;
+        self.lastStepHadProgressBarHidden = YES;
     }
     
     ORKWeakTypeOf(self) weakSelf = self;
@@ -1077,6 +1078,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
             if (strongSelf->_hasSetProgress && taskProgress.total == 0) {
                 // remove any progress
                 strongSelf.currentStepViewController.navigationContainerView.taskProgressView.hidden = YES;
+                self.lastStepHadProgressBarHidden = YES;
             } else {
                 ORKOrderedTask *orderedTask = (ORKOrderedTask *)strongSelf.task;
                 if (orderedTask.progressIndicatorStyle == CEVRKTaskProgressIndicatorStyleBar) {
@@ -1090,8 +1092,10 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                     ORKNavigationContainerView *containerView = strongSelf.currentStepViewController.navigationContainerView;
                     containerView.taskProgressView.progress = calculatedProgress;
                     containerView.taskProgressView.hidden = NO;
+                    self.lastStepHadProgressBarHidden = NO;
                 } else {
                     strongSelf.currentStepViewController.navigationContainerView.taskProgressView.hidden = YES;
+                    self.lastStepHadProgressBarHidden = YES;
                     strongSelf.pageViewController.navigationItem.rightBarButtonItem = [strongSelf rightBarItemWithText:[NSString localizedStringWithFormat:ORKLocalizedString(@"STEP_PROGRESS_FORMAT", nil) ,ORKLocalizedStringFromNumber(@(taskProgress.current)), ORKLocalizedStringFromNumber(@(taskProgress.total))]];
                 }
             }

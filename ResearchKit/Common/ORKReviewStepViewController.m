@@ -142,13 +142,12 @@
         _tableContainer.stepHeaderView.instructionLabel.text = [self reviewStep].text;
         _tableContainer.stepHeaderView.learnMoreButtonItem = self.learnMoreButtonItem;
         [_tableContainer.tableView setBackgroundColor:ORKNeedWideScreenDesign(self.view) ? [UIColor clearColor] : ORKColor(ORKBackgroundColorKey)];
-        _navigationFooterView = [ORKNavigationContainerView new];
+        _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:self];
         _navigationFooterView.skipButtonItem = self.skipButtonItem;
         _navigationFooterView.continueEnabled = YES;
         _navigationFooterView.continueButtonItem = self.continueButtonItem;
         _navigationFooterView.optional = self.step.optional;
         _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
-        self.navigationContainerView = _navigationFooterView;
         [self.view addSubview:_navigationFooterView];
         [self setupConstraints];
         [_tableContainer setNeedsLayout];

@@ -663,8 +663,6 @@
 		D442397E1AF17F7600559D96 /* ORKImageCaptureStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D442397C1AF17F7600559D96 /* ORKImageCaptureStepViewController.m */; };
 		D458520A1AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = D45852081AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.h */; };
 		D458520B1AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D45852091AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m */; };
-		DA3903FA24E1DF32007F8E4C /* CEVRKNavigationBarProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3903F924E1DF32007F8E4C /* CEVRKNavigationBarProgressView.m */; };
-		DA3903FB24E1DF54007F8E4C /* CEVRKNavigationBarProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = DA3903F824E1DE97007F8E4C /* CEVRKNavigationBarProgressView.h */; };
 		DA7592E92405B1500030E54F /* ORKStroopStepTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7592E82405B1500030E54F /* ORKStroopStepTests.m */; };
 		FA7A9D2B1B082688005A2BEA /* ORKConsentDocumentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2A1B082688005A2BEA /* ORKConsentDocumentTests.m */; };
 		FA7A9D2F1B083DD3005A2BEA /* ORKConsentSectionFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A9D2D1B083DD3005A2BEA /* ORKConsentSectionFormatter.h */; };
@@ -1443,8 +1441,6 @@
 		D442397C1AF17F7600559D96 /* ORKImageCaptureStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKImageCaptureStepViewController.m; sourceTree = "<group>"; };
 		D45852081AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKImageCaptureCameraPreviewView.h; sourceTree = "<group>"; };
 		D45852091AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKImageCaptureCameraPreviewView.m; sourceTree = "<group>"; };
-		DA3903F824E1DE97007F8E4C /* CEVRKNavigationBarProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRKNavigationBarProgressView.h; sourceTree = "<group>"; };
-		DA3903F924E1DF32007F8E4C /* CEVRKNavigationBarProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRKNavigationBarProgressView.m; sourceTree = "<group>"; };
 		DA7592E82405B1500030E54F /* ORKStroopStepTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKStroopStepTests.m; sourceTree = "<group>"; };
 		FA7A9D2A1B082688005A2BEA /* ORKConsentDocumentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKConsentDocumentTests.m; sourceTree = "<group>"; };
 		FA7A9D2D1B083DD3005A2BEA /* ORKConsentSectionFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKConsentSectionFormatter.h; sourceTree = "<group>"; };
@@ -2256,8 +2252,6 @@
 				86C40B611A8D7C5B00081FAC /* ORKTintedImageView.m */,
 				86C40BDD1A8D7C5C00081FAC /* ORKUnitLabel.h */,
 				86C40BDE1A8D7C5C00081FAC /* ORKUnitLabel.m */,
-				DA3903F824E1DE97007F8E4C /* CEVRKNavigationBarProgressView.h */,
-				DA3903F924E1DF32007F8E4C /* CEVRKNavigationBarProgressView.m */,
 			);
 			name = Skin;
 			sourceTree = "<group>";
@@ -3471,7 +3465,6 @@
 				8419D6721FB73EC60088D7E5 /* ORKWebViewStepViewController.h in Headers */,
 				86C40DFE1A8D7C5C00081FAC /* ORKConsentDocument.h in Headers */,
 				D442397D1AF17F7600559D96 /* ORKImageCaptureStepViewController.h in Headers */,
-				DA3903FB24E1DF54007F8E4C /* CEVRKNavigationBarProgressView.h in Headers */,
 				86C40C4A1A8D7C5C00081FAC /* ORKSpatialSpanTargetView.h in Headers */,
 				866DA5221D63D04700C9AF3F /* ORKDataCollectionManager_Internal.h in Headers */,
 				86C40C1A1A8D7C5C00081FAC /* ORKAudioStep.h in Headers */,
@@ -3728,7 +3721,6 @@
 				71769E3A20882CED00A19914 /* ORKdBHLToneAudiometryStep.m in Sources */,
 				86C40E2E1A8D7C5C00081FAC /* ORKVisualConsentStep.m in Sources */,
 				2433C9E41B9A506F0052D375 /* ORKKeychainWrapper.m in Sources */,
-				DA3903FA24E1DF32007F8E4C /* CEVRKNavigationBarProgressView.m in Sources */,
 				FF919A2B1E81A94B005C2A1E /* ORKRangeOfMotionResult.m in Sources */,
 				86C40CA61A8D7C5C00081FAC /* ORKLocationRecorder.m in Sources */,
 				0B4C045E2357B48D00719958 /* ORKNormalizedReactionTimeContentView.m in Sources */,

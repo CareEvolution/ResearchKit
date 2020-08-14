@@ -86,13 +86,12 @@
 
 - (void)setNavigationFooterView {
     if (!_navigationFooterView) {
-        _navigationFooterView = [ORKNavigationContainerView new];
+        _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:self];
     }
     _navigationFooterView.continueButtonItem = self.continueButtonItem;
     _navigationFooterView.continueEnabled = YES;
     _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
     _navigationFooterView.hidden = self.isBeingReviewed;
-    self.navigationContainerView = _navigationFooterView;
     [_navigationFooterView updateContinueAndSkipEnabled];
     [self.view addSubview:_navigationFooterView];
 }

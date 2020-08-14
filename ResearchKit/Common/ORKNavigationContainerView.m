@@ -33,7 +33,8 @@
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
 
-#import "CEVRKNavigationBarProgressView.h"
+#import "ORKStepViewController.h"
+#import "ORKTaskViewController.h"
 
 static const CGFloat ORKStackViewSpacing = 10.0;
 static const CGFloat shadowHeight = 0.75;
@@ -54,11 +55,14 @@ static const CGFloat shadowHeight = 0.75;
     UIColor *_appTintColor;
     
     BOOL _continueButtonJustTapped;
+    BOOL _lastStepHadProgressBarHidden;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+- (instancetype)initFromStepViewController:(ORKStepViewController *)stepViewController {
+    self = [super initWithFrame:CGRectZero];
     if (self) {
+        _lastStepHadProgressBarHidden = stepViewController.taskViewController.lastStepHadProgressBarHidden;
+        stepViewController.navigationContainerView = self;
         [self setBackgroundColor:ORKColor(ORKNavigationContainerColorKey)];
         [self setupVisualEffectView];
         [self setupViews];
@@ -266,7 +270,8 @@ static const CGFloat shadowHeight = 0.75;
     
     [self addSubview:_parentStackView];
     
-    CEVRKNavigationBarProgressView *progressView = [[CEVRKNavigationBarProgressView alloc] initWithFrame:CGRectZero];
+    UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:CGRectZero];
+    progressView.hidden = _lastStepHadProgressBarHidden;
     self.taskProgressView = progressView;
     [_parentStackView addArrangedSubview:progressView];
     [progressView.topAnchor constraintEqualToAnchor:_parentStackView.topAnchor constant:10].active = YES;
