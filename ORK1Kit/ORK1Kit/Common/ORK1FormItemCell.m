@@ -605,6 +605,10 @@ static const CGFloat HorizontalMargin = 15.0;
     self.textField.secureTextEntry = answerFormat.secureTextEntry;
     if ([self shouldDisablePasswordAutofill:answerFormat]) {
         ORK1DisablePasswordAutofill(self.textField);
+    } else if ([self.formItem.identifier isEqualToString:ORK1RegistrationFormItemIdentifierPassword] || [self.formItem.identifier isEqualToString:ORK1RegistrationFormItemIdentifierConfirmPassword]) {
+        if (@available(iOS 12.0, *)) {
+            self.textField.textContentType = UITextContentTypeNewPassword;
+        }
     }
     
     [self answerDidChange];

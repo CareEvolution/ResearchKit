@@ -82,6 +82,7 @@ static NSArray <ORK1FormItem*> *ORK1RegistrationFormItems(ORK1RegistrationStepOp
         [formItems addObject:item];
     }
     
+    if (!(options & ORK1RegistrationStepExcludeConfirmPassword))
     {
         ORK1FormItem *item = [passwordFormItem confirmationAnswerFormItemWithIdentifier:ORK1RegistrationFormItemIdentifierConfirmPassword
                                                 text:ORK1LocalizedString(@"CONFIRM_PASSWORD_FORM_ITEM_TITLE", nil)

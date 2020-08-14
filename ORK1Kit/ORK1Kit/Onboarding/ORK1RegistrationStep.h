@@ -53,7 +53,10 @@ typedef NS_OPTIONS(NSUInteger, ORK1RegistrationStepOption) {
     ORK1RegistrationStepIncludeGender = (1 << 3),
     
     /// Include the date of birth field.
-    ORK1RegistrationStepIncludeDOB = (1 << 4)
+    ORK1RegistrationStepIncludeDOB = (1 << 4),
+    
+    /// Don't use the confirm-password field.
+    ORK1RegistrationStepExcludeConfirmPassword = (1 << 5)
 } ORK1_ENUM_AVAILABLE;
 
 

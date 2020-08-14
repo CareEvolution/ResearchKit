@@ -56,7 +56,10 @@ typedef NS_OPTIONS(NSUInteger, ORKRegistrationStepOption) {
     ORKRegistrationStepIncludeDOB = (1 << 4),
     
     /// Include the user phone number.
-    ORKRegistrationStepIncludePhoneNumber = (1 << 5)
+    ORKRegistrationStepIncludePhoneNumber = (1 << 5),
+    
+    /// Don't use the confirm-password field.
+    ORKRegistrationStepExcludeConfirmPassword = (1 << 6)
 } ORK_ENUM_AVAILABLE;
 
 
