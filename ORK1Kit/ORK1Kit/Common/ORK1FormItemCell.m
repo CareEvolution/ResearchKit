@@ -48,6 +48,8 @@
 #import "ORK1Accessibility.h"
 #import "ORK1Helpers_Internal.h"
 #import "ORK1Skin.h"
+#import "ORK1LoginStep.h"
+#import "ORK1RegistrationStep_Internal.h"
 
 @import MapKit;
 
@@ -98,6 +100,8 @@ static const CGFloat HorizontalMargin = 15.0;
 @interface ORK1FormItemCell ()
 
 - (void)showValidityAlertWithMessage:(NSString *)text;
+
+- (BOOL)shouldDisablePasswordAutofill:(ORK1TextAnswerFormat *)answerFormat;
 
 @end
 
@@ -231,6 +235,13 @@ static const CGFloat HorizontalMargin = 15.0;
 
 - (void)showErrorAlertWithTitle:(NSString *)title message:(NSString *)message {
     [self.delegate formItemCell:self invalidInputAlertWithTitle:title message:message];
+}
+
+- (BOOL)shouldDisablePasswordAutofill:(ORK1TextAnswerFormat *)answerFormat {
+    return answerFormat.secureTextEntry
+    && ![self.formItem.identifier isEqualToString:ORK1LoginFormItemIdentifierPassword]
+    && ![self.formItem.identifier isEqualToString:ORK1RegistrationFormItemIdentifierPassword]
+    && ![self.formItem.identifier isEqualToString:ORK1RegistrationFormItemIdentifierConfirmPassword];
 }
 
 @end
@@ -592,7 +603,7 @@ static const CGFloat HorizontalMargin = 15.0;
     self.textField.spellCheckingType = answerFormat.spellCheckingType;
     self.textField.keyboardType = answerFormat.keyboardType;
     self.textField.secureTextEntry = answerFormat.secureTextEntry;
-    if (answerFormat.secureTextEntry) {
+    if ([self shouldDisablePasswordAutofill:answerFormat]) {
         ORK1DisablePasswordAutofill(self.textField);
     }
     
@@ -815,7 +826,7 @@ static const CGFloat HorizontalMargin = 15.0;
         _textView.spellCheckingType = textAnswerFormat.spellCheckingType;
         _textView.keyboardType = textAnswerFormat.keyboardType;
         _textView.secureTextEntry = textAnswerFormat.secureTextEntry;
-        if (textAnswerFormat.secureTextEntry) {
+        if ([self shouldDisablePasswordAutofill:textAnswerFormat]) {
             ORK1DisablePasswordAutofill(_textView);
         }
     } else {

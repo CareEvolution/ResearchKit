@@ -34,6 +34,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString *const ORK1RegistrationFormItemIdentifierConfirmPassword;
+
 @interface ORK1RegistrationStep ()
 
 - (ORK1TextAnswerFormat *)passwordAnswerFormat;

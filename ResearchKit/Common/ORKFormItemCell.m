@@ -48,6 +48,8 @@
 #import "ORKAccessibility.h"
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
+#import "ORKLoginStep.h"
+#import "ORKRegistrationStep_Internal.h"
 
 @import MapKit;
 
@@ -99,6 +101,8 @@ static const CGFloat HorizontalMargin = 15.0;
 
 @property (nonatomic, copy) UIView *containerView;
 - (void)showValidityAlertWithMessage:(NSString *)text;
+
+- (BOOL)shouldDisablePasswordAutofill:(ORKTextAnswerFormat *)answerFormat;
 
 @end
 
@@ -335,6 +339,14 @@ static const CGFloat HorizontalMargin = 15.0;
 - (void)showErrorAlertWithTitle:(NSString *)title message:(NSString *)message {
     [self.delegate formItemCell:self invalidInputAlertWithTitle:title message:message];
 }
+
+- (BOOL)shouldDisablePasswordAutofill:(ORKTextAnswerFormat *)answerFormat {
+    return answerFormat.secureTextEntry
+    && ![self.formItem.identifier isEqualToString:ORKLoginFormItemIdentifierPassword]
+    && ![self.formItem.identifier isEqualToString:ORKRegistrationFormItemIdentifierPassword]
+    && ![self.formItem.identifier isEqualToString:ORKRegistrationFormItemIdentifierConfirmPassword];
+}
+
 
 @end
 
@@ -698,7 +710,7 @@ static const CGFloat HorizontalMargin = 15.0;
     self.textField.spellCheckingType = answerFormat.spellCheckingType;
     self.textField.keyboardType = answerFormat.keyboardType;
     self.textField.secureTextEntry = answerFormat.secureTextEntry;
-    if (answerFormat.secureTextEntry) {
+    if (answerFormat.secureTextEntry && [self shouldDisablePasswordAutofill:answerFormat]) {
         ORKDisablePasswordAutofill(self.textField);
     }
     
@@ -951,7 +963,7 @@ static const CGFloat HorizontalMargin = 15.0;
         _textView.spellCheckingType = textAnswerFormat.spellCheckingType;
         _textView.keyboardType = textAnswerFormat.keyboardType;
         _textView.secureTextEntry = textAnswerFormat.secureTextEntry;
-        if (textAnswerFormat.secureTextEntry) {
+        if (textAnswerFormat.secureTextEntry && [self shouldDisablePasswordAutofill:textAnswerFormat]) {
             ORKDisablePasswordAutofill(_textView);
         }
     } else {
