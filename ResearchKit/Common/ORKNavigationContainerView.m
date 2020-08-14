@@ -41,6 +41,7 @@ static const CGFloat shadowHeight = 0.75;
 
 @implementation ORKNavigationContainerView {
     
+    UIStackView *_grandparentStackView;
     UIStackView *_parentStackView;
     UIStackView *_subStackView1;
     UIStackView *_subStackView2;
@@ -255,9 +256,29 @@ static const CGFloat shadowHeight = 0.75;
 }
 
 - (void)setupViews {
+    [self setupGrandparentStackView];
     [self setupParentStackView];
     [self setupSubStackViews];
     [self arrangeSubStacks];
+}
+
+- (void)setupGrandparentStackView {
+    if (!_grandparentStackView) {
+        _grandparentStackView = [[UIStackView alloc] init];
+    }
+    _grandparentStackView.translatesAutoresizingMaskIntoConstraints = NO;
+    _grandparentStackView.spacing = ORKStackViewSpacing;
+    _grandparentStackView.distribution = UIStackViewDistributionFill;
+    _grandparentStackView.axis = UILayoutConstraintAxisVertical;
+    
+    [self addSubview:_grandparentStackView];
+    
+    UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:CGRectZero];
+    progressView.hidden = _lastStepHadProgressBarHidden;
+    self.taskProgressView = progressView;
+    [_grandparentStackView addArrangedSubview:progressView];
+    [progressView.topAnchor constraintEqualToAnchor:_grandparentStackView.topAnchor constant:10].active = YES;
+    [_grandparentStackView setCustomSpacing:20 afterView:progressView];
 }
 
 - (void)setupParentStackView {
@@ -268,14 +289,7 @@ static const CGFloat shadowHeight = 0.75;
     _parentStackView.spacing = ORKStackViewSpacing;
     _parentStackView.distribution = UIStackViewDistributionFill;
     
-    [self addSubview:_parentStackView];
-    
-    UIProgressView *progressView = [[UIProgressView alloc] initWithFrame:CGRectZero];
-    progressView.hidden = _lastStepHadProgressBarHidden;
-    self.taskProgressView = progressView;
-    [_parentStackView addArrangedSubview:progressView];
-    [progressView.topAnchor constraintEqualToAnchor:_parentStackView.topAnchor constant:10].active = YES;
-    [_parentStackView setCustomSpacing:20 afterView:progressView];
+    [_grandparentStackView addArrangedSubview:_parentStackView];
 }
 
 - (void)setSkipButtonStyle:(ORKNavigationContainerButtonStyle)skipButtonStyle {
@@ -564,7 +578,7 @@ static const CGFloat shadowHeight = 0.75;
     NSMutableArray *constraints = [NSMutableArray new];
 
     [constraints addObjectsFromArray:@[
-                                       [NSLayoutConstraint constraintWithItem:_parentStackView
+                                       [NSLayoutConstraint constraintWithItem:_grandparentStackView
                                                                     attribute:NSLayoutAttributeTop
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:self
@@ -574,7 +588,7 @@ static const CGFloat shadowHeight = 0.75;
                                        [NSLayoutConstraint constraintWithItem:_footnoteLabel
                                                                     attribute:NSLayoutAttributeTop
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:_parentStackView
+                                                                       toItem:_grandparentStackView
                                                                     attribute:NSLayoutAttributeBottom
                                                                    multiplier:1.0
                                                                      constant:ORKStackViewSpacing],
@@ -588,14 +602,14 @@ static const CGFloat shadowHeight = 0.75;
                                        ]];
 
     [constraints addObjectsFromArray:@[
-                                       [NSLayoutConstraint constraintWithItem:_parentStackView
+                                       [NSLayoutConstraint constraintWithItem:_grandparentStackView
                                                                     attribute:NSLayoutAttributeLeft
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:self.safeAreaLayoutGuide
                                                                     attribute:NSLayoutAttributeLeft
                                                                    multiplier:1.0
                                                                      constant:ORKStackViewSpacing],
-                                       [NSLayoutConstraint constraintWithItem:_parentStackView
+                                       [NSLayoutConstraint constraintWithItem:_grandparentStackView
                                                                     attribute:NSLayoutAttributeRight
                                                                     relatedBy:NSLayoutRelationEqual
                                                                        toItem:self.safeAreaLayoutGuide
