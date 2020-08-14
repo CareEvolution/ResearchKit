@@ -240,7 +240,7 @@ static void *_ORKViewControllerToolbarObserverContext = &_ORKViewControllerToolb
     NSMutableArray *_managedStepIdentifiers;
     ORKViewControllerToolbarObserver *_stepViewControllerObserver;
     ORKScrollViewObserver *_scrollViewObserver;
-    BOOL _hasSetProgress;
+    BOOL _hasSetProgressLabel;
     BOOL _hasBeenPresented;
     BOOL _hasRequestedHealthData;
     ORKPermissionMask _grantedPermissions;
@@ -1047,9 +1047,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     // from the same VC.
     _currentStepViewController = viewController;
     
-    ORKTaskProgress taskProgress;
-    taskProgress.current = 0;
-    taskProgress.total =  0;
+    ORKTaskProgress taskProgress = ORKTaskProgressMake(0, 0);
     
     if ([self shouldDisplayProgress]) {
         ORKTaskProgress progress = [_task progressOfCurrentStep:viewController.step withResult:[self result]];
@@ -1074,8 +1072,8 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         ORK_Log_Debug(@"%@ %@", strongSelf, viewController);
         
         // Set the progress only if progress value returned or if it is nil having previously set a progress to display.
-        if (taskProgress.total > 0 || strongSelf->_hasSetProgress) {
-            if (strongSelf->_hasSetProgress && taskProgress.total == 0) {
+        if (taskProgress.total > 0 || strongSelf->_hasSetProgressLabel) {
+            if (strongSelf->_hasSetProgressLabel && taskProgress.total == 0) {
                 // remove any progress
                 strongSelf.currentStepViewController.navigationContainerView.taskProgressView.hidden = YES;
                 self.lastStepHadProgressBarHidden = YES;
@@ -1100,7 +1098,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                 }
             }
         }
-        strongSelf->_hasSetProgress = (taskProgress.total > 0);
+        strongSelf->_hasSetProgressLabel = (taskProgress.total > 0);
         
         // Collect toolbarItems
         [strongSelf collectToolbarItemsFromViewController:viewController];
@@ -1582,7 +1580,7 @@ static NSString *const _ORKTaskRunUUIDRestoreKey = @"taskRunUUID";
 static NSString *const _ORKShowsProgressInNavigationBarRestoreKey = @"showsProgressInNavigationBar";
 static NSString *const _ORKManagedResultsRestoreKey = @"managedResults";
 static NSString *const _ORKManagedStepIdentifiersRestoreKey = @"managedStepIdentifiers";
-static NSString *const _ORKHasSetProgressRestoreKey = @"hasSetProgress";
+static NSString *const _ORKHasSetProgressLabelRestoreKey = @"hasSetProgressLabel";
 static NSString *const _ORKHasRequestedHealthDataRestoreKey = @"hasRequestedHealthData";
 static NSString *const _ORKRequestedHealthTypesForReadRestoreKey = @"requestedHealthTypesForRead";
 static NSString *const _ORKRequestedHealthTypesForWriteRestoreKey = @"requestedHealthTypesForWrite";
@@ -1599,7 +1597,7 @@ static NSString *const _ORKPresentedDate = @"presentedDate";
     [coder encodeBool:self.showsProgressInNavigationBar forKey:_ORKShowsProgressInNavigationBarRestoreKey];
     [coder encodeObject:_managedResults forKey:_ORKManagedResultsRestoreKey];
     [coder encodeObject:_managedStepIdentifiers forKey:_ORKManagedStepIdentifiersRestoreKey];
-    [coder encodeBool:_hasSetProgress forKey:_ORKHasSetProgressRestoreKey];
+    [coder encodeBool:_hasSetProgressLabel forKey:_ORKHasSetProgressLabelRestoreKey];
     [coder encodeObject:_requestedHealthTypesForRead forKey:_ORKRequestedHealthTypesForReadRestoreKey];
     [coder encodeObject:_requestedHealthTypesForWrite forKey:_ORKRequestedHealthTypesForWriteRestoreKey];
     [coder encodeObject:_presentedDate forKey:_ORKPresentedDate];
@@ -1643,7 +1641,7 @@ static NSString *const _ORKPresentedDate = @"presentedDate";
         }
         
         if ([_task respondsToSelector:@selector(stepWithIdentifier:)]) {
-            _hasSetProgress = [coder decodeBoolForKey:_ORKHasSetProgressRestoreKey];
+            _hasSetProgressLabel = [coder decodeBoolForKey:_ORKHasSetProgressLabelRestoreKey];
             _requestedHealthTypesForRead = [coder decodeObjectOfClass:[NSSet class] forKey:_ORKRequestedHealthTypesForReadRestoreKey];
             _requestedHealthTypesForWrite = [coder decodeObjectOfClass:[NSSet class] forKey:_ORKRequestedHealthTypesForWriteRestoreKey];
             _presentedDate = [coder decodeObjectOfClass:[NSDate class] forKey:_ORKPresentedDate];

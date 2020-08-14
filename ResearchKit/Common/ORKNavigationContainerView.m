@@ -33,8 +33,8 @@
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
 
-#import "ORKStepViewController.h"
-#import "ORKTaskViewController.h"
+#import "ORKStepViewController_Internal.h"
+#import "ORKTaskViewController_Internal.h"
 
 static const CGFloat ORKStackViewSpacing = 10.0;
 static const CGFloat shadowHeight = 0.75;

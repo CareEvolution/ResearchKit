@@ -494,10 +494,6 @@ ORK_CLASS_AVAILABLE
  */
 - (UIBarButtonItem *)defaultCancelButtonItem;
 
-/**
- Stores the last state for the progress bar so that it doesn't needlessly animate in or out of view.
- */
-@property (nonatomic, assign) BOOL lastStepHadProgressBarHidden;
 
 @end
 

@@ -19,7 +19,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self createConstraints];
-        self.accessibilityLabel = @"NavigationBarProgressView";
         return self;
     }
     return nil;
@@ -28,7 +27,6 @@
 - (void)createConstraints {
     _progressView = [[UIProgressView alloc] initWithFrame:CGRectZero];
     _progressView.progress = 0;
-    _progressView.accessibilityLabel = @"TaskProgressView";
     self.accessibilityElements = @[_progressView];
     self.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_progressView];
@@ -36,7 +34,7 @@
     
     // This forces the bar to stretch so the ORK1ProgressView will attempt to take up the entire available width
     NSLayoutConstraint *widthConstraint = [self.widthAnchor constraintEqualToConstant:200];
-    widthConstraint.priority = NSURLSessionTaskPriorityHigh;
+    widthConstraint.priority = UILayoutPriorityDefaultHigh;
     [NSLayoutConstraint activateConstraints:@[
                                              [_progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:10],
                                              [_progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-30],

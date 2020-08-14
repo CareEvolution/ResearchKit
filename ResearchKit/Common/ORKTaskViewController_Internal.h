@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Any StepVC contains a vertical scroll view should register here.
 // So taskVC can monitor scroll view's content offset and update hairline's alpha.
 @property (nonatomic, weak, nullable) UIScrollView *registeredScrollView;
+@property (nonatomic, assign) BOOL lastStepHadProgressBarHidden;
 
 @end
 

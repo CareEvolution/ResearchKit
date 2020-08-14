@@ -976,9 +976,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     // from the same VC.
     _currentStepViewController = viewController;
     
-    ORK1TaskProgress taskProgress;
-    taskProgress.current = 0;
-    taskProgress.total =  0;
+    ORK1TaskProgress taskProgress = ORK1TaskProgressMake(0, 0);
     
     if ([self shouldDisplayProgress]) {
         ORK1TaskProgress progress = [_task progressOfCurrentStep:viewController.step withResult:[self result]];

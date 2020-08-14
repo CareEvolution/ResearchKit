@@ -51,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) UIBarButtonItem *learnMoreButtonItem;
 @property (nonatomic, strong, nullable) UIBarButtonItem *skipButtonItem;
 
+@property (nonatomic, weak, nullable) ORKNavigationContainerView *navigationContainerView;
+
 @property (nonatomic, copy, nullable) NSDate *presentedDate;
 @property (nonatomic, copy, nullable) NSDate *dismissedDate;
 

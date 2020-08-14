@@ -358,8 +358,6 @@ ORK_CLASS_AVAILABLE
  */
 @property (nonatomic, weak, readonly, nullable) ORKTaskViewController *taskViewController;
 
-@property (nonatomic, weak, nullable) ORKNavigationContainerView *navigationContainerView;
-
 /**
  Navigates forward to the next step.
  
