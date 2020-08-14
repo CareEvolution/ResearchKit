@@ -169,7 +169,7 @@ static void *_ORK1ViewControllerToolbarObserverContext = &_ORK1ViewControllerToo
     NSMutableArray *_managedStepIdentifiers;
     ORK1ViewControllerToolbarObserver *_stepViewControllerObserver;
     ORK1ScrollViewObserver *_scrollViewObserver;
-    BOOL _hasSetProgress;
+    BOOL _hasSetProgressLabel;
     BOOL _hasBeenPresented;
     BOOL _hasRequestedHealthData;
     ORK1PermissionMask _grantedPermissions;
@@ -998,8 +998,8 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         ORK1_Log_Debug(@"%@ %@", strongSelf, viewController);
         
         // Set the progress only if progress value returned or if it is nil having previously set a progress to display.
-        if (taskProgress.total > 0 || strongSelf->_hasSetProgress) {
-            if (strongSelf->_hasSetProgress && taskProgress.total == 0) {
+        if (taskProgress.total > 0 || strongSelf->_hasSetProgressLabel) {
+            if (strongSelf->_hasSetProgressLabel && taskProgress.total == 0) {
                 // remove any progress
                 strongSelf.pageViewController.navigationItem.titleView = nil;
                 strongSelf.pageViewController.navigationItem.title = nil;
@@ -1027,7 +1027,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
             }
         }
         
-        strongSelf->_hasSetProgress = (taskProgress.total > 0);
+        strongSelf->_hasSetProgressLabel = (taskProgress.total > 0);
         
         // Collect toolbarItems
         [strongSelf collectToolbarItemsFromViewController:viewController];
@@ -1475,7 +1475,7 @@ static NSString *const _ORK1TaskRunUUIDRestoreKey = @"taskRunUUID";
 static NSString *const _ORK1ShowsProgressInNavigationBarRestoreKey = @"showsProgressInNavigationBar";
 static NSString *const _ORK1ManagedResultsRestoreKey = @"managedResults";
 static NSString *const _ORK1ManagedStepIdentifiersRestoreKey = @"managedStepIdentifiers";
-static NSString *const _ORK1HasSetProgressRestoreKey = @"hasSetProgress";
+static NSString *const _ORK1HasSetProgressLabelRestoreKey = @"hasSetProgressLabel";
 static NSString *const _ORK1HasRequestedHealthDataRestoreKey = @"hasRequestedHealthData";
 static NSString *const _ORK1RequestedHealthTypesForReadRestoreKey = @"requestedHealthTypesForRead";
 static NSString *const _ORK1RequestedHealthTypesForWriteRestoreKey = @"requestedHealthTypesForWrite";
@@ -1492,7 +1492,7 @@ static NSString *const _ORK1PresentedDate = @"presentedDate";
     [coder encodeBool:self.showsProgressInNavigationBar forKey:_ORK1ShowsProgressInNavigationBarRestoreKey];
     [coder encodeObject:_managedResults forKey:_ORK1ManagedResultsRestoreKey];
     [coder encodeObject:_managedStepIdentifiers forKey:_ORK1ManagedStepIdentifiersRestoreKey];
-    [coder encodeBool:_hasSetProgress forKey:_ORK1HasSetProgressRestoreKey];
+    [coder encodeBool:_hasSetProgressLabel forKey:_ORK1HasSetProgressLabelRestoreKey];
     [coder encodeObject:_requestedHealthTypesForRead forKey:_ORK1RequestedHealthTypesForReadRestoreKey];
     [coder encodeObject:_requestedHealthTypesForWrite forKey:_ORK1RequestedHealthTypesForWriteRestoreKey];
     [coder encodeObject:_presentedDate forKey:_ORK1PresentedDate];
@@ -1536,7 +1536,7 @@ static NSString *const _ORK1PresentedDate = @"presentedDate";
         }
         
         if ([_task respondsToSelector:@selector(stepWithIdentifier:)]) {
-            _hasSetProgress = [coder decodeBoolForKey:_ORK1HasSetProgressRestoreKey];
+            _hasSetProgressLabel = [coder decodeBoolForKey:_ORK1HasSetProgressLabelRestoreKey];
             _requestedHealthTypesForRead = [coder decodeObjectOfClass:[NSSet class] forKey:_ORK1RequestedHealthTypesForReadRestoreKey];
             _requestedHealthTypesForWrite = [coder decodeObjectOfClass:[NSSet class] forKey:_ORK1RequestedHealthTypesForWriteRestoreKey];
             _presentedDate = [coder decodeObjectOfClass:[NSDate class] forKey:_ORK1PresentedDate];
