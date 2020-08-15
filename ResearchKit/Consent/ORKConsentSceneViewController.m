@@ -150,7 +150,7 @@ static NSString *localizedLearnMoreForType(ORKConsentSectionType sectionType) {
 
 - (void)setupNavigationFooterView {
     if (!_navigationFooterView) {
-        _navigationFooterView = [ORKNavigationContainerView new];
+        _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:nil];
     }
     _navigationFooterView.continueButtonItem = _continueButtonItem;
     _navigationFooterView.cancelButtonItem = _cancelButtonItem;

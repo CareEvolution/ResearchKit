@@ -93,6 +93,7 @@
     step.text = _text;
     step.shouldTintImages = _shouldTintImages;
     step.useSurveyMode = _useSurveyMode;
+    step.excludeFromProgressCalculation = _excludeFromProgressCalculation;
     return step;
 }
 
@@ -108,7 +109,8 @@
             && ORKEqualObjects(self.text, castObject.text)
             && (self.optional == castObject.optional)
             && (self.shouldTintImages == castObject.shouldTintImages)
-            && (self.useSurveyMode == castObject.useSurveyMode));
+            && (self.useSurveyMode == castObject.useSurveyMode)
+            && (self.excludeFromProgressCalculation == castObject.excludeFromProgressCalculation));
 }
 
 - (NSUInteger)hash {
@@ -130,6 +132,7 @@
         ORK_DECODE_OBJ_CLASS(aDecoder, task, ORKOrderedTask);
         ORK_DECODE_BOOL(aDecoder, shouldTintImages);
         ORK_DECODE_BOOL(aDecoder, useSurveyMode);
+        ORK_DECODE_BOOL(aDecoder, excludeFromProgressCalculation);
     }
     return self;
 }
@@ -141,6 +144,7 @@
     ORK_ENCODE_BOOL(aCoder, optional);
     ORK_ENCODE_BOOL(aCoder, shouldTintImages);
     ORK_ENCODE_BOOL(aCoder, useSurveyMode);
+    ORK_ENCODE_BOOL(aCoder, excludeFromProgressCalculation);
     if ([_task isKindOfClass:[ORKOrderedTask class]]) {
         ORK_ENCODE_OBJ(aCoder, task);
     }

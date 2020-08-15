@@ -36,6 +36,7 @@
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
 #import "ORKStepHeaderView_Internal.h"
+#import "ORKImageCaptureStepViewController.h"
 
 
 @implementation ORKVideoCaptureView {
@@ -56,7 +57,7 @@
     BOOL _showSkipButtonItem;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame fromStepViewController:(ORKImageCaptureStepViewController *)stepViewController {
     self = [super initWithFrame:frame];
     if (self) {
         _previewView = [ORKVideoCaptureCameraPreviewView new];
@@ -91,7 +92,7 @@
                                                                target:self
                                                                action:@selector(retakePressed)];
         
-        _navigationFooterView = [ORKNavigationContainerView new];
+        _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:stepViewController];
         _navigationFooterView.continueEnabled = YES;
         _navigationFooterView.optional = YES;
         _navigationFooterView.footnoteLabel.textAlignment = NSTextAlignmentCenter;

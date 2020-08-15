@@ -73,7 +73,7 @@
 
 - (void)setNavigationFooterView {
     if (!_navigationFooterView) {
-        _navigationFooterView = [ORKNavigationContainerView new];
+        _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:self];
     }
     _navigationFooterView.continueButtonItem = self.continueButtonItem;
     _navigationFooterView.continueEnabled = YES;

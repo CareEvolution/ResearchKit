@@ -34,6 +34,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@class ORKNavigationContainerView;
+
+
 @interface ORKStepViewController () <UIViewControllerRestoration>
 
 - (void)stepDidChange;
@@ -50,6 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) UIBarButtonItem *continueButtonItem;
 @property (nonatomic, strong, nullable) UIBarButtonItem *learnMoreButtonItem;
 @property (nonatomic, strong, nullable) UIBarButtonItem *skipButtonItem;
+
+@property (nonatomic, weak, nullable) ORKNavigationContainerView *navigationContainerView;
 
 @property (nonatomic, copy, nullable) NSDate *presentedDate;
 @property (nonatomic, copy, nullable) NSDate *dismissedDate;

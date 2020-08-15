@@ -297,7 +297,7 @@
 
 - (void)setupNavigationFooterView {
     if (!_navigationFooterView) {
-        _navigationFooterView = [ORKNavigationContainerView new];
+        _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:self];
     }
     _navigationFooterView.skipButtonItem = self.skipButtonItem;
     _navigationFooterView.continueButtonItem = self.continueButtonItem;

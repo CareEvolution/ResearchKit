@@ -140,7 +140,7 @@
         _videoCaptureView = nil;
         _movieFileOutput = nil;
         
-        _videoCaptureView = [[ORKVideoCaptureView alloc] initWithFrame:CGRectZero];
+        _videoCaptureView = [[ORKVideoCaptureView alloc] initWithFrame:CGRectZero fromStepViewController:self];
         _videoCaptureView.videoCaptureStep = (ORKVideoCaptureStep *)self.step;
         _videoCaptureView.delegate = self;
         _videoCaptureView.cancelButtonItem = self.cancelButtonItem;

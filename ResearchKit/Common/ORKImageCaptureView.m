@@ -34,6 +34,7 @@
 #import "ORKImageCaptureCameraPreviewView.h"
 #import "ORKNavigationContainerView_Internal.h"
 #import "ORKStepHeaderView_Internal.h"
+#import "ORKImageCaptureStepViewController.h"
 
 #import "ORKImageCaptureStep.h"
 
@@ -54,7 +55,7 @@
     BOOL _showSkipButtonItem;
 }
 
-- (instancetype)initWithFrame:(CGRect)aRect {
+- (instancetype)initWithFrame:(CGRect)aRect fromStepViewController:(ORKImageCaptureStepViewController *)stepViewController {
     self = [super initWithFrame:aRect];
     if (self) {
         _previewView = [[ORKImageCaptureCameraPreviewView alloc] init];
@@ -67,7 +68,7 @@
         _captureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORKLocalizedString(@"CAPTURE_BUTTON_CAPTURE_IMAGE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(capturePressed)];
         _recaptureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORKLocalizedString(@"CAPTURE_BUTTON_RECAPTURE_IMAGE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(retakePressed)];
         
-        _navigationFooterView = [ORKNavigationContainerView new];
+        _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:stepViewController];
         _navigationFooterView.continueEnabled = YES;
         _navigationFooterView.topMargin = 5;
         _navigationFooterView.bottomMargin = 15;

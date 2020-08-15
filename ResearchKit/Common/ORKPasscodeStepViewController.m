@@ -106,7 +106,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
         
         [self.view addSubview:_passcodeStepView];
         [self.taskViewController setRegisteredScrollView:_passcodeStepView];
-        _navigationFooterView = [ORKNavigationContainerView new];
+        _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:self];
         _navigationFooterView.neverHasContinueButton = YES;
         _navigationFooterView.skipEnabled = NO;
         _navigationFooterView.cancelButtonItem = self.cancelButtonItem;

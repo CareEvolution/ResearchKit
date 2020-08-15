@@ -106,6 +106,8 @@ ORK1TaskProgress ORK1TaskProgressMake(NSUInteger current, NSUInteger total) {
         
         _identifier = [identifier copy];
         _steps = steps;
+        _progressIndicatorStyle = CEVRK1TaskProgressIndicatorStyleText;
+        _progressBarProgressionMetric = CEVRK1TaskProgressBarProgressionMetricLinear;
         
         [self validateParameters];
     }
@@ -220,8 +222,21 @@ ORK1TaskProgress ORK1TaskProgressMake(NSUInteger current, NSUInteger total) {
 
 - (ORK1TaskProgress)progressOfCurrentStep:(ORK1Step *)step withResult:(ORK1TaskResult *)taskResult {
     ORK1TaskProgress progress;
-    progress.current = [self indexOfStep:step];
-    progress.total = _steps.count;
+    progress.current = 0;
+    progress.total = 0;
+    
+    NSUInteger currentStepIndex = [self indexOfStep:step];
+    NSUInteger loopStepIndex = 0;
+    
+    for (ORK1Step *step in _steps) {
+        if (!step.excludeFromProgressCalculation) {
+            progress.total++;
+            if (loopStepIndex <= currentStepIndex) {
+                progress.current++;
+            }
+        }
+        loopStepIndex++;
+    }
     
     if (![step showsProgress]) {
         progress.total = 0;

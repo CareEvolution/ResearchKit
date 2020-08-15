@@ -63,6 +63,8 @@
 #import "CEVRK1Theme.h"
 #import "ORK1NavigableOrderedTask.h"
 #import "ORK1StepNavigationRule.h"
+#import "CEVRK1NavigationBarProgressView.h"
+
 
 typedef void (^_ORK1LocationAuthorizationRequestHandler)(BOOL success);
 
@@ -188,6 +190,7 @@ static void *_ORK1ViewControllerToolbarObserverContext = &_ORK1ViewControllerToo
 }
 
 @property (nonatomic, strong) UIImageView *hairline;
+@property (nonatomic, strong) CEVRK1NavigationBarProgressView *progressView;
 
 @property (nonatomic, strong) UINavigationController *childNavigationController;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
@@ -353,6 +356,13 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
 
 - (UIBarButtonItem *)defaultLearnMoreButtonItem {
     return [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"BUTTON_LEARN_MORE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(learnMoreAction:)];
+}
+
+- (CEVRK1NavigationBarProgressView *)progressView {
+    if (!_progressView) {
+        _progressView = [[CEVRK1NavigationBarProgressView alloc] initWithFrame:CGRectZero];
+    }
+    return _progressView;
 }
 
 - (void)requestHealthStoreAccessWithReadTypes:(NSSet *)readTypes
@@ -966,11 +976,12 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     // from the same VC.
     _currentStepViewController = viewController;
     
-    NSString *progressLabel = nil;
-    if ([self shouldDisplayProgressLabel]) {
+    ORK1TaskProgress taskProgress = ORK1TaskProgressMake(0, 0);
+    
+    if ([self shouldDisplayProgress]) {
         ORK1TaskProgress progress = [_task progressOfCurrentStep:viewController.step withResult:[self result]];
         if (progress.total > 0) {
-            progressLabel = [NSString localizedStringWithFormat:ORK1LocalizedString(@"STEP_PROGRESS_FORMAT", nil) ,ORK1LocalizedStringFromNumber(@(progress.current+1)), ORK1LocalizedStringFromNumber(@(progress.total))];
+            taskProgress = progress;
         }
     }
     
@@ -986,12 +997,37 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         
         ORK1_Log_Debug(@"%@ %@", strongSelf, viewController);
         
-        // Set the progress label only if non-nil or if it is nil having previously set a progress label.
-        if (progressLabel || strongSelf->_hasSetProgressLabel) {
-            strongSelf.pageViewController.navigationItem.title = progressLabel;
+        // Set the progress only if progress value returned or if it is nil having previously set a progress to display.
+        if (taskProgress.total > 0 || strongSelf->_hasSetProgressLabel) {
+            if (strongSelf->_hasSetProgressLabel && taskProgress.total == 0) {
+                // remove any progress
+                strongSelf.pageViewController.navigationItem.titleView = nil;
+                strongSelf.pageViewController.navigationItem.title = nil;
+            } else {
+                ORK1OrderedTask *orderedTask = (ORK1OrderedTask *)strongSelf.task;
+                if (orderedTask.progressIndicatorStyle == CEVRK1TaskProgressIndicatorStyleBar) {
+                    strongSelf.pageViewController.navigationItem.title = nil;
+                    float calculatedProgress = 0;
+                    if (orderedTask.progressBarProgressionMetric == CEVRK1TaskProgressBarProgressionMetricFastToSlow) {
+                        calculatedProgress = log((float)taskProgress.current + 1) / log((float)taskProgress.total + 1);
+                    } else {  // Linear
+                        calculatedProgress = (float)taskProgress.current / (float)taskProgress.total;
+                    }
+                    [strongSelf.progressView setProgress:calculatedProgress];
+                    strongSelf.pageViewController.navigationItem.titleView = strongSelf.progressView;
+                    
+                    // for UITesting, we will add a title that will not display, but should appear via accessibility
+                    NSUInteger progressPercent = (NSUInteger)(calculatedProgress * 100);
+                    strongSelf.pageViewController.navigationItem.title = [NSString stringWithFormat:@"ProgressBar:%@", @(progressPercent)];
+                    
+                } else {
+                    strongSelf.pageViewController.navigationItem.titleView = nil;
+                    strongSelf.pageViewController.navigationItem.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"STEP_PROGRESS_FORMAT", nil) ,ORK1LocalizedStringFromNumber(@(taskProgress.current)), ORK1LocalizedStringFromNumber(@(taskProgress.total))];
+                }
+            }
         }
         
-        strongSelf->_hasSetProgressLabel = (progressLabel != nil);
+        strongSelf->_hasSetProgressLabel = (taskProgress.total > 0);
         
         // Collect toolbarItems
         [strongSelf collectToolbarItemsFromViewController:viewController];
@@ -1034,7 +1070,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         _pageViewController.toolbarItems = viewController.toolbarItems;
         _pageViewController.navigationItem.leftBarButtonItem = viewController.navigationItem.leftBarButtonItem;
         _pageViewController.navigationItem.rightBarButtonItem = viewController.navigationItem.rightBarButtonItem;
-        if (![self shouldDisplayProgressLabel]) {
+        if (![self shouldDisplayProgress]) {
             _pageViewController.navigationItem.title = viewController.navigationItem.title;
             _pageViewController.navigationItem.titleView = viewController.navigationItem.titleView;
         }
@@ -1156,8 +1192,17 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     return stepViewController;
 }
 
-- (BOOL)shouldDisplayProgressLabel {
-    return self.showsProgressInNavigationBar && [_task respondsToSelector:@selector(progressOfCurrentStep:withResult:)] && self.currentStepViewController.step.showsProgress && !(self.currentStepViewController.parentReviewStep.isStandalone);
+- (BOOL)shouldDisplayProgress {
+    BOOL taskSuppressProgressDisplay = NO;
+    if ([_task isKindOfClass:[ORK1OrderedTask class]]) {
+        taskSuppressProgressDisplay = ([(ORK1OrderedTask *)_task progressIndicatorStyle] == CEVRK1TaskProgressIndicatorStyleNone);
+    }
+    return self.showsProgressInNavigationBar
+            && [_task respondsToSelector:@selector(progressOfCurrentStep:withResult:)]
+            && self.currentStepViewController.step.showsProgress
+            && !(self.currentStepViewController.parentReviewStep.isStandalone)
+            && !(self.currentStepViewController.step.excludeFromProgressCalculation)
+            && !taskSuppressProgressDisplay;
 }
 
 #pragma mark - internal action Handlers

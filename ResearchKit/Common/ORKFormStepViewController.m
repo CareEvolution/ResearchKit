@@ -577,7 +577,7 @@
         _headerView.instructionLabel.text = [[self formStep] text];
         _headerView.learnMoreButtonItem = self.learnMoreButtonItem;
         
-        _navigationFooterView = [ORKNavigationContainerView new];
+        _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:self];
         _navigationFooterView.skipButtonItem = self.skipButtonItem;
         _navigationFooterView.continueEnabled = [self continueButtonEnabled];
         _navigationFooterView.continueButtonItem = self.continueButtonItem;

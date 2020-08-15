@@ -64,6 +64,7 @@
 
 #import "ORKNavigableOrderedTask.h"
 #import "ORKStepNavigationRule.h"
+#import "ORKNavigationContainerView.h"
 
 typedef void (^_ORKLocationAuthorizationRequestHandler)(BOOL success);
 
@@ -352,6 +353,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     // Ensure taskRunUUID has non-nil valuetaskRunUUID
     (void)[self taskRunUUID];
     self.restorationClass = [ORKTaskViewController class];
+    self.lastStepHadProgressBarHidden = YES;
     
     return self;
 }
@@ -1045,12 +1047,16 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     // from the same VC.
     _currentStepViewController = viewController;
     
-    NSString *progressLabel = nil;
-    if ([self shouldDisplayProgressLabel]) {
+    ORKTaskProgress taskProgress = ORKTaskProgressMake(0, 0);
+    
+    if ([self shouldDisplayProgress]) {
         ORKTaskProgress progress = [_task progressOfCurrentStep:viewController.step withResult:[self result]];
         if (progress.total > 0) {
-            progressLabel = [NSString localizedStringWithFormat:ORKLocalizedString(@"STEP_PROGRESS_FORMAT", nil) ,ORKLocalizedStringFromNumber(@(progress.current+1)), ORKLocalizedStringFromNumber(@(progress.total))];
+            taskProgress = progress;
         }
+    } else {
+        self.currentStepViewController.navigationContainerView.taskProgressView.hidden = YES;
+        self.lastStepHadProgressBarHidden = YES;
     }
     
     ORKWeakTypeOf(self) weakSelf = self;
@@ -1065,12 +1071,34 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         
         ORK_Log_Debug(@"%@ %@", strongSelf, viewController);
         
-        // Set the progress label only if non-nil or if it is nil having previously set a progress label.
-        if (progressLabel || strongSelf->_hasSetProgressLabel) {
-            strongSelf.pageViewController.navigationItem.rightBarButtonItem = [strongSelf rightBarItemWithText:progressLabel];
+        // Set the progress only if progress value returned or if it is nil having previously set a progress to display.
+        if (taskProgress.total > 0 || strongSelf->_hasSetProgressLabel) {
+            if (strongSelf->_hasSetProgressLabel && taskProgress.total == 0) {
+                // remove any progress
+                strongSelf.currentStepViewController.navigationContainerView.taskProgressView.hidden = YES;
+                self.lastStepHadProgressBarHidden = YES;
+            } else {
+                ORKOrderedTask *orderedTask = (ORKOrderedTask *)strongSelf.task;
+                if (orderedTask.progressIndicatorStyle == CEVRKTaskProgressIndicatorStyleBar) {
+                    strongSelf.pageViewController.navigationItem.title = nil;
+                    float calculatedProgress = 0;
+                    if (orderedTask.progressBarProgressionMetric == CEVRKTaskProgressBarProgressionMetricFastToSlow) {
+                        calculatedProgress = log((float)taskProgress.current + 1) / log((float)taskProgress.total + 1);
+                    } else {  // Linear
+                        calculatedProgress = (float)taskProgress.current / (float)taskProgress.total;
+                    }
+                    ORKNavigationContainerView *containerView = strongSelf.currentStepViewController.navigationContainerView;
+                    containerView.taskProgressView.progress = calculatedProgress;
+                    containerView.taskProgressView.hidden = NO;
+                    self.lastStepHadProgressBarHidden = NO;
+                } else {
+                    strongSelf.currentStepViewController.navigationContainerView.taskProgressView.hidden = YES;
+                    self.lastStepHadProgressBarHidden = YES;
+                    strongSelf.pageViewController.navigationItem.rightBarButtonItem = [strongSelf rightBarItemWithText:[NSString localizedStringWithFormat:ORKLocalizedString(@"STEP_PROGRESS_FORMAT", nil) ,ORKLocalizedStringFromNumber(@(taskProgress.current)), ORKLocalizedStringFromNumber(@(taskProgress.total))]];
+                }
+            }
         }
-        
-        strongSelf->_hasSetProgressLabel = (progressLabel != nil);
+        strongSelf->_hasSetProgressLabel = (taskProgress.total > 0);
         
         // Collect toolbarItems
         [strongSelf collectToolbarItemsFromViewController:viewController];
@@ -1128,7 +1156,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
             }
             _pageViewController.navigationController.navigationBar.largeTitleTextAttributes = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:fontSize]};
         }
-        if (![self shouldDisplayProgressLabel]) {
+        if (![self shouldDisplayProgress]) {
             _pageViewController.navigationItem.rightBarButtonItem = viewController.navigationItem.rightBarButtonItem;
         }
     }
@@ -1250,8 +1278,17 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     return stepViewController;
 }
 
-- (BOOL)shouldDisplayProgressLabel {
-    return self.showsProgressInNavigationBar && [_task respondsToSelector:@selector(progressOfCurrentStep:withResult:)] && self.currentStepViewController.step.showsProgress && !(self.currentStepViewController.parentReviewStep.isStandalone);
+- (BOOL)shouldDisplayProgress {
+    BOOL taskSuppressProgressDisplay = NO;
+    if ([_task isKindOfClass:[ORKOrderedTask class]]) {
+        taskSuppressProgressDisplay = ([(ORKOrderedTask *)_task progressIndicatorStyle] == CEVRKTaskProgressIndicatorStyleNone);
+    }
+    return self.showsProgressInNavigationBar
+            && [_task respondsToSelector:@selector(progressOfCurrentStep:withResult:)]
+            && self.currentStepViewController.step.showsProgress
+            && !(self.currentStepViewController.parentReviewStep.isStandalone)
+            && !(self.currentStepViewController.step.excludeFromProgressCalculation)
+            && !taskSuppressProgressDisplay;;
 }
 
 #pragma mark - internal action Handlers

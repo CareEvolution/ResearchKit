@@ -184,6 +184,14 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, readonly, nullable) NSSet<HKObjectType *> *requestedHealthKitTypesForReading;
 
 /**
+A Boolean value indicating whether this step should count in progress calculations.
+
+The default value of this property is 'NO'.
+*/
+@property (nonatomic, assign) BOOL excludeFromProgressCalculation;
+
+
+/**
  Checks the parameters of the step and throws exceptions on invalid parameters.
  
  This method is called when there is a need to validate the step's parameters, which is typically

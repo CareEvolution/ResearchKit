@@ -57,6 +57,8 @@
         
         _identifier = [identifier copy];
         _steps = steps;
+        _progressIndicatorStyle = CEVRKTaskProgressIndicatorStyleText;
+        _progressBarProgressionMetric = CEVRKTaskProgressBarProgressionMetricLinear;
         
         _progressLabelColor = ORKColor(ORKProgressLabelColorKey);
         [self validateParameters];
@@ -172,8 +174,21 @@
 
 - (ORKTaskProgress)progressOfCurrentStep:(ORKStep *)step withResult:(ORKTaskResult *)taskResult {
     ORKTaskProgress progress;
-    progress.current = [self indexOfStep:step];
-    progress.total = _steps.count;
+    progress.current = 0;
+    progress.total = 0;
+    
+    NSUInteger currentStepIndex = [self indexOfStep:step];
+    NSUInteger loopStepIndex = 0;
+    
+    for (ORKStep *step in _steps) {
+        if (!step.excludeFromProgressCalculation) {
+            progress.total++;
+            if (loopStepIndex <= currentStepIndex) {
+                progress.current++;
+            }
+        }
+        loopStepIndex++;
+    }
     
     if (![step showsProgress]) {
         progress.total = 0;

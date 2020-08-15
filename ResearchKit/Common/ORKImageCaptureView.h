@@ -33,6 +33,10 @@
 @import AVFoundation;
 
 
+@class ORKNavigationContainerView;
+@class ORKImageCaptureStepViewController;
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ORKImageCaptureViewDelegate <NSObject>
@@ -55,6 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) UIBarButtonItem *cancelButtonItem;
 @property (nonatomic, strong, nullable) UIImage *capturedImage;
 @property (nonatomic, strong, nullable) NSError *error;
+
+- (instancetype)initWithFrame:(CGRect)aRect fromStepViewController:(ORKImageCaptureStepViewController *)stepViewController;
 
 @end
 

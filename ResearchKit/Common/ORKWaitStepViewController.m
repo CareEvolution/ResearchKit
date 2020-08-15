@@ -87,7 +87,7 @@
 
 - (void)setupNavigationFooterView {
     if (!_navigationFooterView) {
-        _navigationFooterView = [ORKNavigationContainerView new];
+        _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:self];
     }
     _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
     _navigationFooterView.neverHasContinueButton = YES;

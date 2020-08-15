@@ -570,6 +570,8 @@
 		D442397E1AF17F7600559D96 /* ORK1ImageCaptureStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D442397C1AF17F7600559D96 /* ORK1ImageCaptureStepViewController.m */; };
 		D458520A1AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = D45852081AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.h */; };
 		D458520B1AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D45852091AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m */; };
+		DA0BD9B324E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = DA0BD9B224E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h */; };
+		DA0BD9B524E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0BD9B424E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m */; };
 		DAF84CC922D682BC0028DE8F /* CEVRK1Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */; };
 		DAF84CCA22D683E10028DE8F /* CEVRK1Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7A9D2B1B082688005A2BEA /* ORK1ConsentDocumentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */; };
@@ -1212,6 +1214,8 @@
 		D442397C1AF17F7600559D96 /* ORK1ImageCaptureStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ImageCaptureStepViewController.m; sourceTree = "<group>"; };
 		D45852081AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ImageCaptureCameraPreviewView.h; sourceTree = "<group>"; };
 		D45852091AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ImageCaptureCameraPreviewView.m; sourceTree = "<group>"; };
+		DA0BD9B224E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1NavigationBarProgressView.h; sourceTree = "<group>"; };
+		DA0BD9B424E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1NavigationBarProgressView.m; sourceTree = "<group>"; };
 		DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1Theme.h; sourceTree = "<group>"; };
 		DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1Theme.m; sourceTree = "<group>"; };
 		FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ConsentDocumentTests.m; sourceTree = "<group>"; };
@@ -1829,6 +1833,8 @@
 				86C40B611A8D7C5B00081FAC /* ORK1TintedImageView.m */,
 				86C40BDD1A8D7C5C00081FAC /* ORK1UnitLabel.h */,
 				86C40BDE1A8D7C5C00081FAC /* ORK1UnitLabel.m */,
+				DA0BD9B224E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h */,
+				DA0BD9B424E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m */,
 			);
 			name = Skin;
 			sourceTree = "<group>";
@@ -2681,6 +2687,7 @@
 				618DA0541A93D0D600E63AA8 /* UIView+ORK1Accessibility.h in Headers */,
 				86C40C3A1A8D7C5C00081FAC /* ORK1SpatialSpanGameState.h in Headers */,
 				10864CA21B27146B000F4158 /* ORK1PSATContentView.h in Headers */,
+				DA0BD9B324E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h in Headers */,
 				618DA0501A93D0D600E63AA8 /* ORK1AccessibilityFunctions.h in Headers */,
 				FF5E3CCB1D23444400ECE4B7 /* ORK1PageStepViewController.h in Headers */,
 				86C40C721A8D7C5C00081FAC /* CMPedometerData+ORK1JSONDictionary.h in Headers */,
@@ -3338,6 +3345,7 @@
 				BA0AA6991EAEC0B600671ACE /* ORK1StroopStepViewController.m in Sources */,
 				B11C54A11A9EF4A700265E61 /* ORK1ConsentSharingStepViewController.m in Sources */,
 				86C40DA81A8D7C5C00081FAC /* ORK1SurveyAnswerCellForImageSelection.m in Sources */,
+				DA0BD9B524E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m in Sources */,
 				86C40CCE1A8D7C5C00081FAC /* ORK1ImageSelectionView.m in Sources */,
 				86C40D461A8D7C5C00081FAC /* ORK1InstructionStepViewController.m in Sources */,
 				BCB6E6611B7D534C000D5B34 /* ORK1LineGraphChartView.m in Sources */,
