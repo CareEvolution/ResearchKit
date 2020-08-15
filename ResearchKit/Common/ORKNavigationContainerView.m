@@ -62,8 +62,12 @@ static const CGFloat shadowHeight = 0.75;
 - (instancetype)initFromStepViewController:(ORKStepViewController *)stepViewController {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        _lastStepHadProgressBarHidden = stepViewController.taskViewController.lastStepHadProgressBarHidden;
-        stepViewController.navigationContainerView = self;
+        if (stepViewController) {
+            _lastStepHadProgressBarHidden = stepViewController.taskViewController.lastStepHadProgressBarHidden;
+            stepViewController.navigationContainerView = self;
+        } else {
+            _lastStepHadProgressBarHidden = YES;
+        }
         [self setBackgroundColor:ORKColor(ORKNavigationContainerColorKey)];
         [self setupVisualEffectView];
         [self setupViews];

@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat topMargin;
 @property (nonatomic, assign) CGFloat bottomMargin;
 
-- (instancetype)initFromStepViewController:(ORKStepViewController *)stepViewController;
+- (instancetype)initFromStepViewController:(ORKStepViewController * __nullable)stepViewController;
 - (BOOL)hasContinueOrSkip;
 
 @end
