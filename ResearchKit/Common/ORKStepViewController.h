@@ -43,7 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 @class ORKStepResult;
 @class ORKStepViewController;
 @class ORKTaskViewController;
-@class ORKNavigationContainerView;
 
 /**
  An enumeration of values used in `ORKStepViewControllerDelegate` to indicate the direction of navigation
