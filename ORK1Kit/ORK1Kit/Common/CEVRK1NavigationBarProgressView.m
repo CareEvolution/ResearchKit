@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 #import "CEVRK1NavigationBarProgressView.h"
+#import "CEVRK1Theme.h"
 
 
 @implementation CEVRK1NavigationBarProgressView {
@@ -45,6 +46,10 @@
 
 - (void)setProgress:(float)progress {
     _progressView.progress = progress;
+    CEVRK1Theme *theme = [CEVRK1Theme themeForElement:self];
+    if (theme.progressBarColor) {
+        _progressView.tintColor = theme.progressBarColor;
+    }
 }
 
 @end

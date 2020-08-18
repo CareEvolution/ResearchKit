@@ -71,6 +71,8 @@ ORK1_CLASS_AVAILABLE
 @property (nonatomic, strong) NSNumber * _Nullable nextButtonLetterSpacing; // in points
 @property (nonatomic, strong) UIColor * _Nullable nextButtonTextColor;
 
+@property (nonatomic, strong) UIColor * _Nullable progressBarColor;
+
 - (void)updateAppearanceForTitleLabel:(nonnull UILabel *)label;
 - (void)updateAppearanceForTextLabel:(nonnull UILabel *)label;
 - (void)updateAttributesForText:(nonnull NSMutableDictionary *)attributes;

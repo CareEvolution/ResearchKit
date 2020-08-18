@@ -67,6 +67,9 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
     merged.nextButtonTextTransform = theme2.nextButtonTextTransform ?: theme.nextButtonTextTransform;
     merged.nextButtonLetterSpacing = theme2.nextButtonLetterSpacing ?: theme.nextButtonLetterSpacing;
     merged.nextButtonTextColor = theme2.nextButtonTextColor ?: theme.nextButtonTextColor;
+    
+    merged.progressBarColor = theme2.progressBarColor ?: theme.progressBarColor;
+    
     return merged;
 }
 
