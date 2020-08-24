@@ -19,4 +19,11 @@
    <FileRef
       location = "group:samples/ORKSample/ORKSample.xcodeproj">
    </FileRef>
+   <Group
+      location = "container:"
+      name = "Carthage">
+      <FileRef
+         location = "group:Carthage/Checkouts/MarkdownAttributedString">
+      </FileRef>
+   </Group>
 </Workspace>
