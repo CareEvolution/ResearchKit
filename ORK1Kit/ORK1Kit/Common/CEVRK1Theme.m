@@ -14,18 +14,21 @@
 #import "ORK1TaskViewController.h"
 #import "ORK1Task.h"
 #import "ORK1Step.h"
+#import "NSAttributedString+Markdown.h"
+#import "ORK1Label.h"
+#import "CEVRK1TextView.h"
+
 
 @interface UIFont (Scalable)
 + (NSDictionary *)cevrk1_textStyleToPointSize;
 + (UIFont *)cevrk1_preferredFontOfSize:(CGFloat)size weight:(UIFontWeight)weight;
 @end
 
+
 @interface UIColor (LightAndDark)
 - (UIColor *)cevrk1_darkerColor;
 @end
 
-NSString *const CEVThemeAttributeName = @"CEVThemeAttributeName";
-NSString *const CEVRK1ThemeKey = @"cev_theme";
 
 @implementation CEVRK1Gradient
 
@@ -40,26 +43,20 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
 
 @end
 
+                     
+@implementation CEVRK1TextStyle
+@end
+
+
 @implementation CEVRK1Theme
 
 + (CEVRK1Theme *)themeByOverridingTheme:(nullable CEVRK1Theme *)theme withTheme:(nullable CEVRK1Theme *)theme2 {
     CEVRK1Theme *merged = [[CEVRK1Theme alloc] init];
     merged.tintColor = theme2.tintColor ?: theme.tintColor;
-
-    merged.titleFontSize = theme2.titleFontSize ?: theme.titleFontSize;
-    merged.titleFontWeight = theme2.titleFontWeight ?: theme.titleFontWeight;
-    merged.titleColor = theme2.titleColor ?: theme.titleColor;
-    merged.titleAlignment = theme2.titleAlignment ?: theme.titleAlignment;
-
-    merged.textFontSize = theme2.textFontSize ?: theme.textFontSize;
-    merged.textFontWeight = theme2.textFontWeight ?: theme.textFontWeight;
-    merged.textColor = theme2.textColor ?: theme.textColor;
-    merged.textAlignment = theme2.textAlignment ?: theme.textAlignment;
-
-    merged.detailTextFontSize = theme2.detailTextFontSize ?: theme.detailTextFontSize;
-    merged.detailTextFontWeight = theme2.detailTextFontWeight ?: theme.detailTextFontWeight;
-    merged.detailTextColor = theme2.detailTextColor ?: theme.detailTextColor;
-    merged.detailTextAlignment = theme2.detailTextAlignment ?: theme.detailTextAlignment;
+    
+    merged.titleStyle = [CEVRK1Theme textStyleByOverridingTextStyle:theme.titleStyle withTextStyle:theme2.titleStyle];
+    merged.textStyle = [CEVRK1Theme textStyleByOverridingTextStyle:theme.textStyle withTextStyle:theme2.textStyle];
+    merged.detailTextStyle = [CEVRK1Theme textStyleByOverridingTextStyle:theme.detailTextStyle withTextStyle:theme2.detailTextStyle];
 
     merged.nextButtonBackgroundColor = theme2.nextButtonBackgroundColor ?: theme.nextButtonBackgroundColor;
     merged.nextButtonBackgroundGradient = theme2.nextButtonBackgroundGradient ?: theme.nextButtonBackgroundGradient;
@@ -70,6 +67,15 @@ NSString *const CEVRK1ThemeKey = @"cev_theme";
     
     merged.progressBarColor = theme2.progressBarColor ?: theme.progressBarColor;
     
+    return merged;
+}
+
++ (CEVRK1TextStyle *)textStyleByOverridingTextStyle:(nullable CEVRK1TextStyle*)textStyle withTextStyle:(nullable CEVRK1TextStyle*)textStyle2 {
+    CEVRK1TextStyle *merged = [[CEVRK1TextStyle alloc] init];
+    merged.fontSize   = textStyle2.fontSize   ?: textStyle.fontSize;
+    merged.fontWeight = textStyle2.fontWeight ?: textStyle.fontWeight;
+    merged.color      = textStyle2.color      ?: textStyle.color;
+    merged.alignment  = textStyle2.alignment  ?: textStyle.alignment;
     return merged;
 }
 
@@ -115,8 +121,9 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
     if (self = [super init]) {
         if (type == CEVRK1ThemeTypeAllOfUs) {
             self.tintColor = ORK1RGB(0x216fb4);
-            self.titleColor = ORK1RGB(0x262262);
-            self.titleFontWeight = @(UIFontWeightSemibold);
+            self.titleStyle = [[CEVRK1TextStyle alloc] init];
+            self.titleStyle.color = ORK1RGB(0x262262);
+            self.titleStyle.fontWeight = @(UIFontWeightSemibold);
             self.nextButtonTextColor = ORK1RGB(0x262262);
             self.nextButtonFontWeight = @(UIFontWeightSemibold);
             self.nextButtonLetterSpacing = @3;
@@ -131,86 +138,156 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
     return nil;
 }
 
-- (void)updateAppearanceForTitleLabel:(nonnull UILabel *)label {
-    // If we have styled this, don't override
-    if (label.attributedText.length > 0 && [label.attributedText attribute:CEVThemeAttributeName atIndex:0 effectiveRange:0] != nil) {
-        return;
+- (NSMutableDictionary *)textAttributesForView:(UIView *)view {
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    if (!paragraphStyle) {
+        paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     }
-    if (self.titleColor != nil) {
-        label.textColor = self.titleColor;
+    if ([[view class] isSubclassOfClass:[UILabel class]]) {
+        UILabel *label = (UILabel *)view;
+        attributes[NSFontAttributeName] = label.font;
+        attributes[NSForegroundColorAttributeName] = label.textColor;
+        paragraphStyle.alignment = label.textAlignment;
+        attributes[NSParagraphStyleAttributeName] = paragraphStyle;
+    } else if ([[view class] isSubclassOfClass:[UITextView class]]) {
+        UITextView *textView = (UITextView *)view;
+        attributes[NSFontAttributeName] = textView.font;
+        attributes[NSForegroundColorAttributeName] = textView.textColor;
+        paragraphStyle.alignment = textView.textAlignment;
+        attributes[NSParagraphStyleAttributeName] = paragraphStyle;
+    } else {
+        NSAssert(YES, @"textAttributesForView expects either a UILabel or UITextView");
     }
-    if (self.titleAlignment != nil) {
-        label.textAlignment = self.titleAlignment.intValue;
-    }
-    if (self.titleFontSize != nil) {
-        label.font = [UIFont cevrk1_preferredFontOfSize:self.titleFontSize.floatValue weight:UIFontWeightRegular];
-    }
-    if (self.titleFontWeight != nil) {
-        label.font = [UIFont cevrk1_preferredFontOfSize:label.font.pointSize weight:self.titleFontWeight.floatValue];
-    }
+    return attributes;
 }
 
-- (void)updateAppearanceForTextLabel:(nonnull UILabel *)label {
-    // If we have styled this, don't override
-    if (label.attributedText.length > 0 && [label.attributedText attribute:CEVThemeAttributeName atIndex:0 effectiveRange:0] != nil) {
+- (void)updateAppearanceForLabel:(CEVRK1Label *)label ofType:(CEVRK1DisplayTextType)textType {
+    if (![label rawText]) {
+        label.attributedText = nil;
         return;
     }
-    if (self.textColor != nil) {
-        label.textColor = self.textColor;
+    CEVRK1TextStyle *textStyle;
+    switch (textType) {
+        case CEVRK1DisplayTextTypeTitle: {
+            textStyle = self.titleStyle;
+            break;
+        }
+        case CEVRK1DisplayTextTypeText: {
+            textStyle = self.textStyle;
+            break;
+        }
+        case CEVRK1DisplayTextTypeDetailText: {
+            NSAssert(YES, @"DetailText should be handled in updateAppearanceForTextView");
+            break;
+        }
+        default:
+            break;
     }
-    if (self.textAlignment != nil) {
-        label.textAlignment = self.textAlignment.intValue;
-    }
-    if (self.textFontSize != nil) {
-        label.font = [UIFont cevrk1_preferredFontOfSize:self.textFontSize.floatValue weight:UIFontWeightRegular];
-    }
-    if (self.textFontWeight != nil) {
-        label.font = [UIFont cevrk1_preferredFontOfSize:label.font.pointSize weight:self.textFontWeight.floatValue];
-    }
+    NSMutableDictionary *attributes = [self textAttributesForView:label];
+    [self combineIntoAttributes:attributes textStyle:textStyle];
+    label.attributedText = [[NSAttributedString alloc] initWithMarkdownRepresentation:[label rawText] attributes:attributes];
 }
 
-- (void)updateAttributesForText:(NSMutableDictionary *)attributes {
-    if (self.textColor != nil) {
-        attributes[NSForegroundColorAttributeName] = self.textColor;
+- (void)updateAppearanceForTextView:(nonnull CEVRK1TextView *)textView {   
+    if (!textView.textValue && !textView.detailTextValue) {
+        textView.attributedText = nil;
+        return;
     }
-    if (self.textAlignment != nil) {
+    
+    NSMutableAttributedString *attributedInstruction;
+    NSMutableDictionary *textViewAttributes = [self textAttributesForView:textView];
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setParagraphSpacingBefore:textView.font.lineHeight * 0.5];
+    [paragraphStyle setAlignment:NSTextAlignmentCenter];
+    
+    
+    if (textView.detailTextValue && textView.textValue) {
+        NSMutableDictionary *textAttributes = [textViewAttributes mutableCopy];
+        [self updateAttributes:textAttributes forDisplayTextType:CEVRK1DisplayTextTypeText];
+        NSString *concatenatedString = [NSString stringWithFormat:@"%@\n", textView.textValue];
+        attributedInstruction = [[[NSAttributedString alloc] initWithMarkdownRepresentation:concatenatedString attributes:textAttributes] mutableCopy];
+        
+        NSMutableDictionary *detailAttributes = [textViewAttributes mutableCopy];
+        detailAttributes[NSParagraphStyleAttributeName] = paragraphStyle;
+        [self updateAttributes:detailAttributes forDisplayTextType:CEVRK1DisplayTextTypeDetailText];
+        NSAttributedString *detailAttributedString = [[NSAttributedString alloc] initWithMarkdownRepresentation:textView.detailTextValue attributes:detailAttributes];
+        [attributedInstruction appendAttributedString:detailAttributedString];
+        
+    } else if (textView.detailTextValue || textView.textValue) {
+        textViewAttributes[NSParagraphStyleAttributeName] = paragraphStyle;
+        if (textView.detailTextValue) {
+            [self updateAttributes:textViewAttributes forDisplayTextType:CEVRK1DisplayTextTypeDetailText];
+        } else {
+            [self updateAttributes:textViewAttributes forDisplayTextType:CEVRK1DisplayTextTypeText];
+        }
+        attributedInstruction = [[[NSAttributedString alloc] initWithMarkdownRepresentation:textView.detailTextValue ?: textView.textValue attributes: textViewAttributes] mutableCopy];
+    }
+
+    textView.attributedText = attributedInstruction;
+}
+
+- (void)updateAttributes:(NSMutableDictionary *)attributes forDisplayTextType:(CEVRK1DisplayTextType)textType {
+    CEVRK1TextStyle *textStyle;
+    switch (textType) {
+        case CEVRK1DisplayTextTypeTitle: {
+            NSAssert(YES, @"Title text should be handled in updateAppearanceForLabel");
+            break;
+        }
+        case CEVRK1DisplayTextTypeText: {
+            textStyle = self.textStyle;
+            break;
+        }
+        case CEVRK1DisplayTextTypeDetailText: {
+            textStyle = self.detailTextStyle;
+            break;
+        }
+        default:
+            break;
+    }
+    [self combineIntoAttributes:attributes textStyle:textStyle];
+}
+
+- (void)combineIntoAttributes:(NSMutableDictionary *)attributes textStyle:(CEVRK1TextStyle *)textStyle {
+    if (textStyle.fontSize && textStyle.fontWeight) {
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:textStyle.fontSize.floatValue weight:textStyle.fontWeight.floatValue];
+    } else if (textStyle.fontSize) {
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:textStyle.fontSize.floatValue weight:UIFontWeightRegular];
+    } else if (textStyle.fontWeight) {
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:15 weight:textStyle.fontWeight.floatValue];
+    }
+    
+    if (textStyle.color) {
+        attributes[NSForegroundColorAttributeName] = textStyle.color;
+    }
+    
+    if (textStyle.alignment) {
         NSMutableParagraphStyle *paragraphStyle = [attributes[NSParagraphStyleAttributeName] mutableCopy];
         if (paragraphStyle == nil) {
             paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         }
-        paragraphStyle.alignment = self.textAlignment.intValue;
+        paragraphStyle.alignment = textStyle.alignment.intValue;
         attributes[NSParagraphStyleAttributeName] = paragraphStyle;
     }
-    if (self.textFontSize != nil && self.textFontWeight != nil) {
-        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.textFontSize.floatValue weight: self.textFontWeight.floatValue];
-    } else if (self.textFontSize != nil) {
-        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.textFontSize.floatValue weight:UIFontWeightRegular];
-    } else if (self.textFontWeight != nil) {
-        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:15 weight:self.textFontWeight.floatValue];
-    }
-    attributes[CEVThemeAttributeName] = @0; // Flag that we have styled this string.
 }
 
-- (void)updateAttributesForDetailText:(NSMutableDictionary *)attributes {
-    if (self.detailTextColor != nil) {
-        attributes[NSForegroundColorAttributeName] = self.detailTextColor;
-    }
-    if (self.detailTextAlignment != nil) {
-        NSMutableParagraphStyle *paragraphStyle = [attributes[NSParagraphStyleAttributeName] mutableCopy];
+// Currently used for text choices which currently do not have style overrides
++ (void)renderMarkdownForLabel:(nonnull CEVRK1Label *)label {
+    if ([label rawText]) {
+        NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+        attributes[NSForegroundColorAttributeName] = label.textColor;
+        NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
         if (paragraphStyle == nil) {
             paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         }
-        paragraphStyle.alignment = self.detailTextAlignment.intValue;
+        paragraphStyle.alignment = label.textAlignment;
         attributes[NSParagraphStyleAttributeName] = paragraphStyle;
+        attributes[NSFontAttributeName] = label.font;
+        label.attributedText = [[NSAttributedString alloc] initWithMarkdownRepresentation:[label rawText] attributes:attributes];
+    } else {
+        label.attributedText = nil;
     }
-    if (self.detailTextFontSize != nil && self.detailTextFontWeight != nil) {
-        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.detailTextFontSize.floatValue weight: self.detailTextFontWeight.floatValue];
-    } else if (self.detailTextFontSize != nil) {
-        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:self.detailTextFontSize.floatValue weight:UIFontWeightRegular];
-    } else if (self.detailTextFontWeight != nil) {
-        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:15 weight:self.detailTextFontWeight.floatValue];
-    }
-    attributes[CEVThemeAttributeName] = @0; // Flag that we have styled this string.
 }
 
 - (void)updateAppearanceForContinueButton:(ORK1ContinueButton *)continueButton {

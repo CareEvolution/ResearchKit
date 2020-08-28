@@ -7,12 +7,8 @@
 //
 
 @import UIKit;
-@class ORK1TaskViewController;
 
 #import "ORK1Defines.h"
-
-extern NSString * _Nonnull const CEVRK1ThemeKey;
-extern NSString * _Nonnull const CEVThemeAttributeName;
 
 typedef NS_ENUM(NSInteger, CEVRK1ThemeType) {
     CEVRK1ThemeTypeDefault,
@@ -29,8 +25,19 @@ typedef NS_ENUM(NSInteger, CEVRK1GradientDirection) {
     CEVRK1GradientDirectionTopToBottom
 } ORK1_ENUM_AVAILABLE;
 
+typedef NS_ENUM(NSInteger, CEVRK1DisplayTextType) {
+    CEVRK1DisplayTextTypeTitle,
+    CEVRK1DisplayTextTypeText,
+    CEVRK1DisplayTextTypeDetailText
+};
+
+
 @class ORK1BorderedButton;
 @class ORK1ContinueButton;
+@class ORK1TaskViewController;
+@class CEVRK1Label;
+@class CEVRK1TextView;
+
 
 ORK1_CLASS_AVAILABLE
 @interface CEVRK1Gradient : NSObject
@@ -38,6 +45,16 @@ ORK1_CLASS_AVAILABLE
 @property (nonatomic, strong) UIColor * _Nonnull startColor;
 @property (nonatomic, strong) UIColor * _Nonnull endColor;
 @end
+
+
+ORK1_CLASS_AVAILABLE
+@interface CEVRK1TextStyle : NSObject
+@property (nonatomic, strong, nullable) NSNumber *fontSize;
+@property (nonatomic, strong, nullable) NSNumber *fontWeight;
+@property (nonatomic, strong, nullable) UIColor *color;
+@property (nonatomic, strong, nullable) NSNumber *alignment;
+@end
+
 
 ORK1_CLASS_AVAILABLE
 @interface CEVRK1Theme : NSObject
@@ -49,20 +66,9 @@ ORK1_CLASS_AVAILABLE
 
 @property (nonatomic, strong) UIColor * _Nullable tintColor;
 
-@property (nonatomic, strong) NSNumber * _Nullable titleFontSize;
-@property (nonatomic, strong) NSNumber * _Nullable titleFontWeight; // UIFontWeight
-@property (nonatomic, strong) UIColor * _Nullable titleColor;
-@property (nonatomic, strong) NSNumber * _Nullable titleAlignment; // NSTextAlignment
-
-@property (nonatomic, strong) NSNumber * _Nullable textFontSize;
-@property (nonatomic, strong) NSNumber * _Nullable textFontWeight; // UIFontWeight
-@property (nonatomic, strong) UIColor * _Nullable textColor;
-@property (nonatomic, strong) NSNumber * _Nullable textAlignment; // NSTextAlignment
-
-@property (nonatomic, strong) NSNumber * _Nullable detailTextFontSize;
-@property (nonatomic, strong) NSNumber * _Nullable detailTextFontWeight; // UIFontWeight
-@property (nonatomic, strong) UIColor * _Nullable detailTextColor;
-@property (nonatomic, strong) NSNumber * _Nullable detailTextAlignment; // NSTextAlignment
+@property (nonatomic, strong, nullable) CEVRK1TextStyle *titleStyle;
+@property (nonatomic, strong, nullable) CEVRK1TextStyle *textStyle;
+@property (nonatomic, strong, nullable) CEVRK1TextStyle *detailTextStyle;
 
 @property (nonatomic, strong) UIColor * _Nullable nextButtonBackgroundColor;
 @property (nonatomic, strong) CEVRK1Gradient * _Nullable nextButtonBackgroundGradient;
@@ -73,10 +79,10 @@ ORK1_CLASS_AVAILABLE
 
 @property (nonatomic, strong) UIColor * _Nullable progressBarColor;
 
-- (void)updateAppearanceForTitleLabel:(nonnull UILabel *)label;
-- (void)updateAppearanceForTextLabel:(nonnull UILabel *)label;
-- (void)updateAttributesForText:(nonnull NSMutableDictionary *)attributes;
-- (void)updateAttributesForDetailText:(nonnull NSMutableDictionary *)attributes;
+- (void)updateAppearanceForLabel:(nonnull CEVRK1Label *)label ofType:(CEVRK1DisplayTextType)textType;
+- (void)updateAppearanceForTextView:(nonnull CEVRK1TextView *)textView;
++ (void)renderMarkdownForLabel:(nonnull CEVRK1Label *)label;
+
 - (void)updateAppearanceForContinueButton:(nonnull ORK1ContinueButton *)continueButton;
 
 - (nullable UIColor *)taskViewControllerTintColor;

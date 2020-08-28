@@ -63,8 +63,9 @@
 
 // Nasty override (hack)
 - (void)updateAppearance {
+    // to handle any changes in dynamic text size, we update the current font and re-render
     self.font = [self defaultFont];
-    [[CEVRK1Theme themeForElement:self] updateAppearanceForTitleLabel:self];
+    [[CEVRK1Theme themeForElement:self] updateAppearanceForLabel:self ofType:CEVRK1DisplayTextTypeTitle];
     [self invalidateIntrinsicContentSize];
 }
 

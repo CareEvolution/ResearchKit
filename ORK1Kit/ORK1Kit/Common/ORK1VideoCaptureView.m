@@ -68,7 +68,7 @@
         [self addSubview:_playerViewController.view];
         
         _headerView = [ORK1StepHeaderView new];
-        _headerView.instructionLabel.text = @" ";
+        _headerView.instructionTextView.textValue = @" ";
         [self addSubview:_headerView];
         
         _captureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"CAPTURE_BUTTON_CAPTURE_VIDEO", nil)
@@ -166,7 +166,7 @@
     
     if (self.error) {
         // Display the error instruction.
-        _headerView.instructionLabel.text = [self.error.userInfo valueForKey:NSLocalizedDescriptionKey];
+        _headerView.instructionTextView.textValue = [self.error.userInfo valueForKey:NSLocalizedDescriptionKey];
         
         // Hide the template image if there is an error
         _previewView.templateImageHidden = YES;

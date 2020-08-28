@@ -429,12 +429,12 @@
     ORK1TextChoice *choice = format.textChoices[indexPath.row];
     
     NSString *longText = !choice.detailTextShouldDisplay ? choice.detailText : nil;
-    CGFloat sizeBeforeResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text LongText:longText inTableView:self.tableView];
+    CGFloat sizeBeforeResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText inTableView:self.tableView];
     
     [section.textChoiceCellGroup updateLabelsForCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]] atIndex:indexPath.row];
     
     longText = choice.detailTextShouldDisplay ? choice.detailText : nil;
-    CGFloat sizeAfterResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text LongText:longText inTableView:self.tableView];
+    CGFloat sizeAfterResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText inTableView:self.tableView];
     
     [_tableContainer adjustBottomConstraintWithExpectedOffset:(sizeAfterResize - sizeBeforeResize)];
     [self.tableView endUpdates];
@@ -586,7 +586,7 @@
         _headerView = _tableContainer.stepHeaderView;
         _headerView.captionLabel.text = [[self formStep] title];
         _headerView.captionLabel.useSurveyMode = [[self formStep] useSurveyMode];
-        _headerView.instructionLabel.text = [[self formStep] text];
+        _headerView.instructionTextView.textValue = [[self formStep] text];
         _headerView.learnMoreButtonItem = self.learnMoreButtonItem;
         
         _continueSkipView = _tableContainer.continueSkipContainerView;
@@ -1102,7 +1102,7 @@
     CGFloat cellHeight = [_hiddenCellItems containsObject:cellItem] ? 0 : UITableViewAutomaticDimension;
     if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ORK1ChoiceViewCell class]]) {
         return [ORK1ChoiceViewCell suggestedCellHeightForShortText:cellItem.choice.text
-                                                          LongText:(cellItem.choice.detailTextShouldDisplay) ? cellItem.choice.detailText : nil
+                                                          longText:(cellItem.choice.detailTextShouldDisplay) ? cellItem.choice.detailText : nil
                                                        inTableView:_tableView];
     }
     return cellHeight;

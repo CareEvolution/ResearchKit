@@ -69,10 +69,10 @@
 - (void)setActiveStep:(ORK1ActiveStep *)step {
     self.continueSkipContainer.useNextForSkip = step.shouldUseNextAsSkipButton;
     _activeStep = step;
-    self.headerView.instructionLabel.hidden = !(_activeStep.hasText);
+    self.headerView.instructionTextView.hidden = !(_activeStep.hasText);
     
     self.headerView.captionLabel.text = _activeStep.title;
-    self.headerView.instructionLabel.text = _activeStep.text;
+    self.headerView.instructionTextView.textValue = _activeStep.text;
     self.continueSkipContainer.optional = _activeStep.optional;
     self.stepViewFillsAvailableSpace = YES;
     
@@ -89,8 +89,8 @@
 - (void)updateTitle:(NSString *)title text:(NSString *)text {
     ORK1StepHeaderView *headerView = [self headerView];
     [headerView.captionLabel setText:title];
-    [headerView.instructionLabel setText:text];
-    headerView.instructionLabel.hidden = (text == nil);
+    [headerView.instructionTextView setTextValue:text];
+    headerView.instructionTextView.hidden = (text == nil);
     [headerView updateCaptionLabelPreferredWidth];
 }
 

@@ -145,32 +145,13 @@
     self.headerView.iconImageView.image = _instructionStep.iconImage;
     self.headerView.captionLabel.text = _instructionStep.title;
     
-    NSMutableAttributedString *attributedInstruction = [[NSMutableAttributedString alloc] init];
     NSString *detail = _instructionStep.detailText;
     NSString *text = _instructionStep.text;
     detail = detail.length ? detail : nil;
     text = text.length ? text : nil;
     
-    if (detail && text) {
-        NSMutableDictionary *textAttributes = [NSMutableDictionary dictionary];
-        [[CEVRK1Theme themeForElement:self] updateAttributesForText:textAttributes];
-        [attributedInstruction appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n", text] attributes:textAttributes]];
-
-        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-        [style setParagraphSpacingBefore:self.headerView.instructionLabel.font.lineHeight * 0.5];
-        [style setAlignment:NSTextAlignmentCenter];
-        
-        NSMutableDictionary *detailAttributes = [@{NSParagraphStyleAttributeName: style} mutableCopy];
-        [[CEVRK1Theme themeForElement:self] updateAttributesForDetailText:detailAttributes];
-        NSAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:detail
-                                                                               attributes:detailAttributes];
-        [attributedInstruction appendAttributedString:attString];
-        
-    } else if (detail || text) {
-        [attributedInstruction appendAttributedString:[[NSAttributedString alloc] initWithString:detail ? : text attributes:nil]];
-    }
-    
-    self.headerView.instructionLabel.attributedText = attributedInstruction;
+    self.headerView.instructionTextView.textValue = text;
+    self.headerView.instructionTextView.detailTextValue = detail;
     
     self.continueSkipContainer.footnoteLabel.text = _instructionStep.footnote;
     [self.continueSkipContainer updateContinueAndSkipEnabled];

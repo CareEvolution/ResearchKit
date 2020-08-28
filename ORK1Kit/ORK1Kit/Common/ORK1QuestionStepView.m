@@ -50,11 +50,11 @@
 - (void)setQuestionStep:(ORK1QuestionStep *)step {
     self.continueSkipContainer.useNextForSkip = (step ? NO : YES);
     _questionStep = step;
-    self.headerView.instructionLabel.hidden = ![_questionStep text].length;
+    self.headerView.instructionTextView.hidden = ![_questionStep text].length;
     
     self.headerView.captionLabel.useSurveyMode = step.useSurveyMode;
     self.headerView.captionLabel.text = _questionStep.title;
-    self.headerView.instructionLabel.text = _questionStep.text;
+    self.headerView.instructionTextView.textValue = _questionStep.text;
     self.continueSkipContainer.optional = _questionStep.optional;
     
     [self.continueSkipContainer updateContinueAndSkipEnabled];
@@ -77,8 +77,8 @@
     if (self.headerView.captionLabel != nil) {
         [elements addObject:self.headerView.captionLabel];
     }
-    if (self.headerView.instructionLabel != nil) {
-        [elements addObject:self.headerView.instructionLabel];
+    if (self.headerView.instructionTextView != nil) {
+        [elements addObject:self.headerView.instructionTextView];
     }
     if (self.headerView.learnMoreButton != nil) {
         [elements addObject:self.headerView.learnMoreButton];

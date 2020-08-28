@@ -45,7 +45,7 @@
 
 - (void)updateAppearance {
     [super updateAppearance];
-    [[CEVRK1Theme themeForElement:self] updateAppearanceForTextLabel:self];
+    [[CEVRK1Theme themeForElement:self] updateAppearanceForLabel:self ofType:CEVRK1DisplayTextTypeText];
 }
 
 @end

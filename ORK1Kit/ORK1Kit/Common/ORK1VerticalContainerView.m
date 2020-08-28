@@ -358,7 +358,7 @@ static const CGFloat AssumedStatusBarHeight = 20;
 - (void)updateStepViewCenteringConstraint {
     BOOL hasIllustration = (_imageView.image != nil);
     BOOL hasCaption = _headerView.captionLabel.text.length > 0;
-    BOOL hasInstruction = _headerView.instructionLabel.text.length > 0;
+    BOOL hasInstruction = _headerView.instructionTextView.text.length > 0;
     BOOL hasLearnMore = (_headerView.learnMoreButton.alpha > 0);
     BOOL hasContinueOrSkip = [_continueSkipContainer hasContinueOrSkip];
 
@@ -864,9 +864,9 @@ static const CGFloat AssumedStatusBarHeight = 20;
      
      Additional carriage returns will be added if the loop persists every 50 iterations.
      
-     For more info see: https://github.com/CareEvolution/CEVORK1Kit/issues/116,
-     https://github.com/CareEvolution/CEVORK1Kit/issues/136,
-     https://github.com/CareEvolution/CEVORK1Kit/issues/152
+     For more info see: https://github.com/CareEvolution/CEVResearchKit/issues/116,
+     https://github.com/CareEvolution/CEVResearchKit/issues/136,
+     https://github.com/CareEvolution/CEVResearchKit/issues/152
      */
     
     autoLayoutLoopCount++;
@@ -874,12 +874,12 @@ static const CGFloat AssumedStatusBarHeight = 20;
     if (autoLayoutLoopCount % 50 == 0 &&
         autoLayoutLoopCount / 50 > carriageReturnsAdded) {
         if (_scrollContainer.subviews.count > 0 && _scrollContainer.subviews[0].subviews.count > 0 && _scrollContainer.subviews[0].subviews[0].subviews.count > 3) {
-            UIView *possibleSubheadLineLabel = _scrollContainer.subviews[0].subviews[0].subviews[3];
-            if ([possibleSubheadLineLabel isKindOfClass:[ORK1SubheadlineLabel class]]) {
-                ORK1SubheadlineLabel *subheadLineLabel = (ORK1SubheadlineLabel *)possibleSubheadLineLabel;
-                NSMutableString *updatedText = [NSMutableString stringWithString:subheadLineLabel.text];
+            UIView *possibleCEVRK1TextView = _scrollContainer.subviews[0].subviews[0].subviews[3];
+            if ([possibleCEVRK1TextView isKindOfClass:[CEVRK1TextView class]]) {
+                CEVRK1TextView *textView = (CEVRK1TextView *)possibleCEVRK1TextView;
+                NSMutableString *updatedText = [NSMutableString stringWithString:textView.textValue];
                 [updatedText appendString:@"\n"];
-                subheadLineLabel.text = updatedText;
+                textView.textValue = updatedText;
                 carriageReturnsAdded++;
             }
         }

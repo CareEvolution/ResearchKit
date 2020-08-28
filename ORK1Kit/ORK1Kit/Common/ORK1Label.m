@@ -67,10 +67,9 @@
 }
 
 - (void)updateAppearance {
-    // If we have styled this, don't override
-    if (self.attributedText.length > 0 && [self.attributedText attribute:CEVThemeAttributeName atIndex:0 effectiveRange:nil] == nil) {
-        self.font = [[self class] defaultFont];
-    }
+    // to handle any changes in dynamic text size, we update the current font and re-render
+    self.font = [[self class] defaultFont];
+    [CEVRK1Theme renderMarkdownForLabel:self];
     [self invalidateIntrinsicContentSize];
 }
 
