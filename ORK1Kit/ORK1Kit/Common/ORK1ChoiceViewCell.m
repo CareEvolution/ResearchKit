@@ -201,7 +201,7 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
     [self updateSelectedItem];
 }
 
-+ (CGFloat)suggestedCellHeightForShortText:(NSString *)shortText LongText:(NSString *)longText inTableView:(UITableView *)tableView {
++ (CGFloat)suggestedCellHeightForShortText:(NSString *)shortText longText:(NSString *)longText inTableView:(UITableView *)tableView {
     CGFloat height = 0;
     
     CGFloat firstBaselineOffsetFromTop = ORK1GetMetricForWindow(ORK1ScreenMetricChoiceCellFirstBaselineOffsetFromTop, tableView.window);

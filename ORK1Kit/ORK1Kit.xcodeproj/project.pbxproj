@@ -572,6 +572,13 @@
 		D458520B1AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D45852091AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m */; };
 		DA0BD9B324E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = DA0BD9B224E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h */; };
 		DA0BD9B524E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0BD9B424E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m */; };
+		DA160FFD24F6A59700587FBE /* CEVRK1TextView.h in Headers */ = {isa = PBXBuildFile; fileRef = DA160FFC24F6A59700587FBE /* CEVRK1TextView.h */; };
+		DA160FFF24F6A62300587FBE /* CEVRK1TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA160FFE24F6A62300587FBE /* CEVRK1TextView.m */; };
+		DA27D28C24F4520C00B6ECE4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DA27D28B24F4520C00B6ECE4 /* README.md */; };
+		DA27D28F24F4521E00B6ECE4 /* NSAttributedString+Markdown.h in Headers */ = {isa = PBXBuildFile; fileRef = DA27D28D24F4521E00B6ECE4 /* NSAttributedString+Markdown.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA27D29024F4521E00B6ECE4 /* NSAttributedString+Markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27D28E24F4521E00B6ECE4 /* NSAttributedString+Markdown.m */; };
+		DA51341324F8607D0068A61F /* CEVRK1Label.h in Headers */ = {isa = PBXBuildFile; fileRef = DA51341224F8607D0068A61F /* CEVRK1Label.h */; };
+		DA51341524F8619A0068A61F /* CEVRK1Label.m in Sources */ = {isa = PBXBuildFile; fileRef = DA51341424F8619A0068A61F /* CEVRK1Label.m */; };
 		DAF84CC922D682BC0028DE8F /* CEVRK1Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */; };
 		DAF84CCA22D683E10028DE8F /* CEVRK1Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7A9D2B1B082688005A2BEA /* ORK1ConsentDocumentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */; };
@@ -1216,6 +1223,13 @@
 		D45852091AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ImageCaptureCameraPreviewView.m; sourceTree = "<group>"; };
 		DA0BD9B224E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1NavigationBarProgressView.h; sourceTree = "<group>"; };
 		DA0BD9B424E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1NavigationBarProgressView.m; sourceTree = "<group>"; };
+		DA160FFC24F6A59700587FBE /* CEVRK1TextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1TextView.h; sourceTree = "<group>"; };
+		DA160FFE24F6A62300587FBE /* CEVRK1TextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1TextView.m; sourceTree = "<group>"; };
+		DA27D28B24F4520C00B6ECE4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../../Carthage/Checkouts/MarkdownAttributedString/README.md; sourceTree = "<group>"; };
+		DA27D28D24F4521E00B6ECE4 /* NSAttributedString+Markdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+Markdown.h"; path = "../../../Carthage/Checkouts/MarkdownAttributedString/NSAttributedString+Markdown.h"; sourceTree = "<group>"; };
+		DA27D28E24F4521E00B6ECE4 /* NSAttributedString+Markdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+Markdown.m"; path = "../../../Carthage/Checkouts/MarkdownAttributedString/NSAttributedString+Markdown.m"; sourceTree = "<group>"; };
+		DA51341224F8607D0068A61F /* CEVRK1Label.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1Label.h; sourceTree = "<group>"; };
+		DA51341424F8619A0068A61F /* CEVRK1Label.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1Label.m; sourceTree = "<group>"; };
 		DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1Theme.h; sourceTree = "<group>"; };
 		DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1Theme.m; sourceTree = "<group>"; };
 		FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ConsentDocumentTests.m; sourceTree = "<group>"; };
@@ -1429,6 +1443,9 @@
 		24B3535D1BB21137009ED6F8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				DA27D28D24F4521E00B6ECE4 /* NSAttributedString+Markdown.h */,
+				DA27D28E24F4521E00B6ECE4 /* NSAttributedString+Markdown.m */,
+				DA27D28B24F4520C00B6ECE4 /* README.md */,
 				2433C9E11B9A506F0052D375 /* ORK1KeychainWrapper.h */,
 				2433C9E21B9A506F0052D375 /* ORK1KeychainWrapper.m */,
 				86C40B8C1A8D7C5C00081FAC /* ORK1Helpers_Internal.h */,
@@ -1835,6 +1852,10 @@
 				86C40BDE1A8D7C5C00081FAC /* ORK1UnitLabel.m */,
 				DA0BD9B224E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h */,
 				DA0BD9B424E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m */,
+				DA51341224F8607D0068A61F /* CEVRK1Label.h */,
+				DA51341424F8619A0068A61F /* CEVRK1Label.m */,
+				DA160FFC24F6A59700587FBE /* CEVRK1TextView.h */,
+				DA160FFE24F6A62300587FBE /* CEVRK1TextView.m */,
 			);
 			name = Skin;
 			sourceTree = "<group>";
@@ -2678,6 +2699,7 @@
 				86C40DA01A8D7C5C00081FAC /* ORK1SurveyAnswerCell.h in Headers */,
 				86C40D941A8D7C5C00081FAC /* ORK1StepViewController.h in Headers */,
 				B8760F2B1AFBEFB0007FA16F /* ORK1ScaleRangeDescriptionLabel.h in Headers */,
+				DA27D28F24F4521E00B6ECE4 /* NSAttributedString+Markdown.h in Headers */,
 				86C40C221A8D7C5C00081FAC /* ORK1CountdownStep.h in Headers */,
 				86C40DB61A8D7C5C00081FAC /* ORK1SurveyAnswerCellForText.h in Headers */,
 				86C40E281A8D7C5C00081FAC /* ORK1SignatureView.h in Headers */,
@@ -2860,6 +2882,7 @@
 				86C40E081A8D7C5C00081FAC /* ORK1ConsentReviewStep.h in Headers */,
 				86C40C901A8D7C5C00081FAC /* ORK1ActiveStepViewController_Internal.h in Headers */,
 				86C40CD81A8D7C5C00081FAC /* ORK1TextFieldView.h in Headers */,
+				DA51341324F8607D0068A61F /* CEVRK1Label.h in Headers */,
 				86C40DD01A8D7C5C00081FAC /* ORK1TaskViewController_Private.h in Headers */,
 				10FF9ACF1B79F5CE00ECB5B4 /* ORK1HolePegTestRemoveContentView.h in Headers */,
 				86C40DAE1A8D7C5C00081FAC /* ORK1SurveyAnswerCellForScale.h in Headers */,
@@ -2883,6 +2906,7 @@
 				86C40DDE1A8D7C5C00081FAC /* ORK1VerticalContainerView.h in Headers */,
 				9550E67C1D58DD2000C691B8 /* ORK1TouchAnywhereStepViewController.h in Headers */,
 				BC94EF311E962F7400143081 /* ORK1Deprecated.h in Headers */,
+				DA160FFD24F6A59700587FBE /* CEVRK1TextView.h in Headers */,
 				86C40CB01A8D7C5C00081FAC /* ORK1Recorder_Internal.h in Headers */,
 				86C40E101A8D7C5C00081FAC /* ORK1ConsentSceneViewController.h in Headers */,
 				86C40DAA1A8D7C5C00081FAC /* ORK1SurveyAnswerCellForNumber.h in Headers */,
@@ -3065,6 +3089,7 @@
 				B1A860EF1A9693C400EA57B7 /* consent_06@2x.m4v in Resources */,
 				B1A860EC1A9693C400EA57B7 /* consent_03@2x.m4v in Resources */,
 				B1A860F41A9693C400EA57B7 /* consent_04@3x.m4v in Resources */,
+				DA27D28C24F4520C00B6ECE4 /* README.md in Resources */,
 				B1A860ED1A9693C400EA57B7 /* consent_04@2x.m4v in Resources */,
 				B17FE7FD1A8DBE7C00BF9C28 /* Artwork.xcassets in Resources */,
 				B1C0F4E41A9BA65F0022C153 /* ORK1Kit.strings in Resources */,
@@ -3183,6 +3208,7 @@
 				866DA5281D63D04700C9AF3F /* ORK1MotionActivityQueryOperation.m in Sources */,
 				BCFF24BD1B0798D10044EC35 /* ORK1ResultPredicate.m in Sources */,
 				106FF2B51B71F18E004EACF2 /* ORK1HolePegTestPlaceHoleView.m in Sources */,
+				DA160FFF24F6A62300587FBE /* CEVRK1TextView.m in Sources */,
 				106FF2A31B665B86004EACF2 /* ORK1HolePegTestPlaceStepViewController.m in Sources */,
 				25ECC0A41AFBDD2700F3D63B /* ORK1ReactionTimeStimulusView.m in Sources */,
 				86C40CBA1A8D7C5C00081FAC /* ORK1VoiceEngine.m in Sources */,
@@ -3218,6 +3244,7 @@
 				BC4A21401C85FC0000BFC271 /* ORK1BarGraphChartView.m in Sources */,
 				86C40D3A1A8D7C5C00081FAC /* ORK1HTMLPDFWriter.m in Sources */,
 				865EA1691ABA1AA10037C68E /* ORK1Picker.m in Sources */,
+				DA51341524F8619A0068A61F /* CEVRK1Label.m in Sources */,
 				BCB6E6511B7D533B000D5B34 /* ORK1PieChartLegendCollectionViewLayout.m in Sources */,
 				86C40D321A8D7C5C00081FAC /* ORK1HealthAnswerFormat.m in Sources */,
 				10FF9AC41B79EF2800ECB5B4 /* ORK1HolePegTestRemoveStep.m in Sources */,
@@ -3381,6 +3408,7 @@
 				86C40D581A8D7C5C00081FAC /* ORK1OrderedTask.m in Sources */,
 				86C40D601A8D7C5C00081FAC /* ORK1QuestionStep.m in Sources */,
 				84BD164C1FD1EBBC00FE1A3C /* ORK1WebViewStep.m in Sources */,
+				DA27D29024F4521E00B6ECE4 /* NSAttributedString+Markdown.m in Sources */,
 				86C40E381A8D7C5C00081FAC /* ORK1VisualConsentTransitionAnimator.m in Sources */,
 				BCB6E64B1B7D531C000D5B34 /* ORK1PieChartView.m in Sources */,
 				10864C9F1B27146B000F4158 /* ORK1PSATStep.m in Sources */,

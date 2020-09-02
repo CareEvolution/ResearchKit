@@ -32,7 +32,7 @@
 @import UIKit;
 #import "ORK1DefaultFont.h"
 #import "ORK1Defines.h"
-
+#import "CEVRK1Label.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  This is a base class, not being used directly.
  */
 ORK1_CLASS_AVAILABLE
-@interface ORK1Label : UILabel <ORK1DefaultFont>
+@interface ORK1Label : CEVRK1Label <ORK1DefaultFont>
 
 @end
 

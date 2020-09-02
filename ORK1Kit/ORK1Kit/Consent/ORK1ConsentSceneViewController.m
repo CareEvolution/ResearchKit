@@ -72,11 +72,11 @@
     self.verticalCenteringEnabled = isOverview;
     self.continueHugsContent =  isOverview;
     
-    self.headerView.instructionLabel.hidden = ![consentSection summary].length;
+    self.headerView.instructionTextView.hidden = ![consentSection summary].length;
     self.headerView.captionLabel.text = consentSection.title;
     
     self.imageView.image = consentSection.image;
-    self.headerView.instructionLabel.text = [consentSection summary];
+    self.headerView.instructionTextView.textValue = [consentSection summary];
     
     self.continueSkipContainer.continueEnabled = YES;
     [self.continueSkipContainer updateContinueAndSkipEnabled];

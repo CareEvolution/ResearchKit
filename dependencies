@@ -1,0 +1,25 @@
+#!/bin/bash
+
+carthage_args="--use-submodules --no-build"
+
+action="$1"
+shift
+
+case $action in
+    init|bootstrap)
+        carthage bootstrap $carthage_args "$@"
+        ;;
+    update)
+        carthage update $carthage_args "$@"
+        ;;
+    *)
+        echo "Usage: $(basename $0) init|update [Dependency1 Dependency2 ...]"
+        echo "  init   - Fetches dependencies per Cartfile.resolved"
+        echo "  update - Updates to latest dependencies per Cartfile"
+        echo
+        echo "  You can optionally limit actions to one or more dependencies"
+        echo "  by providing the names (without URL or path prefix)."
+        exit 1
+        ;;
+esac
+

@@ -31,9 +31,8 @@
 
 #import "ORK1StepHeaderView.h"
 #import "ORK1HeadlineLabel.h"
-#import "ORK1SubheadlineLabel.h"
 #import "ORK1TextButton.h"
-
+#import "CEVRK1TextView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -42,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) UIImageView *iconImageView;
 @property (nonatomic, strong, readonly) ORK1HeadlineLabel *captionLabel;
 @property (nonatomic, strong, readonly) ORK1TextButton *learnMoreButton;
-@property (nonatomic, strong, readonly) ORK1SubheadlineLabel *instructionLabel;
+@property (nonatomic, strong, readonly) CEVRK1TextView *instructionTextView;
 
 @property (nonatomic) BOOL hasContentAbove;
 

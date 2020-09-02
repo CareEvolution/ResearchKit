@@ -1,0 +1,3 @@
+[submodule "Carthage/Checkouts/MarkdownAttributedString"]
+	path = Carthage/Checkouts/MarkdownAttributedString
+	url = https://github.com/CareEvolution/MarkdownAttributedString.git

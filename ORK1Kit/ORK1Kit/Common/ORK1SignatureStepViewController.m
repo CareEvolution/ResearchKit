@@ -279,7 +279,7 @@
     _signingView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _signingView.frame = self.view.bounds;
     _signingView.headerView.captionLabel.text = self.step.title;
-    _signingView.headerView.instructionLabel.text = self.step.text;
+    _signingView.headerView.instructionTextView.textValue = self.step.text;
     
     _continueSkipView = _signingView.continueSkipContainer;
     _continueSkipView.skipButtonItem = self.skipButtonItem;

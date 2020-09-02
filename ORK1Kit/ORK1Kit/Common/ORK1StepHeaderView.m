@@ -31,6 +31,7 @@
 
 #import "ORK1StepHeaderView.h"
 #import "ORK1StepHeaderView_Internal.h"
+#import "ORK1SubheadlineLabel.h"
 
 #import "ORK1Helpers_Internal.h"
 #import "ORK1Skin.h"
@@ -58,7 +59,6 @@
     CGFloat maxLabelLayoutWidth = MAX(self.bounds.size.width - sideMargin * 2 - layoutMargins.left - layoutMargins.right, 0);
     
     _captionLabel.preferredMaxLayoutWidth = maxLabelLayoutWidth;
-    _instructionLabel.preferredMaxLayoutWidth = maxLabelLayoutWidth;
     [self setNeedsUpdateConstraints];
 }
 
@@ -108,11 +108,14 @@
         }
         
         {
-            _instructionLabel = [ORK1SubheadlineLabel new];
-            _instructionLabel.numberOfLines = 0;
-            _instructionLabel.textAlignment = NSTextAlignmentCenter;
+            _instructionTextView = [[CEVRK1TextView alloc] initWithFrame:CGRectZero];
+            _instructionTextView.editable = NO;
+            _instructionTextView.scrollEnabled = NO;
+            _instructionTextView.font = ORK1SubheadlineLabel.defaultFont;
+            _instructionTextView.textAlignment = NSTextAlignmentCenter;
+            [_instructionTextView init_CEVRK1TextView];
             
-            [self addSubview:_instructionLabel];
+            [self addSubview:_instructionTextView];
         }
         
         [_learnMoreButton setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
@@ -187,7 +190,7 @@ const CGFloat IconHeight = 60;
     const CGFloat InstructionBaselineToStepViewTopWithNoLearnMore = ORK1GetMetricForWindow(ORK1ScreenMetricLearnMoreBaselineToStepViewTopWithNoLearnMore, window);
     
     BOOL hasCaptionLabel = _captionLabel.text.length > 0 || hasIconView;
-    BOOL hasInstructionLabel = _instructionLabel.text.length > 0;
+    BOOL hasInstructionLabel = _instructionTextView.text.length > 0;
     BOOL hasLearnMoreButton = (_learnMoreButton.alpha > 0);
     
     ORK1VerticalContainerLog(@"hasCaption=%@ hasInstruction=%@ hasLearnMore=%@", @(hasCaption), @(hasInstruction), @(hasLearnMore));
@@ -197,7 +200,7 @@ const CGFloat IconHeight = 60;
     UILayoutPriority captionVerticalHugging = hasCaptionLabel && !hasInstructionLabel ? UILayoutPriorityDefaultLow - 1 : UILayoutPriorityDefaultLow;
     UILayoutPriority instructionVerticalHugging = hasInstructionLabel && !hasCaptionLabel ? UILayoutPriorityDefaultLow - 1 : UILayoutPriorityDefaultLow;
     [_captionLabel setContentHuggingPriority:captionVerticalHugging forAxis:UILayoutConstraintAxisVertical];
-    [_instructionLabel setContentHuggingPriority:instructionVerticalHugging forAxis:UILayoutConstraintAxisVertical];
+    [_instructionTextView setContentHuggingPriority:instructionVerticalHugging forAxis:UILayoutConstraintAxisVertical];
     
     {
         _headerZeroHeightConstraint.active = !(hasCaptionLabel || hasInstructionLabel || hasLearnMoreButton || hasIconView);
@@ -257,10 +260,10 @@ const CGFloat IconHeight = 60;
     widthConstraint.priority = UILayoutPriorityDefaultLow - 1;
     [constraints addObject:widthConstraint];
     
-    NSArray *views = @[_iconImageView, _captionLabel, _instructionLabel, _learnMoreButton];
+    NSArray *views = @[_iconImageView, _captionLabel, _instructionTextView, _learnMoreButton];
     [_iconImageView setContentHuggingPriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
     [_captionLabel setContentHuggingPriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
-    [_instructionLabel setContentHuggingPriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
+    [_instructionTextView setContentHuggingPriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
     [_learnMoreButton setContentHuggingPriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
     ORK1EnableAutoLayoutForViews(views);
     
@@ -299,7 +302,7 @@ const CGFloat IconHeight = 60;
     }
     
     {
-        _captionToInstructionConstraint = [NSLayoutConstraint constraintWithItem:_instructionLabel
+        _captionToInstructionConstraint = [NSLayoutConstraint constraintWithItem:_instructionTextView
                                                                        attribute:NSLayoutAttributeFirstBaseline
                                                                        relatedBy:NSLayoutRelationEqual
                                                                           toItem:_captionLabel
@@ -313,7 +316,7 @@ const CGFloat IconHeight = 60;
         _instructionToLearnMoreConstraint = [NSLayoutConstraint constraintWithItem:_learnMoreButton
                                                                          attribute:NSLayoutAttributeFirstBaseline
                                                                          relatedBy:NSLayoutRelationEqual
-                                                                            toItem:_instructionLabel
+                                                                            toItem:_instructionTextView
                                                                          attribute:NSLayoutAttributeLastBaseline
                                                                         multiplier:1.0
                                                                           constant:30.0];
@@ -372,7 +375,7 @@ const CGFloat IconHeight = 60;
         _instructionMinBottomSpacingConstraint = [NSLayoutConstraint constraintWithItem:self
                                                                               attribute:NSLayoutAttributeBottom
                                                                               relatedBy:NSLayoutRelationEqual
-                                                                                 toItem:_instructionLabel
+                                                                                 toItem:_instructionTextView
                                                                               attribute:NSLayoutAttributeLastBaseline
                                                                              multiplier:1.0
                                                                                constant:44.0];

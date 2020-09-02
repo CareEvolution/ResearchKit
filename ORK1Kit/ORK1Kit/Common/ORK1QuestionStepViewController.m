@@ -166,7 +166,7 @@ typedef NS_ENUM(NSInteger, ORK1QuestionSection) {
             _headerView = _tableContainer.stepHeaderView;
             _headerView.captionLabel.useSurveyMode = self.step.useSurveyMode;
             _headerView.captionLabel.text = self.questionStep.title;
-            _headerView.instructionLabel.text = self.questionStep.text;
+            _headerView.instructionTextView.textValue = self.questionStep.text;
             _headerView.learnMoreButtonItem = self.learnMoreButtonItem;
             
             _continueSkipView = _tableContainer.continueSkipContainerView;
@@ -383,12 +383,12 @@ typedef NS_ENUM(NSInteger, ORK1QuestionSection) {
     }
     ORK1TextChoice *choice = format.textChoices[index];
     NSString *longText = !choice.detailTextShouldDisplay ? choice.detailText : nil;
-    CGFloat sizeBeforeResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text LongText:longText inTableView:self.tableView];
+    CGFloat sizeBeforeResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText inTableView:self.tableView];
     
     [_choiceCellGroup updateLabelsForCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]] atIndex:index];
     
     longText = choice.detailTextShouldDisplay ? choice.detailText : nil;
-    CGFloat sizeAfterResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text LongText:longText inTableView:self.tableView];
+    CGFloat sizeAfterResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText inTableView:self.tableView];
     
     [_tableContainer adjustBottomConstraintWithExpectedOffset:(sizeAfterResize - sizeBeforeResize)];
     [self.tableView endUpdates];
@@ -795,7 +795,7 @@ typedef NS_ENUM(NSInteger, ORK1QuestionSection) {
 - (CGFloat)heightForChoiceItemOptionAtIndex:(NSInteger)index {
     ORK1TextChoice *option = [(ORK1TextChoiceAnswerFormat *)_answerFormat textChoices][index];
     return [ORK1ChoiceViewCell suggestedCellHeightForShortText:option.text
-                                                      LongText:(option.detailTextShouldDisplay) ? option.detailText : nil
+                                                      longText:(option.detailTextShouldDisplay) ? option.detailText : nil
                                                    inTableView:_tableView];
 }
 

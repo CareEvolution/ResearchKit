@@ -68,7 +68,7 @@
                                        [NSLayoutConstraint constraintWithItem:_resendEmailButton
                                                                     attribute:NSLayoutAttributeFirstBaseline
                                                                     relatedBy:NSLayoutRelationEqual
-                                                                       toItem:self.headerView.instructionLabel
+                                                                       toItem:self.headerView.instructionTextView
                                                                     attribute:NSLayoutAttributeLastBaseline
                                                                    multiplier:1.0
                                                                      constant:textBaselineToResendButtonBaselineMetric],

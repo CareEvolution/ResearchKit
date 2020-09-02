@@ -61,7 +61,7 @@
         [self addSubview:_previewView];
         
         _headerView = [[ORK1StepHeaderView alloc] init];
-        _headerView.instructionLabel.text = @" "; // Need error placeholder string for constraints.
+        _headerView.instructionTextView.textValue = @" "; // Need error placeholder string for constraints.
         [self addSubview:_headerView];
         
         _captureButtonItem = [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"CAPTURE_BUTTON_CAPTURE_IMAGE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(capturePressed)];
@@ -145,7 +145,7 @@
     
     if (self.error) {
         // Display the error instruction.
-        _headerView.instructionLabel.text = [self.error.userInfo valueForKey:NSLocalizedDescriptionKey];
+        _headerView.instructionTextView.textValue = [self.error.userInfo valueForKey:NSLocalizedDescriptionKey];
         
         // Hide the template image if there is an error
         _previewView.templateImageHidden = YES;

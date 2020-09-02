@@ -48,7 +48,7 @@ extern NSString const *ORK1UpdateChoiceCellKeyCell;
 @property (nonatomic, strong, readonly) ORK1SelectionSubTitleLabel *longLabel;
 @property (nonatomic, weak) ORK1TextChoice *choice;
 
-+ (CGFloat)suggestedCellHeightForShortText:(nullable NSString *)shortText LongText:(nullable NSString *)longText inTableView:(nullable UITableView *)tableView;
++ (CGFloat)suggestedCellHeightForShortText:(nullable NSString *)shortText longText:(nullable NSString *)longText inTableView:(nullable UITableView *)tableView;
 
 @property (nonatomic, assign, getter=isImmediateNavigation) BOOL immediateNavigation;
 

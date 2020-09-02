@@ -77,7 +77,7 @@
         [self.view addSubview:_waitStepView];
         
         _waitStepView.headerView.captionLabel.text = [self waitStep].title;
-        _waitStepView.headerView.instructionLabel.text = _updatedText;
+        _waitStepView.headerView.instructionTextView.textValue = _updatedText;
     }
 }
 

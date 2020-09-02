@@ -124,7 +124,7 @@ ORK1DefineStringKey(ORK1BasicCellReuseIdentifier);
         
         _headerView = _tableContainer.stepHeaderView;
         _headerView.captionLabel.text = [[self step] title];
-        _headerView.instructionLabel.text = [[self step] text];
+        _headerView.instructionTextView.textValue = [[self step] text];
         _headerView.learnMoreButtonItem = self.learnMoreButtonItem;
         
         _continueSkipView = _tableContainer.continueSkipContainerView;

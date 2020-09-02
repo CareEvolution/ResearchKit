@@ -94,7 +94,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
         
         _passcodeStepView = [[ORK1PasscodeStepView alloc] initWithFrame:self.view.bounds];
         _passcodeStepView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        _passcodeStepView.headerView.instructionLabel.text = [self passcodeStep].text;
+        _passcodeStepView.headerView.instructionTextView.textValue = [self passcodeStep].text;
         _passcodeStepView.textField.delegate = self;
         [self.view addSubview:_passcodeStepView];
         
@@ -217,7 +217,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
             
         case ORK1PasscodeStateSaved:
             _passcodeStepView.headerView.captionLabel.text = ORK1LocalizedString(@"PASSCODE_SAVED_MESSAGE", nil);
-            _passcodeStepView.headerView.instructionLabel.text = @"";
+            _passcodeStepView.headerView.instructionTextView.textValue = @"";
             _passcodeStepView.textField.hidden = YES;
             [self makePasscodeViewResignFirstResponder];
             break;
