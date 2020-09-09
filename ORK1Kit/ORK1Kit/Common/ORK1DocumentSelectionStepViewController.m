@@ -117,7 +117,6 @@
 }
 
 - (void)setUpViews {
-    // Copy ORK1QuestionStepView
     ORK1StepHeaderView *headerView = [[ORK1StepHeaderView alloc] init];
     headerView.captionLabel.useSurveyMode = self.step.useSurveyMode;
     headerView.captionLabel.text = self.step.title;

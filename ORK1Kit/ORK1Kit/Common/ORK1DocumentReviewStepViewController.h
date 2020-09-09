@@ -28,39 +28,21 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-#import <ORK1Kit/ORK1Step.h>
-#import <AVFoundation/AVFoundation.h>
+@import UIKit;
+#import <ORK1Kit/ORK1Defines.h>
+#import "ORK1StepViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORK1DocumentSelectionStep` class represents a step that allows selection of an image or
- other file from one of multiple sources. The selected file is referenced in the step's
- `ORK1FileResult` object.
+ The `ORK1DocumentReviewStepViewController` class is a step view controller subclass
+ used to manage a `ORK1DocumentReviewStep`.
+ 
+ You should not need to instantiate a this step view controller directly. Instead, include
+ a `ORK1DocumentReviewStep` in a task, and present a task view controller for that task.
  */
 ORK1_CLASS_AVAILABLE
-@interface ORK1DocumentSelectionStep : ORK1Step
-
-/**
- A Boolean value indicating whether the user can provide an image using the device's
- camera (if available). When the value is `YES`, a button is displayed that allows the
- user to open a camera view, after prompting for permission if necessary.
- */
-@property (nonatomic) BOOL allowCamera;
-
-/**
- A Boolean value indicating whether the user can select an image from the Photos app.
- When the value is `YES`, a button is displayed that allows the user to open the photo
- picker, after prompting for permission if necessary.
- */
-@property (nonatomic) BOOL allowPhotoLibrary;
-
-/**
- Configures the preferred behavior of the camera view.
- If `AVCaptureDevicePositionUnspecified` is set, then it defaults to `AVCaptureDevicePositionBack`.
- */
-@property (nonatomic) AVCaptureDevicePosition preferredCameraPosition;
+@interface ORK1DocumentReviewStepViewController : ORK1StepViewController
 
 @end
 

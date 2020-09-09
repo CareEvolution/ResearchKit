@@ -30,37 +30,51 @@
 
 
 #import <ORK1Kit/ORK1Step.h>
-#import <AVFoundation/AVFoundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- The `ORK1DocumentSelectionStep` class represents a step that allows selection of an image or
- other file from one of multiple sources. The selected file is referenced in the step's
- `ORK1FileResult` object.
+ The `ORK1DocumentReviewStep` represents a class that displays a read-only preview of a file
+ produced by a previous step. The referenced step should produce an `ORK1FileResult`.
  */
 ORK1_CLASS_AVAILABLE
-@interface ORK1DocumentSelectionStep : ORK1Step
+@interface ORK1DocumentReviewStep : ORK1Step
+
+- (instancetype)initWithIdentifier:(NSString *)identifier NS_UNAVAILABLE;
 
 /**
- A Boolean value indicating whether the user can provide an image using the device's
- camera (if available). When the value is `YES`, a button is displayed that allows the
- user to open a camera view, after prompting for permission if necessary.
+ Returns an initialized document review step using the specified identifier
+ and source step identifier.
+  
+ @param identifier                          The string that identifies the step (see `ORK1Step`).
+ @param sourceStepIdentifier    The identifier of a previous step (e.g. an `ORK1DocumentSelectionStep` that produced the result that should be displayed by this step.
+ 
+ @return An initialized document review step object.
  */
-@property (nonatomic) BOOL allowCamera;
+- (instancetype)initWithIdentifier:(NSString *)identifier sourceStepIdentifier:(NSString *)sourceStepIdentifier NS_DESIGNATED_INITIALIZER;
 
 /**
- A Boolean value indicating whether the user can select an image from the Photos app.
- When the value is `YES`, a button is displayed that allows the user to open the photo
- picker, after prompting for permission if necessary.
+ Returns a document review step initialized from data in the given unarchiver.
+ 
+ A document review step can be serialized and deserialized with `NSKeyedArchiver`. Note
+ that this serialization includes strings that might need to be localized.
+ 
+ @param aDecoder    The coder from which to initialize the ordered task.
+ 
+ @return An initialized document review step.
  */
-@property (nonatomic) BOOL allowPhotoLibrary;
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
 /**
- Configures the preferred behavior of the camera view.
- If `AVCaptureDevicePositionUnspecified` is set, then it defaults to `AVCaptureDevicePositionBack`.
+ The identifier of a previous step (e.g. an `ORK1DocumentSelectionStep` that produced the result that should be displayed by this step.
  */
-@property (nonatomic) AVCaptureDevicePosition preferredCameraPosition;
+@property (nonatomic, copy) NSString *sourceStepIdentifier;
+
+/**
+ The text to display if the source step's `ORK1FileResult` is missing, empty, or has an unsupported file type.
+ If nil, the step's `text` property is displayed instead.
+ */
+@property (nonatomic, copy, nullable) NSString *noFileText;
 
 @end
 
