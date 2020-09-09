@@ -35,6 +35,7 @@
 #import <ORK1Kit/ORK1ActiveStep.h>
 #import <ORK1Kit/ORK1ConsentReviewStep.h>
 #import <ORK1Kit/ORK1ConsentSharingStep.h>
+#import <ORK1Kit/ORK1DocumentSelectionStep.h>
 #import <ORK1Kit/ORK1FormStep.h>
 #import <ORK1Kit/ORK1ImageCaptureStep.h>
 #import <ORK1Kit/ORK1InstructionStep.h>
@@ -73,6 +74,7 @@
 #import <ORK1Kit/ORK1StepViewController.h>
 #import <ORK1Kit/ORK1ActiveStepViewController.h>
 #import <ORK1Kit/ORK1CompletionStepViewController.h>
+#import <ORK1Kit/ORK1DocumentSelectionStepViewController.h>
 #import <ORK1Kit/ORK1FormStepViewController.h>
 #import <ORK1Kit/ORK1InstructionStepViewController.h>
 #import <ORK1Kit/ORK1LoginStepViewController.h>

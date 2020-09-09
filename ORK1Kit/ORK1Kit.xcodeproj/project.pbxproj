@@ -457,6 +457,10 @@
 		959A2C0E1D68C91400841B04 /* ORK1ShoulderRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 959A2C0C1D68C91400841B04 /* ORK1ShoulderRangeOfMotionStep.m */; };
 		95E11E551D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 95E11E531D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.h */; };
 		95E11E561D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E11E541D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.m */; };
+		AC9069B425080B5500910AB7 /* ORK1DocumentSelectionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = AC9069B225080B5500910AB7 /* ORK1DocumentSelectionStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC9069B525080B5500910AB7 /* ORK1DocumentSelectionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9069B325080B5500910AB7 /* ORK1DocumentSelectionStep.m */; };
+		AC9069B82508149C00910AB7 /* ORK1DocumentSelectionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AC9069B62508149C00910AB7 /* ORK1DocumentSelectionStepViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC9069B92508149C00910AB7 /* ORK1DocumentSelectionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9069B72508149C00910AB7 /* ORK1DocumentSelectionStepViewController.m */; };
 		B11C54991A9EEF8800265E61 /* ORK1ConsentSharingStep.h in Headers */ = {isa = PBXBuildFile; fileRef = B11C54961A9EEF8800265E61 /* ORK1ConsentSharingStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B11C549B1A9EEF8800265E61 /* ORK1ConsentSharingStep.m in Sources */ = {isa = PBXBuildFile; fileRef = B11C54971A9EEF8800265E61 /* ORK1ConsentSharingStep.m */; };
 		B11C549F1A9EF4A700265E61 /* ORK1ConsentSharingStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B11C549C1A9EF4A700265E61 /* ORK1ConsentSharingStepViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -1068,6 +1072,10 @@
 		959A2C0C1D68C91400841B04 /* ORK1ShoulderRangeOfMotionStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ShoulderRangeOfMotionStep.m; sourceTree = "<group>"; };
 		95E11E531D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ShoulderRangeOfMotionStepViewController.h; sourceTree = "<group>"; };
 		95E11E541D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ShoulderRangeOfMotionStepViewController.m; sourceTree = "<group>"; };
+		AC9069B225080B5500910AB7 /* ORK1DocumentSelectionStep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORK1DocumentSelectionStep.h; sourceTree = "<group>"; };
+		AC9069B325080B5500910AB7 /* ORK1DocumentSelectionStep.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORK1DocumentSelectionStep.m; sourceTree = "<group>"; };
+		AC9069B62508149C00910AB7 /* ORK1DocumentSelectionStepViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORK1DocumentSelectionStepViewController.h; sourceTree = "<group>"; };
+		AC9069B72508149C00910AB7 /* ORK1DocumentSelectionStepViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORK1DocumentSelectionStepViewController.m; sourceTree = "<group>"; };
 		B11C54961A9EEF8800265E61 /* ORK1ConsentSharingStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ConsentSharingStep.h; sourceTree = "<group>"; };
 		B11C54971A9EEF8800265E61 /* ORK1ConsentSharingStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ConsentSharingStep.m; sourceTree = "<group>"; };
 		B11C549C1A9EF4A700265E61 /* ORK1ConsentSharingStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ConsentSharingStepViewController.h; sourceTree = "<group>"; };
@@ -1770,6 +1778,17 @@
 			name = "Range of Motion";
 			sourceTree = "<group>";
 		};
+		AC9069B125080B2D00910AB7 /* Document Selection Step */ = {
+			isa = PBXGroup;
+			children = (
+				AC9069B225080B5500910AB7 /* ORK1DocumentSelectionStep.h */,
+				AC9069B325080B5500910AB7 /* ORK1DocumentSelectionStep.m */,
+				AC9069B62508149C00910AB7 /* ORK1DocumentSelectionStepViewController.h */,
+				AC9069B72508149C00910AB7 /* ORK1DocumentSelectionStepViewController.m */,
+			);
+			name = "Document Selection Step";
+			sourceTree = "<group>";
+		};
 		B11DF3B21AA109C8009E76D2 /* docs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1893,6 +1912,7 @@
 		B12EFF341AB2111200A80147 /* Step */ = {
 			isa = PBXGroup;
 			children = (
+				AC9069B125080B2D00910AB7 /* Document Selection Step */,
 				86C40BB91A8D7C5C00081FAC /* ORK1Step.h */,
 				86C40BBA1A8D7C5C00081FAC /* ORK1Step.m */,
 				86C40BBB1A8D7C5C00081FAC /* ORK1Step_Private.h */,
@@ -2788,6 +2808,7 @@
 				86C40D7C1A8D7C5C00081FAC /* ORK1ScaleValueLabel.h in Headers */,
 				250F94081B4C5AA400FA23EB /* ORK1TowerOfHanoiStepViewController.h in Headers */,
 				86C40E2C1A8D7C5C00081FAC /* ORK1VisualConsentStep.h in Headers */,
+				AC9069B425080B5500910AB7 /* ORK1DocumentSelectionStep.h in Headers */,
 				257FCE1F1B4D14E50001EF06 /* ORK1TowerOfHanoiTowerView.h in Headers */,
 				24A4DA181B8D13FE009C797A /* ORK1PasscodeStepViewController.h in Headers */,
 				86C40CB81A8D7C5C00081FAC /* ORK1VoiceEngine.h in Headers */,
@@ -2854,6 +2875,7 @@
 				781D54141DF886AB00223305 /* ORK1TrailmakingStepViewController.h in Headers */,
 				86C40C261A8D7C5C00081FAC /* ORK1CountdownStepViewController.h in Headers */,
 				861D2AF01B8409D9008C4CD0 /* ORK1TimedWalkContentView.h in Headers */,
+				AC9069B82508149C00910AB7 /* ORK1DocumentSelectionStepViewController.h in Headers */,
 				2489F7B31D65214D008DEF20 /* ORK1VideoCaptureStepViewController.h in Headers */,
 				86C40E0C1A8D7C5C00081FAC /* ORK1ConsentReviewStepViewController.h in Headers */,
 				86C40C321A8D7C5C00081FAC /* ORK1FitnessStepViewController.h in Headers */,
@@ -3257,6 +3279,7 @@
 				10864CA31B27146B000F4158 /* ORK1PSATContentView.m in Sources */,
 				6146D0A41B84A91E0068491D /* ORK1LineGraphAccessibilityElement.m in Sources */,
 				D42FEFB91AF7557000A124F8 /* ORK1ImageCaptureView.m in Sources */,
+				AC9069B525080B5500910AB7 /* ORK1DocumentSelectionStep.m in Sources */,
 				86C40C401A8D7C5C00081FAC /* ORK1SpatialSpanMemoryContentView.m in Sources */,
 				BCB6E6671B7D535F000D5B34 /* ORK1XAxisView.m in Sources */,
 				147503BC1AEE807C004B17F3 /* ORK1ToneAudiometryStepViewController.m in Sources */,
@@ -3280,6 +3303,7 @@
 				BC41942A1AE8453A00073D6B /* ORK1Observer.m in Sources */,
 				86C40C681A8D7C5C00081FAC /* CMAccelerometerData+ORK1JSONDictionary.m in Sources */,
 				86C40C701A8D7C5C00081FAC /* CMMotionActivity+ORK1JSONDictionary.m in Sources */,
+				AC9069B92508149C00910AB7 /* ORK1DocumentSelectionStepViewController.m in Sources */,
 				147503B01AEE8071004B17F3 /* ORK1AudioGenerator.m in Sources */,
 				86C40D7E1A8D7C5C00081FAC /* ORK1ScaleValueLabel.m in Sources */,
 				B12EA01A1B0D76AD00F9F554 /* ORK1ToneAudiometryPracticeStepViewController.m in Sources */,
