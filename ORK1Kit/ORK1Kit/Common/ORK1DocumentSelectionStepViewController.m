@@ -38,7 +38,7 @@
 
 #import "ORK1Step_Private.h"
 #import "ORK1Helpers_Internal.h"
-#import "ORK1BorderedButton.h"
+#import "ORK1ContinueButton.h"
 #import "ORK1NavigationContainerView_Internal.h"
 #import "ORK1Skin.h"
 
@@ -131,18 +131,14 @@
     sourceStackView.spacing = 8;
     
     if (self.documentSelectionStep.allowCamera && self.isCameraAvailable) {
-        ORK1BorderedButton *button = [[ORK1BorderedButton alloc] init];
-        [button setTitle:ORK1LocalizedString(@"TAKE_PHOTO_BUTTON_TITLE", nil) forState:UIControlStateNormal];
+        ORK1ContinueButton *button = [[ORK1ContinueButton alloc] initWithTitle:ORK1LocalizedString(@"TAKE_PHOTO_BUTTON_TITLE", nil) isDoneButton:NO];
         [button addTarget:self action:@selector(takePhoto) forControlEvents:UIControlEventTouchUpInside];
-        button.contentEdgeInsets = UIEdgeInsetsMake(13, 35, 13, 35);
         [sourceStackView addArrangedSubview:button];
     }
     
     if (self.documentSelectionStep.allowPhotoLibrary && self.isPhotoLibraryAvailable) {
-        ORK1BorderedButton *button = [[ORK1BorderedButton alloc] init];
-        [button setTitle:ORK1LocalizedString(@"CHOOSE_PHOTO_BUTTON_TITLE", nil) forState:UIControlStateNormal];
+        ORK1ContinueButton *button = [[ORK1ContinueButton alloc] initWithTitle:ORK1LocalizedString(@"CHOOSE_PHOTO_BUTTON_TITLE", nil) isDoneButton:NO];
         [button addTarget:self action:@selector(choosePhoto) forControlEvents:UIControlEventTouchUpInside];
-        button.contentEdgeInsets = UIEdgeInsetsMake(13, 35, 13, 35);
         [sourceStackView addArrangedSubview:button];
     }
     
