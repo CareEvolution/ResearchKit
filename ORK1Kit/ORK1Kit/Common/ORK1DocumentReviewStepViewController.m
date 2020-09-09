@@ -100,7 +100,7 @@
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_headerView]-8-[_imageView]-8-[_continueView]-36-|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views]];
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_headerView]|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views]];
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_imageView]|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views]];
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_continueView]|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_continueView]-|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views]];
     
     [NSLayoutConstraint activateConstraints:constraints];
 }

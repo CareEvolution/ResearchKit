@@ -158,7 +158,7 @@
 
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[headerView]-8-[sourceStackView]-(>=8)-[_continueSkipContainer]-36-|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views]];
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[headerView]|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views]];
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_continueSkipContainer]|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_continueSkipContainer]-|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views]];
 
     id viewMarginItem = self.view;
     if (@available(iOS 11.0, *)) {
