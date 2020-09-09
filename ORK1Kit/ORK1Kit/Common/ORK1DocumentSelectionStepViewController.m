@@ -268,8 +268,6 @@
     [self notifyDelegateOnResultChange];
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:ORK1LocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel handler:NULL]];
-    
     if (showSettings) {
         [alert addAction:[UIAlertAction actionWithTitle:ORK1LocalizedString(@"BUTTON_OPEN_SETTINGS", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSURL *URL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
@@ -278,11 +276,18 @@
             }
         }]];
     }
-    
+    [alert addAction:[UIAlertAction actionWithTitle:ORK1LocalizedString(@"BUTTON_CANCEL", nil) style:UIAlertActionStyleCancel handler:NULL]];
+
     [self presentViewController:alert animated:YES completion:NULL];
 }
 
 #pragma mark - Results and file handling
+
+- (void)skipForward {
+    self.selectedPhoto = nil;
+    [self notifyDelegateOnResultChange];
+    [super skipForward];
+}
 
 - (ORK1StepResult *)result {
     ORK1StepResult *stepResult = [super result];
