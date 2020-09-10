@@ -189,8 +189,6 @@
     ORK1WeakTypeOf(self) weakSelf = self;
     switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]) {
         case AVAuthorizationStatusDenied:
-            [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"DOCUMENT_SELECTION_ERROR_NO_CAMERA_PERMISSIONS", nil)}] showSettingsButton:YES];
-            break;
         case AVAuthorizationStatusRestricted:
             [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"DOCUMENT_SELECTION_ERROR_NO_CAMERA_PERMISSIONS", nil)}] showSettingsButton:YES];
             break;
@@ -213,8 +211,6 @@
     ORK1WeakTypeOf(self) weakSelf = self;
     switch ([PHPhotoLibrary authorizationStatus]) {
         case PHAuthorizationStatusDenied:
-            [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"DOCUMENT_SELECTION_ERROR_NO_PHOTO_PERMISSIONS", nil)}] showSettingsButton:YES];
-            break;
         case PHAuthorizationStatusRestricted:
             [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"DOCUMENT_SELECTION_ERROR_NO_PHOTO_PERMISSIONS", nil)}] showSettingsButton:YES];
             break;

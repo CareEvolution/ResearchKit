@@ -78,4 +78,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             self.preferredCameraPosition == castObject.preferredCameraPosition);
 }
 
+- (void)validateParameters {
+    [super validateParameters];
+    if (!self.allowCamera && !self.allowPhotoLibrary) {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                       reason:@"ORK1DocumentSelectionStep requires allowCamera or allowPhotoLibrary."
+                                     userInfo:nil];
+    }
+}
+
 @end
