@@ -214,6 +214,7 @@
 "BUTTON_CLEAR_ANSWER" = "Clear answer";
 "BUTTON_READ_ONLY_MODE" = "This answer cannot be modified.";
 "BUTTON_COPYRIGHT" = "Copyright";
+"BUTTON_OPEN_SETTINGS" = "Settings";
 
 /* General active tasks. */
 "COUNTDOWN_LABEL" = "Starting activity in";
@@ -234,6 +235,12 @@
 "CAPTURE_BUTTON_CAPTURE_VIDEO" = "Start Recording";
 "CAPTURE_BUTTON_STOP_CAPTURE_VIDEO" = "Stop Recording";
 "CAPTURE_BUTTON_RECAPTURE_VIDEO" = "Recapture Video";
+
+/* Document selection step. */
+"TAKE_PHOTO_BUTTON_TITLE" = "Take Photo";
+"CHOOSE_PHOTO_BUTTON_TITLE" = "Choose Photo";
+"DOCUMENT_SELECTION_ERROR_NO_CAMERA_PERMISSIONS" = "This app does not have access to your camera. You can enable access in Settings.";
+"DOCUMENT_SELECTION_ERROR_NO_PHOTO_PERMISSIONS" = "This app does not have access to your photos. You can enable access in Settings.";
 
 /* Fitness active task. */
 "FITNESS_TASK_TITLE" = "Fitness";
