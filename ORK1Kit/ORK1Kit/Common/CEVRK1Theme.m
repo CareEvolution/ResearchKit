@@ -255,7 +255,8 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
     } else if (textStyle.fontSize) {
         attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:textStyle.fontSize.floatValue weight:UIFontWeightRegular];
     } else if (textStyle.fontWeight) {
-        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:15 weight:textStyle.fontWeight.floatValue];
+        CGFloat currentFontSize = ((UIFont *)attributes[NSFontAttributeName]).pointSize;
+        attributes[NSFontAttributeName] = [UIFont cevrk1_preferredFontOfSize:currentFontSize weight:textStyle.fontWeight.floatValue];
     }
     
     if (textStyle.color) {
