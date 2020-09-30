@@ -86,6 +86,9 @@
 - (UIView *)pickerView {
     if (_pickerView == nil) {
         _pickerView = [[ORKDatePicker alloc] init];
+        if (@available(iOS 14, *)) {
+            _pickerView.preferredDatePickerStyle = UIDatePickerStyleWheels;
+        }
         _pickerView.datePickerMode = UIDatePickerModeCountDownTimer;
         [_pickerView addTarget:self action:@selector(valueDidChange:) forControlEvents:UIControlEventValueChanged];
         [self setAnswerFormat:_answerFormat];
