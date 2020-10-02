@@ -106,6 +106,15 @@ ORK1_CLASS_AVAILABLE
   */
 @property (nonatomic, copy, nullable) NSString *placeholder;
 
+/**
+ Additional text to display for the step in a localized string at the bottom of the view.
+ 
+ The footnote is displayed in a smaller font below the continue button. It is intended to be used
+ in order to include disclaimer, copyright, etc. that is important to display in the step but
+ should not distract from the main purpose of the step.
+ */
+@property (nonatomic, copy, nullable) NSString *footnote;
+
 @end
 
 NS_ASSUME_NONNULL_END

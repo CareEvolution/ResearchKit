@@ -102,6 +102,7 @@
     ORK1QuestionStep *questionStep = [super copyWithZone:zone];
     questionStep.answerFormat = [self.answerFormat copy];
     questionStep.placeholder = [self.placeholder copy];
+    questionStep.footnote = [self.footnote copy];
     return questionStep;
 }
 
@@ -111,11 +112,12 @@
     __typeof(self) castObject = object;
     return isParentSame &&
     ORK1EqualObjects(self.answerFormat, castObject.answerFormat) &&
-    ORK1EqualObjects(self.placeholder, castObject.placeholder);
+    ORK1EqualObjects(self.placeholder, castObject.placeholder) &&
+    ORK1EqualObjects(self.footnote, castObject.footnote);
 }
 
 - (NSUInteger)hash {
-    return super.hash ^ self.answerFormat.hash;
+    return super.hash ^ self.answerFormat.hash ^ self.footnote.hash;
 }
 
 - (ORK1QuestionType)questionType {
@@ -132,6 +134,7 @@
     if (self) {
         ORK1_DECODE_OBJ_CLASS(aDecoder, answerFormat, ORK1AnswerFormat);
         ORK1_DECODE_OBJ_CLASS(aDecoder, placeholder, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, footnote, NSString);
     }
     return self;
 }
@@ -141,6 +144,7 @@
     
     ORK1_ENCODE_OBJ(aCoder, answerFormat);
     ORK1_ENCODE_OBJ(aCoder, placeholder);
+    ORK1_ENCODE_OBJ(aCoder, footnote);
 }
 
 + (BOOL)supportsSecureCoding {
