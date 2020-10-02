@@ -31,6 +31,7 @@
 
 #import "ORK1FootnoteLabel.h"
 #import "ORK1Skin.h"
+#import "CEVRK1Theme.h"
 
 
 @implementation ORK1FootnoteLabel
@@ -39,6 +40,12 @@
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleFootnote];
     const CGFloat defaultSize = 12;
     return [UIFont systemFontOfSize:[[descriptor objectForKey:UIFontDescriptorSizeAttribute] doubleValue] - defaultSize + ORK1GetMetricForWindow(ORK1ScreenMetricFontSizeFootnote, nil)];
+}
+
+- (void)updateAppearance {
+    // to handle any changes in dynamic text size, we update the current font and re-render
+    [[CEVRK1Theme themeForElement:self] updateAppearanceForLabel:self ofType:CEVRK1DisplayTextTypeFootnote];
+    [self invalidateIntrinsicContentSize];
 }
 
 @end
