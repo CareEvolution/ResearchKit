@@ -70,7 +70,7 @@
         {
             _footnoteLabel = [ORK1FootnoteLabel new];
             _footnoteLabel.numberOfLines = 0;
-            _footnoteLabel.textAlignment = NSTextAlignmentLeft;
+            _footnoteLabel.textAlignment = NSTextAlignmentCenter;
             _footnoteLabel.translatesAutoresizingMaskIntoConstraints = NO;
             
             [self addSubview:_footnoteLabel];
@@ -301,7 +301,13 @@
     _footnoteToSkipButtonConstraint.priority = UILayoutPriorityDefaultHigh + 1;
     [constraints addObject:_footnoteToSkipButtonConstraint];
     
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:_footnoteLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:_continueButton attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0.0]];
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:_footnoteLabel attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_continueButton attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0.0]];
+
     for (UIView *view in views.allValues) {
+        if (view == _footnoteLabel) {
+            continue;
+        }
         [constraints addObject:[NSLayoutConstraint constraintWithItem:view
                                                             attribute:NSLayoutAttributeCenterX
                                                             relatedBy:NSLayoutRelationEqual
