@@ -163,6 +163,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
         _navigationFooterView.continueEnabled = [self continueButtonEnabled];
         _navigationFooterView.continueButtonItem = self.continueButtonItem;
         _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
+        _navigationFooterView.footnoteLabel.text = [self questionStep].footnote;
 
         [self.view addSubview:_navigationFooterView];
         if ([self.questionStep formatRequiresTableView] && !_customQuestionView) {

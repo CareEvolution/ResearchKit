@@ -57,6 +57,7 @@
     merged.titleStyle = [CEVRK1Theme textStyleByOverridingTextStyle:theme.titleStyle withTextStyle:theme2.titleStyle];
     merged.textStyle = [CEVRK1Theme textStyleByOverridingTextStyle:theme.textStyle withTextStyle:theme2.textStyle];
     merged.detailTextStyle = [CEVRK1Theme textStyleByOverridingTextStyle:theme.detailTextStyle withTextStyle:theme2.detailTextStyle];
+    merged.footnoteTextStyle = [CEVRK1Theme textStyleByOverridingTextStyle:theme.footnoteTextStyle withTextStyle:theme2.footnoteTextStyle];
 
     merged.nextButtonBackgroundColor = theme2.nextButtonBackgroundColor ?: theme.nextButtonBackgroundColor;
     merged.nextButtonBackgroundGradient = theme2.nextButtonBackgroundGradient ?: theme.nextButtonBackgroundGradient;
@@ -181,6 +182,10 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
             NSAssert(YES, @"DetailText should be handled in updateAppearanceForTextView");
             break;
         }
+        case CEVRK1DisplayTextTypeFootnote: {
+            textStyle = self.footnoteTextStyle;
+            break;
+        }
         default:
             break;
     }
@@ -241,6 +246,10 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
         }
         case CEVRK1DisplayTextTypeDetailText: {
             textStyle = self.detailTextStyle;
+            break;
+        }
+        case CEVRK1DisplayTextTypeFootnote: {
+            textStyle = self.footnoteTextStyle;
             break;
         }
         default:

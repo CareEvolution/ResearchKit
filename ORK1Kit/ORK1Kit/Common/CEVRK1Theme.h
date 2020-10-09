@@ -28,7 +28,8 @@ typedef NS_ENUM(NSInteger, CEVRK1GradientDirection) {
 typedef NS_ENUM(NSInteger, CEVRK1DisplayTextType) {
     CEVRK1DisplayTextTypeTitle,
     CEVRK1DisplayTextTypeText,
-    CEVRK1DisplayTextTypeDetailText
+    CEVRK1DisplayTextTypeDetailText,
+    CEVRK1DisplayTextTypeFootnote
 };
 
 
@@ -69,6 +70,7 @@ ORK1_CLASS_AVAILABLE
 @property (nonatomic, strong, nullable) CEVRK1TextStyle *titleStyle;
 @property (nonatomic, strong, nullable) CEVRK1TextStyle *textStyle;
 @property (nonatomic, strong, nullable) CEVRK1TextStyle *detailTextStyle;
+@property (nonatomic, strong, nullable) CEVRK1TextStyle *footnoteTextStyle;
 
 @property (nonatomic, strong) UIColor * _Nullable nextButtonBackgroundColor;
 @property (nonatomic, strong) CEVRK1Gradient * _Nullable nextButtonBackgroundGradient;
