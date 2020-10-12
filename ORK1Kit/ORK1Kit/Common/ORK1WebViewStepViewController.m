@@ -100,21 +100,21 @@
 
 @implementation ORK1WebViewStepViewController {
     NSString *_result;
-    ORK1ScriptMessageHandlerImpl *_scriptMessageHandler;
+    ORK1ScriptMessageHandlerImpl *_scriptMessageHandlerImpl;
 }
 
 - (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     if (self) {
         __weak typeof(self) weakSelf = self;
-        _scriptMessageHandler = [[ORK1ScriptMessageHandlerImpl alloc] init];
-        _scriptMessageHandler.didReceiveScriptMessageFunc = ^(WKUserContentController *userContentController, WKScriptMessage *scriptMessage) {
+        _scriptMessageHandlerImpl = [[ORK1ScriptMessageHandlerImpl alloc] init];
+        _scriptMessageHandlerImpl.didReceiveScriptMessageFunc = ^(WKUserContentController *userContentController, WKScriptMessage *scriptMessage) {
             [weakSelf userContentController:userContentController didReceiveScriptMessage:scriptMessage];
         };
         
         _webView = [[ORK1WebViewPreloader shared] webViewForKey:step.identifier];
-        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandler name:@"ResearchKit"];
-        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandler name:@"GetAccessToken"];
+        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"ResearchKit"];
+        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"GetAccessToken"];
         _webView.frame = self.view.bounds;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _webView.navigationDelegate = self;
