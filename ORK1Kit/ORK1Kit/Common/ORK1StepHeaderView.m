@@ -111,6 +111,8 @@
             _instructionTextView = [[CEVRK1TextView alloc] initWithFrame:CGRectZero];
             _instructionTextView.editable = NO;
             _instructionTextView.scrollEnabled = NO;
+            _instructionTextView.textContainerInset = UIEdgeInsetsZero;
+            _instructionTextView.textContainer.lineFragmentPadding = 0;
             _instructionTextView.font = ORK1SubheadlineLabel.defaultFont;
             _instructionTextView.textAlignment = NSTextAlignmentCenter;
             [_instructionTextView init_CEVRK1TextView];
