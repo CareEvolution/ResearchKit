@@ -39,6 +39,8 @@
 
 #define ORK1VerticalContainerLog(...)
 
+static const CGFloat CEVLeadingOffsetToMatchFormItemContent = 5.0;
+
 @implementation ORK1StepHeaderView {
     NSLayoutConstraint *_captionMinBottomSpacingConstraint;
     NSLayoutConstraint *_captionToInstructionConstraint;
@@ -56,7 +58,7 @@
     UIEdgeInsets layoutMargins = self.layoutMargins;
     
     // If we don't do this, sometimes the label doesn't split onto two lines properly.
-    CGFloat maxLabelLayoutWidth = MAX(self.bounds.size.width - sideMargin * 2 - layoutMargins.left - layoutMargins.right, 0);
+    CGFloat maxLabelLayoutWidth = MAX(self.bounds.size.width - sideMargin * 2 - layoutMargins.left - layoutMargins.right - CEVLeadingOffsetToMatchFormItemContent, 0);
     
     _captionLabel.preferredMaxLayoutWidth = maxLabelLayoutWidth;
     [self setNeedsUpdateConstraints];
@@ -394,7 +396,7 @@ const CGFloat IconHeight = 60;
                                                                    toItem:self
                                                                 attribute:NSLayoutAttributeLeftMargin
                                                                multiplier:1.0
-                                                                 constant:0.0]];
+                                                                 constant:CEVLeadingOffsetToMatchFormItemContent]];
             [constraints addObject:[NSLayoutConstraint constraintWithItem:view
                                                                 attribute:NSLayoutAttributeRight
                                                                 relatedBy:NSLayoutRelationEqual

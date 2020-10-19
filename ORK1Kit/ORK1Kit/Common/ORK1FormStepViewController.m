@@ -284,7 +284,7 @@
     if ([[[UIDevice currentDevice] model] isEqualToString:@"iPad"]) {
         marginOffset = 13.0;
     } else {
-        marginOffset = 18.0;
+        marginOffset = 19.0;
     }
     self.leftMarginConstraint.constant = marginOffset;
 }
