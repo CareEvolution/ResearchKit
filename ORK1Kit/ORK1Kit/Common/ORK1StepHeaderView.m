@@ -39,7 +39,7 @@
 
 #define ORK1VerticalContainerLog(...)
 
-static const CGFloat CEVLeadingOffsetToMatchFormItemContent = 5.0;
+static const CGFloat CEVLeadingOffsetToMatchFormItemContent = 4.0;
 
 @implementation ORK1StepHeaderView {
     NSLayoutConstraint *_captionMinBottomSpacingConstraint;
