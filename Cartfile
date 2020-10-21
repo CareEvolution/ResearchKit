@@ -1,1 +1,1 @@
-github "CareEvolution/MarkdownAttributedString" "master"
+github "CareEvolution/MarkdownAttributedString" ~> 1.0
