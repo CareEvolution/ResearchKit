@@ -55,6 +55,7 @@
     
     CGFloat _keyboardOverlap;
     BOOL _keyboardIsUp;
+    CGFloat _preKeyboardBottomConstant;
     
     UIScrollView *_scrollView;
     
@@ -165,7 +166,7 @@
 }
 
 - (void)updateBottomConstraintConstant {
-    _bottomConstraint.constant = -_keyboardOverlap;
+    _bottomConstraint.constant = _preKeyboardBottomConstant - _keyboardOverlap;
 }
 
 - (void)setUpConstraints {
@@ -402,6 +403,17 @@
 
 - (void)keyboardFrameWillChange:(NSNotification *)notification {
     CGSize intersectionSize = [self keyboardIntersectionSizeFromNotification:notification];
+    
+    /*
+     HACK: the _bottomConstraint is not always zero. If a hidePredicate causes a formItem to be added/removed,
+     this can be non-zero. Here we detect current state when the keyboard is about to appear so we can add
+     this offset to the keyboard overlap. Without this, the Done/Continue button will appear above or below
+     where it is expected after the keyboard is dismissed.
+    */
+    
+    if (!_keyboardIsUp) {
+        _preKeyboardBottomConstant = _bottomConstraint.constant;
+    }
     
     // Assume the overlap is at the bottom of the view
     ORK1UpdateScrollViewBottomInset(self.tableView, intersectionSize.height);
