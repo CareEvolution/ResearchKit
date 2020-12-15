@@ -715,6 +715,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
 
 - (void)loadView {
     UIView *view = [[UIView alloc] initWithFrame:(CGRect){{0,0},{320,480}}];
+    view.backgroundColor = UIColor.whiteColor;
     
     if (_childNavigationController) {
         UIView *childView = _childNavigationController.view;
@@ -733,6 +734,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         @throw [NSException exceptionWithName:NSGenericException reason:@"Attempted to present task view controller without a task" userInfo:nil];
     }
     
+    BOOL completed = false;
     if (!_hasBeenPresented) {
         // Add first step viewController
         ORKStep *step = [self nextStep];
@@ -746,6 +748,8 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
             ORKStepViewController *firstViewController = [self viewControllerForStep:step];
             [self showViewController:firstViewController goForward:YES animated:animated];
             
+        } else if (step == nil) {
+            completed = true;
         }
         _hasBeenPresented = YES;
     }
@@ -758,6 +762,11 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     
     // Clear endDate if current TaskVC got presented again
     _dismissedDate = nil;
+    
+    // If no steps to display, then complete the task
+    if (completed) {
+        [self finishWithReason:ORKTaskViewControllerFinishReasonCompleted error:nil];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
