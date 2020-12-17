@@ -852,7 +852,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
 - (ORKTaskResult *)result {
     
     ORKTaskResult *result = [[ORKTaskResult alloc] initWithTaskIdentifier:[self.task identifier] taskRunUUID:self.taskRunUUID outputDirectory:self.outputDirectory];
-    result.startDate = _presentedDate;
+    result.startDate = _presentedDate ?: [NSDate date];
     result.endDate = _dismissedDate ? :[NSDate date];
     
     // Update current step result
