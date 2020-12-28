@@ -132,9 +132,6 @@
         
         _webView = [[ORKWebViewPreloader shared] webViewForKey:step.identifier];
         [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"ResearchKit"];
-        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"GetAccessToken"];
-        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"GetDelegatedAccessToken"];
-        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"GetDeviceInfo"];
         _webView.frame = self.view.bounds;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _webView.navigationDelegate = self;
