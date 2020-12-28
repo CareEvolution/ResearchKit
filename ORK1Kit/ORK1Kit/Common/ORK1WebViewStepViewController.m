@@ -114,8 +114,6 @@
         
         _webView = [[ORK1WebViewPreloader shared] webViewForKey:step.identifier];
         [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"ResearchKit"];
-        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"GetAccessToken"];
-        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"GetDelegatedAccessToken"];
         _webView.frame = self.view.bounds;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _webView.navigationDelegate = self;
@@ -148,7 +146,7 @@
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {
-    if ([message.name isEqual: @"GetAccessToken"] || [message.name isEqual: @"GetDelegatedAccessToken"]) {
+    if ([self.scriptMessageNames containsObject:message.name]) {
         [self.scriptMessageHandler userContentController:userContentController didReceiveScriptMessage:message];
         return;
     }
@@ -201,6 +199,13 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = false;
+}
+
+- (void)setScriptMessageNames:(NSArray<NSString *> *)scriptMessageNames {
+    _scriptMessageNames = scriptMessageNames;
+    for (NSString *i in scriptMessageNames) {
+        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:i];
+    }
 }
 
 @end

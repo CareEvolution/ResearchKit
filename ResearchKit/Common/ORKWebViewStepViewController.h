@@ -52,6 +52,7 @@ ORK_CLASS_AVAILABLE
 @interface ORKWebViewStepViewController : ORKStepViewController<WKScriptMessageHandler, WKNavigationDelegate>
 @property (nonatomic, strong, readonly) WKWebView *webView;
 @property (nonatomic, strong) id<WKScriptMessageHandler> scriptMessageHandler;
+@property (nonatomic, strong) NSArray<NSString *> *scriptMessageNames;
 @end
 
 NS_ASSUME_NONNULL_END
