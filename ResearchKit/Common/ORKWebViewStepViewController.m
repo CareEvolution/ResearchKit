@@ -239,7 +239,7 @@
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {
-    if ([message.name isEqual: @"GetAccessToken"] || [message.name isEqual: @"GetDelegatedAccessToken"] || [message.name isEqual: @"GetDeviceInfo"]) {
+    if ([self.scriptMessageNames containsObject:message.name]) {
         [self.scriptMessageHandler userContentController:userContentController didReceiveScriptMessage:message];
         return;
     }
@@ -292,6 +292,13 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = false;
+}
+
+- (void)setScriptMessageNames:(NSArray<NSString *> *)scriptMessageNames {
+    _scriptMessageNames = scriptMessageNames;
+    for (NSString *i in scriptMessageNames) {
+        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:i];
+    }
 }
 
 @end
