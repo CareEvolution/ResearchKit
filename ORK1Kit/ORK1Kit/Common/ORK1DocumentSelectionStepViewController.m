@@ -47,8 +47,9 @@
 @import AVFoundation;
 @import MobileCoreServices;
 @import Photos;
+@import PhotosUI;
 
-@interface ORK1DocumentSelectionStepViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface ORK1DocumentSelectionStepViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, PHPickerViewControllerDelegate>
 
 @property (nonatomic, readonly) BOOL isCameraAvailable;
 @property (nonatomic, readonly) BOOL isPhotoLibraryAvailable;
@@ -208,6 +209,12 @@
 }
 
 - (void)choosePhoto {
+    // iOS 14 photo library picker does not require authorization prompt
+    if (@available(iOS 14, *)) {
+        [self presentPhotoPicker];
+        return;
+    }
+    
     ORK1WeakTypeOf(self) weakSelf = self;
     switch ([PHPhotoLibrary authorizationStatus]) {
         case PHAuthorizationStatusDenied:
@@ -216,6 +223,7 @@
             break;
         case PHAuthorizationStatusNotDetermined:
         case PHAuthorizationStatusAuthorized:
+        case PHAuthorizationStatusLimited:
             [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (status == PHAuthorizationStatusAuthorized) {
@@ -227,6 +235,16 @@
             }];
             break;
     }
+}
+
+- (void)presentPhotoPicker API_AVAILABLE(ios(14)) {
+    PHPickerConfiguration *configuration = [[PHPickerConfiguration alloc] init];
+    configuration.selectionLimit = 1;
+    configuration.filter = [PHPickerFilter imagesFilter];
+    configuration.preferredAssetRepresentationMode = PHPickerConfigurationAssetRepresentationModeCompatible;
+    PHPickerViewController *picker = [[PHPickerViewController alloc] initWithConfiguration:configuration];
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:NULL];
 }
 
 - (void)presentAuthorizedPicker:(UIImagePickerControllerSourceType)sourceType {
@@ -342,6 +360,18 @@
     return URL;
 }
 
+- (void)didPickPhoto:(UIImage *)photo {
+    self.selectedPhoto = photo;
+    // Triggers updating the result which can produce errors.
+    // Only go forward if successful
+    [self notifyDelegateOnResultChange];
+    if (self.selectedPhoto) {
+        [self goForward];
+    } else {
+        [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteInvalidFileNameError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"ERROR_DATALOGGER_CREATE_FILE", nil)}] showSettingsButton:NO];
+    }
+}
+
 #pragma mark - UIImagePickerControllerDelegate
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -354,19 +384,32 @@
     ORK1WeakTypeOf(self) weakSelf = self;
     UIImage *selectedPhoto = [info objectForKey:UIImagePickerControllerEditedImage] ?: [info objectForKey:UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:^{
-        ORK1StrongTypeOf(weakSelf) strongSelf = weakSelf;
-        if (strongSelf) {
-            strongSelf.selectedPhoto = selectedPhoto;
-            // Triggers updating the result which can produce errors.
-            // Only go forward if there's no error.
-            [strongSelf notifyDelegateOnResultChange];
-            if (strongSelf.selectedPhoto) {
-                [strongSelf goForward];
-            } else {
-                [strongSelf handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteInvalidFileNameError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"ERROR_DATALOGGER_CREATE_FILE", nil)}] showSettingsButton:NO];
-            }
-        }
+        [weakSelf didPickPhoto:selectedPhoto];
     }];
+}
+
+#pragma mark - PHPickerViewControllerDelegate
+
+- (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results  API_AVAILABLE(ios(14)) {
+    NSItemProvider *provider = results.firstObject.itemProvider;
+    if ([provider canLoadObjectOfClass:[UIImage class]]) {
+        [provider loadObjectOfClass:[UIImage class] completionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
+            ORK1WeakTypeOf(self) weakSelf = self;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [picker dismissViewControllerAnimated:YES completion:^{
+                    if (error) {
+                        [weakSelf handleError:error showSettingsButton:NO];
+                    } else {
+                        [weakSelf didPickPhoto:image];
+                    }
+                }];
+            });
+        }];
+    } else {
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+        self.selectedPhoto = nil;
+        [self notifyDelegateOnResultChange];
+    }
 }
 
 @end
