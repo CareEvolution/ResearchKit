@@ -183,7 +183,7 @@ NSString *const ORKStroopColorIdentifierBlack = @"BLACK";
 
 - (void)validateParameters {
     [super validateParameters];
-    NSInteger minimumAttempts = 3;
+    NSInteger minimumAttempts = 1;
     if (self.numberOfAttempts < minimumAttempts) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"number of attempts should be greater or equal to %ld.", (long)minimumAttempts]  userInfo:nil];
     }
