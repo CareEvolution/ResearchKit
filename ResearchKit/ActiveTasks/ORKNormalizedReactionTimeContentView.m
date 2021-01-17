@@ -67,8 +67,10 @@ CGFloat BackgroundViewSpaceMultiplier = 2.0;
 }
 
 - (void)resetAfterDelay:(NSTimeInterval)delay completion:(nullable void (^)(void))completion {
+    _button.hidden = YES;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         _stimulusView.hidden = YES;
+        _button.hidden = NO;
         if (completion) {
             completion();
         }
