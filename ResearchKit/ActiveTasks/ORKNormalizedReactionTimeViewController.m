@@ -166,7 +166,7 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
     _timerStartDate = 0;
     _reactionDate = 0;
     _stimulusStartDate = 0;
-    [self reactionTimeStep].currentInterval = 0;
+    [self reactionTimeStep].currentInterval = @0;
     
     [self attemptDidFinish];
 }
