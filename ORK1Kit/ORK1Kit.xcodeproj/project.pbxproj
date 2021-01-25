@@ -128,6 +128,7 @@
 		618DA0521A93D0D600E63AA8 /* ORK1AccessibilityFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 618DA04A1A93D0D600E63AA8 /* ORK1AccessibilityFunctions.m */; };
 		618DA0541A93D0D600E63AA8 /* UIView+ORK1Accessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 618DA04B1A93D0D600E63AA8 /* UIView+ORK1Accessibility.h */; };
 		618DA0561A93D0D600E63AA8 /* UIView+ORK1Accessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 618DA04C1A93D0D600E63AA8 /* UIView+ORK1Accessibility.m */; };
+		67DDF56A25BF5BA4002AC56E /* ORK1HelpersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DDF56925BF5BA4002AC56E /* ORK1HelpersTests.m */; };
 		781D54101DF886AB00223305 /* ORK1TrailmakingContentView.h in Headers */ = {isa = PBXBuildFile; fileRef = 781D540A1DF886AB00223305 /* ORK1TrailmakingContentView.h */; };
 		781D54111DF886AB00223305 /* ORK1TrailmakingContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 781D540B1DF886AB00223305 /* ORK1TrailmakingContentView.m */; };
 		781D54121DF886AB00223305 /* ORK1TrailmakingStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 781D540C1DF886AB00223305 /* ORK1TrailmakingStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -744,6 +745,7 @@
 		618DA04A1A93D0D600E63AA8 /* ORK1AccessibilityFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1AccessibilityFunctions.m; sourceTree = "<group>"; };
 		618DA04B1A93D0D600E63AA8 /* UIView+ORK1Accessibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "UIView+ORK1Accessibility.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		618DA04C1A93D0D600E63AA8 /* UIView+ORK1Accessibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIView+ORK1Accessibility.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		67DDF56925BF5BA4002AC56E /* ORK1HelpersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORK1HelpersTests.m; sourceTree = "<group>"; };
 		781D540A1DF886AB00223305 /* ORK1TrailmakingContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1TrailmakingContentView.h; sourceTree = "<group>"; };
 		781D540B1DF886AB00223305 /* ORK1TrailmakingContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1TrailmakingContentView.m; sourceTree = "<group>"; };
 		781D540C1DF886AB00223305 /* ORK1TrailmakingStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1TrailmakingStep.h; sourceTree = "<group>"; };
@@ -1740,6 +1742,7 @@
 				86CC8EA91AC09383001CCD89 /* ORK1ChoiceAnswerFormatHelperTests.m */,
 				86CC8EAB1AC09383001CCD89 /* ORK1DataLoggerManagerTests.m */,
 				86CC8EAC1AC09383001CCD89 /* ORK1DataLoggerTests.m */,
+				67DDF56925BF5BA4002AC56E /* ORK1HelpersTests.m */,
 				86CC8EAD1AC09383001CCD89 /* ORK1HKSampleTests.m */,
 				86D348001AC16175006DB02B /* ORK1RecorderTests.m */,
 				86CC8EAF1AC09383001CCD89 /* ORK1ResultTests.m */,
@@ -3180,6 +3183,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67DDF56A25BF5BA4002AC56E /* ORK1HelpersTests.m in Sources */,
 				86CC8EB71AC09383001CCD89 /* ORK1DataLoggerTests.m in Sources */,
 				248604061B4C98760010C8A0 /* ORK1AnswerFormatTests.m in Sources */,
 				86CC8EBA1AC09383001CCD89 /* ORK1ResultTests.m in Sources */,
