@@ -240,8 +240,13 @@
                                                                       constant:0.0]];
         _continueSkipContainer.backgroundColor = [_continueSkipContainer.backgroundColor colorWithAlphaComponent:ContinueSkipContainerTranslucentAlpha];
     } else {
+        /*
+         CEVHack - when the vertical sections of the view apportion, this prevents the imageView from expanding too much which puts pressure
+         on the UIBarButtonItem for which the label collapses vertically and shows no text.
+         */
+        CGFloat maxPreviewSize = self.superview.bounds.size.height - 160;
         [_variableConstraints addObjectsFromArray:
-         [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_previewView]-[_continueSkipContainer]|"
+         [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|[_previewView(<=%f)]-[_continueSkipContainer]|", maxPreviewSize]
                                                  options:NSLayoutFormatDirectionLeadingToTrailing
                                                  metrics:nil
                                                    views:views]];
