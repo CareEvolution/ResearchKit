@@ -55,14 +55,21 @@ ORK_CLASS_AVAILABLE
  
  @param identifier    The identifier of the step (a step identifier should be unique within the task).
  @param html          The html to be displayed in the webview.
+ @param baseURL     The base URL for the html to be displayed.
  */
 + (instancetype)webViewStepWithIdentifier:(NSString *)identifier
-                                     html:(NSString *)html;
+                                     html:(NSString *)html
+                                  baseURL:(nullable NSURL *)baseURL;
 
 /**
  Embedded html used for displaying the webview.
  */
 @property (nonatomic, copy, nullable) NSString *html;
+
+/**
+ Base URL for embedded html.
+ */
+@property (nonatomic, copy, nullable) NSURL *baseURL;
 
 @end
 
