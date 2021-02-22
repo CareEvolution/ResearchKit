@@ -144,11 +144,21 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    /*
+     CEVHACK - This fixes a bug that affects RK2 where the cancel button did nothing - because the view cycle is different than
+     other subclasses of ORKStepViewController. Setting the cancelButtonItem on the _navigationFooterView needs to happen AFTER
+     the super class ORKStepViewController has had a chance to create it.
+     */
+    
+    [super viewWillAppear:animated];
+    _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
+}
+
 - (void)setupNavigationFooterView {
     if (!_navigationFooterView) {
         _navigationFooterView = [[ORKNavigationContainerView alloc] initFromStepViewController:self];
     }
-    _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
     _navigationFooterView.neverHasContinueButton = YES;
     [self.view addSubview:_navigationFooterView];
 }
