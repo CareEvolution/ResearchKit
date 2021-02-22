@@ -39,9 +39,11 @@
 }
 
 + (instancetype)webViewStepWithIdentifier:(NSString *)identifier
-                                     html:(NSString *)html {
+                                     html:(NSString *)html
+                                  baseURL:(nullable NSURL *)baseURL {
     ORKWebViewStep *step = [[ORKWebViewStep alloc] initWithIdentifier:identifier];
     step.html = html;
+    step.baseURL = baseURL;
     return step;
 }
 
@@ -59,6 +61,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         ORK_DECODE_OBJ_CLASS(aDecoder, html, NSString);
+        ORK_DECODE_OBJ_CLASS(aDecoder, baseURL, NSURL);
     }
     return self;
 }
@@ -66,6 +69,7 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_OBJ(aCoder, html);
+    ORK_ENCODE_OBJ(aCoder, baseURL);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -75,6 +79,7 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKWebViewStep *step = [super copyWithZone:zone];
     step.html = self.html;
+    step.baseURL = self.baseURL;
     return step;
 }
 
@@ -83,7 +88,8 @@
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            [self.html isEqual:castObject.html]);
+            [self.html isEqual:castObject.html] &&
+            [self.baseURL isEqual:castObject.baseURL]);
 }
 
 @end

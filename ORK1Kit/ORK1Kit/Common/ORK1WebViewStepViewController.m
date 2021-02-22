@@ -54,21 +54,21 @@
     return self;
 }
 
-- (void)preload:(NSString *)htmlString forKey:(NSString *)key {
-    WKWebView *webView = [self newWebView:htmlString];
+- (void)preload:(NSString *)htmlString baseURL:(nullable NSURL *)baseURL forKey:(nonnull NSString *)key {
+    WKWebView *webView = [self newWebView:htmlString baseURL:baseURL];
     [_cache setObject:webView forKey:key];
 }
 
-- (WKWebView *)webViewForKey:(NSString *)key {
+- (WKWebView *)webViewForKey:(NSString *)key baseURL:(nullable NSURL *)baseURL {
     WKWebView *webView = [_cache objectForKey:key];
     [_cache removeObjectForKey:key];
     if (webView == nil) {
-        webView = [self newWebView:nil];
+        webView = [self newWebView:nil baseURL:baseURL];
     }
     return webView;
 }
 
-- (WKWebView *)newWebView:(NSString *)htmlString {
+- (WKWebView *)newWebView:(NSString *)htmlString baseURL:(nullable NSURL *)baseURL {
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     config.allowsInlineMediaPlayback = true;
     if ([config respondsToSelector:@selector(mediaTypesRequiringUserActionForPlayback)]) {
@@ -79,7 +79,7 @@
     
     WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
     if (htmlString) {
-        [webView loadHTMLString:htmlString baseURL:nil];
+        [webView loadHTMLString:htmlString baseURL:baseURL];
     }
     return webView;
 }
@@ -112,12 +112,12 @@
             [weakSelf userContentController:userContentController didReceiveScriptMessage:scriptMessage];
         };
         
-        _webView = [[ORK1WebViewPreloader shared] webViewForKey:step.identifier];
+        _webView = [[ORK1WebViewPreloader shared] webViewForKey:step.identifier baseURL:[self webViewStep].baseURL];
         [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"ResearchKit"];
         _webView.frame = self.view.bounds;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _webView.navigationDelegate = self;
-        [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
+        [_webView loadHTMLString:[self webViewStep].html baseURL:[self webViewStep].baseURL];
         [self.view addSubview:_webView];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseAudio) name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
@@ -130,7 +130,7 @@
 
 - (void)stepDidChange {
     _result = nil;
-    [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
+    [_webView loadHTMLString:[self webViewStep].html baseURL:[self webViewStep].baseURL];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

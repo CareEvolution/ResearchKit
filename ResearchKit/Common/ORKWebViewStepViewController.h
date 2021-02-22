@@ -37,8 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 ORK_CLASS_AVAILABLE
 @interface ORKWebViewPreloader : NSObject
 + (instancetype)shared;
-- (void)preload:(NSString *)htmlString forKey:(NSString *)key;
-- (WKWebView *)webViewForKey:(NSString *)key;
+- (void)preload:(NSString *)htmlString baseURL:(nullable NSURL *)baseURL forKey:(NSString *)key;
+- (WKWebView *)webViewForKey:(NSString *)key baseURL:(nullable NSURL *)baseURL;
 @end
 
 /**
