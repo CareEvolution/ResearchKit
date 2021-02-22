@@ -118,7 +118,7 @@
 
 - (void)stepDidChange {
     _result = nil;
-    [_webView loadHTMLString:[self webViewStep].html baseURL:nil];
+    [_webView loadHTMLString:[self webViewStep].html baseURL:[self webViewStep].baseURL];
 }
 
 - (instancetype)initWithStep:(ORKStep *)step {
