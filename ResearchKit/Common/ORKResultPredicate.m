@@ -253,9 +253,14 @@ NSString *const ORKResultPredicateTaskIdentifierVariableName = @"ORK_TASK_IDENTI
 }
 
 + (NSPredicate *)predicateForNilQuestionResultWithResultSelector:(ORKResultSelector *)resultSelector {
-    return [self predicateMatchingResultSelector:resultSelector
-                         subPredicateFormatArray:@[ @"answer == nil" ]
-                 subPredicateFormatArgumentArray:@[ ]];
+    NSPredicate *nilPredicate = [self predicateMatchingResultSelector:resultSelector
+                                              subPredicateFormatArray:@[ @"answer == nil" ]
+                                      subPredicateFormatArgumentArray:@[ ]];
+    NSPredicate *foundPredicate = [self predicateMatchingResultSelector:resultSelector
+                                                subPredicateFormatArray:@[ ]
+                                        subPredicateFormatArgumentArray:@[ ]];
+    NSPredicate *notFoundPredicate = [NSCompoundPredicate notPredicateWithSubpredicate:foundPredicate];
+    return [NSCompoundPredicate orPredicateWithSubpredicates:@[nilPredicate, notFoundPredicate]];
 }
 
 + (NSPredicate *)predicateForScaleQuestionResultWithResultSelector:(ORKResultSelector *)resultSelector

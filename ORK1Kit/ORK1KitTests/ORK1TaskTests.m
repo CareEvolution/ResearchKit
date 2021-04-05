@@ -618,6 +618,7 @@ ORK1DefineStringKey(TextFormItemIdentifier);
 ORK1DefineStringKey(NumericFormItemIdentifier);
 
 ORK1DefineStringKey(NilTextStepIdentifier);
+ORK1DefineStringKey(NonExistentStepIdentifier);
 
 ORK1DefineStringKey(AdditionalTaskIdentifier);
 ORK1DefineStringKey(AdditionalFormStepIdentifier);
@@ -1370,6 +1371,9 @@ static ORK1StepResult *(^getConsentStepResult)(NSString *, NSString *, BOOL) = ^
     
     // Result with nil value
     resultSelector.resultIdentifier = NilTextStepIdentifier;
+    XCTAssertTrue([[ORK1ResultPredicate predicateForNilQuestionResultWithResultSelector:resultSelector] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
+    
+    resultSelector.resultIdentifier = NonExistentStepIdentifier;
     XCTAssertTrue([[ORK1ResultPredicate predicateForNilQuestionResultWithResultSelector:resultSelector] evaluateWithObject:taskResults substitutionVariables:substitutionVariables]);
     
     resultSelector.resultIdentifier = TextStepIdentifier;
