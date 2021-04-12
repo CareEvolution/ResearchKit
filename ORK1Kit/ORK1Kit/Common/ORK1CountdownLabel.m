@@ -50,10 +50,6 @@
     return self;
 }
 
-- (void)updateAppearance {
-    [self setCountDownValue:_currentCountDownValue];
-}
-
 - (void)setCountDownValue:(NSInteger)value {
     _currentCountDownValue = value;
     [self renderText];
@@ -71,11 +67,6 @@
    
     [self setText:[durationFormatter stringFromTimeInterval:_currentCountDownValue]];
     [self invalidateIntrinsicContentSize];
-}
-
-- (void)setFont:(UIFont *)font {
-    [super setFont:font];
-    [self renderText];
 }
 
 - (CGSize)intrinsicContentSize {
