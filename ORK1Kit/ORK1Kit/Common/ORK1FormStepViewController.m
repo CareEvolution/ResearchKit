@@ -1143,6 +1143,8 @@
     if (_currentFirstResponderCell == cell) {
         _currentFirstResponderCell = nil;
     }
+    NSLog(@"`Setting NEEDS LAYOUT");
+    [_tableContainer setNeedsLayout];
 }
 
 - (void)formItemCell:(ORK1FormItemCell *)cell invalidInputAlertWithMessage:(NSString *)input {

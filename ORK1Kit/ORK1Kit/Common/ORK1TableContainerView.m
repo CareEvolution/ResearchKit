@@ -162,10 +162,12 @@
         _tableView.tableFooterView = _realFooterView;
     }
     
+    NSLog(@"`[layoutSubviews] _lastScrollViewContentHeight -> %f", _scrollView.contentSize.height);
     _lastScrollViewContentHeight = _scrollView.contentSize.height;
 }
 
 - (void)updateBottomConstraintConstant {
+    NSLog(@"`[updateBottomConstraintConstant] _bottomConstraint - %f --> %f", _bottomConstraint.constant, _preKeyboardBottomConstant - _keyboardOverlap);
     _bottomConstraint.constant = _preKeyboardBottomConstant - _keyboardOverlap;
 }
 
@@ -265,6 +267,7 @@
 
 - (void)adjustBottomConstraintWithExpectedOffset:(CGFloat)offset {
     _continueSkipContainerView.alpha = 0;
+    NSLog(@"`[adjustBottomConstraintWithExpectedOffset] _bottomConstraint: %f --> %f", _bottomConstraint.constant, _bottomConstraint.constant - offset);
     _bottomConstraint.constant -= offset;
     [self performSelector:@selector(showButton) withObject:nil afterDelay:0.3];
 }
@@ -281,8 +284,11 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         CGFloat diff = _scrollView.contentSize.height - _lastScrollViewContentHeight;
+        NSLog(@"`[adjustBottomConstraintBasedOnLastContentSize] _diff = %f - %f", _scrollView.contentSize.height, _lastScrollViewContentHeight);
+        NSLog(@"`[adjustBottomConstraintBasedOnLastContentSize] _bottomConstraint: %f --> %f", _bottomConstraint.constant, _bottomConstraint.constant - diff);
         _bottomConstraint.constant -= diff;
         _lastScrollViewContentHeight = _scrollView.contentSize.height;
+        NSLog(@"`[adjustBottomConstraintBasedOnLastContentSize] -> _lastScrollViewContentHeight %f", _scrollView.contentSize.height);
         [self showButton];
     });
 }
@@ -374,6 +380,7 @@
         CGSize intersectionSize = [self keyboardIntersectionSizeFromNotification:notification];
         
         // Keep track of the keyboard overlap, so we can adjust the constraint properly.
+        NSLog(@"`[animateLayoutForKeyboardNotification] _keyboardOverlap: %f --> %f", _keyboardOverlap, intersectionSize.height);
         _keyboardOverlap = intersectionSize.height;
         
         [self updateBottomConstraintConstant];
@@ -402,6 +409,7 @@
 }
 
 - (void)keyboardFrameWillChange:(NSNotification *)notification {
+    // also used for pickers
     CGSize intersectionSize = [self keyboardIntersectionSizeFromNotification:notification];
     
     /*
