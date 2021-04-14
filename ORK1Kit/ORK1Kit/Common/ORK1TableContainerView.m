@@ -402,6 +402,9 @@
 }
 
 - (void)keyboardFrameWillChange:(NSNotification *)notification {
+    
+    // NOTE: this is also called with some pickers
+    
     CGSize intersectionSize = [self keyboardIntersectionSizeFromNotification:notification];
     
     /*
