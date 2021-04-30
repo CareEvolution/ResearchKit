@@ -1022,7 +1022,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                     } else {  // Linear
                         calculatedProgress = (float)taskProgress.current / (float)taskProgress.total;
                     }
-                    [strongSelf.progressView setProgress:calculatedProgress];
+                    [strongSelf.progressView setProgress:calculatedProgress withTheme:[CEVRK1Theme themeForElement:strongSelf.currentStepViewController]];
                     strongSelf.pageViewController.navigationItem.titleView = strongSelf.progressView;
                     
                     // for UITesting, we will add a title that will not display, but should appear via accessibility

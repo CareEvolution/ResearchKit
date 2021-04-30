@@ -12,8 +12,10 @@
  sizing (width) of the progressView
  */
 
+@class CEVRK1Theme;
+
 @interface CEVRK1NavigationBarProgressView : UIView
 
-- (void)setProgress:(float)progress;
+- (void)setProgress:(float)progress withTheme:(nullable CEVRK1Theme *)theme;
 
 @end
