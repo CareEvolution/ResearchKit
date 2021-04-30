@@ -44,9 +44,8 @@
      ]];
 }
 
-- (void)setProgress:(float)progress {
+- (void)setProgress:(float)progress withTheme:(nullable CEVRK1Theme *)theme {
     _progressView.progress = progress;
-    CEVRK1Theme *theme = [CEVRK1Theme themeForElement:self];
     if (theme.progressBarColor) {
         _progressView.tintColor = theme.progressBarColor;
     }
