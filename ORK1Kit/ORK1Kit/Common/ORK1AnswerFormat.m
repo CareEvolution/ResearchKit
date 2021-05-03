@@ -2749,7 +2749,7 @@ static NSString *const kSecureTextEntryEscapeString = @"*";
             double feet, inches;
             ORK1CentimetersToFeetAndInches(((NSNumber *)answer).doubleValue, &feet, &inches);
             NSString *feetString = [formatter stringFromNumber:@(feet)];
-            NSString *inchesString = [formatter stringFromNumber:@(inches)];
+            NSString *inchesString = [formatter stringFromNumber:@(round(inches * 100) / 100)];
             answerString = [NSString stringWithFormat:@"%@ %@, %@ %@",
                             feetString, ORK1LocalizedString(@"MEASURING_UNIT_FT", nil), inchesString, ORK1LocalizedString(@"MEASURING_UNIT_IN", nil)];
         }
