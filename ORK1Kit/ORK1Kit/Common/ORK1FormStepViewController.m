@@ -429,12 +429,12 @@
     ORK1TextChoice *choice = format.textChoices[indexPath.row];
     
     NSString *longText = !choice.detailTextShouldDisplay ? choice.detailText : nil;
-    CGFloat sizeBeforeResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText inTableView:self.tableView];
+    CGFloat sizeBeforeResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText showDetailTextIndicator:format.descriptionStyle == ORK1ChoiceDescriptionStyleDisplayWhenExpanded inTableView:self.tableView];
     
     [section.textChoiceCellGroup updateLabelsForCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]] atIndex:indexPath.row];
     
     longText = choice.detailTextShouldDisplay ? choice.detailText : nil;
-    CGFloat sizeAfterResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText inTableView:self.tableView];
+    CGFloat sizeAfterResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText showDetailTextIndicator:format.descriptionStyle == ORK1ChoiceDescriptionStyleDisplayWhenExpanded inTableView:self.tableView];
     
     [_tableContainer adjustBottomConstraintWithExpectedOffset:(sizeAfterResize - sizeBeforeResize)];
     [self.tableView endUpdates];
@@ -1101,8 +1101,13 @@
     ORK1TableCellItem *cellItem = ([_sections[indexPath.section] items][indexPath.row]);
     CGFloat cellHeight = [_hiddenCellItems containsObject:cellItem] ? 0 : UITableViewAutomaticDimension;
     if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ORK1ChoiceViewCell class]]) {
+        BOOL showDetailTextIndicator = NO;
+        if ([[cellItem answerFormat] isKindOfClass:[ORK1TextChoiceAnswerFormat class]]) {
+            showDetailTextIndicator = ((ORK1TextChoiceAnswerFormat *)cellItem.answerFormat).descriptionStyle == ORK1ChoiceDescriptionStyleDisplayWhenExpanded;
+        }
         return [ORK1ChoiceViewCell suggestedCellHeightForShortText:cellItem.choice.text
                                                           longText:(cellItem.choice.detailTextShouldDisplay) ? cellItem.choice.detailText : nil
+                                           showDetailTextIndicator:showDetailTextIndicator
                                                        inTableView:_tableView];
     }
     return cellHeight;
