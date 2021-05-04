@@ -900,6 +900,7 @@ typedef NS_ENUM(NSInteger, ORKQuestionSection) {
     ORKTextChoice *option = [(ORKTextChoiceAnswerFormat *)_answerFormat textChoices][index];
     return [ORKChoiceViewCell suggestedCellHeightForShortText:option.text
                                                      LongText:(option.detailTextShouldDisplay) ? option.detailText : nil
+                                      showDetailTextIndicator:((ORKTextChoiceAnswerFormat *)_answerFormat).descriptionStyle == ORKChoiceDescriptionStyleDisplayWhenExpanded
                                                   inTableView:_tableView];
 }
 

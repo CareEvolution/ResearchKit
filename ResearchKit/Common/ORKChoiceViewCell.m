@@ -189,8 +189,14 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
     CGFloat cellLeftMargin = self.separatorInset.left;
 
     CGFloat labelWidth =  self.bounds.size.width - (cellLeftMargin + LabelRightMargin);
-    CGFloat shortLabelTextWidth = [self.shortLabel.text sizeWithAttributes:@{NSFontAttributeName : ORKSelectionTitleLabel.defaultFont}].width;
-    shortLabelTextWidth = (shortLabelTextWidth > labelWidth) ? labelWidth - (DetailTextIndicatorTouchTargetWidth + DetailTextIndicatorPaddingFromLabel) : shortLabelTextWidth;  // word wrapping will have occurred
+    CGFloat shortLabelWidth = [self.shortLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)].width;
+
+    // Check for word wrapping
+    if (self.showDetailTextIndicator && shortLabelWidth > labelWidth - (DetailTextIndicatorTouchTargetWidth + DetailTextIndicatorPaddingFromLabel)) {
+        shortLabelWidth = labelWidth - (DetailTextIndicatorTouchTargetWidth + DetailTextIndicatorPaddingFromLabel);
+    } else if (shortLabelWidth > labelWidth) {
+        shortLabelWidth = labelWidth;
+    }
     
     CGFloat cellHeight = self.bounds.size.height;
     
@@ -200,10 +206,10 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
         self.shortLabel.frame = CGRectZero;
         self.longLabel.frame = CGRectZero;
     } else if (self.longLabel.text.length == 0) {
-        self.shortLabel.frame = CGRectMake(cellLeftMargin, 0, labelWidth, cellHeight);
+        self.shortLabel.frame = CGRectMake(cellLeftMargin, 0, shortLabelWidth, cellHeight);
         self.detailTextIndicator.frame =
         CGRectMake(
-                   cellLeftMargin + shortLabelTextWidth + DetailTextIndicatorPaddingFromLabel,
+                   cellLeftMargin + shortLabelWidth + DetailTextIndicatorPaddingFromLabel,
                    self.shortLabel.frame.size.height / 2 - DetailTextIndicatorTouchTargetWidth / 2,
                    DetailTextIndicatorTouchTargetWidth,
                    DetailTextIndicatorTouchTargetWidth);
@@ -214,7 +220,7 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
     } else {
         {
             self.shortLabel.frame = CGRectMake(cellLeftMargin, 0,
-                                               labelWidth, 1);
+                                               shortLabelWidth, 1);
             
             ORKAdjustHeightForLabel(self.shortLabel);
             
@@ -226,7 +232,7 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
             self.shortLabel.frame = rect;
             self.detailTextIndicator.frame =
             CGRectMake(
-                       cellLeftMargin + shortLabelTextWidth + 10,
+                       cellLeftMargin + shortLabelWidth + 10,
                        self.shortLabel.frame.size.height / 2 - DetailTextIndicatorTouchTargetWidth / 2 + self.shortLabel.frame.origin.y,
                        DetailTextIndicatorTouchTargetWidth,
                        DetailTextIndicatorTouchTargetWidth);
@@ -326,7 +332,7 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
     [self updateSelectedItem];
 }
 
-+ (CGFloat)suggestedCellHeightForShortText:(NSString *)shortText LongText:(NSString *)longText inTableView:(UITableView *)tableView {
++ (CGFloat)suggestedCellHeightForShortText:(NSString *)shortText LongText:(NSString *)longText showDetailTextIndicator:(BOOL)showDetailTextIndicator inTableView:(UITableView *)tableView {
     CGFloat height = 0;
     
     CGFloat firstBaselineOffsetFromTop = ORKGetMetricForWindow(ORKScreenMetricChoiceCellFirstBaselineOffsetFromTop, tableView.window);
@@ -342,7 +348,11 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
             shortLabel.numberOfLines = 0;
         }
         
-        shortLabel.frame = CGRectMake(0, 0, labelWidth, 0);
+        if (showDetailTextIndicator) {
+            shortLabel.frame = CGRectMake(0, 0, labelWidth - (DetailTextIndicatorTouchTargetWidth + DetailTextIndicatorPaddingFromLabel), 0);
+        } else {
+            shortLabel.frame = CGRectMake(0, 0, labelWidth, 0);
+        }
         shortLabel.text = shortText;
         
         ORKAdjustHeightForLabel(shortLabel);
