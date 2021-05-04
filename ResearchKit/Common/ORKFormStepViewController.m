@@ -1213,7 +1213,7 @@
 
     if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ORKChoiceViewCell class]]) {
         ORKTableCellItem *cellItem = ([_sections[indexPath.section] items][indexPath.row]);
-        BOOL showDetailTextIndicator = false;
+        BOOL showDetailTextIndicator = NO;
         if ([[cellItem answerFormat] isKindOfClass:[ORKTextChoiceAnswerFormat class]]) {
             showDetailTextIndicator = ((ORKTextChoiceAnswerFormat *)cellItem.answerFormat).descriptionStyle == ORKChoiceDescriptionStyleDisplayWhenExpanded;
         }

@@ -1101,7 +1101,7 @@
     ORK1TableCellItem *cellItem = ([_sections[indexPath.section] items][indexPath.row]);
     CGFloat cellHeight = [_hiddenCellItems containsObject:cellItem] ? 0 : UITableViewAutomaticDimension;
     if ([[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:[ORK1ChoiceViewCell class]]) {
-        BOOL showDetailTextIndicator = false;
+        BOOL showDetailTextIndicator = NO;
         if ([[cellItem answerFormat] isKindOfClass:[ORK1TextChoiceAnswerFormat class]]) {
             showDetailTextIndicator = ((ORK1TextChoiceAnswerFormat *)cellItem.answerFormat).descriptionStyle == ORK1ChoiceDescriptionStyleDisplayWhenExpanded;
         }
