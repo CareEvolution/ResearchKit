@@ -32,7 +32,7 @@
 @import Foundation;
 @import HealthKit;
 #import <ORK1Kit/ORK1Types.h>
-#import "CEVRK1Theme.h"
+#import <ORK1Kit/CEVRK1Theme.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

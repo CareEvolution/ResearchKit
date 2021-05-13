@@ -111,4 +111,7 @@
 
 #import <ORK1Kit/CEVRK1Theme.h>
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wquoted-include-in-framework-header"
 #import "NSAttributedString+Markdown.h"
+#pragma clang diagnostic pop

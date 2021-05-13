@@ -8,7 +8,7 @@
 
 @import UIKit;
 
-#import "ORK1Defines.h"
+#import <ORK1Kit/ORK1Defines.h>
 
 typedef NS_ENUM(NSInteger, CEVRK1ThemeType) {
     CEVRK1ThemeTypeDefault,

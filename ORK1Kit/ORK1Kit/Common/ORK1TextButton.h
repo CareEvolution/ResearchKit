@@ -29,7 +29,7 @@
  */
 
 @import UIKit;
-#import "ORK1Defines.h"
+#import <ORK1Kit/ORK1Defines.h>
 
 
 NS_ASSUME_NONNULL_BEGIN
