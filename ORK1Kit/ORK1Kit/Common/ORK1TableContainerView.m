@@ -151,7 +151,13 @@
         CGSize footerSize = [_continueSkipContainerView systemLayoutSizeFittingSize:(CGSize){_tableView.bounds.size.width,0} withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
         CGRect footerBounds = (CGRect){{0,0},footerSize};
         
-        CGFloat boundsHeightUnused = _tableView.bounds.size.height - _tableView.contentSize.height - _tableView.adjustedContentInset.bottom - _tableView.adjustedContentInset.top;
+        CGFloat contentInset = 0;
+        if (@available(iOS 11.0, *)) {
+            contentInset = _tableView.adjustedContentInset.bottom + _tableView.adjustedContentInset.top;
+        } else {
+            contentInset = _tableView.contentInset.bottom + _tableView.contentInset.top;
+        }
+        CGFloat boundsHeightUnused = _tableView.bounds.size.height - _tableView.contentSize.height - contentInset;
         if (boundsHeightUnused > footerBounds.size.height) {
             _tableView.scrollEnabled = YES;
             footerBounds.size.height = boundsHeightUnused;
