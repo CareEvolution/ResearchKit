@@ -73,7 +73,7 @@ static const GLfloat ColorConversion709[] = {
 };
 
 #if defined(DEBUG)
-    void ORKCheckForGLError()
+    void ORKCheckForGLError(void)
     {
         GLenum error = glGetError();
         if (error != GL_NO_ERROR)

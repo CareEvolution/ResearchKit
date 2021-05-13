@@ -34,15 +34,15 @@
 
 @protocol ORKPDFViewerStepViewDelegate <NSObject>
 
-- (void)didSelectShareButton:(id)sender;
+- (void)didSelectShareButton:(id _Nonnull)sender;
 
 @end
 
 @interface ORKPDFViewerStepView : ORKActiveStepCustomView
 
-@property (nonatomic) NSURL *pdfURL;
+@property (nonatomic, nullable) NSURL *pdfURL;
 
-@property (nonatomic) id<ORKPDFViewerStepViewDelegate> delegate;
+@property (nonatomic, nullable) id<ORKPDFViewerStepViewDelegate> delegate;
 
 - (void)updateShareButton;
 
