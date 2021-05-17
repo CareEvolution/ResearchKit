@@ -30,9 +30,9 @@
 
 
 @import UIKit;
-#import "ORK1StepViewController.h"
-#import "ORK1Defines.h"
-#import "ORK1Types.h"
+#import <ORK1Kit/ORK1StepViewController.h>
+#import <ORK1Kit/ORK1Defines.h>
+#import <ORK1Kit/ORK1Types.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

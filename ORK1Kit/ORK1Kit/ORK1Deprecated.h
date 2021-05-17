@@ -29,9 +29,9 @@
  */
 
 
-#import "ORK1AnswerFormat.h"
-#import "ORK1OrderedTask.h"
-#import "ORK1RegistrationStep.h"
+#import <ORK1Kit/ORK1AnswerFormat.h>
+#import <ORK1Kit/ORK1OrderedTask.h>
+#import <ORK1Kit/ORK1RegistrationStep.h>
 
 
 NS_ASSUME_NONNULL_BEGIN

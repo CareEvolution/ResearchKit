@@ -1216,7 +1216,11 @@ void ORK1StepArrayAddStep(NSMutableArray *array, ORK1Step *step) {
         {
             ORK1InstructionStep *step = [[ORK1InstructionStep alloc] initWithIdentifier:ORK1Instruction1StepIdentifier];
             step.title = ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_TITLE", nil);
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-extra-args"
             step.text = [NSString localizedStringWithFormat:requireReversal ? ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_INTRO_2_TEXT_REVERSE_%@", nil) : ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_INTRO_2_TEXT_%@", nil), targetPluralName, targetPluralName];
+#pragma clang diagnostic pop
             step.detailText = ORK1LocalizedString(@"SPATIAL_SPAN_MEMORY_CALL_TO_ACTION", nil);
             
             if (!customTargetImage) {
