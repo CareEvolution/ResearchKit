@@ -658,9 +658,11 @@ const GLfloat DefaultPreferredRotation = 0;
     glGetShaderiv(*shader, GL_INFO_LOG_LENGTH, &logLength);
     if (logLength > 0) {
         GLchar *log = (GLchar *)malloc(logLength);
-        glGetShaderInfoLog(*shader, logLength, &logLength, log);
-        ORK_Log_Debug(@"Shader compile log:\n%s", log);
-        free(log);
+        if (log) {
+            glGetShaderInfoLog(*shader, logLength, &logLength, log);
+            ORK_Log_Debug(@"Shader compile log:\n%s", log);
+            free(log);
+        }
     }
 #endif
     
@@ -688,9 +690,11 @@ const GLfloat DefaultPreferredRotation = 0;
     glGetProgramiv(prog, GL_INFO_LOG_LENGTH, &logLength);
     if (logLength > 0) {
         GLchar *log = (GLchar *)malloc(logLength);
-        glGetProgramInfoLog(prog, logLength, &logLength, log);
-        ORK_Log_Debug(@"Program link log:\n%s", log);
-        free(log);
+        if (log) {
+            glGetProgramInfoLog(prog, logLength, &logLength, log);
+            ORK_Log_Debug(@"Program link log:\n%s", log);
+            free(log);
+        }
     }
 #endif
     
@@ -712,9 +716,11 @@ const GLfloat DefaultPreferredRotation = 0;
     glGetProgramiv(prog, GL_INFO_LOG_LENGTH, &logLength);
     if (logLength > 0) {
         GLchar *log = (GLchar *)malloc(logLength);
-        glGetProgramInfoLog(prog, logLength, &logLength, log);
-        ORK_Log_Debug(@"Program validate log:\n%s", log);
-        free(log);
+        if (log) {
+            glGetProgramInfoLog(prog, logLength, &logLength, log);
+            ORK_Log_Debug(@"Program validate log:\n%s", log);
+            free(log);
+        }
     }
     
     glGetProgramiv(prog, GL_VALIDATE_STATUS, &status);
