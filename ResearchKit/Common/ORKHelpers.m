@@ -40,7 +40,7 @@
 
 
 NSURL *ORKCreateRandomBaseURL() {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"http://researchkit.%@/", [NSUUID UUID].UUIDString]];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://researchkit.%@/", [NSUUID UUID].UUIDString]];
 }
 
 NSBundle *ORKAssetsBundle(void) {
