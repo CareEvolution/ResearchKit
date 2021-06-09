@@ -776,14 +776,14 @@
         }
         [_tableView beginUpdates];
         if (sectionsToDelete.count > 0) {
-            [_tableView deleteSections:sectionsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
+            [_tableView deleteSections:sectionsToDelete withRowAnimation:UITableViewRowAnimationFade];
         }
         if (sectionsToInsert.count > 0) {
-            [_tableView insertSections:sectionsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
+            [_tableView insertSections:sectionsToInsert withRowAnimation:UITableViewRowAnimationFade];
         }
         [_tableView endUpdates];
         if (sectionsToUpdateCells.count > 0) {
-            [_tableView reloadSections:sectionsToUpdateCells withRowAnimation:UITableViewRowAnimationAutomatic];
+            [_tableView reloadSections:sectionsToUpdateCells withRowAnimation:UITableViewRowAnimationFade];
         }
     }
     

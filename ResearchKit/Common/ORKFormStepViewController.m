@@ -855,16 +855,16 @@
             _sections = newSections;
             _hiddenCellItems = newHiddenCellItems;
             if (deleteRows.count > 0) {
-                [_tableView deleteRowsAtIndexPaths:deleteRows withRowAnimation:UITableViewRowAnimationAutomatic];
+                [_tableView deleteRowsAtIndexPaths:deleteRows withRowAnimation:UITableViewRowAnimationFade];
             }
             if (deleteSections.count > 0) {
-                [_tableView deleteSections:deleteSections withRowAnimation:UITableViewRowAnimationAutomatic];
+                [_tableView deleteSections:deleteSections withRowAnimation:UITableViewRowAnimationFade];
             }
             if (insertSections.count > 0) {
-                [_tableView insertSections:insertSections withRowAnimation:UITableViewRowAnimationAutomatic];
+                [_tableView insertSections:insertSections withRowAnimation:UITableViewRowAnimationFade];
             }
             if (insertRows.count > 0) {
-                [_tableView insertRowsAtIndexPaths:insertRows withRowAnimation:UITableViewRowAnimationAutomatic];
+                [_tableView insertRowsAtIndexPaths:insertRows withRowAnimation:UITableViewRowAnimationFade];
             }
             [_tableView endUpdates];
         } else {
@@ -872,7 +872,7 @@
             _hiddenCellItems = newHiddenCellItems;
         }
         if (sectionsToReload.count > 0) {
-            [_tableView reloadSections:sectionsToReload withRowAnimation:UITableViewRowAnimationAutomatic];
+            [_tableView reloadSections:sectionsToReload withRowAnimation:UITableViewRowAnimationFade];
         }
     } else {
         _sections = newSections;
