@@ -410,13 +410,6 @@
 
 - (void)adjustUIforChangesToDetailTextAtIndexPath:(NSIndexPath *)indexPath {
     
-    /*
-     Due to the complexity of the layout, animating the expansion and contaction of the textDetail will
-     move the continue button up or down out of ideal position. To prevent this, we calculate the expected
-     difference in tableView size and pass this to the ORK1TableContainerView which will hide the continue
-     button, adjust the constraint and then animate the button alpha to 1.
-     */
-    
     [self.tableView beginUpdates];
     
     ORK1TableSection *section = _sections[indexPath.section];
@@ -426,18 +419,11 @@
         [self.tableView endUpdates];
         return;
     }
-    ORK1TextChoice *choice = format.textChoices[indexPath.row];
-    
-    NSString *longText = !choice.detailTextShouldDisplay ? choice.detailText : nil;
-    CGFloat sizeBeforeResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText showDetailTextIndicator:format.descriptionStyle == ORK1ChoiceDescriptionStyleDisplayWhenExpanded inTableView:self.tableView];
-    
     [section.textChoiceCellGroup updateLabelsForCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:indexPath.row inSection:0]] atIndex:indexPath.row];
     
-    longText = choice.detailTextShouldDisplay ? choice.detailText : nil;
-    CGFloat sizeAfterResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText showDetailTextIndicator:format.descriptionStyle == ORK1ChoiceDescriptionStyleDisplayWhenExpanded inTableView:self.tableView];
-    
-    [_tableContainer adjustBottomConstraintWithExpectedOffset:(sizeAfterResize - sizeBeforeResize)];
     [self.tableView endUpdates];
+    
+    [_tableContainer setNeedsLayout];
 }
 
 - (void)updateDefaults:(NSMutableDictionary *)defaults {
@@ -787,7 +773,7 @@
         }
     }
     
-    [_tableContainer adjustBottomConstraintBasedOnLastContentSize];
+    [_tableContainer setNeedsLayout];
 }
 
 - (NSIndexPath *)unhiddenIndexPathForIndexPath:(NSIndexPath *)hiddenIndexPath {
