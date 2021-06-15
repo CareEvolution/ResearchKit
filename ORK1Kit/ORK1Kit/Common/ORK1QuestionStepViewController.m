@@ -368,13 +368,6 @@ typedef NS_ENUM(NSInteger, ORK1QuestionSection) {
 
 - (void)adjustUIforChangesToDetailTextAtIndex:(NSUInteger)index {
     
-    /*
-     Due to the complexity of the layout, animating the expansion and contraction of the textDetail will
-     move the continue button up or down out of ideal position. To prevent this, we calculate the expected
-     difference in tableView size and pass this to the ORK1TableContainerView which will hide the continue
-     button, adjust the constraint and then animate the button alpha to 1.
-     */
-    
     [self.tableView beginUpdates];
     
     ORK1QuestionStep *questionStep = (ORK1QuestionStep *)self.step;
@@ -383,17 +376,11 @@ typedef NS_ENUM(NSInteger, ORK1QuestionSection) {
         [self.tableView endUpdates];
         return;
     }
-    ORK1TextChoice *choice = format.textChoices[index];
-    NSString *longText = !choice.detailTextShouldDisplay ? choice.detailText : nil;
-    CGFloat sizeBeforeResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText showDetailTextIndicator:format.descriptionStyle == ORK1ChoiceDescriptionStyleDisplayWhenExpanded inTableView:self.tableView];
-    
     [_choiceCellGroup updateLabelsForCell:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]] atIndex:index];
     
-    longText = choice.detailTextShouldDisplay ? choice.detailText : nil;
-    CGFloat sizeAfterResize = [ORK1ChoiceViewCell suggestedCellHeightForShortText:choice.text longText:longText showDetailTextIndicator:format.descriptionStyle == ORK1ChoiceDescriptionStyleDisplayWhenExpanded inTableView:self.tableView];
-    
-    [_tableContainer adjustBottomConstraintWithExpectedOffset:(sizeAfterResize - sizeBeforeResize)];
     [self.tableView endUpdates];
+    
+    [_tableContainer setNeedsLayout];
 }
 
 - (void)setCustomQuestionView:(ORK1QuestionStepCustomView *)customQuestionView {

@@ -59,8 +59,6 @@
     
     UIScrollView *_scrollView;
     
-    CGFloat _lastScrollViewContentHeight;
-    
     UITapGestureRecognizer *_tapOffGestureRecognizer;
 }
     
@@ -167,12 +165,6 @@
         _realFooterView.frame = footerBounds;
         _tableView.tableFooterView = _realFooterView;
     }
-    
-    _lastScrollViewContentHeight = _scrollView.contentSize.height;
-}
-
-- (void)updateBottomConstraintConstant {
-    _bottomConstraint.constant = _preKeyboardBottomConstant - _keyboardOverlap;
 }
 
 - (void)setUpConstraints {
@@ -211,8 +203,6 @@
                                                       constant:0.0];
     _bottomConstraint.priority = UILayoutPriorityDefaultHigh - 1;
     [constraints addObject:_bottomConstraint];
-    
-    [self updateBottomConstraintConstant];
     [NSLayoutConstraint activateConstraints:constraints];
 }
 
@@ -267,30 +257,6 @@
         [nfc removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
     }
     
-}
-
-- (void)adjustBottomConstraintWithExpectedOffset:(CGFloat)offset {
-    _continueSkipContainerView.alpha = 0;
-    _bottomConstraint.constant -= offset;
-    [self performSelector:@selector(showButton) withObject:nil afterDelay:0.3];
-}
-
-- (void)showButton {
-    [UIView animateWithDuration:0.2 animations:^{
-        _continueSkipContainerView.alpha = 1;
-    }];
-}
-
-- (void)adjustBottomConstraintBasedOnLastContentSize {
-    _continueSkipContainerView.alpha = 0;
-    double delayInSeconds = 0.3;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        CGFloat diff = _scrollView.contentSize.height - _lastScrollViewContentHeight;
-        _bottomConstraint.constant -= diff;
-        _lastScrollViewContentHeight = _scrollView.contentSize.height;
-        [self showButton];
-    });
 }
 
 - (void)willMoveToWindow:(UIWindow *)newWindow {
@@ -381,8 +347,7 @@
         
         // Keep track of the keyboard overlap, so we can adjust the constraint properly.
         _keyboardOverlap = intersectionSize.height;
-        
-        [self updateBottomConstraintConstant];
+        _bottomConstraint.constant = _preKeyboardBottomConstant - _keyboardOverlap;
         
         // Trigger layout inside the animation block to get the constraint change to animate.
         [scrollView layoutIfNeeded];
