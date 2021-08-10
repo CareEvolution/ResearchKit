@@ -53,7 +53,7 @@
     BOOL _webViewFinishedLoading;
 }
 
-- (instancetype)initWithHTML:(NSString *)html delegate:(id<ORK1ConsentReviewControllerDelegate>)delegate requiresScrollToBottom:(BOOL)requiresScrollToBottom {
+- (instancetype)initWithHTML:(NSString *)html delegate:(id<ORK1ConsentReviewControllerDelegate>)delegate requiresScrollToBottom:(BOOL)requiresScrollToBottom disableDisagree:(BOOL)disableDisagree {
     self = [super init];
     if (self) {
         _htmlString = html;
@@ -66,10 +66,12 @@
             _agreeButton.accessibilityHint = @"must scroll to the bottom to enable this button";
         }
         
-        self.toolbarItems = @[
-                             [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"BUTTON_DISAGREE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancel)],
-                             [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                             _agreeButton];
+        UIBarButtonItem *disagreeButton = [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"BUTTON_DISAGREE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+        if (disableDisagree) {
+            self.toolbarItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _agreeButton, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]];
+        } else {
+            self.toolbarItems = @[disagreeButton, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], _agreeButton];
+        }
     }
     return self;
 }

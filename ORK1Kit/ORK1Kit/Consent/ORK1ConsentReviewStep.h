@@ -113,6 +113,9 @@ ORK1_CLASS_AVAILABLE
   */
 @property (nonatomic, copy, nullable) NSString *reasonForConsent;
 
+@property (nonatomic, assign) BOOL disableDisagree;
+@property (nonatomic, assign) BOOL hideDefaultHeader;
+
 @end
 
 NS_ASSUME_NONNULL_END
