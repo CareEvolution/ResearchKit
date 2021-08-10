@@ -218,7 +218,7 @@ static NSString *const _FamilyNameIdentifier = @"family";
         }
     }
     
-    NSString *html = [document mobileHTMLWithTitle:ORK1LocalizedString(@"CONSENT_REVIEW_TITLE", nil)
+    NSString *html = [document mobileHTMLWithTitle:[self consentReviewStep].hideDefaultHeader ? nil : ORK1LocalizedString(@"CONSENT_REVIEW_TITLE", nil)
                                             detail:[self consentReviewStep].hideDefaultHeader ? nil : ORK1LocalizedString(@"CONSENT_REVIEW_INSTRUCTION", nil)];
 
     ORK1ConsentReviewController *reviewViewController = [[ORK1ConsentReviewController alloc] initWithHTML:html delegate:self requiresScrollToBottom:[[self consentReviewStep] requiresScrollToBottom] disableDisagree:[[self consentReviewStep] disableDisagree]];

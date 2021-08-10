@@ -223,8 +223,8 @@ static NSString *const _FamilyNameIdentifier = @"family";
         }
     }
     
-    NSString *html = [document mobileHTMLWithTitle:ORKLocalizedString(@"CONSENT_REVIEW_TITLE", nil)
-                                             detail:[self consentReviewStep].hideDefaultHeader ? nil : ORKLocalizedString(@"CONSENT_REVIEW_INSTRUCTION", nil)];
+    NSString *html = [document mobileHTMLWithTitle:[self consentReviewStep].hideDefaultHeader ? nil : ORKLocalizedString(@"CONSENT_REVIEW_TITLE", nil)
+                                            detail:[self consentReviewStep].hideDefaultHeader ? nil : ORKLocalizedString(@"CONSENT_REVIEW_INSTRUCTION", nil)];
 
     ORKConsentReviewController *reviewViewController = [[ORKConsentReviewController alloc] initWithHTML:html delegate:self requiresScrollToBottom:[[self consentReviewStep] requiresScrollToBottom] disableDisagree:[self consentReviewStep].disableDisagree];
     if (ORKNeedWideScreenDesign(self.view)) {
