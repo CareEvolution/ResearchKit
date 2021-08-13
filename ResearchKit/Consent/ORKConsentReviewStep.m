@@ -54,6 +54,8 @@
         _signature = signature;
         _requiresScrollToBottom = NO;
         _autoAgree = NO;
+        _disableDisagree = NO;
+        _hideDefaultHeader = NO;
     }
     return self;
 }
@@ -65,6 +67,8 @@
     step->_reasonForConsent = self.reasonForConsent;
     step->_requiresScrollToBottom = self.requiresScrollToBottom;
     step->_autoAgree = self.autoAgree;
+    step->_disableDisagree = self.disableDisagree;
+    step->_hideDefaultHeader = self.hideDefaultHeader;
     return step;
 }
 
@@ -76,6 +80,8 @@
         ORK_DECODE_OBJ_CLASS(aDecoder, reasonForConsent, NSString);
         ORK_DECODE_BOOL(aDecoder, requiresScrollToBottom);
         ORK_DECODE_BOOL(aDecoder, autoAgree);
+        ORK_DECODE_BOOL(aDecoder, disableDisagree);
+        ORK_DECODE_BOOL(aDecoder, hideDefaultHeader);
     }
     return self;
 }
@@ -87,6 +93,8 @@
     ORK_ENCODE_OBJ(aCoder, reasonForConsent);
     ORK_ENCODE_BOOL(aCoder, requiresScrollToBottom);
     ORK_ENCODE_BOOL(aCoder, autoAgree);
+    ORK_ENCODE_BOOL(aCoder, disableDisagree);
+    ORK_ENCODE_BOOL(aCoder, hideDefaultHeader);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -102,11 +110,13 @@
             ORKEqualObjects(self.signature, castObject.signature) &&
             ORKEqualObjects(self.reasonForConsent, castObject.reasonForConsent)) &&
             (self.requiresScrollToBottom == castObject.requiresScrollToBottom) &&
-            (self.autoAgree == castObject.autoAgree);
+            (self.autoAgree == castObject.autoAgree) &&
+            (self.disableDisagree == castObject.disableDisagree) &&
+            (self.hideDefaultHeader == castObject.hideDefaultHeader);
 }
 
 - (NSUInteger)hash {
-    return super.hash ^ self.consentDocument.hash ^ self.signature.hash ^ self.reasonForConsent.hash ^ (_requiresScrollToBottom ? 0xf : 0x0) ^ (_autoAgree ? 0xe : 0x1);
+    return super.hash ^ self.consentDocument.hash ^ self.signature.hash ^ self.reasonForConsent.hash ^ (_requiresScrollToBottom ? 0xf : 0x0) ^ (_autoAgree ? 0xe : 0x1) ^ (_disableDisagree ? 0xd : 0x2) ^ (_hideDefaultHeader ? 0xc : 0x3);
 }
 
 - (BOOL)showsProgress {

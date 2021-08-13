@@ -106,6 +106,9 @@ ORK_CLASS_AVAILABLE
  */
 @property (nonatomic) BOOL autoAgree;
 
+@property (nonatomic, assign) BOOL disableDisagree;
+@property (nonatomic, assign) BOOL hideDefaultHeader;
+
 /**
  A user-visible description of the reason for agreeing to consent in a localized string.
  
