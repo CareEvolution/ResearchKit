@@ -864,9 +864,11 @@ static const CGFloat AssumedStatusBarHeight = 20;
      
      Additional carriage returns will be added if the loop persists every 50 iterations.
      
-     For more info see: https://github.com/CareEvolution/CEVResearchKit/issues/116,
-     https://github.com/CareEvolution/CEVResearchKit/issues/136,
-     https://github.com/CareEvolution/CEVResearchKit/issues/152
+     For more info see:
+     - https://github.com/CareEvolution/CEVResearchKit/issues/116
+     - https://github.com/CareEvolution/CEVResearchKit/issues/136
+     - https://github.com/CareEvolution/CEVResearchKit/issues/152
+     - https://github.com/CareEvolution/CEVResearchKit/issues/258
      */
     
     autoLayoutLoopCount++;
@@ -877,7 +879,8 @@ static const CGFloat AssumedStatusBarHeight = 20;
             UIView *possibleCEVRK1TextView = _scrollContainer.subviews[0].subviews[0].subviews[3];
             if ([possibleCEVRK1TextView isKindOfClass:[CEVRK1TextView class]]) {
                 CEVRK1TextView *textView = (CEVRK1TextView *)possibleCEVRK1TextView;
-                NSMutableString *updatedText = [NSMutableString stringWithString:textView.textValue];
+                NSString *textViewValue = textView.textValue ?: @"";
+                NSMutableString *updatedText = [NSMutableString stringWithString:textViewValue];
                 [updatedText appendString:@"\n"];
                 textView.textValue = updatedText;
                 carriageReturnsAdded++;
