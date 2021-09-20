@@ -780,6 +780,10 @@
     return [NSIndexPath indexPathForRow:hiddenIndexPath.row inSection:[_allSections indexOfObject:_sections[hiddenIndexPath.section]]];
 }
 
+- (NSIndexPath *)hiddenIndexPathForIndexPath:(NSIndexPath *)unhiddenIndexPath {
+    return [NSIndexPath indexPathForRow:unhiddenIndexPath.row inSection:[_sections indexOfObject:_allSections[unhiddenIndexPath.section]]];
+}
+
 - (void)updateButtonStates {
     _continueSkipView.continueEnabled = [self continueButtonEnabled];
     _continueSkipView.skipEnabled = [self skipButtonEnabled];
@@ -1079,8 +1083,15 @@
         [self updateButtonStates];
         [self notifyDelegateOnResultChange];
     }
+    
+    // need to "recalculate" indexPath in case it changes during hideSections
+    NSIndexPath *unhiddenIndexPath = [self unhiddenIndexPathForIndexPath:indexPath];
+    
     [self hideSections];
-    [_tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
+    
+    NSIndexPath *updatedIndexPath = [self hiddenIndexPathForIndexPath: unhiddenIndexPath];
+    
+    [_tableView scrollToRowAtIndexPath:updatedIndexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
