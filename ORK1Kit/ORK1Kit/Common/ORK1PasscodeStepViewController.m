@@ -453,7 +453,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 
 - (void)removePasscodeFromKeychain {
     NSError *error;
-    [ORK1KeychainWrapper objectForKey:PasscodeKey error:&error];
+    [ORK1KeychainWrapper passcodeDictionaryForKey:PasscodeKey error:&error];
     
     if (!error) {
         [ORK1KeychainWrapper removeObjectForKey:PasscodeKey error:&error];
@@ -466,7 +466,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 
 - (BOOL)passcodeMatchesKeychain {
     NSError *error;
-    NSDictionary *dictionary = (NSDictionary *) [ORK1KeychainWrapper objectForKey:PasscodeKey error:&error];
+    NSDictionary *dictionary = [ORK1KeychainWrapper passcodeDictionaryForKey:PasscodeKey error:&error];
     if (error) {
         [self throwExceptionWithKeychainError:error];
     }
@@ -477,7 +477,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
 
 - (void)setValuesFromKeychain {
     NSError *error;
-    NSDictionary *dictionary = (NSDictionary*) [ORK1KeychainWrapper objectForKey:PasscodeKey error:&error];
+    NSDictionary *dictionary = [ORK1KeychainWrapper passcodeDictionaryForKey:PasscodeKey error:&error];
     if (error) {
         [self throwExceptionWithKeychainError:error];
     }

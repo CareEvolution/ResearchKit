@@ -59,12 +59,18 @@ static NSString *ORK1KeychainWrapperDefaultService() {
 }
 
 + (id<NSSecureCoding>)objectForKey:(NSString *)key
-             error:(NSError **)error {
+                         ofClasses:(NSSet *)classes
+                             error:(NSError **)error {
     NSData *data = [self dataForKey:key
                             service:ORK1KeychainWrapperDefaultService()
                         accessGroup:nil
                               error:error];
-    return data ? [NSKeyedUnarchiver unarchiveObjectWithData:data] : nil;
+    return data ? [NSKeyedUnarchiver unarchivedObjectOfClasses:classes fromData:data error:error] : nil;
+}
+
++ (NSDictionary *)passcodeDictionaryForKey:(NSString *)key
+                                     error:(NSError **)error {
+    return (NSDictionary *) [self objectForKey:key ofClasses:[NSSet setWithObjects:[NSDictionary class], [NSString class], nil] error:error];
 }
 
 + (BOOL)removeObjectForKey:(NSString *)key

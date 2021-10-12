@@ -671,7 +671,7 @@
     "</body>"
     "</html>";
     
-    ORKWebViewStep *webViewStep = [ORKWebViewStep webViewStepWithIdentifier:@"webViewStep" html:html];
+    ORKWebViewStep *webViewStep = [ORKWebViewStep webViewStepWithIdentifier:@"webViewStep" html:html baseURL:[NSURL URLWithString:@"https://researchkit.org/"]];
     webViewStep.title = @"Web View";
     [steps addObject:webViewStep];
     
