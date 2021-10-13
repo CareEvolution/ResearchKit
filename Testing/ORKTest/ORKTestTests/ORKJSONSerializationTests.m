@@ -967,7 +967,7 @@ ORK_MAKE_TEST_INIT(NSRegularExpression, (^{
     
     NSDateComponents *a = [NSDateComponents new];
     NSData *d1 = [NSKeyedArchiver archivedDataWithRootObject:a];
-    NSDateComponents *b = [NSKeyedUnarchiver unarchiveObjectWithData:d1];
+    NSDateComponents *b = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSDateComponents class] fromData:d1 error:NULL];
     NSData *d2 = [NSKeyedArchiver archivedDataWithRootObject:b];
     
     XCTAssertEqualObjects(d1, d2);

@@ -60,13 +60,29 @@ ORK1_CLASS_AVAILABLE
  Returns the object in the keychain for the provided key.
  
  @param key         The key used to set the data in the keychain.
+ @param classes     The type of object to return (or types if it is a dictionary or array). Must conform to NSSecureCoding.
  @param error       If failure occurred, an `NSError` object indicating the reason for the
                     failure. The value of this parameter is `nil` if `result` does not
                     indicate failure.
  
  @return An object or `nil` if key is not valid.
  */
-+ (id<NSSecureCoding>)objectForKey:(NSString *)key error:(NSError * _Nullable *)error;
++ (id<NSSecureCoding>)objectForKey:(NSString *)key
+                         ofClasses:(NSSet *)classes
+                             error:(NSError * _Nullable *)error;
+
+/**
+ Returns the passcode dictionary object in the keychain for the provided key.
+ 
+ @param key         The key used to set the data in the keychain.
+ @param error       If failure occurred, an `NSError` object indicating the reason for the
+                    failure. The value of this parameter is `nil` if `result` does not
+                    indicate failure.
+ 
+ @return An object or `nil` if key is not valid.
+ */
++ (NSDictionary *)passcodeDictionaryForKey:(NSString *)key
+                                     error:(NSError * _Nullable *)error;
 
 /**
  Removes the object in the keychain for the provided key.
