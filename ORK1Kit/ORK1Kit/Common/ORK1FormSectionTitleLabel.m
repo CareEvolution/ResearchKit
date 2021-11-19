@@ -40,4 +40,14 @@
     return [UIFont systemFontOfSize:[[descriptor objectForKey: UIFontDescriptorSizeAttribute] doubleValue] - 0.0 weight: UIFontWeightBold];
 }
 
+- (CGSize)intrinsicContentSize {
+    /*
+     CEV HACK - have seen where a re-render pass redraws text a fraction of a point larger than when the
+     layout was calculated. This gives the intrinsic size a little padding to ensure the size of the holding
+     container leaves enough room for a potential text re-render that draws 0.3 points taller
+     */
+    CGSize size = [super intrinsicContentSize];
+    return CGSizeMake(size.width, size.height + 2);
+}
+
 @end
