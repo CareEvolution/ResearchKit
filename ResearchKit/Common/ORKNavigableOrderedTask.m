@@ -152,6 +152,8 @@
     if ([_specialEndSurveyStepIdentifiers containsObject:nextStepIdentifier]) {
         _specialEndSurveyStepIdentifier = nextStepIdentifier;
         nextStepIdentifier = ORKNullStepIdentifier;
+    } else {
+        _specialEndSurveyStepIdentifier = nil;
     }
     
     if (![nextStepIdentifier isEqualToString:ORKNullStepIdentifier]) { // If ORKNullStepIdentifier, return nil to end task
