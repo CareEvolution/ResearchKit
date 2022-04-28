@@ -386,8 +386,6 @@
     
     // Reset skipped flag - result can now be non-empty
     _skipped = NO;
-    
-    [_tableContainer layoutIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
