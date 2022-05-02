@@ -2641,4 +2641,11 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     return result;
 }
 
+- (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
+    NSMutableString *description = [NSMutableString stringWithFormat:@"%@; result:", [self descriptionPrefixWithNumberOfPaddingSpaces:numberOfPaddingSpaces]];
+    [description appendFormat:@" \"%@\"%@", _result, self.descriptionSuffix];
+    
+    return [description copy];
+}
+
 @end
