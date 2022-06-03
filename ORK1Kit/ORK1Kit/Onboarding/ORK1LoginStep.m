@@ -79,6 +79,7 @@ NSString *const ORK1LoginFormItemIdentifierPassword = @"ORK1LoginFormItemPasswor
     
     {
         ORK1EmailAnswerFormat *answerFormat = [ORK1AnswerFormat emailAnswerFormat];
+        answerFormat.usernameField = YES;
         
         ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:ORK1LoginFormItemIdentifierEmail
                                                                text:ORK1LocalizedString(@"EMAIL_FORM_ITEM_TITLE", nil)
@@ -93,9 +94,11 @@ NSString *const ORK1LoginFormItemIdentifierPassword = @"ORK1LoginFormItemPasswor
         ORK1TextAnswerFormat *answerFormat = [ORK1AnswerFormat textAnswerFormat];
         answerFormat.multipleLines = NO;
         answerFormat.secureTextEntry = YES;
+        answerFormat.allowPasswordAutofill = YES;
         answerFormat.autocapitalizationType = UITextAutocapitalizationTypeNone;
         answerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
         answerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
+        answerFormat.textContentType = UITextContentTypePassword;
         
         ORK1FormItem *item = [[ORK1FormItem alloc] initWithIdentifier:ORK1LoginFormItemIdentifierPassword
                                                                text:ORK1LocalizedString(@"PASSWORD_FORM_ITEM_TITLE", nil)

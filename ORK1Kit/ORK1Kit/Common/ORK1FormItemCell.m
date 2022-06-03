@@ -527,6 +527,11 @@ static const CGFloat HorizontalMargin = 15.0;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
+    ORK1TextAnswerFormat *answerFormat = (ORK1TextAnswerFormat *)self.formItem.answerFormat;
+    // For password auto-fill, we don't want to clear the auto-populated confirmed password since it's filled at the same time as the password
+    if (answerFormat.textContentType == UITextContentTypeNewPassword) {
+        return;
+    }
     if ([keyPath isEqual:[self originalItemIdentifier]]) {
         self.textField.text = nil;
         if (self.answer) {
@@ -592,9 +597,11 @@ static const CGFloat HorizontalMargin = 15.0;
     self.textField.spellCheckingType = answerFormat.spellCheckingType;
     self.textField.keyboardType = answerFormat.keyboardType;
     self.textField.secureTextEntry = answerFormat.secureTextEntry;
-    if (answerFormat.secureTextEntry) {
+    self.textField.textContentType = answerFormat.textContentType;
+    if (answerFormat.secureTextEntry && !answerFormat.allowPasswordAutofill) {
         ORK1DisablePasswordAutofill(self.textField);
     }
+    self.textField.passwordRules = answerFormat.passwordRules;
     
     [self answerDidChange];
 }
@@ -815,7 +822,9 @@ static const CGFloat HorizontalMargin = 15.0;
         _textView.spellCheckingType = textAnswerFormat.spellCheckingType;
         _textView.keyboardType = textAnswerFormat.keyboardType;
         _textView.secureTextEntry = textAnswerFormat.secureTextEntry;
-        if (textAnswerFormat.secureTextEntry) {
+        _textView.textContentType = textAnswerFormat.textContentType;
+        _textView.passwordRules = textAnswerFormat.passwordRules;
+        if (textAnswerFormat.secureTextEntry && !textAnswerFormat.allowPasswordAutofill) {
             ORK1DisablePasswordAutofill(_textView);
         }
     } else {

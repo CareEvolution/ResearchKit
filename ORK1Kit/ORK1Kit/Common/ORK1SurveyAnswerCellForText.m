@@ -63,7 +63,9 @@
         self.textView.spellCheckingType = textAnswerFormat.spellCheckingType;
         self.textView.keyboardType = textAnswerFormat.keyboardType;
         self.textView.secureTextEntry = textAnswerFormat.secureTextEntry;
-        if (textAnswerFormat.secureTextEntry) {
+        self.textView.textContentType = textAnswerFormat.textContentType;
+        self.textView.passwordRules = textAnswerFormat.passwordRules;
+        if (textAnswerFormat.secureTextEntry && !textAnswerFormat.allowPasswordAutofill) {
             ORK1DisablePasswordAutofill(self.textView);
         }
     } else {
@@ -271,7 +273,9 @@
         self.textField.spellCheckingType = textFormat.spellCheckingType;
         self.textField.keyboardType = textFormat.keyboardType;
         self.textField.secureTextEntry = textFormat.secureTextEntry;
-        if (textFormat.secureTextEntry) {
+        self.textField.textContentType = textFormat.textContentType;
+        self.textField.passwordRules = textFormat.passwordRules;
+        if (textFormat.secureTextEntry && !textFormat.allowPasswordAutofill) {
             ORK1DisablePasswordAutofill(self.textField);
         }
     }

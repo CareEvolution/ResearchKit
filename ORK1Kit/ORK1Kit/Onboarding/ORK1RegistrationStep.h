@@ -140,6 +140,33 @@ passcodeValidationRegularExpression:(nullable NSRegularExpression *)passcodeVali
  */
 @property (nonatomic, copy, nullable) NSString *passcodeInvalidMessage;
 
+/**
+ The password generation rules to use for Automatic Secure Passwords.
+ 
+ If specified, overrides the default passsword generation rules for fields with secureTextEntry.
+ The `passcodeRules` should match the `passcodeValidationRegularExpression` or else a passcode
+ may be generated that fails validation.
+ */
+@property (nonatomic, nullable) UITextInputPasswordRules *passcodeRules;
+
+/**
+ The regular expression used to validate the phone number form item.
+ This is a transparent property pointing to its definition in `ORKTextAnswerFormat`.
+ 
+ The phone number invalid message property must also be set along with this property.
+ By default, there is no validation on the phone number.
+ */
+@property (nonatomic, copy, nullable) NSRegularExpression *phoneNumberValidationRegularExpression;
+
+/**
+ The invalid message displayed if the phone number does not match the validation regular expression.
+ This is a transparent property pointing to its definition in `ORKTextAnswerFormat`.
+ 
+ The phone number validation regular expression property must also be set along with this property.
+ By default, there is no invalid message.
+ */
+@property (nonatomic, copy, nullable) NSString *phoneNumberInvalidMessage;
+
 @end
 
 NS_ASSUME_NONNULL_END

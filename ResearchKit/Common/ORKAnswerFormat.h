@@ -1413,6 +1413,28 @@ ORK_CLASS_AVAILABLE
  */
 @property (nonatomic,getter=isSecureTextEntry) BOOL secureTextEntry;
 
+/**
+ If `secureTextEntry` is YES, determines if passwordAutofill is enabled.
+ 
+ By default, the value fo this property is NO.
+ */
+@property (nonatomic) BOOL allowPasswordAutofill;
+
+/**
+ The semantic UITextContentType that applies to the user's input.
+  
+ If specified the system can improve keyboard suggestions to help with filling forms and other
+ input. By default, the value of this property is `nil` meaning no specific type.
+*/
+ @property (nonatomic, copy, nullable) UITextContentType textContentType;
+
+/**
+ The password generation rules to use for Automatic Secure Passwords.
+ 
+ If specified, overrides the default passsword generation rules for fields with secureTextEntry.
+ */
+@property (nonatomic, copy, nullable) UITextInputPasswordRules *passwordRules  API_AVAILABLE(ios(12.0));
+
 @end
 
 
@@ -1424,6 +1446,17 @@ ORK_CLASS_AVAILABLE
  */
 ORK_CLASS_AVAILABLE
 @interface ORKEmailAnswerFormat : ORKAnswerFormat
+
+/**
+ Identifies whether this email answer format is being used as a username.
+ 
+ For integration with iOS 12's password management functionality. Use this answer format if your
+ username is also an email address, if it is not and guaranteed to be an email address, use
+ `ORKTextAnswerFormat` and set the `textContentType` to `UITextContentTypeUsername`.
+  
+ By default, the value of this property is NO.
+ */
+@property (nonatomic,getter=isUsernameField) BOOL usernameField;
 
 @end
 

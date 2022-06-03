@@ -2330,6 +2330,10 @@ static NSArray *ork_processTextChoices(NSArray<ORK1TextChoice *> *textChoices) {
     answerFormat->_keyboardType = _keyboardType;
     answerFormat->_multipleLines = _multipleLines;
     answerFormat->_secureTextEntry = _secureTextEntry;
+    answerFormat->_allowPasswordAutofill = _allowPasswordAutofill;
+    answerFormat->_textContentType = _textContentType;
+    answerFormat->_passwordRules = _passwordRules;
+    
     return answerFormat;
 }
 
@@ -2391,7 +2395,10 @@ static NSArray *ork_processTextChoices(NSArray<ORK1TextChoice *> *textChoices) {
     answerFormat->_keyboardType = _keyboardType;
     answerFormat->_multipleLines = _multipleLines;
     answerFormat->_secureTextEntry = _secureTextEntry;
+    answerFormat->_allowPasswordAutofill = _allowPasswordAutofill;
     answerFormat->_autocapitalizationType = _autocapitalizationType;
+    answerFormat->_textContentType = _textContentType;
+    answerFormat->_passwordRules = _passwordRules;
     
     // Always set to no autocorrection or spell checking
     answerFormat->_autocorrectionType = UITextAutocorrectionTypeNo;
@@ -2415,6 +2422,9 @@ static NSArray *ork_processTextChoices(NSArray<ORK1TextChoice *> *textChoices) {
         ORK1_DECODE_ENUM(aDecoder, keyboardType);
         ORK1_DECODE_BOOL(aDecoder, multipleLines);
         ORK1_DECODE_BOOL(aDecoder, secureTextEntry);
+        ORK1_DECODE_BOOL(aDecoder, allowPasswordAutofill);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, textContentType, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, passwordRules, UITextInputPasswordRules);
     }
     return self;
 }
@@ -2424,12 +2434,15 @@ static NSArray *ork_processTextChoices(NSArray<ORK1TextChoice *> *textChoices) {
     ORK1_ENCODE_INTEGER(aCoder, maximumLength);
     ORK1_ENCODE_OBJ(aCoder, validationRegularExpression);
     ORK1_ENCODE_OBJ(aCoder, invalidMessage);
+    ORK1_ENCODE_OBJ(aCoder, textContentType);
+    ORK1_ENCODE_OBJ(aCoder, passwordRules);
     ORK1_ENCODE_ENUM(aCoder, autocapitalizationType);
     ORK1_ENCODE_ENUM(aCoder, autocorrectionType);
     ORK1_ENCODE_ENUM(aCoder, spellCheckingType);
     ORK1_ENCODE_ENUM(aCoder, keyboardType);
     ORK1_ENCODE_BOOL(aCoder, multipleLines);
     ORK1_ENCODE_BOOL(aCoder, secureTextEntry);
+    ORK1_ENCODE_BOOL(aCoder, allowPasswordAutofill);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -2448,8 +2461,11 @@ static NSArray *ork_processTextChoices(NSArray<ORK1TextChoice *> *textChoices) {
              self.autocorrectionType == castObject.autocorrectionType &&
              self.spellCheckingType == castObject.spellCheckingType &&
              self.keyboardType == castObject.keyboardType &&
-             self.multipleLines == castObject.multipleLines) &&
-            self.secureTextEntry == castObject.secureTextEntry);
+             ORK1EqualObjects(self.passwordRules, castObject.passwordRules) &&
+             self.multipleLines == castObject.multipleLines &&
+             self.secureTextEntry == castObject.secureTextEntry &&
+             self.allowPasswordAutofill == castObject.allowPasswordAutofill &&
+             ORK1EqualObjects(self.textContentType, castObject.textContentType)));
 }
 
 static NSString *const kSecureTextEntryEscapeString = @"*";
@@ -2493,12 +2509,21 @@ static NSString *const kSecureTextEntryEscapeString = @"*";
         _impliedAnswerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
         _impliedAnswerFormat.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _impliedAnswerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
+        _impliedAnswerFormat.textContentType = UITextContentTypeEmailAddress;
     }
     return _impliedAnswerFormat;
 }
 
 - (NSString *)stringForAnswer:(id)answer {
     return [self.impliedAnswerFormat stringForAnswer:answer];
+}
+
+- (void)setUsernameField:(BOOL)usernameField {
+    _usernameField = usernameField;
+    if ([self.impliedAnswerFormat isMemberOfClass:[ORK1TextAnswerFormat class]]) {
+        ORK1TextAnswerFormat *textFormat = (ORK1TextAnswerFormat *)self.impliedAnswerFormat;
+        textFormat.textContentType = usernameField ? UITextContentTypeUsername : UITextContentTypeEmailAddress;
+    }
 }
 
 @end

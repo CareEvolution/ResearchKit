@@ -92,6 +92,7 @@
     answerFormat.multipleLines = NO;
     answerFormat.secureTextEntry = YES;
     answerFormat.keyboardType = UIKeyboardTypeASCIICapable;
+    answerFormat.textContentType = UITextContentTypeNewPassword;
     answerFormat.maximumLength = 12;
     NSRegularExpression *validationRegularExpression =
     [NSRegularExpression regularExpressionWithPattern:@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{10,}"
@@ -133,6 +134,7 @@
     XCTAssertFalse(confirmAnswer.multipleLines);
     XCTAssertTrue(confirmAnswer.secureTextEntry);
     XCTAssertEqual(confirmAnswer.keyboardType, UIKeyboardTypeASCIICapable);
+    XCTAssertEqual(confirmAnswer.textContentType, UITextContentTypeNewPassword);
     XCTAssertEqual(confirmAnswer.maximumLength, 12);
     
     // This property should match the input answer format so that cases that
