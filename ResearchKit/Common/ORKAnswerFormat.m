@@ -2556,7 +2556,7 @@ static NSString *const kSecureTextEntryEscapeString = @"*";
         _impliedAnswerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
         _impliedAnswerFormat.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _impliedAnswerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
-        _impliedAnswerFormat.textContentType = UITextContentTypeEmailAddress;
+        _impliedAnswerFormat.textContentType = _usernameField ? UITextContentTypeUsername : UITextContentTypeEmailAddress;
     }
     return _impliedAnswerFormat;
 }

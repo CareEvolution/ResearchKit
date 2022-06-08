@@ -1416,7 +1416,7 @@ ORK_CLASS_AVAILABLE
 /**
  If `secureTextEntry` is YES, determines if passwordAutofill is enabled.
  
- By default, the value fo this property is NO.
+ By default, the value for this property is NO.
  */
 @property (nonatomic) BOOL allowPasswordAutofill;
 
