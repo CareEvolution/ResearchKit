@@ -161,19 +161,26 @@ static NSString *const _FamilyNameIdentifier = @"family";
                                                              text:self.step.text];
     formStep.useSurveyMode = NO;
     
-    ORK1TextAnswerFormat *nameAnswerFormat = [ORK1TextAnswerFormat textAnswerFormat];
-    nameAnswerFormat.multipleLines = NO;
-    nameAnswerFormat.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    nameAnswerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
-    nameAnswerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
+    ORK1TextAnswerFormat *givenNameAnswerFormat = [ORK1TextAnswerFormat textAnswerFormat];
+    givenNameAnswerFormat.multipleLines = NO;
+    givenNameAnswerFormat.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    givenNameAnswerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
+    givenNameAnswerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
+    givenNameAnswerFormat.textContentType = UITextContentTypeGivenName;
     ORK1FormItem *givenNameFormItem = [[ORK1FormItem alloc] initWithIdentifier:_GivenNameIdentifier
                                                               text:ORK1LocalizedString(@"CONSENT_NAME_GIVEN", nil)
-                                                      answerFormat:nameAnswerFormat];
+                                                      answerFormat:givenNameAnswerFormat];
     givenNameFormItem.placeholder = ORK1LocalizedString(@"CONSENT_NAME_PLACEHOLDER", nil);
     
+    ORK1TextAnswerFormat *familyNameAnswerFormat = [ORK1TextAnswerFormat textAnswerFormat];
+    familyNameAnswerFormat.multipleLines = NO;
+    familyNameAnswerFormat.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    familyNameAnswerFormat.autocorrectionType = UITextAutocorrectionTypeNo;
+    familyNameAnswerFormat.spellCheckingType = UITextSpellCheckingTypeNo;
+    familyNameAnswerFormat.textContentType = UITextContentTypeFamilyName;
     ORK1FormItem *familyNameFormItem = [[ORK1FormItem alloc] initWithIdentifier:_FamilyNameIdentifier
                                                              text:ORK1LocalizedString(@"CONSENT_NAME_FAMILY", nil)
-                                                     answerFormat:nameAnswerFormat];
+                                                     answerFormat:familyNameAnswerFormat];
     familyNameFormItem.placeholder = ORK1LocalizedString(@"CONSENT_NAME_PLACEHOLDER", nil);
     
     givenNameFormItem.optional = NO;
