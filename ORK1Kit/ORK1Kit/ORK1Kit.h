@@ -110,6 +110,7 @@
 #import <ORK1Kit/ORK1Deprecated.h>
 
 #import <ORK1Kit/CEVRK1Theme.h>
+#import <ORK1Kit/ORK1Skin.h>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wquoted-include-in-framework-header"
