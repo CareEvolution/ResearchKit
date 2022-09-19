@@ -152,7 +152,7 @@
                                                views:views]];
     
     [constraints addObjectsFromArray:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_progressView]-[_digitLabel]-(>=10)-[_keyboardView]-|"
+     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_progressView]-[_digitLabel]-(>=10)-[_keyboardView]-|"
                                              options:NSLayoutFormatAlignAllCenterX
                                              metrics:nil
                                                views:views]];
