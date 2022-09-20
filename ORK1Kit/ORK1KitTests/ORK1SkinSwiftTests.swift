@@ -9,6 +9,13 @@
 import XCTest
 final class ORK1SkinSwiftTests: XCTestCase {
     
+    /*
+     
+     These tests merely assert that ORK1SkinSwift vending of metrics matches that of the original Objective-C class
+     for the sizes that are shared between the original Obj-C implementation and the new Swift class.
+
+     */
+    
     let originalSizes = Set(["320x568", "375x667", "375x812", "414x736", "375x812", "768x1024", "1024x1366"])
     
     let originalMetrics = Set(["CaptionBaselineToFitnessTimerTop","CaptionBaselineToInstructionBaseline","CaptionBaselineToTappingLabelTop","ChoiceCellFirstBaselineOffsetFromTop","ChoiceCellLabelLastBaselineToLabelFirstBaseline","ChoiceCellLastBaselineToBottom","ContinueButtonHeightCompact","ContinueButtonHeightRegular","ContinueButtonTopMargin","ContinueButtonTopMarginForIntroStep","ContinueButtonWidth","FontSizeFootnote","FontSizeHeadline","FontSizeSubheadline","FontSizeSurveyHeadline","HeadlineSideMargin","IconImageViewToCaptionBaseline","IllustrationHeight","IllustrationToCaptionBaseline","InstructionBaselineToLearnMoreBaseline","InstructionImageHeight","LearnMoreBaselineToStepViewTop","LearnMoreBaselineToStepViewTopWithNoLearnMore","LearnMoreButtonSideMargin","LocationQuestionMapHeight","MaxFontSizeHeadline","MaxFontSizeSurveyHeadline","MinimumStepHeaderHeightForMemoryGame","MinimumStepHeaderHeightForTowerOfHanoiPuzzle","PSATKeyboardViewHeight","PSATKeyboardViewWidth","SignatureViewHeight","TableCellDefaultHeight","TextFieldCellHeight","ToolbarHeight","TopToCaptionBaseline","TopToIconImageViewTop","TopToIllustration","VerificationTextBaselineToResendButtonBaseline","VerticalScaleHeight"])
