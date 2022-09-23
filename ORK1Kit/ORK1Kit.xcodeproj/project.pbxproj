@@ -592,6 +592,7 @@
 		DA5D7F5128C940FE00C5E50C /* ORK1SkinSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D7F5028C940FE00C5E50C /* ORK1SkinSwiftTests.swift */; };
 		DA5D7F5228C9416000C5E50C /* ORK1Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA09FB5828C00F560022A066 /* ORK1Skin.swift */; };
 		DA5D7F5328C9416500C5E50C /* ORK1Skin.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BB81A8D7C5C00081FAC /* ORK1Skin.m */; };
+		DAAAE2F328DE4CB3001ECEB8 /* ORK1SkinMatrix.csv in Resources */ = {isa = PBXBuildFile; fileRef = DAAAE2F228DE4CB3001ECEB8 /* ORK1SkinMatrix.csv */; };
 		DAF84CC922D682BC0028DE8F /* CEVRK1Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */; };
 		DAF84CCA22D683E10028DE8F /* CEVRK1Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7A9D2B1B082688005A2BEA /* ORK1ConsentDocumentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */; };
@@ -1255,6 +1256,7 @@
 		DA51341424F8619A0068A61F /* CEVRK1Label.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1Label.m; sourceTree = "<group>"; };
 		DA5D7F4F28C940FE00C5E50C /* ORK1KitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ORK1KitTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		DA5D7F5028C940FE00C5E50C /* ORK1SkinSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORK1SkinSwiftTests.swift; sourceTree = "<group>"; };
+		DAAAE2F228DE4CB3001ECEB8 /* ORK1SkinMatrix.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ORK1SkinMatrix.csv; sourceTree = "<group>"; };
 		DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1Theme.h; sourceTree = "<group>"; };
 		DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1Theme.m; sourceTree = "<group>"; };
 		FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ConsentDocumentTests.m; sourceTree = "<group>"; };
@@ -1886,6 +1888,7 @@
 				86C40BB71A8D7C5C00081FAC /* ORK1Skin.h */,
 				86C40BB81A8D7C5C00081FAC /* ORK1Skin.m */,
 				DA09FB5828C00F560022A066 /* ORK1Skin.swift */,
+				DAAAE2F228DE4CB3001ECEB8 /* ORK1SkinMatrix.csv */,
 				86C40BC01A8D7C5C00081FAC /* ORK1SubheadlineLabel.h */,
 				86C40BC11A8D7C5C00081FAC /* ORK1SubheadlineLabel.m */,
 				86C40BD11A8D7C5C00081FAC /* ORK1TableViewCell.h */,
@@ -3137,6 +3140,7 @@
 				B1A860EE1A9693C400EA57B7 /* consent_05@2x.m4v in Resources */,
 				86C40DFA1A8D7C5C00081FAC /* MovieTintShader.fsh in Resources */,
 				B1A860EA1A9693C400EA57B7 /* consent_01@2x.m4v in Resources */,
+				DAAAE2F328DE4CB3001ECEB8 /* ORK1SkinMatrix.csv in Resources */,
 				B1A860F31A9693C400EA57B7 /* consent_03@3x.m4v in Resources */,
 				B1A860F11A9693C400EA57B7 /* consent_01@3x.m4v in Resources */,
 				B1A860F71A9693C400EA57B7 /* consent_07@3x.m4v in Resources */,

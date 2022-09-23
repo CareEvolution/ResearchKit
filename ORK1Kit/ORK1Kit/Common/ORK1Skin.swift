@@ -17,40 +17,6 @@ struct ORK1SizeType {
         return metrics[metric] ?? 9999
     }
     
-    static let matrixCSV =  """
-                              320x568,   375x667,   414x736,   375x812,   390x844,   476x847,   393x852,   414x896,   428x926,   430x932,  768x1024,  810x1080,  834x1112,  744x1133,  820x1180,  834x1194, 1024x1366, metric
-                                false,     false,     false,     false,     false,     false,     false,     false,     false,     false,      true,      true,      true,      true,      true,      true,      true, isiPad
-                                   51,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62, CaptionBaselineToFitnessTimerTop
-                                   32,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36, CaptionBaselineToInstructionBaseline
-                                   43,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62,        62, CaptionBaselineToTappingLabelTop
-                                   32,        32,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44, ContinueButtonHeightCompact
-                                   20,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36,        36, ContinueButtonTopMargin
-                                   20,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40, ContinueButtonTopMarginForIntroStep
-                                  146,       150,       150,       150,       150,       150,       150,       150,       150,       150,       150,       150,       150,       150,       150,       150,       150, ContinueButtonWidth
-                                   32,        35,        35,        35,        35,        35,        35,        35,        35,        35,        35,        35,        35,        35,        35,        35,        35, FontSizeHeadline
-                                    0,        10,        10,        10,        10,        10,        10,        10,        10,        10,        10,        10,        10,        10,        10,        10,        10, HeadlineSideMargin
-                                   40,        44,        44,        44,        44,        44,        44,        44,        44,        44,        80,        80,        80,        80,        80,        80,        80, IconImageViewToCaptionBaseline
-                                  194,       198,       198,       198,       198,       198,       198,       198,       198,       198,       297,       297,       297,       297,       297,       297,       297, IllustrationHeight
-                                   40,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44, IllustrationToCaptionBaseline
-                                   28,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30, InstructionBaselineToLearnMoreBaseline
-                                  176,       300,       300,       300,       300,       300,       300,       300,       300,       300,       300,       300,       300,       300,       300,       300,       300, InstructionImageHeight
-                                   20,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44,        44, LearnMoreBaselineToStepViewTop
-                                   30,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40, LearnMoreBaselineToStepViewTopWithNoLearnMore
-                                   20,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30, LearnMoreButtonSideMargin
-                                  150,       238,       238,       238,       238,       238,       238,       238,       238,       238,       238,       238,       238,       238,       238,       238,       238, LocationQuestionMapHeight
-                                   32,        38,        38,        38,        38,        38,        38,        38,        38,        38,        38,        38,        38,        38,        38,        38,        38, MaxFontSizeHeadline
-                                  120,       162,       162,       162,       162,       162,       162,       162,       162,       162,       240,       240,       240,       240,       240,       240,       240, MinimumStepHeaderHeightForMemoryGame
-                                  120,       162,       162,       162,       162,       162,       162,       162,       162,       162,       240,       240,       240,       240,       240,       240,       240, MinimumStepHeaderHeightForTowerOfHanoiPuzzle
-                                  157,       167,       197,       197,       197,       197,       197,       197,       197,       197,       197,       197,       197,       197,       197,       197,       197, PSATKeyboardViewHeight
-                                  304,       324,       384,       324,       354,       384,       354,       384,       384,       384,       384,       384,       384,       384,       384,       384,       384, PSATKeyboardViewWidth
-                                  208,       208,       208,       208,       208,       208,       208,       208,       208,       208,       256,       256,       256,       256,       256,       256,       256, SignatureViewHeight
-                                  100,       128,       128,       128,       128,       128,       128,       128,       128,       128,       218,       218,       218,       218,       218,       218,       218, TopToCaptionBaseline
-                                   20,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40,        40, TopToIconImageViewTop
-                                    0,         0,         0,         0,         0,         0,         0,         0,         0,         0,        80,       100,       120,       130,       140,       150,       170, TopToIllustration
-                                   26,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30,        30, VerificationTextBaselineToResendButtonBaseline
-                                  217,       274,       322,       350,       360,       360,       360,       380,       390,       400,       446,       446,       446,       446,       446,       446,       446, VerticalScaleHeight
-                           """
-
     /*
          320x568 : iPhone: 5/S/C, SE1; iPod Touch: 5-7
          375x667 : iPhone: 6/S, 7-8, SE2
@@ -504,7 +470,13 @@ enum ORK1MetricType {
 public class ORK1SkinSwift: NSObject {
     
     static let allSizeTypes: [ORK1SizeType] = {
-        let csvRows = ORK1SizeType.matrixCSV.components(separatedBy: .newlines)
+        guard let matrixFile = Bundle(for: ORK1SkinSwift.self).url(forResource: "ORK1SkinMatrix", withExtension: "csv"),
+                  let matrixData = try? Data(contentsOf: matrixFile),
+                  let fileString = String(data: matrixData, encoding: .utf8) else
+        {
+            return []
+        }
+        let csvRows = fileString.components(separatedBy: .newlines)
         let sizes = csvRows[0].components(separatedBy: ",")
             .map({ $0.trimmingCharacters(in: .whitespaces) })
             .dropLast()
