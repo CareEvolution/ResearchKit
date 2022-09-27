@@ -33,6 +33,8 @@
 
 #import "ORK1Helpers_Internal.h"
 
+#import <ORK1Kit/ORK1Kit-Swift.h>
+
 
 NSString *const ORK1SignatureColorKey = @"ORK1SignatureColorKey";
 NSString *const ORK1BackgroundColorKey = @"ORK1BackgroundColorKey";
@@ -230,7 +232,12 @@ CGFloat ORK1GetMetricForScreenType(ORK1ScreenMetric metric, ORK1ScreenType scree
     return metrics[metric][screenType];
 }
 
+// shimmed to new Swift version
 CGFloat ORK1GetMetricForWindow(ORK1ScreenMetric metric, UIWindow *window) {
+    return [ORK1SkinSwift getMetricWithObjCMetric:metric for:window];
+}
+
+CGFloat ORIGINAL_FOR_TESTING_ORK1GetMetricForWindow(ORK1ScreenMetric metric, UIWindow *window) {
     CGFloat metricValue = 0;
     switch (metric) {
         case ORK1ScreenMetricContinueButtonWidth:
@@ -269,7 +276,12 @@ CGFloat ORK1StandardLeftTableViewCellMarginForWindow(UIWindow *window) {
     return margin;
 }
 
+// shimmed to new Swift version
 CGFloat ORK1StandardLeftMarginForTableViewCell(UITableViewCell *cell) {
+    return [ORK1SkinSwift standardLeftMarginForTableViewCellFor:cell];
+}
+
+CGFloat ORIGINAL_FOR_TESTING_ORK1StandardLeftMarginForTableViewCell(UITableViewCell *cell) {
     return ORK1StandardLeftTableViewCellMarginForWindow(cell.window);
 }
 
@@ -307,7 +319,12 @@ CGFloat ORK1StandardHorizontalMarginForWindow(UIWindow *window) {
     return margin;
 }
 
+// shimmed to new Swift version
 CGFloat ORK1StandardHorizontalMarginForView(UIView *view) {
+    return [ORK1SkinSwift standardHorizontalMarginFor:view];
+}
+
+CGFloat ORIGINAL_FOR_TESTING_ORK1StandardHorizontalMarginForView(UIView *view){
     return ORK1StandardHorizontalMarginForWindow(view.window);
 }
 
@@ -319,7 +336,12 @@ UIEdgeInsets ORK1StandardLayoutMarginsForTableViewCell(UITableViewCell *cell) {
                           .top = StandardVerticalTableViewCellMargin};
 }
 
+// shimmed to new Swift version
 UIEdgeInsets ORK1StandardFullScreenLayoutMarginsForView(UIView *view) {
+    return [ORK1SkinSwift standardFullScreenLayoutMarginsFor:view];
+}
+
+UIEdgeInsets ORIGINAL_FOR_TESTING_ORK1StandardFullScreenLayoutMarginsForView(UIView *view) {
     UIEdgeInsets layoutMargins = UIEdgeInsetsZero;
     ORK1ScreenType screenType = ORK1GetHorizontalScreenTypeForWindow(view.window);
     if (screenType == ORK1ScreenTypeiPad || screenType == ORK1ScreenTypeiPad12_9) {
@@ -329,7 +351,12 @@ UIEdgeInsets ORK1StandardFullScreenLayoutMarginsForView(UIView *view) {
     return layoutMargins;
 }
 
+// shimmed to new Swift version
 UIEdgeInsets ORK1ScrollIndicatorInsetsForScrollView(UIView *view) {
+    return [ORK1SkinSwift scrollIndicatorInsetsForScrollviewFor:view];
+}
+
+UIEdgeInsets ORIGINAL_FOR_TESTING_ORK1ScrollIndicatorInsetsForScrollView(UIView *view) {
     UIEdgeInsets scrollIndicatorInsets = UIEdgeInsetsZero;
     ORK1ScreenType screenType = ORK1GetHorizontalScreenTypeForWindow(view.window);
     if (screenType == ORK1ScreenTypeiPad || screenType == ORK1ScreenTypeiPad12_9) {
@@ -339,7 +366,12 @@ UIEdgeInsets ORK1ScrollIndicatorInsetsForScrollView(UIView *view) {
     return scrollIndicatorInsets;
 }
 
+// shimmed to new Swift version
 CGFloat ORK1WidthForSignatureView(UIWindow *window) {
+    return [ORK1SkinSwift widthForSignatureViewWithWindow:window];
+}
+
+CGFloat ORIGINAL_FOR_TESTING_ORK1WidthForSignatureView(UIWindow * _Nullable window) {
     window = ORK1DefaultWindowIfWindowIsNil(window); // need a proper window to use bounds
     const CGSize windowSize = window.bounds.size;
     const CGFloat windowPortraitWidth = MIN(windowSize.width, windowSize.height);

@@ -149,15 +149,25 @@ typedef NS_ENUM(NSInteger, ORK1ScreenType) {
     ORK1ScreenType_COUNT
 };
 
-ORK1ScreenType ORK1GetVerticalScreenTypeForWindow(UIWindow * _Nullable window);
 CGFloat ORK1GetMetricForWindow(ORK1ScreenMetric metric, UIWindow * _Nullable window);
+CGFloat ORIGINAL_FOR_TESTING_ORK1GetMetricForWindow(ORK1ScreenMetric metric, UIWindow *window);
 
 CGFloat ORK1StandardLeftMarginForTableViewCell(UIView *view);
+CGFloat ORIGINAL_FOR_TESTING_ORK1StandardLeftMarginForTableViewCell(UIView *view);
+
 CGFloat ORK1StandardHorizontalMarginForView(UIView *view);
+CGFloat ORIGINAL_FOR_TESTING_ORK1StandardHorizontalMarginForView(UIView *view);
+
 UIEdgeInsets ORK1StandardLayoutMarginsForTableViewCell(UIView *view);
+
 UIEdgeInsets ORK1StandardFullScreenLayoutMarginsForView(UIView *view);
+UIEdgeInsets ORIGINAL_FOR_TESTING_ORK1StandardFullScreenLayoutMarginsForView(UIView *view);
+
 UIEdgeInsets ORK1ScrollIndicatorInsetsForScrollView(UIView *view);
+UIEdgeInsets ORIGINAL_FOR_TESTING_ORK1ScrollIndicatorInsetsForScrollView(UIView *view);
+
 CGFloat ORK1WidthForSignatureView(UIWindow * _Nullable window);
+CGFloat ORIGINAL_FOR_TESTING_ORK1WidthForSignatureView(UIWindow * _Nullable window);
 
 void ORK1UpdateScrollViewBottomInset(UIScrollView *scrollView, CGFloat bottomInset);
 

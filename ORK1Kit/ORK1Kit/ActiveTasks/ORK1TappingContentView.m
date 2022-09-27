@@ -39,7 +39,7 @@
 #import "ORK1Result.h"
 
 #import "ORK1Helpers_Internal.h"
-#import "ORK1Skin.h"
+#import <ORK1Kit/ORK1Kit-Swift.h>
 
 
 // #define LAYOUT_DEBUG 1
@@ -295,8 +295,7 @@
     // On the iPad, we want to stretch this out a bit so it feels less compressed.
     CGFloat topToProgressViewOffset = 0.0;
     CGFloat topToCaptionLabelOffset = 0.0;
-    ORK1ScreenType screenType = ORK1GetVerticalScreenTypeForWindow(window);
-    if (screenType == ORK1ScreenTypeiPad || screenType == ORK1ScreenTypeiPad12_9) {
+    if ([ORK1SkinSwift isiPadFor:window]) {
         topToProgressViewOffset = 0;
         topToCaptionLabelOffset = AssumedHeaderBaselineToStepViewTop;
     } else {

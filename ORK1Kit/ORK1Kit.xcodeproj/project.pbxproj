@@ -364,7 +364,7 @@
 		86C40D821A8D7C5C00081FAC /* ORK1SelectionSubTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BB31A8D7C5C00081FAC /* ORK1SelectionSubTitleLabel.m */; };
 		86C40D841A8D7C5C00081FAC /* ORK1SelectionTitleLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BB41A8D7C5C00081FAC /* ORK1SelectionTitleLabel.h */; };
 		86C40D861A8D7C5C00081FAC /* ORK1SelectionTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BB51A8D7C5C00081FAC /* ORK1SelectionTitleLabel.m */; };
-		86C40D8A1A8D7C5C00081FAC /* ORK1Skin.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BB71A8D7C5C00081FAC /* ORK1Skin.h */; };
+		86C40D8A1A8D7C5C00081FAC /* ORK1Skin.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BB71A8D7C5C00081FAC /* ORK1Skin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C40D8C1A8D7C5C00081FAC /* ORK1Skin.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BB81A8D7C5C00081FAC /* ORK1Skin.m */; };
 		86C40D8E1A8D7C5C00081FAC /* ORK1Step.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BB91A8D7C5C00081FAC /* ORK1Step.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C40D901A8D7C5C00081FAC /* ORK1Step.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BBA1A8D7C5C00081FAC /* ORK1Step.m */; };
@@ -579,6 +579,7 @@
 		D442397E1AF17F7600559D96 /* ORK1ImageCaptureStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D442397C1AF17F7600559D96 /* ORK1ImageCaptureStepViewController.m */; };
 		D458520A1AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = D45852081AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.h */; };
 		D458520B1AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D45852091AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m */; };
+		DA09FB5928C00F560022A066 /* ORK1Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA09FB5828C00F560022A066 /* ORK1Skin.swift */; };
 		DA0BD9B324E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = DA0BD9B224E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h */; };
 		DA0BD9B524E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0BD9B424E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m */; };
 		DA160FFD24F6A59700587FBE /* CEVRK1TextView.h in Headers */ = {isa = PBXBuildFile; fileRef = DA160FFC24F6A59700587FBE /* CEVRK1TextView.h */; };
@@ -588,6 +589,10 @@
 		DA27D29024F4521E00B6ECE4 /* NSAttributedString+Markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27D28E24F4521E00B6ECE4 /* NSAttributedString+Markdown.m */; };
 		DA51341324F8607D0068A61F /* CEVRK1Label.h in Headers */ = {isa = PBXBuildFile; fileRef = DA51341224F8607D0068A61F /* CEVRK1Label.h */; };
 		DA51341524F8619A0068A61F /* CEVRK1Label.m in Sources */ = {isa = PBXBuildFile; fileRef = DA51341424F8619A0068A61F /* CEVRK1Label.m */; };
+		DA5D7F5128C940FE00C5E50C /* ORK1SkinSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D7F5028C940FE00C5E50C /* ORK1SkinSwiftTests.swift */; };
+		DA5D7F5228C9416000C5E50C /* ORK1Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA09FB5828C00F560022A066 /* ORK1Skin.swift */; };
+		DA5D7F5328C9416500C5E50C /* ORK1Skin.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BB81A8D7C5C00081FAC /* ORK1Skin.m */; };
+		DAAAE2F328DE4CB3001ECEB8 /* ORK1SkinMatrix.csv in Resources */ = {isa = PBXBuildFile; fileRef = DAAAE2F228DE4CB3001ECEB8 /* ORK1SkinMatrix.csv */; };
 		DAF84CC922D682BC0028DE8F /* CEVRK1Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */; };
 		DAF84CCA22D683E10028DE8F /* CEVRK1Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7A9D2B1B082688005A2BEA /* ORK1ConsentDocumentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */; };
@@ -1239,6 +1244,7 @@
 		D442397C1AF17F7600559D96 /* ORK1ImageCaptureStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ImageCaptureStepViewController.m; sourceTree = "<group>"; };
 		D45852081AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ImageCaptureCameraPreviewView.h; sourceTree = "<group>"; };
 		D45852091AF6CCFA00A2DE13 /* ORK1ImageCaptureCameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ImageCaptureCameraPreviewView.m; sourceTree = "<group>"; };
+		DA09FB5828C00F560022A066 /* ORK1Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORK1Skin.swift; sourceTree = "<group>"; };
 		DA0BD9B224E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1NavigationBarProgressView.h; sourceTree = "<group>"; };
 		DA0BD9B424E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1NavigationBarProgressView.m; sourceTree = "<group>"; };
 		DA160FFC24F6A59700587FBE /* CEVRK1TextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1TextView.h; sourceTree = "<group>"; };
@@ -1248,6 +1254,9 @@
 		DA27D28E24F4521E00B6ECE4 /* NSAttributedString+Markdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+Markdown.m"; path = "../../../Carthage/Checkouts/MarkdownAttributedString/NSAttributedString+Markdown.m"; sourceTree = "<group>"; };
 		DA51341224F8607D0068A61F /* CEVRK1Label.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1Label.h; sourceTree = "<group>"; };
 		DA51341424F8619A0068A61F /* CEVRK1Label.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1Label.m; sourceTree = "<group>"; };
+		DA5D7F4F28C940FE00C5E50C /* ORK1KitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ORK1KitTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		DA5D7F5028C940FE00C5E50C /* ORK1SkinSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORK1SkinSwiftTests.swift; sourceTree = "<group>"; };
+		DAAAE2F228DE4CB3001ECEB8 /* ORK1SkinMatrix.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ORK1SkinMatrix.csv; sourceTree = "<group>"; };
 		DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1Theme.h; sourceTree = "<group>"; };
 		DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1Theme.m; sourceTree = "<group>"; };
 		FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ConsentDocumentTests.m; sourceTree = "<group>"; };
@@ -1751,6 +1760,8 @@
 				86CC8EB01AC09383001CCD89 /* ORK1TextChoiceCellGroupTests.m */,
 				2EBFE11C1AE1B32D00CB8254 /* ORK1UIViewAccessibilityTests.m */,
 				2EBFE11F1AE1B74100CB8254 /* ORK1VoiceEngineTests.m */,
+				DA5D7F4F28C940FE00C5E50C /* ORK1KitTests-Bridging-Header.h */,
+				DA5D7F5028C940FE00C5E50C /* ORK1SkinSwiftTests.swift */,
 			);
 			path = ORK1KitTests;
 			sourceTree = "<group>";
@@ -1876,6 +1887,8 @@
 				10FF9AD61B7A045E00ECB5B4 /* ORK1SeparatorView.m */,
 				86C40BB71A8D7C5C00081FAC /* ORK1Skin.h */,
 				86C40BB81A8D7C5C00081FAC /* ORK1Skin.m */,
+				DA09FB5828C00F560022A066 /* ORK1Skin.swift */,
+				DAAAE2F228DE4CB3001ECEB8 /* ORK1SkinMatrix.csv */,
 				86C40BC01A8D7C5C00081FAC /* ORK1SubheadlineLabel.h */,
 				86C40BC11A8D7C5C00081FAC /* ORK1SubheadlineLabel.m */,
 				86C40BD11A8D7C5C00081FAC /* ORK1TableViewCell.h */,
@@ -3033,6 +3046,7 @@
 				TargetAttributes = {
 					86CC8E991AC09332001CCD89 = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 1400;
 					};
 					B183A4731A8535D100C76870 = {
 						LastSwiftMigration = 1020;
@@ -3126,6 +3140,7 @@
 				B1A860EE1A9693C400EA57B7 /* consent_05@2x.m4v in Resources */,
 				86C40DFA1A8D7C5C00081FAC /* MovieTintShader.fsh in Resources */,
 				B1A860EA1A9693C400EA57B7 /* consent_01@2x.m4v in Resources */,
+				DAAAE2F328DE4CB3001ECEB8 /* ORK1SkinMatrix.csv in Resources */,
 				B1A860F31A9693C400EA57B7 /* consent_03@3x.m4v in Resources */,
 				B1A860F11A9693C400EA57B7 /* consent_01@3x.m4v in Resources */,
 				B1A860F71A9693C400EA57B7 /* consent_07@3x.m4v in Resources */,
@@ -3183,12 +3198,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA5D7F5128C940FE00C5E50C /* ORK1SkinSwiftTests.swift in Sources */,
 				67DDF56A25BF5BA4002AC56E /* ORK1HelpersTests.m in Sources */,
 				86CC8EB71AC09383001CCD89 /* ORK1DataLoggerTests.m in Sources */,
+				DA5D7F5328C9416500C5E50C /* ORK1Skin.m in Sources */,
 				248604061B4C98760010C8A0 /* ORK1AnswerFormatTests.m in Sources */,
 				86CC8EBA1AC09383001CCD89 /* ORK1ResultTests.m in Sources */,
 				FA7A9D391B0969A7005A2BEA /* ORK1ConsentSignatureFormatterTests.m in Sources */,
 				86CC8EB81AC09383001CCD89 /* ORK1HKSampleTests.m in Sources */,
+				DA5D7F5228C9416000C5E50C /* ORK1Skin.swift in Sources */,
 				BCB96C131B19C0EC002A0B96 /* ORK1StepTests.m in Sources */,
 				86CC8EB51AC09383001CCD89 /* ORK1ConsentTests.m in Sources */,
 				2EBFE11D1AE1B32D00CB8254 /* ORK1UIViewAccessibilityTests.m in Sources */,
@@ -3345,6 +3363,7 @@
 				FF36A48E1D1A0ACA00DE8470 /* ORK1AudioLevelNavigationRule.m in Sources */,
 				86C40CDE1A8D7C5C00081FAC /* ORK1TintedImageView.m in Sources */,
 				86B781BC1AA668ED00688151 /* ORK1TimeIntervalPicker.m in Sources */,
+				DA09FB5928C00F560022A066 /* ORK1Skin.swift in Sources */,
 				86B781BE1AA668ED00688151 /* ORK1ValuePicker.m in Sources */,
 				86B89ABC1AB3BECC001626A4 /* ORK1StepHeaderView.m in Sources */,
 				861D11AA1AA691BB003C98A7 /* ORK1ScaleSliderView.m in Sources */,
@@ -3640,6 +3659,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK1_SEARCH_PATHS = "$(inherited)";
@@ -3650,11 +3670,14 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/ORK1KitTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.researchkit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ORK1KitTests/ORK1KitTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -3663,6 +3686,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3670,11 +3694,13 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/ORK1KitTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.researchkit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ORK1KitTests/ORK1KitTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -3707,6 +3733,7 @@
 				PRODUCT_NAME = ORK1Kit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3739,6 +3766,7 @@
 				PRODUCT_NAME = ORK1Kit;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
