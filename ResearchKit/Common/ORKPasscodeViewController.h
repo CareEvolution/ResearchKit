@@ -67,7 +67,7 @@ ORK_AVAILABLE_DECL
  
  @param viewController      The `ORKPasscodeStepViewController` object in which the passcode input is entered.
  */
-- (void)passcodeViewControllerDidCancel:(UIViewController *)viewController;
+- (void)passcodeStepViewControllerDidCancel:(UIViewController *)viewController;
 
 /** 
  Defaults to Localized "Forgot Passcode?" text
