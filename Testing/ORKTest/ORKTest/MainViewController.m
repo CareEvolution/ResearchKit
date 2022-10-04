@@ -556,7 +556,7 @@ NSString *RemoveParenthesisAndCapitalizeString(NSString *string) {
     [viewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)passcodeViewControllerDidCancel:(UIViewController *)viewController {
+- (void)passcodeStepViewControllerDidCancel:(UIViewController *)viewController {
     NSLog(@"User tapped the cancel button.");
     [viewController dismissViewControllerAnimated:YES completion:nil];
 }
