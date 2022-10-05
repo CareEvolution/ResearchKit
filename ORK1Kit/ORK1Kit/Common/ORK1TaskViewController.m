@@ -103,18 +103,27 @@ typedef void (^_ORK1LocationAuthorizationRequestHandler)(BOOL success);
     }
     
     _started = YES;
-    NSString *whenInUseKey = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"];
-    NSString *alwaysKey = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"];
+    NSString *allowedWhenInUse = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"];
+    NSString *allowedAlways = (NSString *)[[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"];
     
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-    if ((status == kCLAuthorizationStatusNotDetermined) && (whenInUseKey || alwaysKey)) {
-        if (alwaysKey) {
-            [_manager requestAlwaysAuthorization];
+    if (_manager) {
+        
+        CLAuthorizationStatus status = kCLAuthorizationStatusNotDetermined;
+        if (@available(iOS 14, *)) {
+            status = _manager.authorizationStatus;
         } else {
-            [_manager requestWhenInUseAuthorization];
+            status = [CLLocationManager authorizationStatus];
         }
-    } else {
-        [self finishWithResult:(status != kCLAuthorizationStatusDenied)];
+        
+        if ((status == kCLAuthorizationStatusNotDetermined) && (allowedWhenInUse || allowedAlways)) {
+            if (allowedAlways) {
+                [_manager requestAlwaysAuthorization];
+            } else {
+                [_manager requestWhenInUseAuthorization];
+            }
+        } else {
+            [self finishWithResult:(status != kCLAuthorizationStatusDenied)];
+        }
     }
 }
 
@@ -305,7 +314,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     return [self commonInitWithTask:task taskRunUUID:taskRunUUID];
 }
 
-- (instancetype)initWithTask:(id<ORK1Task>)task restorationData:(NSData *)data delegate:(id<ORK1TaskViewControllerDelegate>)delegate {
+- (instancetype)initWithTask:(id<ORK1Task>)task restorationData:(NSData *)data delegate:(id<ORK1TaskViewControllerDelegate>)delegate error:(NSError* __autoreleasing *)errorOut {
     
     self = [self initWithTask:task taskRunUUID:nil];
     
@@ -313,9 +322,13 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         self.delegate = delegate;
         if (data != nil) {
             self.restorationClass = [self class];
-            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:nil];
             [self decodeRestorableStateWithCoder:unarchiver];
             [self applicationFinishedRestoringState];
+            
+            if (unarchiver == nil && errorOut != nil) {
+                *errorOut = [NSError errorWithDomain:ORK1ErrorDomain code:ORK1ErrorException userInfo:@{NSLocalizedDescriptionKey: ORK1LocalizedString(@"RESTORE_ERROR_CANNOT_DECODE", nil)}];
+            }
         }
     }
     return self;
@@ -793,12 +806,11 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
 }
 
 - (NSData *)restorationData {
-    NSMutableData *data = [[NSMutableData alloc] init];
-    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:YES];
     [self encodeRestorableStateWithCoder:archiver];
     [archiver finishEncoding];
     
-    return [data copy];
+    return [archiver.encodedData copy];
 }
 
 - (void)ensureDirectoryExists:(NSURL *)outputDirectory {

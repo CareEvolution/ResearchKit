@@ -122,11 +122,17 @@
                                                                              options:(NSLayoutFormatOptions)0
                                                                              metrics:nil
                                                                                views:@{@"activeStepView": _activeStepView}]];
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[topLayoutGuide][activeStepView]|"
+    [constraints addObject:[NSLayoutConstraint constraintWithItem:self.view.safeAreaLayoutGuide
+                                                        attribute:NSLayoutAttributeTop
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:_activeStepView
+                                                        attribute:NSLayoutAttributeTop
+                                                       multiplier:1
+                                                         constant:0]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[activeStepView]|"
                                                                              options:(NSLayoutFormatOptions)0
                                                                              metrics:nil
-                                                                               views:@{@"activeStepView": _activeStepView,
-                                                                                       @"topLayoutGuide": self.topLayoutGuide}]];
+                                                                               views:@{@"activeStepView": _activeStepView}]];
     [NSLayoutConstraint activateConstraints:constraints];
     
     [self prepareStep];

@@ -158,9 +158,7 @@
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[_continueSkipContainer]-|" options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views]];
 
     id viewMarginItem = self.view;
-    if (@available(iOS 11.0, *)) {
-        viewMarginItem = self.view.safeAreaLayoutGuide;
-    }
+    viewMarginItem = self.view.safeAreaLayoutGuide;
     
     [constraints addObject:[NSLayoutConstraint constraintWithItem:sourceStackView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:viewMarginItem attribute:NSLayoutAttributeLeading multiplier:1 constant:0]];
     [constraints addObject:[NSLayoutConstraint constraintWithItem:sourceStackView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationLessThanOrEqual toItem:viewMarginItem attribute:NSLayoutAttributeTrailing multiplier:1 constant:0]];

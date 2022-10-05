@@ -150,11 +150,7 @@
         CGRect footerBounds = (CGRect){{0,0},footerSize};
         
         CGFloat contentInset = 0;
-        if (@available(iOS 11.0, *)) {
-            contentInset = _tableView.adjustedContentInset.bottom + _tableView.adjustedContentInset.top;
-        } else {
-            contentInset = _tableView.contentInset.bottom + _tableView.contentInset.top;
-        }
+        contentInset = _tableView.adjustedContentInset.bottom + _tableView.adjustedContentInset.top;
         CGFloat boundsHeightUnused = _tableView.bounds.size.height - _tableView.contentSize.height - contentInset;
         if (boundsHeightUnused > footerBounds.size.height) {
             _tableView.scrollEnabled = YES;

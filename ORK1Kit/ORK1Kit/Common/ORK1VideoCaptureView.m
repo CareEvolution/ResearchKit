@@ -93,13 +93,13 @@
         
         _continueSkipContainer = [ORK1NavigationContainerView new];
         _continueSkipContainer.continueEnabled = YES;
-        _continueSkipContainer.topMargin = 5;
-        _continueSkipContainer.bottomMargin = 15;
         _continueSkipContainer.optional = YES;
+        _continueSkipContainer.footnoteLabel.textAlignment = NSTextAlignmentCenter;
+        _continueSkipContainer.footnoteLabel.text = @" ";
         _continueSkipContainer.backgroundColor = ORK1Color(ORK1BackgroundColorKey);
+        [_continueSkipContainer setAlpha:0.8];
         [self addSubview:_continueSkipContainer];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationDidChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queue_sessionRunning) name:AVCaptureSessionDidStartRunningNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionWasInterrupted:) name:AVCaptureSessionWasInterruptedNotification object:self.session];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionInterruptionEnded:) name:AVCaptureSessionInterruptionEndedNotification object:self.session];
@@ -120,24 +120,30 @@
 }
 
 - (void)orientationDidChange {
+    __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationPortrait;
-        switch ([[UIApplication sharedApplication] statusBarOrientation]) {
-            case UIInterfaceOrientationLandscapeRight:
-                orientation = AVCaptureVideoOrientationLandscapeRight;
-                break;
-            case UIInterfaceOrientationLandscapeLeft:
-                orientation = AVCaptureVideoOrientationLandscapeLeft;
-                break;
-            case UIInterfaceOrientationPortraitUpsideDown:
-                orientation = AVCaptureVideoOrientationPortraitUpsideDown;
-                break;
-            case UIInterfaceOrientationPortrait:
-                orientation = AVCaptureVideoOrientationPortrait;
-                break;
-            case UIInterfaceOrientationUnknown:
-                // Do nothing in these cases, since we don't need to change display orientation.
-                return;
+        
+        UIWindowScene *windowScene = weakSelf.window.windowScene;
+        
+        if (windowScene) {
+            switch (windowScene.interfaceOrientation) {
+                case UIInterfaceOrientationLandscapeRight:
+                    orientation = AVCaptureVideoOrientationLandscapeRight;
+                    break;
+                case UIInterfaceOrientationLandscapeLeft:
+                    orientation = AVCaptureVideoOrientationLandscapeLeft;
+                    break;
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    orientation = AVCaptureVideoOrientationPortraitUpsideDown;
+                    break;
+                case UIInterfaceOrientationPortrait:
+                    orientation = AVCaptureVideoOrientationPortrait;
+                    break;
+                case UIInterfaceOrientationUnknown:
+                    // Do nothing in these cases, since we don't need to change display orientation.
+                    return;
+            }
         }
         
         [_previewView setVideoOrientation:orientation];
@@ -197,8 +203,7 @@
         _continueSkipContainer.continueButtonItem = _stopButtonItem;
     
         // Start a timer to show recording progress.
-        _recordingButtonItem.title = [self formattedTimeFromSeconds:_videoCaptureStep.duration.floatValue];
-        _continueSkipContainer.skipButtonItem = _recordingButtonItem;
+        _continueSkipContainer.footnoteLabel.text = [self formattedTimeFromSeconds:_videoCaptureStep.duration.floatValue];
         _continueSkipContainer.skipEnabled = NO;
         _recordTime = 0.0;
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.1
@@ -242,8 +247,6 @@
 }
 
 - (void)updateConstraints {
-    const CGFloat ContinueSkipContainerTranslucentAlpha = 0.5;
-    const CGFloat ContinueSkipContainerOpaqueAlpha = 0.0;
     
     if (_variableConstraints) {
         [NSLayoutConstraint deactivateConstraints:_variableConstraints];
@@ -255,69 +258,115 @@
     }
     
     UIView *playerView = _playerViewController.view;
+    _headerView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    _previewView.translatesAutoresizingMaskIntoConstraints = NO;
+    _continueSkipContainer.translatesAutoresizingMaskIntoConstraints = NO;
+    playerView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(self, _previewView, _continueSkipContainer, _headerView, playerView);
-    ORK1EnableAutoLayoutForViews(views.allValues);
-    
-    [_variableConstraints addObjectsFromArray:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_headerView]|"
-                                             options:NSLayoutFormatDirectionLeadingToTrailing
-                                             metrics:nil
-                                               views:views]];
-    
-    [_variableConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_previewView]|"
-                                                                                      options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                                      metrics:nil
-                                                                                        views:views]];
-    
-    [_variableConstraints addObjectsFromArray:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_headerView]-[_continueSkipContainer]|"
-                                             options:NSLayoutFormatDirectionLeadingToTrailing
-                                             metrics:nil
-                                               views:views]];
-    [_variableConstraints addObjectsFromArray:
-     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_continueSkipContainer]|"
-                                             options:NSLayoutFormatDirectionLeadingToTrailing
-                                             metrics:nil
-                                               views:views]];
-    [_variableConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[playerView]|"
-                                                                                      options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                                      metrics:nil
-                                                                                        views:views]];
-    
-    [_variableConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[playerView]-[_continueSkipContainer]|"
-                                                                                      options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                                      metrics:nil
-                                                                                        views:views]];
-    
-    
-    // Float the continue view over the previewView if in landscape to give more room for the preview
-    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-        [_variableConstraints addObjectsFromArray:
-         [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_previewView]|"
-                                                 options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil
-                                                   views:views]];
-        [_variableConstraints addObject:[NSLayoutConstraint constraintWithItem:_continueSkipContainer
-                                                                     attribute:NSLayoutAttributeBottom
-                                                                     relatedBy:NSLayoutRelationEqual
-                                                                        toItem:self
-                                                                     attribute:NSLayoutAttributeBottom
-                                                                    multiplier:1.0
-                                                                      constant:0.0]];
-        _continueSkipContainer.backgroundColor = [_continueSkipContainer.backgroundColor colorWithAlphaComponent:ContinueSkipContainerTranslucentAlpha];
-    } else {
-        /*
-         CEVHack - when the vertical sections of the view apportion, this prevents the imageView from expanding too much which puts pressure
-         on the UIBarButtonItem for which the label collapses vertically and shows no text.
-         */
-        CGFloat maxPreviewSize = self.superview.bounds.size.height - 160;
-        [_variableConstraints addObjectsFromArray:
-         [NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|[_previewView(<=%f)]-[_continueSkipContainer]|", maxPreviewSize]
-                                                 options:NSLayoutFormatDirectionLeadingToTrailing
-                                                 metrics:nil
-                                                   views:views]];
-        _continueSkipContainer.backgroundColor = [_continueSkipContainer.backgroundColor colorWithAlphaComponent:ContinueSkipContainerOpaqueAlpha];
-    }
+    [_variableConstraints addObjectsFromArray:@[
+                                                [NSLayoutConstraint constraintWithItem:_headerView
+                                                                             attribute:NSLayoutAttributeTop
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self
+                                                                             attribute:NSLayoutAttributeTop
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:_headerView
+                                                                             attribute:NSLayoutAttributeLeft
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self.safeAreaLayoutGuide
+                                                                             attribute:NSLayoutAttributeLeft
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:_headerView
+                                                                             attribute:NSLayoutAttributeRight
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self.safeAreaLayoutGuide
+                                                                             attribute:NSLayoutAttributeRight
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:playerView
+                                                                             attribute:NSLayoutAttributeTop
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self
+                                                                             attribute:NSLayoutAttributeTop
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:playerView
+                                                                             attribute:NSLayoutAttributeLeft
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self
+                                                                             attribute:NSLayoutAttributeLeft
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:playerView
+                                                                             attribute:NSLayoutAttributeRight
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self
+                                                                             attribute:NSLayoutAttributeRight
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:playerView
+                                                                             attribute:NSLayoutAttributeBottom
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self
+                                                                             attribute:NSLayoutAttributeBottom
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:_continueSkipContainer
+                                                                             attribute:NSLayoutAttributeBottom
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self
+                                                                             attribute:NSLayoutAttributeBottom
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:_continueSkipContainer
+                                                                             attribute:NSLayoutAttributeLeft
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self
+                                                                             attribute:NSLayoutAttributeLeft
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:_continueSkipContainer
+                                                                             attribute:NSLayoutAttributeRight
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:self
+                                                                             attribute:NSLayoutAttributeRight
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                
+                                                [NSLayoutConstraint constraintWithItem:_previewView
+                                                                             attribute:NSLayoutAttributeTop
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:playerView
+                                                                             attribute:NSLayoutAttributeTop
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:_previewView
+                                                                             attribute:NSLayoutAttributeLeft
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:playerView
+                                                                             attribute:NSLayoutAttributeLeft
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:_previewView
+                                                                             attribute:NSLayoutAttributeRight
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:playerView
+                                                                             attribute:NSLayoutAttributeRight
+                                                                            multiplier:1.0
+                                                                              constant:0.0],
+                                                [NSLayoutConstraint constraintWithItem:_previewView
+                                                                             attribute:NSLayoutAttributeBottom
+                                                                             relatedBy:NSLayoutRelationEqual
+                                                                                toItem:playerView
+                                                                             attribute:NSLayoutAttributeBottom
+                                                                            multiplier:1.0
+                                                                              constant:0.0]
+                                                
+                                                
+                                                ]];
     
     [NSLayoutConstraint activateConstraints:_variableConstraints];
     [super updateConstraints];
@@ -342,6 +391,11 @@
 
 - (void)setContinueButtonItem:(UIBarButtonItem *)continueButtonItem {
     _continueButtonItem = continueButtonItem;
+    [self updateAppearance];
+}
+
+- (void)setCancelButtonItem:(UIBarButtonItem *)cancelButtonItem {
+    _cancelButtonItem = cancelButtonItem;
     [self updateAppearance];
 }
 
@@ -402,8 +456,7 @@
         [self updateAppearance];
     } else {
         CGFloat remainingTime = _videoCaptureStep.duration.floatValue - _recordTime;
-        _recordingButtonItem.title = [self formattedTimeFromSeconds:remainingTime];
-        _continueSkipContainer.skipButtonItem = _recordingButtonItem;
+        _continueSkipContainer.footnoteLabel.text = [self formattedTimeFromSeconds:remainingTime];
     }
 }
 

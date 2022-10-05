@@ -54,11 +54,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) AVCaptureSession *session;
 @property (nonatomic, strong, nullable) UIBarButtonItem *continueButtonItem;
 @property (nonatomic, strong, nullable) UIBarButtonItem *skipButtonItem;
+@property (nonatomic, strong, nullable) UIBarButtonItem *cancelButtonItem;
 @property (nonatomic, strong, nullable) NSURL *videoFileURL;
 @property (nonatomic, strong, nullable) NSError *error;
 @property (nonatomic) BOOL recording;
 @property (nonatomic, strong, nullable) ORK1VideoCaptureCameraPreviewView *previewView;
 @property (nonatomic, strong, readonly) AVPlayerViewController *playerViewController;
+
+- (void)orientationDidChange;
 
 @end
 

@@ -394,7 +394,7 @@ void ORKUpdateScrollViewBottomInset(UIScrollView *scrollView, CGFloat bottomInse
         insets.bottom = bottomInset;
         scrollView.contentInset = insets;
         
-        insets = scrollView.scrollIndicatorInsets;
+        insets = scrollView.verticalScrollIndicatorInsets;
         insets.bottom = bottomInset;
         scrollView.scrollIndicatorInsets = insets;
         

@@ -45,7 +45,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
 @interface ORKNavigationContainerView ()
 
 @property (nonatomic, strong, readonly) ORKContinueButton *continueButton;
