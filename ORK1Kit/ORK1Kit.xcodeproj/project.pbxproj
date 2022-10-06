@@ -574,10 +574,9 @@
 		DA27D29024F4521E00B6ECE4 /* NSAttributedString+Markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27D28E24F4521E00B6ECE4 /* NSAttributedString+Markdown.m */; };
 		DA51341324F8607D0068A61F /* CEVRK1Label.h in Headers */ = {isa = PBXBuildFile; fileRef = DA51341224F8607D0068A61F /* CEVRK1Label.h */; };
 		DA51341524F8619A0068A61F /* CEVRK1Label.m in Sources */ = {isa = PBXBuildFile; fileRef = DA51341424F8619A0068A61F /* CEVRK1Label.m */; };
-		DA5D7F5128C940FE00C5E50C /* ORK1SkinSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D7F5028C940FE00C5E50C /* ORK1SkinSwiftTests.swift */; };
 		DA5D7F5228C9416000C5E50C /* ORK1Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA09FB5828C00F560022A066 /* ORK1Skin.swift */; };
-		DA5D7F5328C9416500C5E50C /* ORK1Skin.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BB81A8D7C5C00081FAC /* ORK1Skin.m */; };
 		DAAAE2F328DE4CB3001ECEB8 /* ORK1SkinMatrix.csv in Resources */ = {isa = PBXBuildFile; fileRef = DAAAE2F228DE4CB3001ECEB8 /* ORK1SkinMatrix.csv */; };
+		DAF6311D28EF4C5400820FB8 /* ORK1SkinSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D7F5028C940FE00C5E50C /* ORK1SkinSwiftTests.swift */; };
 		DAF84CC922D682BC0028DE8F /* CEVRK1Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */; };
 		DAF84CCA22D683E10028DE8F /* CEVRK1Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7A9D2B1B082688005A2BEA /* ORK1ConsentDocumentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */; };
@@ -3149,13 +3148,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA5D7F5128C940FE00C5E50C /* ORK1SkinSwiftTests.swift in Sources */,
 				67DDF56A25BF5BA4002AC56E /* ORK1HelpersTests.m in Sources */,
 				86CC8EB71AC09383001CCD89 /* ORK1DataLoggerTests.m in Sources */,
-				DA5D7F5328C9416500C5E50C /* ORK1Skin.m in Sources */,
 				248604061B4C98760010C8A0 /* ORK1AnswerFormatTests.m in Sources */,
 				86CC8EBA1AC09383001CCD89 /* ORK1ResultTests.m in Sources */,
 				FA7A9D391B0969A7005A2BEA /* ORK1ConsentSignatureFormatterTests.m in Sources */,
+				DAF6311D28EF4C5400820FB8 /* ORK1SkinSwiftTests.swift in Sources */,
 				86CC8EB81AC09383001CCD89 /* ORK1HKSampleTests.m in Sources */,
 				DA5D7F5228C9416000C5E50C /* ORK1Skin.swift in Sources */,
 				BCB96C131B19C0EC002A0B96 /* ORK1StepTests.m in Sources */,
