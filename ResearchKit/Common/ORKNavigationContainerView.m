@@ -115,6 +115,7 @@ static const CGFloat shadowHeight = 0.75;
     [_cancelButton setTitle:nil forState:UIControlStateNormal];
     [_cancelButton addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
+    _cancelButton.accessibilityValue = @"Normal Task Cancel";
     _cancelButtonView.translatesAutoresizingMaskIntoConstraints = NO;
 
     [_cancelButtonView addSubview:_cancelButton];
