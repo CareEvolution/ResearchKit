@@ -177,7 +177,7 @@
         photoSettings = [AVCapturePhotoSettings photoSettingsWithRawPixelFormatType:rawPixelFormatType
                                                                     processedFormat:@{AVVideoCodecKey: AVVideoCodecTypeJPEG}];
     //}
-    [photoSettings setPhotoQualityPrioritization:NO];
+    [photoSettings setPhotoQualityPrioritization:AVCapturePhotoQualityPrioritizationSpeed];
     [photoSettings setFlashMode:(([_photoOutput.supportedFlashModes containsObject:[NSNumber numberWithInt:AVCaptureFlashModeOn]] ? AVCaptureFlashModeAuto : AVCaptureFlashModeOff))];
     
     return photoSettings;
