@@ -399,6 +399,10 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
             
             if (unarchiver == nil && errorOut != nil) {
                 *errorOut = [NSError errorWithDomain:ORKErrorDomain code:ORKErrorException userInfo:@{NSLocalizedDescriptionKey: ORKLocalizedString(@"RESTORE_ERROR_CANNOT_DECODE", nil)}];
+                return nil;
+            } else if ([unarchiver error]) {
+                *errorOut = [unarchiver error];
+                return nil;
             }
         }
     }
