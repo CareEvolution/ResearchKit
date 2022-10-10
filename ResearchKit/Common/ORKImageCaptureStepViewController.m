@@ -191,7 +191,7 @@
     //    _imageDataExtension = @"heif";
     //} else {
         photoSettings = [AVCapturePhotoSettings photoSettings];
-        _imageDataExtension = @"jpeg";
+        _imageDataExtension = @"jpg";
     //}
     
     [photoSettings setPhotoQualityPrioritization: [_photoOutput maxPhotoQualityPrioritization]];

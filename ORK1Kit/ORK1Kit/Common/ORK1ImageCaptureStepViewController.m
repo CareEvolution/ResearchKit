@@ -151,7 +151,7 @@
         photoSettings = [AVCapturePhotoSettings photoSettingsWithRawPixelFormatType:rawPixelFormatType
                                                                     processedFormat:@{AVVideoCodecKey: AVVideoCodecTypeJPEG}];
     //}
-    [photoSettings setPhotoQualityPrioritization:NO];
+    [photoSettings setPhotoQualityPrioritization:AVCapturePhotoQualityPrioritizationSpeed];
     [photoSettings setFlashMode:(([_photoOutput.supportedFlashModes containsObject:[NSNumber numberWithInt:AVCaptureFlashModeOn]] ? AVCaptureFlashModeAuto : AVCaptureFlashModeOff))];
     
     return photoSettings;
@@ -165,7 +165,7 @@
     //    _imageDataExtension = @"heif";
     //} else {
         photoSettings = [AVCapturePhotoSettings photoSettings];
-        _imageDataExtension = @"jpeg";
+        _imageDataExtension = @"jpg";
     //}
     
     [photoSettings setPhotoQualityPrioritization: [_photoOutput maxPhotoQualityPrioritization]];
