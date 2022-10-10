@@ -314,7 +314,8 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     return [self commonInitWithTask:task taskRunUUID:taskRunUUID];
 }
 
-- (instancetype)initWithTask:(id<ORK1Task>)task restorationData:(NSData *)data delegate:(id<ORK1TaskViewControllerDelegate>)delegate error:(NSError* __autoreleasing *)errorOut {
+//- (nullable instancetype)initForReadingFromData:(NSData *)data error:(NSError **)error
+- (instancetype)initWithTask:(nullable id<ORK1Task>)task restorationData:(nullable NSData *)data delegate:(nullable id<ORK1TaskViewControllerDelegate>)delegate error:(NSError * _Nullable *)errorOut {
     
     self = [self initWithTask:task taskRunUUID:nil];
     
