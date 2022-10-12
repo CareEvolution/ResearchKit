@@ -332,10 +332,11 @@ ORK_CLASS_AVAILABLE
  @param data        Data obtained from the `restorationData` property of a previous
                     task view controller instance.
  @param delegate    The delegate for the task view controller.
+ @param error               If failure occurred, an `NSError` object indicating the reason for the failure. The value of this parameter is `nil` if `result` does not indicate failure.
  
  @return A new task view controller.
  */
-- (instancetype)initWithTask:(nullable id<ORKTask>)task restorationData:(nullable NSData *)data delegate:(nullable id<ORKTaskViewControllerDelegate>)delegate;
+- (nullable instancetype)initWithTask:(nullable id<ORKTask>)task restorationData:(nullable NSData *)data delegate:(nullable id<ORKTaskViewControllerDelegate>)delegate error:(NSError **)error;
 
 /**
  The delegate for the task view controller.

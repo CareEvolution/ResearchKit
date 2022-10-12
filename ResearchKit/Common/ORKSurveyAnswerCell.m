@@ -142,7 +142,8 @@
     UITableView *tableView = ORKFirstObjectOfClass(UITableView, cell, superview);
     
     _cachedContentInsets = tableView.contentInset;
-    _cachedScrollIndicatorInsets = tableView.scrollIndicatorInsets;
+    _cachedScrollIndicatorInsets = tableView.verticalScrollIndicatorInsets;
+
     
     NSDictionary *userInfo = aNotification.userInfo;
     CGSize keyboardSize = ((NSValue *)userInfo[UIKeyboardFrameEndUserInfoKey]).CGRectValue.size;
@@ -183,13 +184,13 @@
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^ {
-                         if (UIEdgeInsetsEqualToEdgeInsets(tableView.contentInset, _cachedContentInsets) == NO) {
-                             tableView.contentInset = _cachedContentInsets;
-                         }
-                         
-                         if (UIEdgeInsetsEqualToEdgeInsets(tableView.scrollIndicatorInsets, _cachedScrollIndicatorInsets) == NO) {
-                             tableView.scrollIndicatorInsets = _cachedScrollIndicatorInsets;
-                         }
+                        if (UIEdgeInsetsEqualToEdgeInsets(tableView.contentInset, _cachedContentInsets) == NO) {
+                            tableView.contentInset = _cachedContentInsets;
+                        }
+                        
+                        if (UIEdgeInsetsEqualToEdgeInsets(tableView.verticalScrollIndicatorInsets, _cachedScrollIndicatorInsets) == NO) {
+                            tableView.scrollIndicatorInsets = _cachedScrollIndicatorInsets;
+                        }
                      }
                      completion:^(BOOL finished) {
                          //tableView.scrollEnabled = NO;

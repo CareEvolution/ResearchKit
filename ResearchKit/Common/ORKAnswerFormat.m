@@ -46,6 +46,7 @@
 
 @import HealthKit;
 @import MapKit;
+@import Contacts;
 
 
 NSString *const EmailValidationRegularExpressionPattern = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
@@ -132,7 +133,7 @@ NSNumberFormatterStyle ORKNumberFormattingStyleConvert(ORKNumberFormattingStyle 
 - (id)defaultValueForCharacteristicType:(HKCharacteristicType *)characteristicType error:(NSError **)error {
     id result = nil;
     if ([[characteristicType identifier] isEqualToString:HKCharacteristicTypeIdentifierDateOfBirth]) {
-        NSDate *dob = [_healthStore dateOfBirthWithError:error];
+        NSDate *dob = [[NSCalendar currentCalendar] dateFromComponents:[_healthStore dateOfBirthComponentsWithError:error]];
         if (dob) {
             result = dob;
         }
@@ -3032,9 +3033,10 @@ static NSString *const formattedAddressLinesKey = @"FormattedAddressLines";
     NSString *answerString = nil;
     if ([answer isKindOfClass:[ORKLocation class]]) {
         ORKLocation *location = answer;
-        // access address dictionary directly since 'ABCreateStringWithAddressDictionary:' is deprecated in iOS9
-        NSArray<NSString *> *addressLines = [location.addressDictionary valueForKey:formattedAddressLinesKey];
-        answerString = addressLines ? [addressLines componentsJoinedByString:@"\n"] :
+        
+        CNPostalAddress *postalAddress = location.postalAddress;
+        answerString = postalAddress ? [CNPostalAddressFormatter stringFromPostalAddress:postalAddress
+                                                                                   style:CNPostalAddressFormatterStyleMailingAddress] :
         MKStringFromMapPoint(MKMapPointForCoordinate(location.coordinate));
     }
     return answerString;

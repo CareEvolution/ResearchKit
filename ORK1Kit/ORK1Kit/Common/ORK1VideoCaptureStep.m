@@ -47,14 +47,10 @@
         self.optional = YES;
         self.duration = @120;
         self.audioMute = NO;
-        self.flashMode = AVCaptureFlashModeOff;
+        self.torchMode = AVCaptureTorchModeAuto;
         self.devicePosition = AVCaptureDevicePositionBack;
     }
     return self;
-}
-
-- (void)setDuration:(NSNumber *)duration {
-    _duration = MIN(MAX(duration, @1), @1200);
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -64,7 +60,7 @@
         ORK1_DECODE_UIEDGEINSETS(aDecoder, templateImageInsets);
         ORK1_DECODE_OBJ(aDecoder, duration);
         ORK1_DECODE_BOOL(aDecoder, audioMute);
-        ORK1_DECODE_ENUM(aDecoder, flashMode);
+        ORK1_DECODE_ENUM(aDecoder, torchMode);
         ORK1_DECODE_ENUM(aDecoder, devicePosition);
         ORK1_DECODE_OBJ(aDecoder, accessibilityHint);
         ORK1_DECODE_OBJ(aDecoder, accessibilityInstructions);
@@ -78,7 +74,7 @@
     ORK1_ENCODE_UIEDGEINSETS(aCoder, templateImageInsets);
     ORK1_ENCODE_OBJ(aCoder, duration);
     ORK1_ENCODE_BOOL(aCoder, audioMute);
-    ORK1_ENCODE_ENUM(aCoder, flashMode);
+    ORK1_ENCODE_ENUM(aCoder, torchMode);
     ORK1_ENCODE_ENUM(aCoder, devicePosition);
     ORK1_ENCODE_OBJ(aCoder, accessibilityHint);
     ORK1_ENCODE_OBJ(aCoder, accessibilityInstructions);
@@ -94,7 +90,7 @@
     step.templateImageInsets = self.templateImageInsets;
     step.duration = self.duration;
     step.audioMute = self.audioMute;
-    step.flashMode = self.flashMode;
+    step.torchMode = self.torchMode;
     step.devicePosition = self.devicePosition;
     step.accessibilityHint = self.accessibilityHint;
     step.accessibilityInstructions = self.accessibilityInstructions;
@@ -102,7 +98,7 @@
 }
 
 - (NSUInteger)hash {
-    return super.hash ^ self.templateImage.hash ^ self.duration.hash ^ self.audioMute ^ self.flashMode ^ self.devicePosition ^ self.accessibilityHint.hash ^ self.accessibilityInstructions.hash;
+    return super.hash ^ self.templateImage.hash ^ self.duration.hash ^ self.audioMute ^ self.torchMode ^ self.devicePosition ^ self.accessibilityHint.hash ^ self.accessibilityInstructions.hash;
 }
 
 - (BOOL)isEqual:(id)object {
@@ -114,7 +110,7 @@
     UIEdgeInsetsEqualToEdgeInsets(self.templateImageInsets, castObject.templateImageInsets) &&
     ORK1EqualObjects(self.duration, castObject.duration) &&
     (self.audioMute == castObject.audioMute) &&
-    (self.flashMode == castObject.flashMode) &&
+    (self.torchMode == castObject.torchMode) &&
     (self.devicePosition == castObject.devicePosition) &&
     ORK1EqualObjects(self.accessibilityHint, castObject.accessibilityHint) &&
     ORK1EqualObjects(self.accessibilityInstructions, castObject.accessibilityInstructions);

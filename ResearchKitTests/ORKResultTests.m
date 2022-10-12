@@ -122,13 +122,12 @@
     ORKTaskResult *taskResult1 = [self createTaskResultTree];
     
     // Archive
-    id data = [NSKeyedArchiver archivedDataWithRootObject:taskResult1];
-    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+    id data = [NSKeyedArchiver archivedDataWithRootObject:taskResult1 requiringSecureCoding:YES error:nil];
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:nil];
     unarchiver.requiresSecureCoding = YES;
     ORKTaskResult *taskResult2 = [unarchiver decodeObjectOfClass:[ORKTaskResult class] forKey:NSKeyedArchiveRootObjectKey];
     
     [self compareTaskResult1:taskResult1 andTaskResult2:taskResult2];
-
     XCTAssertEqualObjects(taskResult1, taskResult2);
 }
 

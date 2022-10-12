@@ -144,7 +144,7 @@
     UITableView *tableView = ORK1FirstObjectOfClass(UITableView, cell, superview);
     
     _cachedContentInsets = tableView.contentInset;
-    _cachedScrollIndicatorInsets = tableView.scrollIndicatorInsets;
+    _cachedScrollIndicatorInsets = tableView.verticalScrollIndicatorInsets;
     
     NSDictionary *userInfo = aNotification.userInfo;
     CGSize keyboardSize = ((NSValue *)userInfo[UIKeyboardFrameEndUserInfoKey]).CGRectValue.size;
@@ -189,7 +189,7 @@
                              tableView.contentInset = _cachedContentInsets;
                          }
                          
-                         if (UIEdgeInsetsEqualToEdgeInsets(tableView.scrollIndicatorInsets, _cachedScrollIndicatorInsets) == NO) {
+                         if (UIEdgeInsetsEqualToEdgeInsets(tableView.verticalScrollIndicatorInsets, _cachedScrollIndicatorInsets) == NO) {
                              tableView.scrollIndicatorInsets = _cachedScrollIndicatorInsets;
                          }
                      }

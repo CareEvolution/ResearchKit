@@ -53,7 +53,7 @@
         self.headerView.iconImageView.image = [UIImage imageNamed:icon];
         self.headerView.iconImageView.layer.cornerRadius = 15.0;
         self.headerView.iconImageView.layer.masksToBounds = YES;
-        self.headerView.iconImageView.layer.borderColor = [UIColor groupTableViewBackgroundColor].CGColor;
+        self.headerView.iconImageView.layer.borderColor = [UIColor systemGroupedBackgroundColor].CGColor;
         self.headerView.iconImageView.layer.borderWidth = 1.0;
 
         

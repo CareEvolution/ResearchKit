@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@class ORKImageCaptureStepViewController;
+@class ORKVideoCaptureStepViewController;
 
 @interface ORKVideoCaptureView : UIView
 
@@ -63,7 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) ORKVideoCaptureCameraPreviewView *previewView;
 @property (nonatomic, strong, readonly) AVPlayerViewController *playerViewController;
 
-- (instancetype)initWithFrame:(CGRect)frame fromStepViewController:(ORKImageCaptureStepViewController *)stepViewController;
+- (instancetype)initWithFrame:(CGRect)frame fromStepViewController:(ORKVideoCaptureStepViewController *)stepViewController;
+- (void)orientationDidChange;
 
 @end
 

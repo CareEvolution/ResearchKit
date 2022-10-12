@@ -93,13 +93,13 @@
         
         _continueSkipContainer = [ORK1NavigationContainerView new];
         _continueSkipContainer.continueEnabled = YES;
-        _continueSkipContainer.topMargin = 5;
-        _continueSkipContainer.bottomMargin = 15;
         _continueSkipContainer.optional = YES;
+        _continueSkipContainer.footnoteLabel.textAlignment = NSTextAlignmentCenter;
+        _continueSkipContainer.footnoteLabel.text = @" ";
         _continueSkipContainer.backgroundColor = ORK1Color(ORK1BackgroundColorKey);
+        [_continueSkipContainer setAlpha:0.8];
         [self addSubview:_continueSkipContainer];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationDidChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queue_sessionRunning) name:AVCaptureSessionDidStartRunningNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionWasInterrupted:) name:AVCaptureSessionWasInterruptedNotification object:self.session];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionInterruptionEnded:) name:AVCaptureSessionInterruptionEndedNotification object:self.session];
@@ -120,24 +120,30 @@
 }
 
 - (void)orientationDidChange {
+    __weak typeof(self) weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
         AVCaptureVideoOrientation orientation = AVCaptureVideoOrientationPortrait;
-        switch ([[UIApplication sharedApplication] statusBarOrientation]) {
-            case UIInterfaceOrientationLandscapeRight:
-                orientation = AVCaptureVideoOrientationLandscapeRight;
-                break;
-            case UIInterfaceOrientationLandscapeLeft:
-                orientation = AVCaptureVideoOrientationLandscapeLeft;
-                break;
-            case UIInterfaceOrientationPortraitUpsideDown:
-                orientation = AVCaptureVideoOrientationPortraitUpsideDown;
-                break;
-            case UIInterfaceOrientationPortrait:
-                orientation = AVCaptureVideoOrientationPortrait;
-                break;
-            case UIInterfaceOrientationUnknown:
-                // Do nothing in these cases, since we don't need to change display orientation.
-                return;
+        
+        UIWindowScene *windowScene = weakSelf.window.windowScene;
+        
+        if (windowScene) {
+            switch (windowScene.interfaceOrientation) {
+                case UIInterfaceOrientationLandscapeRight:
+                    orientation = AVCaptureVideoOrientationLandscapeRight;
+                    break;
+                case UIInterfaceOrientationLandscapeLeft:
+                    orientation = AVCaptureVideoOrientationLandscapeLeft;
+                    break;
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    orientation = AVCaptureVideoOrientationPortraitUpsideDown;
+                    break;
+                case UIInterfaceOrientationPortrait:
+                    orientation = AVCaptureVideoOrientationPortrait;
+                    break;
+                case UIInterfaceOrientationUnknown:
+                    // Do nothing in these cases, since we don't need to change display orientation.
+                    return;
+            }
         }
         
         [_previewView setVideoOrientation:orientation];
@@ -197,8 +203,7 @@
         _continueSkipContainer.continueButtonItem = _stopButtonItem;
     
         // Start a timer to show recording progress.
-        _recordingButtonItem.title = [self formattedTimeFromSeconds:_videoCaptureStep.duration.floatValue];
-        _continueSkipContainer.skipButtonItem = _recordingButtonItem;
+        _continueSkipContainer.footnoteLabel.text = [self formattedTimeFromSeconds:_videoCaptureStep.duration.floatValue];
         _continueSkipContainer.skipEnabled = NO;
         _recordTime = 0.0;
         _timer = [NSTimer scheduledTimerWithTimeInterval:0.1
@@ -292,7 +297,7 @@
     
     
     // Float the continue view over the previewView if in landscape to give more room for the preview
-    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+    if (UIInterfaceOrientationIsLandscape(self.window.windowScene.interfaceOrientation)) {
         [_variableConstraints addObjectsFromArray:
          [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_previewView]|"
                                                  options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil
@@ -342,6 +347,11 @@
 
 - (void)setContinueButtonItem:(UIBarButtonItem *)continueButtonItem {
     _continueButtonItem = continueButtonItem;
+    [self updateAppearance];
+}
+
+- (void)setCancelButtonItem:(UIBarButtonItem *)cancelButtonItem {
+    _cancelButtonItem = cancelButtonItem;
     [self updateAppearance];
 }
 
@@ -402,8 +412,7 @@
         [self updateAppearance];
     } else {
         CGFloat remainingTime = _videoCaptureStep.duration.floatValue - _recordTime;
-        _recordingButtonItem.title = [self formattedTimeFromSeconds:remainingTime];
-        _continueSkipContainer.skipButtonItem = _recordingButtonItem;
+        _continueSkipContainer.footnoteLabel.text = [self formattedTimeFromSeconds:remainingTime];
     }
 }
 

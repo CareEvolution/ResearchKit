@@ -66,7 +66,7 @@
                 [self.stepView addSubview:_progressView];
                 break;
             case ORKProgressIndicatorTypeIndeterminate:
-                _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                _activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
                 [_activityIndicatorView startAnimating];
                 [self.stepView addSubview:_activityIndicatorView];
                 break;

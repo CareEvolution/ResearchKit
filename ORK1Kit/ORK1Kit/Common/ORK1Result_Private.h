@@ -98,7 +98,7 @@ ORK1_CLASS_AVAILABLE
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate
                             region:(nullable CLCircularRegion *)region
                          userInput:(nullable NSString *)userInput
-                 addressDictionary:(nullable NSDictionary *)addressDictionary;
+                     postalAddress:(nullable CNPostalAddress *)postalAddress;
 
 - (instancetype)initWithPlacemark:(CLPlacemark *)placemark userInput:(NSString *)userInput;
 

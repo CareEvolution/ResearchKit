@@ -36,7 +36,9 @@
 #import <HealthKit/HealthKit.h>
 
 
-static  NSString *const ORK1DataCollectionPersistenceFileName = @".dataCollection.ork.data";
+// The file names for persisting the state of our collectors
+static  NSString *const ORK1DataCollectionPersistenceFileNamev1 = @".dataCollection.ork.data"; // pre-secureCoding
+static  NSString *const ORK1DataCollectionPersistenceFileNamev2 = @".dataCollection.ork.archive"; // current
 
 @implementation ORK1DataCollectionManager {
     dispatch_queue_t _queue;
@@ -133,30 +135,45 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
 
 - (NSArray<ORK1Collector *> *)collectors {
     if (_collectors == nil) {
+        NSError *error;
         NSData *data = [NSData dataWithContentsOfFile:[self persistFilePath]];
-        if (data != nil) {
-            _collectors = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithObjects:[NSArray class], [ORK1Collector class], nil] fromData:data error:NULL];
-        }
-        if (_collectors == nil) {
-            @throw [NSException exceptionWithName:NSGenericException reason: [NSString stringWithFormat:@"Failed to read from path %@", [self persistFilePath]] userInfo:nil];
+        ORK1DataCollectionState *state = [NSKeyedUnarchiver unarchivedObjectOfClass:ORK1DataCollectionState.self fromData:data error:&error];
+        
+        if (state == nil) {
+            NSDictionary *userInfo = @{NSUnderlyingErrorKey:error};
+            @throw [NSException exceptionWithName:NSGenericException reason: [NSString stringWithFormat:@"Failed to read from path %@", [self persistFilePath]] userInfo:userInfo];
+        } else {
+            _collectors = state.collectors ? : @[];
         }
     }
     return _collectors;
 }
 
 - (NSString * _Nonnull)persistFilePath {
-    return [_managedDirectory stringByAppendingPathComponent:ORK1DataCollectionPersistenceFileName];
+    return [_managedDirectory stringByAppendingPathComponent:ORK1DataCollectionPersistenceFileNamev2];
 }
 
 - (void)persistCollectors {
     NSArray *collectors = self.collectors;
     
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:collectors];
-    NSError *error;
-    [data writeToFile:[self persistFilePath] options:NSDataWritingAtomic|NSDataWritingFileProtectionComplete error:&error];
+    NSError *error = nil;
+
+    ORK1DataCollectionState* state = [[ORK1DataCollectionState alloc] init];
+    state.collectors = collectors;
+    state.archiveVersion = (NSString *)[[NSBundle bundleForClass:ORK1DataCollectionManager.self] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:state requiringSecureCoding:YES error:&error];
     
-    if (error) {
-        @throw [NSException exceptionWithName:NSGenericException reason: [NSString stringWithFormat:@"Failed to write to path %@", [self persistFilePath]] userInfo:nil];
+    if (data == nil) {
+        NSDictionary *userInfo = @{NSUnderlyingErrorKey:error};
+        @throw [NSException exceptionWithName:NSGenericException reason:@"Failed to archive collectors" userInfo:userInfo];
+    }
+    
+    error = nil;
+    BOOL success = [data writeToFile:[self persistFilePath] options:NSDataWritingAtomic|NSDataWritingFileProtectionComplete error:&error];
+
+    if (success != YES) {
+        NSDictionary *userInfo = @{NSUnderlyingErrorKey:error};
+        @throw [NSException exceptionWithName:NSGenericException reason: [NSString stringWithFormat:@"Failed to write to path %@", [self persistFilePath]] userInfo:userInfo];
     }
 }
 
@@ -246,7 +263,7 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
     [self onWorkQueueSync:^BOOL(ORK1DataCollectionManager *manager) {
         
         if (_operationQueue.operationCount > 0) {
-            ORK1_Log_Debug(@"[startWithObserving] returned due to operation queue is not empty (queue size = %@)", @(_operationQueue.operationCount));
+            ORK1_Log_Debug("[startWithObserving] returned due to operation queue is not empty (queue size = %@)", @(_operationQueue.operationCount));
             errorOut = [NSError errorWithDomain:ORK1ErrorDomain code:ORK1ErrorException userInfo:@{NSLocalizedFailureReasonErrorKey: @"Cannot remove collector during collection."}];
             return NO;
         }
@@ -280,7 +297,7 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
     [self onWorkQueueAsync:^BOOL(ORK1DataCollectionManager *manager) {
         
         if (_operationQueue.operationCount > 0) {
-            ORK1_Log_Debug(@"[startWithObserving] returned due to operation queue is not empty (queue size = %@)", @(_operationQueue.operationCount));
+            ORK1_Log_Debug("[startWithObserving] returned due to operation queue is not empty (queue size = %@)", @(_operationQueue.operationCount));
             return NO;
         }
         
@@ -314,7 +331,7 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
         [completionOperation addExecutionBlock:^{
             
             typeof(self) strongSelf = weakSelf;
-            [strongSelf onWorkQueueSync:^BOOL(ORK1DataCollectionManager *manager) {
+            [strongSelf onWorkQueueSync:^BOOL(ORK1DataCollectionManager *collectionManager) {
                 if (_delegate && [_delegate respondsToSelector:@selector(dataCollectionManagerDidCompleteCollection:)]) {
                     [_delegate dataCollectionManagerDidCompleteCollection:self];
                 }
@@ -332,7 +349,7 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
             [completionOperation addDependency:operation];
         }
         
-        ORK1_Log_Debug(@"Data Collection queue - new operations:\n%@", operations);
+        ORK1_Log_Debug("Data Collection queue - new operations:\n%@", operations);
         [_operationQueue addOperations:operations waitUntilFinished:NO];
         [_operationQueue addOperation:completionOperation];
         
@@ -340,6 +357,38 @@ static inline void dispatch_sync_if_not_on_queue(dispatch_queue_t queue, dispatc
         return NO;
     }];
 
+}
+
+@end
+
+@implementation ORK1DataCollectionState
+
+/// Sentinel value for archiveVersion to indicate missing version info
++ (NSString *)absentVersionInfoSentinelValue {
+    return @"0.0.0";
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (aDecoder.allowsKeyedCoding != YES) {
+        return nil;
+    }
+
+    self = [super init];
+    
+  
+    ORK1_DECODE_OBJ_ARRAY(aDecoder, collectors, ORK1Collector);
+    ORK1_DECODE_OBJ_CLASS(aDecoder, archiveVersion, NSString);
+
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    ORK1_ENCODE_OBJ(aCoder, archiveVersion ? : [self.class absentVersionInfoSentinelValue]);
+    ORK1_ENCODE_OBJ(aCoder, collectors);
 }
 
 @end

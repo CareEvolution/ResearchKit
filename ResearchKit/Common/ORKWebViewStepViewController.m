@@ -272,17 +272,16 @@
         if (navigationAction.targetFrame != nil
             && ([navigationAction.request.URL.scheme isEqualToString:@"http"]
                 || [navigationAction.request.URL.scheme isEqualToString:@"https"])) {
-                if (@available(iOS 11.0, *)) {
-                    SFSafariViewControllerConfiguration *cfg = [[SFSafariViewControllerConfiguration alloc] init];
-                    cfg.barCollapsingEnabled = YES;
-                    SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:navigationAction.request.URL configuration:cfg];
-                    safari.preferredBarTintColor = self.navigationController.navigationBar.barTintColor;
-                    safari.preferredControlTintColor = self.view.tintColor;
-                    [self presentViewController:safari animated:YES completion:NULL];
-                    decisionHandler(WKNavigationActionPolicyCancel);
-                    return;
-                }
-            }
+
+            SFSafariViewControllerConfiguration *cfg = [[SFSafariViewControllerConfiguration alloc] init];
+            cfg.barCollapsingEnabled = YES;
+            SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:navigationAction.request.URL configuration:cfg];
+            safari.preferredBarTintColor = self.navigationController.navigationBar.barTintColor;
+            safari.preferredControlTintColor = self.view.tintColor;
+            [self presentViewController:safari animated:YES completion:NULL];
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }
         
         if ([[UIApplication sharedApplication] canOpenURL:navigationAction.request.URL]) {
             [[UIApplication sharedApplication] openURL:navigationAction.request.URL options:@{} completionHandler:NULL];
@@ -291,14 +290,6 @@
         }
     }
     decisionHandler(WKNavigationActionPolicyAllow);
-}
-
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = true;
-}
-
-- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = false;
 }
 
 - (void)setScriptMessageNames:(NSArray<NSString *> *)scriptMessageNames {

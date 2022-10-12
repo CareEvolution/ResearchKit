@@ -353,7 +353,10 @@ typedef NS_OPTIONS(NSUInteger, TestsTaskResultOptions) {
         ORK1Step *currentStep = _orderedTaskSteps[stepIndex];
         XCTAssertEqualObjects(currentStep, [_orderedTask stepWithIdentifier:_orderedTaskStepIdentifiers[stepIndex]]);
         
-        const NSUInteger expectedCurrentProgress = stepIndex;
+        /*
+         CEVHack: counting has changed such that zero now means don't show progress and 1 is the first step.
+         */
+        const NSUInteger expectedCurrentProgress = stepIndex + 1;
         ORK1TaskProgress currentProgress = [_orderedTask progressOfCurrentStep:currentStep withResult:mockTaskResult];
         XCTAssertTrue(currentProgress.total == expectedTotalProgress && currentProgress.current == expectedCurrentProgress);
         

@@ -72,17 +72,7 @@
 - (instancetype)initWithStep:(ORK1Step *)step {
     self = [super initWithStep:step];
     if (self) {
-        _videoCaptureView = [[ORK1VideoCaptureView alloc] initWithFrame:CGRectZero];
-        _videoCaptureView.videoCaptureStep = (ORK1VideoCaptureStep *)step;
-        _videoCaptureView.delegate = self;
-        [self.view addSubview:_videoCaptureView];
-        
-        _videoCaptureStep = (ORK1VideoCaptureStep *)self.step;
-        _movieFileOutput = [AVCaptureMovieFileOutput new];
-    
         self.fileURL = nil;
-        
-        [self setUpConstraints];
     }
     return self;
 }
@@ -114,16 +104,45 @@
     _videoCaptureView.skipButtonItem = skipButtonItem;
 }
 
+- (void)setCancelButtonItem:(UIBarButtonItem *)cancelButtonItem {
+    [super setCancelButtonItem:cancelButtonItem];
+    _videoCaptureView.cancelButtonItem = cancelButtonItem;
+}
+
+- (void)stepDidChange {
+    [super stepDidChange];
+    
+    if (self.step && [self isViewLoaded]) {
+        [_videoCaptureView removeFromSuperview];
+        _videoCaptureView = nil;
+        _movieFileOutput = nil;
+        
+        _videoCaptureView = [[ORK1VideoCaptureView alloc] initWithFrame:CGRectZero];
+        _videoCaptureView.videoCaptureStep = (ORK1VideoCaptureStep *)self.step;
+        _videoCaptureView.delegate = self;
+        _videoCaptureView.cancelButtonItem = self.cancelButtonItem;
+        [self.view addSubview:_videoCaptureView];
+        
+        
+        _videoCaptureStep = (ORK1VideoCaptureStep *)self.step;
+        _movieFileOutput = [AVCaptureMovieFileOutput new];
+        
+        [self setUpConstraints];
+        
+        
+        // Capture actions should be performed off the main queue to keep the UI responsive
+        _sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
+        
+        // Setup the capture session
+        dispatch_async(_sessionQueue, ^{
+            [self queue_SetupCaptureSession];
+        });
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Capture actions should be performed off the main queue to keep the UI responsive
-    _sessionQueue = dispatch_queue_create("session queue", DISPATCH_QUEUE_SERIAL);
-    
-    // Setup the capture session
-    dispatch_async(_sessionQueue, ^{
-        [self queue_SetupCaptureSession];
-    });
+    [self stepDidChange];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -134,6 +153,8 @@
         dispatch_async(_sessionQueue, ^{
             [_captureSession startRunning];
         });
+    } else {
+        [self setFileURL:_fileURL];
     }
 }
 
@@ -150,6 +171,14 @@
     [super viewWillDisappear:animated];
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    if (_videoCaptureView) {
+        [_videoCaptureView orientationDidChange];
+    }
+}
+
 - (void)queue_SetupCaptureSession {
     // Create the session
     _captureSession = [AVCaptureSession new];
@@ -158,22 +187,20 @@
     // Get the camera
     AVCaptureDevice *device;
     
-    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-    for (AVCaptureDevice *d in devices) {
-        if (d.position == _videoCaptureStep.devicePosition) {
-            device = d;
-            break;
-        }
+    AVCaptureDeviceDiscoverySession *discoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:@[AVCaptureDeviceTypeBuiltInWideAngleCamera] mediaType:AVMediaTypeVideo position:_videoCaptureStep.devicePosition ? : AVCaptureDevicePositionBack];
+
+    if (discoverySession.devices.count > 0) {
+        device = discoverySession.devices[0];
     }
     
     if (device) {
-        // Check if the device has flash.
-        if ([device isFlashModeSupported:_videoCaptureStep.flashMode]) {
+        // Check if the device has the requested torchMode
+        if([device isTorchModeSupported:_videoCaptureStep.torchMode]){
             [device lockForConfiguration:nil];
-            device.flashMode = _videoCaptureStep.flashMode;
+            device.torchMode = _videoCaptureStep.torchMode;
             [device unlockForConfiguration];
         }
-
+        
         // Configure the input and output
         AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
         
@@ -282,31 +309,51 @@
         if ([fileManager fileExistsAtPath:_fileURL.path]) {
             [fileManager removeItemAtURL:_fileURL error:nil];
         }
-
-
-        [_movieFileOutput startRecordingToOutputFileURL:_fileURL
-                                      recordingDelegate:self];
-        
-        // Use the main queue, as UI components may need to be updated
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (handler) {
-                handler();
-            }
-        });
+        AVCaptureConnection *connection = [_movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
+        if (connection.isActive) {
+            [_movieFileOutput startRecordingToOutputFileURL:_fileURL
+                                          recordingDelegate:self];
+            
+            // Use the main queue, as UI components may need to be updated
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (handler) {
+                    handler();
+                }
+            });
+        }
+        else {
+            //ORK1_Log_Info("Connection not ready");
+            // Use the main queue, as UI components may need to be updated
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (handler) {
+                    handler();
+                }
+                 [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"CAPTURE_ERROR_NO_PERMISSIONS", nil)}]];
+                
+            });
+        }
     });
 }
 
 - (void)stopCapturePressed:(void (^)(void))handler {
-    dispatch_async(_sessionQueue, ^{
-        [_movieFileOutput stopRecording];
-        
-        // Use the main queue, as UI components may need to be updated
+    if (_movieFileOutput.recording) {
+        dispatch_async(_sessionQueue, ^{
+            [_movieFileOutput stopRecording];
+            
+            // Use the main queue, as UI components may need to be updated
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (handler) {
+                    handler();
+                }
+            });
+        });
+    } else {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (handler) {
                 handler();
             }
         });
-    });
+    }
 }
 
 - (void)videoOrientationDidChange:(AVCaptureVideoOrientation)videoOrientation {

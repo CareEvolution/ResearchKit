@@ -122,8 +122,9 @@
     ORK1TaskResult *taskResult1 = [self createTaskResultTree];
     
     // Archive
-    id data = [NSKeyedArchiver archivedDataWithRootObject:taskResult1];
-    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+    NSError *error = nil;
+    id data = [NSKeyedArchiver archivedDataWithRootObject:taskResult1 requiringSecureCoding:YES error:&error];
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
     unarchiver.requiresSecureCoding = YES;
     ORK1TaskResult *taskResult2 = [unarchiver decodeObjectOfClass:[ORK1TaskResult class] forKey:NSKeyedArchiveRootObjectKey];
     

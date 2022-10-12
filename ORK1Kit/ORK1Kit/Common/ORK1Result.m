@@ -47,6 +47,7 @@
 
 @import CoreMotion;
 @import CoreLocation;
+@import Contacts;
 
 
 const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
@@ -2116,13 +2117,13 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 - (instancetype)initWithCoordinate:(CLLocationCoordinate2D)coordinate
                             region:(CLCircularRegion *)region
                          userInput:(NSString *)userInput
-                 addressDictionary:(NSDictionary *)addressDictionary {
+                     postalAddress:(CNPostalAddress *)postalAddress {
     self = [super init];
     if (self) {
         _coordinate = coordinate;
         _region = region;
         _userInput = [userInput copy];
-        _addressDictionary = [addressDictionary copy];
+        _postalAddress = [postalAddress copy];
     }
     return self;
 }
@@ -2133,7 +2134,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
         _coordinate = placemark.location.coordinate;
         _userInput =  [userInput copy];
         _region = (CLCircularRegion *)placemark.region;
-        _addressDictionary = [placemark.addressDictionary copy];
+        _postalAddress = [placemark.postalAddress copy];
     }
     return self;
 }
@@ -2155,7 +2156,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     ORK1_ENCODE_OBJ(aCoder, userInput);
     ORK1_ENCODE_COORDINATE(aCoder, coordinate);
-    ORK1_ENCODE_OBJ(aCoder, addressDictionary);
+    ORK1_ENCODE_OBJ(aCoder, postalAddress);
 
     [aCoder encodeObject:@(_region.center.latitude) forKey:RegionCenterLatitudeKey];
     [aCoder encodeObject:@(_region.center.longitude) forKey:RegionCenterLongitudeKey];
@@ -2168,7 +2169,7 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     if (self) {
         ORK1_DECODE_OBJ_CLASS(aDecoder, userInput, NSString);
         ORK1_DECODE_COORDINATE(aDecoder, coordinate);
-        ORK1_DECODE_OBJ_CLASS(aDecoder, addressDictionary, NSDictionary);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, postalAddress, CNPostalAddress);
         ORK1_DECODE_OBJ_CLASS(aDecoder, region, CLCircularRegion);
         
         NSNumber *latitude = [aDecoder decodeObjectOfClass:[NSNumber class] forKey:RegionCenterLatitudeKey];
@@ -2189,8 +2190,11 @@ static NSString *const RegionIdentifierKey = @"region.identifier";
     
     __typeof(self) castObject = object;
     return (ORK1EqualObjects(self.userInput, castObject.userInput) &&
-            ORK1EqualObjects(self.addressDictionary, castObject.addressDictionary) &&
-            ORK1EqualObjects(self.region, castObject.region) &&
+            ORK1EqualObjects(self.postalAddress, castObject.postalAddress) &&
+            // The region is not checking for equality properly so check the values
+                        (self.region.center.latitude == castObject.region.center.latitude) &&
+                        (self.region.center.longitude == castObject.region.center.longitude) &&
+                        (self.region.radius == castObject.region.radius) &&
             ORK1EqualObjects([NSValue valueWithMKCoordinate:self.coordinate], [NSValue valueWithMKCoordinate:castObject.coordinate]));
 }
 

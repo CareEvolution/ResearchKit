@@ -59,6 +59,7 @@
         ORK1_DECODE_UIEDGEINSETS(aDecoder, templateImageInsets);
         ORK1_DECODE_OBJ(aDecoder, accessibilityHint);
         ORK1_DECODE_OBJ(aDecoder, accessibilityInstructions);
+        ORK1_DECODE_BOOL(aDecoder, captureRaw);
     }
     return self;
 }
@@ -69,6 +70,7 @@
     ORK1_ENCODE_UIEDGEINSETS(aCoder, templateImageInsets);
     ORK1_ENCODE_OBJ(aCoder, accessibilityHint);
     ORK1_ENCODE_OBJ(aCoder, accessibilityInstructions);
+    ORK1_ENCODE_BOOL(aCoder, captureRaw);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -81,6 +83,7 @@
     step.templateImageInsets = self.templateImageInsets;
     step.accessibilityHint = self.accessibilityHint;
     step.accessibilityInstructions = self.accessibilityInstructions;
+    step.captureRaw = self.captureRaw;
     return step;
 }
 
@@ -91,7 +94,8 @@
     return isParentSame && ORK1EqualObjects(self.templateImage, castObject.templateImage)
                         && UIEdgeInsetsEqualToEdgeInsets(self.templateImageInsets, castObject.templateImageInsets)
                         && ORK1EqualObjects(self.accessibilityHint, castObject.accessibilityHint)
-                        && ORK1EqualObjects(self.accessibilityInstructions, castObject.accessibilityInstructions);
+                        && ORK1EqualObjects(self.accessibilityInstructions, castObject.accessibilityInstructions)
+                        && self.captureRaw == castObject.captureRaw;
 }
 
 @end

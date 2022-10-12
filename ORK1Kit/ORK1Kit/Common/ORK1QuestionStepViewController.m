@@ -223,12 +223,18 @@ typedef NS_ENUM(NSInteger, ORK1QuestionSection) {
                                                                                      options:(NSLayoutFormatOptions)0
                                                                                      metrics:nil
                                                                                        views:@{@"questionView": _questionView}]];
-            [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[topGuide][questionView][bottomGuide]"
-                                                                                     options:(NSLayoutFormatOptions)0
-                                                                                     metrics:nil
-                                                                                       views:@{@"questionView": _questionView,
-                                                                                               @"topGuide": self.topLayoutGuide,
-                                                                                               @"bottomGuide": self.bottomLayoutGuide}]];
+            [constraints addObject:[NSLayoutConstraint constraintWithItem:self.view.safeAreaLayoutGuide
+                                                                attribute:NSLayoutAttributeTop
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:_questionView
+                                                                attribute:NSLayoutAttributeTop
+                                                               multiplier:1 constant:0]];
+            [constraints addObject:[NSLayoutConstraint constraintWithItem:self.view.safeAreaLayoutGuide
+                                                                attribute:NSLayoutAttributeBottom
+                                                                relatedBy:NSLayoutRelationEqual
+                                                                   toItem:_questionView
+                                                                attribute:NSLayoutAttributeBottom
+                                                               multiplier:1 constant:0]];
             for (NSLayoutConstraint *constraint in constraints) {
                 constraint.priority = UILayoutPriorityRequired;
             }

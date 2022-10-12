@@ -424,7 +424,7 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
 @implementation UIFont (Scalable)
 
 + (NSDictionary *)cevrk1_textStyleToPointSize {
-    NSMutableDictionary *dict = [@{
+    return @{
         UIFontTextStyleTitle1: @28,
         UIFontTextStyleTitle2: @22,
         UIFontTextStyleTitle3: @20,
@@ -435,33 +435,26 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
         UIFontTextStyleFootnote: @13,
         UIFontTextStyleCaption1: @12,
         UIFontTextStyleCaption2: @11,
-    } mutableCopy];
-    if (@available(iOS 11.0, *)) {
-        dict[UIFontTextStyleLargeTitle] = @34;
-    }
-    return dict;
+        UIFontTextStyleLargeTitle: @34
+    };
 }
 
 + (UIFont *)cevrk1_preferredFontOfSize:(CGFloat)size weight:(UIFontWeight)weight {
-    if (@available(iOS 11.0, *)) {
-        // Find closest style to the given size
-        NSString *style = UIFontTextStyleBody;
-        CGFloat diff = fabs(size - 17);
-        for (NSString *i in [UIFont cevrk1_textStyleToPointSize].allKeys) {
-            NSString *currStyle = i;
-            CGFloat currSize = ((NSNumber *)[UIFont cevrk1_textStyleToPointSize][i]).floatValue;
-            CGFloat currDiff = fabs(currSize - size);
-            if (currDiff < diff) {
-                diff = currDiff;
-                style = currStyle;
-            }
+    // Find closest style to the given size
+    NSString *style = UIFontTextStyleBody;
+    CGFloat diff = fabs(size - 17);
+    for (NSString *i in [UIFont cevrk1_textStyleToPointSize].allKeys) {
+        NSString *currStyle = i;
+        CGFloat currSize = ((NSNumber *)[UIFont cevrk1_textStyleToPointSize][i]).floatValue;
+        CGFloat currDiff = fabs(currSize - size);
+        if (currDiff < diff) {
+            diff = currDiff;
+            style = currStyle;
         }
-
-        UIFont *font = [UIFont systemFontOfSize:size weight:weight];
-        return [[UIFontMetrics metricsForTextStyle:style] scaledFontForFont:font];
-    } else {
-        return [UIFont systemFontOfSize:size weight:weight];
     }
+    
+    UIFont *font = [UIFont systemFontOfSize:size weight:weight];
+    return [[UIFontMetrics metricsForTextStyle:style] scaledFontForFont:font];
 }
 
 @end

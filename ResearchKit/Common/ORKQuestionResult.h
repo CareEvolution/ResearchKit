@@ -164,9 +164,9 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, copy, readonly, nullable) NSString *userInput;
 
 /**
- The address dicitonary for this coordinate from MapKit.
+ The postal address for this coordinate.
  */
-@property (nonatomic, copy, readonly, nullable) NSDictionary *addressDictionary;
+@property (nonatomic, copy, readonly, nullable) CNPostalAddress *postalAddress;
 
 @end
 

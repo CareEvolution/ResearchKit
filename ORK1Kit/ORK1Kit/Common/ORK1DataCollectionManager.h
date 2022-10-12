@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- The data collection manager delegate is responsible for delivering collected data objects, 
+ The data collection manager delegate is responsible for delivering collected data objects,
  and reporting errors during the operation.
  */
 @protocol ORK1DataCollectionManagerDelegate <NSObject>
@@ -172,7 +172,6 @@ ORK1_CLASS_AVAILABLE
  
  @param startDate     When data collection should start.
  @param error         Error during this operation.
-
  @return Initiated motion activity collector.
  */
 - (ORK1MotionActivityCollector *)addMotionActivityCollectorWithStartDate:(NSDate *)startDate
@@ -194,6 +193,15 @@ ORK1_CLASS_AVAILABLE
  When the collection is completed, delegate recieves a method call `dataCollectionManagerDidCompleteCollection:`.
  */
 - (void)startCollection;
+
+@end
+
+ORK1_CLASS_AVAILABLE
+@interface ORK1DataCollectionState : NSObject <NSSecureCoding>
+
+@property(nonatomic, nullable, readwrite) NSString *archiveVersion;
+
+@property(nonatomic, nonnull, readwrite) NSArray<ORK1Collector *> *collectors;
 
 @end
 

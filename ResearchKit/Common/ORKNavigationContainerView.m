@@ -109,12 +109,13 @@ static const CGFloat shadowHeight = 0.75;
 
 - (void)setupCancelButton {
     if (!_cancelButton) {
-        _cancelButton = [ORKBorderedButton new];
+        _cancelButton = (ORKNavigationContainerBorderedButton *)[ORKBorderedButton new];
         _cancelButtonView = [UIView new];
     }
     [_cancelButton setTitle:nil forState:UIControlStateNormal];
     [_cancelButton addTarget:self action:@selector(cancelButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     _cancelButton.translatesAutoresizingMaskIntoConstraints = NO;
+    _cancelButton.accessibilityValue = @"Normal Task Cancel";
     _cancelButtonView.translatesAutoresizingMaskIntoConstraints = NO;
 
     [_cancelButtonView addSubview:_cancelButton];
@@ -181,7 +182,7 @@ static const CGFloat shadowHeight = 0.75;
 
 - (void)setupSkipButton {
     if (!_skipButton) {
-        _skipButton = [ORKBorderedButton new];
+        _skipButton = (ORKNavigationContainerBorderedButton *)[ORKBorderedButton new];
         _skipButtonView = [UIView new];
     }
     _skipButton.exclusiveTouch = YES;
@@ -369,7 +370,7 @@ static const CGFloat shadowHeight = 0.75;
             [_subStackView1 addArrangedSubview:_continueButton];
         }
         
-        if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+        if (UIInterfaceOrientationIsLandscape(self.window.windowScene.interfaceOrientation)) {
            
             [_subStackView1 insertArrangedSubview:_cancelButtonView atIndex:[[_subStackView1 arrangedSubviews] count]];
             [_subStackView1 insertArrangedSubview:_skipButtonView atIndex:[[_subStackView1 arrangedSubviews] count] - 1];
