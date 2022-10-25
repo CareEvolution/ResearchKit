@@ -2761,14 +2761,19 @@ static NSString *const kSecureTextEntryEscapeString = @"*";
 }
 
 - (instancetype)init {
-    self = [self initWithMeasurementSystem:ORKMeasurementSystemLocal];
-    return self;
+    return [self initWithMeasurementSystem:ORKMeasurementSystemLocal numericPrecision:ORKNumericPrecisionDefault];
 }
 
 - (instancetype)initWithMeasurementSystem:(ORKMeasurementSystem)measurementSystem {
+    return [self initWithMeasurementSystem:measurementSystem numericPrecision:ORKNumericPrecisionDefault];
+}
+
+- (instancetype)initWithMeasurementSystem:(ORKMeasurementSystem)measurementSystem
+                         numericPrecision:(ORKNumericPrecision)numericPrecision {
     self = [super init];
     if (self) {
         _measurementSystem = measurementSystem;
+        _numericPrecision = numericPrecision;
     }
     return self;
 }
@@ -2778,17 +2783,19 @@ static NSString *const kSecureTextEntryEscapeString = @"*";
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            (self.measurementSystem == castObject.measurementSystem));
+            (self.measurementSystem == castObject.measurementSystem) &&
+            (self.numericPrecision == castObject.numericPrecision));
 }
 
 - (NSUInteger)hash {
-    return super.hash ^ _measurementSystem;
+    return super.hash ^ _measurementSystem ^ _numericPrecision;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         ORK_DECODE_ENUM(aDecoder, measurementSystem);
+        ORK_DECODE_ENUM(aDecoder, numericPrecision);
     }
     return self;
 }
@@ -2796,6 +2803,7 @@ static NSString *const kSecureTextEntryEscapeString = @"*";
 - (void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_ENUM(aCoder, measurementSystem);
+    ORK_ENCODE_ENUM(aCoder, numericPrecision);
 }
 
 - (ORKQuestionType)questionType {
@@ -2962,11 +2970,9 @@ static NSString *const kSecureTextEntryEscapeString = @"*";
                 NSString *poundsString = [formatter stringFromNumber:@(pounds)];
                 answerString = [NSString stringWithFormat:@"%@ %@", poundsString, ORKLocalizedString(@"MEASURING_UNIT_LB", nil)];
             } else {
-                double pounds, ounces;
-                ORKKilogramsToPoundsAndOunces(((NSNumber *)answer).doubleValue, &pounds, &ounces);
+                double pounds = ORKKilogramsToPounds(((NSNumber *)answer).doubleValue);
                 NSString *poundsString = [formatter stringFromNumber:@(pounds)];
-                NSString *ouncesString = [formatter stringFromNumber:@(ounces)];
-                answerString = [NSString stringWithFormat:@"%@ %@, %@ %@", poundsString, ORKLocalizedString(@"MEASURING_UNIT_LB", nil), ouncesString, ORKLocalizedString(@"MEASURING_UNIT_OZ", nil)];
+                answerString = [NSString stringWithFormat:@"%@ %@", poundsString, ORKLocalizedString(@"MEASURING_UNIT_LB", nil)];
             }
         }
     }
