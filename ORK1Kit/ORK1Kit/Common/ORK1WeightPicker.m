@@ -134,7 +134,7 @@
             double pounds = ORK1KilogramsToPounds(((NSNumber *)answer).doubleValue);
             double tenthsOfPounds = pounds - (NSInteger)pounds;
             NSUInteger poundsIndex = [_majorValues indexOfObject:@((NSInteger)pounds)];
-            NSUInteger tenthsOfPoundsIndex = [_minorValues indexOfObject:@((NSInteger)tenthsOfPounds)];
+            NSUInteger tenthsOfPoundsIndex = [_minorValues indexOfObject:@((NSInteger)round(tenthsOfPounds * 10))];
             if (poundsIndex == NSNotFound || tenthsOfPoundsIndex == NSNotFound) {
                 [self setAnswer:[self defaultAnswerValue]];
                 return;
