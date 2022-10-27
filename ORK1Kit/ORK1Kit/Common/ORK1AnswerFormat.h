@@ -1459,19 +1459,56 @@ ORK1_CLASS_AVAILABLE
 /**
  Returns an initialized height answer format using the specified measurement system.
  
- This method is the designated initializer.
- 
  @param measurementSystem   The measurement system to use. See `ORK1MeasurementSystem` for the
                                 accepted values.
  
  @return An initialized height answer format.
  */
-- (instancetype)initWithMeasurementSystem:(ORK1MeasurementSystem)measurementSystem NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithMeasurementSystem:(ORK1MeasurementSystem)measurementSystem;
+
+/**
+ Returns an initialized height answer format using the specified measurement system and numeric
+ precision.
+ 
+ This method is the designated initializer.
+ 
+ @param measurementSystem       The measurement system to use. See `ORK1MeasurementSystem` for the
+                                    accepted values.
+ @param numericPrecision        The numeric precision used by the picker. If you pass
+                                    `ORK1NumericPrecisionDefault`, the picker will use 1 cm
+                                    increments for the metric measurement system and 1 ft and 1 inch
+                                    increments for the USC measurement system, which mimics the
+                                    default iOS behavior. If you pass `ORK1NumericPrecisionLow`, the
+                                    picker will use 1 cm increments for the metric measurement
+                                    system and whole inch increments for the USC measurement
+                                    system. If you pass `ORK1NumericPrecisionHigh`, the picker
+                                    use 0.1 cm increments for the metric measurement system,
+                                    and 0.1 inch increments for the USC measurement system.
+ 
+ @return An initialized height answer format.
+ */
+- (instancetype)initWithMeasurementSystem:(ORK1MeasurementSystem)measurementSystem
+                         numericPrecision:(ORK1NumericPrecision)numericPrecision NS_DESIGNATED_INITIALIZER;
+
 
 /**
  The measurement system used by the answer format.
  */
 @property (readonly) ORK1MeasurementSystem measurementSystem;
+
+/**
+ The numeric precision used by the picker.
+ 
+ An `ORK1NumericPrecisionDefault` value indicates that the picker will use 1 cm increments for the
+ metric measurement system and 1 ft and 1 inch increments for the USC measurement system, which mimics
+ the default iOS behavior. An `ORK1NumericPrecisionLow` value indicates that the picker will use 1 cm
+ increments for the metric measurement system and 1 ft and 1 inch increments for the USC measurement system.
+ An `ORK1NumericPrecisionHigh` value indicates that the picker will use 0.1 cm increments for the
+ metric measurement system and 0.1 inch increments for the USC measurement system.
+ 
+ The default value of this property is `ORK1NumericPrecisionDefault`.
+ */
+@property (readonly, getter=isAdditionalPrecision) ORK1NumericPrecision numericPrecision;
 
 @end
 
@@ -1519,9 +1556,9 @@ ORK1_CLASS_AVAILABLE
                                     default iOS behavior. If you pass `ORK1NumericPrecisionLow`, the
                                     picker will use 1 kg increments for the metric measurement
                                     system and whole pound increments for the USC measurement
-                                    system. If you pass `ORK1NumericPrecisionHigher`, the picker
-                                    use 0.01 gr increments for the metric measurement system,
-                                    and ounce increments for the USC measurement system.
+                                    system. If you pass `ORK1NumericPrecisionHigh`, the picker
+                                    use 0.01 kg increments for the metric measurement system,
+                                    and 0.1 lb increments for the USC measurement system.
  
  @return An initialized weight answer format.
  */
@@ -1541,9 +1578,9 @@ ORK1_CLASS_AVAILABLE
                                     default iOS behavior. If you pass `ORK1NumericPrecisionLow`, the
                                     picker will use 1 kg increments for the metric measurement
                                     system and whole pound increments for the USC measurement
-                                    system. If you pass `ORK1NumericPrecisionHigher`, the picker
-                                    use 0.01 gr increments for the metric measurement system,
-                                    and ounce increments for the USC measurement system.
+                                    system. If you pass `ORK1NumericPrecisionHigh`, the picker
+                                    use 0.01 kg increments for the metric measurement system,
+                                    and 0.1 lb increments for the USC measurement system.
  @param minimumValue            The minimum value that is displayed in the picker. If you specify
                                     `ORK1DefaultValue`, the minimum values are 0 kg when using the
                                     metric measurement system and 0 lbs when using the USC
@@ -1578,8 +1615,8 @@ ORK1_CLASS_AVAILABLE
  metric measurement system and whole pound increments for the USC measurement system, which mimics
  the default iOS behavior. An `ORK1NumericPrecisionLow` value indicates that the picker will use
  1 kg increments for the metric measurement system and whole pound increments for the USC
- measurement system. An `ORK1NumericPrecisionHigher` value indicates that the picker will use
- 0.01 gr increments for the metric measurement system and ounce increments for the USC measurement
+ measurement system. An `ORK1NumericPrecisionHigh` value indicates that the picker will use
+ 0.01 kg increments for the metric measurement system and 0.1 lb increments for the USC measurement
  system.
  
  The default value of this property is `ORK1NumericPrecisionDefault`.

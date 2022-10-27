@@ -86,12 +86,18 @@ static const CGFloat PickerMinimumHeight = 34.0;
     }
     
     if (_answerFormat.useMetricSystem) {
-        NSUInteger index = [[self centimeterValues] indexOfObject:answer];
+        double centimetersWithFraction = ((NSNumber *)answer).doubleValue;
+        NSInteger centimeters = (NSInteger)centimetersWithFraction;
+        NSUInteger index = [[self centimeterValues] indexOfObject:@(centimeters)];
         if (index == NSNotFound) {
             [self setAnswer:[self defaultAnswerValue]];
             return;
         }
         [_pickerView selectRow:index inComponent:0 animated:NO];
+        if (_answerFormat.numericPrecision == ORKNumericPrecisionHigh) {
+            NSInteger tenthsOfCentimeter = (NSInteger)(round((centimetersWithFraction - floor(centimetersWithFraction)) * 10));
+            [_pickerView selectRow:tenthsOfCentimeter inComponent:1 animated:NO];
+        }
     } else {
         double feet, inches;
         ORKCentimetersToFeetAndInches(((NSNumber *)answer).doubleValue, &feet, &inches);
@@ -103,6 +109,10 @@ static const CGFloat PickerMinimumHeight = 34.0;
         }
         [_pickerView selectRow:feetIndex inComponent:0 animated:NO];
         [_pickerView selectRow:inchesIndex inComponent:1 animated:NO];
+        if (_answerFormat.numericPrecision == ORKNumericPrecisionHigh) {
+            NSInteger tenthsOfInch = (NSInteger)(round((inches - floor(inches)) * 10));
+            [_pickerView selectRow:tenthsOfInch inComponent:2 animated:NO];
+        }
     }
 }
 
@@ -123,14 +133,27 @@ static const CGFloat PickerMinimumHeight = 34.0;
 - (NSNumber *)selectedAnswerValue {
     NSNumber *answer = nil;
     if (_answerFormat.useMetricSystem) {
-        NSInteger row = [_pickerView selectedRowInComponent:0];
-        answer = [self centimeterValues][row];
+        NSInteger majorAmountRow = [_pickerView selectedRowInComponent:0];
+        if (_answerFormat.numericPrecision == ORKNumericPrecisionHigh) {
+            NSNumber *majorAmount = (NSNumber *)[self centimeterValues][majorAmountRow];
+            NSInteger minorAmountRow = [_pickerView selectedRowInComponent:1];
+            NSNumber *minorAmount = (NSNumber *)[self partialValues][minorAmountRow];
+            answer = @(majorAmount.doubleValue + (minorAmount.doubleValue / 10));
+        } else {
+            answer = [self centimeterValues][majorAmountRow];
+        }
     } else {
         NSInteger feetRow = [_pickerView selectedRowInComponent:0];
         NSInteger inchesRow = [_pickerView selectedRowInComponent:1];
         NSNumber *feet = [self feetValues][feetRow];
         NSNumber *inches = [self inchesValues][inchesRow];
-        answer = @( ORKFeetAndInchesToCentimeters(feet.doubleValue, inches.doubleValue) );
+        if (_answerFormat.numericPrecision == ORKNumericPrecisionHigh) {
+            NSInteger minorAmountRow = [_pickerView selectedRowInComponent:2];
+            NSNumber *minorAmount = (NSNumber *)[self partialValues][minorAmountRow];
+            answer = @( ORKFeetAndInchesToCentimeters(feet.doubleValue, inches.doubleValue + (minorAmount.doubleValue / 10)) );
+        } else {
+            answer = @( ORKFeetAndInchesToCentimeters(feet.doubleValue, inches.doubleValue) );
+        }
     }
     return answer;
 }
@@ -169,18 +192,35 @@ static const CGFloat PickerMinimumHeight = 34.0;
 #pragma mark - UIPickerViewDataSource
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return _answerFormat.useMetricSystem ? 1 : 2;
+    NSInteger componentsCount = 1;
+    if (!_answerFormat.useMetricSystem) {
+        componentsCount += 1;
+    }
+    if (_answerFormat.numericPrecision == ORKNumericPrecisionHigh) {
+        componentsCount += 2;
+    }
+    return componentsCount;
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     NSInteger numberOfRows = 0;
     if (_answerFormat.useMetricSystem) {
-        numberOfRows = [self centimeterValues].count;
+        if (component == 0) {
+            numberOfRows = [self centimeterValues].count;
+        } else if (component == 1) {
+            numberOfRows = [self partialValues].count;
+        } else {
+            numberOfRows = 1;  // centimeters
+        }
     } else {
         if (component == 0) {
             numberOfRows = [self feetValues].count;
-        } else {
+        } else if (component == 1) {
             numberOfRows = [self inchesValues].count;
+        } else if (component == 2) {
+            numberOfRows = [self partialValues].count;
+        } else {
+            numberOfRows = 1;  // inches
         }
     }
     return numberOfRows;
@@ -189,12 +229,40 @@ static const CGFloat PickerMinimumHeight = 34.0;
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     NSString *title = nil;
     if (_answerFormat.useMetricSystem) {
-        title = [NSString stringWithFormat:@"%@ %@", [self centimeterValues][row], ORKLocalizedString(@"MEASURING_UNIT_CM", nil)];
+        if (_answerFormat.numericPrecision == ORKNumericPrecisionHigh) {
+            switch (component) {
+                case 0:
+                    title = [NSString stringWithFormat:@"%@", [self centimeterValues][row]];
+                    break;
+                case 1:
+                    title = [NSString stringWithFormat:@".%@", [self partialValues][row]];
+                    break;
+                case 2:
+                    title = [NSString stringWithFormat:@"%@", ORKLocalizedString(@"MEASURING_UNIT_CM", nil)];
+                    break;
+            }
+        } else {
+            title = [NSString stringWithFormat:@"%@ %@", [self centimeterValues][row], ORKLocalizedString(@"MEASURING_UNIT_CM", nil)];
+        }
     } else {
         if (component == 0) {
             title = [NSString stringWithFormat:@"%@ %@", [self feetValues][row], ORKLocalizedString(@"MEASURING_UNIT_FT", nil)];
         } else {
-            title = [NSString stringWithFormat:@"%@ %@", [self inchesValues][row], ORKLocalizedString(@"MEASURING_UNIT_IN", nil)];
+            if (_answerFormat.numericPrecision == ORKNumericPrecisionHigh) {
+                switch (component) {
+                    case 1:
+                        title = [NSString stringWithFormat:@"%@", [self inchesValues][row]];
+                        break;
+                    case 2:
+                        title = [NSString stringWithFormat:@".%@", [self partialValues][row]];
+                        break;
+                    case 3:
+                        title = [NSString stringWithFormat:@"%@", ORKLocalizedString(@"MEASURING_UNIT_IN", nil)];
+                        break;
+                }
+            } else {
+                title = [NSString stringWithFormat:@"%@ %@", [self inchesValues][row], ORKLocalizedString(@"MEASURING_UNIT_IN", nil)];
+            }
         }
     }
     return title;
@@ -265,6 +333,19 @@ static const CGFloat PickerMinimumHeight = 34.0;
         inchesValues = [mutableInchesValues copy];
     });
     return inchesValues;
+}
+
+- (NSArray *)partialValues {
+    static NSArray *partialValues = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableArray *mutableInchesValues = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i <= 9; i++) {
+            [mutableInchesValues addObject:[NSNumber numberWithInteger:i]];
+        }
+        partialValues = [mutableInchesValues copy];
+    });
+    return partialValues;
 }
 
 - (void)currentLocaleDidChange:(NSNotification *)notification {
