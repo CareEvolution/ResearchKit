@@ -326,9 +326,8 @@ ORK_INLINE void ORKKilogramsToPoundsAndOunces(double kilograms, double * _Nullab
 }
 
 ORK_INLINE double ORKKilogramsToPounds(double kilograms) {
-    double pounds;
-    ORKKilogramsToPoundsAndOunces(kilograms, &pounds, NULL);
-    return pounds;
+    const double ORKPoundsPerKilogram = 2.20462262;
+    return kilograms * ORKPoundsPerKilogram;
 }
 
 ORK_INLINE double ORKWholeAndFractionToKilograms(double whole, double fraction) {
