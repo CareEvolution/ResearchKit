@@ -1473,7 +1473,7 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK1_DECODE_OBJ_ARRAY(aDecoder, choiceAnswers, NSObject);
+        ORK1_DECODE_OBJ_ARRAY2(aDecoder, choiceAnswers, ORK1TextChoice, ORK1ImageChoice);
     }
     return self;
 }
