@@ -2918,6 +2918,11 @@ static NSString *const kSecureTextEntryEscapeString = @"*";
         if (self.useMetricSystem) {
             answerString = [NSString stringWithFormat:@"%@ %@", [formatter stringFromNumber:answer], ORK1LocalizedString(@"MEASURING_UNIT_KG", nil)];
         } else {
+            if (self.numericPrecision == ORK1NumericPrecisionHigh) {
+                formatter.maximumFractionDigits = 1;
+            } else {
+                formatter.maximumFractionDigits = 0;
+            }
             double pounds = ORK1KilogramsToPounds(((NSNumber *)answer).doubleValue);
             NSString *poundsString = [formatter stringFromNumber:@(pounds)];
             answerString = [NSString stringWithFormat:@"%@ %@", poundsString, ORK1LocalizedString(@"MEASURING_UNIT_LB", nil)];
