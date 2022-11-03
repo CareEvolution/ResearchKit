@@ -204,7 +204,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        ORK_DECODE_OBJ_ARRAY(aDecoder, choiceAnswers, NSObject);
+        ORK_DECODE_OBJ_ARRAY2(aDecoder, choiceAnswers, ORKTextChoice, ORKImageChoice);
     }
     return self;
 }

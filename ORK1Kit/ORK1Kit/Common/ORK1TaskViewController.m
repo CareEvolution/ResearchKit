@@ -1512,6 +1512,12 @@ static NSString *const _ORK1StepIdentifierRestoreKey = @"stepIdentifier";
 static NSString *const _ORK1PresentedDate = @"presentedDate";
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    
+    /*
+     NOTE: this is manually (vs using ORK1_ENCODE_xxx) due to the conditional
+     encoding of "stepIdentifier" (_ORK1StepIdentifierRestoreKey)
+     */
+    
     [super encodeRestorableStateWithCoder:coder];
     
     [coder encodeObject:_taskRunUUID forKey:_ORK1TaskRunUUIDRestoreKey];
@@ -1539,9 +1545,10 @@ static NSString *const _ORK1PresentedDate = @"presentedDate";
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
     
-    _taskRunUUID = [coder decodeObjectOfClass:[NSUUID class] forKey:_ORK1TaskRunUUIDRestoreKey];
-    self.showsProgressInNavigationBar = [coder decodeBoolForKey:_ORK1ShowsProgressInNavigationBarRestoreKey];
+    ORK1_DECODE_OBJ_CLASS(coder, taskRunUUID, NSUUID);
+    ORK1_DECODE_BOOL(coder, showsProgressInNavigationBar);
     
+    // manually decoded due to two-step encode/decode of bookmark data <--> URL
     _outputDirectory = ORK1URLFromBookmarkData([coder decodeObjectOfClass:[NSData class] forKey:_ORK1OutputDirectoryRestoreKey]);
     [self ensureDirectoryExists:_outputDirectory];
     
@@ -1549,10 +1556,10 @@ static NSString *const _ORK1PresentedDate = @"presentedDate";
     if (_task) {
         
         // Recover partially entered results, even if we may not be able to jump to the desired step.
-        _managedResults = [coder decodeObjectOfClass:[NSMutableDictionary class] forKey:_ORK1ManagedResultsRestoreKey];
-        _managedStepIdentifiers = [coder decodeObjectOfClass:[NSMutableArray class] forKey:_ORK1ManagedStepIdentifiersRestoreKey];
+        ORK1_DECODE_OBJ_MUTABLE_DICTIONARY(coder, managedResults, NSString, ORK1Result);
+        ORK1_DECODE_OBJ_MUTABLE_ARRAY(coder, managedStepIdentifiers, NSString);
+        ORK1_DECODE_OBJ_CLASS(coder, restoredTaskIdentifier, NSString);
         
-        _restoredTaskIdentifier = [coder decodeObjectOfClass:[NSString class] forKey:_ORK1TaskIdentifierRestoreKey];
         if (_restoredTaskIdentifier) {
             if (![_task.identifier isEqualToString:_restoredTaskIdentifier]) {
                 @throw [NSException exceptionWithName:NSInternalInconsistencyException
@@ -1562,12 +1569,13 @@ static NSString *const _ORK1PresentedDate = @"presentedDate";
         }
         
         if ([_task respondsToSelector:@selector(stepWithIdentifier:)]) {
-            _hasSetProgressLabel = [coder decodeBoolForKey:_ORK1HasSetProgressLabelRestoreKey];
-            _requestedHealthTypesForRead = [coder decodeObjectOfClass:[NSSet class] forKey:_ORK1RequestedHealthTypesForReadRestoreKey];
-            _requestedHealthTypesForWrite = [coder decodeObjectOfClass:[NSSet class] forKey:_ORK1RequestedHealthTypesForWriteRestoreKey];
-            _presentedDate = [coder decodeObjectOfClass:[NSDate class] forKey:_ORK1PresentedDate];
-            _lastBeginningInstructionStepIdentifier = [coder decodeObjectOfClass:[NSString class] forKey:_ORK1LastBeginningInstructionStepIdentifierKey];
+            ORK1_DECODE_BOOL(coder, hasSetProgressLabel);
+            ORK1_DECODE_OBJ_CLASS(coder, requestedHealthTypesForRead, NSSet);
+            ORK1_DECODE_OBJ_CLASS(coder, requestedHealthTypesForWrite, NSSet);
+            ORK1_DECODE_OBJ_CLASS(coder, presentedDate, NSDate);
+            ORK1_DECODE_OBJ_CLASS(coder, lastBeginningInstructionStepIdentifier, NSString);
             
+            // manually decoded due to mapping into custom ivar
             _restoredStepIdentifier = [coder decodeObjectOfClass:[NSString class] forKey:_ORK1StepIdentifierRestoreKey];
         } else {
             ORK1_Log_Warning(@"Not restoring current step of task %@ because it does not implement -stepWithIdentifier:", _task.identifier);

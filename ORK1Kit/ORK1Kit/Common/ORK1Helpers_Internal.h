@@ -81,9 +81,11 @@ NS_ASSUME_NONNULL_BEGIN
 #define ORK1_ENCODE_URL_BOOKMARK(c, x) [c encodeObject:ORK1BookmarkDataFromURL(_ ## x) forKey:@ORK1_STRINGIFY(x)]
 
 #define ORK1_DECODE_OBJ_CLASS(d,x,cl)  _ ## x = (cl *)[d decodeObjectOfClass:[cl class] forKey:@ORK1_STRINGIFY(x)]
-#define ORK1_DECODE_OBJ_ARRAY(d,x,cl)  _ ## x = (NSArray *)[d decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class],[cl class],nil] forKey:@ORK1_STRINGIFY(x)]
+#define ORK1_DECODE_OBJ_ARRAY(d,x,cl)  _ ## x = (NSArray *)[d decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class],[cl class],[NSString class],nil] forKey:@ORK1_STRINGIFY(x)]
+#define ORK1_DECODE_OBJ_ARRAY2(d,x,cl,cl2)  _ ## x = (NSArray *)[d decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class],[cl class],[cl2 class],[NSString class],nil] forKey:@ORK1_STRINGIFY(x)]
 #define ORK1_DECODE_OBJ_MUTABLE_ORDERED_SET(d,x,cl)  _ ## x = [(NSOrderedSet *)[d decodeObjectOfClasses:[NSSet setWithObjects:[NSOrderedSet class],[cl class],nil] forKey:@ORK1_STRINGIFY(x)] mutableCopy]
 #define ORK1_DECODE_OBJ_MUTABLE_DICTIONARY(d,x,kcl,cl)  _ ## x = [(NSDictionary *)[d decodeObjectOfClasses:[NSSet setWithObjects:[NSDictionary class],[kcl class],[cl class],nil] forKey:@ORK1_STRINGIFY(x)] mutableCopy]
+#define ORK1_DECODE_OBJ_MUTABLE_ARRAY(d,x,cl)  _ ## x = [(NSArray *)[d decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class],[cl class],nil] forKey:@ORK1_STRINGIFY(x)] mutableCopy]
 
 #define ORK1_ENCODE_COND_OBJ(c,x)  [c encodeConditionalObject:_ ## x forKey:@ORK1_STRINGIFY(x)]
 
