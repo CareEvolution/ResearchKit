@@ -44,15 +44,25 @@
     ORK1WebViewStep *step = [[ORK1WebViewStep alloc] initWithIdentifier:identifier];
     step.html = html;
     step.baseURL = baseURL;
+    step.url = nil;
+    return step;
+}
+
++ (instancetype)webViewStepWithIdentifier:(NSString *)identifier
+                                      url:(NSURL *)url {
+    ORK1WebViewStep *step = [[ORK1WebViewStep alloc] initWithIdentifier:identifier];
+    step.html = nil;
+    step.baseURL = nil;
+    step.url = url;
     return step;
 }
 
 - (void)validateParameters {
     [super validateParameters];
     
-    if (self.html == nil) {
+    if (self.html == nil && self.url == nil) {
         @throw [NSException exceptionWithName:NSInvalidArgumentException
-                                       reason:@"WebViewStep requires html property."
+                                       reason:@"WebViewStep requires html or url property."
                                      userInfo:nil];
     }
 }
@@ -62,6 +72,7 @@
     if (self) {
         ORK1_DECODE_OBJ_CLASS(aDecoder, html, NSString);
         ORK1_DECODE_OBJ_CLASS(aDecoder, baseURL, NSURL);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, url, NSURL);
     }
     return self;
 }
@@ -70,6 +81,7 @@
     [super encodeWithCoder:aCoder];
     ORK1_ENCODE_OBJ(aCoder, html);
     ORK1_ENCODE_OBJ(aCoder, baseURL);
+    ORK1_ENCODE_OBJ(aCoder, url);
 }
 
 + (BOOL)supportsSecureCoding {
@@ -80,6 +92,7 @@
     ORK1WebViewStep *step = [super copyWithZone:zone];
     step.html = self.html;
     step.baseURL = self.baseURL;
+    step.url = self.url;
     return step;
 }
 
@@ -88,8 +101,9 @@
     
     __typeof(self) castObject = object;
     return (isParentSame &&
-            [self.html isEqual:castObject.html] &&
-            [self.baseURL isEqual:castObject.baseURL]);
+            ORK1EqualObjects(self.html, castObject.html) &&
+            ORK1EqualObjects(self.baseURL, castObject.baseURL) &&
+            ORK1EqualObjects(self.url, castObject.url));
 }
 
 @end

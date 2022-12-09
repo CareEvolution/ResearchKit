@@ -62,6 +62,15 @@ ORK1_CLASS_AVAILABLE
                                   baseURL:(nullable NSURL *)baseURL;
 
 /**
+ Returns a new web view step that includes the specified identifier and will display the resource at the specified URL.
+ 
+ @param identifier    The identifier of the step (a step identifier should be unique within the task).
+ @param url    The URL of an external resource to display.
+ */
++ (instancetype)webViewStepWithIdentifier:(NSString *)identifier
+                                      url:(NSURL *)url;
+
+/**
  Embedded html used for displaying the webview.
  */
 @property (nonatomic, copy, nullable) NSString *html;
@@ -70,6 +79,11 @@ ORK1_CLASS_AVAILABLE
  Base URL for embedded html.
  */
 @property (nonatomic, copy, nullable) NSURL *baseURL;
+
+/**
+ The URL of an external resource to display.
+ */
+@property (nonatomic, copy, nullable) NSURL *url;
 
 @end
 
