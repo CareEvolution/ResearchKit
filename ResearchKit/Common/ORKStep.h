@@ -190,6 +190,12 @@ The default value of this property is 'NO'.
 */
 @property (nonatomic, assign) BOOL excludeFromProgressCalculation;
 
+/**
+An override title for the next/done button.
+
+The default value of this property is 'nil'.
+*/
+@property (nonatomic, copy, nullable) NSString *overrideNextButtonText;
 
 /**
  Checks the parameters of the step and throws exceptions on invalid parameters.

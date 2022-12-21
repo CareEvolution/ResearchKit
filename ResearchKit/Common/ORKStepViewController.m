@@ -264,6 +264,11 @@ static const CGFloat iPadStepTitleLabelFontSize = 50.0;
         [self ork_setBackButtonItem:nil];
     }
     
+    if (self.step.overrideNextButtonText && ![self.step.overrideNextButtonText isEqualToString:@""]) {
+        _internalContinueButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.step.overrideNextButtonText style:UIBarButtonItemStylePlain target:self action:@selector(goForward)];
+        _internalDoneButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.step.overrideNextButtonText style:UIBarButtonItemStylePlain target:self action:@selector(goForward)];
+    }
+    
     if (self.hasNextStep == YES) {
         self.continueButtonItem = _internalContinueButtonItem;
     } else {
