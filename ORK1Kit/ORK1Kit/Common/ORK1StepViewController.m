@@ -114,6 +114,11 @@
         [self ork_setBackButtonItem:nil];
     }
     
+    if (self.step.nextButtonText && ![self.step.nextButtonText isEqualToString:@""]) {
+        _internalContinueButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.step.nextButtonText style:UIBarButtonItemStylePlain target:self action:@selector(goForward)];
+        _internalDoneButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.step.nextButtonText style:UIBarButtonItemStyleDone target:self action:@selector(goForward)];
+    }
+    
     if (self.hasNextStep == YES) {
         self.continueButtonItem = _internalContinueButtonItem;
     } else {
