@@ -132,6 +132,7 @@
         };
         
         _webView = [[ORKWebViewPreloader shared] preloadedWebViewForKey:step.identifier];
+        BOOL preloaded = (_webView != nil);
         if (!_webView) {
             _webView = [[ORKWebViewPreloader shared] makeWebView:nil];
         }
@@ -142,7 +143,9 @@
         _webView.navigationDelegate = self;
         
         _result = nil;
-        [[ORKWebViewPreloader shared] loadContentForStep:[self webViewStep] withWebView:_webView];
+        if (!preloaded) {
+            [[ORKWebViewPreloader shared] loadContentForStep:[self webViewStep] withWebView:_webView];
+        }
         
         [self.view addSubview:_webView];
         [self setupNavigationFooterView];
@@ -153,14 +156,20 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    BOOL firstAppearance = !self.hasBeenPresented;
+    [super viewWillAppear:animated];
+    
     /*
      CEVHACK - This fixes a bug that affects RK2 where the cancel button did nothing - because the view cycle is different than
      other subclasses of ORKStepViewController. Setting the cancelButtonItem on the _navigationFooterView needs to happen AFTER
      the super class ORKStepViewController has had a chance to create it.
      */
-    
-    [super viewWillAppear:animated];
     _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
+    
+    if (firstAppearance && self.reloadContentOnFirstAppearance) {
+        _result = nil;
+        [[ORKWebViewPreloader shared] loadContentForStep:[self webViewStep] withWebView:_webView];
+    }
 }
 
 - (void)setupNavigationFooterView {

@@ -119,6 +119,7 @@
         };
         
         _webView = [[ORK1WebViewPreloader shared] preloadedWebViewForKey:step.identifier];
+        BOOL preloaded = (_webView != nil);
         if (!_webView) {
             _webView = [[ORK1WebViewPreloader shared] makeWebView:nil];
         }
@@ -129,7 +130,9 @@
         _webView.navigationDelegate = self;
         
         _result = nil;
-        [[ORK1WebViewPreloader shared] loadContentForStep:[self webViewStep] withWebView:_webView];
+        if (!preloaded) {
+            [[ORK1WebViewPreloader shared] loadContentForStep:[self webViewStep] withWebView:_webView];
+        }
         
         [self.view addSubview:_webView];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseAudio) name:UIApplicationDidEnterBackgroundNotification object:nil];
@@ -139,6 +142,16 @@
 
 - (ORK1WebViewStep *)webViewStep {
     return (ORK1WebViewStep *)self.step;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    BOOL firstAppearance = !self.hasBeenPresented;
+    [super viewWillAppear:animated];
+    
+    if (firstAppearance && self.reloadContentOnFirstAppearance) {
+        _result = nil;
+        [[ORK1WebViewPreloader shared] loadContentForStep:[self webViewStep] withWebView:_webView];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

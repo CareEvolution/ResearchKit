@@ -65,7 +65,13 @@ ORK_CLASS_AVAILABLE
  */
 ORK_CLASS_AVAILABLE
 @interface ORKWebViewStepViewController : ORKStepViewController<WKScriptMessageHandler, WKNavigationDelegate>
+
+// Guaranteed to be non-nil after this view controller's init.
 @property (nonatomic, strong, readonly) WKWebView *webView;
+
+// Set these properties before the first viewWillAppear event, or in the `stepViewControllerWillAppear` delegate method.
+
+@property (nonatomic) BOOL reloadContentOnFirstAppearance;
 @property (nonatomic, strong) id<WKScriptMessageHandler> scriptMessageHandler;
 @property (nonatomic, strong) NSArray<NSString *> *scriptMessageNames;
 @end
