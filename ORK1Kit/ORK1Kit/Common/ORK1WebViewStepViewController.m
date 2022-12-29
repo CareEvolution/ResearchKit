@@ -50,25 +50,28 @@
     if ((self = [super init])) {
         _cache = [[NSCache alloc] init];
         _cache.countLimit = 1;
+        self.remoteURLCachePolicy = NSURLRequestUseProtocolCachePolicy;
+        self.remoteURLTimeoutInterval = 30;
     }
     return self;
 }
 
-- (void)preload:(NSString *)htmlString baseURL:(nullable NSURL *)baseURL forKey:(nonnull NSString *)key {
-    WKWebView *webView = [self newWebView:htmlString baseURL:baseURL];
-    [_cache setObject:webView forKey:key];
-}
-
-- (WKWebView *)webViewForKey:(NSString *)key baseURL:(nullable NSURL *)baseURL {
+- (nullable WKWebView *)preloadedWebViewForKey:(NSString *)key {
     WKWebView *webView = [_cache objectForKey:key];
     [_cache removeObjectForKey:key];
-    if (webView == nil) {
-        webView = [self newWebView:nil baseURL:baseURL];
-    }
     return webView;
 }
 
-- (WKWebView *)newWebView:(NSString *)htmlString baseURL:(nullable NSURL *)baseURL {
+- (void)loadContentForStep:(nullable ORK1WebViewStep *)webViewStep withWebView:(WKWebView *)webView {
+    if (webViewStep.url) {
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:webViewStep.url cachePolicy:self.remoteURLCachePolicy timeoutInterval:self.remoteURLTimeoutInterval];
+        [webView loadRequest:request];
+    } else if (webViewStep.html) {
+        [webView loadHTMLString:webViewStep.html baseURL:webViewStep.baseURL];
+    }
+}
+
+- (WKWebView *)makeWebView:(nullable ORK1WebViewStep *)webViewStep {
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     config.allowsInlineMediaPlayback = true;
     if ([config respondsToSelector:@selector(mediaTypesRequiringUserActionForPlayback)]) {
@@ -78,10 +81,13 @@
     config.userContentController = controller;
     
     WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
-    if (htmlString) {
-        [webView loadHTMLString:htmlString baseURL:baseURL];
-    }
+    [self loadContentForStep:webViewStep withWebView:webView];
     return webView;
+}
+
+- (void)preload:(ORK1WebViewStep *)webViewStep forKey:(NSString *)key {
+    WKWebView *webView = [self makeWebView:webViewStep];
+    [_cache setObject:webView forKey:key];
 }
 
 @end
@@ -112,12 +118,22 @@
             [weakSelf userContentController:userContentController didReceiveScriptMessage:scriptMessage];
         };
         
-        _webView = [[ORK1WebViewPreloader shared] webViewForKey:step.identifier baseURL:[self webViewStep].baseURL];
+        _webView = [[ORK1WebViewPreloader shared] preloadedWebViewForKey:step.identifier];
+        BOOL preloaded = (_webView != nil);
+        if (!_webView) {
+            _webView = [[ORK1WebViewPreloader shared] makeWebView:nil];
+        }
+        
         [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"ResearchKit"];
         _webView.frame = self.view.bounds;
         _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _webView.navigationDelegate = self;
-        [_webView loadHTMLString:[self webViewStep].html baseURL:[self webViewStep].baseURL];
+        
+        _result = nil;
+        if (!preloaded) {
+            [[ORK1WebViewPreloader shared] loadContentForStep:[self webViewStep] withWebView:_webView];
+        }
+        
         [self.view addSubview:_webView];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseAudio) name:UIApplicationDidEnterBackgroundNotification object:nil];
     }
@@ -128,9 +144,14 @@
     return (ORK1WebViewStep *)self.step;
 }
 
-- (void)stepDidChange {
-    _result = nil;
-    [_webView loadHTMLString:[self webViewStep].html baseURL:[self webViewStep].baseURL];
+- (void)viewWillAppear:(BOOL)animated {
+    BOOL firstAppearance = !self.hasBeenPresented;
+    [super viewWillAppear:animated];
+    
+    if (firstAppearance && self.reloadContentOnFirstAppearance) {
+        _result = nil;
+        [[ORK1WebViewPreloader shared] loadContentForStep:[self webViewStep] withWebView:_webView];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

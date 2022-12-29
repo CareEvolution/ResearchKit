@@ -35,11 +35,26 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class ORK1WebViewStep;
+
 ORK1_CLASS_AVAILABLE
+/// Caches at most exactly one instance of a WKWebView.
+///
+/// Intended for offscreen loading of web content before there is a view controller to contain the web view, so that the content is ready to immediately render once it is time to display on-screen.
 @interface ORK1WebViewPreloader : NSObject
+
+/// A singleton instance.
 + (instancetype)shared;
-- (void)preload:(NSString *)htmlString baseURL:(nullable NSURL *)baseURL forKey:(NSString *)key;
-- (WKWebView *)webViewForKey:(NSString *)key baseURL:(nullable NSURL *)baseURL;
+
+@property (nonatomic) NSURLRequestCachePolicy remoteURLCachePolicy;
+@property (nonatomic) NSTimeInterval remoteURLTimeoutInterval;
+
+/// Creates and stores a web view, and immediately begins loading content in the view as specified by the `webViewStep`. Replaces any previously stored web view.
+/// - Parameters:
+///   - webViewStep: Defines the content to load in the web view.
+///   - key: A unique identifier for the web view.
+- (void)preload:(ORK1WebViewStep *)webViewStep forKey:(NSString *)key;
+
 @end
 
 /**
@@ -51,7 +66,13 @@ ORK1_CLASS_AVAILABLE
  */
 ORK1_CLASS_AVAILABLE
 @interface ORK1WebViewStepViewController : ORK1StepViewController<WKScriptMessageHandler, WKNavigationDelegate>
+
+// Guaranteed to be non-nil after this view controller's init.
 @property (nonatomic, strong, readonly) WKWebView *webView;
+
+// Set these properties before the first viewWillAppear event, or in the `stepViewControllerWillAppear` delegate method.
+
+@property (nonatomic) BOOL reloadContentOnFirstAppearance;
 @property (nonatomic, strong) id<WKScriptMessageHandler> scriptMessageHandler;
 @property (nonatomic, strong) NSArray<NSString *> *scriptMessageNames;
 @end
