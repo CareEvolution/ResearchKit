@@ -65,6 +65,8 @@ ORK1_CLASS_AVAILABLE
 + (void)setFallbackTaskViewController:(nullable ORK1TaskViewController *)taskViewController;
 - (nonnull instancetype)initWithType:(CEVRK1ThemeType)type;
 
+@property (nonatomic, strong, nonnull) NSDictionary *properties;
+
 @property (nonatomic, strong) UIColor * _Nullable tintColor;
 
 @property (nonatomic, strong, nullable) CEVRK1TextStyle *titleStyle;

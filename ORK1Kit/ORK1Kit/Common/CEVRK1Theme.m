@@ -52,6 +52,11 @@
 
 + (CEVRK1Theme *)themeByOverridingTheme:(nullable CEVRK1Theme *)theme withTheme:(nullable CEVRK1Theme *)theme2 {
     CEVRK1Theme *merged = [[CEVRK1Theme alloc] init];
+    
+    NSMutableDictionary *mergedProperties = [theme.properties mutableCopy];
+    [mergedProperties addEntriesFromDictionary:theme2.properties];
+    merged.properties = mergedProperties;
+    
     merged.tintColor = theme2.tintColor ?: theme.tintColor;
     
     merged.titleStyle = [CEVRK1Theme textStyleByOverridingTextStyle:theme.titleStyle withTextStyle:theme2.titleStyle];
@@ -137,6 +142,14 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
         return self;
     }
     return nil;
+}
+
+- (NSDictionary *)properties {
+    if (_properties) {
+        return _properties;
+    } else {
+        return [[NSDictionary alloc] init];
+    }
 }
 
 - (NSMutableDictionary *)textAttributesForView:(UIView *)view {
