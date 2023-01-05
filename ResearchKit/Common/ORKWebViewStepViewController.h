@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, CareEvolution, Inc.
+ Copyright (c) 2017, CareEvolution, LLC.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -34,46 +34,46 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ORKWebViewStep;
-
-ORK_CLASS_AVAILABLE
-/// Caches at most exactly one instance of a WKWebView.
-///
-/// Intended for offscreen loading of web content before there is a view controller to contain the web view, so that the content is ready to immediately render once it is time to display on-screen.
-@interface ORKWebViewPreloader : NSObject
-
-/// A singleton instance.
-+ (instancetype)shared;
-
-@property (nonatomic) NSURLRequestCachePolicy remoteURLCachePolicy;
-@property (nonatomic) NSTimeInterval remoteURLTimeoutInterval;
-
-/// Creates and stores a web view, and immediately begins loading content in the view as specified by the `webViewStep`. Replaces any previously stored web view.
-/// - Parameters:
-///   - webViewStep: Defines the content to load in the web view.
-///   - key: A unique identifier for the web view.
-- (void)preload:(ORKWebViewStep *)webViewStep forKey:(NSString *)key;
-
-@end
-
 /**
  The `ORKWebViewStepViewController` class is a step view controller subclass
  used to manage a web view step (`ORKWebViewStep`).
- 
- You should not need to instantiate a web view step view controller directly. Instead, include
- a web view step in a task, and present a task view controller for that task.
  */
 ORK_CLASS_AVAILABLE
 @interface ORKWebViewStepViewController : ORKStepViewController<WKScriptMessageHandler, WKNavigationDelegate>
 
-// Guaranteed to be non-nil after this view controller's init.
+/// Guaranteed to be non-nil after this view controller is initialized.
 @property (nonatomic, strong, readonly) WKWebView *webView;
 
-// Set these properties before the first viewWillAppear event, or in the `stepViewControllerWillAppear` delegate method.
+/// The set of all WebKit Javascript bridge message names that should be passed to the ``scriptMessageHandler``.
+@property (nonatomic, readonly) NSSet<NSString *> *scriptMessageNames;
 
-@property (nonatomic) BOOL reloadContentOnFirstAppearance;
+/// The delegate object that will receive any script messages identified by ``scriptMessageNames``.
+///
+/// This is initially `nil`, and any incoming script messages are stored in a queue until you set `scriptMessageHandler` to a non-nil value; at that time any queued messages will immediately be sent to the `scriptMessageHandler`.
+///
+/// See ``WKScriptMessageHandler`` for more information.
 @property (nonatomic, strong) id<WKScriptMessageHandler> scriptMessageHandler;
-@property (nonatomic, strong) NSArray<NSString *> *scriptMessageNames;
+
+/// Creates a web view and immediately begins loading content in the web view as specified by the step definition.
+///
+/// Use this initializer to pre-load a web view step offscreen so it can be ready to render immediately when it is time to present the step.
+///
+/// The `scriptMessageHandler` is initialized as `nil`. Any incoming script messages received while `scriptMessageHandler` is nil will be enqueued for later processing. Interactivity can thus be delayed until this view controller is ready to display, for example by waiting to set a `scriptMessageHandler` until this view controller's `viewWillAppear` lifecycle event.
+/// - Parameters:
+///   - step: Must be an `ORKWebViewStep`.
+///   - scriptMessageNames: A set of custom WebKit message names to declare as supported. See ``scriptMessageHandler``.
+///   - remoteURLCachePolicy: Cache policy for loading URL-based web view steps.
+///   - remoteURLTimeoutInterval: Timeout interval for loading URL-based web view steps.
+- (instancetype)initWithStep:(ORKStep *)step
+          scriptMessageNames:(NSSet<NSString *> *)scriptMessageNames
+        remoteURLCachePolicy:(NSURLRequestCachePolicy)remoteURLCachePolicy
+    remoteURLTimeoutInterval:(NSTimeInterval)remoteURLTimeoutInterval;
+
+/// Immediately reloads the content specified by this view controller's web view step.
+///
+/// Use this to prepare a view controller previously loaded offscreen with the latest step content. This discards any enqueued WebKit script messages.
+- (void)reloadWebContent;
+
 @end
 
 NS_ASSUME_NONNULL_END
