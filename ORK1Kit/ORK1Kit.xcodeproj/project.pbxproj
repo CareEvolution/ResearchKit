@@ -443,6 +443,7 @@
 		959A2C0E1D68C91400841B04 /* ORK1ShoulderRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 959A2C0C1D68C91400841B04 /* ORK1ShoulderRangeOfMotionStep.m */; };
 		95E11E551D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 95E11E531D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.h */; };
 		95E11E561D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E11E541D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.m */; };
+		AC6BDFA22967193E0030A1CB /* ORK1WebViewStepViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6BDFA12967193E0030A1CB /* ORK1WebViewStepViewControllerTests.m */; };
 		AC9069B425080B5500910AB7 /* ORK1DocumentSelectionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = AC9069B225080B5500910AB7 /* ORK1DocumentSelectionStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC9069B525080B5500910AB7 /* ORK1DocumentSelectionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9069B325080B5500910AB7 /* ORK1DocumentSelectionStep.m */; };
 		AC9069B82508149C00910AB7 /* ORK1DocumentSelectionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AC9069B62508149C00910AB7 /* ORK1DocumentSelectionStepViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1060,6 +1061,7 @@
 		959A2C0C1D68C91400841B04 /* ORK1ShoulderRangeOfMotionStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ShoulderRangeOfMotionStep.m; sourceTree = "<group>"; };
 		95E11E531D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ShoulderRangeOfMotionStepViewController.h; sourceTree = "<group>"; };
 		95E11E541D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ShoulderRangeOfMotionStepViewController.m; sourceTree = "<group>"; };
+		AC6BDFA12967193E0030A1CB /* ORK1WebViewStepViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORK1WebViewStepViewControllerTests.m; sourceTree = "<group>"; };
 		AC9069B225080B5500910AB7 /* ORK1DocumentSelectionStep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORK1DocumentSelectionStep.h; sourceTree = "<group>"; };
 		AC9069B325080B5500910AB7 /* ORK1DocumentSelectionStep.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORK1DocumentSelectionStep.m; sourceTree = "<group>"; };
 		AC9069B62508149C00910AB7 /* ORK1DocumentSelectionStepViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORK1DocumentSelectionStepViewController.h; sourceTree = "<group>"; };
@@ -1737,6 +1739,7 @@
 				2EBFE11F1AE1B74100CB8254 /* ORK1VoiceEngineTests.m */,
 				DA5D7F4F28C940FE00C5E50C /* ORK1KitTests-Bridging-Header.h */,
 				DA5D7F5028C940FE00C5E50C /* ORK1SkinSwiftTests.swift */,
+				AC6BDFA12967193E0030A1CB /* ORK1WebViewStepViewControllerTests.m */,
 			);
 			path = ORK1KitTests;
 			sourceTree = "<group>";
@@ -3164,6 +3167,7 @@
 				BCAD50E81B0201EE0034806A /* ORK1TaskTests.m in Sources */,
 				86CC8EBB1AC09383001CCD89 /* ORK1TextChoiceCellGroupTests.m in Sources */,
 				FA7A9D2B1B082688005A2BEA /* ORK1ConsentDocumentTests.m in Sources */,
+				AC6BDFA22967193E0030A1CB /* ORK1WebViewStepViewControllerTests.m in Sources */,
 				FA7A9D371B09365F005A2BEA /* ORK1ConsentSectionFormatterTests.m in Sources */,
 				86D348021AC161B0006DB02B /* ORK1RecorderTests.m in Sources */,
 				86CC8EB61AC09383001CCD89 /* ORK1DataLoggerManagerTests.m in Sources */,

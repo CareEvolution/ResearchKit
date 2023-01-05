@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017, CareEvolution, Inc.
+ Copyright (c) 2017, CareEvolution, LLC.
  
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the following conditions are met:
@@ -40,123 +40,101 @@
 #import <ResearchKit/ORKResult.h>
 @import SafariServices;
 
-@implementation ORKWebViewPreloader {
-    NSCache *_cache;
-}
+static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
 
-+ (instancetype)shared {
-    static ORKWebViewPreloader *shared;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        shared = [[ORKWebViewPreloader alloc] init];
-    });
-    return shared;
-}
-
-- (instancetype)init {
-    if ((self = [super init])) {
-        _cache = [[NSCache alloc] init];
-        _cache.countLimit = 1;
-        self.remoteURLCachePolicy = NSURLRequestUseProtocolCachePolicy;
-        self.remoteURLTimeoutInterval = 30;
-    }
-    return self;
-}
-
-- (nullable WKWebView *)preloadedWebViewForKey:(NSString *)key {
-    WKWebView *webView = [_cache objectForKey:key];
-    [_cache removeObjectForKey:key];
-    return webView;
-}
-
-- (void)loadContentForStep:(nullable ORKWebViewStep *)webViewStep withWebView:(WKWebView *)webView {
-    if (webViewStep.url) {
-        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:webViewStep.url cachePolicy:self.remoteURLCachePolicy timeoutInterval:self.remoteURLTimeoutInterval];
-        [webView loadRequest:request];
-    } else if (webViewStep.html) {
-        [webView loadHTMLString:webViewStep.html baseURL:webViewStep.baseURL];
-    }
-}
-
-- (WKWebView *)makeWebView:(nullable ORKWebViewStep *)webViewStep {
-    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
-    config.allowsInlineMediaPlayback = true;
-    if ([config respondsToSelector:@selector(mediaTypesRequiringUserActionForPlayback)]) {
-        config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
-    }
-    WKUserContentController *controller = [[WKUserContentController alloc] init];
-    config.userContentController = controller;
-    
-    WKWebView *webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
-    [self loadContentForStep:webViewStep withWebView:webView];
-    return webView;
-}
-
-- (void)preload:(ORKWebViewStep *)webViewStep forKey:(NSString *)key {
-    WKWebView *webView = [self makeWebView:webViewStep];
-    [_cache setObject:webView forKey:key];
-}
-
-@end
-
-@interface ORKScriptMessageHandlerImpl: NSObject <WKScriptMessageHandler>
-@property (nonatomic, copy, nullable) void (^didReceiveScriptMessageFunc)(WKUserContentController *, WKScriptMessage *);
-@end
-
-@implementation ORKScriptMessageHandlerImpl
-- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    if (self.didReceiveScriptMessageFunc != nil) {
-        self.didReceiveScriptMessageFunc(userContentController, message);
-    }
-}
+@interface ORKWebViewStepViewController ()
+@property (nonatomic, strong) NSMutableArray *scriptMessageQueue;
+@property (nonatomic) NSURLRequestCachePolicy remoteURLCachePolicy;
+@property (nonatomic) NSTimeInterval remoteURLTimeoutInterval;
 @end
 
 @implementation ORKWebViewStepViewController {
     NSString *_result;
     ORKNavigationContainerView *_navigationFooterView;
     NSArray<NSLayoutConstraint *> *_constraints;
-    ORKScriptMessageHandlerImpl *_scriptMessageHandlerImpl;
+}
+
+#pragma mark Public Interface
+
+- (instancetype)initWithStep:(ORKStep *)step {
+    return [self initWithStep:step scriptMessageNames:[NSSet set] remoteURLCachePolicy:NSURLRequestUseProtocolCachePolicy remoteURLTimeoutInterval:30];
+}
+
+- (instancetype)initWithStep:(ORKStep *)step
+          scriptMessageNames:(NSSet<NSString *> *)scriptMessageNames
+        remoteURLCachePolicy:(NSURLRequestCachePolicy)remoteURLCachePolicy
+    remoteURLTimeoutInterval:(NSTimeInterval)remoteURLTimeoutInterval {
+    self = [super initWithStep:step];
+    if (self) {
+        NSParameterAssert([step isKindOfClass:[ORKWebViewStep class]]);
+        
+        _result = nil;
+        _scriptMessageHandler = nil;
+        _scriptMessageQueue = [NSMutableArray array];
+        _scriptMessageNames = [scriptMessageNames copy];
+        _remoteURLCachePolicy = remoteURLCachePolicy;
+        _remoteURLTimeoutInterval = remoteURLTimeoutInterval;
+        
+        WKUserContentController *controller = [[WKUserContentController alloc] init];
+        [controller addScriptMessageHandler:self name:ResearchKitCompleteStepMessageName];
+        for (NSString *name in scriptMessageNames) {
+            [controller addScriptMessageHandler:self name:name];
+        }
+        
+        WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+        config.allowsInlineMediaPlayback = true;
+        if ([config respondsToSelector:@selector(mediaTypesRequiringUserActionForPlayback)]) {
+            config.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+        }
+        config.userContentController = controller;
+        _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
+        _webView.navigationDelegate = self;
+        
+        [self loadWebContent];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseAudio) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    }
+    return self;
 }
 
 - (ORKWebViewStep *)webViewStep {
     return (ORKWebViewStep *)self.step;
 }
 
-- (instancetype)initWithStep:(ORKStep *)step {
-    self = [super initWithStep:step];
-    if (self) {
-        __weak typeof(self) weakSelf = self;
-        _scriptMessageHandlerImpl = [[ORKScriptMessageHandlerImpl alloc] init];
-        _scriptMessageHandlerImpl.didReceiveScriptMessageFunc = ^(WKUserContentController *userContentController, WKScriptMessage *scriptMessage) {
-            [weakSelf userContentController:userContentController didReceiveScriptMessage:scriptMessage];
-        };
-        
-        _webView = [[ORKWebViewPreloader shared] preloadedWebViewForKey:step.identifier];
-        BOOL preloaded = (_webView != nil);
-        if (!_webView) {
-            _webView = [[ORKWebViewPreloader shared] makeWebView:nil];
-        }
-        
-        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:@"ResearchKit"];
-        _webView.frame = self.view.bounds;
-        _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _webView.navigationDelegate = self;
-        
-        _result = nil;
-        if (!preloaded) {
-            [[ORKWebViewPreloader shared] loadContentForStep:[self webViewStep] withWebView:_webView];
-        }
-        
-        [self.view addSubview:_webView];
-        [self setupNavigationFooterView];
-        [self setupConstraints];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pauseAudio) name:UIApplicationDidEnterBackgroundNotification object:nil];
+- (void)setScriptMessageHandler:(id<WKScriptMessageHandler>)scriptMessageHandler {
+    _scriptMessageHandler = scriptMessageHandler;
+    [self processQueuedScriptMessages];
+}
+
+- (void)reloadWebContent {
+    [self loadWebContent];
+}
+
+#pragma mark - ResearchKit
+
+- (ORKStepResult *)result {
+    ORKStepResult *parentResult = [super result];
+    if (parentResult) {
+        ORKWebViewStepResult *childResult = [[ORKWebViewStepResult alloc] initWithIdentifier:self.step.identifier];
+        childResult.result = _result;
+        childResult.endDate = parentResult.endDate;
+        parentResult.results = [parentResult.results arrayByAddingObject:childResult] ? : @[childResult];
     }
-    return self;
+    return parentResult;
+}
+
+#pragma mark - View Lifecycle
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    _webView.frame = self.view.bounds;
+    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:_webView];
+    [self setupNavigationFooterView];
+    [self setupConstraints];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    BOOL firstAppearance = !self.hasBeenPresented;
     [super viewWillAppear:animated];
     
     /*
@@ -165,11 +143,11 @@
      the super class ORKStepViewController has had a chance to create it.
      */
     _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
-    
-    if (firstAppearance && self.reloadContentOnFirstAppearance) {
-        _result = nil;
-        [[ORKWebViewPreloader shared] loadContentForStep:[self webViewStep] withWebView:_webView];
-    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [self pauseAudio];
+    [super viewDidDisappear:animated];
 }
 
 - (void)setupNavigationFooterView {
@@ -245,38 +223,61 @@
     [NSLayoutConstraint activateConstraints:_constraints];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [self pauseAudio];
-    [super viewDidDisappear:animated];
-}
-
 - (void)pauseAudio {
     // https://stackoverflow.com/a/44829559
     NSString *script = @"var vids = document.getElementsByTagName('video'); var i; for (i of vids) { i.pause(); }";
     [_webView evaluateJavaScript:script completionHandler:nil];
 }
 
-- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
-{
-    if ([self.scriptMessageNames containsObject:message.name]) {
-        [self.scriptMessageHandler userContentController:userContentController didReceiveScriptMessage:message];
-        return;
-    }
-    if ([message.body isKindOfClass:[NSString class]]){
-        _result = (NSString *)message.body;
-        [self goForward];
+#pragma mark - Web Content Handling
+
+- (void)loadWebContent {
+    [self.scriptMessageQueue removeAllObjects];
+    _result = nil;
+    
+    ORKWebViewStep *webViewStep = [self webViewStep];
+    if (webViewStep.url) {
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:webViewStep.url cachePolicy:self.remoteURLCachePolicy timeoutInterval:self.remoteURLTimeoutInterval];
+        [_webView loadRequest:request];
+    } else if ([self webViewStep].html) {
+        [_webView loadHTMLString:webViewStep.html baseURL:webViewStep.baseURL];
     }
 }
 
-- (ORKStepResult *)result {
-    ORKStepResult *parentResult = [super result];
-    if (parentResult) {
-        ORKWebViewStepResult *childResult = [[ORKWebViewStepResult alloc] initWithIdentifier:self.step.identifier];
-        childResult.result = _result;
-        childResult.endDate = parentResult.endDate;
-        parentResult.results = [parentResult.results arrayByAddingObject:childResult] ? : @[childResult];
+- (void)processQueuedScriptMessages {
+    if (!self.scriptMessageHandler) { return; }
+    for (WKScriptMessage *message in self.scriptMessageQueue) {
+        BOOL stop = [self processScriptMessage:message];
+        if (stop) {
+            break;
+        }
     }
-    return parentResult;
+    [self.scriptMessageQueue removeAllObjects];
+}
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
+{
+    if (self.scriptMessageHandler) {
+        [self processScriptMessage:message];
+    } else {
+        [self.scriptMessageQueue addObject:message];
+    }
+}
+
+/// Returns YES if the view controller should stop processing any other messages. Assumes that the handler is ready to process the message.
+/// - Parameter message: The message to process.
+- (BOOL)processScriptMessage:(WKScriptMessage *)message {
+    if ([message.name isEqualToString:ResearchKitCompleteStepMessageName] && [message.body isKindOfClass:[NSString class]]) {
+        _result = (NSString *)message.body;
+        [self goForward];
+        return YES;
+    }
+    
+    if ([self.scriptMessageNames containsObject:message.name]) {
+        [self.scriptMessageHandler userContentController:self.webView.configuration.userContentController didReceiveScriptMessage:message];
+        return NO;
+    }
+    return NO;
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -302,13 +303,6 @@
         }
     }
     decisionHandler(WKNavigationActionPolicyAllow);
-}
-
-- (void)setScriptMessageNames:(NSArray<NSString *> *)scriptMessageNames {
-    _scriptMessageNames = scriptMessageNames;
-    for (NSString *i in scriptMessageNames) {
-        [_webView.configuration.userContentController addScriptMessageHandler:_scriptMessageHandlerImpl name:i];
-    }
 }
 
 @end

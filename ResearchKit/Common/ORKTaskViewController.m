@@ -1618,7 +1618,7 @@ static NSString *const _ORKPresentedDate = @"presentedDate";
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
     
     /*
-     NOTE: this is manually (vs using ORK1_ENCODE_xxx) due to the conditional
+     NOTE: this is manually (vs using ORK_ENCODE_xxx) due to the conditional
      encoding of "stepIdentifier" (_ORKStepIdentifierRestoreKey)
      */
     
