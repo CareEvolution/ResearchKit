@@ -35,8 +35,21 @@
 
 static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
 
+@interface ORK1WeakScriptMessageHandler: NSObject <WKScriptMessageHandler>
+@property (nonatomic, copy, nullable) void (^didReceiveScriptMessageFunc)(WKUserContentController *, WKScriptMessage *);
+@end
+
+@implementation ORK1WeakScriptMessageHandler
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    if (self.didReceiveScriptMessageFunc != nil) {
+        self.didReceiveScriptMessageFunc(userContentController, message);
+    }
+}
+@end
+
 @interface ORK1WebViewStepViewController ()
 @property (nonatomic, strong) NSMutableArray *scriptMessageQueue;
+@property (nonatomic, strong) ORK1WeakScriptMessageHandler *scriptMessageHandlerWrapper;
 @property (nonatomic) NSURLRequestCachePolicy remoteURLCachePolicy;
 @property (nonatomic) NSTimeInterval remoteURLTimeoutInterval;
 @end
@@ -66,10 +79,17 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
         _remoteURLCachePolicy = remoteURLCachePolicy;
         _remoteURLTimeoutInterval = remoteURLTimeoutInterval;
         
+        // WKWebView maintains a strong reference to its scriptMessageHandlers, making retain cycles possible. This wrapper facilitates breaking such retain cycles.
+        __weak typeof(self) weakSelf = self;
+        _scriptMessageHandlerWrapper = [[ORK1WeakScriptMessageHandler alloc] init];
+        _scriptMessageHandlerWrapper.didReceiveScriptMessageFunc = ^(WKUserContentController *userContentController, WKScriptMessage *scriptMessage) {
+            [weakSelf userContentController:userContentController didReceiveScriptMessage:scriptMessage];
+        };
+        
         WKUserContentController *controller = [[WKUserContentController alloc] init];
-        [controller addScriptMessageHandler:self name:ResearchKitCompleteStepMessageName];
+        [controller addScriptMessageHandler:_scriptMessageHandlerWrapper name:ResearchKitCompleteStepMessageName];
         for (NSString *name in scriptMessageNames) {
-            [controller addScriptMessageHandler:self name:name];
+            [controller addScriptMessageHandler:_scriptMessageHandlerWrapper name:name];
         }
         
         WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];

@@ -52,7 +52,7 @@ ORK_CLASS_AVAILABLE
 /// This is initially `nil`, and any incoming script messages are stored in a queue until you set `scriptMessageHandler` to a non-nil value; at that time any queued messages will immediately be sent to the `scriptMessageHandler`.
 ///
 /// See ``WKScriptMessageHandler`` for more information.
-@property (nonatomic, strong) id<WKScriptMessageHandler> scriptMessageHandler;
+@property (nonatomic, strong, nullable) id<WKScriptMessageHandler> scriptMessageHandler;
 
 /// Creates a web view and immediately begins loading content in the web view as specified by the step definition.
 ///
