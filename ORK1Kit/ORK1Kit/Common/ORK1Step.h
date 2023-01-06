@@ -240,6 +240,13 @@ The default value of this property is 'nil'.
 */
 @property (nonatomic, copy, nullable) NSString *nextButtonText;
 
+/**
+ Additional metadata for the step.
+ 
+ The default value of this property is `nil`.
+ */
+@property (nonatomic, copy, nullable) NSDictionary *userInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END

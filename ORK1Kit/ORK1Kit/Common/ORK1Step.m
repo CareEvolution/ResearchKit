@@ -95,6 +95,7 @@
     step.useSurveyMode = _useSurveyMode;
     step.excludeFromProgressCalculation = _excludeFromProgressCalculation;
     step.nextButtonText = _nextButtonText;
+    step.userInfo = _userInfo;
     return step;
 }
 
@@ -112,12 +113,13 @@
             && (self.shouldTintImages == castObject.shouldTintImages)
             && (self.useSurveyMode == castObject.useSurveyMode)
             && (self.excludeFromProgressCalculation == castObject.excludeFromProgressCalculation)
-            && ORK1EqualObjects(self.nextButtonText, castObject.nextButtonText));
+            && ORK1EqualObjects(self.nextButtonText, castObject.nextButtonText)
+            && ORK1EqualObjects(self.userInfo, castObject.userInfo));
 }
 
 - (NSUInteger)hash {
     // Ignore the task reference - it's not part of the content of the step.
-    return _identifier.hash ^ _title.hash ^ _text.hash ^ (_optional ? 0xf : 0x0) ^ _nextButtonText.hash;
+    return _identifier.hash ^ _title.hash ^ _text.hash ^ (_optional ? 0xf : 0x0) ^ _nextButtonText.hash ^ _userInfo.hash;
 }
 
 + (BOOL)supportsSecureCoding {
@@ -136,6 +138,7 @@
         ORK1_DECODE_BOOL(aDecoder, useSurveyMode);
         ORK1_DECODE_BOOL(aDecoder, excludeFromProgressCalculation);
         ORK1_DECODE_OBJ_CLASS(aDecoder, nextButtonText, NSString);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, userInfo, NSDictionary);
     }
     return self;
 }
@@ -149,6 +152,7 @@
     ORK1_ENCODE_BOOL(aCoder, useSurveyMode);
     ORK1_ENCODE_BOOL(aCoder, excludeFromProgressCalculation);
     ORK1_ENCODE_OBJ(aCoder, nextButtonText);
+    ORK1_ENCODE_OBJ(aCoder, userInfo);
     if ([_task isKindOfClass:[ORK1OrderedTask class]]) {
         ORK1_ENCODE_OBJ(aCoder, task);
     }
