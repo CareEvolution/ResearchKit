@@ -198,6 +198,13 @@ The default value of this property is 'nil'.
 @property (nonatomic, copy, nullable) NSString *nextButtonText;
 
 /**
+ Additional metadata for the step.
+ 
+ The default value of this property is `nil`.
+ */
+@property (nonatomic, copy, nullable) NSDictionary *userInfo;
+
+/**
  Checks the parameters of the step and throws exceptions on invalid parameters.
  
  This method is called when there is a need to validate the step's parameters, which is typically
