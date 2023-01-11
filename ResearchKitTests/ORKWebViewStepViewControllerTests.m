@@ -33,8 +33,9 @@
 @import WebKit;
 #import "ORKWebViewStepViewController.h"
 
-@interface ORKWebViewStepViewControllerTests : XCTestCase
-
+@interface ORKWebViewStepViewControllerTests : XCTestCase <ORKStepViewControllerDelegate>
+@property (nonatomic, strong) NSMutableArray<NSString *> *events;
+- (NSString *)webViewResult:(ORKStepViewController *)stepViewController;
 @end
 
 @interface MockScriptMessage: WKScriptMessage
@@ -84,10 +85,26 @@
 
 @implementation ORKWebViewStepViewControllerTests
 
+- (void)setUp {
+    self.events = [NSMutableArray array];
+}
+
 - (ORKWebViewStep *)webViewStep {
     ORKWebViewStep *step = [[ORKWebViewStep alloc] initWithIdentifier:@"step"];
     step.html = @"<html><body></body></html>";
     return step;
+}
+
+- (void)testNoScriptMessageHandler {
+    ORKWebViewStep *webViewStep = [self webViewStep];
+    ORKWebViewStepViewController *viewController = [[ORKWebViewStepViewController alloc] initWithStep:webViewStep];
+    viewController.delegate = self;
+    
+    XCTAssertNil(viewController.scriptMessageHandler, @"setup nil scriptMessageHandler");
+    WKScriptMessage *messageResearchKit = [[MockScriptMessage alloc] initWithName:@"ResearchKit" body:@"result1"];
+    [viewController userContentController:viewController.webView.configuration.userContentController didReceiveScriptMessage:messageResearchKit];
+    
+    XCTAssertEqualObjects(self.events.firstObject, @"goForward:result1", @"ResearchKit message: sets result and triggers goForward");
 }
 
 - (void)testMessageQueue {
@@ -100,7 +117,7 @@
     WKScriptMessage *messageA2 = [[MockScriptMessage alloc] initWithName:@"MessageA" body:nil];
     WKScriptMessage *messageB = [[MockScriptMessage alloc] initWithName:@"MessageB" body:nil];
     WKScriptMessage *messageC = [[MockScriptMessage alloc] initWithName:@"MessageC" body:nil];
-    WKScriptMessage *messageResearchKit = [[MockScriptMessage alloc] initWithName:@"ResearchKit" body:@"result"];
+    WKScriptMessage *messageResearchKit = [[MockScriptMessage alloc] initWithName:@"ResearchKit" body:@"result2"];
     
     // Send some messages before setting a handler; they should be enqueued for later processing.
     [viewController userContentController:viewController.webView.configuration.userContentController didReceiveScriptMessage:messageA1];
@@ -127,6 +144,31 @@
         XCTAssertEqualObjects([handler.events objectAtIndex:1], @"didFinishWithNavigationDirection:forward");
     }
     [handler.events removeAllObjects];
+    XCTAssertEqualObjects([self webViewResult:viewController], @"result2", @"Stores correct result");
 }
+
+#pragma mark - Test helpers
+
+- (NSString *)webViewResult:(ORKStepViewController *)stepViewController {
+    if ([stepViewController.result.results.firstObject isKindOfClass:[ORKWebViewStepResult class]]) {
+        ORKWebViewStepResult *result = (ORKWebViewStepResult *)stepViewController.result.results.firstObject;
+        return result.result ?: @"(nil)";
+    } else {
+        return @"(not present)";
+    }
+}
+
+- (void)stepViewController:(ORKStepViewController *)stepViewController didFinishWithNavigationDirection:(ORKStepViewControllerNavigationDirection)direction {
+    switch (direction) {
+        case ORKStepViewControllerNavigationDirectionForward:
+            [self.events addObject:[NSString stringWithFormat:@"goForward:%@", [self webViewResult:stepViewController]]];
+        case ORKStepViewControllerNavigationDirectionReverse:
+            [self.events addObject:[NSString stringWithFormat:@"goBackward:%@", [self webViewResult:stepViewController]]];
+    }
+}
+
+- (void)stepViewControllerResultDidChange:(ORKStepViewController *)stepViewController { }
+- (void)stepViewControllerDidFail:(ORKStepViewController *)stepViewController withError:(NSError *)error { }
+- (void)stepViewController:(ORKStepViewController *)stepViewController recorder:(ORKRecorder *)recorder didFailWithError:(NSError *)error { }
 
 @end

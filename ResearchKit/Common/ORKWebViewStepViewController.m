@@ -264,8 +264,15 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
     }
 }
 
+- (BOOL)shouldProcessScriptMessages {
+    // scriptMessageNames is empty: no need for scriptMessageHandler; immediately process any ResearchKit message.
+    // scriptMessageNames is non-empty: wait until scriptMessageHandler is set.
+    return self.scriptMessageNames.count == 0
+        || self.scriptMessageHandler != nil;
+}
+
 - (void)processQueuedScriptMessages {
-    if (!self.scriptMessageHandler) { return; }
+    if (![self shouldProcessScriptMessages]) { return; }
     for (WKScriptMessage *message in self.scriptMessageQueue) {
         BOOL stop = [self processScriptMessage:message];
         if (stop) {
@@ -277,14 +284,14 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {
-    if (self.scriptMessageHandler) {
+    if ([self shouldProcessScriptMessages]) {
         [self processScriptMessage:message];
     } else {
         [self.scriptMessageQueue addObject:message];
     }
 }
 
-/// Returns YES if the view controller should stop processing any other messages. Assumes that the handler is ready to process the message.
+/// Returns YES if the view controller should stop processing any other messages. Assumes that `shouldProcessScriptMessages` is true.
 /// - Parameter message: The message to process.
 - (BOOL)processScriptMessage:(WKScriptMessage *)message {
     if ([message.name isEqualToString:ResearchKitCompleteStepMessageName] && [message.body isKindOfClass:[NSString class]]) {

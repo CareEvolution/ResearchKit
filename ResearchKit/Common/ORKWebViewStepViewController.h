@@ -45,11 +45,15 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, strong, readonly) WKWebView *webView;
 
 /// The set of all WebKit Javascript bridge message names that should be passed to the ``scriptMessageHandler``.
+///
+/// This is in addition to WebKit messages named "ResearchKit", which are handled by this view controller, setting the ``result`` and triggering ``goForward`` to navigate to the next step.
 @property (nonatomic, readonly) NSSet<NSString *> *scriptMessageNames;
 
 /// The delegate object that will receive any script messages identified by ``scriptMessageNames``.
 ///
-/// This is initially `nil`, and any incoming script messages are stored in a queue until you set `scriptMessageHandler` to a non-nil value; at that time any queued messages will immediately be sent to the `scriptMessageHandler`.
+/// This is initially `nil`. If ``scriptMessageNames`` is non-empty, any incoming script messages, including the "ResearchKit" message, are stored in a queue until you set `scriptMessageHandler` to a non-nil value; at that time any queued messages will immediately be sent to the `scriptMessageHandler`.
+///
+/// If ``scriptMessageNames`` is empty, "ResearchKit" messages are processed immediately without needing to set `scriptMessageHandler`. This allows automatically-constructed ORKWebViewStepViewController instances to work with no additional configuration.
 ///
 /// See ``WKScriptMessageHandler`` for more information.
 @property (nonatomic, strong, nullable) id<WKScriptMessageHandler> scriptMessageHandler;
