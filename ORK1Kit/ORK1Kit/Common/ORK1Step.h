@@ -247,6 +247,15 @@ The default value of this property is 'nil'.
  */
 @property (nonatomic, copy, nullable) NSDictionary *userInfo;
 
+/**
+ When YES, upon loading this step, the ORK1TaskViewController will instruct
+ the delegate to save the task results.
+ 
+ The default value of this property is `NO`.
+ */
+
+@property (nonatomic, assign) BOOL saveOnArrival;
+
 @end
 
 NS_ASSUME_NONNULL_END

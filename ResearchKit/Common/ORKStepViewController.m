@@ -258,7 +258,7 @@ static const CGFloat iPadStepTitleLabelFontSize = 50.0;
 }
 
 - (void)setupButtons {
-    if (self.hasPreviousStep == YES) {
+    if (self.hasPreviousStep == YES && !self.step.saveOnArrival) {
         [self ork_setBackButtonItem: _internalBackButtonItem];
     } else {
         [self ork_setBackButtonItem:nil];
