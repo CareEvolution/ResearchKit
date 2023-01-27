@@ -150,6 +150,10 @@
 }
 
 - (ORK1Step *)stepAfterStep:(ORK1Step *)step withResult:(ORK1TaskResult *)result {
+    return [self stepAfterStep:step withResult:result ignoreSaveOnArrival:NO];
+}
+
+- (ORK1Step *)stepAfterStep:(ORK1Step *)step withResult:(ORK1TaskResult *)result ignoreSaveOnArrival:(BOOL)ignoreSaveOnArrival {
     ORK1Step *nextStep = nil;
     ORK1StepNavigationRule *navigationRule = _stepNavigationRules[step.identifier];
     NSString *nextStepIdentifier = [navigationRule identifierForDestinationStepWithTaskResult:result];
@@ -174,8 +178,12 @@
         
         ORK1SkipStepNavigationRule *skipNavigationRule = _skipStepNavigationRules[nextStep.identifier];
         if ([skipNavigationRule stepShouldSkipWithTaskResult:result]) {
-            return [self stepAfterStep:nextStep withResult:result];
+            return [self stepAfterStep:nextStep withResult:result ignoreSaveOnArrival:YES];
         }
+    }
+    
+    if (!ignoreSaveOnArrival && step.saveOnArrival) {
+        nextStep = nil;
     }
     
     if (nextStep != nil) {
