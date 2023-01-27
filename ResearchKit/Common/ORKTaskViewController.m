@@ -1287,7 +1287,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     [self setManagedResult:stepViewController.result forKey:step.identifier];
     
     
-    if (stepViewController.cancelButtonItem == nil) {
+    if (stepViewController.cancelButtonItem == nil && !stepViewController.step.saveOnArrival) {
         stepViewController.cancelButtonItem = [self defaultCancelButtonItem];
     }
     
