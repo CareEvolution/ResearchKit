@@ -165,7 +165,9 @@
         _specialEndSurveyStepIdentifier = nil;
     }
     
-    if (![nextStepIdentifier isEqualToString:ORK1NullStepIdentifier]) { // If ORK1NullStepIdentifier, return nil to end task
+    if (!ignoreSaveOnArrival && step.saveOnArrival) {
+        nextStep = nil;
+    } else if (![nextStepIdentifier isEqualToString:ORK1NullStepIdentifier]) { // If ORK1NullStepIdentifier, return nil to end task
         if (nextStepIdentifier) {
             nextStep = [self stepWithIdentifier:nextStepIdentifier];
             
@@ -180,10 +182,6 @@
         if ([skipNavigationRule stepShouldSkipWithTaskResult:result]) {
             return [self stepAfterStep:nextStep withResult:result ignoreSaveOnArrival:YES];
         }
-    }
-    
-    if (!ignoreSaveOnArrival && step.saveOnArrival) {
-        nextStep = nil;
     }
     
     if (nextStep != nil) {
