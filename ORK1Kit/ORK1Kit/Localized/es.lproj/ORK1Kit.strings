@@ -493,7 +493,7 @@
 /* Trail making task. */
 "TRAILMAKING_TASK_TITLE" = "Prueba del trazo";
 "TRAILMAKING_INTENDED_USE" = "Este ejercicio evalúa tu capacidad de atención visual y para cambiar de tarea grabando el tiempo que necesitas para pulsar una serie de puntos por orden.";
-"TRAILMAKING_INTENDED_USE2_A" = "Cuando empiece la cuenta atrás, pulsa los puntos alternando números y letras. Empieza por el primer número “1” seguido de los números “2”, “3”, “4”… hasta llegar al número “7”.";
+"TRAILMAKING_INTENDED_USE2_A" = "Cuando empiece la cuenta atrás, pulsa los puntos con números. Empieza por el primer número “1” seguido de los números “2”, “3”, “4”… hasta llegar al número “7”.";
 "TRAILMAKING_INTENDED_USE2_B" = "Cuando empiece la cuenta atrás, pulsa los puntos alternando números y letras. Empieza por el primer número “1” seguido de la primera letra “A” y, después, “2”, “B”, “3”, “C”… hasta llegar al número “7”.";
 "TRAILMAKING_INTRO_TEXT" = "Realiza este ejercicio lo más rápido posible procurando no cometer errores. \n ";
 "TRAILMAKING_CALL_TO_ACTION" = "Pulsa Empezar para comenzar.";
