@@ -121,7 +121,7 @@
 
 - (NSUInteger)hash {
     // Ignore the task reference - it's not part of the content of the step.
-    return _identifier.hash ^ _title.hash ^ _text.hash ^ (_optional ? 0xf : 0x0) ^ _nextButtonText.hash ^ _userInfo.hash ^ (_saveOnArrival ? 0xf : 0x1);
+    return _identifier.hash ^ _title.hash ^ _text.hash ^ (_optional ? 0xf : 0x0) ^ _nextButtonText.hash ^ _userInfo.hash ^ (_saveOnArrival ? 0xe : 0x1);
 }
 
 + (BOOL)supportsSecureCoding {

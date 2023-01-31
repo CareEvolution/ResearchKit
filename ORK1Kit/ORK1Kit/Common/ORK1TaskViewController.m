@@ -1600,7 +1600,7 @@ static NSString *const _ORK1PresentedDate = @"presentedDate";
         if (stepViewController) {
             stepViewController.delegate = self;
             
-            if (stepViewController.cancelButtonItem == nil) {
+            if (stepViewController.cancelButtonItem == nil && !stepViewController.step.saveOnArrival) {
                 stepViewController.cancelButtonItem = [self defaultCancelButtonItem];
             }
             
