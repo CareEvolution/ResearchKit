@@ -145,6 +145,10 @@
 }
 
 - (ORKStep *)stepAfterStep:(ORKStep *)step withResult:(ORKTaskResult *)result {
+    return [self stepAfterStep:step withResult:result ignoreSaveOnArrival:NO];
+}
+
+- (ORKStep *)stepAfterStep:(ORKStep *)step withResult:(ORKTaskResult *)result ignoreSaveOnArrival:(BOOL)ignoreSaveOnArrival {
     ORKStep *nextStep = nil;
     ORKStepNavigationRule *navigationRule = _stepNavigationRules[step.identifier];
     NSString *nextStepIdentifier = [navigationRule identifierForDestinationStepWithTaskResult:result];
@@ -156,7 +160,9 @@
         _specialEndSurveyStepIdentifier = nil;
     }
     
-    if (![nextStepIdentifier isEqualToString:ORKNullStepIdentifier]) { // If ORKNullStepIdentifier, return nil to end task
+    if (!ignoreSaveOnArrival && step.saveOnArrival) {
+        nextStep = nil;
+    } else if (![nextStepIdentifier isEqualToString:ORKNullStepIdentifier]) { // If ORKNullStepIdentifier, return nil to end task
         if (nextStepIdentifier) {
             nextStep = [self stepWithIdentifier:nextStepIdentifier];
             
@@ -169,7 +175,7 @@
         
         ORKSkipStepNavigationRule *skipNavigationRule = _skipStepNavigationRules[nextStep.identifier];
         if ([skipNavigationRule stepShouldSkipWithTaskResult:result]) {
-            return [self stepAfterStep:nextStep withResult:result];
+            return [self stepAfterStep:nextStep withResult:result ignoreSaveOnArrival:YES];
         }
     }
     

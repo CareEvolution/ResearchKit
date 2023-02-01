@@ -205,6 +205,15 @@ The default value of this property is 'nil'.
 @property (nonatomic, copy, nullable) NSDictionary *userInfo;
 
 /**
+ When YES, upon loading this step, the ORKTaskViewController will instruct
+ the delegate to save the task results.
+ 
+ The default value of this property is `NO`.
+ */
+
+@property (nonatomic, assign) BOOL saveOnArrival;
+
+/**
  Checks the parameters of the step and throws exceptions on invalid parameters.
  
  This method is called when there is a need to validate the step's parameters, which is typically
