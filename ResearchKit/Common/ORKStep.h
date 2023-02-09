@@ -205,13 +205,13 @@ The default value of this property is 'nil'.
 @property (nonatomic, copy, nullable) NSDictionary *userInfo;
 
 /**
- If 'YES', this property serves as a flag to instruct the host of the ORK1TaskViewController
+ If 'YES', this property serves as a flag to instruct the host of the ORKTaskViewController
  to collect and process the results of the task upon reaching this step. Furthermore, the
  step UI will prevent backwards navigation (no back button) and cancellation (no Cancel
  button) - i.e., this will become the final step presented to the user, and the task's `result`
  will be complete. Subsequent receipt of the `didFinishWithReason` call to the
- ORK1TaskViewControllerDelegate may serve solely to trigger dismissal or error handling.
- Note: this step will not show in the ORK1TaskResult.
+ ORKTaskViewControllerDelegate may serve solely to trigger dismissal or error handling.
+ Note: this step will not show in the ORKTaskResult.
  
  The default value of this property is `NO`.
  */
