@@ -748,8 +748,8 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         id <NSCopying> key = [self uniqueManagedKey:identifier index:idx];
         ORK1Result *result = _managedResults[key];
         NSAssert2(result, @"Result should not be nil for identifier %@ with key %@", identifier, key);
-        if ([identifier isEqualToString:self.currentStepViewController.step.identifier] && self.currentStepViewController.step.saveOnArrival) {
-        } else {
+        BOOL excludeFromResult = [identifier isEqualToString:self.currentStepViewController.step.identifier] && self.currentStepViewController.step.saveOnArrival;
+        if (!excludeFromResult) {
             [results addObject:result];
         }
     }];
