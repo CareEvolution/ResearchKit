@@ -254,6 +254,7 @@ The default value of this property is 'nil'.
  button) - i.e., this will become the final step presented to the user, and the task's `result`
  will be complete. Subsequent receipt of the `didFinishWithReason` call to the
  ORK1TaskViewControllerDelegate may serve solely to trigger dismissal or error handling.
+ Note: this step will not show in the ORK1TaskResult.
  
  The default value of this property is `NO`.
  */
