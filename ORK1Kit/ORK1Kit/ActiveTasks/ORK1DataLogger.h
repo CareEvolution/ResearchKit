@@ -357,6 +357,13 @@ ORK1_CLASS_AVAILABLE
  */
 - (BOOL)appendObjects:(NSArray *)objects fileHandle:(NSFileHandle *)fileHandle error:(NSError * _Nullable *)error;
 
+/**
+ The file extension to use for the log file.
+ 
+ @return  file extension to use for the log file (e.g., "json")
+ */
+- (NSString *)fileExtension;
+
 @end
 
 
