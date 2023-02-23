@@ -77,7 +77,8 @@ static NSString *const ORKDataLoggerManagerConfigurationFilename = @".ORKDataLog
 @implementation NSURL (ORKDataLogger)
 
 - (NSString *)ork_logName {
-    NSString *lastComponent = [self lastPathComponent];
+    NSURL *removedFileExtension = [self URLByDeletingPathExtension];
+    NSString *lastComponent = [removedFileExtension lastPathComponent];
     NSRange idx = [lastComponent rangeOfString:@"-"];
     if (!idx.length) {
         @throw [NSException exceptionWithName:NSGenericException reason:@"URL is not a completed log file" userInfo:@{@"url":self}];
@@ -88,7 +89,8 @@ static NSString *const ORKDataLoggerManagerConfigurationFilename = @".ORKDataLog
 }
 
 - (NSString *)ork_logDateComponent {
-    NSString *lastComponent = [self lastPathComponent];
+    NSURL *removedFileExtension = [self URLByDeletingPathExtension];
+    NSString *lastComponent = [removedFileExtension lastPathComponent];
     NSRange idx = [lastComponent rangeOfString:@"-"];
     if (!idx.length) {
         @throw [NSException exceptionWithName:NSGenericException reason:@"URL is not a completed log file" userInfo:@{@"url":self}];
@@ -148,7 +150,8 @@ static NSString *const ORKDataLoggerManagerConfigurationFilename = @".ORKDataLog
         @throw [NSException exceptionWithName:NSGenericException reason:@"URL is not a fileURL" userInfo:@{@"url":self}];
     }
     
-    NSString *lastComponent = [self lastPathComponent];
+    NSURL *removedFileExtension = [self URLByDeletingPathExtension];
+    NSString *lastComponent = [removedFileExtension lastPathComponent];
     NSRange idx = [lastComponent rangeOfString:@"-"];
     if (!idx.length) {
         @throw [NSException exceptionWithName:NSGenericException reason:@"URL is not a completed log file" userInfo:@{@"url":self}];
@@ -294,6 +297,10 @@ static void *ORKObjectObserverContext = &ORKObjectObserverContext;
     return success;
 }
 
+- (NSString *)fileExtension {
+    return @"";
+}
+
 @end
 
 
@@ -437,6 +444,10 @@ static NSInteger _ORKJSON_terminatorLength = 0;
     return success;
 }
 
+- (NSString *)fileExtension {
+    return @"json";
+}
+
 @end
 
 
@@ -573,11 +584,12 @@ static NSInteger _ORKJSON_terminatorLength = 0;
 }
 
 - (NSURL *)currentLogFileURL {
-    return [_url URLByAppendingPathComponent:_logName];
+    return [[_url URLByAppendingPathComponent:_logName] URLByAppendingPathExtension:[self.logFormatter fileExtension]];
 }
 
 - (BOOL)urlMatchesLogName:(NSURL *)url {
-    NSString *lastComponent = [url lastPathComponent];
+    NSURL *removedFileExtension = [url URLByDeletingPathExtension];
+    NSString *lastComponent = [removedFileExtension lastPathComponent];
     return ([lastComponent isEqualToString:_logName] || [lastComponent hasPrefix:_oldLogsPrefix]);
 }
 
@@ -722,7 +734,8 @@ static NSInteger _ORKJSON_terminatorLength = 0;
         if (![self urlMatchesLogName:url]) {
             continue;
         }
-        if ( [[url lastPathComponent] isEqualToString:_logName]) {
+        NSURL *removedFileExtension = [url URLByDeletingPathExtension];
+        if ( [[removedFileExtension lastPathComponent] isEqualToString:_logName]) {
             // Don't include the "current" log file
             continue;
         }
@@ -838,24 +851,24 @@ static NSInteger _ORKJSON_terminatorLength = 0;
     return _currentFileHandle;
 }
 
-+ (NSURL *)nextUrlForDirectoryUrl:(NSURL *)directory logName:(NSString *)logName {
-    static NSDateFormatter *dateFromatter = nil;
++ (NSURL *)nextUrlForDirectoryUrl:(NSURL *)directory logName:(NSString *)logName logFormatter:(ORKLogFormatter *)logFormatter {
+    static NSDateFormatter *dateFormatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dateFromatter = [NSDateFormatter new];
-        [dateFromatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-        dateFromatter.dateFormat = @"yyyyMMddHHmmss";
+        dateFormatter = [NSDateFormatter new];
+        [dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        dateFormatter.dateFormat = @"yyyyMMddHHmmss";
     });
     
-    NSString *datedLog = [NSString stringWithFormat:@"%@-%@",logName, [dateFromatter stringFromDate:[NSDate date]]];
-    NSURL *destinationUrl = [directory URLByAppendingPathComponent:datedLog];
+    NSString *datedLog = [NSString stringWithFormat:@"%@-%@",logName, [dateFormatter stringFromDate:[NSDate date]]];
+    NSURL *destinationUrl = [[directory URLByAppendingPathComponent:datedLog] URLByAppendingPathExtension:[logFormatter fileExtension]];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     int digit = 0;
     while ([fileManager fileExistsAtPath:[destinationUrl path] isDirectory:NULL]) {
         digit ++;
         NSString *lastComponent = [datedLog stringByAppendingFormat:@"-%02d",digit];
-        destinationUrl = [directory URLByAppendingPathComponent:lastComponent];
+        destinationUrl = [[directory URLByAppendingPathComponent:lastComponent] URLByAppendingPathExtension:[logFormatter fileExtension]];
     }
 
     return destinationUrl;
@@ -877,7 +890,7 @@ static NSInteger _ORKJSON_terminatorLength = 0;
     
     if (((NSNumber *)parameters[NSURLIsRegularFileKey]).boolValue) {
         if (((NSNumber *)parameters[NSURLFileSizeKey]).intValue > 0) {
-            NSURL *destinationUrl = [ORKDataLogger nextUrlForDirectoryUrl:_url logName:_logName];
+            NSURL *destinationUrl = [ORKDataLogger nextUrlForDirectoryUrl:_url logName:_logName logFormatter:self.logFormatter];
             ORK_Log_Debug(@"Rollover: %@ to %@", [url lastPathComponent], [destinationUrl lastPathComponent]);
             [fileManager moveItemAtURL:url toURL:destinationUrl error:nil];
             if (self.fileProtectionMode == ORKFileProtectionCompleteUnlessOpen) {
