@@ -65,10 +65,12 @@ ORK_CLASS_AVAILABLE
 /// The `scriptMessageHandler` is initialized as `nil`. Any incoming script messages received while `scriptMessageHandler` is nil will be enqueued for later processing. Interactivity can thus be delayed until this view controller is ready to display, for example by waiting to set a `scriptMessageHandler` until this view controller's `viewWillAppear` lifecycle event.
 /// - Parameters:
 ///   - step: Must be an `ORKWebViewStep`.
+///   - result: The previous step result for this step, if any. The view controller will use this as the source of its `result` value until any user interaction updates the result.   
 ///   - scriptMessageNames: A set of custom WebKit message names to declare as supported. See ``scriptMessageHandler``.
 ///   - remoteURLCachePolicy: Cache policy for loading URL-based web view steps.
 ///   - remoteURLTimeoutInterval: Timeout interval for loading URL-based web view steps.
 - (instancetype)initWithStep:(ORKStep *)step
+                      result:(nullable ORKResult *)result
           scriptMessageNames:(NSSet<NSString *> *)scriptMessageNames
         remoteURLCachePolicy:(NSURLRequestCachePolicy)remoteURLCachePolicy
     remoteURLTimeoutInterval:(NSTimeInterval)remoteURLTimeoutInterval;

@@ -56,15 +56,21 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
 
 @implementation ORK1WebViewStepViewController {
     NSString *_result;
+    NSString *_originalResult;
 }
 
 #pragma mark Public Interface
 
 - (instancetype)initWithStep:(ORK1Step *)step {
-    return [self initWithStep:step scriptMessageNames:[NSSet set] remoteURLCachePolicy:NSURLRequestUseProtocolCachePolicy remoteURLTimeoutInterval:30];
+    return [self initWithStep:step result:nil scriptMessageNames:[NSSet set] remoteURLCachePolicy:NSURLRequestUseProtocolCachePolicy remoteURLTimeoutInterval:30];
+}
+
+- (instancetype)initWithStep:(ORK1Step *)step result:(ORK1Result *)result {
+    return [self initWithStep:step result:result scriptMessageNames:[NSSet set] remoteURLCachePolicy:NSURLRequestUseProtocolCachePolicy remoteURLTimeoutInterval:30];
 }
 
 - (instancetype)initWithStep:(ORK1Step *)step
+                      result:(ORK1Result *)result
           scriptMessageNames:(NSSet<NSString *> *)scriptMessageNames
         remoteURLCachePolicy:(NSURLRequestCachePolicy)remoteURLCachePolicy
     remoteURLTimeoutInterval:(NSTimeInterval)remoteURLTimeoutInterval {
@@ -73,6 +79,15 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
         NSParameterAssert([step isKindOfClass:[ORK1WebViewStep class]]);
         
         _result = nil;
+        _originalResult = nil;
+        if ([result isKindOfClass:[ORK1StepResult class]]) {
+            ORK1StepResult *stepResult = (ORK1StepResult *)result;
+            if ([stepResult.results.firstObject isKindOfClass:[ORK1WebViewStepResult class]]) {
+                ORK1WebViewStepResult *webResult = (ORK1WebViewStepResult *)stepResult.results.firstObject;
+                _originalResult = webResult.result;
+            }
+        }
+        
         _scriptMessageHandler = nil;
         _scriptMessageQueue = [NSMutableArray array];
         _scriptMessageNames = [scriptMessageNames copy];
@@ -158,7 +173,7 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
 
 - (void)loadWebContent {
     [self.scriptMessageQueue removeAllObjects];
-    _result = nil;
+    _result = _originalResult;
     
     ORK1WebViewStep *webViewStep = [self webViewStep];
     if (webViewStep.url) {

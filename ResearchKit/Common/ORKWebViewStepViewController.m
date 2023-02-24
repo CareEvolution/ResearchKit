@@ -63,6 +63,7 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
 
 @implementation ORKWebViewStepViewController {
     NSString *_result;
+    NSString *_originalResult;
     ORKNavigationContainerView *_navigationFooterView;
     NSArray<NSLayoutConstraint *> *_constraints;
 }
@@ -70,10 +71,15 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
 #pragma mark Public Interface
 
 - (instancetype)initWithStep:(ORKStep *)step {
-    return [self initWithStep:step scriptMessageNames:[NSSet set] remoteURLCachePolicy:NSURLRequestUseProtocolCachePolicy remoteURLTimeoutInterval:30];
+    return [self initWithStep:step result:nil scriptMessageNames:[NSSet set] remoteURLCachePolicy:NSURLRequestUseProtocolCachePolicy remoteURLTimeoutInterval:30];
+}
+
+- (instancetype)initWithStep:(ORKStep *)step result:(ORKResult *)result {
+    return [self initWithStep:step result:result scriptMessageNames:[NSSet set] remoteURLCachePolicy:NSURLRequestUseProtocolCachePolicy remoteURLTimeoutInterval:30];
 }
 
 - (instancetype)initWithStep:(ORKStep *)step
+                      result:(ORKResult *)result
           scriptMessageNames:(NSSet<NSString *> *)scriptMessageNames
         remoteURLCachePolicy:(NSURLRequestCachePolicy)remoteURLCachePolicy
     remoteURLTimeoutInterval:(NSTimeInterval)remoteURLTimeoutInterval {
@@ -82,6 +88,15 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
         NSParameterAssert([step isKindOfClass:[ORKWebViewStep class]]);
         
         _result = nil;
+        _originalResult = nil;
+        if ([result isKindOfClass:[ORKStepResult class]]) {
+            ORKStepResult *stepResult = (ORKStepResult *)result;
+            if ([stepResult.results.firstObject isKindOfClass:[ORKWebViewStepResult class]]) {
+                ORKWebViewStepResult *webResult = (ORKWebViewStepResult *)stepResult.results.firstObject;
+                _originalResult = webResult.result;
+            }
+        }
+        
         _scriptMessageHandler = nil;
         _scriptMessageQueue = [NSMutableArray array];
         _scriptMessageNames = [scriptMessageNames copy];
@@ -253,7 +268,7 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
 
 - (void)loadWebContent {
     [self.scriptMessageQueue removeAllObjects];
-    _result = nil;
+    _result = _originalResult;
     
     ORKWebViewStep *webViewStep = [self webViewStep];
     if (webViewStep.url) {

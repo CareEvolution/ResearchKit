@@ -95,6 +95,23 @@
     return step;
 }
 
+- (void)testUsesOriginalResult {
+    ORK1WebViewStep *webViewStep = [self webViewStep];
+    ORK1WebViewStepResult *childResult = [[ORK1WebViewStepResult alloc] initWithIdentifier:webViewStep.identifier];
+    childResult.result = @"original";
+    childResult.endDate = [NSDate date];
+    ORK1StepResult *originalResult = [[ORK1StepResult alloc] initWithStepIdentifier:webViewStep.identifier results:[NSArray arrayWithObject:childResult]];
+    ORK1WebViewStepViewController *viewController = [[ORK1WebViewStepViewController alloc] initWithStep:webViewStep result:originalResult];
+    
+    ORK1StepResult *result = viewController.result;
+    XCTAssertEqualObjects(result.identifier, webViewStep.identifier);
+    XCTAssertEqual(result.results.count, 1);
+    if ([result.results.firstObject isKindOfClass: [ORK1WebViewStepResult class]]) {
+        ORK1WebViewStepResult *innerResult = (ORK1WebViewStepResult *)result.results.firstObject;
+        XCTAssertEqualObjects(innerResult.result, childResult.result);
+    }
+}
+
 - (void)testNoScriptMessageHandler {
     ORK1WebViewStep *webViewStep = [self webViewStep];
     ORK1WebViewStepViewController *viewController = [[ORK1WebViewStepViewController alloc] initWithStep:webViewStep];
@@ -110,7 +127,7 @@
 - (void)testMessageQueue {
     ORK1WebViewStep *webViewStep = [self webViewStep];
     TestScriptHandler *handler = [[TestScriptHandler alloc] init];
-    ORK1WebViewStepViewController *viewController = [[ORK1WebViewStepViewController alloc] initWithStep:webViewStep scriptMessageNames:[NSSet setWithObjects:@"MessageA", @"MessageB", nil] remoteURLCachePolicy:NSURLRequestUseProtocolCachePolicy remoteURLTimeoutInterval:30];
+    ORK1WebViewStepViewController *viewController = [[ORK1WebViewStepViewController alloc] initWithStep:webViewStep result:nil scriptMessageNames:[NSSet setWithObjects:@"MessageA", @"MessageB", nil] remoteURLCachePolicy:NSURLRequestUseProtocolCachePolicy remoteURLTimeoutInterval:30];
     viewController.delegate = handler;
     
     WKScriptMessage *messageA1 = [[MockScriptMessage alloc] initWithName:@"MessageA" body:nil];
