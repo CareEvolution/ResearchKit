@@ -162,6 +162,8 @@ typedef NS_ENUM(NSInteger, ORK1QuestionSection) {
             
             [self.view addSubview:_tableContainer];
             _tableContainer.tapOffView = self.view;
+            _tableContainer.image = [self questionStep].image;
+            _tableContainer.imageAltText = [self questionStep].imageAltText;
             
             _headerView = _tableContainer.stepHeaderView;
             _headerView.captionLabel.useSurveyMode = self.step.useSurveyMode;

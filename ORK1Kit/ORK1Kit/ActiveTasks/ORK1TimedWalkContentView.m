@@ -91,6 +91,11 @@
     }
 }
 
+- (void)setImageAccessibilityLabel:(NSString *)imageAccessibilityLabel {
+    _imageView.accessibilityLabel = imageAccessibilityLabel;
+    _imageView.isAccessibilityElement = YES;
+}
+
 - (void)updateConstraints {
     [NSLayoutConstraint deactivateConstraints:self.constraints];
     

@@ -80,6 +80,11 @@ ORK_CLASS_AVAILABLE
 @property (nonatomic, copy, nullable) UIImage *image;
 
 /**
+ Alternative text to show for an image - for accessibility.
+ */
+@property (nonatomic, copy, nullable) NSString *imageAltText;
+
+/**
  An image that provides visual context for the instruction that will allow for showing
  a two-part composite image where the `image` is tinted and the `auxiliaryImage` is 
  shown with light grey.

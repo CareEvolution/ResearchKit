@@ -58,6 +58,7 @@ static const CGFloat CellBottomPadding = 20.0;
     BOOL _keyboardIsUp;
     
     UIScrollView *_scrollView;
+    UIImageView *_imageView;
     
     UITapGestureRecognizer *_tapOffGestureRecognizer;
 }
@@ -120,16 +121,63 @@ static const CGFloat CellBottomPadding = 20.0;
     // make the contentSize to be correct after changing the frame
     [_tableView layoutIfNeeded];
     {
+        UIStackView *baseView = [[UIStackView alloc] init];
+        baseView.axis = UILayoutConstraintAxisVertical;
+        baseView.spacing = 10;
+        baseView.translatesAutoresizingMaskIntoConstraints = NO;
+        
         _stepHeaderView.frame = (CGRect){{0,0},{_tableView.bounds.size.width,30}};
-        _tableView.tableHeaderView = _stepHeaderView;
+        _tableView.tableHeaderView = baseView;
+        [baseView addArrangedSubview:_stepHeaderView];
+        
+        [_stepHeaderView.widthAnchor constraintEqualToConstant:_tableView.bounds.size.width].active = YES;
+        
         // Do the layout with the view in the hierarchy; otherwise it won't
         // get the right margins.
         [_stepHeaderView setNeedsLayout];
         [_stepHeaderView layoutIfNeeded];
-        CGSize headerSize = [_stepHeaderView systemLayoutSizeFittingSize:(CGSize){_tableView.bounds.size.width,0} withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-        _stepHeaderView.bounds = (CGRect){{0,0},headerSize};
+        
+        if (self.image) {
+            /*
+             Adding 20 points to the height setting the edge inset will ensure a 20-point padding from the image to the tableView.
+             Before arriving at this, attempted to add 20 to header view height in the baseView.bounds line below which works
+             initially, then if the table "recalculates" (e.g., upon selecting an option in a QuestionStep of type TextChoice)
+             the 20-point padding disappears, probably due to complex vertical constraint calculation for these views.
+             */
+            _imageView = [[UIImageView alloc] initWithImage:[self.image imageWithAlignmentRectInsets:UIEdgeInsetsMake(0, 0, -20, 0)]];
+            _imageView.contentMode = UIViewContentModeScaleAspectFit;
+            if (self.imageAltText) {
+                _imageView.accessibilityLabel = self.imageAltText;
+                _imageView.isAccessibilityElement = YES;
+            }
+            [baseView addArrangedSubview:_imageView];
+            
+            CGSize imageSize = self.image.size;
+            if (imageSize.width > 0 && imageSize.height > 0) {
+                NSMutableArray *constraints = [NSMutableArray new];
+                [constraints addObject:[NSLayoutConstraint constraintWithItem:_imageView
+                                                                    attribute:NSLayoutAttributeHeight
+                                                                    relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                       toItem:_imageView
+                                                                    attribute:NSLayoutAttributeWidth
+                                                                   multiplier:imageSize.height / imageSize.width
+                                                                     constant:0.0]];
+                
+                [constraints addObject:[NSLayoutConstraint constraintWithItem:_imageView
+                                                                               attribute:NSLayoutAttributeHeight
+                                                                               relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                                  toItem:nil
+                                                                               attribute:NSLayoutAttributeNotAnAttribute
+                                                                              multiplier:1.0
+                                                                                constant:300.0]];
+                [NSLayoutConstraint activateConstraints:constraints];
+            }
+        }
+        
+        CGSize headerSize = [baseView systemLayoutSizeFittingSize:(CGSize){_tableView.bounds.size.width,0} withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
+        baseView.bounds = (CGRect){{0,0}, headerSize};
         _tableView.tableHeaderView = nil;
-        _tableView.tableHeaderView = _stepHeaderView;
+        _tableView.tableHeaderView = baseView;
     }
     
     {
@@ -346,6 +394,34 @@ static const CGFloat CellBottomPadding = 20.0;
     
     _keyboardIsUp = NO;
     [self animateLayoutForKeyboardNotification:notification];
+}
+
+#pragma mark - Accessibility
+
+/*
+ In RK2, the ORKQuestionStep.text is placed in a view of a UITableView section header 😳.
+ The section header view is not exposed to Accessibility currently.
+ TODO: add the section header into the Accessibility group/chain
+ */
+
+
+- (BOOL)isAccessibilityElement {
+    return NO;
+}
+
+- (NSArray *)accessibilityElements {
+    NSMutableArray *elements = [[NSMutableArray alloc] init];
+    
+    [elements addObject:_stepHeaderView];
+    if (_imageView) {
+        [elements addObject:_imageView];
+    }
+    // UITableViewCells are not accessibility elements by default - https://stackoverflow.com/questions/57365412/why-uitableviewcell-is-not-accessible-for-voiceover
+    for (UITableViewCell *cell in _tableView.visibleCells) {
+        [elements addObject:cell];
+    }
+    
+    return elements;
 }
 
 @end

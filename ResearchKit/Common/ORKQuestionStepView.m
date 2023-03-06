@@ -39,12 +39,49 @@
 #import "ORKQuestionStep_Internal.h"
 #import "ORKSkin.h"
 
-@implementation ORKQuestionStepView
+@implementation ORKQuestionStepView {
+    UIImageView *_imageView;
+}
 
 - (void)setQuestionCustomView:(ORKQuestionStepCustomView *)questionCustomView {
     _questionCustomView = questionCustomView;
     questionCustomView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.stepView = _questionCustomView;
+    UIStackView *baseView = [[UIStackView alloc] init];
+    baseView.axis = UILayoutConstraintAxisVertical;
+    baseView.spacing = 10;
+    baseView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    if (_questionStep.image) {
+        _imageView = [[UIImageView alloc] initWithImage:_questionStep.image];
+        _imageView.contentMode = UIViewContentModeScaleAspectFit;
+        if (_questionStep.imageAltText) {
+            _imageView.accessibilityLabel = _questionStep.imageAltText;
+            _imageView.isAccessibilityElement = YES;
+        }
+        [baseView addArrangedSubview:_imageView];
+        
+        CGSize imageSize = _questionStep.image.size;
+        if (imageSize.width > 0 && imageSize.height > 0) {
+            NSMutableArray *constraints = [NSMutableArray new];
+            [constraints addObject:[NSLayoutConstraint constraintWithItem:_imageView
+                                                                attribute:NSLayoutAttributeHeight
+                                                                relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                   toItem:_imageView
+                                                                attribute:NSLayoutAttributeWidth
+                                                               multiplier:imageSize.height / imageSize.width
+                                                                 constant:0.0]];
+            [constraints addObject:[NSLayoutConstraint constraintWithItem:_imageView
+                                                                           attribute:NSLayoutAttributeHeight
+                                                                           relatedBy:NSLayoutRelationLessThanOrEqual
+                                                                              toItem:nil
+                                                                           attribute:NSLayoutAttributeNotAnAttribute
+                                                                          multiplier:1.0
+                                                                            constant:300.0]];
+            [NSLayoutConstraint activateConstraints:constraints];
+        }
+    }
+    [baseView addArrangedSubview:_questionCustomView];
+    self.stepView = baseView;
 }
 
 - (void)setQuestionStep:(ORKQuestionStep *)step {
@@ -88,6 +125,9 @@
     }
     if (self.questionCustomView) {
         [elements addObject:self.questionCustomView];
+    }
+    if (_imageView) {
+        [elements addObject:_imageView];
     }
     return elements;
 }

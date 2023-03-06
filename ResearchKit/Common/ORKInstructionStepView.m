@@ -136,7 +136,11 @@
         [NSLayoutConstraint activateConstraints:constraints];
         
         _instructionImageView.isAccessibilityElement = YES;
-        _instructionImageView.accessibilityLabel = [NSString stringWithFormat:ORKLocalizedString(@"AX_IMAGE_ILLUSTRATION", nil), _instructionStep.title];
+        if (_instructionStep.imageAltText) {
+            _instructionImageView.accessibilityLabel = _instructionStep.imageAltText;
+        } else {
+            _instructionImageView.accessibilityLabel = [NSString stringWithFormat:ORKLocalizedString(@"AX_IMAGE_ILLUSTRATION", nil), _instructionStep.title];
+        }
     } else {
         _instructionImageView.isAccessibilityElement = NO;
     }

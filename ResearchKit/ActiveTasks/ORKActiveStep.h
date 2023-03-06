@@ -199,6 +199,11 @@ The default value of this property is `NO`.
 @property (nonatomic, strong, nullable) UIImage *image;
 
 /**
+ Alternative text to show for an image - for accessibility.
+ */
+@property (nonatomic, copy, nullable) NSString *imageAltText;
+
+/**
  An array of recorder configurations that define the parameters for recorders to be
  run during a step to collect sensor or other data.
  

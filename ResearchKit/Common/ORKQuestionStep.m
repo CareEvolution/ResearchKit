@@ -85,6 +85,8 @@
     questionStep.answerFormat = [self.answerFormat copy];
     questionStep.placeholder = [self.placeholder copy];
     questionStep.footnote = [self.footnote copy];
+    questionStep.image = [self.image copy];
+    questionStep.imageAltText = [self.imageAltText copy];
     return questionStep;
 }
 
@@ -95,11 +97,13 @@
     return isParentSame &&
     ORKEqualObjects(self.answerFormat, castObject.answerFormat) &&
     ORKEqualObjects(self.placeholder, castObject.placeholder) &&
-    ORKEqualObjects(self.footnote, castObject.footnote);
+    ORKEqualObjects(self.footnote, castObject.footnote) &&
+    ORKEqualObjects(self.image, castObject.image) &&
+    ORKEqualObjects(self.imageAltText, castObject.imageAltText);
 }
 
 - (NSUInteger)hash {
-    return super.hash ^ self.answerFormat.hash ^ self.footnote.hash;
+    return super.hash ^ self.answerFormat.hash ^ self.footnote.hash ^ self.image.hash ^ self.imageAltText.hash;
 }
 
 - (void)setQuestion:(NSString *)question {
@@ -121,6 +125,8 @@
         ORK_DECODE_OBJ_CLASS(aDecoder, answerFormat, ORKAnswerFormat);
         ORK_DECODE_OBJ_CLASS(aDecoder, placeholder, NSString);
         ORK_DECODE_OBJ_CLASS(aDecoder, footnote, NSString);
+        ORK_DECODE_IMAGE(aDecoder, image);
+        ORK_DECODE_OBJ_CLASS(aDecoder, imageAltText, NSString);
     }
     return self;
 }
@@ -131,6 +137,8 @@
     ORK_ENCODE_OBJ(aCoder, answerFormat);
     ORK_ENCODE_OBJ(aCoder, placeholder);
     ORK_ENCODE_OBJ(aCoder, footnote);
+    ORK_ENCODE_IMAGE(aCoder, image);
+    ORK_ENCODE_OBJ(aCoder, imageAltText);
 }
 
 + (BOOL)supportsSecureCoding {

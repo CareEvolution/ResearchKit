@@ -269,6 +269,11 @@
     }
 }
 
+- (void)setImageAccessibilityLabel:(NSString *)imageAccessibilityLabel {
+    _imageView.accessibilityLabel = imageAccessibilityLabel;
+    _imageView.isAccessibilityElement = YES;
+}
+
 - (void)setHasDistance:(BOOL)hasDistance {
     _hasDistance = hasDistance;
     [self distanceView].enabled = _hasDistance;

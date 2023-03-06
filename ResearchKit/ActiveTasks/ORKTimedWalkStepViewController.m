@@ -83,6 +83,7 @@
     
     self.timedWalkContentView = [ORKTimedWalkContentView new];
     self.timedWalkContentView.image = [self timedWalkStep].image;
+    self.timedWalkContentView.imageAccessibilityLabel = [self timedWalkStep].imageAltText;
     self.activeStepView.activeCustomView = self.timedWalkContentView;
     self.activeStepView.stepViewFillsAvailableSpace = YES;
     self.navigationFooterView.continueEnabled = YES;
