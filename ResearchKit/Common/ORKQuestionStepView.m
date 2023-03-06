@@ -123,11 +123,11 @@
     if (self.headerView.learnMoreButton != nil) {
         [elements addObject:self.headerView.learnMoreButton];
     }
-    if (self.questionCustomView) {
-        [elements addObject:self.questionCustomView];
-    }
     if (_imageView) {
         [elements addObject:_imageView];
+    }
+    if (self.questionCustomView) {
+        [elements addObject:self.questionCustomView];
     }
     return elements;
 }

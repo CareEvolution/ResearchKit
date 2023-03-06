@@ -121,11 +121,11 @@
     if (self.headerView.learnMoreButton != nil) {
         [elements addObject:self.headerView.learnMoreButton];
     }
-    if (self.questionCustomView) {
-        [elements addObject:self.questionCustomView];
-    }
     if (_imageView) {
         [elements addObject:_imageView];
+    }
+    if (self.questionCustomView) {
+        [elements addObject:self.questionCustomView];
     }
     if (self.continueSkipContainer.continueButton != nil) {
         [elements addObject:self.continueSkipContainer.continueButton];
