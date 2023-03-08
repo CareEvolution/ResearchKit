@@ -167,7 +167,7 @@ ORK1TaskProgress ORK1TaskProgressMake(NSUInteger current, NSUInteger total) {
 - (ORK1Step *)stepAfterStep:(ORK1Step *)step withResult:(ORK1TaskResult *)result {
     NSArray *steps = _steps;
     
-    if (steps.count <= 0) {
+    if (steps.count <= 0 || step.saveOnArrival) {
         return nil;
     }
     

@@ -119,7 +119,7 @@
 - (ORKStep *)stepAfterStep:(ORKStep *)step withResult:(ORKTaskResult *)result {
     NSArray *steps = _steps;
     
-    if (steps.count <= 0) {
+    if (steps.count <= 0 || step.saveOnArrival) {
         return nil;
     }
     
