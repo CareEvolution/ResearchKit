@@ -171,6 +171,10 @@ ORK1TaskProgress ORK1TaskProgressMake(NSUInteger current, NSUInteger total) {
         return nil;
     }
     
+    if (step.saveOnArrival && ![self isKindOfClass:[ORK1NavigableOrderedTask class]]) {
+        return nil;
+    }
+    
     ORK1Step *currentStep = step;
     ORK1Step *nextStep = nil;
     

@@ -176,8 +176,15 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
      CEVHACK - This fixes a bug that affects RK2 where the cancel button did nothing - because the view cycle is different than
      other subclasses of ORKStepViewController. Setting the cancelButtonItem on the _navigationFooterView needs to happen AFTER
      the super class ORKStepViewController has had a chance to create it.
+     
+     Also, don't attempt to set _navigationFooterView.cancelButtonItem = nil - as a side-effect it will update the text of the button
+     that will make it show as it exists regardless of whether it is nil or not. But tapping on the button, or invisible button
+     will have no effect because if _navigatorFooterView.cancelButtonItem is nil, the target-action chain messages nil.
      */
-    _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
+    
+    if (!self.step.saveOnArrival) {
+        _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

@@ -77,7 +77,9 @@
     }
     _navigationFooterView.continueButtonItem = self.continueButtonItem;
     _navigationFooterView.continueEnabled = YES;
-    _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
+    if (!self.step.saveOnArrival) {
+        _navigationFooterView.cancelButtonItem = self.cancelButtonItem;
+    }
     _navigationFooterView.hidden = self.isBeingReviewed;
     _navigationFooterView.footnoteLabel.text = [self instructionStep].footnote;
     [_navigationFooterView updateContinueAndSkipEnabled];
