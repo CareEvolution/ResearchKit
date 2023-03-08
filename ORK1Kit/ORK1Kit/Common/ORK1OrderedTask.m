@@ -167,7 +167,11 @@ ORK1TaskProgress ORK1TaskProgressMake(NSUInteger current, NSUInteger total) {
 - (ORK1Step *)stepAfterStep:(ORK1Step *)step withResult:(ORK1TaskResult *)result {
     NSArray *steps = _steps;
     
-    if (steps.count <= 0 || step.saveOnArrival) {
+    if (steps.count <= 0) {
+        return nil;
+    }
+    
+    if (step.saveOnArrival && ![self isKindOfClass:[ORK1NavigableOrderedTask class]]) {
         return nil;
     }
     

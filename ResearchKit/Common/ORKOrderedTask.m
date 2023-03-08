@@ -31,6 +31,7 @@
 
 
 #import "ORKOrderedTask.h"
+#import "ORKNavigableOrderedTask.h"
 
 #import "ORKActiveStep_Internal.h"
 #import "ORKStep_Private.h"
@@ -119,7 +120,11 @@
 - (ORKStep *)stepAfterStep:(ORKStep *)step withResult:(ORKTaskResult *)result {
     NSArray *steps = _steps;
     
-    if (steps.count <= 0 || step.saveOnArrival) {
+    if (steps.count <= 0) {
+        return nil;
+    }
+    
+    if (step.saveOnArrival && ![self isKindOfClass:[ORKNavigableOrderedTask class]]) {
         return nil;
     }
     
