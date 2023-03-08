@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly) UITableView *tableView;
 @property (nonatomic, strong, readonly) ORKStepHeaderView *stepHeaderView;
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong, nullable) UIImage *image;
 @property (nonatomic, copy) NSString *imageAltText;
 
 /*

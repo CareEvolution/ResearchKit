@@ -146,7 +146,7 @@ static const CGFloat CellBottomPadding = 20.0;
              */
             _imageView = [[UIImageView alloc] initWithImage:[self.image imageWithAlignmentRectInsets:UIEdgeInsetsMake(0, 0, -20, 0)]];
             _imageView.contentMode = UIViewContentModeScaleAspectFit;
-            if (self.imageAltText) {
+            if (self.imageAltText.length > 0) {
                 _imageView.accessibilityLabel = self.imageAltText;
                 _imageView.isAccessibilityElement = YES;
             }

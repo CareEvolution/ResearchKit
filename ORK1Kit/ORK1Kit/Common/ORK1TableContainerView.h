@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) UITableView *tableView;
 @property (nonatomic, strong, readonly) ORK1StepHeaderView *stepHeaderView;
 @property (nonatomic, strong, readonly) ORK1NavigationContainerView *continueSkipContainerView;
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong, nullable) UIImage *image;
 @property (nonatomic, copy) NSString *imageAltText;
 
 /*

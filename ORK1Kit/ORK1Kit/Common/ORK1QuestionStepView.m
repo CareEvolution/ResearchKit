@@ -54,7 +54,7 @@
     if (_questionStep.image) {
         _imageView = [[UIImageView alloc] initWithImage:_questionStep.image];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        if (_questionStep.imageAltText) {
+        if (_questionStep.imageAltText.length > 0) {
             _imageView.accessibilityLabel = _questionStep.imageAltText;
             _imageView.isAccessibilityElement = YES;
         }
