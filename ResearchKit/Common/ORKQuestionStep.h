@@ -29,7 +29,7 @@
  */
 
 
-@import Foundation;
+@import UIKit;
 #import <ResearchKit/ORKStep.h>
 
 
@@ -116,6 +116,20 @@ ORK_CLASS_AVAILABLE
  A property to present the question with a card view. Default to YES;
  */
 @property (nonatomic) BOOL useCardView;
+
+/**
+ An image that provides visual context for the instruction.
+ 
+ The image is displayed with aspect fit. Depending on the device, the screen area
+ available for this image can vary. For exact
+ metrics, see `ORKScreenMetricIllustrationHeight`.
+ */
+@property (nonatomic, copy, nullable) UIImage *image;
+
+/**
+ Alternative text to show for an image - for accessibility.
+ */
+@property (nonatomic, copy, nullable) NSString *imageAltText;
 
 @end
 

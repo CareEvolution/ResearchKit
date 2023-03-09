@@ -547,6 +547,8 @@
         
         _tableContainer = [ORKTableContainerView new];
         _tableContainer.delegate = self;
+        _tableContainer.image = [self formStep].image;
+        _tableContainer.imageAltText = [self formStep].imageAltText;
         [self.view addSubview:_tableContainer];
         _tableContainer.tapOffView = self.view;
         

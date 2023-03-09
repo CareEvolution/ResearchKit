@@ -45,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double distanceInMeters;
 
 @property (nonatomic, strong, nullable) UIImage *image;
+@property (nonatomic, strong, nullable) NSString *imageAccessibilityLabel;
 
 @property (nonatomic, assign) NSTimeInterval timeLeft;
 

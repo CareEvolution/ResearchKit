@@ -57,6 +57,7 @@
         ORK1_DECODE_OBJ_CLASS(aDecoder, detailText, NSString);
         ORK1_DECODE_OBJ_CLASS(aDecoder, footnote, NSString);
         ORK1_DECODE_IMAGE(aDecoder, image);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, imageAltText, NSString);
         ORK1_DECODE_IMAGE(aDecoder, auxiliaryImage);
         ORK1_DECODE_IMAGE(aDecoder, iconImage);
     }
@@ -68,6 +69,7 @@
     ORK1_ENCODE_OBJ(aCoder, detailText);
     ORK1_ENCODE_OBJ(aCoder, footnote);
     ORK1_ENCODE_IMAGE(aCoder, image);
+    ORK1_ENCODE_OBJ(aCoder, imageAltText);
     ORK1_ENCODE_IMAGE(aCoder, auxiliaryImage);
     ORK1_ENCODE_IMAGE(aCoder, iconImage);
 }
@@ -81,6 +83,7 @@
     step.detailText = self.detailText;
     step.footnote = self.footnote;
     step.image = self.image;
+    step.imageAltText = self.imageAltText;
     step.auxiliaryImage = self.auxiliaryImage;
     step.iconImage = self.iconImage;
     return step;
@@ -94,6 +97,7 @@
         ORK1EqualObjects(self.detailText, castObject.detailText) &&
         ORK1EqualObjects(self.footnote, castObject.footnote) &&
         ORK1EqualObjects(self.image, castObject.image) &&
+        ORK1EqualObjects(self.imageAltText, castObject.imageAltText) &&
         ORK1EqualObjects(self.auxiliaryImage, castObject.auxiliaryImage) &&
         ORK1EqualObjects(self.iconImage, castObject.iconImage);
 }

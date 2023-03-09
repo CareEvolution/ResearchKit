@@ -556,6 +556,8 @@
         
         _tableContainer = [[ORK1TableContainerView alloc] initWithFrame:self.view.bounds];
         _tableContainer.delegate = self;
+        _tableContainer.image = [self formStep].image;
+        _tableContainer.imageAltText = [self formStep].imageAltText;
         [self.view addSubview:_tableContainer];
         _tableContainer.tapOffView = self.view;
         

@@ -38,6 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ORK1TimedWalkContentView : ORK1ActiveStepCustomView
 
 @property (nonatomic, strong, nullable) UIImage *image;
+@property (nonatomic, strong, nullable) NSString *imageAccessibilityLabel;
 
 @end
 

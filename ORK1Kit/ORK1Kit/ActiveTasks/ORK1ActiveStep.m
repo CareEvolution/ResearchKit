@@ -103,6 +103,7 @@
     step.finishedSpokenInstruction = self.finishedSpokenInstruction;
     step.recorderConfigurations = [self.recorderConfigurations copy];
     step.image = self.image;
+    step.imageAltText = self.imageAltText;
     return step;
 }
 
@@ -123,6 +124,7 @@
         ORK1_DECODE_OBJ_CLASS(aDecoder, spokenInstruction, NSString);
         ORK1_DECODE_OBJ_CLASS(aDecoder, finishedSpokenInstruction, NSString);
         ORK1_DECODE_IMAGE(aDecoder, image);
+        ORK1_DECODE_OBJ_CLASS(aDecoder, imageAltText, NSString);
         ORK1_DECODE_OBJ_ARRAY(aDecoder, recorderConfigurations, ORK1RecorderConfiguration);
     }
     return self;
@@ -142,6 +144,7 @@
     ORK1_ENCODE_BOOL(aCoder, shouldUseNextAsSkipButton);
     ORK1_ENCODE_BOOL(aCoder, shouldContinueOnFinish);
     ORK1_ENCODE_IMAGE(aCoder, image);
+    ORK1_ENCODE_OBJ(aCoder, imageAltText);
     ORK1_ENCODE_OBJ(aCoder, spokenInstruction);
     ORK1_ENCODE_OBJ(aCoder, finishedSpokenInstruction);
     ORK1_ENCODE_OBJ(aCoder, recorderConfigurations);
@@ -156,6 +159,7 @@
             ORK1EqualObjects(self.finishedSpokenInstruction, castObject.finishedSpokenInstruction) &&
             ORK1EqualObjects(self.recorderConfigurations, castObject.recorderConfigurations) &&
             ORK1EqualObjects(self.image, castObject.image) &&
+            ORK1EqualObjects(self.imageAltText, castObject.imageAltText) &&
             (self.stepDuration == castObject.stepDuration) &&
             (self.shouldShowDefaultTimer == castObject.shouldShowDefaultTimer) &&
             (self.shouldStartTimerAutomatically == castObject.shouldStartTimerAutomatically) &&

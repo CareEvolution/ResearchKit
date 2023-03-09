@@ -95,6 +95,8 @@
     ORKFormStep *step = [super copyWithZone:zone];
     step.formItems = ORKArrayCopyObjects(_formItems);
     step.footnote = self.footnote;
+    step.image = self.image;
+    step.imageAltText = self.imageAltText;
     return step;
 }
 
@@ -104,11 +106,13 @@
     __typeof(self) castObject = object;
     return isParentSame &&
         ORKEqualObjects(self.formItems, castObject.formItems) &&
-        ORKEqualObjects(self.footnote, castObject.footnote);
+        ORKEqualObjects(self.footnote, castObject.footnote) &&
+        ORKEqualObjects(self.image, castObject.image) &&
+        ORKEqualObjects(self.imageAltText, castObject.imageAltText);
 }
 
 - (NSUInteger)hash {
-    return super.hash ^ self.formItems.hash ^ self.footnote.hash;
+    return super.hash ^ self.formItems.hash ^ self.footnote.hash ^ self.image.hash ^ self.imageAltText.hash;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
@@ -116,6 +120,8 @@
     if (self) {
         ORK_DECODE_OBJ_ARRAY(aDecoder, formItems, ORKFormItem);
         ORK_DECODE_OBJ_CLASS(aDecoder, footnote, NSString);
+        ORK_DECODE_IMAGE(aDecoder, image);
+        ORK_DECODE_OBJ_CLASS(aDecoder, imageAltText, NSString);
     }
     return self;
 }
@@ -124,6 +130,8 @@
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_OBJ(aCoder, formItems);
     ORK_ENCODE_OBJ(aCoder, footnote);
+    ORK_ENCODE_IMAGE(aCoder, image);
+    ORK_ENCODE_OBJ(aCoder, imageAltText);
 }
 
 + (BOOL)supportsSecureCoding {

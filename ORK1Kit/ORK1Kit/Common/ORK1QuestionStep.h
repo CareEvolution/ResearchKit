@@ -115,6 +115,20 @@ ORK1_CLASS_AVAILABLE
  */
 @property (nonatomic, copy, nullable) NSString *footnote;
 
+/**
+ An image that provides visual context for the instruction.
+ 
+ The image is displayed with aspect fit. Depending on the device, the screen area
+ available for this image can vary. For exact
+ metrics, see `ORK1ScreenMetricIllustrationHeight`.
+ */
+@property (nonatomic, copy, nullable) UIImage *image;
+
+/**
+ Alternative text to show for an image - for accessibility.
+ */
+@property (nonatomic, copy, nullable) NSString *imageAltText;
+
 @end
 
 NS_ASSUME_NONNULL_END
