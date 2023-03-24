@@ -186,9 +186,11 @@
         }
         
         CGSize headerSize = [baseView systemLayoutSizeFittingSize:(CGSize){_tableView.bounds.size.width,0} withHorizontalFittingPriority:UILayoutPriorityRequired verticalFittingPriority:UILayoutPriorityFittingSizeLevel];
-        baseView.bounds = (CGRect){{0,0}, headerSize};
         _tableView.tableHeaderView = nil;
-        _tableView.tableHeaderView = baseView;
+        if (headerSize.height > 0) {
+            baseView.bounds = (CGRect){{0,0}, headerSize};
+            _tableView.tableHeaderView = baseView;
+        }
     }
     
     {
@@ -200,11 +202,9 @@
         CGFloat contentInset = 0;
         contentInset = _tableView.adjustedContentInset.bottom + _tableView.adjustedContentInset.top;
         CGFloat boundsHeightUnused = _tableView.bounds.size.height - _tableView.contentSize.height - contentInset;
+        _tableView.scrollEnabled = YES;
         if (boundsHeightUnused > footerBounds.size.height) {
-            _tableView.scrollEnabled = YES;
             footerBounds.size.height = boundsHeightUnused;
-        } else {
-            _tableView.scrollEnabled = YES;
         }
         _realFooterView.frame = footerBounds;
         _tableView.tableFooterView = _realFooterView;
