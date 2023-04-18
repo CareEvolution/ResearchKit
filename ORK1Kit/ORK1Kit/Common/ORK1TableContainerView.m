@@ -457,26 +457,4 @@
     [self animateLayoutForKeyboardNotification:notification];
 }
 
-#pragma mark - Accessibility
-
-- (BOOL)isAccessibilityElement {
-    return NO;
-}
-
-- (NSArray *)accessibilityElements {
-    NSMutableArray *elements = [[NSMutableArray alloc] init];
-    
-    [elements addObject:_stepHeaderView];
-    if (_imageView) {
-        [elements addObject:_imageView];
-    }
-    // UITableViewCells are not accessibility elements by default - https://stackoverflow.com/questions/57365412/why-uitableviewcell-is-not-accessible-for-voiceover
-    for (UITableViewCell *cell in _tableView.visibleCells) {
-        [elements addObject:cell];
-    }
-    [elements addObject:_continueSkipContainerView];
-    
-    return elements;
-}
-
 @end
