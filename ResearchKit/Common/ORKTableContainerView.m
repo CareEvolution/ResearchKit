@@ -396,32 +396,4 @@ static const CGFloat CellBottomPadding = 20.0;
     [self animateLayoutForKeyboardNotification:notification];
 }
 
-#pragma mark - Accessibility
-
-/*
- In RK2, the ORKQuestionStep.text is placed in a view of a UITableView section header 😳.
- The section header view is not exposed to Accessibility currently.
- TODO: add the section header into the Accessibility group/chain
- */
-
-
-- (BOOL)isAccessibilityElement {
-    return NO;
-}
-
-- (NSArray *)accessibilityElements {
-    NSMutableArray *elements = [[NSMutableArray alloc] init];
-    
-    [elements addObject:_stepHeaderView];
-    if (_imageView) {
-        [elements addObject:_imageView];
-    }
-    // UITableViewCells are not accessibility elements by default - https://stackoverflow.com/questions/57365412/why-uitableviewcell-is-not-accessible-for-voiceover
-    for (UITableViewCell *cell in _tableView.visibleCells) {
-        [elements addObject:cell];
-    }
-    
-    return elements;
-}
-
 @end
