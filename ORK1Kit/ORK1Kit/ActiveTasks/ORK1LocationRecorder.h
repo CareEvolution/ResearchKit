@@ -29,8 +29,8 @@
  */
 
 
-@import UIKit;
-@import CoreLocation;
+#import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import <ORK1Kit/ORK1Recorder.h>
 
 

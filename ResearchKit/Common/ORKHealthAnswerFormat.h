@@ -29,7 +29,7 @@
  */
 
 
-@import HealthKit;
+#import <HealthKit/HealthKit.h>
 #import <ResearchKit/ORKAnswerFormat.h>
 
 NS_ASSUME_NONNULL_BEGIN

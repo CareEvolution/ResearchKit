@@ -34,7 +34,7 @@
 #import "ORKHelpers_Internal.h"
 
 
-static NSString *ORKKeychainWrapperDefaultService() {
+static NSString *ORKKeychainWrapperDefaultService(void) {
     static NSString *defaultService;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

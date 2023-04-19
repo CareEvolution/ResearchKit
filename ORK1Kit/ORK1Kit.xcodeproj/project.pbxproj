@@ -298,7 +298,7 @@
 		86C40D101A8D7C5C00081FAC /* ORK1DefaultFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B7A1A8D7C5C00081FAC /* ORK1DefaultFont.h */; };
 		86C40D121A8D7C5C00081FAC /* ORK1Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B7B1A8D7C5C00081FAC /* ORK1Defines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C40D141A8D7C5C00081FAC /* ORK1Helpers_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B7C1A8D7C5C00081FAC /* ORK1Helpers_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		86C40D161A8D7C5C00081FAC /* ORK1Errors.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B7D1A8D7C5C00081FAC /* ORK1Errors.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		86C40D161A8D7C5C00081FAC /* ORK1Errors.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B7D1A8D7C5C00081FAC /* ORK1Errors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C40D181A8D7C5C00081FAC /* ORK1Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40B7E1A8D7C5C00081FAC /* ORK1Errors.m */; };
 		86C40D1A1A8D7C5C00081FAC /* ORK1FormItem_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B7F1A8D7C5C00081FAC /* ORK1FormItem_Internal.h */; };
 		86C40D1C1A8D7C5C00081FAC /* ORK1FormSectionTitleLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B801A8D7C5C00081FAC /* ORK1FormSectionTitleLabel.h */; };
@@ -331,7 +331,7 @@
 		86C40D5E1A8D7C5C00081FAC /* ORK1QuestionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BA11A8D7C5C00081FAC /* ORK1QuestionStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C40D601A8D7C5C00081FAC /* ORK1QuestionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BA21A8D7C5C00081FAC /* ORK1QuestionStep.m */; };
 		86C40D621A8D7C5C00081FAC /* ORK1QuestionStep_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BA31A8D7C5C00081FAC /* ORK1QuestionStep_Internal.h */; };
-		86C40D641A8D7C5C00081FAC /* ORK1QuestionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BA41A8D7C5C00081FAC /* ORK1QuestionStepViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		86C40D641A8D7C5C00081FAC /* ORK1QuestionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BA41A8D7C5C00081FAC /* ORK1QuestionStepViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C40D661A8D7C5C00081FAC /* ORK1QuestionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BA51A8D7C5C00081FAC /* ORK1QuestionStepViewController.m */; };
 		86C40D681A8D7C5C00081FAC /* ORK1QuestionStepViewController_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BA61A8D7C5C00081FAC /* ORK1QuestionStepViewController_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		86C40D6A1A8D7C5C00081FAC /* ORK1Result.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BA71A8D7C5C00081FAC /* ORK1Result.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -3009,9 +3009,10 @@
 		3FFF18351829DB1D00167070 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = ORK1;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = researchkit.org;
 				TargetAttributes = {
 					86CC8E991AC09332001CCD89 = {
@@ -3664,7 +3665,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3687,6 +3688,8 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = ORK1Kit/ORK1Kit.modulemap;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.researchkit.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ORK1Kit;
@@ -3704,7 +3707,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "";
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -3726,6 +3729,8 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = ORK1Kit/ORK1Kit.modulemap;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++14";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.researchkit.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = ORK1Kit;

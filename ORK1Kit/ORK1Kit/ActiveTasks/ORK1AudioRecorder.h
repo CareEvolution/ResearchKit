@@ -29,8 +29,8 @@
  */
 
 
-@import UIKit;
-@import AVFoundation;
+#import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import <ORK1Kit/ORK1Recorder.h>
 
 

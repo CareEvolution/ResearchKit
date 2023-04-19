@@ -29,7 +29,7 @@
  */
 
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 #import <ORK1Kit/ORK1StepViewController.h>
 #import <ORK1Kit/ORK1Recorder.h>
 

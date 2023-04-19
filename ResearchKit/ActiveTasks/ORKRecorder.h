@@ -30,8 +30,8 @@
  */
 
 
-@import UIKit;
-@import HealthKit;
+#import <UIKit/UIKit.h>
+#import <HealthKit/HealthKit.h>
 #import <ResearchKit/ORKDefines.h>
 #import <Availability.h>
 

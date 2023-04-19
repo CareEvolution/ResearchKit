@@ -29,8 +29,8 @@
  */
 
 
-@import Foundation;
-@import HealthKit;
+#import <Foundation/Foundation.h>
+#import <HealthKit/HealthKit.h>
 #import <ResearchKit/ORKTypes.h>
 
 

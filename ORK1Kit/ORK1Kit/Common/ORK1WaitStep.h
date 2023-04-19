@@ -38,7 +38,7 @@
  */
 
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 #import <ORK1Kit/ORK1Step.h>
 
 

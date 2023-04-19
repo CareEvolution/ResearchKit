@@ -39,7 +39,7 @@
 #import <CoreText/CoreText.h>
 
 
-NSURL *ORK1CreateRandomBaseURL() {
+NSURL *ORK1CreateRandomBaseURL(void) {
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://researchkit.%@/", [NSUUID UUID].UUIDString]];
 }
 
@@ -199,7 +199,7 @@ void ORK1EnableAutoLayoutForViews(NSArray *views) {
     }];
 }
 
-NSDateFormatter *ORK1ResultDateTimeFormatter() {
+NSDateFormatter *ORK1ResultDateTimeFormatter(void) {
     static NSDateFormatter *dateTimeformatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -210,7 +210,7 @@ NSDateFormatter *ORK1ResultDateTimeFormatter() {
     return dateTimeformatter;
 }
 
-NSDateFormatter *ORK1ResultTimeFormatter() {
+NSDateFormatter *ORK1ResultTimeFormatter(void) {
     static NSDateFormatter *timeformatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -221,7 +221,7 @@ NSDateFormatter *ORK1ResultTimeFormatter() {
     return timeformatter;
 }
 
-NSDateFormatter *ORK1ResultDateFormatter() {
+NSDateFormatter *ORK1ResultDateFormatter(void) {
     static NSDateFormatter *dateformatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -232,7 +232,7 @@ NSDateFormatter *ORK1ResultDateFormatter() {
     return dateformatter;
 }
 
-NSDateFormatter *ORK1TimeOfDayLabelFormatter() {
+NSDateFormatter *ORK1TimeOfDayLabelFormatter(void) {
     static NSDateFormatter *timeformatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -244,7 +244,7 @@ NSDateFormatter *ORK1TimeOfDayLabelFormatter() {
     return timeformatter;
 }
 
-NSBundle *ORK1Bundle() {
+NSBundle *ORK1Bundle(void) {
     static NSBundle *bundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -253,7 +253,7 @@ NSBundle *ORK1Bundle() {
     return bundle;
 }
 
-NSBundle *ORK1DefaultLocaleBundle() {
+NSBundle *ORK1DefaultLocaleBundle(void) {
     static NSBundle *bundle;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -263,7 +263,7 @@ NSBundle *ORK1DefaultLocaleBundle() {
     return bundle;
 }
 
-NSDateComponentsFormatter *ORK1TimeIntervalLabelFormatter() {
+NSDateComponentsFormatter *ORK1TimeIntervalLabelFormatter(void) {
     static NSDateComponentsFormatter *durationFormatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -276,7 +276,7 @@ NSDateComponentsFormatter *ORK1TimeIntervalLabelFormatter() {
     return durationFormatter;
 }
 
-NSDateComponentsFormatter *ORK1DurationStringFormatter() {
+NSDateComponentsFormatter *ORK1DurationStringFormatter(void) {
     static NSDateComponentsFormatter *durationFormatter = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -289,7 +289,7 @@ NSDateComponentsFormatter *ORK1DurationStringFormatter() {
     return durationFormatter;
 }
 
-NSCalendar *ORK1TimeOfDayReferenceCalendar() {
+NSCalendar *ORK1TimeOfDayReferenceCalendar(void) {
     static NSCalendar *calendar;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -334,7 +334,7 @@ NSDate *ORK1TimeOfDayDateFromComponents(NSDateComponents *dateComponents) {
     return [ORK1TimeOfDayReferenceCalendar() dateFromComponents:dateComponents];
 }
 
-BOOL ORK1CurrentLocalePresentsFamilyNameFirst() {
+BOOL ORK1CurrentLocalePresentsFamilyNameFirst(void) {
     NSString *language = [[NSLocale preferredLanguages].firstObject substringToIndex:2];
     static dispatch_once_t onceToken;
     static NSArray *familyNameFirstLanguages = nil;
@@ -470,7 +470,7 @@ NSString *ORK1PathRelativeToURL(NSURL *url, NSURL *baseURL) {
     }
 }
 
-static NSURL *ORK1HomeDirectoryURL() {
+static NSURL *ORK1HomeDirectoryURL(void) {
     static NSURL *homeDirectoryURL = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -537,7 +537,7 @@ NSString *ORK1PaddingWithNumberOfSpaces(NSUInteger numberOfPaddingSpaces) {
     return [@"" stringByPaddingToLength:numberOfPaddingSpaces withString:@" " startingAtIndex:0];
 }
 
-NSNumberFormatter *ORK1DecimalNumberFormatter() {
+NSNumberFormatter *ORK1DecimalNumberFormatter(void) {
     NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
     numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
     numberFormatter.maximumFractionDigits = NSDecimalNoScale;

@@ -28,8 +28,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-@import Foundation;
-@import HealthKit;
+#import <Foundation/Foundation.h>
+#import <HealthKit/HealthKit.h>
 
 #if defined(__cplusplus)
 #  define ORK_EXTERN extern "C" __attribute__((visibility("default")))

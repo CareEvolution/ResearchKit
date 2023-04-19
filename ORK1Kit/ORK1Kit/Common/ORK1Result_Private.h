@@ -30,7 +30,7 @@
 
 
 #import <ORK1Kit/ORK1Result.h>
-@import MapKit;
+#import <MapKit/MapKit.h>
 
 @class ORK1PageStep;
 

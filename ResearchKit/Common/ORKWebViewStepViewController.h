@@ -28,8 +28,8 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-@import UIKit;
-@import WebKit;
+#import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 #import <ResearchKit/ORKStepViewController.h>
 
 NS_ASSUME_NONNULL_BEGIN

@@ -6,7 +6,7 @@
 //  Copyright © 2019 researchkit.org. All rights reserved.
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 #import <ORK1Kit/ORK1Defines.h>
 

@@ -29,8 +29,8 @@
  */
 
 
-@import UIKit;
-@import HealthKit;
+#import <UIKit/UIKit.h>
+#import <HealthKit/HealthKit.h>
 #import <ORK1Kit/ORK1Step.h>
 
 

@@ -29,8 +29,8 @@
  */
 
 
-@import Foundation;
-@import AudioToolbox;
+#import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import <ORK1Kit/ORK1Defines.h>
 #import <ORK1Kit/ORK1ActiveStep.h>
 
