@@ -40,7 +40,7 @@
 
 static const UIEdgeInsets ORKFlowerMargins = (UIEdgeInsets){12,12,12,12};
 static const CGSize ORKFlowerBezierPathSize = (CGSize){90,90};
-static UIBezierPath *ORKFlowerBezierPath() {
+static UIBezierPath *ORKFlowerBezierPath(void) {
     UIBezierPath *bezierPath = UIBezierPath.bezierPath;
     [bezierPath moveToPoint: CGPointMake(58.8, 45)];
     [bezierPath addCurveToPoint: CGPointMake(51.9, 33.2) controlPoint1: CGPointMake(107.8, 41.8) controlPoint2: CGPointMake(79.3, -7.2)];
@@ -62,7 +62,7 @@ static UIBezierPath *ORKFlowerBezierPath() {
 }
 
 static const CGSize ORKCheckBezierPathSize = (CGSize){28,28};
-static UIBezierPath *ORKCheckBezierPath() {
+static UIBezierPath *ORKCheckBezierPath(void) {
     UIBezierPath *bezierPath = UIBezierPath.bezierPath;
     [bezierPath moveToPoint: CGPointMake(11.6, 19)];
     [bezierPath addCurveToPoint: CGPointMake(11.1, 18.8) controlPoint1: CGPointMake(11.4, 19) controlPoint2: CGPointMake(11.2, 18.9)];
@@ -82,7 +82,7 @@ static UIBezierPath *ORKCheckBezierPath() {
 }
 
 static const CGSize ORKErrorBezierPathSize = (CGSize){28,28};
-static UIBezierPath *ORKErrorBezierPath() {
+static UIBezierPath *ORKErrorBezierPath(void) {
     UIBezierPath *bezier3Path = UIBezierPath.bezierPath;
     [bezier3Path moveToPoint: CGPointMake(15.1, 14)];
     [bezier3Path addLineToPoint: CGPointMake(18.8, 10.3)];

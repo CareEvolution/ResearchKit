@@ -86,7 +86,7 @@ ORKCachedColorMethod(ork_borderGrayColor, 239.0 / 255.0, 239.0 / 255.0, 244.0 / 
 
 @end
 
-static NSMutableDictionary *colors() {
+static NSMutableDictionary *colors(void) {
     static NSMutableDictionary *colors = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

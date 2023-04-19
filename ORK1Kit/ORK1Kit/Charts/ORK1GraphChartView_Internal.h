@@ -68,11 +68,11 @@ extern const CGFloat ORK1GraphChartViewScrubberMoveAnimationDuration;
 extern const CGFloat ORK1GraphChartViewAxisTickLength;
 extern const CGFloat ORK1GraphChartViewYAxisTickPadding;
 
-ORK1_INLINE CGFloat scalePixelAdjustment() {
+ORK1_INLINE CGFloat scalePixelAdjustment(void) {
     return (1.0 / [UIScreen mainScreen].scale);
 }
 
-ORK1_INLINE CAShapeLayer *graphLineLayer() {
+ORK1_INLINE CAShapeLayer *graphLineLayer(void) {
     CAShapeLayer *lineLayer = [CAShapeLayer layer];
     lineLayer.fillColor = [UIColor clearColor].CGColor;
     lineLayer.lineJoin = kCALineJoinRound;

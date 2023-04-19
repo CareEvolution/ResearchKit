@@ -29,7 +29,7 @@
  */
 
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 #import <ORK1Kit/ORK1Defines.h>
 #import <ORK1Kit/ORK1StepViewController.h>
 
