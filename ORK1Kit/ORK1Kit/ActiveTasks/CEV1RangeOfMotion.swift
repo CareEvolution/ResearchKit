@@ -50,7 +50,7 @@ public enum CEV1RangeOfMotionType: Int {
     - CEV1DirectionOfRotation.clockwise
     - offsetFromReferenceAxis = 270.0
  
- - Flexion of knee:
+ - Flexure of knee:
     - iPhone in Upside Down orientation on medial aspect of shin, right below knee
     - CEV1MotionType.flexion
     - CEV1AxisOfRotation.pitch
