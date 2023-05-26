@@ -240,7 +240,7 @@
 		86C40C941A8D7C5C00081FAC /* ORK1AudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40B3B1A8D7C5B00081FAC /* ORK1AudioRecorder.m */; };
 		86C40C961A8D7C5C00081FAC /* ORK1DataLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B3C1A8D7C5B00081FAC /* ORK1DataLogger.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		86C40C981A8D7C5C00081FAC /* ORK1DataLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40B3D1A8D7C5B00081FAC /* ORK1DataLogger.m */; };
-		86C40C9C1A8D7C5C00081FAC /* ORK1DeviceMotionRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B3F1A8D7C5B00081FAC /* ORK1DeviceMotionRecorder.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		86C40C9C1A8D7C5C00081FAC /* ORK1DeviceMotionRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B3F1A8D7C5B00081FAC /* ORK1DeviceMotionRecorder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C40C9E1A8D7C5C00081FAC /* ORK1DeviceMotionRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40B401A8D7C5B00081FAC /* ORK1DeviceMotionRecorder.m */; };
 		86C40CA01A8D7C5C00081FAC /* ORK1HealthQuantityTypeRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40B411A8D7C5B00081FAC /* ORK1HealthQuantityTypeRecorder.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		86C40CA21A8D7C5C00081FAC /* ORK1HealthQuantityTypeRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40B421A8D7C5B00081FAC /* ORK1HealthQuantityTypeRecorder.m */; };
@@ -437,7 +437,7 @@
 		9550E67D1D58DD2000C691B8 /* ORK1TouchAnywhereStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9550E67B1D58DD2000C691B8 /* ORK1TouchAnywhereStepViewController.m */; };
 		959A2BFC1D68B98700841B04 /* ORK1RangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 959A2BFA1D68B98700841B04 /* ORK1RangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		959A2BFD1D68B98700841B04 /* ORK1RangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 959A2BFB1D68B98700841B04 /* ORK1RangeOfMotionStep.m */; };
-		959A2C001D68B9DA00841B04 /* ORK1RangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 959A2BFE1D68B9DA00841B04 /* ORK1RangeOfMotionStepViewController.h */; };
+		959A2C001D68B9DA00841B04 /* ORK1RangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 959A2BFE1D68B9DA00841B04 /* ORK1RangeOfMotionStepViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		959A2C011D68B9DA00841B04 /* ORK1RangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 959A2BFF1D68B9DA00841B04 /* ORK1RangeOfMotionStepViewController.m */; };
 		959A2C0D1D68C91400841B04 /* ORK1ShoulderRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 959A2C0B1D68C91400841B04 /* ORK1ShoulderRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		959A2C0E1D68C91400841B04 /* ORK1ShoulderRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 959A2C0C1D68C91400841B04 /* ORK1ShoulderRangeOfMotionStep.m */; };
@@ -568,16 +568,17 @@
 		DA09FB5928C00F560022A066 /* ORK1Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA09FB5828C00F560022A066 /* ORK1Skin.swift */; };
 		DA0BD9B324E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = DA0BD9B224E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h */; };
 		DA0BD9B524E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0BD9B424E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m */; };
+		DA15CFF429D22C58003D23FD /* CEV1RangeOfMotionStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA15CFF329D22C58003D23FD /* CEV1RangeOfMotionStepViewController.swift */; };
 		DA160FFD24F6A59700587FBE /* CEVRK1TextView.h in Headers */ = {isa = PBXBuildFile; fileRef = DA160FFC24F6A59700587FBE /* CEVRK1TextView.h */; };
 		DA160FFF24F6A62300587FBE /* CEVRK1TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA160FFE24F6A62300587FBE /* CEVRK1TextView.m */; };
+		DA2105F429CA636000C436CA /* CEV1RangeOfMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2105F329CA636000C436CA /* CEV1RangeOfMotion.swift */; };
+		DA2105FA29CB8D5C00C436CA /* CEV1SwiftToObjcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2105F929CB8D5C00C436CA /* CEV1SwiftToObjcTests.swift */; };
 		DA27D28C24F4520C00B6ECE4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DA27D28B24F4520C00B6ECE4 /* README.md */; };
 		DA27D28F24F4521E00B6ECE4 /* NSAttributedString+Markdown.h in Headers */ = {isa = PBXBuildFile; fileRef = DA27D28D24F4521E00B6ECE4 /* NSAttributedString+Markdown.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA27D29024F4521E00B6ECE4 /* NSAttributedString+Markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27D28E24F4521E00B6ECE4 /* NSAttributedString+Markdown.m */; };
 		DA51341324F8607D0068A61F /* CEVRK1Label.h in Headers */ = {isa = PBXBuildFile; fileRef = DA51341224F8607D0068A61F /* CEVRK1Label.h */; };
 		DA51341524F8619A0068A61F /* CEVRK1Label.m in Sources */ = {isa = PBXBuildFile; fileRef = DA51341424F8619A0068A61F /* CEVRK1Label.m */; };
-		DA5D7F5228C9416000C5E50C /* ORK1Skin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA09FB5828C00F560022A066 /* ORK1Skin.swift */; };
 		DAAAE2F328DE4CB3001ECEB8 /* ORK1SkinMatrix.csv in Resources */ = {isa = PBXBuildFile; fileRef = DAAAE2F228DE4CB3001ECEB8 /* ORK1SkinMatrix.csv */; };
-		DAF6311D28EF4C5400820FB8 /* ORK1SkinSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D7F5028C940FE00C5E50C /* ORK1SkinSwiftTests.swift */; };
 		DAF84CC922D682BC0028DE8F /* CEVRK1Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF84CC822D682BC0028DE8F /* CEVRK1Theme.m */; };
 		DAF84CCA22D683E10028DE8F /* CEVRK1Theme.h in Headers */ = {isa = PBXBuildFile; fileRef = DAF84CC722D6824E0028DE8F /* CEVRK1Theme.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA7A9D2B1B082688005A2BEA /* ORK1ConsentDocumentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2A1B082688005A2BEA /* ORK1ConsentDocumentTests.m */; };
@@ -1225,8 +1226,11 @@
 		DA09FB5828C00F560022A066 /* ORK1Skin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORK1Skin.swift; sourceTree = "<group>"; };
 		DA0BD9B224E1AF73006AA90A /* CEVRK1NavigationBarProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1NavigationBarProgressView.h; sourceTree = "<group>"; };
 		DA0BD9B424E1AFBA006AA90A /* CEVRK1NavigationBarProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1NavigationBarProgressView.m; sourceTree = "<group>"; };
+		DA15CFF329D22C58003D23FD /* CEV1RangeOfMotionStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEV1RangeOfMotionStepViewController.swift; sourceTree = "<group>"; };
 		DA160FFC24F6A59700587FBE /* CEVRK1TextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CEVRK1TextView.h; sourceTree = "<group>"; };
 		DA160FFE24F6A62300587FBE /* CEVRK1TextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEVRK1TextView.m; sourceTree = "<group>"; };
+		DA2105F329CA636000C436CA /* CEV1RangeOfMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEV1RangeOfMotion.swift; sourceTree = "<group>"; };
+		DA2105F929CB8D5C00C436CA /* CEV1SwiftToObjcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEV1SwiftToObjcTests.swift; sourceTree = "<group>"; };
 		DA27D28B24F4520C00B6ECE4 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../../Carthage/Checkouts/MarkdownAttributedString/README.md; sourceTree = "<group>"; };
 		DA27D28D24F4521E00B6ECE4 /* NSAttributedString+Markdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+Markdown.h"; path = "../../../Carthage/Checkouts/MarkdownAttributedString/NSAttributedString+Markdown.h"; sourceTree = "<group>"; };
 		DA27D28E24F4521E00B6ECE4 /* NSAttributedString+Markdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+Markdown.m"; path = "../../../Carthage/Checkouts/MarkdownAttributedString/NSAttributedString+Markdown.m"; sourceTree = "<group>"; };
@@ -1737,9 +1741,10 @@
 				86CC8EB01AC09383001CCD89 /* ORK1TextChoiceCellGroupTests.m */,
 				2EBFE11C1AE1B32D00CB8254 /* ORK1UIViewAccessibilityTests.m */,
 				2EBFE11F1AE1B74100CB8254 /* ORK1VoiceEngineTests.m */,
+				AC6BDFA12967193E0030A1CB /* ORK1WebViewStepViewControllerTests.m */,
 				DA5D7F4F28C940FE00C5E50C /* ORK1KitTests-Bridging-Header.h */,
 				DA5D7F5028C940FE00C5E50C /* ORK1SkinSwiftTests.swift */,
-				AC6BDFA12967193E0030A1CB /* ORK1WebViewStepViewControllerTests.m */,
+				DA2105F929CB8D5C00C436CA /* CEV1SwiftToObjcTests.swift */,
 			);
 			path = ORK1KitTests;
 			sourceTree = "<group>";
@@ -1774,6 +1779,8 @@
 				959A2BFB1D68B98700841B04 /* ORK1RangeOfMotionStep.m */,
 				959A2BFE1D68B9DA00841B04 /* ORK1RangeOfMotionStepViewController.h */,
 				959A2BFF1D68B9DA00841B04 /* ORK1RangeOfMotionStepViewController.m */,
+				DA2105F329CA636000C436CA /* CEV1RangeOfMotion.swift */,
+				DA15CFF329D22C58003D23FD /* CEV1RangeOfMotionStepViewController.swift */,
 			);
 			name = "Range of Motion";
 			sourceTree = "<group>";
@@ -2659,6 +2666,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				959A2C001D68B9DA00841B04 /* ORK1RangeOfMotionStepViewController.h in Headers */,
 				BF1D43851D4904C6007EE90B /* ORK1VideoInstructionStep.h in Headers */,
 				84BD164B1FD1EBBC00FE1A3C /* ORK1WebViewStep.h in Headers */,
 				BF5161501BE9C53D00174DDD /* ORK1WaitStep.h in Headers */,
@@ -2693,7 +2701,6 @@
 				BA0AA6981EAEC0B600671ACE /* ORK1StroopStepViewController.h in Headers */,
 				861D2AE81B840991008C4CD0 /* ORK1TimedWalkStep.h in Headers */,
 				86C40D241A8D7C5C00081FAC /* ORK1FormStepViewController.h in Headers */,
-				959A2C001D68B9DA00841B04 /* ORK1RangeOfMotionStepViewController.h in Headers */,
 				86C40D6A1A8D7C5C00081FAC /* ORK1Result.h in Headers */,
 				86C40DD61A8D7C5C00081FAC /* ORK1UnitLabel.h in Headers */,
 				10FF9AD71B7A045E00ECB5B4 /* ORK1SeparatorView.h in Headers */,
@@ -2794,8 +2801,8 @@
 				10BAA2CA1B5FCB4F004FE478 /* ORK1ProgressView.h in Headers */,
 				BCB6E6601B7D534C000D5B34 /* ORK1LineGraphChartView.h in Headers */,
 				86C40E241A8D7C5C00081FAC /* ORK1EAGLMoviePlayerView.h in Headers */,
-				B183A4DD1A8535D100C76870 /* ORK1Kit.h in Headers */,
 				95E11E551D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.h in Headers */,
+				B183A4DD1A8535D100C76870 /* ORK1Kit.h in Headers */,
 				86C40D101A8D7C5C00081FAC /* ORK1DefaultFont.h in Headers */,
 				86C40E301A8D7C5C00081FAC /* ORK1VisualConsentStepViewController.h in Headers */,
 				86C40DCA1A8D7C5C00081FAC /* ORK1TaskViewController.h in Headers */,
@@ -3157,10 +3164,9 @@
 				248604061B4C98760010C8A0 /* ORK1AnswerFormatTests.m in Sources */,
 				86CC8EBA1AC09383001CCD89 /* ORK1ResultTests.m in Sources */,
 				FA7A9D391B0969A7005A2BEA /* ORK1ConsentSignatureFormatterTests.m in Sources */,
-				DAF6311D28EF4C5400820FB8 /* ORK1SkinSwiftTests.swift in Sources */,
 				86CC8EB81AC09383001CCD89 /* ORK1HKSampleTests.m in Sources */,
-				DA5D7F5228C9416000C5E50C /* ORK1Skin.swift in Sources */,
 				BCB96C131B19C0EC002A0B96 /* ORK1StepTests.m in Sources */,
+				DA2105FA29CB8D5C00C436CA /* CEV1SwiftToObjcTests.swift in Sources */,
 				86CC8EB51AC09383001CCD89 /* ORK1ConsentTests.m in Sources */,
 				2EBFE11D1AE1B32D00CB8254 /* ORK1UIViewAccessibilityTests.m in Sources */,
 				86CC8EB41AC09383001CCD89 /* ORK1ChoiceAnswerFormatHelperTests.m in Sources */,
@@ -3273,6 +3279,7 @@
 				FF36A49E1D1A15FC00DE8470 /* ORK1TableStepViewController.m in Sources */,
 				86C40D001A8D7C5C00081FAC /* ORK1ChoiceViewCell.m in Sources */,
 				86C40C4C1A8D7C5C00081FAC /* ORK1SpatialSpanTargetView.m in Sources */,
+				DA2105F429CA636000C436CA /* CEV1RangeOfMotion.swift in Sources */,
 				86C40D9E1A8D7C5C00081FAC /* ORK1SubheadlineLabel.m in Sources */,
 				10864CA31B27146B000F4158 /* ORK1PSATContentView.m in Sources */,
 				6146D0A41B84A91E0068491D /* ORK1LineGraphAccessibilityElement.m in Sources */,
@@ -3388,6 +3395,7 @@
 				86C40DD81A8D7C5C00081FAC /* ORK1UnitLabel.m in Sources */,
 				86C40D361A8D7C5C00081FAC /* ORK1Helpers.m in Sources */,
 				86C40C181A8D7C5C00081FAC /* ORK1AudioContentView.m in Sources */,
+				DA15CFF429D22C58003D23FD /* CEV1RangeOfMotionStepViewController.swift in Sources */,
 				86C40C8E1A8D7C5C00081FAC /* ORK1ActiveStepViewController.m in Sources */,
 				10864CA51B27146B000F4158 /* ORK1PSATKeyboardView.m in Sources */,
 				86C40CE61A8D7C5C00081FAC /* ORK1AnswerFormat.m in Sources */,
