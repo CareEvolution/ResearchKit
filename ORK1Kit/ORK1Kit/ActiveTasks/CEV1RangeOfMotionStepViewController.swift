@@ -43,6 +43,7 @@ public class CEV1RangeOfMotionStepViewController: ORK1RangeOfMotionStepViewContr
             result.flexed = lowestAngle
             result.extended = highestAngle
         }
+        result.fileResult = self.fileResult
         
         stepResult?.results = (self.addedResults ?? []) + [result]
         
