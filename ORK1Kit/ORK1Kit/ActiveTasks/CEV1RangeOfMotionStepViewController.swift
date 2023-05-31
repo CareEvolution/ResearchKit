@@ -31,14 +31,8 @@ public class CEV1RangeOfMotionStepViewController: ORK1RangeOfMotionStepViewContr
         let result = ORK1RangeOfMotionResult(identifier: step.identifier)
         switch step.motionType {
         case .flexion:
-            switch step.measuredDirectionOfRotation {
-            case .clockwise:
-                result.extended = lowestAngle
-                result.flexed = highestAngle
-            case .counterClockwise:
-                result.extended = lowestAngle
-                result.flexed = highestAngle
-            }
+            result.extended = lowestAngle
+            result.flexed = highestAngle
         case .extension:
             result.flexed = lowestAngle
             result.extended = highestAngle
