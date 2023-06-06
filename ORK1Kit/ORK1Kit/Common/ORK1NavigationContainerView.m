@@ -71,6 +71,7 @@
             _footnoteLabel = [ORK1FootnoteLabel new];
             _footnoteLabel.numberOfLines = 0;
             _footnoteLabel.textAlignment = NSTextAlignmentCenter;
+            _footnoteLabel.textColor = ORK1RGB(0x666666);
             _footnoteLabel.translatesAutoresizingMaskIntoConstraints = NO;
             
             [self addSubview:_footnoteLabel];

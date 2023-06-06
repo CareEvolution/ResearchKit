@@ -283,7 +283,7 @@ enum ORK1MetricType {
             .choiceCellLabelLastBaselineToLabelFirstBaseline : 24.0,
             .choiceCellLastBaselineToBottom                  : 24.0,
             .continueButtonHeightRegular                     : 44.0,
-            .fontSizeFootnote                                : 12.0,
+            .fontSizeFootnote                                : 14.0,
             .fontSizeSubheadline                             : 17.0,
             .fontSizeSurveyHeadline                          : 30.0,
             .maxFontSizeSurveyHeadline                       : 32.0,
