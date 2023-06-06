@@ -38,7 +38,7 @@
 
 + (UIFont *)defaultFont {
     UIFontDescriptor *descriptor = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleFootnote];
-    const CGFloat defaultSize = 12;
+    const CGFloat defaultSize = 13;  // size for UIFontTextStyleFootnote with default Dynamic Text size (detent 4 of 7 in Accessibility > Larger Text, Larger Accessibility Sizes turned off
     return [UIFont systemFontOfSize:[[descriptor objectForKey:UIFontDescriptorSizeAttribute] doubleValue] - defaultSize + ORK1GetMetricForWindow(ORK1ScreenMetricFontSizeFootnote, nil)];
 }
 
