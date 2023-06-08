@@ -45,6 +45,7 @@
 #import <ORK1Kit/ORK1PageStep.h>
 #import <ORK1Kit/ORK1PasscodeStep.h>
 #import <ORK1Kit/ORK1QuestionStep.h>
+#import <ORK1Kit/ORK1RangeOfMotionStep.h>
 #import <ORK1Kit/ORK1RegistrationStep.h>
 #import <ORK1Kit/ORK1ReviewStep.h>
 #import <ORK1Kit/ORK1SignatureStep.h>
@@ -83,6 +84,7 @@
 #import <ORK1Kit/ORK1PageStepViewController.h>
 #import <ORK1Kit/ORK1PasscodeViewController.h>
 #import <ORK1Kit/ORK1QuestionStepViewController.h>
+#import <ORK1Kit/ORK1RangeOfMotionStepViewController.h>
 #import <ORK1Kit/ORK1TableStepViewController.h>
 #import <ORK1Kit/ORK1TaskViewController.h>
 #import <ORK1Kit/ORK1TouchAnywhereStepViewController.h>

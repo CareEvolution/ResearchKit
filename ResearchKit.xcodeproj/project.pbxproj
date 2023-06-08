@@ -523,7 +523,7 @@
 		9550E67D1D58DD2000C691B8 /* ORKTouchAnywhereStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9550E67B1D58DD2000C691B8 /* ORKTouchAnywhereStepViewController.m */; };
 		959A2BFC1D68B98700841B04 /* ORKRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 959A2BFA1D68B98700841B04 /* ORKRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		959A2BFD1D68B98700841B04 /* ORKRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 959A2BFB1D68B98700841B04 /* ORKRangeOfMotionStep.m */; };
-		959A2C001D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 959A2BFE1D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.h */; };
+		959A2C001D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 959A2BFE1D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		959A2C011D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 959A2BFF1D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.m */; };
 		959A2C0D1D68C91400841B04 /* ORKShoulderRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 959A2C0B1D68C91400841B04 /* ORKShoulderRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		959A2C0E1D68C91400841B04 /* ORKShoulderRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 959A2C0C1D68C91400841B04 /* ORKShoulderRangeOfMotionStep.m */; };
@@ -665,7 +665,10 @@
 		D442397E1AF17F7600559D96 /* ORKImageCaptureStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D442397C1AF17F7600559D96 /* ORKImageCaptureStepViewController.m */; };
 		D458520A1AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = D45852081AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.h */; };
 		D458520B1AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D45852091AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m */; };
+		DA605A852A2114040010AA14 /* CEVSwiftToObjcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA605A842A2114040010AA14 /* CEVSwiftToObjcTests.swift */; };
 		DA7592E92405B1500030E54F /* ORKStroopStepTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7592E82405B1500030E54F /* ORKStroopStepTests.m */; };
+		DACDD47E2A158B21009403F3 /* CEVRangeOfMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2105F129CA631A00C436CA /* CEVRangeOfMotion.swift */; };
+		DACDD4802A158BCC009403F3 /* CEVRangeOfMotionStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACDD47F2A158BCC009403F3 /* CEVRangeOfMotionStepViewController.swift */; };
 		FA7A9D2B1B082688005A2BEA /* ORKConsentDocumentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2A1B082688005A2BEA /* ORKConsentDocumentTests.m */; };
 		FA7A9D2F1B083DD3005A2BEA /* ORKConsentSectionFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A9D2D1B083DD3005A2BEA /* ORKConsentSectionFormatter.h */; };
 		FA7A9D301B083DD3005A2BEA /* ORKConsentSectionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2E1B083DD3005A2BEA /* ORKConsentSectionFormatter.m */; };
@@ -1445,7 +1448,11 @@
 		D442397C1AF17F7600559D96 /* ORKImageCaptureStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKImageCaptureStepViewController.m; sourceTree = "<group>"; };
 		D45852081AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKImageCaptureCameraPreviewView.h; sourceTree = "<group>"; };
 		D45852091AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKImageCaptureCameraPreviewView.m; sourceTree = "<group>"; };
+		DA2105F129CA631A00C436CA /* CEVRangeOfMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEVRangeOfMotion.swift; sourceTree = "<group>"; };
+		DA605A832A2114040010AA14 /* ResearchKitTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ResearchKitTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		DA605A842A2114040010AA14 /* CEVSwiftToObjcTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEVSwiftToObjcTests.swift; sourceTree = "<group>"; };
 		DA7592E82405B1500030E54F /* ORKStroopStepTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKStroopStepTests.m; sourceTree = "<group>"; };
+		DACDD47F2A158BCC009403F3 /* CEVRangeOfMotionStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CEVRangeOfMotionStepViewController.swift; sourceTree = "<group>"; };
 		FA7A9D2A1B082688005A2BEA /* ORKConsentDocumentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKConsentDocumentTests.m; sourceTree = "<group>"; };
 		FA7A9D2D1B083DD3005A2BEA /* ORKConsentSectionFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKConsentSectionFormatter.h; sourceTree = "<group>"; };
 		FA7A9D2E1B083DD3005A2BEA /* ORKConsentSectionFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKConsentSectionFormatter.m; sourceTree = "<group>"; };
@@ -2138,6 +2145,8 @@
 				2EBFE11C1AE1B32D00CB8254 /* ORKUIViewAccessibilityTests.m */,
 				2EBFE11F1AE1B74100CB8254 /* ORKVoiceEngineTests.m */,
 				AC6BDFA3296726F30030A1CB /* ORKWebViewStepViewControllerTests.m */,
+				DA605A832A2114040010AA14 /* ResearchKitTests-Bridging-Header.h */,
+				DA605A842A2114040010AA14 /* CEVSwiftToObjcTests.swift */,
 			);
 			path = ResearchKitTests;
 			sourceTree = "<group>";
@@ -2174,6 +2183,8 @@
 				959A2BFB1D68B98700841B04 /* ORKRangeOfMotionStep.m */,
 				959A2BFE1D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.h */,
 				959A2BFF1D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.m */,
+				DA2105F129CA631A00C436CA /* CEVRangeOfMotion.swift */,
+				DACDD47F2A158BCC009403F3 /* CEVRangeOfMotionStepViewController.swift */,
 			);
 			name = "Range of Motion";
 			sourceTree = "<group>";
@@ -3531,6 +3542,7 @@
 				TargetAttributes = {
 					86CC8E991AC09332001CCD89 = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 1430;
 					};
 					B183A4731A8535D100C76870 = {
 						LastSwiftMigration = "";
@@ -3705,6 +3717,7 @@
 				DA7592E92405B1500030E54F /* ORKStroopStepTests.m in Sources */,
 				BCB96C131B19C0EC002A0B96 /* ORKStepTests.m in Sources */,
 				86CC8EB51AC09383001CCD89 /* ORKConsentTests.m in Sources */,
+				DA605A852A2114040010AA14 /* CEVSwiftToObjcTests.swift in Sources */,
 				2EBFE11D1AE1B32D00CB8254 /* ORKUIViewAccessibilityTests.m in Sources */,
 				AC6BDFA4296726F30030A1CB /* ORKWebViewStepViewControllerTests.m in Sources */,
 				86CC8EB41AC09383001CCD89 /* ORKChoiceAnswerFormatHelperTests.m in Sources */,
@@ -3860,6 +3873,7 @@
 				CBD34A571BB1FB9000F204EA /* ORKLocationSelectionView.m in Sources */,
 				FF919A5A1E81C628005C2A1E /* ORKQuestionResult.m in Sources */,
 				D458520B1AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m in Sources */,
+				DACDD4802A158BCC009403F3 /* CEVRangeOfMotionStepViewController.swift in Sources */,
 				86C40E1A1A8D7C5C00081FAC /* ORKConsentSection.m in Sources */,
 				86C40C241A8D7C5C00081FAC /* ORKCountdownStep.m in Sources */,
 				BCB6E65C1B7D534C000D5B34 /* ORKDiscreteGraphChartView.m in Sources */,
@@ -3875,6 +3889,7 @@
 				86C40C701A8D7C5C00081FAC /* CMMotionActivity+ORKJSONDictionary.m in Sources */,
 				147503B01AEE8071004B17F3 /* ORKAudioGenerator.m in Sources */,
 				86C40D7E1A8D7C5C00081FAC /* ORKScaleValueLabel.m in Sources */,
+				DACDD47E2A158B21009403F3 /* CEVRangeOfMotion.swift in Sources */,
 				8056857A1C90C19500BF437A /* UIImage+ResearchKit.m in Sources */,
 				BC94EF321E962F7400143081 /* ORKDeprecated.m in Sources */,
 				86C40D901A8D7C5C00081FAC /* ORKStep.m in Sources */,
@@ -4204,6 +4219,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -4222,6 +4238,9 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.researchkit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ResearchKitTests/ResearchKitTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -4230,6 +4249,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -4245,6 +4265,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.researchkit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ResearchKitTests/ResearchKitTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

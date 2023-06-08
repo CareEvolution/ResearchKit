@@ -33,6 +33,7 @@
 
 #import "ORKResult_Private.h"
 #import "ORKHelpers_Internal.h"
+#import "ORKFileResult.h"
 
 
 @implementation ORKRangeOfMotionResult
@@ -41,6 +42,7 @@
     [super encodeWithCoder:aCoder];
     ORK_ENCODE_DOUBLE(aCoder, flexed);
     ORK_ENCODE_DOUBLE(aCoder, extended);
+    ORK_ENCODE_OBJ(aCoder, fileResult);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -48,6 +50,7 @@
     if (self) {
         ORK_DECODE_DOUBLE(aDecoder, flexed);
         ORK_DECODE_DOUBLE(aDecoder, extended);
+        ORK_DECODE_OBJ_CLASS(aDecoder, fileResult, ORKFileResult);
     }
     return self;
 }
@@ -59,24 +62,26 @@
 - (BOOL)isEqual:(id)object {
     BOOL isParentSame = [super isEqual:object];
     __typeof(self) castObject = object;
-    return isParentSame &&
-    self.flexed == castObject.flexed &&
-    self.extended == castObject.extended;
+    return (isParentSame &&
+            self.flexed == castObject.flexed &&
+            self.extended == castObject.extended &&
+            ORKEqualObjects(self.fileResult, castObject.fileResult));
 }
 
 - (NSUInteger)hash {
-    return super.hash;
+    return super.hash ^ self.fileResult.hash;
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORKRangeOfMotionResult *result = [super copyWithZone:zone];
     result.flexed = self.flexed;
     result.extended = self.extended;
+    result.fileResult = self.fileResult;
     return result;
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"<%@: flexion: %f; extension: %f>", self.class.description, self.flexed, self.extended];
+    return [NSString stringWithFormat:@"<%@: flexion: %f; extension: %f; fileResult: %@>", self.class.description, self.flexed, self.extended, self.fileResult.description];
 }
 
 @end

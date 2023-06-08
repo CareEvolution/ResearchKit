@@ -177,6 +177,12 @@
     _lastAngle = angle;
 }
 
+#pragma mark - ORKRecorderDelegate
+
+- (void)recorder:(ORKRecorder *)recorder didCompleteWithResult:(ORKResult *)result {
+    self.fileResult = (ORKFileResult *)result;
+}
+
 /*
  When the device is in Portrait mode, we need to get the attitude's pitch
  to determine the device's angle. attitude.pitch doesn't return all
@@ -209,6 +215,7 @@
     ORKRangeOfMotionResult *result = [[ORKRangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
     result.flexed = _flexedAngle;
     result.extended = result.flexed - _rangeOfMotionAngle;
+    result.fileResult = _fileResult;
     
     stepResult.results = [self.addedResults arrayByAddingObject:result] ? : @[result];
     

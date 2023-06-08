@@ -383,6 +383,11 @@ ORK1_CLASS_AVAILABLE
  */
 @property (nonatomic, readonly) BOOL hasBeenPresented;
 
+/**
+ Exposed for Swift subclasses.
+ */
+@property (nonatomic, copy, nullable) NSArray <ORK1Result *> *addedResults;
+
 @end
 
 NS_ASSUME_NONNULL_END

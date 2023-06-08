@@ -44,6 +44,7 @@
 #import <ResearchKit/ORKPasscodeStep.h>
 #import <ResearchKit/ORKPDFViewerStep.h>
 #import <ResearchKit/ORKQuestionStep.h>
+#import <ResearchKit/ORKRangeOfMotionStep.h>
 #import <ResearchKit/ORKRegistrationStep.h>
 #import <ResearchKit/ORKReviewStep.h>
 #import <ResearchKit/ORKSignatureStep.h>
@@ -91,6 +92,7 @@
 #import <ResearchKit/ORKPasscodeViewController.h>
 #import <ResearchKit/ORKPDFViewerStepViewController.h>
 #import <ResearchKit/ORKQuestionStepViewController.h>
+#import <ResearchKit/ORKRangeOfMotionStepViewController.h>
 #import <ResearchKit/ORKTableStepViewController.h>
 #import <ResearchKit/ORKTaskViewController.h>
 #import <ResearchKit/ORKTouchAnywhereStepViewController.h>

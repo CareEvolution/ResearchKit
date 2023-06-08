@@ -45,6 +45,10 @@ ORK1_CLASS_AVAILABLE
     double _rangeOfMotionAngle;
 }
 
+@property (nonatomic, strong) ORK1FileResult *fileResult;
+
+- (void)deviceMotionRecorderDidUpdateWithMotion:(CMDeviceMotion *)motion;
+
 @end
 
 NS_ASSUME_NONNULL_END

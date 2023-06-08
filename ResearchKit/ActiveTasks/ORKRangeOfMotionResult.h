@@ -31,6 +31,8 @@
 
 #import <ResearchKit/ORKResult.h>
 
+@class ORKFileResult;
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -51,6 +53,11 @@ ORK_CLASS_AVAILABLE
  The degrees when extended.
  */
 @property (nonatomic, assign) double extended;
+
+/**
+ The recorder output - usually the device motion recorder.
+  */
+@property (nonatomic, strong) ORKFileResult *fileResult;
 
 @end
 
