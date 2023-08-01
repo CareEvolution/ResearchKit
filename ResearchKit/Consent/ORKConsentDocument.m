@@ -89,6 +89,10 @@
     [_signatures addObject:signature];
 }
 
+- (NSString *)htmlWithSignatures {
+    return [self htmlForMobile:NO title:nil detail:nil];
+}
+
 - (void)makePDFWithCompletionHandler:(void (^)(NSData *data, NSError *error))completionBlock {
     [_writer writePDFFromHTML:[self htmlForMobile:NO title:nil detail:nil]
           completionBlock:^(NSData *data, NSError *error) {
