@@ -278,12 +278,7 @@ static const NSString *FormattedAddressLines = @"FormattedAddressLines";
 
 - (void)loadCurrentLocationIfNecessary {
     if (_useCurrentLocation) {
-        CLAuthorizationStatus status = kCLAuthorizationStatusNotDetermined;
-        if (@available(iOS 14, *)) {
-            status = _locationManager.authorizationStatus;
-        } else {
-            status = [CLLocationManager authorizationStatus];
-        }
+        CLAuthorizationStatus status = _locationManager.authorizationStatus;
         
         if (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse) {
             _userLocationNeedsUpdate = YES;

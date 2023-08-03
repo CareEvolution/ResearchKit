@@ -89,12 +89,7 @@
     
     self.locationManager = [self createLocationManager];
     
-    CLAuthorizationStatus status = kCLAuthorizationStatusNotDetermined;
-    if (@available(iOS 14, *)) {
-        status = self.locationManager.authorizationStatus;
-    } else {
-        status = [CLLocationManager authorizationStatus];
-    }
+    CLAuthorizationStatus status = self.locationManager.authorizationStatus;
     
     if (status == kCLAuthorizationStatusRestricted || status == kCLAuthorizationStatusNotDetermined) {
         [self.locationManager requestWhenInUseAuthorization];
@@ -165,12 +160,7 @@
 }
 
 - (BOOL)isRecording {
-    CLAuthorizationStatus status = kCLAuthorizationStatusNotDetermined;
-    if (@available(iOS 14, *)) {
-        status = self.locationManager.authorizationStatus;
-    } else {
-        status = [CLLocationManager authorizationStatus];
-    }
+    CLAuthorizationStatus status = self.locationManager.authorizationStatus;
     return [CLLocationManager locationServicesEnabled] && (self.locationManager != nil) && (status > kCLAuthorizationStatusDenied);
 }
 

@@ -139,7 +139,7 @@
     
     if (self.documentSelectionStep.allowPhotoLibrary && self.isPhotoLibraryAvailable) {
         ORK1ContinueButton *button = [[ORK1ContinueButton alloc] initWithTitle:ORK1LocalizedString(@"CHOOSE_PHOTO_BUTTON_TITLE", nil) isDoneButton:NO];
-        [button addTarget:self action:@selector(choosePhoto) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(presentPhotoPicker) forControlEvents:UIControlEventTouchUpInside];
         [sourceStackView addArrangedSubview:button];
     }
     
@@ -206,36 +206,7 @@
     }
 }
 
-- (void)choosePhoto {
-    // iOS 14 photo library picker does not require authorization prompt
-    if (@available(iOS 14, *)) {
-        [self presentPhotoPicker];
-        return;
-    }
-    
-    ORK1WeakTypeOf(self) weakSelf = self;
-    switch ([PHPhotoLibrary authorizationStatus]) {
-        case PHAuthorizationStatusDenied:
-        case PHAuthorizationStatusRestricted:
-            [self handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"DOCUMENT_SELECTION_ERROR_NO_PHOTO_PERMISSIONS", nil)}] showSettingsButton:YES];
-            break;
-        case PHAuthorizationStatusNotDetermined:
-        case PHAuthorizationStatusAuthorized:
-        case PHAuthorizationStatusLimited:
-            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (status == PHAuthorizationStatusAuthorized) {
-                        [weakSelf presentAuthorizedPicker:UIImagePickerControllerSourceTypePhotoLibrary];
-                    } else {
-                        [weakSelf handleError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSFeatureUnsupportedError userInfo:@{NSLocalizedDescriptionKey:ORK1LocalizedString(@"DOCUMENT_SELECTION_ERROR_NO_PHOTO_PERMISSIONS", nil)}] showSettingsButton:YES];
-                    }
-                });
-            }];
-            break;
-    }
-}
-
-- (void)presentPhotoPicker API_AVAILABLE(ios(14)) {
+- (void)presentPhotoPicker {
     PHPickerConfiguration *configuration = [[PHPickerConfiguration alloc] init];
     configuration.selectionLimit = 1;
     configuration.filter = [PHPickerFilter imagesFilter];
@@ -388,7 +359,7 @@
 
 #pragma mark - PHPickerViewControllerDelegate
 
-- (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results  API_AVAILABLE(ios(14)) {
+- (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results {
     NSItemProvider *provider = results.firstObject.itemProvider;
     if ([provider canLoadObjectOfClass:[UIImage class]]) {
         [provider loadObjectOfClass:[UIImage class] completionHandler:^(UIImage * _Nullable image, NSError * _Nullable error) {
