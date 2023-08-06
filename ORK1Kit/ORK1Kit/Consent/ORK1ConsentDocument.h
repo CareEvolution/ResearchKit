@@ -131,6 +131,11 @@ ORK1_CLASS_AVAILABLE
  */
 - (void)addSignature:(ORK1ConsentSignature *)signature;
 
+/**
+ Produces an HTML version of the consent document with signature images embedded.
+ */
+@property (nonatomic, readonly) NSString *htmlWithSignatures;
+
 /// @name Alternative content provision
 
 /**
