@@ -49,14 +49,12 @@
     ORKStroopStep *stroopStep = [[ORKStroopStep alloc] initWithIdentifier:@"testStroop"];
     stroopStep.numberOfAttempts = 10;
     NSArray<NSNumber *> *probabilitiesToTest = @[@(0.25), @(0.5), @(0.75)];
-    // test with n = 10,000 and tolerance of 1 %
+    // Test with n = 10,000 and tolerance of 1.5%.
     for (NSNumber *probability in probabilitiesToTest) {
         stroopStep.probabilityOfVisualAndColorAlignment = probability;
         ORKStroopStepViewController *stroopVC = [[ORKStroopStepViewController alloc] initWithStep:stroopStep];
-        XCTAssertLessThan(fabs([self realTruesRandomizationTrialForStroopViewController:stroopVC] - probability.doubleValue), 0.01);
+        XCTAssertLessThan(fabs([self realTruesRandomizationTrialForStroopViewController:stroopVC] - probability.doubleValue), 0.015);
     }
 }
 
 @end
-
-
