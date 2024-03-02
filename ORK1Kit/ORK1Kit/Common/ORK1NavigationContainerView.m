@@ -50,7 +50,7 @@
     if (self) {
         {
             _skipButton = [ORK1TextButton new];
-            _skipButton.contentEdgeInsets = (UIEdgeInsets){12,10,8,10}; // insets adjusted to get correct vertical height from bottom of screen when aligned to margin
+            [_skipButton setContentEdgeInsetsIgnoringDeprecation:(UIEdgeInsets){12,10,8,10}]; // insets adjusted to get correct vertical height from bottom of screen when aligned to margin
             _skipButton.exclusiveTouch = YES;
             [_skipButton setTitle:nil forState:UIControlStateNormal];
             [_skipButton addTarget:self action:@selector(skipButtonAction:) forControlEvents:UIControlEventTouchUpInside];

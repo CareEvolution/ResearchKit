@@ -99,7 +99,7 @@ static const CGFloat CEVLeadingOffsetToMatchFormItemContent = 4.0;
         
         {
             _learnMoreButton = [ORK1TextButton new];
-            _learnMoreButton.contentEdgeInsets = (UIEdgeInsets){10,10,10,10};
+            [_learnMoreButton setContentEdgeInsetsIgnoringDeprecation:(UIEdgeInsets){10,10,10,10}];
             [_learnMoreButton setTitle:nil forState:UIControlStateNormal];
             [_learnMoreButton addTarget:self action:@selector(learnMoreAction:) forControlEvents:UIControlEventTouchUpInside];
             _learnMoreButton.exclusiveTouch = YES;

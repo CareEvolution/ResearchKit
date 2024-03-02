@@ -117,7 +117,7 @@ static CGFloat const kForgotPasscodeHeight              = 100.0f;
             CGFloat width = self.view.bounds.size.width - 2 * kForgotPasscodeHorizontalPadding;
 
             UIButton *forgotPasscodeButton = [ORK1TextButton new];
-            forgotPasscodeButton.contentEdgeInsets = (UIEdgeInsets){12, 10, 8, 10};
+            [forgotPasscodeButton setContentEdgeInsetsIgnoringDeprecation:(UIEdgeInsets){12, 10, 8, 10}];
             forgotPasscodeButton.frame = CGRectMake(x, _originalForgotPasscodeY, width, kForgotPasscodeHeight);
             
             NSString *buttonTitle = [self forgotPasscodeButtonText];

@@ -33,6 +33,7 @@
 
 #import "ORKSkin.h"
 
+#import "ORKHelpers_Internal.h"
 
 static const CGFloat ContinueButtonTouchMargin = 10;
 
@@ -46,7 +47,7 @@ static const CGFloat ContinueButtonTouchMargin = 10;
     if (self) {
         [self setTitle:title forState:UIControlStateNormal];
         self.isDoneButton = isDoneButton;
-        self.contentEdgeInsets = (UIEdgeInsets){.left = 6, .right = 6};
+        [self setContentEdgeInsetsIgnoringDeprecation:(UIEdgeInsets){.left = 6, .right = 6}];
 
         [self setUpConstraints];
     }
