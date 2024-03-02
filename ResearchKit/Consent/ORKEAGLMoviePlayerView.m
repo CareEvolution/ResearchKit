@@ -369,13 +369,14 @@ const GLfloat DefaultPreferredRotation = 0;
         /*
          Use the color attachment of the pixel buffer to determine the appropriate color conversion matrix.
          */
-        CFTypeRef colorAttachments = CVBufferGetAttachment(pixelBuffer, kCVImageBufferYCbCrMatrixKey, NULL);
+        CFTypeRef colorAttachments = CVBufferCopyAttachment(pixelBuffer, kCVImageBufferYCbCrMatrixKey, NULL);
         
         if (colorAttachments == kCVImageBufferYCbCrMatrix_ITU_R_601_4) {
             self.preferredConversion = ColorConversion601;
         } else {
             self.preferredConversion = ColorConversion709;
         }
+        CFRelease(colorAttachments);
         
         /*
          CVOpenGLESTextureCacheCreateTextureFromImage will create GLES texture optimally from CVPixelBufferRef.

@@ -521,7 +521,7 @@
 		9550E6741D58DBCF00C691B8 /* ORKTouchAnywhereStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 9550E6721D58DBCF00C691B8 /* ORKTouchAnywhereStep.m */; };
 		9550E67C1D58DD2000C691B8 /* ORKTouchAnywhereStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9550E67A1D58DD2000C691B8 /* ORKTouchAnywhereStepViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9550E67D1D58DD2000C691B8 /* ORKTouchAnywhereStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9550E67B1D58DD2000C691B8 /* ORKTouchAnywhereStepViewController.m */; };
-		959A2BFC1D68B98700841B04 /* ORKRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 959A2BFA1D68B98700841B04 /* ORKRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		959A2BFC1D68B98700841B04 /* ORKRangeOfMotionStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 959A2BFA1D68B98700841B04 /* ORKRangeOfMotionStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		959A2BFD1D68B98700841B04 /* ORKRangeOfMotionStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 959A2BFB1D68B98700841B04 /* ORKRangeOfMotionStep.m */; };
 		959A2C001D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 959A2BFE1D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		959A2C011D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 959A2BFF1D68B9DA00841B04 /* ORKRangeOfMotionStepViewController.m */; };

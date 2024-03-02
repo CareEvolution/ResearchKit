@@ -109,9 +109,12 @@
     // Calling self.titleLabel at here can cause weird layout error.
     if (label && label.preferredMaxLayoutWidth > 0 && self.currentTitle.length > 0) {
         CGSize labelSize = [self.titleLabel sizeThatFits:CGSizeMake(self.titleLabel.preferredMaxLayoutWidth, CGFLOAT_MAX)];
-        
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
         CGFloat verticalPadding = MAX(self.contentEdgeInsets.top, self.titleEdgeInsets.top) +  MAX(self.contentEdgeInsets.bottom, self.titleEdgeInsets.bottom);
         CGFloat horizontalPadding = MAX(self.contentEdgeInsets.left, self.titleEdgeInsets.left) + MAX(self.contentEdgeInsets.right, self.titleEdgeInsets.right);
+#pragma clang diagnostic pop
         
         return CGSizeMake(labelSize.width+horizontalPadding,
                           labelSize.height+verticalPadding);
