@@ -563,3 +563,14 @@ void ORKDisablePasswordAutofill(id<UITextInputTraits> input) {
         [superview insertSubview:textField atIndex:0];
     }
 }
+
+@implementation UIButton (Deprecations)
+
+- (void)setContentEdgeInsetsIgnoringDeprecation:(UIEdgeInsets)value {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+    self.contentEdgeInsets = value;
+#pragma clang diagnostic pop
+}
+
+@end

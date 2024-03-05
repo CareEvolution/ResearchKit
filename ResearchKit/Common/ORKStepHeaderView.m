@@ -98,7 +98,7 @@
         {
             _learnMoreButton = [ORKTextButton new];
             _learnMoreButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeading;
-            _learnMoreButton.contentEdgeInsets = (UIEdgeInsets){10,0,10,10};
+            [_learnMoreButton setContentEdgeInsetsIgnoringDeprecation:(UIEdgeInsets){10,0,10,10}];
             [_learnMoreButton setTitle:nil forState:UIControlStateNormal];
             [_learnMoreButton addTarget:self action:@selector(learnMoreAction:) forControlEvents:UIControlEventTouchUpInside];
             _learnMoreButton.exclusiveTouch = YES;

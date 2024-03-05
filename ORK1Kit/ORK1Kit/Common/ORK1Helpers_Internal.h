@@ -381,4 +381,8 @@ ORK1_EXTERN NSBundle *ORK1DefaultLocaleBundle(void);
 #define ORK1LocalizedStringFromNumber(number) \
 [NSNumberFormatter localizedStringFromNumber:number numberStyle:NSNumberFormatterNoStyle]
 
+@interface UIButton (Deprecations)
+- (void)setContentEdgeInsetsIgnoringDeprecation:(UIEdgeInsets)value;
+@end
+
 NS_ASSUME_NONNULL_END

@@ -292,7 +292,10 @@ static const CGFloat DetailTextIndicatorPaddingFromLabel = 10.0;
     if (_detailTextIndicator == nil) {
         _detailTextIndicator = [UIButton buttonWithType:UIButtonTypeInfoDark];
         CGFloat inset = (DetailTextIndicatorTouchTargetWidth - DetailTextIndicatorImageWidth) / 2;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
         _detailTextIndicator.imageEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset);
+#pragma clang diagnostic pop
         [self.contentView addSubview:_detailTextIndicator];
         [_detailTextIndicator addTarget:self action:@selector(toggleDetailText) forControlEvents:UIControlEventTouchUpInside];
     }

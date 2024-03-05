@@ -48,6 +48,7 @@
 @import MobileCoreServices;
 @import Photos;
 @import PhotosUI;
+@import UniformTypeIdentifiers.UTCoreTypes;
 
 @interface ORK1DocumentSelectionStepViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, PHPickerViewControllerDelegate>
 
@@ -220,7 +221,7 @@
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.sourceType = sourceType;
-    picker.mediaTypes = @[(NSString *)kUTTypeImage];
+    picker.mediaTypes = @[UTTypeImage.identifier];
     
     if (sourceType == UIImagePickerControllerSourceTypeCamera) {
         switch (self.documentSelectionStep.preferredCameraPosition) {
