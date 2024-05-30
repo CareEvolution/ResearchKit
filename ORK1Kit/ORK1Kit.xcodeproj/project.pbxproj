@@ -1071,6 +1071,7 @@
 		AC9069C9250911F200910AB7 /* ORK1DocumentReviewStep.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORK1DocumentReviewStep.m; sourceTree = "<group>"; };
 		AC9069CC250916F400910AB7 /* ORK1DocumentReviewStepViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORK1DocumentReviewStepViewController.h; sourceTree = "<group>"; };
 		AC9069CD250916F400910AB7 /* ORK1DocumentReviewStepViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORK1DocumentReviewStepViewController.m; sourceTree = "<group>"; };
+		ACB3A83D2C08EC8C00A3F561 /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = sw.lproj/ORK1Kit.strings; sourceTree = "<group>"; };
 		B11C54961A9EEF8800265E61 /* ORK1ConsentSharingStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ConsentSharingStep.h; sourceTree = "<group>"; };
 		B11C54971A9EEF8800265E61 /* ORK1ConsentSharingStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ConsentSharingStep.m; sourceTree = "<group>"; };
 		B11C549C1A9EF4A700265E61 /* ORK1ConsentSharingStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ConsentSharingStepViewController.h; sourceTree = "<group>"; };
@@ -3087,6 +3088,7 @@
 				nb,
 				"es-419",
 				es_419,
+				sw,
 			);
 			mainGroup = 3FFF18341829DB1D00167070;
 			productRefGroup = 3FFF183E1829DB1D00167070 /* Products */;
@@ -3501,6 +3503,7 @@
 				B1B34A051AA10EDF005FAD66 /* ca */,
 				B1B34A061AA10EE4005FAD66 /* ar */,
 				B1B34A061AABBCCDDEEFFAAA /* no */,
+				ACB3A83D2C08EC8C00A3F561 /* sw */,
 			);
 			name = ORK1Kit.strings;
 			sourceTree = "<group>";
