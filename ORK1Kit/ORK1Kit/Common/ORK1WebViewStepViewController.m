@@ -57,6 +57,7 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
 @implementation ORK1WebViewStepViewController {
     NSString *_result;
     NSString *_originalResult;
+    BOOL _hasCompleted;
 }
 
 #pragma mark Public Interface
@@ -214,9 +215,10 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
 /// Returns YES if the view controller should stop processing any other messages. Assumes that `shouldProcessScriptMessages` is true.
 /// - Parameter message: The message to process.
 - (BOOL)processScriptMessage:(WKScriptMessage *)message {
-    if ([message.name isEqualToString:ResearchKitCompleteStepMessageName] && [message.body isKindOfClass:[NSString class]]) {
+    if ([message.name isEqualToString:ResearchKitCompleteStepMessageName] && [message.body isKindOfClass:[NSString class]] && !_hasCompleted) {
         _result = (NSString *)message.body;
         [self goForward];
+        _hasCompleted = YES;
         return YES;
     }
     
