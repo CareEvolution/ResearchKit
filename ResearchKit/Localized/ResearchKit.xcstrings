@@ -226,6 +226,12 @@
             "value" : "Ytterligare information"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taarifa za Ziada"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -481,6 +487,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Blunda med %@ och fokusera på punkten i mitten av det kvadratiska rutnätet.\n\nOm du ser förvrängningar, exempelvis suddiga eller vågiga linjer, märker du ut dem med fingret eller en ritpenna.\n\nSvep åt vänster utanför rutnätet när du är klar."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Funga macho %@ yako na utazame nukta iliyo katikati mwa gridi ya mraba.\n\nTumia kidole chako au kalamu, weka alama popote unapoona upotoshaji kama mistari iliyopinda au mawimbi.\n\nUkimaliza, swipe kushoto popote nje ya gridi."
           }
         },
         "th" : {
@@ -740,6 +752,12 @@
             "value" : "Håll enheten 30 cm från ansiktet och i ögonhöjd under hela testet."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shikilia kifaa umbali wa inchi 12 kutoka usoni mwako na kiwe katika usawa wa macho wakati wote wa mtihani."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -995,6 +1013,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Den här aktiviteten kan upptäcka synproblem hos användaren."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii husaidia kugundua matatizo katika maono ya mtumiaji."
           }
         },
         "th" : {
@@ -1254,6 +1278,12 @@
             "value" : "vänster öga"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jicho la Kushoto"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1509,6 +1539,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "höger öga"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jicho la Kulia"
           }
         },
         "th" : {
@@ -1767,6 +1803,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Amsler-nät"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gridi ya Amsler"
           }
         },
         "th" : {
@@ -2044,6 +2086,12 @@
             "value" : "Tryck på Kom igång för att börja."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa Anza ili uanze."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2317,6 +2365,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kan inte spela in ljud"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haiwezekani kurekodi sauti"
           }
         },
         "th" : {
@@ -2594,6 +2648,12 @@
             "value" : "Säg ”aaah” i mikrofonen så länge du kan."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sema “Aaaaah” kwenye kipaza sauti kwa muda mrefu kadri uwezavyo."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2867,6 +2927,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Den här aktiviteten utvärderar din röst genom att spela in den med mikrofonen i nederkanten av enheten."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inakadiria sauti yako kwa kuiandika kwa kutumia kipaza sauti kilichopo chini ya kifaa chako."
           }
         },
         "th" : {
@@ -3144,6 +3210,12 @@
             "value" : "Ta ett djupt andetag och säg ”aaah” i mikrofonen så länge du kan. Håll röststyrkan stadig så att ljudstaplarna förblir blå."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vuta pumzi ndefu na useme “Aaaaah” kwenye kipaza sauti kwa muda mrefu iwezekanavyo. Dumisha sauti ya kawaida ili mapau ya sauti yabaki kuwa ya buluu."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3417,6 +3489,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vänta medan vi kontrollerar ljudnivån på bakgrundsbullret."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tafadhali subiri huku tunakagua kiwango cha kelele za nyuma."
           }
         },
         "th" : {
@@ -3695,6 +3773,12 @@
             "value" : "Röst"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sauti"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3968,6 +4052,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på Nästa när du är redo."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga Next ukimaliza."
           }
         },
         "th" : {
@@ -4245,6 +4335,12 @@
             "value" : "För högt"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sauti Kuu Mno"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4520,6 +4616,12 @@
             "value" : "Bakgrundsbullret är för högt för att spela in din röst. Gå någonstans tystare och försök igen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiwanji cha sauti cha mazingira ni kikubwa mno kurekodi sauti yako. Tafadhali hamia mahali tulivu zaidi na ujaribu tena."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4777,6 +4879,12 @@
             "value" : "Använd fingret eller en ritpenna till att märka rutnätet, eller svep åt vänster utanför rutnätet för att avsluta."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tumia kidole chako au kalamu kutia alama kwenye gridi moja kwa moja, au swipe kushoto nje ya gridi ili kumaliza."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5032,6 +5140,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Amsler-nät"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gridi ya Amsler"
           }
         },
         "th" : {
@@ -5309,6 +5423,12 @@
             "value" : "Påbörja åtgärd"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anza kazi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5566,6 +5686,12 @@
             "value" : "Ljudstapeldiagram"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grafu ya Mwambaa wa Sauti"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5821,6 +5947,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Anteckna"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tia alama"
           }
         },
         "th" : {
@@ -6099,6 +6231,12 @@
             "value" : "Tillbaka"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rudi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6354,6 +6492,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Göm PDF-miniatyr"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ficha Picha Ndogo ya PDF"
           }
         },
         "th" : {
@@ -6613,6 +6757,12 @@
             "value" : "Göm sökfält"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ficha Mwambaa wa Utafutaji"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6868,6 +7018,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dela"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shiriki"
           }
         },
         "th" : {
@@ -7127,6 +7283,12 @@
             "value" : "Visa PDF-miniatyr"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onyesha Picha Ndogo ya PDF"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7382,6 +7544,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Visa sökfält"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onyesha Mwambaa wa Utafutaji"
           }
         },
         "th" : {
@@ -7641,6 +7809,12 @@
             "value" : "Illustration av en bockmarkering i en blå cirkel som förmedlar ett lyckat resultat"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mchoro wa alama ya tiki katika duara la buluu inayoonyesha mafanikio"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7700,6 +7874,12 @@
             "state" : "translated",
             "value" : "%@ Using VoiceOver, the button will be directly tappable. It will be located near the center of the screen."
           }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Ukutumia VoiceOver, kitufe kitaweza kuguswa moja kwa moja. Kitakuwa kimepangwa karibu na katikati ya skrini."
+          }
         }
       }
     },
@@ -7710,6 +7890,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dismiss keyboard"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Funga kinanda"
           }
         }
       }
@@ -7937,6 +8123,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : " och "
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " na "
           }
         },
         "th" : {
@@ -8214,6 +8406,12 @@
             "value" : "Punkt: %@"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nukta: %@"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8487,6 +8685,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Intervall från %@ till %@"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anuwai kutoka %@ hadi %@"
           }
         },
         "th" : {
@@ -8764,6 +8968,12 @@
             "value" : "Trave som består av"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rundo lililojumuisha"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9037,6 +9247,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spara förhandsvisning"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mwonekano wa kuchukua"
           }
         },
         "th" : {
@@ -9314,6 +9530,12 @@
             "value" : "Sparad bild"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Picha iliyopigwa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9383,6 +9605,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Illustrasjon av %@"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mchoro wa Picha ya AX"
           }
         }
       }
@@ -9610,6 +9838,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Markerat"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chaguliwa"
           }
         },
         "th" : {
@@ -9887,6 +10121,12 @@
             "value" : "Rör vid skärmen och signera genom att röra fingret"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa skrini na uhamishe kidole chako ili kutia saini"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10160,6 +10400,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tilldelat signaturfält"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sehemu iliyotengwa kwa sahihi"
           }
         },
         "th" : {
@@ -10437,6 +10683,12 @@
             "value" : "Signerat"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imetiwa Saini"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10710,6 +10962,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Osignerat"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haijasainiwa"
           }
         },
         "th" : {
@@ -10987,6 +11245,12 @@
             "value" : "Svarsreglage. Intervall från %@ till %@"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kitelezi cha majibu. Anuwai kutoka %@ hadi %@"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11242,6 +11506,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "När inspelningen börjar aktiverar du en andra tid för att stoppa inspelningen."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unapoanza kurekodi, tia alama tena kusimamisha kurekodi."
           }
         },
         "th" : {
@@ -11501,6 +11771,12 @@
             "value" : "Talvågform"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fomu ya Sauti"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11559,6 +11835,12 @@
             "state" : "translated",
             "value" : "Tap for one finger"
           }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa kwa kidole kimoja"
+          }
         }
       }
     },
@@ -11569,6 +11851,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tap for other finger"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga kwa kidole kingine"
           }
         }
       }
@@ -11581,6 +11869,12 @@
             "state" : "translated",
             "value" : "Buttons are now directly tappable."
           }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitufe sasa vinaweza kuguswa moja kwa moja."
+          }
         }
       }
     },
@@ -11592,6 +11886,12 @@
             "state" : "translated",
             "value" : "Tappable Buttons"
           }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vitufe Vinavyobofyeka"
+          }
         }
       }
     },
@@ -11602,6 +11902,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Activate to make the buttons directly tappable."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bofya ili kufanya vifungo viweze kutumika moja kwa moja."
           }
         }
       }
@@ -11615,6 +11921,12 @@
             "state" : "translated",
             "value" : "%@ Using VoiceOver, explore the screen by touch to learn where the buttons are located. Activate either button to make the buttons directly tappable."
           }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Kwa kutumia VoiceOver, gusa skrini kwa kugundua mahali kitufe kilipo. Washa kitufe chochote ili kufanya vitufe viweze kubonyezwa moja kwa moja."
+          }
         }
       }
     },
@@ -11625,6 +11937,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Activate to start the test. When the test starts, tap directly on this button when you hear a sound in your left ear."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonyeza ili kuanza mtihani. Unaposikia sauti kwenye sikio lako la kushoto baada ya mtihani kuanza, gonga kitufe hiki moja kwa moja."
           }
         }
       }
@@ -11637,6 +11955,12 @@
             "state" : "translated",
             "value" : "Tap for Left Ear"
           }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa kwa Sikio la Kushoto"
+          }
         }
       }
     },
@@ -11647,6 +11971,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Activate to start the test. When the test starts, tap directly on this button when you hear a sound in your right ear."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa kuwasha ili kuanza mtihani. Wakati mtihani unapoanza, gusa kwa moja kwa moja kitufe hiki unaposikia sauti katika sikio lako la kulia."
           }
         }
       }
@@ -11659,6 +11989,12 @@
             "state" : "translated",
             "value" : "Tap for Right Ear"
           }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga kwa Sikio la Kulia"
+          }
         }
       }
     },
@@ -11670,6 +12006,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ Using VoiceOver, explore the screen by touch to learn where the buttons for each ear are located. When the test starts, the buttons will be directly tappable. %@"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Tumia VoiceOver, gusa skrini kujifunza mahali pa vifungo kwa kila sikio. Wakati mtihani unapoanza, vifungo vitaweza kuguswa moja kwa moja. %@"
           }
         }
       }
@@ -11897,6 +12239,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ka inte placera skivan med storleken %@ på skivan med storleken %@"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haiwezekani kuweka diski yenye ukubwa wa %@ juu ya diski yenye ukubwa wa %@"
           }
         },
         "th" : {
@@ -12174,6 +12522,12 @@
             "value" : "Tryck snabbt två gånger för att placera skivan"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga mara mbili kuweka diski"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12447,6 +12801,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck snabbt två gånger för att markera den översta skivan"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonyeza mara mbili kuchagua diski ya juu zaidi"
           }
         },
         "th" : {
@@ -12724,6 +13084,12 @@
             "value" : "Mål"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lengo"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12997,6 +13363,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Torn"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mnara"
           }
         },
         "th" : {
@@ -13274,6 +13646,12 @@
             "value" : "Har skivor med storlekarna %@"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ina diski zenye ukubwa wa %@"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13549,6 +13927,12 @@
             "value" : "Tomt"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tupu"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13607,6 +13991,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ Using VoiceOver, the buttons in the test will be directly tappable."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Ukitumia VoiceOver, vitufe kwenye mtihani vitakuwa vinaweza kuguswa moja kwa moja."
           }
         }
       }
@@ -13834,6 +14224,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Omärkt bild"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Picha isiyo na lebo"
           }
         },
         "th" : {
@@ -14111,6 +14507,12 @@
             "value" : "Avmarkerat"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haijachaguliwa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14366,6 +14768,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Videoinspelning klar"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ukamataji video umekamilika"
           }
         },
         "th" : {
@@ -14643,6 +15051,12 @@
             "value" : "Förhandsvisning av videoinspelning"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mwonekano wa kunasa video"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14713,6 +15127,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Innspilt video"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Video Imerekodiwa"
           }
         }
       }
@@ -14940,6 +15360,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "aktiv"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hai"
           }
         },
         "th" : {
@@ -15217,6 +15643,12 @@
             "value" : "rätt"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sahihi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15490,6 +15922,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "fel"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "si sahihi"
           }
         },
         "th" : {
@@ -15767,6 +16205,12 @@
             "value" : "Minnesspelbricka"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kigae cha mchezo wa kumbukumbu"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16042,6 +16486,12 @@
             "value" : "inaktiv"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tulivu"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16312,6 +16762,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A-"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "A-"
@@ -16593,6 +17049,12 @@
             "value" : "A+"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A+"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16863,6 +17325,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AB-"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "AB-"
@@ -17143,6 +17611,12 @@
             "value" : "AB+"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AB+"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17413,6 +17887,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B-"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "B-"
@@ -17693,6 +18173,12 @@
             "value" : "B+"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B+"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17968,6 +18454,12 @@
             "value" : "O-"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O-"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -18238,6 +18730,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O+"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "O+"
@@ -18519,6 +19017,12 @@
             "value" : "Nej"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hapana"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -18792,6 +19296,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ja"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ndiyo"
           }
         },
         "th" : {
@@ -19070,6 +19580,12 @@
             "value" : "Godkänn"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kubaliana"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19325,6 +19841,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Använd"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tumia"
           }
         },
         "th" : {
@@ -19602,6 +20124,12 @@
             "value" : "Avbryt"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghairi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19875,6 +20403,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rensa"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Futa"
           }
         },
         "th" : {
@@ -20152,6 +20686,12 @@
             "value" : "Rensa svar"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Futa jibu"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -20407,6 +20947,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copyright"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haki miliki"
           }
         },
         "th" : {
@@ -20684,6 +21230,12 @@
             "value" : "Avböj"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikubaliani"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -20957,6 +21509,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Klar"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imekamilika"
           }
         },
         "th" : {
@@ -21234,6 +21792,12 @@
             "value" : "Kom igång"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anza Sasa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -21507,6 +22071,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Läs mer"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jifunze zaidi"
           }
         },
         "th" : {
@@ -21784,6 +22354,12 @@
             "value" : "Nästa"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ifuatayo"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -22057,6 +22633,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sawa"
           }
         },
         "th" : {
@@ -22334,6 +22916,12 @@
             "value" : "Bortse från träffar"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tupa Matokeo"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -22607,6 +23195,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spara till senare"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hifadhi kwa Baadaye"
           }
         },
         "th" : {
@@ -22884,6 +23478,12 @@
             "value" : "Avsluta åtgärd"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maliza Kazi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -23157,6 +23757,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Det här svaret kan inte ändras."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jibu hili haliwezi kubadilishwa."
           }
         },
         "th" : {
@@ -23434,6 +24040,12 @@
             "value" : "Spara"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hifadhi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -23707,6 +24319,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hoppa över"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ruka"
           }
         },
         "th" : {
@@ -23984,6 +24602,12 @@
             "value" : "Hoppa över denna fråga"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ruka swali hili"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -24257,6 +24881,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Starta timern"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anzisha Kipima Muda"
           }
         },
         "th" : {
@@ -24535,6 +25165,12 @@
             "value" : "Kamera inte tillgänglig i delad skärm."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kamera haipatikani kwenye skrini iliyogawanyika."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -24809,6 +25445,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spara bild"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Piga Picha"
           }
         },
         "th" : {
@@ -25087,6 +25729,12 @@
             "value" : "Starta inspelning"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anza Kurekodi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -25360,6 +26008,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Spara bild igen"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Piga Picha Tena"
           }
         },
         "th" : {
@@ -25637,6 +26291,12 @@
             "value" : "Spela in video igen"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rekodi Video Tena"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -25910,6 +26570,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stoppa inspelning"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simamisha Kurekodi"
           }
         },
         "th" : {
@@ -26187,6 +26853,12 @@
             "value" : "Ingen kamera hittades. Steget kan inte slutföras."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakuna kamera iliyopatikana. Hatua hii haiwezi kukamilika."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -26460,6 +27132,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bilden kunde inte sparas."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Picha iliyopigwa haiwezi kuhifadhiwa."
           }
         },
         "th" : {
@@ -26737,6 +27415,12 @@
             "value" : "Ingen utmatningskatalog har angetts för de sparade bilderna."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakuna saraka ya matokeo iliyobainishwa kwa picha zilizonaswa."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -27010,6 +27694,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "För att slutföra det här steget måste du ge denna app tillgång till kameran i Inställningar."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ili kukamilisha hatua hii, ruhusu programu hii kuwa na uwezo wa kupata kamera katika Mipangilio."
           }
         },
         "th" : {
@@ -27288,6 +27978,12 @@
             "value" : "Inga data"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakuna Data"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -27561,6 +28257,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lösenorden stämmer inte överens."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nywila hazifanani."
           }
         },
         "th" : {
@@ -27838,6 +28540,12 @@
             "value" : "Ange lösenordet igen"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka nywila tena"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -28113,6 +28821,12 @@
             "value" : "Bekräfta"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thibitisha"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -28386,6 +29100,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Datum"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarehe"
           }
         },
         "th" : {
@@ -28664,6 +29384,12 @@
             "value" : "%@s namn (tryckt)"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jina la %@ (limeandikwa)"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -28937,6 +29663,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@s signatur"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sahihi ya %@"
           }
         },
         "th" : {
@@ -29214,6 +29946,12 @@
             "value" : "Läs mer"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jifunze Zaidi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -29487,6 +30225,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Efternamn"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jina la Mwisho"
           }
         },
         "th" : {
@@ -29764,6 +30508,12 @@
             "value" : "Förnamn"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jina la Kwanza"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -30037,6 +30787,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Krävs"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inahitajika"
           }
         },
         "th" : {
@@ -30315,6 +31071,12 @@
             "value" : "Godkännande"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ridhaa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -30588,6 +31350,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sidan %1$ld av %2$ld"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ukurasa %1$ld kati ya %2$ld"
           }
         },
         "th" : {
@@ -30865,6 +31633,12 @@
             "value" : "Granska"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pitia"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -31138,6 +31912,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Granska formuläret nedan och tryck på Godkänn om du är redo att fortsätta."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pitia fomu iliyo chini kisha gonga Kukubali ikiwa uko tayari kuendelea."
           }
         },
         "th" : {
@@ -31415,6 +32195,12 @@
             "value" : "Granska"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mapitio"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -31688,6 +32474,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Datainsamling"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ukusanyaji wa Data"
           }
         },
         "th" : {
@@ -31965,6 +32757,12 @@
             "value" : "Dataanvändning"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matumizi ya Data"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -32238,6 +33036,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Integritet"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faragha"
           }
         },
         "th" : {
@@ -32515,6 +33319,12 @@
             "value" : "Studieenkät"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utafiti wa Masomo"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -32790,6 +33600,12 @@
             "value" : "Studieåtgärder"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Majukumu ya Utafiti"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -33063,6 +33879,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tidsåtgång"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uwekaji wa Muda"
           }
         },
         "th" : {
@@ -33341,6 +34163,12 @@
             "value" : "Välkommen"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Karibu"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -33614,6 +34442,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tillbakadragning"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kujiondoa"
           }
         },
         "th" : {
@@ -33891,6 +34725,12 @@
             "value" : "Dela mina data endast med %@"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shiriki data yangu na %@ pekee"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -34166,6 +35006,12 @@
             "value" : "Dela mina data med %@ och kvalificerade forskare över hela världen"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shiriki data zangu na %@ na watafiti waliohitimu duniani kote"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -34439,6 +35285,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ kommer att få dina studiedata från din medverkan i denna studie.\n\nVidare delning av dina kodade studiedata (utan ditt namn eller liknande information) kan vara till nytta för denna och framtida forskning."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ atapokea data zako za utafiti kutokana na ushiriki wako katika utafiti huu.\n\nKushiriki data zako za utafiti zilizosimbwa kwa upana zaidi (bila taarifa kama jina lako) kunaweza kunufaisha utafiti huu na ujao."
           }
         },
         "th" : {
@@ -34717,6 +35569,12 @@
             "value" : "Delningsalternativ"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chaguo za Kugawana"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -34990,6 +35848,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Signera med hjälp av fingret i rutan nedan."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tafadhali sahihisha kwa kutumia kidole chako katika kisanduku kilicho chini."
           }
         },
         "th" : {
@@ -35267,6 +36131,12 @@
             "value" : "Signera här"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tia Saini Hapa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -35540,6 +36410,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Signatur"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sahihi"
           }
         },
         "th" : {
@@ -35818,6 +36694,12 @@
             "value" : "Startar aktivitet om"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kuanza shughuli ndani ya"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -36093,6 +36975,12 @@
             "value" : "%@ sekunder återstår."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sekunde %@ zimesalia."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -36348,6 +37236,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Den här aktiviteten identifierar en persons hörseltröskvärden i dB HL-skala."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inatambua viwango vya kizingiti cha kusikia vya mtu kwenye kipimo cha dB HL."
           }
         },
         "th" : {
@@ -36607,6 +37501,12 @@
             "value" : "Se till att ljudet på enheten är inställt på högsta volym.\n\nUnder den här uppgiften kommer en subtil ton att spelas i antingen det högra eller vänstra örat.\n\nLyssna noga och tryck på knappen varje gång du hör en ton."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakikisha sauti ya kifaa imewekwa kwenye kiwango cha juu kabisa.\n\nKatika zoezi hili, sauti ndogo itacheza katika sikio la kushoto au kulia.\n\nSikiliza kwa makini na uchape kitufe kila mara unaposikia sauti."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -36862,6 +37762,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Förberedande frågeformulär."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodoso la kupanda."
           }
         },
         "th" : {
@@ -37121,6 +38027,12 @@
             "value" : "Markera din inställning för ”bättre öra” (om du har ett)"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chagua upendeleo wako wa 'sikio bora', ikiwa ipo"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -37376,6 +38288,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "vänster"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kushoto"
           }
         },
         "th" : {
@@ -37635,6 +38553,12 @@
             "value" : "ingen inställning"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hakuna mapendeleo"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -37890,6 +38814,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "höger"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kulia"
           }
         },
         "th" : {
@@ -38148,6 +39078,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tonaudiometri"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upimaji wa Sauti wa Tani"
           }
         },
         "th" : {
@@ -38425,6 +39361,12 @@
             "value" : "Välj ett datum"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chagua tarehe"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -38700,6 +39642,12 @@
             "value" : "Födelsedatum"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tarehe ya Kuzaliwa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -38970,6 +39918,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "jappleseed@example.com"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "jappleseed@example.com"
@@ -39251,6 +40205,12 @@
             "value" : "E-post"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Barua Pepe"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -39506,6 +40466,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Beräknar"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inahesabu"
           }
         },
         "th" : {
@@ -39765,6 +40731,12 @@
             "value" : "Den här aktiviteten mäter miljöns ljudtrycksnivå. Om bullernivåerna är för höga kan du inte fortsätta. Flytta till en tystare plats där du kan slutföra uppgiften eller gör om den här aktiviteten senare."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii hupima kiwango cha shinikizo la sauti katika mazingira. Ikiwa viwango vya kelele ni vikubwa mno, hutaweza kuendelea. Tafadhali hamia eneo tulivu zaidi kumaliza kazi hii au fanya shughuli hii baadaye."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -40020,6 +40992,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tröskel: %@ dBA"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kizingiti: %@ dBA"
           }
         },
         "th" : {
@@ -40280,6 +41258,12 @@
             "value" : "Ljudtrycksmätare"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kipimaji SPL"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -40532,6 +41516,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "dBA"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "dBA"
@@ -40812,6 +41802,12 @@
             "value" : "Kunde inte ta bort tillräckligt många loggfiler för att nå tröskelvärdet"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haikuweza kutoa faili za logi za kutosha kufikia kiwango kilichotarajiwa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -41085,6 +42081,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Filen är inte markerad som raderad (ej markerad som öveförd)"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faili halijaandikwa imefutwa (haikuandikwa imepakiwa)"
           }
         },
         "th" : {
@@ -41363,6 +42365,12 @@
             "value" : "Kunde inte skapa fil"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haikuweza kutengeneza faili"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -41636,6 +42644,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Flera fel vid borttagning av loggar"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Makosa Mengi ya Kufuta Rekodi"
           }
         },
         "th" : {
@@ -41913,6 +42927,12 @@
             "value" : "Fel vid angivning av attribut"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hitilafu katika kuweka sifa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -42186,6 +43206,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Inga insamlade data hittades."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakuna data iliyokusanywa iliyopatikana."
           }
         },
         "th" : {
@@ -42463,6 +43489,12 @@
             "value" : "Ingen utmatningskatalog har angetts"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakuna saraka ya matokeo iliyobainishwa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -42733,6 +43765,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appleseed"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Appleseed"
@@ -43013,6 +44051,12 @@
             "value" : "Distans (%@)"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umbali (%@)"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -43286,6 +44330,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Puls – slag/minut"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiwango cha Moyo (bpm)"
           }
         },
         "th" : {
@@ -43563,6 +44613,12 @@
             "value" : "Gå utomhus i snabbast möjliga takt under %1$@. När du är klar sitter du och vilar bekvämt under %2$@. Tryck på Kom igång för att börja."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tembea nje kwa kasi yako ya juu iwezekanavyo kwa %1$@. Ukimaliza, kaa na upumzike kwa raha kwa %2$@. Kuanza, gusa Anza."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -43838,6 +44894,12 @@
             "value" : "Den här aktiviteten registrerar din puls och mäter hur långt du kan gå på %1$@."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inachunguza kiwango cha moyo wako na kupima umbali unaweza kutembea kwa muda wa %1$@."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -44111,6 +45173,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sitt bekvämt under %@."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keti vizuri kwa %@."
           }
         },
         "th" : {
@@ -44389,6 +45457,12 @@
             "value" : "Motion"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mazoezi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -44664,6 +45738,12 @@
             "value" : "Gå så fort du kan under %@."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tembea haraka kadiri uwezavyo kwa %@."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -44920,6 +46000,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Typ I"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aina I"
           }
         },
         "th" : {
@@ -45179,6 +46265,12 @@
             "value" : "Typ II"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aina ya II"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -45434,6 +46526,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Typ III"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aina III"
           }
         },
         "th" : {
@@ -45693,6 +46791,12 @@
             "value" : "Typ IV"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aina ya IV"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -45950,6 +47054,12 @@
             "value" : "Typ V"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aina ya V"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -46205,6 +47315,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Typ VI"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aina VI"
           }
         },
         "th" : {
@@ -46480,6 +47596,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Har du glömt lösenordet?"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umesahau nenosiri?"
           }
         },
         "th" : {
@@ -46758,6 +47880,12 @@
             "value" : "Kvinna"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mwanamke"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -47031,6 +48159,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Välj ett kön"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chagua jinsia"
           }
         },
         "th" : {
@@ -47308,6 +48442,12 @@
             "value" : "Kön"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jinsia"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -47581,6 +48721,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Man"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mwanaume"
           }
         },
         "th" : {
@@ -47858,6 +49004,12 @@
             "value" : "Annat"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nyingine"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -48128,6 +49280,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "John"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "John"
@@ -48408,6 +49566,12 @@
             "value" : "Tryck på Kom igång för att börja."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga 'Anza' kuendelea."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -48681,6 +49845,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Den här aktiviteten mäter funktionen för dina övre extremiteter genom att be dig placera en pinne i ett hål. Du uppmanas att göra detta %@ gånger."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima utendaji wa kiungo cha juu kwa kukuuliza uweke kipini katika shimo. Utaulizwa kufanya hivi %@ mara."
           }
         },
         "th" : {
@@ -48958,6 +50128,12 @@
             "value" : "Både den vänstra och högra handen kommer att testas.\nDu måste plocka upp pinnen så fort som möjligt och placera den i hålet. När du har gjort det %@ gånger tar du bort den igen %@ gånger."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikono yako yote miwili, ya kushoto na ya kulia, itapimwa.\nLazima uchukue kigingi haraka iwezekanavyo, ukiweke kwenye tundu, na, mara ukimaliza %@ mara, uiondoe tena %@ mara."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -49231,6 +50407,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Både den högra och vänstra handen kommer att testas.\nDu måste plocka upp pinnen så fort som möjligt och placera den i hålet. När du har gjort det %@ gånger tar du bort den igen %@ gånger."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mikono yako yote miwili, kulia na kushoto, itapimwa.\nUnapaswa kuchukua kipini haraka iwezekanavyo, kukiweka kwenye tundu, na baada ya kukamilisha mara %@, uiondoe tena mara %@."
           }
         },
         "th" : {
@@ -49508,6 +50690,12 @@
             "value" : "Placera pinnen i hålet med hjälp av vänster hand."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kipini kwenye tundu kwa kutumia mkono wako wa kushoto."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -49781,6 +50969,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Placera pinnen i hålet med hjälp av höger hand."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kipini kwenye tundu kwa kutumia mkono wako wa kulia."
           }
         },
         "th" : {
@@ -50058,6 +51252,12 @@
             "value" : "Placera pinnen bakom strecket med hjälp av vänster hand."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kipini nyuma ya mstari ukitumia mkono wako wa kushoto."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -50331,6 +51531,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Placera pinnen bakom strecket med hjälp av höger hand."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kipini nyuma ya mstari kwa kutumia mkono wako wa kulia."
           }
         },
         "th" : {
@@ -50608,6 +51814,12 @@
             "value" : "Lyft upp pinnen med två fingrar."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chukua kipini kwa kutumia vidole viwili."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -50881,6 +52093,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Släpp pinnen genom att lyfta på fingrarna."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inua vidole kuachia kipini."
           }
         },
         "th" : {
@@ -51159,6 +52377,12 @@
             "value" : "%@-håls pegtest"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@-Mtihani wa Pengo la Gogo"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -51433,6 +52657,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ogiltig e-postadress: %@"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anwani ya barua pepe si sahihi: %@"
           }
         },
         "th" : {
@@ -51711,6 +52941,12 @@
             "value" : "Kunde inte lägga till nyckelringsobjekt."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haikuweza kuongeza kipengee cha Keychain."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -51984,6 +53220,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kunde inte radera nyckelringsobjekt."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haikuweza kufuta kipengee cha Keychain."
           }
         },
         "th" : {
@@ -52261,6 +53503,12 @@
             "value" : "Kunde inte hitta nyckelringsobjekt."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haikuweza kupata kipengee cha Keychain."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -52536,6 +53784,12 @@
             "value" : "Kunde inte uppdatera nyckelringsobjekt."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haikuweza kusasisha kipengee cha Keychain."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -52791,6 +54045,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sträck ut ditt vänstra knä. Tryck sedan var som helst."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nyoosha goti lako la kushoto. Kisha gusa mahali popote."
           }
         },
         "th" : {
@@ -53050,6 +54310,12 @@
             "value" : "Sträck ut ditt högra knä. Tryck sedan var som helst."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nyosha goti lako la kulia. Halafu gonga mahali popote."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -53305,6 +54571,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Den här aktiviteten mäter hur långt du kan sträcka ditt vänstra knä."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima ni mbali kiasi gani unaweza kunyoosha goti lako la kushoto."
           }
         },
         "th" : {
@@ -53564,6 +54836,12 @@
             "value" : "Den här aktiviteten mäter hur långt du kan sträcka ditt högra knä."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima ni mbali kiasi gani unaweza kunyoosha goti lako la kulia."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -53819,6 +55097,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sätt dig längst ut på en stol. Du börjar med att lägga enheten på ditt vänstra knä så att det kan mätas. Slå på ljudet på enheten så att du kan höra anvisningarna."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keti kwenye kingo ya kiti. Utaanza kwa kuweka kifaa chako kwenye goti lako la kushoto kwa kupima. Tafadhali washa sauti kwenye kifaa chako ili uweze kusikia maagizo."
           }
         },
         "th" : {
@@ -54078,6 +55362,12 @@
             "value" : "Sätt dig längst ut på en stol. Du börjar med att lägga enheten på ditt högra knä så att det kan mätas. Slå på ljudet på enheten så att du kan höra anvisningarna."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keti kwenye ukingo wa kiti. Utakapoanza utaweka kifaa chako kwenye goti lako la kulia kwa kupimwa. Tafadhali washa sauti kwenye kifaa chako ili uweze kusikia maelekezo."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -54333,6 +55623,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lägg enheten på ditt vänstra knä med skärmen utåt (se bild)."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kifaa chako kwenye goti lako la kushoto kwa upande wa skrini unaoelekea nje, kama inavyoonyeshwa."
           }
         },
         "th" : {
@@ -54592,6 +55888,12 @@
             "value" : "Lägg enheten på ditt högra knä med skärmen utåt (se bild)."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kifaa chako kwenye goti lako la kulia huku skrini ikiangalia nje, kama inavyoonyeshwa."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -54849,6 +56151,12 @@
             "value" : "När du vill börja trycker du på skärmen och sträcker ut ditt vänstra knä så långt du kan. Tryck igen när du är klar."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utakapokuwa tayari, gusa skrini ili kuanza na kunyoosha goti lako la kushoto kadri uwezavyo. Gusa tena unapomaliza."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -55104,6 +56412,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "När du vill börja trycker du på skärmen och sträcker ut ditt högra knä så långt du kan. Tryck igen när du är klar."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ukiwa tayari, gusa skrini kuanza na kunyoosha goti lako la kulia kadiri uwezavyo. Gusa tena utakapokuwa umemaliza."
           }
         },
         "th" : {
@@ -55364,6 +56678,12 @@
             "value" : "Rörlighet, vänster knä"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mwendo wa Pembe ya Goti la Kushoto"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -55619,6 +56939,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rörlighet, höger knä"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upeo wa Mwendo wa Goti la Kulia"
           }
         },
         "th" : {
@@ -55878,6 +57204,12 @@
             "value" : "Lägg enheten på vänster knä"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wekeza kifaa chako kwenye goti lako la kushoto"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -56133,6 +57465,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lägg enheten på höger knä"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kifaa chako kwenye goti lako la kulia"
           }
         },
         "th" : {
@@ -56408,6 +57746,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Läs mer om datadelning"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jifunze zaidi kuhusu kushiriki data"
           }
         },
         "th" : {
@@ -56686,6 +58030,12 @@
             "value" : "Läs mer om hur data samlas in"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jifunze zaidi kuhusu jinsi taarifa zinavyokusanywa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -56959,6 +58309,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Läs mer om hur data används"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jifunze zaidi kuhusu jinsi data inavyotumika"
           }
         },
         "th" : {
@@ -57236,6 +58592,12 @@
             "value" : "Läs mer om hur din integritet och identitet skyddas"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jifunze zaidi kuhusu jinsi faragha na utambulisho wako vinavyolindwa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -57509,6 +58871,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Läs mer om studieenkäten"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jifunze zaidi kuhusu utafiti wa utafiti"
           }
         },
         "th" : {
@@ -57786,6 +59154,12 @@
             "value" : "Läs mer om de berörda åtgärderna"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jifunze zaidi kuhusu majukumu yaliyojumuishwa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -58059,6 +59433,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Läs mer om studiens påverkan på din tid"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jifunze zaidi kuhusu athari ya utafiti kwa muda wako"
           }
         },
         "th" : {
@@ -58336,6 +59716,12 @@
             "value" : "Läs mer om studien först"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jifunze zaidi kuhusu utafiti kwanza"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -58611,6 +59997,12 @@
             "value" : "Läs mer om tillbakadragning"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jifunze zaidi kuhusu kutoa pesa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -58867,6 +60259,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "vänster"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kushoto"
           }
         },
         "th" : {
@@ -59126,6 +60524,12 @@
             "value" : "limbOption måste vara vänster eller höger"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "chaguo la kiungo lazima liwe kushoto au kulia"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -59381,6 +60785,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "höger"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kulia"
           }
         },
         "th" : {
@@ -59658,6 +61068,12 @@
             "value" : "Det gick inte att hitta något resultat för den angivna adressen. Kontrollera att adressen är giltig."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haiwezekani kupata matokeo kwa anwani iliyoingizwa. Tafadhali hakikisha anwani ni sahihi."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -59931,6 +61347,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Antingen är du inte ansluten till internet eller så har du överskridit det maximala antalet addressökbegäranden. Om du inte är ansluten till internet aktiverar du Wi-Fi så att du kan svara på frågan, hoppa över frågan om en sådan knapp är tillgänglig eller gå tillbaka till enkäten när du är ansluten till internet. I annat fall försöker du igen om några minuter."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ama haujaunganishwa na mtandao au umepita idadi ya juu ya maombi ya kutafuta anwani. Ikiwa haujaunganishwa kwenye mtandao, tafadhali washa Wi-Fi yako ili ujibu swali hili, ruka swali hili kama kuna kitufe cha kuruka, au rudi kwenye utafiti unapounganishwa kwenye mtandao. Vinginevyo, tafadhali jaribu tena baada ya dakika chache."
           }
         },
         "th" : {
@@ -60208,6 +61630,12 @@
             "value" : "Åtkomst till platstjänster har nekats. Tillåt att den här appen använder platstjänster via Inställningar."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ufikiaji wa huduma za mahali umekataliwa. Tafadhali ruhusu programu hii kutumia huduma za mahali kupitia Mipangilio."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -60483,6 +61911,12 @@
             "value" : "Kunde inte bestämma din aktuella plats. Ange en adress eller flytta dig till en plats med bättre GPS-signal om det är tillämpligt."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haiwezekani kutambua eneo lako la sasa. Tafadhali andika anwani au hamia eneo lenye ishara bora ya GPS ikiwa inafaa."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -60756,6 +62190,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kunde inte hitta den angivna adressen"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haikuweza Kupata Anwani Iliyotajwa"
           }
         },
         "th" : {
@@ -61034,6 +62474,12 @@
             "value" : "Ange en adress"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka anwani"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -61308,6 +62754,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Inloggning"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingia"
           }
         },
         "th" : {
@@ -61586,6 +63038,12 @@
             "value" : "cm"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sm"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -61859,6 +63317,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "fot"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ft"
           }
         },
         "th" : {
@@ -62136,6 +63600,12 @@
             "value" : "tum"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "inchi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -62388,6 +63858,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kg"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "kg"
@@ -62650,6 +64126,12 @@
             "value" : "lb"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "lb"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -62905,6 +64387,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "uns"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "oz"
           }
         },
         "th" : {
@@ -63182,6 +64670,12 @@
             "value" : "Spelet är klart"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mchezo Umekamilika"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -63455,6 +64949,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på Nästa när du vill fortsätta"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kuendelea, gusa Ifuatayo"
           }
         },
         "th" : {
@@ -63732,6 +65232,12 @@
             "value" : "Sekvensen är klar"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mfululizo Umekamilika"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -63987,6 +65493,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Minnesaktiviteten har tagits fram med hjälp av fil.dr Katherine Possin och fil.dr Joel Kramer från University of California i San Francisco i USA."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli ya kumbukumbu iliendelezwa kwa msaada kutoka kwa Katherine Possin, PhD na Joel Kramer, PhD kutoka Chuo Kikuu cha California, San Francisco."
           }
         },
         "th" : {
@@ -64264,6 +65776,12 @@
             "value" : "Du klarade dig inte riktigt igenom den gången. Tryck på Nästa för att fortsätta."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hukufanikiwa wakati huo. Gusa Next kuendelea."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -64537,6 +66055,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Försök igen"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jaribu Tena"
           }
         },
         "th" : {
@@ -64814,6 +66338,12 @@
             "value" : "Tryck på %@ i omvänd ordning"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga %@ kwa mpangilio wa kinyume"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -65089,6 +66619,12 @@
             "value" : "Tryck på %@ i den ordning de lyser upp"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa %@ kulingana na mpangilio walioangaza"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -65359,6 +66895,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@"
@@ -65639,6 +67181,12 @@
             "value" : "Tryck på Nästa när du vill fortsätta"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ili kuendelea, bonyeza Ifuatayo"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -65912,6 +67460,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pausat"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imesitishwa"
           }
         },
         "th" : {
@@ -66189,6 +67743,12 @@
             "value" : "Se när %@ lyser upp"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tazama %@ ikiwaka"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -66462,6 +68022,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Poäng"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alama"
           }
         },
         "th" : {
@@ -66739,6 +68305,12 @@
             "value" : "Tiden tog slut.\nTryck på Nästa för att fortsätta."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muda wako umeisha.\nGonga Next kuendelea."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -67012,6 +68584,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tiden är slut"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muda Umeisha"
           }
         },
         "th" : {
@@ -67289,6 +68867,12 @@
             "value" : "Välj ett svar"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chagua jibu"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -67564,6 +69148,12 @@
             "value" : "PASAT (Paced Auditory Serial Addition Test) mäter din auditiva bearbetningshastighet och beräkningsförmåga."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mtihani wa Paced Auditory Serial Addition unapima kasi ya usindikaji wa taarifa za sauti na uwezo wako wa kuhesabu."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -67835,6 +69425,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PASAT"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "PASAT"
@@ -68115,6 +69711,12 @@
             "value" : "Autentiserad med lösenkod"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nambari ya siri imethibitishwa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -68388,6 +69990,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bekräfta lösenkod"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thibitisha nywila"
           }
         },
         "th" : {
@@ -68665,6 +70273,12 @@
             "value" : "Bekräfta den nya lösenkoden"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thibitisha nywila yako mpya"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -68938,6 +70552,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Glömt lösenkoden?"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umesahau Nywila?"
           }
         },
         "th" : {
@@ -69215,6 +70835,12 @@
             "value" : "Lösenkoderna stämde inte överens. Försök igen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nambari za siri hazilingani. Jaribu tena."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -69488,6 +71114,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Felaktig lösenkod"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenosiri si Sahihi"
           }
         },
         "th" : {
@@ -69765,6 +71397,12 @@
             "value" : "Ange din nya lösenkod"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingiza nywila yako mpya"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -70038,6 +71676,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ange din gamla lösenkod"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka nywila yako ya zamani"
           }
         },
         "th" : {
@@ -70316,6 +71960,12 @@
             "value" : "Ange lösenkod"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingiza nywila"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -70589,6 +72239,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lösenkoden sparad"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kodi ya siri imehifadhiwa"
           }
         },
         "th" : {
@@ -70866,6 +72522,12 @@
             "value" : "Förloppsindikator för angivande av lösenkod"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiashiria cha maendeleo ya kuingia kwa kodi ya siri"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -71139,6 +72801,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ av %@ siffror angivna"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ kati ya tarakimu %@ zimeingizwa"
           }
         },
         "th" : {
@@ -71416,6 +73084,12 @@
             "value" : "Endast numeriska tecken tillåts."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ni tarakimu pekee zinaruhusiwa."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -71689,6 +73363,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Touch ID-fel"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hitilafu ya Touch ID"
           }
         },
         "th" : {
@@ -71966,6 +73646,12 @@
             "value" : "Autentisera med Touch ID"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tafadhali thibitisha utambulisho wako kwa kutumia Touch ID"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -72239,6 +73925,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ange lösenord"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka nenosiri"
           }
         },
         "th" : {
@@ -72516,6 +74208,12 @@
             "value" : "Lösenord"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nenosiri"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -72789,6 +74487,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "PAVSAT (Paced Auditory and Visual Serial Addition Test) mäter din auditiva och visuella bearbetningshastighet och beräkningsförmåga."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mtihani wa Ongezeko la Utaratibu wa Sauti na Kuona unapima kasi yako ya kuchakata taarifa za sauti na kuona na uwezo wa kuhesabu."
           }
         },
         "th" : {
@@ -73066,6 +74770,12 @@
             "value" : "PAVSAT"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PAVSAT"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -73318,6 +75028,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+1 (555) 555 5555"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "+1 (555) 555 5555"
@@ -73578,6 +75294,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Telefonnummer"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Namba ya Simu"
           }
         },
         "th" : {
@@ -73855,6 +75577,12 @@
             "value" : "Tryck för att markera"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga ili kuchagua"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -74128,6 +75856,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck för att skriva"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa kuandika"
           }
         },
         "th" : {
@@ -74406,6 +76140,12 @@
             "value" : "Tryck för att svara"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa ili ujibu"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -74679,6 +76419,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på Kom igång för att börja."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa 'Anza' ili kuanza."
           }
         },
         "th" : {
@@ -74956,6 +76702,12 @@
             "value" : "Kom ihåg den första siffran."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kumbuka tarakimu hii ya kwanza."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -75229,6 +76981,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Addera det nya talet till det föregående."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ongeza tarakimu hii mpya kwa ile ya awali."
           }
         },
         "th" : {
@@ -75506,6 +77264,12 @@
             "value" : "Ensiffriga tal visas med intervall på %@ sekunder.\nDu måste addera varje nytt tal till talet som visades omedelbart före det.\nObs! Du ska inte beräkna en löpande totalsumma, utan bara summan av de senaste två talen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Namba za tarakimu moja zinaonyeshwa kila baada ya sekunde %@.\nLazima uongeze kila tarakimu mpya kwa ile iliyotangulia moja kwa moja.\nKumbuka, hupaswi kuhesabu jumla inayoendelea, bali jumla ya tarakimu mbili za mwisho tu."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -75779,6 +77543,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "–"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "-"
           }
         },
         "th" : {
@@ -76056,6 +77826,12 @@
             "value" : "PVSAT (Paced Visual Serial Addition Test) mäter din visuella bearbetningshastighet och beräkningsförmåga."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mtihani wa Ongezeko la Taratibu la Visual Serial Addition unapima kasi ya usindikaji wa taarifa za kuona na uwezo wa hesabu."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -76326,6 +78102,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PVSAT"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "PVSAT"
@@ -76606,6 +78388,12 @@
             "value" : "%1$@ överskrider det högsta tillåtna värdet (%2$@)."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ inazidi thamani ya juu zaidi inayoruhusiwa (%2$@)."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -76881,6 +78669,12 @@
             "value" : "%1$@ är mindre än det minsta tillåtna värdet (%2$@)."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ ni chini ya thamani ndogo inayoruhusiwa (%2$@)."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -77154,6 +78948,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ är inte ett giltigt värde."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ si thamani halali."
           }
         },
         "th" : {
@@ -77432,6 +79232,12 @@
             "value" : "Ogiltigt värde"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thamani batili"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -77690,6 +79496,12 @@
             "value" : "Rörlighet"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masafa ya Mwendo"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -77747,6 +79559,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tap the hold button, and then the blue circle"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonyeza kitufe cha kushikilia, kisha duara la buluu"
           }
         }
       }
@@ -77974,6 +79792,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Skaka snabbt enheten när den blå cirkeln visas"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tikisa kifaa haraka pale duara la buluu litakapoonekana"
           }
         },
         "th" : {
@@ -78251,6 +80075,12 @@
             "value" : "Försök %@ av %@"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jaribio %@ kati ya %@"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -78524,6 +80354,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på Kom igång för att börja."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa 'Anza' kuanza."
           }
         },
         "th" : {
@@ -78801,6 +80637,12 @@
             "value" : "Den här aktiviteten utvärderar den tid det tar för dig att reagera på visuella stimuli."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima muda unaotumia kujibu kishawishi cha kuona."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -79076,6 +80918,12 @@
             "value" : "Skaka enheten i valfri riktning så fort den blå punkten visas på skärmen. Du blir ombedd att göra detta %D gånger."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tingisha kifaa katika mwelekeo wowote mara tuu kitufe cha buluu kikionekana kwenye skrini. Utaombwa kufanya hivi mara %D."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -79133,6 +80981,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "hold"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "shikilia"
           }
         }
       }
@@ -79361,6 +81215,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reaktionstid"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muda wa Majibu"
           }
         },
         "th" : {
@@ -79638,6 +81498,12 @@
             "value" : "Skicka bekräftelsebrev igen"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuma tena Barua pepe ya Uthibitisho"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -79913,6 +81779,12 @@
             "value" : "Tryck på länken nedan om du inte fick något bekräftelsebrev och vill att det skickas på nytt."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa kiungo kilicho chini kama hukupokea barua pepe ya uthibitisho na ungependa itumwe tena."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -80168,6 +82040,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lyft din vänstra arm. Tryck sedan var som helst."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inua mkono wako wa kushoto juu. Kisha gusa mahali popote."
           }
         },
         "th" : {
@@ -80427,6 +82305,12 @@
             "value" : "Lyft din högra arm. Tryck sedan var som helst."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inua mkono wako wa kulia juu. Kisha gusa mahali popote."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -80682,6 +82566,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Den här aktiviteten mäter hur långt du kan sträcka din vänstra axel."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima umbali unaweza kunyoosha bega lako la kushoto."
           }
         },
         "th" : {
@@ -80941,6 +82831,12 @@
             "value" : "Den här aktiviteten mäter hur långt du kan sträcka din högra axel."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima jinsi unavyoweza kunyoosha bega lako la kulia."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -81196,6 +83092,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Du börjar med att lägga enheten på din vänstra axel så att den kan mätas. Slå på ljudet på enheten så att du kan höra anvisningarna."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utakapoanza utaweka kifaa chako kwenye bega lako la kushoto kwa ajili ya kupima. Tafadhali washa sauti kwenye kifaa chako ili uweze kusikia maelekezo."
           }
         },
         "th" : {
@@ -81455,6 +83357,12 @@
             "value" : "Du börjar med att lägga enheten på din högra axel så att den kan mätas. Slå på ljudet på enheten så att du kan höra anvisningarna."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utakapoanza utaweka kifaa chako kwenye bega lako la kulia kwa kupima. Tafadhali washa sauti kwenye kifaa chako ili uweze kusikia maelekezo."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -81710,6 +83618,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lägg enheten på din vänstra axel med skärmen utåt (se bild)."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kifaa chako kwenye bega lako la kushoto huku skrini ikiwa imeelekezwa nje, kama inavyoonyeshwa."
           }
         },
         "th" : {
@@ -81969,6 +83883,12 @@
             "value" : "Lägg enheten på din högra axel med skärmen utåt (se bild)."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kifaa chako kwenye bega lako la kulia huku skrini ikiwa imewa kwa nje, kama inavyoonyeshwa."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -82226,6 +84146,12 @@
             "value" : "När du vill börja trycker du på skärmen och lyfter din vänstra arm så högt du kan. Tryck igen när du är klar."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unapokuwa tayari, gusa skrini kuanza na inua mkono wako wa kushoto kadri uwezavyo. Gusa tena unapomaliza."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -82481,6 +84407,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "När du vill börja trycker du på skärmen och lyfter din högra arm så högt du kan. Tryck igen när du är klar."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ukiwa tayari, gusa skrini kuanza na inua mkono wako wa kulia kadiri uwezavyo. Gusa tena ukimaliza."
           }
         },
         "th" : {
@@ -82741,6 +84673,12 @@
             "value" : "Rörlighet, vänster axel"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mwendo wa Bega la Kushoto"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -82996,6 +84934,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rörlighet, höger axel"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upana wa Mwendo wa Bega la Kulia"
           }
         },
         "th" : {
@@ -83255,6 +85199,12 @@
             "value" : "Lägg enheten på vänster axel"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kifaa chako kwenye bega lako la kushoto"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -83510,6 +85460,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lägg enheten på höger axel"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wekeza kifaa chako kwenye bega lako la kulia"
           }
         },
         "th" : {
@@ -83787,6 +85743,12 @@
             "value" : "Tryck på Kom igång för att börja och titta noggrant."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kuanza, gusa Anza, kisha tazama kwa makini."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -84060,6 +86022,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "En del av %@na kommer att lysa upp en i taget. Tryck på de %@na i samma ordning som de lyser upp."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baadhi ya %@ zitawaka moja baada ya nyingine. Gusa hizo %@ kwa utaratibu ule ule zilivyowaka."
           }
         },
         "th" : {
@@ -84337,6 +86305,12 @@
             "value" : "En del av %@na kommer att lysa upp en i taget. Tryck på de %@na i omvänd ordning jämfört med hur de lyser upp."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baadhi ya %@ itawaka moja baada ya nyingine. Gusa hizo %@ kwa mpangilio kinyume na jinsi zilivyowaka."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -84610,6 +86584,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Den här aktiviteten mäter ditt spatiala korttidsminne genom att be dig upprepa den ordning i vilken %@ lyser upp."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima kumbukumbu yako ya muda mfupi ya nafasi kwa kukutaka urudie mpangilio ambao %@ huangaza."
           }
         },
         "th" : {
@@ -84887,6 +86867,12 @@
             "value" : "blommor"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "maua"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -85160,6 +87146,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "blommor"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "maua"
           }
         },
         "th" : {
@@ -85438,6 +87430,12 @@
             "value" : "Spatialt minne"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kumbukumbu ya Nafasi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -85693,6 +87691,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på Spela upp ljud, justera volymen till en behaglig nivå och fortsätt sedan genom att trycka på Stoppa ljud."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa 'Cheza Sauti', rekebisha sauti yako hadi kiwango kinachokufaa kisha gusa 'Simamisha Sauti' ili kuendelea."
           }
         },
         "th" : {
@@ -85952,6 +87956,12 @@
             "value" : "Volymkalibrering"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kalibresheni ya Sauti"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -86207,6 +88217,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Som en del av det här testet ska du:\n\nLyssna på en mening.\n\nTydligt upprepa det du hörde eller gå vidare för att skriva in det du hörde med tangentbordet. \n\nOm du upprepar det du hörde har du möjlighet att ändra utskriften som görs av röstigenkänningsmotorn."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Katika mtihani huu, utafanya yafuatayo:\n\nSikiliza sentensi.\n\nRudia kwa uwazi ulichokisikia au ruka mbele kuandika ulichokisikia kwa kutumia kibodi.\n\nIkiwa utarudia ulichokisikia, utakuwa na chaguo la kurekebisha nakala iliyotengenezwa na injini ya kutambua hotuba."
           }
         },
         "th" : {
@@ -86466,6 +88482,12 @@
             "value" : "Den här aktiviteten mäter hörförståelsen i bullriga nivåer."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii hupima uelewekaji wa hotuba inapotolewa katika mazingira yenye kelele."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -86723,6 +88745,12 @@
             "value" : "Upprepa det du hörde."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rudia ulichosikia."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -86978,6 +89006,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tal"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sema"
           }
         },
         "th" : {
@@ -87238,6 +89272,12 @@
             "value" : "Spela upp ljud"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cheza Sauti"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -87493,6 +89533,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "En mening som är uppblandad med bakgrundsbrus med ett slumpmässigt signal-brusförhållande (SNR) kommer bara att spelas upp en gång."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sentensi iliyochanganywa na kelele za mazingira kwa uwiano wa sauti kwa kelele (SNR) iliyopangwa ovyo itachezwa mara moja tu."
           }
         },
         "th" : {
@@ -87752,6 +89798,12 @@
             "value" : "Lyssna"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikiliza"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -88007,6 +90059,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stoppa ljud"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simamisha Sauti"
           }
         },
         "th" : {
@@ -88266,6 +90324,12 @@
             "value" : "Tal i brus"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotuba katika Kelele"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -88521,6 +90585,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på Kom igång för att börja."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa Anza Kuanza."
           }
         },
         "th" : {
@@ -88780,6 +90850,12 @@
             "value" : "Röstigenkänning misslyckades."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ugunduzi wa sauti umeshindikana."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -89035,6 +91111,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kunde inte starta röstigenkänning."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imeshindwa kuanzisha utambuzi wa sauti."
           }
         },
         "th" : {
@@ -89294,6 +91376,12 @@
             "value" : "Tryck på knappen för att starta inspelningen innan du talar."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonyeza kitufe ili kuanza kurekodi kabla ya kuzungumza."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -89549,6 +91637,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Den här aktiviteten spelar in ditt tal med mikrofonen i nederkanten av enheten och översätter den till text."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inarekodi hotuba yako kwa kutumia kipaza sauti kilichopo chini ya kifaa, na kuitafsiri kuwa maandishi."
           }
         },
         "th" : {
@@ -89808,6 +91902,12 @@
             "value" : "Redigera utskriftstexten för att rätta eventuella feltolkningar av talet."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hariri maandishi ya maneno yaliyosajiliwa ili kurekebisha makosa yoyote ya tafsiri."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -90063,6 +92163,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Redigera utskrift"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hariri Nakala"
           }
         },
         "th" : {
@@ -90322,6 +92428,12 @@
             "value" : "Starta inspelning"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anza Kurekodi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -90577,6 +92689,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stoppa inspelning"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simamisha Kurekodi"
           }
         },
         "th" : {
@@ -90836,6 +92954,12 @@
             "value" : "Din utskrift visas här."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mfasiri wako utaonekana hapa."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -91092,6 +93216,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Röstigenkänning"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utambuzi wa Sauti"
           }
         },
         "th" : {
@@ -91370,6 +93500,12 @@
             "value" : "%1$@ av %2$@"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ kati ya %2$@"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -91433,6 +93569,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "NEGRO"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NYEUSI"
           }
         }
       }
@@ -91642,6 +93784,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "BLÅ"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SAMAWATI"
           }
         },
         "th" : {
@@ -91901,6 +94049,12 @@
             "value" : "Bl"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -92156,6 +94310,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "GRÖN"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KIJANI"
           }
         },
         "th" : {
@@ -92415,6 +94575,12 @@
             "value" : "Gr"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "G"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -92670,6 +94836,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "RÖD"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NYEKUNDU"
           }
         },
         "th" : {
@@ -92929,6 +95101,12 @@
             "value" : "Rö"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "R"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -93184,6 +95362,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "GUL"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MANJANO"
           }
         },
         "th" : {
@@ -93443,6 +95627,12 @@
             "value" : "Gu"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Y"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -93698,6 +95888,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Varje gång ett ord visas ska du välja de första två bokstäverna i namnet på den FÄRG som visas."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kila mara neno linapoonekana, chagua herufi ya kwanza ya jina la RANGI inayoonyeshwa."
           }
         },
         "th" : {
@@ -93957,6 +96153,12 @@
             "value" : "Tryck på Kom igång när du vill börja med stroop-aktiviteten."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unapokuwa tayari kuanza shughuli ya Stroop gusa Anza."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -94214,6 +96416,12 @@
             "value" : "Välj de första två bokstäverna i namnet på den FÄRG som visas."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chagua herufi ya kwanza ya jina la RANGI inayoonyeshwa."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -94467,6 +96675,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stroop"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stroop"
@@ -94747,6 +96961,12 @@
             "value" : "Tryck"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -95020,6 +97240,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på Kom igång för att börja."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa 'Anza' kuanza."
           }
         },
         "th" : {
@@ -95297,6 +97523,12 @@
             "value" : "Tryck på Nästa för att börja."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonyeza Ifuatayo kuanza."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -95570,6 +97802,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på knapparna så konsekvent du kan med två fingrar."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga vifungo kwa usawa kadri uwezavyo ukitumia vidole viwili."
           }
         },
         "th" : {
@@ -95847,6 +98085,12 @@
             "value" : "Tryck på knapparna med VÄNSTRA handen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa vifungo kwa kutumia mkono wako wa KUSHOTO."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -96120,6 +98364,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på knapparna med HÖGRA handen."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa vifungo kwa kutumia mkono wako wa KULIA."
           }
         },
         "th" : {
@@ -96397,6 +98647,12 @@
             "value" : "Den här aktiviteten mäter din tryckhastighet."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima kasi yako ya kubofya."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -96670,6 +98926,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck med ett finger och sedan det andra. Försök att trycka i en så jämn takt som möjligt. Fortsätt trycka under %@."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga kidole kimoja, kisha kingine. Jaribu kupanga muda wa magongo yako yawe sawasawa iwezekanavyo. Endelea kupiga magongo kwa %@."
           }
         },
         "th" : {
@@ -96947,6 +99209,12 @@
             "value" : "Använd två fingrar på vänstra handen till att omväxlande trycka på knapparna på skärmen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tumia vidole viwili kwenye mkono wako wa kushoto kugonga kwa kupokezana vifungo kwenye skrini."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -97220,6 +99488,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nu upprepar du samma test med vänstra handen."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa rudia mtihani huo huo ukitumia mkono wako wa kushoto."
           }
         },
         "th" : {
@@ -97497,6 +99771,12 @@
             "value" : "Använd två fingrar på samma hand till att omväxlande trycka på knapparna på skärmen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tumia vidole viwili kwa mkono mmoja kupiga bonyeza vifungo kwenye skrini kwa mpizano."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -97770,6 +100050,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lägg enheten på en slät yta."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kifaa chako juu ya uso ulio bapa."
           }
         },
         "th" : {
@@ -98047,6 +100333,12 @@
             "value" : "Använd två fingrar på högra handen till att omväxlande trycka på knapparna på skärmen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tumia vidole viwili vya mkono wako wa kulia kubadilishana kubonyeza vifungo kwenye skrini."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -98322,6 +100614,12 @@
             "value" : "Nu upprepar du samma test med högra handen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa rudia mtihani ule ule ukitumia mkono wako wa kulia."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -98595,6 +100893,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hoppa över den här handen"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ruka mkono huu"
           }
         },
         "th" : {
@@ -98873,6 +101177,12 @@
             "value" : "Tryckhastighet"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kasi ya Kubofya"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -99146,6 +101456,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vänster hand"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mkono wa Kushoto"
           }
         },
         "th" : {
@@ -99423,6 +101739,12 @@
             "value" : "Höger hand"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mkono wa Kulia"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -99698,6 +102020,12 @@
             "value" : "Dina data kommer att analyseras, och du blir meddelad när resultaten är klara."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data yako itachambuliwa na utajulishwa wakati matokeo yako yatakapokuwa tayari."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -99971,6 +102299,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aktiviteten är klar"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli Imekamilika"
           }
         },
         "th" : {
@@ -100249,6 +102583,12 @@
             "value" : "Textinnehållet överskrider maximal längd: %@"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maudhui ya maandishi yanazidi urefu wa juu: %@"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -100307,6 +102647,12 @@
             "state" : "translated",
             "value" : "You have not responded in 30 seconds. Would you like to restart?"
           }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Haujajibu kwa sekunde 30. Je, ungependa kuanza upya?"
+          }
         }
       }
     },
@@ -100317,6 +102663,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "End Task"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maliza Kazi"
           }
         }
       }
@@ -100329,6 +102681,12 @@
             "state" : "translated",
             "value" : "Restart"
           }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anzisha upya"
+          }
         }
       }
     },
@@ -100339,6 +102697,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Time Out"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muda Umeisha"
           }
         }
       }
@@ -100566,6 +102930,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Använd samma hjälpmedel för alla test."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tumia kifaa kimoja cha msaada kwa kila mtihani."
           }
         },
         "th" : {
@@ -100843,6 +103213,12 @@
             "value" : "Hjälpmedel"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kifaa cha kusaidia"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -101116,6 +103492,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gå upp till %@ i en rät linje."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tembea hadi kufikia %@ kwa mstari ulionyooka."
           }
         },
         "th" : {
@@ -101393,6 +103775,12 @@
             "value" : "Gå tillbaka till utgångsplatsen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rudi mahali ulipoanzia."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -101668,6 +104056,12 @@
             "value" : "Tryck på Nästa när du är klar."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa Ifuatayo ukikamilisha."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -101923,6 +104317,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vänd om."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geuka."
           }
         },
         "th" : {
@@ -102200,6 +104600,12 @@
             "value" : "Tryck på Nästa för att börja."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa Kitufe kinachofuata kuanza."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -102473,6 +104879,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hitta en plats, helst utomhus, där du kan gå ungefär %@ i en rät linje så fort som möjligt (men fortfarande säkert). Sakta inte ned förrän du har passerat mållinjen."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tafuta mahali, kama inawezekana nje, ambapo unaweza kutembea kwa takriban %@ kwa mstari ulionyooka kwa haraka iwezekanavyo, lakini kwa usalama. Usipunguze mwendo hadi baada ya kupita mstari wa kumalizia."
           }
         },
         "th" : {
@@ -102750,6 +105162,12 @@
             "value" : "Den här aktiviteten mäter benfunktionen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima uwezo wako wa viungo vya chini."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -103023,6 +105441,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Inget"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakuna"
           }
         },
         "th" : {
@@ -103300,6 +105724,12 @@
             "value" : "Ensidig käpp"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mkongojo wa Upande Mmoja"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -103573,6 +106003,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ensidig krycka"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bakora ya Upande Mmoja"
           }
         },
         "th" : {
@@ -103850,6 +106286,12 @@
             "value" : "Dubbelsidig käpp"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mkongojo wa pande zote mbili"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -104123,6 +106565,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dubbelsidig krycka"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kongo za pande zote mbili"
           }
         },
         "th" : {
@@ -104400,6 +106848,12 @@
             "value" : "Gåstativ/rollator"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kitembezi/Rolata"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -104673,6 +107127,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck här för att välja ett svar."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga hapa kuchagua jibu."
           }
         },
         "th" : {
@@ -104950,6 +107410,12 @@
             "value" : "Använder du ett hjälpmedel?"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je, unatumia kifaa cha kusaidia?"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -105223,6 +107689,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bär du en ankel- och fotortos?"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je, unavaa aina ya msaada wa mguu kwenye kifundo cha mguu?"
           }
         },
         "th" : {
@@ -105501,6 +107973,12 @@
             "value" : "Gång med tidtagning"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tembea ya Muda"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -105774,6 +108252,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på Kom igång för att börja."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa 'Anza' kuanza."
           }
         },
         "th" : {
@@ -106051,6 +108535,12 @@
             "value" : "Varje gång du börjar höra ett ljud ska du trycka på vänster eller höger knapp för att visa vilket öra du hör ljudet i."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kila unaposikia sauti, gusa kitufe cha kushoto au kulia kuonyesha sikio linalosikia sauti hiyo."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -106324,6 +108814,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Den här aktiviteten mäter din förmåga att höra olika ljud."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima uwezo wako wa kusikia sauti mbalimbali."
           }
         },
         "th" : {
@@ -106601,6 +109097,12 @@
             "value" : "Anslut och ta på dig hörlurarna innan du börjar.\n\nLjudet kommer att vara väldigt subtilt och liknar inte ett vanligt varningsljud. Ljudet är svagt i början och ökar sakta i ljudstyrka. Koncentrera dig på ljudet och tryck på höger- eller vänsterknappen för att registrera i vilket öra du hör ljudet."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kabla uanze, unganisha na uvae vipokea sauti vyako.\n\nSauti itakuwa nyepesi sana na tofauti na sauti ya kawaida ya tahadhari.  Sauti itaanza kuwa ya chini kisha polepole itaongezeka.  Tafadhali zingatia na gonga kitufe cha kushoto au kulia kuonyesha sikio unalosikia."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -106858,6 +109360,12 @@
             "value" : "Vänster öra"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikio la Kushoto"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -107113,6 +109621,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Höger öra"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sikio la Kulia"
           }
         },
         "th" : {
@@ -107388,6 +109902,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nu bör du höra en ton. Justera volymen med reglagen på sidan av enheten.\n\nTryck på någon av knapparna när du vill börja."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa unapaswa kusikia sauti. Rekebisha sauti kwa kutumia vidhibiti vilivyo upande wa kifaa chako.\n\nBonyeza kitufe chochote unapokuwa tayari kuanza."
           }
         },
         "th" : {
@@ -107666,6 +110186,12 @@
             "value" : "Tonaudiometri"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upimaji wa Audiometri ya Tani"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -107939,6 +110465,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ Hz, vänster"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Hz, Kushoto"
           }
         },
         "th" : {
@@ -108216,6 +110748,12 @@
             "value" : "%@ Hz, höger"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Hz, Kulia"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -108491,6 +111029,12 @@
             "value" : "Totalt antal tryckningar"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jumla ya Mabonyezo"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -108746,6 +111290,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fortsätt genom att trycka var som helst"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa popote kuendelea"
           }
         },
         "th" : {
@@ -109023,6 +111573,12 @@
             "value" : "Lös pusslet"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tatua Kitendawili"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -109296,6 +111852,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Antal drag: %@ \n %@"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Idadi ya Hatua: %@ \n %@"
           }
         },
         "th" : {
@@ -109573,6 +112135,12 @@
             "value" : "Jag kan inte lösa pusslet"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siwezi kutatua fumbo hili"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -109846,6 +112414,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Den här aktiviteten utvärderar din förmåga att lösa pussel."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inakadiria uwezo wako wa kutatua vitendawili."
           }
         },
         "th" : {
@@ -110123,6 +112697,12 @@
             "value" : "Flytta hela traven till den markerade plattformen med så få drag som möjligt."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hamisha rundo lote kuelekea jukwaa lililoangaziwa kwa idadi ndogo ya hatua iwezekanavyo."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -110396,6 +112976,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på Kom igång för att börja."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga 'Anza' kuanza."
           }
         },
         "th" : {
@@ -110674,6 +113260,12 @@
             "value" : "Tornen i Hanoi"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mnara wa Hanoi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -110929,6 +113521,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tryck på Kom igång för att börja."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga 'Anza' kuanza."
           }
         },
         "th" : {
@@ -111188,6 +113786,12 @@
             "value" : "%@ (%d fel)"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (kosa %d)"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -111443,6 +114047,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ (%d fel)"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (makosa %d)"
           }
         },
         "th" : {
@@ -111702,6 +114312,12 @@
             "value" : "Den här aktiviteten utvärderar hur uppmärksam du är visuellt och hur bra du är på att växla mellan uppgifter genom att registrera tiden som krävs för att trycka på en serie med prickar i följd."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inakagua uangalifu wako wa kuona na uwezo wa kubadilisha kazi kwa kurekodi muda unaohitajika kugusa mfululizo wa nukta kwa mpangilio."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -111957,6 +114573,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "När nedräkningen är slut ska du trycka på prickar med varannan gång siffror och varannan gång bokstäver. Börja genom att trycka på den första siffran ”1” och sedan på siffrorna ”2” – ”3” – ”4” osv. tills du kommer till siffran ”7”."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baada ya kuhesabu kumalizika, gusa vidoti kwa mpangilio wa kukikaliza kati ya nambari na herufi. Anza kwa kugusa nambari ya kwanza '1' iliyofuatiwa na nambari '2' - '3' - '4'… hadi ufikie nambari '7'."
           }
         },
         "th" : {
@@ -112216,6 +114838,12 @@
             "value" : "När nedräkningen är slut ska du trycka på prickar med varannan gång siffror och varannan gång bokstäver. Börja genom att trycka på den första siffran ”1” och tryck sedan på den första bokstaven ”A”. Sedan ska du trycka på ”2” – ”B” – ”3” – ”C” osv. tills du kommer till siffran ”7”."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Baada ya kuhesabu, gusa nukta kwa mpangilio mbadala kati ya nambari na herufi. Anza kwa kugonga nambari ya kwanza '1' ikifuatiwa na kugongesha herufi ya kwanza 'A', kisha '2' – 'B' – '3' – 'C'… hadi ufikie nambari '7'."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -112473,6 +115101,12 @@
             "value" : "Gör det här så snabbt du kan utan att göra några misstag. \n "
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fanya hili haraka iwezekanavyo bila kufanya makosa.\n"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -112725,6 +115359,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "A"
@@ -112987,6 +115627,12 @@
             "value" : "B"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -113239,6 +115885,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "C"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "C"
@@ -113501,6 +116153,12 @@
             "value" : "D"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "D"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -113758,6 +116416,12 @@
             "value" : "E"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -114010,6 +116674,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "F"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "F"
@@ -114273,6 +116943,12 @@
             "value" : "Trail making test"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mtihani wa Kutengeneza Njia"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -114525,6 +117201,12 @@
           }
         },
         "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.1f s"
+          }
+        },
+        "sw" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%.1f s"
@@ -114805,6 +117487,12 @@
             "value" : "Jag kan inte utföra den här aktiviteten med VÄNSTRA handen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siwezi kutekeleza shughuli hii kwa kutumia mkono wangu wa KUSHOTO."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -115078,6 +117766,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Jag kan utföra den här aktiviteten med båda händerna."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Naweza kutekeleza shughuli hii kwa kutumia mikono yote miwili."
           }
         },
         "th" : {
@@ -115355,6 +118049,12 @@
             "value" : "Jag kan inte utföra den här aktiviteten med HÖGRA handen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Siwezi kufanya shughuli hii kwa kutumia mkono wangu wa KULIA."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -115628,6 +118328,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fortsätt hålla telefonen med armbågen böjd under %ld sekunder"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endelea kushika simu yako kwa mkono wako ukiwa umepinda kwa sekunde %ld"
           }
         },
         "th" : {
@@ -115905,6 +118611,12 @@
             "value" : "Håll nu telefonen i axelhöjd med armbågen böjd."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa shika simu yako kwa urefu wa bega huku kiwiko chako kimepinda."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -116178,6 +118890,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Håll nu telefonen med den VÄNSTRA handen i axelhöjd med armbågen böjd."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa shikilia simu yako kwa mkono wako wa KUSHOTO ukiwa umenyanyua hadi kwenye bega na kiwiko kimepinda."
           }
         },
         "th" : {
@@ -116455,6 +119173,12 @@
             "value" : "Håll nu telefonen med den HÖGRA handen i axelhöjd med armbågen böjd."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa shika simu yako kwa mkono wako wa KULIA ikiwa na urefu wa bega na kiwiko kimepindika."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -116728,6 +119452,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fortsätt hålla telefonen med handen utsträckt under %ld sekunder."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endelea kushikilia simu yako kwa mkono ulionyooshwa kwa sekunde %ld."
           }
         },
         "th" : {
@@ -117005,6 +119735,12 @@
             "value" : "Håll nu telefonen med handen utsträckt i axelhöjd."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa shika simu yako kwa mkono ulionyooshwa kwa urefu wa bega."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -117278,6 +120014,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Håll nu telefonen med den VÄNSTRA handen utsträckt i axelhöjd."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa shikilia simu yako kwa mkono wako wa KUSHOTO ukiwa umeunyoosha hadi urefu wa bega."
           }
         },
         "th" : {
@@ -117555,6 +120297,12 @@
             "value" : "Håll nu telefonen med den HÖGRA handen utsträckt i axelhöjd."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa shika simu yako kwa mkono wako wa KULIA ulionyooshwa hadi urefu wa bega."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -117828,6 +120576,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fortsätt till nästa åtgärd."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endelea kwa kazi inayofuata."
           }
         },
         "th" : {
@@ -118105,6 +120859,12 @@
             "value" : "Fortsätt hålla telefonen i knät under %ld sekunder."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endelea kushikilia simu yako mapajani mwako kwa sekunde %ld."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -118378,6 +121138,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Förbered dig på att hålla telefonen i knät."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jiandae kushikilia simu yako mapajani."
           }
         },
         "th" : {
@@ -118655,6 +121421,12 @@
             "value" : "Förbered dig på att hålla telefonen i knät med den VÄNSTRA handen."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jiandae kushika simu yako kwenye mapaja yako kwa kutumia mkono wako wa KUSHOTO."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -118928,6 +121700,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Förbered dig på att hålla telefonen i knät med den HÖGRA handen."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jiandae kushika simu yako kwenye paja lako kwa mkono wako wa KULIA."
           }
         },
         "th" : {
@@ -119205,6 +121983,12 @@
             "value" : "Tryck på nästa för att fortsätta."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gonga next ili kuendelea."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -119478,6 +122262,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Flytta nu telefonen till den VÄNSTRA handen och fortsätt med nästa åtgärd."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa badilisha simu yako iwe mkononi mwako wa KUSHOTO na endelea na kazi inayofuata."
           }
         },
         "th" : {
@@ -119755,6 +122545,12 @@
             "value" : "Flytta nu telefonen till den HÖGRA handen och fortsätt med nästa åtgärd."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa badilisha simu yako kwenda mkononi mwako WA KULIA na uendelee na jukumu lijalo."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -120028,6 +122824,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fortsätt röra vid näsan med telefonen under %ld sekunder"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endelea kushika simu yako puani mwako kwa sekunde %ld"
           }
         },
         "th" : {
@@ -120305,6 +123107,12 @@
             "value" : "Nu ska du hålla armbågen böjd och röra vid näsan med telefonen flera gånger."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa ukiwa umeinama kiwiko chako, gusa simu yako puani mwako mara kwa mara."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -120578,6 +123386,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nu ska du hålla armbågen böjd med telefonen i den VÄNSTRA handen och röra vid näsan med telefonen flera gånger."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa ukiwa umeinama kiwiko chako ukiwa na simu yako kwenye mkono wako wa KUSHOTO, gusa simu yako puani mwako mara kwa mara."
           }
         },
         "th" : {
@@ -120855,6 +123669,12 @@
             "value" : "Nu ska du hålla armbågen böjd med telefonen i den HÖGRA handen och röra vid näsan med telefonen flera gånger."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa ukiwa umepinda kiwiko chako na simu yako kwenye mkono wako wa KULIA, gusa simu yako kwenye pua yako mara kwa mara."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -121128,6 +123948,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fortsätt utföra en kunglig vinkning under %ld sekunder."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Endelea kupeperusha mkono kama mfalme kwa sekunde %ld."
           }
         },
         "th" : {
@@ -121405,6 +124231,12 @@
             "value" : "Förbered dig på att vinka kungligt (vinka genom att vrida på handleden)."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jiandae kufanya mawimbi ya malkia (punga kwa kugeuza mkono wako)."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -121678,6 +124510,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Förbered dig på att vinka kungligt med telefonen i den VÄNSTRA handen (vinka genom att vrida på handleden)."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jiandae kufanya mawimbi ya malkia kwa simu yako mkononi mwako WA KUSHOTO (punga kwa kugeuza mkono wako)."
           }
         },
         "th" : {
@@ -121955,6 +124793,12 @@
             "value" : "Förbered dig på att vinka kungligt med telefonen i den HÖGRA handen (vinka genom att vrida på handleden)."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jitayarishe kufanya mawimbi ya mfalme na simu yako kwenye mkono wako wa KULIA (wapungia kwa kugeuza mkono wako)."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -122228,6 +125072,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aktiviteten är klar."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli imekamilika."
           }
         },
         "th" : {
@@ -122505,6 +125355,12 @@
             "value" : "Den här aktiviteten mäter darrningarna i dina händer i olika positioner. Hitta en plats där du kan sitta bekvämt under hela den här aktiviteten."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima mtetemo wa mikono yako katika nafasi mbalimbali. Tafuta mahali ambapo unaweza kukaa kwa raha kwa muda wa shughuli hii."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -122778,6 +125634,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Håll telefonen i den mer påverkade handen enligt bilden nedan."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shika simu kwa mkono wako ulioathirika zaidi kama inavyoonyeshwa kwenye picha hapa chini."
           }
         },
         "th" : {
@@ -123055,6 +125917,12 @@
             "value" : "en åtgärd"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kazi"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -123328,6 +126196,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "två åtgärder"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "majukumu mawili"
           }
         },
         "th" : {
@@ -123605,6 +126479,12 @@
             "value" : "tre åtgärder"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "majukumu matatu"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -123878,6 +126758,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "fyra åtgärder"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kazi nne"
           }
         },
         "th" : {
@@ -124155,6 +127041,12 @@
             "value" : "fem åtgärder"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "majukumu matano"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -124428,6 +127320,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Du blir ombedd att utföra %@ medan du sitter med telefonen i handen."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utaulizwa ufanye %@ ukiwa umeketi ukiwa na simu mkononi mwako."
           }
         },
         "th" : {
@@ -124705,6 +127603,12 @@
             "value" : "Håll telefonen i den VÄNSTRA handen enligt bilden nedan."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shikilia simu kwa mkono wako wa KUSHOTO kama inavyoonyeshwa kwenye picha iliyoko chini."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -124980,6 +127884,12 @@
             "value" : "Håll telefonen i den HÖGRA handen enligt bilden nedan."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shikilia simu kwa mkono wako wa KULIA kama inavyoonyeshwa kwenye picha hapo chini."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -125253,6 +128163,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Du blir ombedd att utföra %@ medan du sitter med telefonen i ena handen, och sedan en gång till med den andra handen."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utaulizwa kufanya %@ ukiwa umekaa na simu kwanza kwa mkono mmoja, kisha tena kwa mkono mwingine."
           }
         },
         "th" : {
@@ -125531,6 +128447,12 @@
             "value" : "Tremoraktivitet"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli ya Kutetemeka"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -125805,6 +128727,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verifiering"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uthibitisho"
           }
         },
         "th" : {
@@ -126082,6 +129010,12 @@
             "value" : "Bekräfta din e-postadress"
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thibitisha Barua Pepe Yako"
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -126355,6 +129289,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Du har slutfört aktiviteten."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Umekamilisha shughuli hiyo."
           }
         },
         "th" : {
@@ -126632,6 +129572,12 @@
             "value" : "Gå fram och tillbaka i en rät linje under %@. Gå som du vanligtvis gör."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tembea mbele na nyuma kwenye mstari ulionyooka kwa %@. Tembea kama kawaida yako."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -126905,6 +129851,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vänd dig ett helt varv och stå sedan stilla under %@."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geuka mduara kamili kisha simama bila kutembea kwa %@."
           }
         },
         "th" : {
@@ -127182,6 +130134,12 @@
             "value" : "Placera enheten i en ficka eller väska och följ de talade anvisningarna."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weka kifaa chako kwenye mfuko au begi na fuata maelekezo ya sauti."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -127457,6 +130415,12 @@
             "value" : "Tryck på Kom igång när du är redo att börja.\nPlacera sedan enheten i en ficka eller väska och följ de talade anvisningarna."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gusa 'Anza' unapokuwa tayari kuanza.\nKisha weka kifaa chako mfukoni au kwenye mfuko na fuata maelekezo ya sauti."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -127730,6 +130694,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hitta en plats där du säkert kan gå ungefär %ld steg i en rak linje utan hjälp."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pata mahali ambapo unaweza kutembea salama bila msaada kwa takriban hatua %ld mfululizo."
           }
         },
         "th" : {
@@ -128008,6 +130978,12 @@
             "value" : "Hitta en plats där du tryggt kan gå fram och tillbaka i en rät linje. Försök att gå kontinuerligt genom att vända dig om vid slutet av linjen, som om du gick runt en kon.\n\nDärefter blir du ombedd att vända dig ett helt varv och sedan stå stilla med armarna längs sidorna och fötterna i ungefär axelbredd."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tafuta mahali ambapo unaweza kutembea kwenda mbele na kurudi nyuma kwa usalama kwenye mstari ulionyooka. Jaribu kutembea kwa mfululizo kwa kugeuka mwisho wa njia yako, kana kwamba unaizunguka koni.\n\nBaadaye utaelekezwa kugeuka kuzunguka kikamilifu, kisha simama tuli ukiwa na mikono yako pembeni mwako na miguu yako ikiwa imetanuka kiasi cha upana wa mabega."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -128281,6 +131257,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Den här aktiviteten mäter din gångstil och balans medan du går och står still. Fortsätt endast om du säkert kan gå utan hjälp."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shughuli hii inapima mwendo wako na usawa wakati unapotembea na kusimama. Usiendelee ikiwa huwezi kutembea peke yako salama."
           }
         },
         "th" : {
@@ -128558,6 +131540,12 @@
             "value" : "Gå upp till %ld steg i en rak linje."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tembea hadi hatua %ld kwa mstari ulionyooka."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -128831,6 +131819,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vänd om och gå tillbaka till utgångsplatsen."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geuka, na tembea kurudi ulipoanzia."
           }
         },
         "th" : {
@@ -129108,6 +132102,12 @@
             "value" : "Stå stilla under %@."
           }
         },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simama tulia kwa %@."
+          }
+        },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
@@ -129381,6 +132381,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stå nu stilla under %@."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sasa simama tuli kwa %@."
           }
         },
         "th" : {
@@ -129657,6 +132663,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gång och balans"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matembezi na Usawaziko"
           }
         },
         "th" : {
