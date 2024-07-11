@@ -121,6 +121,8 @@
 		86717B2B1AC0CC4A00AC2A23 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		86D347F91AC0E1B4006DB02B /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		86D347FB1AC0E1B4006DB02B /* ORKTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ORKTest.entitlements; sourceTree = "<group>"; };
+		ACB3A83F2C08EDAF00A3F561 /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = sw.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		ACB3A8402C08EDAF00A3F561 /* sw */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sw; path = sw.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B1337BA01B1E709B0098AA54 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B1337BA11B1E709C0098AA54 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B1337BA21B1E70A00098AA54 /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				"pt-PT",
 				"en-GB",
 				"en-AU",
+				sw,
 			);
 			mainGroup = 86717A811AC0C0FE00AC2A23;
 			productRefGroup = 86717A8B1AC0C0FE00AC2A23 /* Products */;
@@ -546,6 +549,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				86717A9D1AC0C0FE00AC2A23 /* Base */,
+				ACB3A83F2C08EDAF00A3F561 /* sw */,
 			);
 			name = LaunchScreen.xib;
 			path = Localized;
@@ -594,6 +598,7 @@
 				B1337BA71B1E70AC0098AA54 /* pt-PT */,
 				B15636901B1F8A0700B28200 /* en-GB */,
 				B15636931B1F8A0800B28200 /* en-AU */,
+				ACB3A8402C08EDAF00A3F561 /* sw */,
 			);
 			name = Localizable.strings;
 			path = Localized;
@@ -707,7 +712,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ORKTest/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.researchkit-samplecode.ORKTest";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -731,7 +736,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/ORKTest/Supporting Files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.researchkit-samplecode.ORKTest";
 				PRODUCT_NAME = "$(TARGET_NAME)";
