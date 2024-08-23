@@ -16,5 +16,6 @@
 @interface CEVRK1Label: UILabel
 
 - (NSString * _Nullable)rawText;
+- (UIFont * _Nullable)originalFont;
 
 @end
