@@ -110,6 +110,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // If autoAgree, _documentReviewed will never get set to YES since the workflow with buttons is bypassed
+    ORK1ConsentReviewStep* consentReviewStep = (ORK1ConsentReviewStep *)[self step];
+    if (consentReviewStep.autoAgree) {
+        _documentReviewed = YES;
+    }
+    
     // Prepare pageViewController
     _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
                                                           navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
