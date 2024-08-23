@@ -392,8 +392,6 @@
 		86C40DF41A8D7C5C00081FAC /* ORK1ConsentReviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BED1A8D7C5C00081FAC /* ORK1ConsentReviewController.m */; };
 		86C40DF61A8D7C5C00081FAC /* ORK1SignatureStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BEE1A8D7C5C00081FAC /* ORK1SignatureStepViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		86C40DF81A8D7C5C00081FAC /* ORK1SignatureStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BEF1A8D7C5C00081FAC /* ORK1SignatureStepViewController.m */; };
-		86C40DFA1A8D7C5C00081FAC /* MovieTintShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 86C40BF01A8D7C5C00081FAC /* MovieTintShader.fsh */; };
-		86C40DFC1A8D7C5C00081FAC /* MovieTintShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 86C40BF11A8D7C5C00081FAC /* MovieTintShader.vsh */; };
 		86C40DFE1A8D7C5C00081FAC /* ORK1ConsentDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BF21A8D7C5C00081FAC /* ORK1ConsentDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C40E001A8D7C5C00081FAC /* ORK1ConsentDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40BF31A8D7C5C00081FAC /* ORK1ConsentDocument.m */; };
 		86C40E021A8D7C5C00081FAC /* ORK1ConsentDocument_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40BF41A8D7C5C00081FAC /* ORK1ConsentDocument_Internal.h */; };
@@ -410,17 +408,12 @@
 		86C40E1C1A8D7C5C00081FAC /* ORK1ConsentSection_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40C011A8D7C5C00081FAC /* ORK1ConsentSection_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		86C40E1E1A8D7C5C00081FAC /* ORK1ConsentSignature.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40C021A8D7C5C00081FAC /* ORK1ConsentSignature.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C40E201A8D7C5C00081FAC /* ORK1ConsentSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40C031A8D7C5C00081FAC /* ORK1ConsentSignature.m */; };
-		86C40E241A8D7C5C00081FAC /* ORK1EAGLMoviePlayerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40C051A8D7C5C00081FAC /* ORK1EAGLMoviePlayerView.h */; };
-		86C40E261A8D7C5C00081FAC /* ORK1EAGLMoviePlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40C061A8D7C5C00081FAC /* ORK1EAGLMoviePlayerView.m */; };
 		86C40E281A8D7C5C00081FAC /* ORK1SignatureView.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40C071A8D7C5C00081FAC /* ORK1SignatureView.h */; };
 		86C40E2A1A8D7C5C00081FAC /* ORK1SignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40C081A8D7C5C00081FAC /* ORK1SignatureView.m */; };
 		86C40E2C1A8D7C5C00081FAC /* ORK1VisualConsentStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40C091A8D7C5C00081FAC /* ORK1VisualConsentStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86C40E2E1A8D7C5C00081FAC /* ORK1VisualConsentStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40C0A1A8D7C5C00081FAC /* ORK1VisualConsentStep.m */; };
 		86C40E301A8D7C5C00081FAC /* ORK1VisualConsentStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40C0B1A8D7C5C00081FAC /* ORK1VisualConsentStepViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		86C40E321A8D7C5C00081FAC /* ORK1VisualConsentStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40C0C1A8D7C5C00081FAC /* ORK1VisualConsentStepViewController.m */; };
-		86C40E341A8D7C5C00081FAC /* ORK1VisualConsentStepViewController_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40C0D1A8D7C5C00081FAC /* ORK1VisualConsentStepViewController_Internal.h */; };
-		86C40E361A8D7C5C00081FAC /* ORK1VisualConsentTransitionAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = 86C40C0E1A8D7C5C00081FAC /* ORK1VisualConsentTransitionAnimator.h */; };
-		86C40E381A8D7C5C00081FAC /* ORK1VisualConsentTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 86C40C0F1A8D7C5C00081FAC /* ORK1VisualConsentTransitionAnimator.m */; };
 		86CC8EA01AC09332001CCD89 /* ORK1Kit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B183A5951A8535D100C76870 /* ORK1Kit.framework */; };
 		86CC8EB31AC09383001CCD89 /* ORK1AccessibilityTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CC8EA81AC09383001CCD89 /* ORK1AccessibilityTests.m */; };
 		86CC8EB41AC09383001CCD89 /* ORK1ChoiceAnswerFormatHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 86CC8EA91AC09383001CCD89 /* ORK1ChoiceAnswerFormatHelperTests.m */; };
@@ -464,20 +457,6 @@
 		B17FE7FD1A8DBE7C00BF9C28 /* Artwork.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 861610BF1A8D8EDD00245F7A /* Artwork.xcassets */; };
 		B183A4A21A8535D100C76870 /* ORK1Kit_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = B1B894391A00345200C5CF2D /* ORK1Kit_Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B183A4DD1A8535D100C76870 /* ORK1Kit.h in Headers */ = {isa = PBXBuildFile; fileRef = B1C1DE4F196F541F00F75544 /* ORK1Kit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B1A860EA1A9693C400EA57B7 /* consent_01@2x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860DB1A9693C400EA57B7 /* consent_01@2x.m4v */; };
-		B1A860EB1A9693C400EA57B7 /* consent_02@2x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860DC1A9693C400EA57B7 /* consent_02@2x.m4v */; };
-		B1A860EC1A9693C400EA57B7 /* consent_03@2x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860DD1A9693C400EA57B7 /* consent_03@2x.m4v */; };
-		B1A860ED1A9693C400EA57B7 /* consent_04@2x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860DE1A9693C400EA57B7 /* consent_04@2x.m4v */; };
-		B1A860EE1A9693C400EA57B7 /* consent_05@2x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860DF1A9693C400EA57B7 /* consent_05@2x.m4v */; };
-		B1A860EF1A9693C400EA57B7 /* consent_06@2x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860E01A9693C400EA57B7 /* consent_06@2x.m4v */; };
-		B1A860F01A9693C400EA57B7 /* consent_07@2x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860E11A9693C400EA57B7 /* consent_07@2x.m4v */; };
-		B1A860F11A9693C400EA57B7 /* consent_01@3x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860E31A9693C400EA57B7 /* consent_01@3x.m4v */; };
-		B1A860F21A9693C400EA57B7 /* consent_02@3x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860E41A9693C400EA57B7 /* consent_02@3x.m4v */; };
-		B1A860F31A9693C400EA57B7 /* consent_03@3x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860E51A9693C400EA57B7 /* consent_03@3x.m4v */; };
-		B1A860F41A9693C400EA57B7 /* consent_04@3x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860E61A9693C400EA57B7 /* consent_04@3x.m4v */; };
-		B1A860F51A9693C400EA57B7 /* consent_05@3x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860E71A9693C400EA57B7 /* consent_05@3x.m4v */; };
-		B1A860F61A9693C400EA57B7 /* consent_06@3x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860E81A9693C400EA57B7 /* consent_06@3x.m4v */; };
-		B1A860F71A9693C400EA57B7 /* consent_07@3x.m4v in Resources */ = {isa = PBXBuildFile; fileRef = B1A860E91A9693C400EA57B7 /* consent_07@3x.m4v */; };
 		B1C7955E1A9FBF04007279BA /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1C7955D1A9FBF04007279BA /* HealthKit.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		B8760F2B1AFBEFB0007FA16F /* ORK1ScaleRangeDescriptionLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = B8760F291AFBEFB0007FA16F /* ORK1ScaleRangeDescriptionLabel.h */; };
 		B8760F2C1AFBEFB0007FA16F /* ORK1ScaleRangeDescriptionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B8760F2A1AFBEFB0007FA16F /* ORK1ScaleRangeDescriptionLabel.m */; };
@@ -1009,8 +988,6 @@
 		86C40BED1A8D7C5C00081FAC /* ORK1ConsentReviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ConsentReviewController.m; sourceTree = "<group>"; };
 		86C40BEE1A8D7C5C00081FAC /* ORK1SignatureStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1SignatureStepViewController.h; sourceTree = "<group>"; };
 		86C40BEF1A8D7C5C00081FAC /* ORK1SignatureStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ORK1SignatureStepViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		86C40BF01A8D7C5C00081FAC /* MovieTintShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = MovieTintShader.fsh; sourceTree = "<group>"; };
-		86C40BF11A8D7C5C00081FAC /* MovieTintShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = MovieTintShader.vsh; sourceTree = "<group>"; };
 		86C40BF21A8D7C5C00081FAC /* ORK1ConsentDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ConsentDocument.h; sourceTree = "<group>"; };
 		86C40BF31A8D7C5C00081FAC /* ORK1ConsentDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ORK1ConsentDocument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		86C40BF41A8D7C5C00081FAC /* ORK1ConsentDocument_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ORK1ConsentDocument_Internal.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1027,17 +1004,12 @@
 		86C40C011A8D7C5C00081FAC /* ORK1ConsentSection_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ConsentSection_Private.h; sourceTree = "<group>"; };
 		86C40C021A8D7C5C00081FAC /* ORK1ConsentSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1ConsentSignature.h; sourceTree = "<group>"; };
 		86C40C031A8D7C5C00081FAC /* ORK1ConsentSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ConsentSignature.m; sourceTree = "<group>"; };
-		86C40C051A8D7C5C00081FAC /* ORK1EAGLMoviePlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1EAGLMoviePlayerView.h; sourceTree = "<group>"; };
-		86C40C061A8D7C5C00081FAC /* ORK1EAGLMoviePlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1EAGLMoviePlayerView.m; sourceTree = "<group>"; };
 		86C40C071A8D7C5C00081FAC /* ORK1SignatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1SignatureView.h; sourceTree = "<group>"; };
 		86C40C081A8D7C5C00081FAC /* ORK1SignatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1SignatureView.m; sourceTree = "<group>"; };
 		86C40C091A8D7C5C00081FAC /* ORK1VisualConsentStep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1VisualConsentStep.h; sourceTree = "<group>"; };
 		86C40C0A1A8D7C5C00081FAC /* ORK1VisualConsentStep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ORK1VisualConsentStep.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		86C40C0B1A8D7C5C00081FAC /* ORK1VisualConsentStepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1VisualConsentStepViewController.h; sourceTree = "<group>"; };
 		86C40C0C1A8D7C5C00081FAC /* ORK1VisualConsentStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ORK1VisualConsentStepViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		86C40C0D1A8D7C5C00081FAC /* ORK1VisualConsentStepViewController_Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1VisualConsentStepViewController_Internal.h; sourceTree = "<group>"; };
-		86C40C0E1A8D7C5C00081FAC /* ORK1VisualConsentTransitionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1VisualConsentTransitionAnimator.h; sourceTree = "<group>"; };
-		86C40C0F1A8D7C5C00081FAC /* ORK1VisualConsentTransitionAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ORK1VisualConsentTransitionAnimator.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		86C40C101A8D7C5C00081FAC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86CC8E9A1AC09332001CCD89 /* ORK1KitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ORK1KitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		86CC8EA71AC09383001CCD89 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1082,20 +1054,6 @@
 		B12EA0181B0D76AD00F9F554 /* ORK1ToneAudiometryPracticeStepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORK1ToneAudiometryPracticeStepViewController.m; sourceTree = "<group>"; };
 		B183A5951A8535D100C76870 /* ORK1Kit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ORK1Kit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B18AABE01A9F08D9003871B5 /* ORK1Kit.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = ORK1Kit.modulemap; sourceTree = "<group>"; };
-		B1A860DB1A9693C400EA57B7 /* consent_01@2x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_01@2x.m4v"; sourceTree = "<group>"; };
-		B1A860DC1A9693C400EA57B7 /* consent_02@2x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_02@2x.m4v"; sourceTree = "<group>"; };
-		B1A860DD1A9693C400EA57B7 /* consent_03@2x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_03@2x.m4v"; sourceTree = "<group>"; };
-		B1A860DE1A9693C400EA57B7 /* consent_04@2x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_04@2x.m4v"; sourceTree = "<group>"; };
-		B1A860DF1A9693C400EA57B7 /* consent_05@2x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_05@2x.m4v"; sourceTree = "<group>"; };
-		B1A860E01A9693C400EA57B7 /* consent_06@2x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_06@2x.m4v"; sourceTree = "<group>"; };
-		B1A860E11A9693C400EA57B7 /* consent_07@2x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_07@2x.m4v"; sourceTree = "<group>"; };
-		B1A860E31A9693C400EA57B7 /* consent_01@3x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_01@3x.m4v"; sourceTree = "<group>"; };
-		B1A860E41A9693C400EA57B7 /* consent_02@3x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_02@3x.m4v"; sourceTree = "<group>"; };
-		B1A860E51A9693C400EA57B7 /* consent_03@3x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_03@3x.m4v"; sourceTree = "<group>"; };
-		B1A860E61A9693C400EA57B7 /* consent_04@3x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_04@3x.m4v"; sourceTree = "<group>"; };
-		B1A860E71A9693C400EA57B7 /* consent_05@3x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_05@3x.m4v"; sourceTree = "<group>"; };
-		B1A860E81A9693C400EA57B7 /* consent_06@3x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_06@3x.m4v"; sourceTree = "<group>"; };
-		B1A860E91A9693C400EA57B7 /* consent_07@3x.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = "consent_07@3x.m4v"; sourceTree = "<group>"; };
 		B1B894391A00345200C5CF2D /* ORK1Kit_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ORK1Kit_Private.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		B1C1DE4F196F541F00F75544 /* ORK1Kit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORK1Kit.h; sourceTree = "<group>"; };
 		B1C7955D1A9FBF04007279BA /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -1622,7 +1580,6 @@
 				86C40BEB1A8D7C5C00081FAC /* Consent */,
 				2429D56D1BBB52E4003A512F /* Onboarding */,
 				618DA0471A93D0D600E63AA8 /* Accessibility */,
-				B1A860D91A9693C400EA57B7 /* Animations */,
 				861610BF1A8D8EDD00245F7A /* Artwork.xcassets */,
 				B1C0F4E01A9BA65F0022C153 /* Localized */,
 				86C40C101A8D7C5C00081FAC /* Info.plist */,
@@ -2109,17 +2066,6 @@
 			name = PDF;
 			sourceTree = "<group>";
 		};
-		B12EFF441AB214B400A80147 /* Tinted Animations */ = {
-			isa = PBXGroup;
-			children = (
-				86C40C051A8D7C5C00081FAC /* ORK1EAGLMoviePlayerView.h */,
-				86C40C061A8D7C5C00081FAC /* ORK1EAGLMoviePlayerView.m */,
-				86C40BF01A8D7C5C00081FAC /* MovieTintShader.fsh */,
-				86C40BF11A8D7C5C00081FAC /* MovieTintShader.vsh */,
-			);
-			name = "Tinted Animations";
-			sourceTree = "<group>";
-		};
 		B12EFF451AB214E000A80147 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2142,7 +2088,6 @@
 				86C40C0A1A8D7C5C00081FAC /* ORK1VisualConsentStep.m */,
 				86C40C0B1A8D7C5C00081FAC /* ORK1VisualConsentStepViewController.h */,
 				86C40C0C1A8D7C5C00081FAC /* ORK1VisualConsentStepViewController.m */,
-				86C40C0D1A8D7C5C00081FAC /* ORK1VisualConsentStepViewController_Internal.h */,
 				B12EFF4C1AB2158100A80147 /* Consent Views */,
 				B12EFF4B1AB2157000A80147 /* Learn More */,
 			);
@@ -2208,9 +2153,6 @@
 			children = (
 				86C40BFB1A8D7C5C00081FAC /* ORK1ConsentSceneViewController.h */,
 				86C40BFC1A8D7C5C00081FAC /* ORK1ConsentSceneViewController.m */,
-				86C40C0E1A8D7C5C00081FAC /* ORK1VisualConsentTransitionAnimator.h */,
-				86C40C0F1A8D7C5C00081FAC /* ORK1VisualConsentTransitionAnimator.m */,
-				B12EFF441AB214B400A80147 /* Tinted Animations */,
 				BCFB2EAF1AE70E4E0070B5D0 /* ORK1ConsentSceneViewController_Internal.h */,
 			);
 			name = "Consent Views";
@@ -2452,43 +2394,6 @@
 				2EBFE11E1AE1B68800CB8254 /* ORK1VoiceEngine_Internal.h */,
 			);
 			name = "Speech Synthesis";
-			sourceTree = "<group>";
-		};
-		B1A860D91A9693C400EA57B7 /* Animations */ = {
-			isa = PBXGroup;
-			children = (
-				B1A860DA1A9693C400EA57B7 /* phone@2x */,
-				B1A860E21A9693C400EA57B7 /* phone@3x */,
-			);
-			path = Animations;
-			sourceTree = "<group>";
-		};
-		B1A860DA1A9693C400EA57B7 /* phone@2x */ = {
-			isa = PBXGroup;
-			children = (
-				B1A860DB1A9693C400EA57B7 /* consent_01@2x.m4v */,
-				B1A860DC1A9693C400EA57B7 /* consent_02@2x.m4v */,
-				B1A860DD1A9693C400EA57B7 /* consent_03@2x.m4v */,
-				B1A860DE1A9693C400EA57B7 /* consent_04@2x.m4v */,
-				B1A860DF1A9693C400EA57B7 /* consent_05@2x.m4v */,
-				B1A860E01A9693C400EA57B7 /* consent_06@2x.m4v */,
-				B1A860E11A9693C400EA57B7 /* consent_07@2x.m4v */,
-			);
-			path = "phone@2x";
-			sourceTree = "<group>";
-		};
-		B1A860E21A9693C400EA57B7 /* phone@3x */ = {
-			isa = PBXGroup;
-			children = (
-				B1A860E31A9693C400EA57B7 /* consent_01@3x.m4v */,
-				B1A860E41A9693C400EA57B7 /* consent_02@3x.m4v */,
-				B1A860E51A9693C400EA57B7 /* consent_03@3x.m4v */,
-				B1A860E61A9693C400EA57B7 /* consent_04@3x.m4v */,
-				B1A860E71A9693C400EA57B7 /* consent_05@3x.m4v */,
-				B1A860E81A9693C400EA57B7 /* consent_06@3x.m4v */,
-				B1A860E91A9693C400EA57B7 /* consent_07@3x.m4v */,
-			);
-			path = "phone@3x";
 			sourceTree = "<group>";
 		};
 		B1C0F4E01A9BA65F0022C153 /* Localized */ = {
@@ -2762,7 +2667,6 @@
 				86C40D641A8D7C5C00081FAC /* ORK1QuestionStepViewController.h in Headers */,
 				10BAA2CA1B5FCB4F004FE478 /* ORK1ProgressView.h in Headers */,
 				BCB6E6601B7D534C000D5B34 /* ORK1LineGraphChartView.h in Headers */,
-				86C40E241A8D7C5C00081FAC /* ORK1EAGLMoviePlayerView.h in Headers */,
 				95E11E551D73396300BF865B /* ORK1ShoulderRangeOfMotionStepViewController.h in Headers */,
 				B183A4DD1A8535D100C76870 /* ORK1Kit.h in Headers */,
 				86C40D101A8D7C5C00081FAC /* ORK1DefaultFont.h in Headers */,
@@ -2795,7 +2699,6 @@
 				86C40C5A1A8D7C5C00081FAC /* ORK1WalkingTaskStep.h in Headers */,
 				BC1C032C1CA301E300869355 /* ORK1HeightPicker.h in Headers */,
 				866DA5231D63D04700C9AF3F /* ORK1DataCollectionManager.h in Headers */,
-				86C40E361A8D7C5C00081FAC /* ORK1VisualConsentTransitionAnimator.h in Headers */,
 				86AD910D1AB7AE4100361FEB /* ORK1NavigationContainerView_Internal.h in Headers */,
 				2433C9E31B9A506F0052D375 /* ORK1KeychainWrapper.h in Headers */,
 				86C40CEE1A8D7C5C00081FAC /* ORK1AnswerTextView.h in Headers */,
@@ -2866,7 +2769,6 @@
 				86C40D341A8D7C5C00081FAC /* ORK1Helpers_Internal.h in Headers */,
 				BA0AA6941EAEC0B600671ACE /* ORK1StroopContentView.h in Headers */,
 				FA7A9D2F1B083DD3005A2BEA /* ORK1ConsentSectionFormatter.h in Headers */,
-				86C40E341A8D7C5C00081FAC /* ORK1VisualConsentStepViewController_Internal.h in Headers */,
 				86C40D381A8D7C5C00081FAC /* ORK1HTMLPDFWriter.h in Headers */,
 				959A2BFC1D68B98700841B04 /* ORK1RangeOfMotionStep.h in Headers */,
 				86C40D561A8D7C5C00081FAC /* ORK1OrderedTask.h in Headers */,
@@ -3074,26 +2976,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1A860EE1A9693C400EA57B7 /* consent_05@2x.m4v in Resources */,
-				86C40DFA1A8D7C5C00081FAC /* MovieTintShader.fsh in Resources */,
-				B1A860EA1A9693C400EA57B7 /* consent_01@2x.m4v in Resources */,
 				DAAAE2F328DE4CB3001ECEB8 /* ORK1SkinMatrix.csv in Resources */,
-				B1A860F31A9693C400EA57B7 /* consent_03@3x.m4v in Resources */,
-				B1A860F11A9693C400EA57B7 /* consent_01@3x.m4v in Resources */,
-				B1A860F71A9693C400EA57B7 /* consent_07@3x.m4v in Resources */,
-				B1A860F21A9693C400EA57B7 /* consent_02@3x.m4v in Resources */,
-				B1A860EB1A9693C400EA57B7 /* consent_02@2x.m4v in Resources */,
-				B1A860F61A9693C400EA57B7 /* consent_06@3x.m4v in Resources */,
-				B1A860F01A9693C400EA57B7 /* consent_07@2x.m4v in Resources */,
-				B1A860EF1A9693C400EA57B7 /* consent_06@2x.m4v in Resources */,
 				ACAE958B2C3C24B400F31D85 /* ORK1Kit.xcstrings in Resources */,
-				B1A860EC1A9693C400EA57B7 /* consent_03@2x.m4v in Resources */,
-				B1A860F41A9693C400EA57B7 /* consent_04@3x.m4v in Resources */,
 				DA27D28C24F4520C00B6ECE4 /* README.md in Resources */,
-				B1A860ED1A9693C400EA57B7 /* consent_04@2x.m4v in Resources */,
 				B17FE7FD1A8DBE7C00BF9C28 /* Artwork.xcassets in Resources */,
-				86C40DFC1A8D7C5C00081FAC /* MovieTintShader.vsh in Resources */,
-				B1A860F51A9693C400EA57B7 /* consent_05@3x.m4v in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3345,7 +3231,6 @@
 				BA0AA6971EAEC0B600671ACE /* ORK1StroopStep.m in Sources */,
 				86C40E0E1A8D7C5C00081FAC /* ORK1ConsentReviewStepViewController.m in Sources */,
 				BF9155A01BDE8D7E007FA459 /* ORK1ReviewStepViewController.m in Sources */,
-				86C40E261A8D7C5C00081FAC /* ORK1EAGLMoviePlayerView.m in Sources */,
 				86C40CC21A8D7C5C00081FAC /* ORK1CompletionStep.m in Sources */,
 				86C40C301A8D7C5C00081FAC /* ORK1FitnessStep.m in Sources */,
 				86C40C501A8D7C5C00081FAC /* ORK1TappingContentView.m in Sources */,
@@ -3405,7 +3290,6 @@
 				86C40D601A8D7C5C00081FAC /* ORK1QuestionStep.m in Sources */,
 				84BD164C1FD1EBBC00FE1A3C /* ORK1WebViewStep.m in Sources */,
 				DA27D29024F4521E00B6ECE4 /* NSAttributedString+Markdown.m in Sources */,
-				86C40E381A8D7C5C00081FAC /* ORK1VisualConsentTransitionAnimator.m in Sources */,
 				BCB6E64B1B7D531C000D5B34 /* ORK1PieChartView.m in Sources */,
 				10864C9F1B27146B000F4158 /* ORK1PSATStep.m in Sources */,
 			);

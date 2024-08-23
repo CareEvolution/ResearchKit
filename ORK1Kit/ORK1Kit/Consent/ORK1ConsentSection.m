@@ -36,28 +36,6 @@
 #import "ORK1Helpers_Internal.h"
 
 
-static NSString *movieNameForType(ORK1ConsentSectionType type, CGFloat scale) {
-    NSString *fullMovieName = [NSString stringWithFormat:@"consent_%02ld", (long)type + 1];
-    fullMovieName = [NSString stringWithFormat:@"%@@%dx", fullMovieName, (int)scale];
-    return fullMovieName;
-}
-
-NSURL *ORK1MovieURLForConsentSectionType(ORK1ConsentSectionType type) {
-    CGFloat scale = [UIScreen mainScreen].scale;
-    
-    // For iPad, use the movie for the next scale up
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad && scale < 3) {
-        scale++;
-    }
-    
-    NSURL *url = [ORK1AssetsBundle() URLForResource:movieNameForType(type, scale) withExtension:@"m4v"];
-    if (url == nil) {
-        // This can fail on 3x devices when the display is set to zoomed. Try an asset at 2x instead.
-        url = [ORK1AssetsBundle() URLForResource:movieNameForType(type, 2.0) withExtension:@"m4v"];
-    }
-    return url;
-}
-
 UIImage *ORK1ImageForConsentSectionType(ORK1ConsentSectionType type) {
     NSString *imageName = [NSString stringWithFormat:@"consent_%02ld", (long)type];
     return [UIImage imageNamed:imageName inBundle:ORK1Bundle() compatibleWithTraitCollection:nil];
@@ -212,7 +190,6 @@ static NSString *localizedTitleForConsentSectionType(ORK1ConsentSectionType sect
         ORK1_DECODE_BOOL(aDecoder, omitFromDocument);
         ORK1_DECODE_OBJ_CLASS(aDecoder, formalTitle, NSString);
         ORK1_DECODE_IMAGE(aDecoder, customImage);
-        ORK1_DECODE_URL_BOOKMARK(aDecoder, customAnimationURL);
         ORK1_DECODE_OBJ_CLASS(aDecoder, customLearnMoreButtonTitle, NSString);
     }
     return self;
@@ -228,7 +205,6 @@ static NSString *localizedTitleForConsentSectionType(ORK1ConsentSectionType sect
     ORK1_ENCODE_URL_BOOKMARK(aCoder, contentURL);
     ORK1_ENCODE_BOOL(aCoder, omitFromDocument);
     ORK1_ENCODE_IMAGE(aCoder, customImage);
-    ORK1_ENCODE_URL_BOOKMARK(aCoder, customAnimationURL);
     ORK1_ENCODE_OBJ(aCoder, customLearnMoreButtonTitle);
 }
 
@@ -247,8 +223,7 @@ static NSString *localizedTitleForConsentSectionType(ORK1ConsentSectionType sect
             && (self.omitFromDocument == castObject.omitFromDocument)
             && ORK1EqualObjects(self.customImage, castObject.customImage)
             && ORK1EqualObjects(self.customLearnMoreButtonTitle, castObject.customLearnMoreButtonTitle)
-            && ORK1EqualFileURLs(self.customAnimationURL, castObject.customAnimationURL) &&
-            (self.type == castObject.type));
+            && (self.type == castObject.type));
 }
 
 - (NSUInteger)hash {
@@ -266,7 +241,6 @@ static NSString *localizedTitleForConsentSectionType(ORK1ConsentSectionType sect
     sec.omitFromDocument = _omitFromDocument;
     sec.customImage = _customImage;
     sec->_type = _type;
-    sec.customAnimationURL = _customAnimationURL;
     sec.customLearnMoreButtonTitle = _customLearnMoreButtonTitle;
     
     return sec;

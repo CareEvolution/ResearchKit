@@ -241,19 +241,6 @@ ORK_CLASS_AVAILABLE
   */
 @property (nonatomic, copy, nullable) NSString *customLearnMoreButtonTitle;
 
-/**
- A file URL that specifies a custom transition animation video.
- 
- Animations of the illustration between one screen and the next are provided
- by default for transitions between consecutive section `type` codes. Custom
- sections and out-of-order transitions may require custom animations.
- 
- The animation loaded from the file URL is played aspect fill in the
- illustration area for forward transitions only. The video is rendered in
- template mode, with white treated as if it were transparent.
- */
-@property (nonatomic, copy, nullable) NSURL *customAnimationURL;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -75,11 +75,6 @@ ORK_CLASS_AVAILABLE
  */
 @property (nonatomic, weak, nullable) id<ORKVisualConsentStepViewControllerDelegate> visualConsentDelegate;
 
-/**
- The view in which animations are displayed.
- */
-@property (nonatomic, strong, nullable) UIView *animationView;
-
 @end
 
 NS_ASSUME_NONNULL_END
