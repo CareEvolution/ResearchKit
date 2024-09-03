@@ -203,6 +203,7 @@ __weak static ORK1TaskViewController *sFallbackTaskViewController = nil;
             break;
     }
     NSMutableDictionary *attributes = [self textAttributesForView:label];
+    attributes[NSFontAttributeName] = label.originalFont;
     [self combineIntoAttributes:attributes textStyle:textStyle];
     label.attributedText = [[NSAttributedString alloc] initWithMarkdownRepresentation:[label rawText] attributes:attributes];
 }
