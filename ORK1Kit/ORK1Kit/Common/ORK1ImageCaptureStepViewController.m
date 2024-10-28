@@ -73,7 +73,10 @@
 
             if (fileResult.fileURL) {
                 // Setting these properties in this order allows us to reuse the existing file on disk
-                self.capturedImageData = [NSData dataWithContentsOfURL:fileResult.fileURL];
+                NSData *imageData = [NSData dataWithContentsOfURL:fileResult.fileURL];
+                _imageDataExtension = fileResult.fileURL.pathExtension;
+                _previewImage = [UIImage imageWithData:imageData];
+                self.capturedImageData = imageData;
                 _fileURL = fileResult.fileURL;
             }
         }
