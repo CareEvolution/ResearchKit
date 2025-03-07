@@ -133,6 +133,19 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
  */
 - (BOOL)taskViewControllerShouldConfirmCancel:(ORK1TaskViewController *)taskViewController;
 
+@optional
+/// Asks the delegate for customized button titles for the discard task prompt button. If not implemented, default localized titles are used.
+/// @param taskViewController The calling `ORK1TaskViewController` instance.
+/// @param saveable Whether the task result can be saved. If true, the button is for discarding the results, otherwise the button is for ending the task.
+/// @return A localized string, or nil to use the default text.
+- (nullable NSString *)taskViewController:(ORK1TaskViewController *)taskViewController discardTaskButtonLocalizedTitle:(BOOL)saveable;
+
+@optional
+/// Asks the delegate for a customized button for cancelling an end-task prompt and remaining in the task.  If not implemented, a default "Cancel" title is used.
+/// @param taskViewController The calling `ORK1TaskViewController` instance.
+/// @return A localized string, or nil to use the default text.
+- (nullable NSString *)taskViewControllerCancelEndTaskButtonLocalizedTitle:(ORK1TaskViewController *)taskViewController;
+
 /**
  Asks the delegate if there is Learn More content for this step.
  

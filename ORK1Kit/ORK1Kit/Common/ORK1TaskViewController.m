@@ -1269,6 +1269,9 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     }
     
     NSString *discardTitle = saveable ? ORK1LocalizedString(@"BUTTON_OPTION_DISCARD", nil) : ORK1LocalizedString(@"BUTTON_OPTION_STOP_TASK", nil);
+    if ([self.delegate respondsToSelector:@selector(taskViewController:discardTaskButtonLocalizedTitle:)]) {
+        discardTitle = [self.delegate taskViewController:self discardTaskButtonLocalizedTitle:saveable] ?: discardTitle;
+    }
     
     [alert addAction:[UIAlertAction actionWithTitle:discardTitle
                                               style:UIAlertActionStyleDestructive
@@ -1278,7 +1281,12 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                                                 });
                                             }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:ORK1LocalizedString(@"BUTTON_CANCEL", nil)
+    NSString *cancelTitle = ORK1LocalizedString(@"BUTTON_CANCEL", nil);
+    if ([self.delegate respondsToSelector:@selector(taskViewControllerCancelEndTaskButtonLocalizedTitle:)]) {
+        cancelTitle = [self.delegate taskViewControllerCancelEndTaskButtonLocalizedTitle:self] ?: cancelTitle;
+    }
+    
+    [alert addAction:[UIAlertAction actionWithTitle:cancelTitle
                                               style:UIAlertActionStyleCancel
                                             handler:nil]];
     
