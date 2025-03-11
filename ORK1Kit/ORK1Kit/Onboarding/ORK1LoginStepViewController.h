@@ -45,6 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 ORK1_CLASS_AVAILABLE
 @interface ORK1LoginStepViewController : ORK1FormStepViewController
 
+/// The title for the login button. Default value is supplied by ResearchKit; update this value to customize the button.
+@property (nonatomic, copy) NSString *loginButtonTitle;
+
 /**
  Action method for the forgot password button.
 

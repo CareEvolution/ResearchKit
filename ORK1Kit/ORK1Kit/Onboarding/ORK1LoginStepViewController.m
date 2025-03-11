@@ -38,11 +38,25 @@
 #import "ORK1Helpers_Internal.h"
 
 
-@implementation ORK1LoginStepViewController
+@implementation ORK1LoginStepViewController {
+    NSString *_loginButtonTitle;
+}
 
 - (void)setContinueButtonItem:(UIBarButtonItem *)continueButtonItem {
     [super setContinueButtonItem:continueButtonItem];
-    continueButtonItem.title = ORK1LocalizedString(@"LOGIN_CONTINUE_BUTTON_TITLE", nil);
+    continueButtonItem.title = self.loginButtonTitle;
+}
+
+- (NSString *)loginButtonTitle {
+    if (!_loginButtonTitle) {
+        _loginButtonTitle = ORK1LocalizedString(@"LOGIN_CONTINUE_BUTTON_TITLE", nil);
+    }
+    return _loginButtonTitle;
+}
+
+- (void)setLoginButtonTitle:(NSString *)loginButtonTitle {
+    _loginButtonTitle = loginButtonTitle;
+    self.continueButtonItem.title = loginButtonTitle;
 }
 
 - (void)setSkipButtonItem:(UIBarButtonItem *)skipButtonItem {
