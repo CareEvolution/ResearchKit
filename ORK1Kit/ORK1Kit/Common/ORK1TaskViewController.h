@@ -63,6 +63,16 @@ typedef NS_ENUM(NSInteger, ORK1TaskViewControllerFinishReason) {
     ORK1TaskViewControllerFinishReasonFailed
 };
 
+/// Configuration for customizing "end task"-related prompts during survey presentation. All properties are optional, a `nil` value indicates the ResearchKit default value should be used.
+@protocol ORK1EndTaskPromptConfiguration <NSObject>
+/// Button to dismiss a prompt and *not* end a task.
+@property (readonly, nullable) NSString *cancelEndTaskButtonLocalizedTitle;
+/// Button to confirm ending a task, for a task where results could be saved.
+@property (readonly, nullable) NSString *discardResultsButtonLocalizedTitle;
+/// Button to confirm ending a task, where there are no results to save.
+@property (readonly, nullable) NSString *confirmEndTaskButtonLocalizedTitle;
+@end
+
 /**
  The task view controller delegate is responsible for processing the results
  of the task, exerting some control over how the controller behaves, and providing
@@ -134,17 +144,10 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
 - (BOOL)taskViewControllerShouldConfirmCancel:(ORK1TaskViewController *)taskViewController;
 
 @optional
-/// Asks the delegate for customized button titles for the discard task prompt button. If not implemented, default localized titles are used.
+/// Asks the delegate for optional custom configuration for end-task prompts.
 /// @param taskViewController The calling `ORK1TaskViewController` instance.
-/// @param saveable Whether the task result can be saved. If true, the button is for discarding the results, otherwise the button is for ending the task.
-/// @return A localized string, or nil to use the default text.
-- (nullable NSString *)taskViewController:(ORK1TaskViewController *)taskViewController discardTaskButtonLocalizedTitle:(BOOL)saveable;
-
-@optional
-/// Asks the delegate for a customized button for cancelling an end-task prompt and remaining in the task.  If not implemented, a default "Cancel" title is used.
-/// @param taskViewController The calling `ORK1TaskViewController` instance.
-/// @return A localized string, or nil to use the default text.
-- (nullable NSString *)taskViewControllerCancelEndTaskButtonLocalizedTitle:(ORK1TaskViewController *)taskViewController;
+/// @return A custom configuration. If `nil` or not implemented, a default configuration is used.
+- (nullable id<ORK1EndTaskPromptConfiguration>)taskViewControllerEndTaskPromptConfiguration:(ORK1TaskViewController *)taskViewController;
 
 /**
  Asks the delegate if there is Learn More content for this step.
