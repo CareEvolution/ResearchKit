@@ -1253,6 +1253,11 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         supportSaving = [self.delegate taskViewControllerSupportsSaveAndRestore:self];
     }
     
+    id <ORK1EndTaskPromptConfiguration> configuration = nil;
+    if ([self.delegate respondsToSelector:@selector(taskViewControllerEndTaskPromptConfiguration:)]) {
+        configuration = [self.delegate taskViewControllerEndTaskPromptConfiguration:self];
+    }
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
@@ -1268,7 +1273,9 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                                                 }]];
     }
     
-    NSString *discardTitle = saveable ? ORK1LocalizedString(@"BUTTON_OPTION_DISCARD", nil) : ORK1LocalizedString(@"BUTTON_OPTION_STOP_TASK", nil);
+    NSString *discardTitle = saveable
+    ? (configuration.discardResultsButtonLocalizedTitle ?: ORK1LocalizedString(@"BUTTON_OPTION_DISCARD", nil))
+    : (configuration.confirmEndTaskButtonLocalizedTitle ?: ORK1LocalizedString(@"BUTTON_OPTION_STOP_TASK", nil));
     
     [alert addAction:[UIAlertAction actionWithTitle:discardTitle
                                               style:UIAlertActionStyleDestructive
@@ -1278,7 +1285,9 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                                                 });
                                             }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:ORK1LocalizedString(@"BUTTON_CANCEL", nil)
+    NSString *cancelTitle = configuration.cancelEndTaskButtonLocalizedTitle ?: ORK1LocalizedString(@"BUTTON_CANCEL", nil);
+    
+    [alert addAction:[UIAlertAction actionWithTitle:cancelTitle
                                               style:UIAlertActionStyleCancel
                                             handler:nil]];
     

@@ -63,6 +63,16 @@ typedef NS_ENUM(NSInteger, ORK1TaskViewControllerFinishReason) {
     ORK1TaskViewControllerFinishReasonFailed
 };
 
+/// Configuration for customizing "end task"-related prompts during survey presentation. All properties are optional, a `nil` value indicates the ResearchKit default value should be used.
+@protocol ORK1EndTaskPromptConfiguration <NSObject>
+/// Button to dismiss a prompt and *not* end a task.
+@property (readonly, nullable) NSString *cancelEndTaskButtonLocalizedTitle;
+/// Button to confirm ending a task, for a task where results could be saved.
+@property (readonly, nullable) NSString *discardResultsButtonLocalizedTitle;
+/// Button to confirm ending a task, where there are no results to save.
+@property (readonly, nullable) NSString *confirmEndTaskButtonLocalizedTitle;
+@end
+
 /**
  The task view controller delegate is responsible for processing the results
  of the task, exerting some control over how the controller behaves, and providing
@@ -132,6 +142,12 @@ task view controller and pass that data to `initWithTask:restorationData:` when 
  @return `YES` to confirm cancel action; `NO` to immediately discard the results.
  */
 - (BOOL)taskViewControllerShouldConfirmCancel:(ORK1TaskViewController *)taskViewController;
+
+@optional
+/// Asks the delegate for optional custom configuration for end-task prompts.
+/// @param taskViewController The calling `ORK1TaskViewController` instance.
+/// @return A custom configuration. If `nil` or not implemented, a default configuration is used.
+- (nullable id<ORK1EndTaskPromptConfiguration>)taskViewControllerEndTaskPromptConfiguration:(ORK1TaskViewController *)taskViewController;
 
 /**
  Asks the delegate if there is Learn More content for this step.
