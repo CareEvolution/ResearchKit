@@ -211,6 +211,12 @@ ORK1_CLASS_AVAILABLE
  */
 - (void)finish;
 
+/**
+ Triggers the step to advance once the recorders have completed;
+ - Parameter stepDidFinishOnly: do not explicity call goForward on self when recorders are done (for steps that goForward without calling finish)
+ */
+- (void)goForwardOnceRecordersHaveCompleted:(BOOL)stepDidFinishOnly;
+
 /// @name Recorder life cycle
 
 /**

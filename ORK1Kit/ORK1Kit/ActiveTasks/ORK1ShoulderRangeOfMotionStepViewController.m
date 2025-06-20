@@ -40,11 +40,14 @@
 - (ORK1Result *)result {
     ORK1StepResult *stepResult = [super result];
     
-    ORK1RangeOfMotionResult *result = [[ORK1RangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
-    result.flexed = 90.0 - _flexedAngle;
-    result.extended = result.flexed + _rangeOfMotionAngle;
+    NSMutableArray *results = [NSMutableArray arrayWithArray:stepResult.results];
     
-    stepResult.results = [self.addedResults arrayByAddingObject:result] ? : @[result];
+    ORK1RangeOfMotionResult *rangeOfMotionResult = [[ORK1RangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
+    rangeOfMotionResult.flexed = 90.0 - _flexedAngle;
+    rangeOfMotionResult.extended = rangeOfMotionResult.flexed + _rangeOfMotionAngle;
+    [results addObject:rangeOfMotionResult];
+    
+    stepResult.results = [results copy];
     
     return stepResult;
 }

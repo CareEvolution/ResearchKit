@@ -327,11 +327,6 @@ ORK1_CLASS_AVAILABLE
   */
 @property (nonatomic, assign) double extended;
 
-/**
- The recorder output - usually the device motion recorder.
-  */
-@property (nonatomic, strong) ORK1FileResult *fileResult;
-
 @end
 
 

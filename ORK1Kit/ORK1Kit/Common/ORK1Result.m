@@ -258,7 +258,6 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     [super encodeWithCoder:aCoder];
     ORK1_ENCODE_DOUBLE(aCoder, flexed);
     ORK1_ENCODE_DOUBLE(aCoder, extended);
-    ORK1_ENCODE_OBJ(aCoder, fileResult);
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -266,7 +265,6 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     if (self) {
         ORK1_DECODE_DOUBLE(aDecoder, flexed);
         ORK1_DECODE_DOUBLE(aDecoder, extended);
-        ORK1_DECODE_OBJ_CLASS(aDecoder, fileResult, ORK1FileResult);
     }
     return self;
 }
@@ -280,24 +278,18 @@ const NSUInteger NumberOfPaddingSpacesForIndentationLevel = 4;
     __typeof(self) castObject = object;
     return (isParentSame &&
             self.flexed == castObject.flexed &&
-            self.extended == castObject.extended &&
-            ORK1EqualObjects(self.fileResult, castObject.fileResult));
-}
-
-- (NSUInteger)hash {
-    return super.hash ^ self.fileResult.hash;
+            self.extended == castObject.extended);
 }
 
 - (instancetype)copyWithZone:(NSZone *)zone {
     ORK1RangeOfMotionResult *result = [super copyWithZone:zone];
     result.flexed = self.flexed;
     result.extended = self.extended;
-    result.fileResult = self.fileResult;
     return result;
 }
 
 - (NSString *)descriptionWithNumberOfPaddingSpaces:(NSUInteger)numberOfPaddingSpaces {
-    return [NSString stringWithFormat:@"<%@: flexion: %f; extension: %f; fileResult: %@>", self.class.description, self.flexed, self.extended, self.fileResult.description];
+    return [NSString stringWithFormat:@"<%@: flexion: %f; extension: %f>", self.class.description, self.flexed, self.extended];
 }
 
 @end

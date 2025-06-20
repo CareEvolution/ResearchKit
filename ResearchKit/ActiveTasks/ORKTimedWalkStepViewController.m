@@ -91,10 +91,15 @@
     self.timerUpdateInterval = 0.1f;
 }
 
-- (void)finish {
+// The ORKTimedWalkStepViewController expects the Next button to trigger goForward and doesn't call finish explicitly
+- (void)goForward {
+    [super stopRecorders];
+    [super goForwardOnceRecordersHaveCompleted:YES];
+}
+
+- (void)stepDidFinish {
     [super finish];
-    
-    [self goForward];
+    [super goForward];
 }
 
 - (void)countDownTimerFired:(ORKActiveStepTimer *)timer finished:(BOOL)finished {

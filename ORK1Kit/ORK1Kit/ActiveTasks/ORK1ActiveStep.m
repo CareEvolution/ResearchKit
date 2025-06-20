@@ -102,6 +102,7 @@
     step.spokenInstruction = self.spokenInstruction;
     step.finishedSpokenInstruction = self.finishedSpokenInstruction;
     step.recorderConfigurations = [self.recorderConfigurations copy];
+    step.recordersMustCompleteBeforeAdvancingStep = self.recordersMustCompleteBeforeAdvancingStep;
     step.image = self.image;
     step.imageAltText = self.imageAltText;
     return step;
@@ -126,6 +127,7 @@
         ORK1_DECODE_IMAGE(aDecoder, image);
         ORK1_DECODE_OBJ_CLASS(aDecoder, imageAltText, NSString);
         ORK1_DECODE_OBJ_ARRAY(aDecoder, recorderConfigurations, ORK1RecorderConfiguration);
+        ORK1_DECODE_BOOL(aDecoder, recordersMustCompleteBeforeAdvancingStep);
     }
     return self;
 }
@@ -148,6 +150,7 @@
     ORK1_ENCODE_OBJ(aCoder, spokenInstruction);
     ORK1_ENCODE_OBJ(aCoder, finishedSpokenInstruction);
     ORK1_ENCODE_OBJ(aCoder, recorderConfigurations);
+    ORK1_ENCODE_BOOL(aCoder, recordersMustCompleteBeforeAdvancingStep);
 }
 
 - (BOOL)isEqual:(id)object {
@@ -170,7 +173,8 @@
             (self.shouldVibrateOnStart == castObject.shouldVibrateOnStart) &&
             (self.shouldVibrateOnFinish == castObject.shouldVibrateOnFinish) &&
             (self.shouldContinueOnFinish == castObject.shouldContinueOnFinish) &&
-            (self.shouldUseNextAsSkipButton == castObject.shouldUseNextAsSkipButton));
+            (self.shouldUseNextAsSkipButton == castObject.shouldUseNextAsSkipButton) &&
+            (self.recordersMustCompleteBeforeAdvancingStep == castObject.recordersMustCompleteBeforeAdvancingStep));
 }
 
 - (NSSet<HKObjectType *> *)requestedHealthKitTypesForReading {
