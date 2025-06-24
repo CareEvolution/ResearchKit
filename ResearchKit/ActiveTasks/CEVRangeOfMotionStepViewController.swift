@@ -37,9 +37,8 @@ public class CEVRangeOfMotionStepViewController: ORKRangeOfMotionStepViewControl
             result.flexed = lowestAngle
             result.extended = highestAngle
         }
-        result.fileResult = self.fileResult
         
-        stepResult?.results = (self.addedResults ?? []) + [result]
+        stepResult?.results = (stepResult?.results ?? []) + [result]
         
         return stepResult
     }

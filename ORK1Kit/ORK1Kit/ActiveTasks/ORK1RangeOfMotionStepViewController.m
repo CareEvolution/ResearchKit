@@ -175,12 +175,6 @@
     _lastAngle = angle;
 }
 
-#pragma mark - ORK1RecorderDelegate
-
-- (void)recorder:(ORK1Recorder *)recorder didCompleteWithResult:(ORK1Result *)result {
-    self.fileResult = (ORK1FileResult *)result;
-}
-
 /*
  When the device is in Portrait mode, we need to get the attitude's pitch
  to determine the device's angle. attitude.pitch doesn't return all
@@ -209,14 +203,12 @@
 
 - (ORK1Result *)result {
     ORK1StepResult *stepResult = [super result];
-    
-    ORK1RangeOfMotionResult *result = [[ORK1RangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
-    result.flexed = _flexedAngle;
-    result.extended = result.flexed - _rangeOfMotionAngle;
-    result.fileResult = _fileResult;
-    
-    stepResult.results = [self.addedResults arrayByAddingObject:result] ? : @[result];
-    
+    NSMutableArray *results = [NSMutableArray arrayWithArray:stepResult.results];
+    ORK1RangeOfMotionResult *rangeOfMotionResult = [[ORK1RangeOfMotionResult alloc] initWithIdentifier:self.step.identifier];
+    rangeOfMotionResult.flexed = _flexedAngle;
+    rangeOfMotionResult.extended = rangeOfMotionResult.flexed - _rangeOfMotionAngle;
+    [results addObject:rangeOfMotionResult];
+    stepResult.results = [results copy];
     return stepResult;
 }
 

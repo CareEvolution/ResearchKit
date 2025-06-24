@@ -219,6 +219,12 @@ The default value of this property is `NO`.
  */
 @property (nonatomic, copy, nullable) NSArray<ORK1RecorderConfiguration *> *recorderConfigurations;
 
+/**
+ A Boolean value that indicates whether the step must wait for all recorders to complete, returning a result
+ or error before allowing the step to proceed.
+ */
+@property (nonatomic) BOOL recordersMustCompleteBeforeAdvancingStep;
+
 @end
 
 NS_ASSUME_NONNULL_END

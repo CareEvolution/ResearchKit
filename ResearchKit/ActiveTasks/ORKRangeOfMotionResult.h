@@ -54,11 +54,6 @@ ORK_CLASS_AVAILABLE
  */
 @property (nonatomic, assign) double extended;
 
-/**
- The recorder output - usually the device motion recorder.
-  */
-@property (nonatomic, strong) ORKFileResult *fileResult;
-
 @end
 
 NS_ASSUME_NONNULL_END

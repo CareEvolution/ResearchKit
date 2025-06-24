@@ -50,6 +50,7 @@
         self.shouldContinueOnFinish = YES;
         self.shouldStartTimerAutomatically = YES;
         self.limbOption = limbOption;
+        self.recordersMustCompleteBeforeAdvancingStep = YES;
     }
     return self;
 }

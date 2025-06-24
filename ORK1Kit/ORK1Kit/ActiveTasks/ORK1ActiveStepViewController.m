@@ -59,6 +59,9 @@
 
     NSArray *_recorderResults;
     
+    NSMutableSet *_recordersRunning;     // only accessed on the main queue
+    NSInteger _recordersCheckLoopCount;  // only accessed on the main queue
+    
     SystemSoundID _alertSound;
     NSURL *_alertSoundURL;
     BOOL _hasSpokenHalfwayCountdown;
@@ -76,6 +79,8 @@
     self = [super initWithStep:step];
     if (self) {
         _recorderResults = [NSArray new];
+        _recordersRunning = [NSMutableSet new];
+        _recordersCheckLoopCount = 0;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -292,6 +297,9 @@
     for (ORK1Recorder *recorder in self.recorders) {
         [recorder viewController:self willStartStepWithView:self.customViewContainer];
         [recorder start];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_recordersRunning addObject:recorder];
+        });
     }
 }
 
@@ -381,10 +389,37 @@
     }
     if (!self.activeStep.startsFinished) {
         if (self.activeStep.shouldContinueOnFinish) {
-            [self goForward];
+            if (self.activeStep.recordersMustCompleteBeforeAdvancingStep) {
+                [self goForwardOnceRecordersHaveCompleted:NO];
+            } else {
+                [self goForward];
+            }
         }
     }
     [self stepDidFinish];
+}
+
+- (void)goForwardOnceRecordersHaveCompleted:(BOOL)stepDidFinishOnly {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([_recordersRunning count] == 0) {
+            if (!stepDidFinishOnly) {
+                [self goForward];
+            }
+            [self stepDidFinish];
+        } else if (_recordersCheckLoopCount > 10) {
+            NSLog(@"Recorders are still not complete after 10 wait cycles, data may be lost in final result.");
+            if (!stepDidFinishOnly) {
+                [self goForward];
+            }
+            [self stepDidFinish];
+        } else {
+            _recordersCheckLoopCount += 1;
+            NSLog(@"Waiting for [%lu] recorders to complete...", [_recordersRunning count]);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self goForwardOnceRecordersHaveCompleted:stepDidFinishOnly];
+            });
+        }
+    });
 }
 
 - (void)dealloc {
@@ -470,6 +505,9 @@
 
 - (void)recorder:(ORK1Recorder *)recorder didCompleteWithResult:(ORK1Result *)result {
     _recorderResults = [_recorderResults arrayByAddingObject:result];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_recordersRunning removeObject:recorder];
+    });
     [self notifyDelegateOnResultChange];
 }
 
@@ -488,6 +526,9 @@
             self.outputDirectory == nil) {
             [strongDelegate stepViewControllerDidFail:self withError:error];
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_recordersRunning removeObject:recorder];
+        });
     }
 }
 

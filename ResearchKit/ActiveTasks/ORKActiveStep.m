@@ -102,6 +102,7 @@
     step.spokenInstruction = self.spokenInstruction;
     step.finishedSpokenInstruction = self.finishedSpokenInstruction;
     step.recorderConfigurations = [self.recorderConfigurations copy];
+    step.recordersMustCompleteBeforeAdvancingStep = self.recordersMustCompleteBeforeAdvancingStep;
     step.image = self.image;
     step.imageAltText = self.imageAltText;
     step.isPractice = self.isPractice;
@@ -128,6 +129,7 @@
         ORK_DECODE_OBJ_CLASS(aDecoder, imageAltText, NSString);
         ORK_DECODE_OBJ_ARRAY(aDecoder, recorderConfigurations, ORKRecorderConfiguration);
         ORK_DECODE_BOOL(aDecoder, isPractice);
+        ORK_DECODE_BOOL(aDecoder, recordersMustCompleteBeforeAdvancingStep);
     }
     return self;
 }
@@ -151,6 +153,7 @@
     ORK_ENCODE_OBJ(aCoder, finishedSpokenInstruction);
     ORK_ENCODE_OBJ(aCoder, recorderConfigurations);
     ORK_ENCODE_BOOL(aCoder, isPractice);
+    ORK_ENCODE_BOOL(aCoder, recordersMustCompleteBeforeAdvancingStep);
 }
 
 - (BOOL)isEqual:(id)object {
@@ -174,7 +177,8 @@
             (self.shouldVibrateOnFinish == castObject.shouldVibrateOnFinish) &&
             (self.shouldContinueOnFinish == castObject.shouldContinueOnFinish) &&
             (self.shouldUseNextAsSkipButton == castObject.shouldUseNextAsSkipButton) &&
-            (self.isPractice == castObject.isPractice));
+            (self.isPractice == castObject.isPractice) &&
+            (self.recordersMustCompleteBeforeAdvancingStep == castObject.recordersMustCompleteBeforeAdvancingStep));
 }
 
 - (NSSet<HKObjectType *> *)requestedHealthKitTypesForReading {
