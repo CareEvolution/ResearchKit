@@ -267,6 +267,14 @@ static const CGFloat shadowHeight = 0.75;
     [self arrangeSubStacks];
 }
 
+- (void)didMoveToWindow {
+    _appTintColor = ORKViewTintColor(self);
+    
+    _cancelButton.normalTintColor = _appTintColor;
+    _continueButton.normalTintColor = _appTintColor;
+    _skipButton.normalTintColor = _appTintColor;
+}
+
 - (void)setupGrandparentStackView {
     if (!_grandparentStackView) {
         _grandparentStackView = [[UIStackView alloc] init];
@@ -351,7 +359,6 @@ static const CGFloat shadowHeight = 0.75;
             [_parentStackView addArrangedSubview:subStack];
         }
     }
-    _appTintColor = [UIApplication sharedApplication].windows.firstObject.tintColor;
     [self setupContinueButton];
     [self setupCancelButton];
     [self setupSkipButton];
