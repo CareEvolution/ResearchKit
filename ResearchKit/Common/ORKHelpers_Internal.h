@@ -170,6 +170,11 @@ ORK_EXTERN NSString *ORKFileProtectionFromMode(ORKFileProtectionMode mode);
 CGFloat ORKExpectedLabelHeight(UILabel *label);
 void ORKAdjustHeightForLabel(UILabel *label);
 
+#if TARGET_OS_IOS
+UIColor * _Nullable ORKWindowTintColor(UIWindow *window);
+UIColor * ORKViewTintColor(UIView *view);
+#endif
+
 // build a image with color
 UIImage *ORKImageWithColor(UIColor *color);
 

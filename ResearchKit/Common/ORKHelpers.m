@@ -179,6 +179,36 @@ void ORKAdjustHeightForLabel(UILabel *label) {
     label.frame = rect;
 }
 
+#if TARGET_OS_IOS
+UIColor *ORKWindowTintColor(UIWindow *window) {
+    UIColor *windowTintColor = window.tintColor;
+    if (!windowTintColor) {
+        return nil;
+    }
+    
+    //Return nil if the window tint color is clear
+    CGFloat redColor;
+    CGFloat blueColor;
+    CGFloat greenColor;
+    CGFloat alpha;
+    
+    [window.tintColor getRed:&redColor green:&greenColor blue:&blueColor alpha:&alpha];
+    
+    if (redColor == 0 && blueColor == 0 && greenColor == 0 && alpha == 0) {
+        return nil;
+    }
+    
+    return windowTintColor;
+}
+
+UIColor *ORKViewTintColor(UIView *view) {
+    UIColor *existingTintColor = view.tintColor ? : [UIColor systemBlueColor];
+    UIColor *tintColor = ORKWindowTintColor(view.window) ? : existingTintColor;
+
+    return tintColor;
+}
+#endif
+
 UIImage *ORKImageWithColor(UIColor *color) {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
