@@ -2,6 +2,8 @@ name: CI
 on:
   pull_request:
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   build:
     runs-on: macos-26
@@ -15,6 +17,7 @@ jobs:
         with:
           token: ${{ secrets.CAREEVOLUTIONBUILD_TOKEN }}
           submodules: 'recursive'
+          persist-credentials: false
       - name: Build
         run: |
           set -o pipefail
