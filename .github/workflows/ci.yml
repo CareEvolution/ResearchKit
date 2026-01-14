@@ -11,7 +11,7 @@ jobs:
       destination_ios: 'platform=iOS Simulator,OS=26.2,name=iPhone 17'
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.CAREEVOLUTIONBUILD_TOKEN }}
           submodules: 'recursive'
