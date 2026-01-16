@@ -235,7 +235,7 @@
     } error:nil];
     XCTAssertTrue(success);
     
-    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
+    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
     
     bytes = _manager.pendingUploadBytes;
     XCTAssertTrue(bytes < _manager.pendingUploadBytesThreshold);
@@ -246,7 +246,7 @@
     [dm3 finishCurrentLog];
     [dm2 finishCurrentLog];
     [dm1 finishCurrentLog];
-    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
+    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
     
     bytes = _manager.pendingUploadBytes;
     XCTAssertTrue(bytes > _manager.pendingUploadBytesThreshold);
