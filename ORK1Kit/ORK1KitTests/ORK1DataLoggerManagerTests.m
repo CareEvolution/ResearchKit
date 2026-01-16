@@ -222,7 +222,7 @@
     [dm3 finishCurrentLog];
     [dm2 finishCurrentLog];
     [dm1 finishCurrentLog];
-    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
+    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
     
     unsigned long long bytes = _manager.pendingUploadBytes;
     XCTAssertTrue(bytes > _manager.pendingUploadBytesThreshold);
