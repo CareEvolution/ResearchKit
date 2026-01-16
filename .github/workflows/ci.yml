@@ -2,30 +2,33 @@ name: CI
 on:
   pull_request:
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-26
     env:
-      # https://github.com/actions/runner-images/blob/main/images/macos/macos-14-arm64-Readme.md
-      xcode: '/Applications/Xcode_15.2.app'
-      destination_ios17: 'platform=iOS Simulator,OS=17.2,name=iPhone 15'
+      # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
+      xcode: '/Applications/Xcode_26.2.app'
+      destination_ios: 'platform=iOS Simulator,OS=26.2,name=iPhone 17'
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.CAREEVOLUTIONBUILD_TOKEN }}
           submodules: 'recursive'
+          persist-credentials: false
       - name: Build
         run: |
           set -o pipefail
-          xcodebuild build-for-testing -workspace 'RKWorkspace.xcworkspace' -scheme 'ORK1Kit' -destination '${{ env.destination_ios17 }}' IS_TRAVIS_CI=true | xcpretty
-          xcodebuild build-for-testing -workspace 'RKWorkspace.xcworkspace' -scheme 'ResearchKit' -destination '${{ env.destination_ios17 }}' IS_TRAVIS_CI=true | xcpretty
+          xcodebuild build-for-testing -workspace 'RKWorkspace.xcworkspace' -scheme 'ORK1Kit' -destination '${{ env.destination_ios }}' IS_TRAVIS_CI=true | xcpretty
+          xcodebuild build-for-testing -workspace 'RKWorkspace.xcworkspace' -scheme 'ResearchKit' -destination '${{ env.destination_ios }}' IS_TRAVIS_CI=true | xcpretty
         env:
           DEVELOPER_DIR: ${{ env.xcode }}/Contents/Developer
       - name: Test
         run: |
           set -o pipefail
-          xcodebuild test-without-building -workspace 'RKWorkspace.xcworkspace' -scheme 'ORK1Kit' -destination '${{ env.destination_ios17 }}' IS_TRAVIS_CI=true | xcpretty
-          xcodebuild test-without-building -workspace 'RKWorkspace.xcworkspace' -scheme 'ResearchKit' -destination '${{ env.destination_ios17 }}' IS_TRAVIS_CI=true | xcpretty
+          xcodebuild test-without-building -workspace 'RKWorkspace.xcworkspace' -scheme 'ORK1Kit' -destination '${{ env.destination_ios }}' IS_TRAVIS_CI=true | xcpretty
+          xcodebuild test-without-building -workspace 'RKWorkspace.xcworkspace' -scheme 'ResearchKit' -destination '${{ env.destination_ios }}' IS_TRAVIS_CI=true | xcpretty
         env:
           DEVELOPER_DIR: ${{ env.xcode }}/Contents/Developer

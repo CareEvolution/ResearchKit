@@ -93,7 +93,7 @@ static const NSTimeInterval OutcomeAnimationDuration = 0.3;
 
 #if TARGET_IPHONE_SIMULATOR
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if (event.type == UIEventSubtypeMotionShake) {
+    if (event.subtype == UIEventSubtypeMotionShake) {
         if (_validResult) {
             ORK1ReactionTimeResult *reactionTimeResult = [[ORK1ReactionTimeResult alloc] initWithIdentifier:self.step.identifier];
             reactionTimeResult.timestamp = _stimulusTimestamp;
