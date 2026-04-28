@@ -189,7 +189,7 @@
 		71769E3E20884DB800A19914 /* ORKdBHLToneAudiometryStepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71769E3C20884DB800A19914 /* ORKdBHLToneAudiometryStepViewController.m */; };
 		71B7B4DA20AA91D400C5768A /* retspl_AIRPODS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71B7B4D420AA91D300C5768A /* retspl_AIRPODS.plist */; };
 		71B7B4DE20AA91D400C5768A /* frequency_dBSPL_AIRPODS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71B7B4D820AA91D400C5768A /* frequency_dBSPL_AIRPODS.plist */; };
-		71B7B4DF20AA91D400C5768A /* volume_curve_AIRPODS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71B7B4D920AA91D400C5768A /* volume_curve_AIRPODS.plist */; };
+		71B7B4DF20AA91D400C5768A /* volume_curve_Airpods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71B7B4D920AA91D400C5768A /* volume_curve_Airpods.plist */; };
 		71BD9EA520969BE1007B436E /* ORKEnvironmentSPLMeterStep.h in Headers */ = {isa = PBXBuildFile; fileRef = 71BD9EA320969BE1007B436E /* ORKEnvironmentSPLMeterStep.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		71BD9EA620969BE1007B436E /* ORKEnvironmentSPLMeterStep.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BD9EA420969BE1007B436E /* ORKEnvironmentSPLMeterStep.m */; };
 		71BD9EA920969EED007B436E /* ORKEnvironmentSPLMeterStepViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 71BD9EA720969EED007B436E /* ORKEnvironmentSPLMeterStepViewController.h */; };
@@ -929,7 +929,7 @@
 		71769E3C20884DB800A19914 /* ORKdBHLToneAudiometryStepViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKdBHLToneAudiometryStepViewController.m; sourceTree = "<group>"; };
 		71B7B4D420AA91D300C5768A /* retspl_AIRPODS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = retspl_AIRPODS.plist; sourceTree = "<group>"; };
 		71B7B4D820AA91D400C5768A /* frequency_dBSPL_AIRPODS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = frequency_dBSPL_AIRPODS.plist; sourceTree = "<group>"; };
-		71B7B4D920AA91D400C5768A /* volume_curve_AIRPODS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = volume_curve_AIRPODS.plist; sourceTree = "<group>"; };
+		71B7B4D920AA91D400C5768A /* volume_curve_Airpods.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = volume_curve_Airpods.plist; sourceTree = "<group>"; };
 		71BD9EA320969BE1007B436E /* ORKEnvironmentSPLMeterStep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORKEnvironmentSPLMeterStep.h; sourceTree = "<group>"; };
 		71BD9EA420969BE1007B436E /* ORKEnvironmentSPLMeterStep.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKEnvironmentSPLMeterStep.m; sourceTree = "<group>"; };
 		71BD9EA720969EED007B436E /* ORKEnvironmentSPLMeterStepViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORKEnvironmentSPLMeterStepViewController.h; sourceTree = "<group>"; };
@@ -1928,7 +1928,7 @@
 				713D4B1B20FE5464002BE28D /* frequency_dBSPL_EARPODS.plist */,
 				71B7B4D420AA91D300C5768A /* retspl_AIRPODS.plist */,
 				713D4B1D20FE5480002BE28D /* retspl_EARPODS.plist */,
-				71B7B4D920AA91D400C5768A /* volume_curve_AIRPODS.plist */,
+				71B7B4D920AA91D400C5768A /* volume_curve_Airpods.plist */,
 				713D4B0F20FE4702002BE28D /* volume_curve_WIRED.plist */,
 			);
 			name = "dBHL Tone Audiometry";
@@ -3617,7 +3617,7 @@
 				B1A860EF1A9693C400EA57B7 /* consent_06@2x.m4v in Resources */,
 				B1A860EC1A9693C400EA57B7 /* consent_03@2x.m4v in Resources */,
 				B1A860F41A9693C400EA57B7 /* consent_04@3x.m4v in Resources */,
-				71B7B4DF20AA91D400C5768A /* volume_curve_AIRPODS.plist in Resources */,
+				71B7B4DF20AA91D400C5768A /* volume_curve_Airpods.plist in Resources */,
 				B1A860ED1A9693C400EA57B7 /* consent_04@2x.m4v in Resources */,
 				7118AC6820BF6A3A00D7A6BB /* Sentence4.wav in Resources */,
 				BA22F76D20C4F884006E6E11 /* SentencesList.txt in Resources */,
