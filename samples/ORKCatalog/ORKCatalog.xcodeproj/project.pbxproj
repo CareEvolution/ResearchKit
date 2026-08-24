@@ -81,7 +81,7 @@
 		246DFA261BEAE26200591E9A /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = en_GB.lproj/Localizable.strings; sourceTree = "<group>"; };
 		246DFA271BEAE27000591E9A /* en-AU */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-AU"; path = en_AU.lproj/Localizable.strings; sourceTree = "<group>"; };
 		246DFA281BEAE2A800591E9A /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = zh_HK.lproj/Localizable.strings; sourceTree = "<group>"; };
-		3E39B9E81ABF675000C2ABE5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3E39B9E81ABF675000C2ABE5 /* readme.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
 		3E39B9FA1ABF682D00C2ABE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E39B9FD1ABF683700C2ABE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		3E39B9FF1ABF683F00C2ABE5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 		869230B51AAA890A00BFE11B = {
 			isa = PBXGroup;
 			children = (
-				3E39B9E81ABF675000C2ABE5 /* README.md */,
+				3E39B9E81ABF675000C2ABE5 /* readme.md */,
 				BC2A3C9E1C58E81500DA64B7 /* Frameworks */,
 				869230C01AAA890A00BFE11B /* ORKCatalog */,
 				869230BF1AAA890A00BFE11B /* Products */,
