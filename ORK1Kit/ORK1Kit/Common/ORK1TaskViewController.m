@@ -283,6 +283,11 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     self.hairline.alpha = 0.0f;
     self.childNavigationController.toolbar.clipsToBounds = YES;
     
+    if (@available(iOS 26.0, *)) {
+        // ResearchKit views render poorly with translucent navigation bars on iOS 26
+        self.childNavigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    }
+    
     // Ensure taskRunUUID has non-nil valuetaskRunUUID
     (void)[self taskRunUUID];
     self.restorationClass = [ORK1TaskViewController class];
@@ -1026,6 +1031,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                 // remove any progress
                 strongSelf.pageViewController.navigationItem.titleView = nil;
                 strongSelf.pageViewController.navigationItem.title = nil;
+                strongSelf.progressView.hidden = YES;
             } else {
                 ORK1OrderedTask *orderedTask = (ORK1OrderedTask *)strongSelf.task;
                 if (orderedTask.progressIndicatorStyle == CEVRK1TaskProgressIndicatorStyleBar) {
@@ -1038,9 +1044,11 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                     }
                     [strongSelf.progressView setProgress:calculatedProgress withTheme:[CEVRK1Theme themeForElement:strongSelf.currentStepViewController] animated:animated];
                     [strongSelf configureProgressView];
+                    strongSelf.progressView.hidden = NO;
                 } else {
                     strongSelf.pageViewController.navigationItem.titleView = nil;
                     strongSelf.pageViewController.navigationItem.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"STEP_PROGRESS_FORMAT", nil) ,ORK1LocalizedStringFromNumber(@(taskProgress.current)), ORK1LocalizedStringFromNumber(@(taskProgress.total))];
+                    strongSelf.progressView.hidden = YES;
                 }
             }
         }

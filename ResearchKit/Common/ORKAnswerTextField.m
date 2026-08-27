@@ -68,11 +68,17 @@
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                       target:nil action:nil];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]
-                                   initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                   target:self action:@selector(keyboardAccessoryViewDoneButtonPressed)];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:ORKLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(keyboardAccessoryViewDoneButtonPressed)];
+    
+    if (@available(iOS 26.0, *)) {
+        doneButton.hidesSharedBackground = YES;
+        accessoryViewWithDoneButton.backgroundColor = ORKColor(ORKToolBarTintColorKey);
+        doneButton.tintColor = ORKViewTintColor(self);
+    } else {
+        [accessoryViewWithDoneButton setBarTintColor:ORKColor(ORKBackgroundColorKey)];
+    }
+    
     accessoryViewWithDoneButton.items = @[flexibleSpace, doneButton];
-    [accessoryViewWithDoneButton setBarTintColor:ORKColor(ORKBackgroundColorKey)];
     self.inputAccessoryView = accessoryViewWithDoneButton;
 }
 

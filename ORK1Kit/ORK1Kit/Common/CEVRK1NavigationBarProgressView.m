@@ -27,17 +27,29 @@
 
 - (void)createConstraints {
     _progressView = [[UIProgressView alloc] initWithFrame:CGRectZero];
-    _progressView.backgroundColor = [UIColor whiteColor];
     _progressView.progress = 0;
     self.accessibilityElements = @[_progressView];
     self.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:_progressView];
     _progressView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    [NSLayoutConstraint activateConstraints:@[
-        [_progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:0], //10],
-        [_progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:0], //-30],
-    ]];
+    if (@available(iOS 26.0, *)) {
+        _progressView.backgroundColor = [UIColor whiteColor];
+        [NSLayoutConstraint activateConstraints:@[
+            [_progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:0], //10],
+            [_progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:0], //-30],
+        ]];
+    } else {
+        // This forces the bar to stretch so the ORK1ProgressView will attempt to take up the entire available width
+        NSLayoutConstraint *widthConstraint = [self.widthAnchor constraintEqualToConstant:200];
+        widthConstraint.priority = UILayoutPriorityDefaultHigh;
+        [NSLayoutConstraint activateConstraints:@[
+            [_progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:10],
+            [_progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-30],
+            [_progressView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
+            widthConstraint
+        ]];
+    }
 }
 
 - (float)progress {
