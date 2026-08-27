@@ -279,7 +279,6 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     
     self.taskRunUUID = taskRunUUID;
     
-    [self.childNavigationController.navigationBar setShadowImage:[UIImage new]];
     self.hairline = [self findHairlineViewUnder:self.childNavigationController.navigationBar];
     self.hairline.alpha = 0.0f;
     self.childNavigationController.toolbar.clipsToBounds = YES;
@@ -1037,13 +1036,8 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                     } else {  // Linear
                         calculatedProgress = (float)taskProgress.current / (float)taskProgress.total;
                     }
-                    [strongSelf.progressView setProgress:calculatedProgress withTheme:[CEVRK1Theme themeForElement:strongSelf.currentStepViewController]];
-                    strongSelf.pageViewController.navigationItem.titleView = strongSelf.progressView;
-                    
-                    // for UITesting, we will add a title that will not display, but should appear via accessibility
-                    NSUInteger progressPercent = (NSUInteger)(calculatedProgress * 100);
-                    strongSelf.pageViewController.navigationItem.title = [NSString stringWithFormat:@"ProgressBar:%@", @(progressPercent)];
-                    
+                    [strongSelf.progressView setProgress:calculatedProgress withTheme:[CEVRK1Theme themeForElement:strongSelf.currentStepViewController] animated:animated];
+                    [strongSelf configureProgressView];
                 } else {
                     strongSelf.pageViewController.navigationItem.titleView = nil;
                     strongSelf.pageViewController.navigationItem.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"STEP_PROGRESS_FORMAT", nil) ,ORK1LocalizedStringFromNumber(@(taskProgress.current)), ORK1LocalizedStringFromNumber(@(taskProgress.total))];
@@ -1056,6 +1050,35 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         // Collect toolbarItems
         [strongSelf collectToolbarItemsFromViewController:viewController];
     }];
+}
+
+- (void)configureProgressView {
+    if (@available(iOS 26.0, *)) {
+        self.pageViewController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        self.pageViewController.navigationItem.title = nil;
+        
+        CEVRK1NavigationBarProgressView *progressView = self.progressView;
+        if (!progressView.superview) {
+            NSLog(@"configure progress");
+            UINavigationBar *navigationBar = self.childNavigationController.navigationBar;
+            navigationBar.opaque = YES;
+            navigationBar.translucent = NO;
+            
+            progressView.translatesAutoresizingMaskIntoConstraints = NO;
+            [navigationBar addSubview:progressView];
+            [NSLayoutConstraint activateConstraints:@[
+                [NSLayoutConstraint constraintWithItem:progressView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:navigationBar attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0],
+                [NSLayoutConstraint constraintWithItem:progressView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:navigationBar.safeAreaLayoutGuide attribute:NSLayoutAttributeLeftMargin multiplier:1.0 constant:10],
+                [NSLayoutConstraint constraintWithItem:progressView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:navigationBar.safeAreaLayoutGuide attribute:NSLayoutAttributeRightMargin multiplier:1.0 constant:-10]
+            ]];
+        }
+    } else {
+        self.pageViewController.navigationItem.titleView = self.progressView;
+        
+        // for UITesting, we will add a title that will not display, but should appear via accessibility
+        NSUInteger progressPercent = (NSUInteger)(self.progressView.progress * 100);
+        self.pageViewController.navigationItem.title = [NSString stringWithFormat:@"ProgressBar:%@", @(progressPercent)];
+    }
 }
 
 - (BOOL)shouldPresentStep:(ORK1Step *)step {
