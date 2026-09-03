@@ -154,9 +154,27 @@ static NSString *const ResearchKitCompleteStepMessageName = @"ResearchKit";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _webView.frame = self.view.bounds;
-    _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_webView];
+    _webView.translatesAutoresizingMaskIntoConstraints = NO;
+
+    // Top edge: on iOS 26+, pin to the safe area rather than the raw view edge, so this full-bleed
+    // view still reserves space for CEVRK1's navigation-bar progress view (added via
+    // additionalSafeAreaInsets in ORK1TaskViewController's configureProgressView) instead of
+    // rendering underneath it. Leading/trailing/bottom stay pinned to the raw edges (unchanged,
+    // still full-bleed there) — the nav bar is already opaque on iOS 26+ regardless of progress
+    // style (see ORK1TaskViewController commonInit), so this is a no-op except when the extra
+    // progress-bar inset is actually present. iOS <26 is left on the original raw-edge pin
+    // (previously achieved via frame = self.view.bounds; now via an equivalent top anchor).
+    NSLayoutYAxisAnchor *topAnchor = self.view.topAnchor;
+    if (@available(iOS 26.0, *)) {
+        topAnchor = self.view.safeAreaLayoutGuide.topAnchor;
+    }
+    [NSLayoutConstraint activateConstraints:@[
+        [_webView.topAnchor constraintEqualToAnchor:topAnchor],
+        [_webView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+        [_webView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+        [_webView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+    ]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

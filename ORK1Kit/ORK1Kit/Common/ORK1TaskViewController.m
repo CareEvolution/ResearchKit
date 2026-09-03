@@ -1077,8 +1077,8 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         self.pageViewController.navigationItem.title = [NSString stringWithFormat:@"ProgressBar:%@", @(progressPercent)];
 
         CEVRK1NavigationBarProgressView *progressView = self.progressView;
+        UINavigationBar *navigationBar = self.childNavigationController.navigationBar;
         if (!progressView.superview) {
-            UINavigationBar *navigationBar = self.childNavigationController.navigationBar;
             navigationBar.opaque = YES;
             navigationBar.translucent = NO;
 
@@ -1091,7 +1091,13 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
             ]];
         }
 
-        [self.view layoutIfNeeded];
+        // Scoped to navigationBar rather than self.view: progressView's constraints are entirely
+        // self-contained within the nav bar subtree, and self.view's subtree also contains whatever
+        // step content view is currently presented. Forcing that to lay out early (before it's
+        // necessarily attached to a window, mid-transition) can trip pre-existing updateConstraints
+        // bugs in step views (e.g. ORK1ImageCaptureView) that assume they're only laid out once
+        // installed in a window.
+        [navigationBar layoutIfNeeded];
         self.pageViewController.additionalSafeAreaInsets = UIEdgeInsetsMake(progressView.bounds.size.height, 0, 0, 0);
     } else {
         self.pageViewController.navigationItem.titleView = self.progressView;
