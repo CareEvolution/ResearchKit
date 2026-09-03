@@ -1032,6 +1032,9 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                 strongSelf.pageViewController.navigationItem.titleView = nil;
                 strongSelf.pageViewController.navigationItem.title = nil;
                 strongSelf.progressView.hidden = YES;
+                if (@available(iOS 26.0, *)) {
+                    strongSelf.pageViewController.additionalSafeAreaInsets = UIEdgeInsetsZero;
+                }
             } else {
                 ORK1OrderedTask *orderedTask = (ORK1OrderedTask *)strongSelf.task;
                 if (orderedTask.progressIndicatorStyle == CEVRK1TaskProgressIndicatorStyleBar) {
@@ -1049,6 +1052,9 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                     strongSelf.pageViewController.navigationItem.titleView = nil;
                     strongSelf.pageViewController.navigationItem.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"STEP_PROGRESS_FORMAT", nil) ,ORK1LocalizedStringFromNumber(@(taskProgress.current)), ORK1LocalizedStringFromNumber(@(taskProgress.total))];
                     strongSelf.progressView.hidden = YES;
+                    if (@available(iOS 26.0, *)) {
+                        strongSelf.pageViewController.additionalSafeAreaInsets = UIEdgeInsetsZero;
+                    }
                 }
             }
         }
@@ -1067,19 +1073,21 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         
         CEVRK1NavigationBarProgressView *progressView = self.progressView;
         if (!progressView.superview) {
-            NSLog(@"configure progress");
             UINavigationBar *navigationBar = self.childNavigationController.navigationBar;
             navigationBar.opaque = YES;
             navigationBar.translucent = NO;
-            
+
             progressView.translatesAutoresizingMaskIntoConstraints = NO;
             [navigationBar addSubview:progressView];
             [NSLayoutConstraint activateConstraints:@[
-                [NSLayoutConstraint constraintWithItem:progressView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:navigationBar attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0],
-                [NSLayoutConstraint constraintWithItem:progressView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:navigationBar.safeAreaLayoutGuide attribute:NSLayoutAttributeLeftMargin multiplier:1.0 constant:10],
-                [NSLayoutConstraint constraintWithItem:progressView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:navigationBar.safeAreaLayoutGuide attribute:NSLayoutAttributeRightMargin multiplier:1.0 constant:-10]
+                [progressView.topAnchor constraintEqualToAnchor:navigationBar.bottomAnchor],
+                [progressView.leadingAnchor constraintEqualToAnchor:navigationBar.safeAreaLayoutGuide.leadingAnchor constant:10],
+                [progressView.trailingAnchor constraintEqualToAnchor:navigationBar.safeAreaLayoutGuide.trailingAnchor constant:-10]
             ]];
         }
+
+        [self.view layoutIfNeeded];
+        self.pageViewController.additionalSafeAreaInsets = UIEdgeInsetsMake(progressView.bounds.size.height, 0, 0, 0);
     } else {
         self.pageViewController.navigationItem.titleView = self.progressView;
         

@@ -36,8 +36,10 @@
     if (@available(iOS 26.0, *)) {
         _progressView.backgroundColor = [UIColor whiteColor];
         [NSLayoutConstraint activateConstraints:@[
-            [_progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:0], //10],
-            [_progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:0], //-30],
+            [_progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+            [_progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+            [_progressView.topAnchor constraintEqualToAnchor:self.topAnchor],
+            [_progressView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
         ]];
     } else {
         // This forces the bar to stretch so the ORK1ProgressView will attempt to take up the entire available width
