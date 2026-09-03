@@ -35,7 +35,9 @@
 #import "ORKAccessibility.h"
 
 
-@implementation ORKAnswerTextField
+@implementation ORKAnswerTextField {
+    UIBarButtonItem *_doneButton;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -77,13 +79,21 @@
     } else {
         [accessoryViewWithDoneButton setBarTintColor:ORKColor(ORKBackgroundColorKey)];
     }
-    
+
     accessoryViewWithDoneButton.items = @[flexibleSpace, doneButton];
     self.inputAccessoryView = accessoryViewWithDoneButton;
+    _doneButton = doneButton;
 }
 
 - (void)keyboardAccessoryViewDoneButtonPressed {
     [self resignFirstResponder];
+}
+
+- (void)didMoveToWindow {
+    [super didMoveToWindow];
+    if (@available(iOS 26.0, *)) {
+        _doneButton.tintColor = ORKViewTintColor(self);
+    }
 }
 
 - (void)updateAppearance {

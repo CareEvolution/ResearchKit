@@ -39,6 +39,7 @@
 @implementation ORKAnswerTextView {
     UITextView *_placeholderTextView;
     NSArray<UIAccessibilityCustomAction *> *_accessibilityCustomActions;
+    UIBarButtonItem *_doneButton;
 }
 
 - (instancetype)init {
@@ -96,10 +97,18 @@
     
     accessoryViewWithDoneButton.items = @[flexibleSpace, doneButton];
     self.inputAccessoryView = accessoryViewWithDoneButton;
+    _doneButton = doneButton;
 }
 
 - (void)keyboardAccessoryViewDoneButtonPressed {
     [self resignFirstResponder];
+}
+
+- (void)didMoveToWindow {
+    [super didMoveToWindow];
+    if (@available(iOS 26.0, *)) {
+        _doneButton.tintColor = ORKViewTintColor(self);
+    }
 }
 
 - (void)layoutSubviews {
