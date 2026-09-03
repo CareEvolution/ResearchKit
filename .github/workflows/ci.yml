@@ -6,14 +6,14 @@ permissions:
   contents: read
 jobs:
   build:
-    runs-on: macos-26
+    runs-on: xcode-27
     env:
-      # https://github.com/actions/runner-images/blob/main/images/macos/macos-26-arm64-Readme.md
-      xcode: '/Applications/Xcode_26.2.app'
-      destination_ios: 'platform=iOS Simulator,OS=26.2,name=iPhone 17'
+      # https://github.com/actions/runner-images/blob/main/images/macos/xcode-27-arm64-Readme.md
+      xcode: '/Applications/Xcode_27.0.app'
+      destination_ios: 'platform=iOS Simulator,OS=27.0,name=iPhone 17'
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           token: ${{ secrets.CAREEVOLUTIONBUILD_TOKEN }}
           submodules: 'recursive'
