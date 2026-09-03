@@ -1069,8 +1069,13 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
 - (void)configureProgressView {
     if (@available(iOS 26.0, *)) {
         self.pageViewController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-        self.pageViewController.navigationItem.title = nil;
-        
+        self.pageViewController.navigationItem.titleView = [UIView new];
+
+        // for UITesting, we will add a title that will not display (suppressed by the empty
+        // titleView above), but should appear via accessibility
+        NSUInteger progressPercent = (NSUInteger)(self.progressView.progress * 100);
+        self.pageViewController.navigationItem.title = [NSString stringWithFormat:@"ProgressBar:%@", @(progressPercent)];
+
         CEVRK1NavigationBarProgressView *progressView = self.progressView;
         if (!progressView.superview) {
             UINavigationBar *navigationBar = self.childNavigationController.navigationBar;
