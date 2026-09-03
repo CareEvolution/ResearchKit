@@ -1033,6 +1033,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                 strongSelf.pageViewController.navigationItem.title = nil;
                 strongSelf.progressView.hidden = YES;
                 if (@available(iOS 26.0, *)) {
+                    // Reset safe area insets that are adjusted when progress view is visible.
                     strongSelf.pageViewController.additionalSafeAreaInsets = UIEdgeInsetsZero;
                 }
             } else {
@@ -1053,6 +1054,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                     strongSelf.pageViewController.navigationItem.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"STEP_PROGRESS_FORMAT", nil) ,ORK1LocalizedStringFromNumber(@(taskProgress.current)), ORK1LocalizedStringFromNumber(@(taskProgress.total))];
                     strongSelf.progressView.hidden = YES;
                     if (@available(iOS 26.0, *)) {
+                        // Reset safe area insets that are adjusted when progress view is visible.
                         strongSelf.pageViewController.additionalSafeAreaInsets = UIEdgeInsetsZero;
                     }
                 }
@@ -1071,10 +1073,14 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         self.pageViewController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
         self.pageViewController.navigationItem.titleView = [UIView new];
 
+#if DEBUG
         // for UITesting, we will add a title that will not display (suppressed by the empty
         // titleView above), but should appear via accessibility
         NSUInteger progressPercent = (NSUInteger)(self.progressView.progress * 100);
         self.pageViewController.navigationItem.title = [NSString stringWithFormat:@"ProgressBar:%@", @(progressPercent)];
+#else
+        self.pageViewController.navigationItem.title = nil;
+#endif
 
         CEVRK1NavigationBarProgressView *progressView = self.progressView;
         UINavigationBar *navigationBar = self.childNavigationController.navigationBar;
