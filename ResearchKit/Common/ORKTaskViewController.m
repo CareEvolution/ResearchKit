@@ -456,7 +456,11 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     }
     [progressLabelNavigationItem setText:text];
     
-    return [[UIBarButtonItem alloc] initWithCustomView:progressLabelNavigationItem];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:progressLabelNavigationItem];
+    if (@available(iOS 26.0, *)) {
+        item.hidesSharedBackground = YES;
+    }
+    return item;
 }
 
 - (void)requestHealthStoreAccessWithReadTypes:(NSSet *)readTypes

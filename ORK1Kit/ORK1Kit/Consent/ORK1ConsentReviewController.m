@@ -60,7 +60,7 @@
         _delegate = delegate;
         _webViewFinishedLoading = NO;
         
-        _agreeButton = [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"BUTTON_AGREE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(ack)];
+        _agreeButton = [[UIBarButtonItem alloc] initWithTitle:ORK1LocalizedString(@"BUTTON_AGREE", nil) style:UIBarButtonItemStyleDone target:self action:@selector(ack)];
         if (requiresScrollToBottom) {
             _agreeButton.enabled = NO;
             _agreeButton.accessibilityHint = @"must scroll to the bottom to enable this button";

@@ -103,10 +103,22 @@
 - (void)setUpConstraints {
     NSMutableArray *constraints = [NSMutableArray new];
     NSDictionary *views = @{ @"imageCaptureView": _imageCaptureView };
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageCaptureView]|"
-                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
-                                                                             metrics:nil
-                                                                               views:views]];
+    // Top edge: on iOS 26+, pin to the safe area rather than the raw view edge, so this full-bleed
+    // view still reserves space for CEVRK1's navigation-bar progress view (added via
+    // additionalSafeAreaInsets in ORK1TaskViewController's configureProgressView) instead of
+    // rendering underneath it. Leading/trailing/bottom stay pinned to the raw edges (unchanged,
+    // still full-bleed there) — the nav bar is already opaque on iOS 26+ regardless of progress
+    // style (see ORK1TaskViewController commonInit), so this is a no-op except when the extra
+    // progress-bar inset is actually present. iOS <26 is left on the original raw-edge pin.
+    if (@available(iOS 26.0, *)) {
+        [constraints addObject:[_imageCaptureView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor]];
+    } else {
+        [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[imageCaptureView]"
+                                                                                 options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                                 metrics:nil
+                                                                                   views:views]];
+    }
+    [constraints addObject:[_imageCaptureView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor]];
     [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[imageCaptureView]|"
                                                                              options:NSLayoutFormatDirectionLeadingToTrailing
                                                                              metrics:nil

@@ -33,19 +33,33 @@
     [self addSubview:_progressView];
     _progressView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    // This forces the bar to stretch so the ORK1ProgressView will attempt to take up the entire available width
-    NSLayoutConstraint *widthConstraint = [self.widthAnchor constraintEqualToConstant:200];
-    widthConstraint.priority = UILayoutPriorityDefaultHigh;
-    [NSLayoutConstraint activateConstraints:@[
-                                             [_progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:10],
-                                             [_progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-30],
-                                             [_progressView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
-                                             widthConstraint
-     ]];
+    if (@available(iOS 26.0, *)) {
+        _progressView.backgroundColor = [UIColor whiteColor];
+        [NSLayoutConstraint activateConstraints:@[
+            [_progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+            [_progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+            [_progressView.topAnchor constraintEqualToAnchor:self.topAnchor],
+            [_progressView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+        ]];
+    } else {
+        // This forces the bar to stretch so the ORK1ProgressView will attempt to take up the entire available width
+        NSLayoutConstraint *widthConstraint = [self.widthAnchor constraintEqualToConstant:200];
+        widthConstraint.priority = UILayoutPriorityDefaultHigh;
+        [NSLayoutConstraint activateConstraints:@[
+            [_progressView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:10],
+            [_progressView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-30],
+            [_progressView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor],
+            widthConstraint
+        ]];
+    }
 }
 
-- (void)setProgress:(float)progress withTheme:(nullable CEVRK1Theme *)theme {
-    _progressView.progress = progress;
+- (float)progress {
+    return _progressView.progress;
+}
+
+- (void)setProgress:(float)progress withTheme:(nullable CEVRK1Theme *)theme animated:(BOOL)animated {
+    [_progressView setProgress:progress animated:animated];
     if (theme.progressBarColor) {
         _progressView.tintColor = theme.progressBarColor;
     }

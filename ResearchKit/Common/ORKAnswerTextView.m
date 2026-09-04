@@ -39,6 +39,7 @@
 @implementation ORKAnswerTextView {
     UITextView *_placeholderTextView;
     NSArray<UIAccessibilityCustomAction *> *_accessibilityCustomActions;
+    UIBarButtonItem *_doneButton;
 }
 
 - (instancetype)init {
@@ -84,16 +85,30 @@
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                       target:nil action:nil];
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]
-                                   initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                   target:self action:@selector(keyboardAccessoryViewDoneButtonPressed)];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:ORKLocalizedString(@"BUTTON_DONE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(keyboardAccessoryViewDoneButtonPressed)];
+    
+    if (@available(iOS 26.0, *)) {
+        doneButton.hidesSharedBackground = YES;
+        accessoryViewWithDoneButton.backgroundColor = ORKColor(ORKToolBarTintColorKey);
+        doneButton.tintColor = ORKViewTintColor(self);
+    } else {
+        [accessoryViewWithDoneButton setBarTintColor:ORKColor(ORKBackgroundColorKey)];
+    }
+    
     accessoryViewWithDoneButton.items = @[flexibleSpace, doneButton];
-    [accessoryViewWithDoneButton setBarTintColor:ORKColor(ORKBackgroundColorKey)];
     self.inputAccessoryView = accessoryViewWithDoneButton;
+    _doneButton = doneButton;
 }
 
 - (void)keyboardAccessoryViewDoneButtonPressed {
     [self resignFirstResponder];
+}
+
+- (void)didMoveToWindow {
+    [super didMoveToWindow];
+    if (@available(iOS 26.0, *)) {
+        _doneButton.tintColor = ORKViewTintColor(self);
+    }
 }
 
 - (void)layoutSubviews {

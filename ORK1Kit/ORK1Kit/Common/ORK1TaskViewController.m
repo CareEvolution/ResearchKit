@@ -279,10 +279,14 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     
     self.taskRunUUID = taskRunUUID;
     
-    [self.childNavigationController.navigationBar setShadowImage:[UIImage new]];
     self.hairline = [self findHairlineViewUnder:self.childNavigationController.navigationBar];
     self.hairline.alpha = 0.0f;
     self.childNavigationController.toolbar.clipsToBounds = YES;
+    
+    if (@available(iOS 26.0, *)) {
+        // ResearchKit views render poorly with translucent navigation bars on iOS 26
+        self.childNavigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    }
     
     // Ensure taskRunUUID has non-nil valuetaskRunUUID
     (void)[self taskRunUUID];
@@ -1027,6 +1031,11 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                 // remove any progress
                 strongSelf.pageViewController.navigationItem.titleView = nil;
                 strongSelf.pageViewController.navigationItem.title = nil;
+                strongSelf.progressView.hidden = YES;
+                if (@available(iOS 26.0, *)) {
+                    // Reset safe area insets that are adjusted when progress view is visible.
+                    strongSelf.pageViewController.additionalSafeAreaInsets = UIEdgeInsetsZero;
+                }
             } else {
                 ORK1OrderedTask *orderedTask = (ORK1OrderedTask *)strongSelf.task;
                 if (orderedTask.progressIndicatorStyle == CEVRK1TaskProgressIndicatorStyleBar) {
@@ -1037,16 +1046,17 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
                     } else {  // Linear
                         calculatedProgress = (float)taskProgress.current / (float)taskProgress.total;
                     }
-                    [strongSelf.progressView setProgress:calculatedProgress withTheme:[CEVRK1Theme themeForElement:strongSelf.currentStepViewController]];
-                    strongSelf.pageViewController.navigationItem.titleView = strongSelf.progressView;
-                    
-                    // for UITesting, we will add a title that will not display, but should appear via accessibility
-                    NSUInteger progressPercent = (NSUInteger)(calculatedProgress * 100);
-                    strongSelf.pageViewController.navigationItem.title = [NSString stringWithFormat:@"ProgressBar:%@", @(progressPercent)];
-                    
+                    [strongSelf.progressView setProgress:calculatedProgress withTheme:[CEVRK1Theme themeForElement:strongSelf.currentStepViewController] animated:animated];
+                    [strongSelf configureProgressView];
+                    strongSelf.progressView.hidden = NO;
                 } else {
                     strongSelf.pageViewController.navigationItem.titleView = nil;
                     strongSelf.pageViewController.navigationItem.title = [NSString localizedStringWithFormat:ORK1LocalizedString(@"STEP_PROGRESS_FORMAT", nil) ,ORK1LocalizedStringFromNumber(@(taskProgress.current)), ORK1LocalizedStringFromNumber(@(taskProgress.total))];
+                    strongSelf.progressView.hidden = YES;
+                    if (@available(iOS 26.0, *)) {
+                        // Reset safe area insets that are adjusted when progress view is visible.
+                        strongSelf.pageViewController.additionalSafeAreaInsets = UIEdgeInsetsZero;
+                    }
                 }
             }
         }
@@ -1056,6 +1066,52 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         // Collect toolbarItems
         [strongSelf collectToolbarItemsFromViewController:viewController];
     }];
+}
+
+- (void)configureProgressView {
+    if (@available(iOS 26.0, *)) {
+        self.pageViewController.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+        self.pageViewController.navigationItem.titleView = [UIView new];
+
+#if DEBUG
+        // for UITesting, we will add a title that will not display (suppressed by the empty
+        // titleView above), but should appear via accessibility
+        NSUInteger progressPercent = (NSUInteger)(self.progressView.progress * 100);
+        self.pageViewController.navigationItem.title = [NSString stringWithFormat:@"ProgressBar:%@", @(progressPercent)];
+#else
+        self.pageViewController.navigationItem.title = nil;
+#endif
+
+        CEVRK1NavigationBarProgressView *progressView = self.progressView;
+        UINavigationBar *navigationBar = self.childNavigationController.navigationBar;
+        if (!progressView.superview) {
+            navigationBar.opaque = YES;
+            navigationBar.translucent = NO;
+
+            progressView.translatesAutoresizingMaskIntoConstraints = NO;
+            [navigationBar addSubview:progressView];
+            [NSLayoutConstraint activateConstraints:@[
+                [progressView.topAnchor constraintEqualToAnchor:navigationBar.bottomAnchor],
+                [progressView.leadingAnchor constraintEqualToAnchor:navigationBar.safeAreaLayoutGuide.leadingAnchor constant:10],
+                [progressView.trailingAnchor constraintEqualToAnchor:navigationBar.safeAreaLayoutGuide.trailingAnchor constant:-10]
+            ]];
+        }
+
+        // Scoped to navigationBar rather than self.view: progressView's constraints are entirely
+        // self-contained within the nav bar subtree, and self.view's subtree also contains whatever
+        // step content view is currently presented. Forcing that to lay out early (before it's
+        // necessarily attached to a window, mid-transition) can trip pre-existing updateConstraints
+        // bugs in step views (e.g. ORK1ImageCaptureView) that assume they're only laid out once
+        // installed in a window.
+        [navigationBar layoutIfNeeded];
+        self.pageViewController.additionalSafeAreaInsets = UIEdgeInsetsMake(progressView.bounds.size.height, 0, 0, 0);
+    } else {
+        self.pageViewController.navigationItem.titleView = self.progressView;
+        
+        // for UITesting, we will add a title that will not display, but should appear via accessibility
+        NSUInteger progressPercent = (NSUInteger)(self.progressView.progress * 100);
+        self.pageViewController.navigationItem.title = [NSString stringWithFormat:@"ProgressBar:%@", @(progressPercent)];
+    }
 }
 
 - (BOOL)shouldPresentStep:(ORK1Step *)step {

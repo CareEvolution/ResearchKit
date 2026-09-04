@@ -70,7 +70,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BA87DBAF20B80FFD004ACAFF"
             BuildableName = "ORKParkinsonStudy WatchKit App.app"
-            BlueprintName = "ORKParkinsonStudy WatchKit App"
             ReferencedContainer = "container:ORKParkinsonStudy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -88,7 +87,6 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BA87DBAF20B80FFD004ACAFF"
             BuildableName = "ORKParkinsonStudy WatchKit App.app"
-            BlueprintName = "ORKParkinsonStudy WatchKit App"
             ReferencedContainer = "container:ORKParkinsonStudy.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

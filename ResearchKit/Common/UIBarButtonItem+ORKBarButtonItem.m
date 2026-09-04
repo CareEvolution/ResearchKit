@@ -37,19 +37,9 @@
 @implementation UIBarButtonItem (ORKBarButtonItem)
 
 + (UIBarButtonItem *)ork_backBarButtonItemWithTarget:(id)target action:(SEL)selector {
-    NSString *regularImageName = @"arrowLeft";
-    NSString *landscapeImageName = @"arrowLeftLandscape";
-
-    if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft ) {
-        regularImageName = @"arrowRight";
-        landscapeImageName = @"arrowRightLandscape";
-    }
-    
-    UIImage *image = [UIImage imageNamed:regularImageName inBundle:ORKBundle() compatibleWithTraitCollection:nil];
-    UIImage *landscapeImage = [UIImage imageNamed:landscapeImageName inBundle:ORKBundle() compatibleWithTraitCollection:nil];
+    UIImage *image = [UIImage systemImageNamed:@"chevron.backward"];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:image
-                                               landscapeImagePhone:landscapeImage
-                                                             style:UIBarButtonItemStyleDone
+                                                             style:UIBarButtonItemStylePlain
                                                             target:target
                                                             action:selector];
     item.accessibilityLabel = ORKLocalizedString(@"AX_BUTTON_BACK", nil);

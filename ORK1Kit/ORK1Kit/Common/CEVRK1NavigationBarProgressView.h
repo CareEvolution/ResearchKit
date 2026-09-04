@@ -16,6 +16,8 @@
 
 @interface CEVRK1NavigationBarProgressView : UIView
 
-- (void)setProgress:(float)progress withTheme:(nullable CEVRK1Theme *)theme;
+@property (nonatomic, readonly) float progress;
+
+- (void)setProgress:(float)progress withTheme:(nullable CEVRK1Theme *)theme animated:(BOOL)animated;
 
 @end
