@@ -15,7 +15,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7.0.1
         with:
-          token: ${{ secrets.CAREEVOLUTIONBUILD_TOKEN }}
           submodules: 'recursive'
           persist-credentials: false
       - name: Build
