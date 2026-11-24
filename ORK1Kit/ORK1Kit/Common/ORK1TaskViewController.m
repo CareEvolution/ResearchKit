@@ -1064,7 +1064,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         strongSelf->_hasSetProgressLabel = (taskProgress.total > 0);
         
         // Collect toolbarItems
-        [strongSelf collectToolbarItemsFromViewController:viewController];
+        [strongSelf collectToolbarItemsFromViewController:strongSelf.currentStepViewController];
     }];
 }
 
@@ -1153,6 +1153,15 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
         if (![self shouldDisplayProgress]) {
             _pageViewController.navigationItem.title = viewController.navigationItem.title;
             _pageViewController.navigationItem.titleView = viewController.navigationItem.titleView;
+        }
+        
+        // For ResearchKit views on iPhone Duo, prefer the traditional horizontal navigation bar.
+        if (@available(iOS 27.1, *)) {
+            for (UIBarButtonItem *item in _pageViewController.toolbarItems) {
+                item.axisBehavior = UIBarButtonItemAxisBehaviorHorizontalOnly;
+            }
+            _pageViewController.navigationItem.leftBarButtonItem.axisBehavior = UIBarButtonItemAxisBehaviorHorizontalOnly;
+            _pageViewController.navigationItem.rightBarButtonItem.axisBehavior = UIBarButtonItemAxisBehaviorHorizontalOnly;
         }
     }
 }
@@ -1268,7 +1277,6 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     
     stepViewController.delegate = self;
     
-    _stepViewControllerObserver = [[ORK1ViewControllerToolbarObserver alloc] initWithTargetViewController:stepViewController delegate:self];
     return stepViewController;
 }
 
@@ -1462,6 +1470,7 @@ static NSString *const _ChildNavigationControllerRestorationKey = @"childNavigat
     if ([self.delegate respondsToSelector:@selector(taskViewController:stepViewControllerWillAppear:)]) {
         [self.delegate taskViewController:self stepViewControllerWillAppear:viewController];
     }
+    _stepViewControllerObserver = [[ORK1ViewControllerToolbarObserver alloc] initWithTargetViewController:viewController delegate:self];
 }
 
 - (void)stepViewController:(ORK1StepViewController *)stepViewController didFinishWithNavigationDirection:(ORK1StepViewControllerNavigationDirection)direction {
